@@ -13,5 +13,10 @@
 <title>TEST</title>
 </head>
 <body>
+
+  <a href="devices.php">devices</a>
+  <br/>
+  <a href="editconf.php">edit conf</a>
+
 </body>
 </html>
