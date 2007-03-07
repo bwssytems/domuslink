@@ -3,8 +3,8 @@
 /* $lang = check_lang();
 include_once($lang); */
 
-/* require('lib/smarty/Smarty.class.php'); */
-require('lang.php');
+require('lib/smarty/SmartyML.class.php');
+
 $smarty = new smartyML(pt);
 
 $smarty->template_dir = 'tmp/templates';
