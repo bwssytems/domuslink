@@ -1,0 +1,9 @@
+<?php
+/*
+ * British language file
+ *
+ */
+
+
+
+?>
