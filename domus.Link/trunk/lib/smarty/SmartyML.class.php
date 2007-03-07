@@ -1,6 +1,6 @@
 <?php
 
-require_once ("lib/smarty/Smarty.class.php");
+require_once ("Smarty.class.php");
 
 /**
   * smarty_prefilter_i18n()
