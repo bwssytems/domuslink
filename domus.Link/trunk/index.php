@@ -1,22 +1,14 @@
 <?php
-/*
- * Created on 2007/03/06
- *
- * To change the template for this generated file go to
- * Window - Preferences - PHPeclipse - PHP - Code Templates
- */
+
+require('lib/smarty/Smarty.class.php');
+$smarty = new Smarty();
+
+$smarty->template_dir = 'tmp/templates';
+$smarty->compile_dir = 'tmp/templates_c';
+$smarty->cache_dir = 'tmp/cache';
+$smarty->config_dir = 'tmp/configs';
+
+$smarty->assign('name', 'Ned');
+$smarty->display('index.tpl');
 
 ?>
-
-<html>
-<head>
-<title>TEST</title>
-</head>
-<body>
-
-  <a href="devices.php">devices</a>
-  <br/>
-  <a href="editconf.php">edit conf</a>
-
-</body>
-</html>

@@ -11,3 +11,9 @@
  2) chmod 777 dbs directory
  3) Edit config.inc.php and set paths
  4) Point web browser at webroot and use
+
+
+ $> chown nobody:nobody smarty/templates_c
+$> chown nobody:nobody smarty/cache
+$> chmod 775 smarty/templates_c
+$> chmod 775 smarty/cache

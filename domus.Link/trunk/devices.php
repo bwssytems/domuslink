@@ -96,6 +96,7 @@ function save() {
 	}
 	else {
 		//echo "something else\nsize: $size";
+		
 	}
 
 	//$devpartone = array_splice($devices, $line-1); // 1st part of array
