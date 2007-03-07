@@ -1,7 +1,6 @@
 <?php
 
-$dbsdir = "dbs/";
-$heyuconf = $dbsdir."heyu.conf";
-$devicefile = $dbsdir."devices";
+$heyuconf = "db/heyu.conf";
+$devicefile = "db/devices";
 
 ?>
