@@ -3,6 +3,7 @@
 <title>Smarty</title>
 </head>
 <body>
-Hello, {$name}!
+##NG_HELLO##, {$name}!<br><br>
+{$lang.add}
 </body>
 </html>
