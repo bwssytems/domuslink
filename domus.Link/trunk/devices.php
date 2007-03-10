@@ -10,6 +10,8 @@ $deline = $_GET["del"];
 $editline = $_GET["edit"];
 $action = $_GET["action"];
 
+require 'config.inc.php';
+
 // Actions
 if ($deline != "") { delete($deline); }
 elseif ($action == "add") { add(); }
@@ -96,7 +98,10 @@ function save() {
 	}
 	else {
 		//echo "something else\nsize: $size";
-
+		$devpartone = array_splice($devices, $line-1);
+		$devparttwo = array_slice($devices, $line+1);
+		$b4final = array_merge($devpartone, $newarray);
+		$final = array_merge($b4final, $devparttwo);
 	}
 
 	//$devpartone = array_splice($devices, $line-1); // 1st part of array
