@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>Smarty</title>
+<title>{$pagetitle}</title>
 </head>
 <body>
 ##NG_HELLO##, {$name}!<br><br>
