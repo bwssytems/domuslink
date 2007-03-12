@@ -10,4 +10,17 @@ $devicefile = "db/devices";
  * Default: 'en'
  * */
 $lang = "";
+
+
+/* No edit from here */
+
+if ($lang != "")
+{
+   include('lang/'.$lang.'.php');
+}
+else
+{
+	include('lang/en_GB.php');
+}
+
 ?>
