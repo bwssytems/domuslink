@@ -1,3 +1,5 @@
-// British language file
+<?php // British language file
 
-NG_HELLO=hillo
+$l_hello = 'hillo';
+
+?>

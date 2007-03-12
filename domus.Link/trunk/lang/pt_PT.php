@@ -1,3 +1,5 @@
-// European Portuguese language file
+<?php // European Portuguese language file
 
-NG_HELLO=Ola
+$l_hello = 'olá';
+
+?>
