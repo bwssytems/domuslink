@@ -8,13 +8,17 @@
 body {
 	text-align: left;
 	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
-	font-size: 70.00%;
-	line-height: 1em;
+	font-size: 80.00%;
+	line-height: 1.5em;
 	/* background: url(../images/background.gif); */
 	position: absolute;
 	height: 100%;
 	width:100%;
 	/* margin: 5px; */
+}
+
+td {
+	font-size: 80.00%;
 }
 
 div#pagewrapper {
