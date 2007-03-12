@@ -1,5 +1,10 @@
 @CHARSET "ISO-8859-1";
 
+* {
+	margin:0;
+	padding:0;
+}
+
 body {
 	text-align: left;
 	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
@@ -9,18 +14,45 @@ body {
 	position: absolute;
 	height: 100%;
 	width:100%;
+	/* margin: 5px; */
 }
 
-div.pagewrapper {
-   position: absolute;
-   left: 50%;
-   top: 50%;
-   /* margin-top: -282px;
-   margin-left: -446px; */
-   border: 4px solid black;
-   max-width: 892px;
-   min-width: 892px;
-   width: 892px;
-   height: 556px;
-   background-color: #cccccc;
+div#pagewrapper {
+	width: 790px;
+	position: absolute;
+	left: 50%;
+	margin-left: -395px;
+	max-width: 790px;
+	min-width: 790px;
+	height: 100%;
+}
+
+div#header {
+	width: 100%;
+	height: 50px;
+	background-color: #cccccc;
+}
+
+
+div#menu {
+	width: 200px;
+	height: 100px;
+	background-color: #eeeeee;
+	float: left;
+}
+
+div#content {
+	background-color: #dddddd;
+	postion: relative;
+	display: block;
+	float:right;
+	width: 580px;
+	padding: 5px;
+}
+
+div#footer {
+	width: 100%;
+	height: 50px;
+	background-color: #cccccc;
+	clear: both;
 }
