@@ -1,8 +1,12 @@
 <?php
 
-/* File locations */
+/*
+ * File locations
+ */
 $heyuconf = "db/heyu.conf";
+global $devicefile;
 $devicefile = "db/devices";
+$themedir = "themes/";
 
 /* Default language for frontend
  * Leave blank for automatic browser setting detection
@@ -11,12 +15,21 @@ $devicefile = "db/devices";
  * */
 $lang = "";
 
+/*
+ * Theme Section
+ */
+$theme = "default";
 
-/* No edit from here */
+
+/* ###########################
+ * DO NOT EDIT ANYTHING BELLOW
+ * ###########################
+ */
 
 if ($lang != "")
 {
-   include('lang/'.$lang.'.php');
+	// TODO Automatic broswer detection
+	include('lang/'.$lang.'.php');
 }
 else
 {

@@ -10,5 +10,5 @@ $l_menu_dev = 'Adicionar/Remover/Editar Dispositivos';
 $l_menu_conf = 'Configurações Heyu';
 
 /* Page Titles */
-
+$l_main_title = 'Painel de Controlo domus.Link';
 ?>
