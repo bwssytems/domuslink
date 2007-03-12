@@ -6,7 +6,7 @@ $devicefile = "db/devices";
 
 /* Default language for frontend
  * Leave blank for automatic browser setting detection
- * Available options: 'en' or 'pt'
+ * Available options: 'en_GB' or 'pt_PT'
  * Default: 'en'
  * */
 $lang = "";

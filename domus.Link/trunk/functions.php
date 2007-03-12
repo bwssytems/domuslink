@@ -6,6 +6,14 @@
  * Window - Preferences - PHPeclipse - PHP - Code Templates
  */
 
-
+function get_file($filename) {
+	if (is_readable($filename) == true) {
+		$lines = file($filename);
+	}
+	else {
+		die($filename.' dosent exist or isnt readable!');
+	}
+	return $lines;
+}
 
 ?>
