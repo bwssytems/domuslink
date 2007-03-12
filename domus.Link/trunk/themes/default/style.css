@@ -1,1 +1,26 @@
 @CHARSET "ISO-8859-1";
+
+body {
+	text-align: left;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 70.00%;
+	line-height: 1em;
+	/* background: url(../images/background.gif); */
+	position: absolute;
+	height: 100%;
+	width:100%;
+}
+
+div.pagewrapper {
+   position: absolute;
+   left: 50%;
+   top: 50%;
+   /* margin-top: -282px;
+   margin-left: -446px; */
+   border: 4px solid black;
+   max-width: 892px;
+   min-width: 892px;
+   width: 892px;
+   height: 556px;
+   background-color: #cccccc;
+}
