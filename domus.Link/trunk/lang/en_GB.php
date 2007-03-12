@@ -7,6 +7,7 @@
 $l_hello = 'hillo';
 
 /* Menu Texts */
+$l_menu_main = 'Main';
 $l_menu_dev = 'Add/Remove/Edit Devices';
 $l_menu_conf = 'Heyu Configuration';
 

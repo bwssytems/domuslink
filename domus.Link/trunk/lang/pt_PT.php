@@ -6,6 +6,7 @@
 $l_hello = 'olá';
 
 /* Menu Texts */
+$l_menu_main = 'Principal';
 $l_menu_dev = 'Adicionar/Remover/Editar Dispositivos';
 $l_menu_conf = 'Configurações Heyu';
 

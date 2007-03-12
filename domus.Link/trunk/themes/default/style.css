@@ -35,19 +35,19 @@ div#header {
 
 
 div#menu {
-	width: 200px;
-	height: 100px;
+	width: 190px;
 	background-color: #eeeeee;
 	float: left;
+	min-height: 400px;
+	padding: 5px;
 }
 
 div#content {
 	background-color: #dddddd;
-	postion: relative;
-	display: block;
 	float:right;
 	width: 580px;
 	padding: 5px;
+	min-height: 400px;
 }
 
 div#footer {
