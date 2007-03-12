@@ -1,15 +1,23 @@
 <?php
 /* European Portuguese language file
- * v0.1
  */
 
-$l_hello = 'olá';
+$l_title = 'Painel de Controlo domus.Link';
 
-/* Menu Texts */
+/* Menu */
 $l_menu_main = 'Principal';
 $l_menu_dev = 'Adicionar/Remover/Editar Dispositivos';
 $l_menu_conf = 'Configurações Heyu';
 
-/* Page Titles */
-$l_main_title = 'Painel de Controlo domus.Link';
+/* Devices */
+$l_device = 'Dispositivo';
+$l_description = 'Descrição';
+$l_type = 'Tipo';
+
+$l_add = 'Adicionar';
+$l_save = 'Guardar';
+$l_cancel = 'Cancelar';
+$l_edit = 'Editar';
+$l_delete = 'Apagar';
+
 ?>

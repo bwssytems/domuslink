@@ -4,7 +4,6 @@
  * File locations
  */
 $heyuconf = "db/heyu.conf";
-global $devicefile;
 $devicefile = "db/devices";
 $themedir = "themes/";
 
@@ -13,6 +12,7 @@ $themedir = "themes/";
  * Available options: 'en_GB' or 'pt_PT'
  * Default: 'en'
  * */
+#$lang = "pt_PT";
 $lang = "";
 
 /*

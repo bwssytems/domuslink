@@ -1,9 +1,9 @@
 <html>
 <head>
 <title>
-<?php echo $l_main_title; ?>
+<?php echo $l_title; ?>
 </title>
-<link rel="stylesheet" type="text/css" media="screen" href="themes/default/style.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="styles/default.css" />
 </head>
 <body>
 <div id="pagewrapper">
