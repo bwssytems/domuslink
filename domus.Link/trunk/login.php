@@ -17,15 +17,13 @@ if ($_POST['txtPassword'] != $password) {
 		echo "<br>Wrong password, please try again!<br><br>\n";
 	}
 
-	?>
-
+?>
 	<form name="form" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 		<p><label for="txtpassword">Password:</label>
 		<br /><input type="password" title="Enter your password" name="txtPassword" /></p>
 		<p><input type="submit" name="Submit" value="Login" /></p>
 	</form>
-
-	<?php
+<?php
 
 	include ('footer.php');
 	// End div id=content

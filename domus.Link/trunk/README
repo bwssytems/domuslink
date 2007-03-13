@@ -4,3 +4,9 @@
  |                                                                            |
  +----------------------------------------------------------------------------*/
 
+  Troubleshooting
+  ----------------
+  1) Warning: Cannot modify header information - headers already sent ??
+
+  Edit you php.ini file (usually located within apache configuration dir)
+  locate output_buffering and make sure it is set to "on".
