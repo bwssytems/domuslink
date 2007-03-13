@@ -43,30 +43,19 @@ function adddevice($devicefile){
 /* Edit Device - receives device file */
 function editdevice($devicefile) {
 	$line = $_POST["line"]; // line being edited
+	$editeddev = $_POST["device"]."##".$_POST["description"]."##".$_POST["type"]."//\n";
+	$devices = getfile($devicefile); // get original device file contents
 
-	$editedline[0] = $_POST["device"]."##".$_POST["description"]."##".$_POST["type"]."//\n";
-
-	$devices = getfile($devicefile); // original device file contents
-
-	//$size = count($devices) - 1;
-
-	if ($line == 0) { // first line editing
-		array_splice($devices, $line, 1);
-		$final = array_merge($editedline, $devices);
+	if ($line == 0 || (count($devices) - 1) == $line) { // first or last line editing
+		array_splice($devices, $line, 1, $editeddev);
 	}
-	elseif ((count($devices) - 1) == $line) { // last line editing
-		array_splice($devices, $line, 1);
-		$final = array_merge($devices, $editedline);
-	}
-	else {
-		//echo "something else\nsize: $size";
-		$devpartone = array_splice($devices, ($line-1));
-		$devparttwo = array_slice($devices, ($line+1));
-		$b4final = array_merge($devpartone, $editedline);
-		$final = array_merge($b4final, $devparttwo);
+	else { // editing line in middle
+		$end = array_splice($devices, $line+1);
+		array_splice($devices, $line, 1, $editeddev);
+		$devices = array_merge($devices, $end);
 	}
 
-	writefile($final, $devicefile);
+	writefile($devices, $devicefile);
 }
 
 /* Delete Line - receives line and file to delete from */

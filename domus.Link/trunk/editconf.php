@@ -1,87 +1,49 @@
-<html>
-<head>
-<title>TEST</title>
-</head>
-<body>
-
 <?php
-include 'config.inc.php';
 
-$action = $_GET["action"];
+if (!isset($_COOKIE["dluser"]))
+	header("Location: login.php");
+else
+{
+	//require ('config.inc.php');
+	include ('functions.php');
 
-if ($action=="save") {
-	$tty = $_POST["TTY"];
-	$housecode = $_POST["HOUSECODE"];
-	$scriptmode = $_POST["SCRIPT_MODE"];
-	$schedulefile = $_POST["SCHEDULE_FILE"];
-	$mode = $_POST["MODE"];
-	$programdays = $_POST["PROGRAM_DAYS"];
-	$combinevents = $_POST["COMBINE_EVENTS"];
-	$compress = $_POST["COMPRESS_MACROS"];
-	$longitude = $_POST["LONGITUDE"];
-	$latitude = $_POST["LATITUDE"];
-	$dawnopt = $_POST["DAWN_OPTION"];
-	$duskopt = $_POST["DUSK_OPTION"];
-	$mindawn = $_POST["MIN_DAWN"];
-	$maxdawn = $_POST["MAX_DAWN"];
-	$mindawn = $_POST["MIN_DUSK"];
-	$maxdusk = $_POST["MAX_DUSK"];
-	$repldelmacros = $_POST["REPL_DELAYED_MACROS"];
-	$writecheckfiles = $_POST["WRITE_CHECK_FILES"];
-	$ar = array('TTY' => $tty,
-				'HOUSECODE' => $housecode,
-				'SCRIPT_MODE' => $scriptmode,
-				'SCHEDULE_FILE' => $schedulefile,
-				'MODE' => $mode,
-				'PROGRAM_DAYS' => $programdays,
-				'COMBINE_EVENTS' => $combinevents,
-				'COMPRESS_MACROS' => $compress,
-				'LONGITUDE' => $longitude,
-				'LATITUDE' => $latitude,
-				'DAWN_OPTION' => $dawnopt,
-				'DUSK_OPTION' => $duskopt,
-				'MIN_DAWN' => $mindawn,
-				'MAX_DAWN' => $maxdawn,
-				'MIN_DUSK' => $mindawn,
-				'MAX_DUSK' => $maxdusk,
-				'REPL_DELAYED_MACROS' => $repldelmacros,
-				'WRITE_CHECK_FILES' => $writecheckfiles
-				);
-		
-	$fp = fopen($heyuconf,'w');
+	// includes have to be in this order due to start and end of div id content
+	include ('header.php');
+	include ('menu.php');
 
-	foreach ($ar as $key=>$value) {
-		if (is_writable($heyuconf) == true) {
-			$line = $key." ".$value."\n";
-			$write = fwrite($fp, $line);
+	// start <div id=content>
+	if ($_GET) {
+		$action = $_GET["action"];
+		if ($action=="save") {
+			$newcontent = array(
+				'TTY '.$_POST["TTY"],
+				'HOUSECODE '.$_POST["HOUSECODE"],
+				'SCRIPT_MODE '.$_POST["SCRIPT_MODE"],
+				'SCHEDULE_FILE '.$_POST["SCHEDULE_FILE"],
+				'TTY '.$_POST["TTY"],
+				'TTY '.$_POST["TTY"],
+				'TTY '.$_POST["TTY"]
+			);
 		}
-		else {
-			die('Heyu.conf file not writable!');
-		}	
-	}
-	fclose($fp);
-	load($heyuconf, "");
-}
-else { load($heyuconf, $action); }
-
-function load($heyuconf, $action) {
-	if (is_readable($heyuconf) == true) {
-		$lines = file($heyuconf);
-		if ($action == "edit") { edit($lines); }
-		else { display($lines); }
+		if ($action == "edit") {
+			edit(getfile($heyuconf));
+		}
 	}
 	else {
-		die('Heyu.conf file dosent exist or isnt readable!');
+		display(getfile($heyuconf));
 	}
+	// end <div id=content>
+
+	include ('footer.php');
 }
 
-function display($lines) {
-	
-	echo "<table border=0 cellspacing=0 cellpadding=0>\n";
+function display($content) {
 
-	foreach ($lines as $line_num => $line) {
-		list($directive, $value1) = split(" ", $line, 2);
-		$value = substr($value1, 0, -1);
+	// heyu.conf settings list
+	echo "<table border=0 cellspacing=0 cellpadding=0>\n";
+	foreach ($content as $line_num => $line) {
+		list($directive, $valuenf) = split(" ", $line, 2);
+		$value = substr($valuenf, 0, -1); // removes end of line char
 		echo "<tr>\n";
 		echo "<td><b>".$directive."</b></td>\n";
 		echo "<td>&nbsp;</td>";
@@ -91,25 +53,24 @@ function display($lines) {
 		echo "<tr><td height=1 bgcolor=#000000 colspan=3></td></tr>\n";
 		echo "<tr><td height=5 colspan=3></td></tr>\n";
 	}
-	
 	echo "</table>\n";
-	
-	echo "<form action='editconf.php?action=edit' method='post'>\n";
+
+	echo "<form action='".$_SERVER['PHP_SELF']."?action=edit' method='post'>\n";
 	echo "<input type='submit' value='Edit' />\n";
 	echo "</form>";
 }
 
-function edit($lines) {
-	echo "<form action='editconf.php?action=save' method='post'>";
+function edit($content) {
+	echo "<form action='".$_SERVER['PHP_SELF']."?action=save' method='post'>";
 	echo "<table border=0 cellspacing=0 cellpadding=0>\n";
-	
-	foreach ($lines as $line_num => $line) {
-		list($directive, $value1) = split(" ", $line, 2);
-		$value = substr($value1, 0, -1);
+
+	foreach ($content as $line_num => $line) {
+		list($directive, $valuenf) = split(" ", $line, 2);
+		$value = substr($valuenf, 0, -1); // removes end of line char
 		echo "<tr>\n";
 		echo "<td><b>".$directive."</b></td>\n";
 		echo "<td>&nbsp;</td>\n";
-		
+
 		switch ($directive) {
 			case "SCRIPT_MODE":
 				echo "<td><select name=".$directive.">\n";
@@ -178,27 +139,25 @@ function edit($lines) {
 			default:
 				echo "<td><input type=text name=".$directive." value=".$value." /></td>\n";
 		}
-		
+
 		echo "</tr>\n";
 		echo "<tr><td height=5 colspan=3></td></tr>\n";
 		echo "<tr><td height=1 bgcolor=#000000 colspan=3></td></tr>\n";
 		echo "<tr><td height=5 colspan=3></td></tr>\n";
 	}
-	
+
 	echo "<tr><td valign=top align=right>";
 	echo "<input type='submit' value='Save Changes' />\n";
 	echo "</form>";
 	echo "</td>";
 	echo "<td></td>";
 	echo "<td>";
-	echo "<form action='editconf.php' method='post'>";
+	echo "<form action='".$_SERVER['PHP_SELF']."' method='post'>";
 	echo "<input type='submit' value='Cancel' /></form>";
 	echo "";
 	echo "</td></tr>\n";
-	
+
 	echo "</table>\n";
 }
 
 ?>
-
-</body>

@@ -4,7 +4,7 @@ if (!isset($_COOKIE["dluser"]))
 	header("Location: login.php");
 else
 {
-	require ('config.inc.php');
+	//require ('config.inc.php');
 	include ('functions.php');
 
 	// includes have to be in this order due to start and end of div id content
