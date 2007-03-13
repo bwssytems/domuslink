@@ -4,15 +4,15 @@
  *
  */
 
-/* Get File - reads and return file contents in an array */
+/* Get File - reads and returns file contents in an array */
 function getfile($filename) {
 	if (is_readable($filename) == true) {
-		$lines = file($filename);
+		$content = file($filename);
 	}
 	else {
 		die($filename.' dosent exist or isnt readable!');
 	}
-	return $lines;
+	return $content;
 }
 
 /* Write File - receives array and filename to write to */

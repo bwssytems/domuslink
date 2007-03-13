@@ -89,7 +89,6 @@ function get_languages( $feature, $spare='' )
 		return $user_languages;
 	}
 
-	// this is just a sample, replace target language and file names with your own.
 	elseif ( $feature == 'header' )
 	{
 		switch ( $user_languages[0][1] )// get default primary language, the first one in array that is

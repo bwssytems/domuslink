@@ -16,14 +16,26 @@ else
 		$action = $_GET["action"];
 		if ($action=="save") {
 			$newcontent = array(
-				'TTY '.$_POST["TTY"],
-				'HOUSECODE '.$_POST["HOUSECODE"],
-				'SCRIPT_MODE '.$_POST["SCRIPT_MODE"],
-				'SCHEDULE_FILE '.$_POST["SCHEDULE_FILE"],
-				'TTY '.$_POST["TTY"],
-				'TTY '.$_POST["TTY"],
-				'TTY '.$_POST["TTY"]
+				'TTY '.$_POST["TTY"]."\n",
+				'HOUSECODE '.$_POST["HOUSECODE"]."\n",
+				'SCRIPT_MODE '.$_POST["SCRIPT_MODE"]."\n",
+				'SCHEDULE_FILE '.$_POST["SCHEDULE_FILE"]."\n",
+				'MODE '.$_POST["MODE"]."\n",
+				'PROGRAM_DAYS '.$_POST["PROGRAM_DAYS"]."\n",
+				'COMBINE_EVENTS '.$_POST["COMBINE_EVENTS"]."\n",
+				'COMPRESS_MACROS '.$_POST["COMPRESS_MACROS"]."\n",
+				'LONGITUDE '.$_POST["LONGITUDE"]."\n",
+				'LATITUDE '.$_POST["LATITUDE"]."\n",
+				'DAWN_OPTION '.$_POST["DAWN_OPTION"]."\n",
+				'DUSK_OPTION '.$_POST["DUSK_OPTION"]."\n",
+				'MIN_DAWN '.$_POST["MIN_DAWN"]."\n",
+				'MAX_DAWN '.$_POST["MAX_DAWN"]."\n",
+				'MIN_DUSK '.$_POST["MIN_DUSK"]."\n",
+				'MAX_DUSK '.$_POST["MAX_DUSK"]."\n",
+				'REPL_DELAYED_MACROS '.$_POST["REPL_DELAYED_MACROS"]."\n",
+				'WRITE_CHECK_FILES '.$_POST["WRITE_CHECK_FILES"]."\n"
 			);
+		writefile($newcontent, $heyuconf);
 		}
 		if ($action == "edit") {
 			edit(getfile($heyuconf));
@@ -49,9 +61,9 @@ function display($content) {
 		echo "<td>&nbsp;</td>";
 		echo "<td>".$value."</td>\n";
 		echo "</tr>\n";
-		echo "<tr><td height=5 colspan=3></td></tr>\n";
-		echo "<tr><td height=1 bgcolor=#000000 colspan=3></td></tr>\n";
-		echo "<tr><td height=5 colspan=3></td></tr>\n";
+		//echo "<tr><td height=5 colspan=3></td></tr>\n";
+		//echo "<tr><td height=1 bgcolor=#000000 colspan=3></td></tr>\n";
+		//echo "<tr><td height=5 colspan=3></td></tr>\n";
 	}
 	echo "</table>\n";
 
@@ -74,7 +86,7 @@ function edit($content) {
 		switch ($directive) {
 			case "SCRIPT_MODE":
 				echo "<td><select name=".$directive.">\n";
-				if ($value=="SCRIPTS") {
+				if ($value == "SCRIPTS") {
 					echo "<option selected value=SCRIPTS>SCRIPTS</option>\n";
 					echo "<option value=HEYUHELPER>HEYUHELPER</option>\n";
 				} else {
@@ -83,67 +95,43 @@ function edit($content) {
 				}
 				echo "</select></td>\n";
 				break;
+
 			case "MODE":
 				echo "<td><select name=".$directive.">\n";
-				echo "<option selected value=COMPATIBLE>COMPATIBLE</option>\n";
-				echo "<option value=HEYU>HEYU</option>\n";
-				echo "</select></td>\n";
-				break;
-			case "COMBINE_EVENTS":
-				echo "<td><select name=".$directive.">\n";
-				if ($value=="YES") {
-					echo "<option selected value=YES>YES</option>\n";
-					echo "<option value=NO>NO</option>\n";
+				if ($value == "COMPATIBLE") {
+					echo "<option selected value=COMPATIBLE>COMPATIBLE</option>\n";
+					echo "<option value=HEYU>HEYU</option>\n";
 				} else {
-					echo "<option value=YES>YES</option>\n";
-					echo "<option selected value=NO>NO</option>\n";
+					echo "<option value=COMPATIBLE>COMPATIBLE</option>\n";
+					echo "<option selected value=HEYU>HEYU</option>\n";
 				}
 				echo "</select></td>\n";
 				break;
+
+			case "COMBINE_EVENTS":
 			case "COMPRESS_MACROS":
-				echo "<td><select name=".$directive.">\n";
-				echo "<option selected value=YES>YES</option>\n";
-				echo "<option value=NO>NO</option>\n";
-				echo "</select></td>\n";
-				break;
-			case "DAWN_OPTION":
-				echo "<td><select name=".$directive.">\n";
-				echo "<option selected id=FIRST>FIRST</option>\n";
-				echo "<option value=EARLIEST>EARLIEST</option>\n";
-				echo "<option value=LATEST>LATEST</option>\n";
-				echo "<option value=AVERAGE>AVERAGE</option>\n";
-				echo "<option value=MEDIAN>MEDIAN</option>\n";
-				echo "</select></td>\n";
-				break;
-			case "DUSK_OPTION":
-				echo "<td><select name=".$directive.">\n";
-				echo "<option selected value=FIRST>FIRST</option>\n";
-				echo "<option value=EARLIEST>EARLIEST</option>\n";
-				echo "<option value=LATEST>LATEST</option>\n";
-				echo "<option value=AVERAGE>AVERAGE</option>\n";
-				echo "<option value=MEDIAN>MEDIAN</option>\n";
-				echo "</select></td>\n";
-				break;
-			case "REPL_DELAYED_MACROS":
-				echo "<td><select name=".$directive.">\n";
-				echo "<option selected value=YES>YES</option>\n";
-				echo "<option value=NO>NO</option>\n";
-				echo "</select></td>\n";
-				break;
+			case "REPL_DELAYED_MACROS":;
 			case "WRITE_CHECK_FILES":
 				echo "<td><select name=".$directive.">\n";
-				echo "<option selected value=YES>YES</option>\n";
-				echo "<option value=NO>NO</option>\n";
+				echo yesnoopt($value);
 				echo "</select></td>\n";
 				break;
+
+			case "DAWN_OPTION":
+			case "DUSK_OPTION":
+				echo "<td><select name=".$directive.">\n";
+				echo dawnduskopt($value);
+				echo "</select></td>\n";
+				break;
+
 			default:
 				echo "<td><input type=text name=".$directive." value=".$value." /></td>\n";
 		}
 
 		echo "</tr>\n";
-		echo "<tr><td height=5 colspan=3></td></tr>\n";
-		echo "<tr><td height=1 bgcolor=#000000 colspan=3></td></tr>\n";
-		echo "<tr><td height=5 colspan=3></td></tr>\n";
+		//echo "<tr><td height=5 colspan=3></td></tr>\n";
+		//echo "<tr><td height=1 bgcolor=#000000 colspan=3></td></tr>\n";
+		//echo "<tr><td height=5 colspan=3></td></tr>\n";
 	}
 
 	echo "<tr><td valign=top align=right>";
@@ -158,6 +146,54 @@ function edit($content) {
 	echo "</td></tr>\n";
 
 	echo "</table>\n";
+}
+
+function yesnoopt($value) {
+	if ($value == "YES") {
+		return "<option selected value=YES>YES</option>\n" .
+				"<option value=NO>NO</option>\n";
+	} else {
+		return "<option value=YES>YES</option>\n" .
+				"<option selected value=NO>NO</option>\n";
+	}
+}
+
+function dawnduskopt($value) {
+	if ($value == "FIRST") {
+		return "<option selected value=FIRST>FIRST</option>\n" .
+				"<option value=EARLIEST>EARLIEST</option>\n" .
+				"<option value=LATEST>LATEST</option>\n" .
+				"<option value=AVERAGE>AVERAGE</option>\n" .
+				"<option value=MEDIAN>MEDIAN</option>\n";
+	}
+	elseif ($value == "EARLIEST") {
+		return "<option value=FIRST>FIRST</option>\n" .
+				"<option selected value=EARLIEST>EARLIEST</option>\n" .
+				"<option value=LATEST>LATEST</option>\n" .
+				"<option value=AVERAGE>AVERAGE</option>\n" .
+				"<option value=MEDIAN>MEDIAN</option>\n";
+	}
+	elseif ($value == "LATEST") {
+		return "<option value=FIRST>FIRST</option>\n" .
+				"<option value=EARLIEST>EARLIEST</option>\n" .
+				"<option selected value=LATEST>LATEST</option>\n" .
+				"<option value=AVERAGE>AVERAGE</option>\n" .
+				"<option value=MEDIAN>MEDIAN</option>\n";
+	}
+	elseif ($value == "AVERAGE") {
+		return "<option value=FIRST>FIRST</option>\n" .
+				"<option value=EARLIEST>EARLIEST</option>\n" .
+				"<option value=LATEST>LATEST</option>\n" .
+				"<option selected value=AVERAGE>AVERAGE</option>\n" .
+				"<option value=MEDIAN>MEDIAN</option>\n";
+	}
+	elseif ($value == "MEDIAN") {
+		return "<option value=FIRST>FIRST</option>\n" .
+				"<option value=EARLIEST>EARLIEST</option>\n" .
+				"<option value=LATEST>LATEST</option>\n" .
+				"<option value=AVERAGE>AVERAGE</option>\n" .
+				"<option selected value=MEDIAN>MEDIAN</option>\n";
+	}
 }
 
 ?>

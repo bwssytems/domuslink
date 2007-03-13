@@ -2,9 +2,7 @@
 
 $password = "123";
 
-/*
- * File locations
- */
+/* File locations */
 $heyuconf = "db/heyu.conf";
 $devicefile = "db/devices.db";
 $styledir = "styles/";
@@ -13,13 +11,10 @@ $styledir = "styles/";
  * Leave blank for automatic browser setting detection
  * Available options: 'en_GB' or 'pt_PT'
  * Default: 'en'
- * */
-#$lang = "pt_PT";
+ */
 $lang = "";
 
-/*
- * Theme Section
- */
+/* Style */
 $theme = "default";
 
 
