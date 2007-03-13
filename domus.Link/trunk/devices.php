@@ -7,6 +7,7 @@ else
 	require ('config.inc.php');
 	include ('functions.php');
 
+	// includes have to be in this order due to start and end of div id content
 	include ('header.php');
 	include ('menu.php');
 
@@ -18,7 +19,7 @@ else
 		// actions
 		if ($deline != "") { deleteline($deline, $devicefile); }
 		if ($action == "add") { adddevice($devicefile); }
-		if ($action == "save") { savedevices($devicefile); }
+		if ($action == "save") { editdevice($devicefile); }
 	}
 
 	// start <div id=content>

@@ -4,7 +4,7 @@
 <title>
 <?php echo $l_title; ?>
 </title>
-<link rel="stylesheet" type="text/css" media="screen" href="styles/default.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="<?php echo $styledir.$theme ?>.css" />
 </head>
 <body>
 <div id="pagewrapper">

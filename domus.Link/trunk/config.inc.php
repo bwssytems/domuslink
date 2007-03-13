@@ -6,8 +6,8 @@ $password = "123";
  * File locations
  */
 $heyuconf = "db/heyu.conf";
-$devicefile = "db/devices";
-$themedir = "themes/";
+$devicefile = "db/devices.db";
+$styledir = "styles/";
 
 /* Default language for frontend
  * Leave blank for automatic browser setting detection
@@ -36,7 +36,6 @@ if ($lang != "")
 }
 else // auto browser detection
 {
-	//$blang = get_languages('header');
 	include('lang/'.get_languages('header').'.php');
 }
 
