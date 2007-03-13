@@ -1,3 +1,4 @@
+<?php include('config.inc.php'); ?>
 <html>
 <head>
 <title>

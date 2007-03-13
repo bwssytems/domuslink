@@ -1,9 +1,13 @@
 <?php
+if (!isset($_COOKIE["dluser"]))
+	header("Location: login.php");
+else
+{
+	include('header.php');
+	include('menu.php');
+	// Start content
 
-include('header.php');
-include('menu.php');
-echo "<div id='content'>";
-echo "</div>";
-include('footer.php');
-
+	// End content
+	include('footer.php');
+}
 ?>

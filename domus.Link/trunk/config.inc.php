@@ -1,5 +1,7 @@
 <?php
 
+$password = "123";
+
 /*
  * File locations
  */
@@ -26,14 +28,16 @@ $theme = "default";
  * ###########################
  */
 
+require_once('lang.php');
+
 if ($lang != "")
 {
-	// TODO Automatic broswer detection
 	include('lang/'.$lang.'.php');
 }
-else
+else // auto browser detection
 {
-	include('lang/en_GB.php');
+	//$blang = get_languages('header');
+	include('lang/'.get_languages('header').'.php');
 }
 
 ?>
