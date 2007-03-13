@@ -10,6 +10,7 @@ else
 	// includes have to be in this order due to start and end of div id content
 	include ('header.php');
 	include ('menu.php');
+	// start <div id=content>
 
 	if ($_GET) { // if postback
 		$deline = $_GET["del"];
@@ -22,9 +23,7 @@ else
 		if ($action == "save") { editdevice($devicefile); }
 	}
 
-	// start <div id=content>
-
-	// start Device list
+	// start device list
 	echo "<table border=1 cellspacing=0 cellpadding=0 align=center>\n";
 	foreach (getfile($devicefile) as $line_num => $line) {
 		list($code, $desc, $type) = split("##", $line, 3);
@@ -70,8 +69,8 @@ else
 		echo "<input type='submit' value='$l_add' />\n";
 		echo "</form>";
 	}
-	// end <div id=content>
 
+	// end <div id=content>
 	include ('footer.php');
 
 }
