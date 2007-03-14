@@ -11,6 +11,7 @@ else
 	include ('header.php');
 	include ('menu.php');
 	// start <div id=content>
+	echo "<div id='head1'>$l_head_dev</div>";
 
 	if ($_GET) { // if postback
 		$deline = $_GET["del"];
@@ -24,7 +25,8 @@ else
 	}
 
 	// start device list
-	echo "<table border=1 cellspacing=0 cellpadding=0 align=center>\n";
+	echo "<table border=0 cellspacing=2 cellpadding=2 align=center>\n";
+	echo "<tr><td>$l_device</td><td>$l_description</td><td>$l_type</td><td>$l_actions</td></tr>";
 	foreach (getfile($devicefile) as $line_num => $line) {
 		list($code, $desc, $type) = split("##", $line, 3);
 		$typeformated = substr($type, 0, -3);
@@ -40,6 +42,7 @@ else
 
 	// start add/edit device
 	if ($editline != "") { // if editline has value get values & change form header
+		echo "<h1>$l_head_devedit</h1>";
 		$devices = getfile($devicefile);
 		list($code, $desc, $type) = split("##", $devices[$editline], 3);
 		$typeformated = substr($type, 0, -3); // removes end of line char
@@ -47,6 +50,7 @@ else
 		echo "<input type=hidden name=line value='$editline' / >";
 	}
 	else { // if not, add "add" form header
+		echo "<h1>$l_head_devadd</h1>";
 		$code = null;
 		$desc = null;
 		$typeformated = null;

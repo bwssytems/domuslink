@@ -7,8 +7,10 @@ else
 {
 	include('header.php');
 	include('menu.php');
-	// Start content
-	// End content
+	// start <div id=content>
+	echo "<h1>$l_title</h1>";
+
+	// end <div id=content>
 	include('footer.php');
 }
 

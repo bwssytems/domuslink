@@ -12,6 +12,8 @@ else
 	include ('menu.php');
 
 	// start <div id=content>
+	echo "<h1>$l_menu_conf</h1>";
+
 	if ($_GET) {
 		$action = $_GET["action"];
 		if ($action=="save") {
@@ -52,7 +54,7 @@ else
 function display($content) {
 
 	// heyu.conf settings list
-	echo "<table border=0 cellspacing=0 cellpadding=0>\n";
+	echo "<table border=0 cellspacing=2 cellpadding=2>\n";
 	foreach ($content as $line_num => $line) {
 		list($directive, $valuenf) = split(" ", $line, 2);
 		$value = substr($valuenf, 0, -1); // removes end of line char
