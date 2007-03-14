@@ -12,7 +12,7 @@ else
 	include ('menu.php');
 
 	// start <div id=content>
-	echo "<h1>$l_menu_conf</h1>";
+	echo "<div id='head1'>$l_menu_conf</div>";
 
 	if ($_GET) {
 		$action = $_GET["action"];

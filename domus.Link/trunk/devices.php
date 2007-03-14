@@ -26,15 +26,19 @@ else
 
 	// start device list
 	echo "<table border='0' cellspacing='2' cellpadding='2' align='center'>\n";
-	echo "<tr><td>$l_device</td><td>$l_description</td><td>$l_type</td><td>$l_actions</td></tr>";
+	echo "<tr><td class='td_header' width='70'>$l_device</td>\n";
+	echo "<td class='td_header' width='300'>$l_description</td>\n";
+	echo "<td class='td_header' width='70'>$l_type</td>\n";
+	echo "<td class='td_header' colspan='2' width='100'>$l_actions</td></tr>\n";
 	foreach (getfile($devicefile) as $line_num => $line) {
 		list($code, $desc, $type) = split("##", $line, 3);
 		$typeformated = substr($type, 0, -3);
 		echo "<tr>\n";
 		echo "<td>".$code."</td>\n";
-		echo "<td>".$desc."</td>\n";
+		echo "<td class='td_left'>".$desc."</td>\n";
 		echo "<td>".$typeformated."</td>\n";
-		echo "<td><a href='".$_SERVER['PHP_SELF']."?edit=$line_num'>$l_edit</a> | <a href='".$_SERVER['PHP_SELF']."?del=$line_num'>$l_delete</a> </td>\n";
+		echo "<td class='td_link'><a href='".$_SERVER['PHP_SELF']."?edit=$line_num'>$l_edit</a></td>\n";
+		echo "<td class='td_link'><a href='".$_SERVER['PHP_SELF']."?del=$line_num'>$l_delete</a></td>\n";
 		echo "</tr>\n";
 	}
 	echo "</table>\n";
@@ -42,7 +46,7 @@ else
 
 	// start add/edit device
 	if ($editline != "") { // if editline has value get values & change form header
-		echo "<h1>$l_head_devedit</h1>";
+		echo "<div id='head1'>$l_head_devedit</div>";
 		$devices = getfile($devicefile);
 		list($code, $desc, $type) = split("##", $devices[$editline], 3);
 		$typeformated = substr($type, 0, -3); // removes end of line char
@@ -50,7 +54,7 @@ else
 		echo "<input type='hidden' name='line' value='$editline' / >";
 	}
 	else { // if not, add "add" form header
-		echo "<h1>$l_head_devadd</h1>";
+		echo "<div id='head1'>$l_head_devadd</div>";
 		$code = null;
 		$desc = null;
 		$typeformated = null;

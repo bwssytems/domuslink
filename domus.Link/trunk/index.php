@@ -8,7 +8,7 @@ else
 	include('header.php');
 	include('menu.php');
 	// start <div id=content>
-	echo "<h1>$l_title</h1>";
+	echo "<div id='head1'>$l_title</div>";
 
 	// end <div id=content>
 	include('footer.php');
