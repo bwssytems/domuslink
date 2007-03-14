@@ -32,6 +32,7 @@ div#header {
 	background-color: #cccccc;
 	margin-top: 5px;
 	margin-bottom: 5px;
+	-moz-border-radius: 5px;
 }
 
 
@@ -41,7 +42,9 @@ div#menu {
 	float: left;
 	height: auto;
 	min-height: 330px;
-	padding: 5px;
+	padding: 0 5px 0 5px;
+	margin-bottom: 5px;
+	-moz-border-radius: 5px;
 }
 
 div#content {
@@ -50,9 +53,10 @@ div#content {
 	width: 575px;
 	height: auto;
 	min-height: 330px;
-	padding: 0 5px 5px 5px;
+	padding: 0 5px 0 5px;
 	margin-left: 5px;
 	margin-bottom: 5px;
+	-moz-border-radius: 5px;
 }
 
 div#footer {
@@ -60,6 +64,7 @@ div#footer {
 	height: 30px;
 	background-color: #cccccc;
 	clear: both;
+	-moz-border-radius: 5px;
 }
 
 div#head1
@@ -69,11 +74,12 @@ div#head1
 	display: block;
 	border: solid 1px #002073;
 	background-color : #08348c;
-	-moz-border-radius: 5px;
-	filter:alpha(opacity=80);
-	-moz-opacity:0.8;
 	margin-top: 5px;
 	margin-bottom: 5px;
+
+	filter:alpha(opacity=80);
+	-moz-opacity:0.8;
+	-moz-border-radius: 5px;
 }
 
 /* TABLES */
@@ -89,7 +95,6 @@ table, table tr td.topbar
 }
 
 td {
-	/* font-size: 80.00%; */
 	filter:alpha(opacity=80);
 	-moz-opacity:0.8;
 	background-color: white;
@@ -101,7 +106,6 @@ td {
 }
 
 .td_header {
-	/* font-size: 80.00%; */
 	background-color : #002073;
 	text-align: center;
 	font-weight: bold;
