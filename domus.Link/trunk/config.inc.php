@@ -15,7 +15,7 @@ $styledir = "styles/";
 $lang = "";
 
 /* Style */
-$theme = "default";
+$style = "default.css";
 
 
 /* ###########################

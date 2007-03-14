@@ -71,7 +71,7 @@ else
 	}
 	else { // if not normal "add" button
 		echo "<input type='submit' value='$l_add' />\n";
-		echo "</form>";
+		echo "</form>\n";
 	}
 
 	// end <div id=content>
