@@ -25,7 +25,7 @@ else
 	}
 
 	// start device list
-	echo "<table border=0 cellspacing=2 cellpadding=2 align=center>\n";
+	echo "<table border='0' cellspacing='2' cellpadding='2' align='center'>\n";
 	echo "<tr><td>$l_device</td><td>$l_description</td><td>$l_type</td><td>$l_actions</td></tr>";
 	foreach (getfile($devicefile) as $line_num => $line) {
 		list($code, $desc, $type) = split("##", $line, 3);
@@ -47,7 +47,7 @@ else
 		list($code, $desc, $type) = split("##", $devices[$editline], 3);
 		$typeformated = substr($type, 0, -3); // removes end of line char
 		echo "<form action='".$_SERVER['PHP_SELF']."?action=save' method='post'>";
-		echo "<input type=hidden name=line value='$editline' / >";
+		echo "<input type='hidden' name='line' value='$editline' / >";
 	}
 	else { // if not, add "add" form header
 		echo "<h1>$l_head_devadd</h1>";
@@ -58,9 +58,9 @@ else
 	}
 
 	// display text fields, empty or with values if editing
-	echo "$l_device: <input type=text name=device value='$code' / ><br />\n";
-	echo "$l_description: <input type=text name=description value='$desc' /><br />\n";
-	echo "$l_type: <input type=text name=type value='$typeformated' / ><br />\n";
+	echo "$l_device: <input type='text' name='device' value='$code' /><br />\n";
+	echo "$l_description: <input type='text' name='description' value='$desc' /><br />\n";
+	echo "$l_type: <input type='text' name='type' value='$typeformated' /><br />\n";
 
 	if ($editline != "") { // if editline has value change form buttos to "save" & "cancel"
 		echo "<input type='submit' value='$l_save' />\n";
