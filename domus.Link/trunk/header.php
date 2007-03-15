@@ -15,8 +15,5 @@
 <!-- start pagewrapper div -->
 <div id="pagewrapper">
 
-<!-- start header div -->
-<div id="header">
-</div>
-<!-- end header div -->
+
 

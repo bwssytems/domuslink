@@ -5,6 +5,7 @@
 
 <!-- start footer div -->
 <div id="footer">
+Istvan Hubay Cebrian © 2007
 </div>
 <!-- end footer div -->
 
