@@ -16,7 +16,7 @@ else
 
 	if ($_GET) {
 		$action = $_GET["action"];
-		if ($action=="save") {
+		if ($action == "save") {
 			$i = 0;
 			foreach ($_POST as $key => $value) {
 				$newcontent[$i] = $key." ".$value."\n";
@@ -45,7 +45,6 @@ function display($content) {
 		$value = substr($valuenf, 0, -1); // removes end of line char
 		echo "<tr>\n";
 		echo "<td><b>".$directive."</b></td>\n";
-		echo "<td>&nbsp;</td>";
 		echo "<td>".$value."</td>\n";
 		echo "</tr>\n";
 		//echo "<tr><td height=5 colspan=3></td></tr>\n";
@@ -61,14 +60,13 @@ function display($content) {
 
 function edit($content) {
 	echo "<form action='".$_SERVER['PHP_SELF']."?action=save' method='post'>";
-	echo "<table border='0' cellspacing='0' cellpadding='0' align='center'>\n";
+	echo "<table border='0' cellspacing='2' cellpadding='2' align='center'>\n";
 
 	foreach ($content as $line_num => $line) {
 		list($directive, $valuenf) = split(" ", $line, 2);
 		$value = substr($valuenf, 0, -1); // removes end of line char
 		echo "<tr>\n";
 		echo "<td><b>".$directive."</b></td>\n";
-		echo "<td>&nbsp;</td>\n";
 
 		switch ($directive) {
 			case "SCRIPT_MODE":
@@ -121,14 +119,12 @@ function edit($content) {
 		//echo "<tr><td height=5 colspan=3></td></tr>\n";
 	}
 
-	echo "<tr><td valign='top' align='right'>";
-	echo "<input type='submit' value='Save Changes' />\n";
+	echo "<tr><td>";
+	echo "<input type='submit' value='Save Changes' class='formbtn' />\n";
 	echo "</form>";
-	echo "</td>";
-	echo "<td></td>\n";
-	echo "<td>";
+	echo "</td><td>\n";
 	echo "<form action='".$_SERVER['PHP_SELF']."' method='post'>";
-	echo "<input type='submit' value='Cancel' /></form>";
+	echo "<input type='submit' value='Cancel' class='formbtn' /></form>";
 	echo "";
 	echo "</td></tr>\n";
 

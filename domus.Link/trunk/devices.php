@@ -34,9 +34,9 @@ else
 		list($code, $desc, $type) = split("##", $line, 3);
 		$typeformated = substr($type, 0, -3);
 		echo "<tr>\n";
-		echo "<td>".$code."</td>\n";
-		echo "<td class='td_left'>".$desc."</td>\n";
-		echo "<td>".$typeformated."</td>\n";
+		echo "<td class='td_center'>".$code."</td>\n";
+		echo "<td>".$desc."</td>\n";
+		echo "<td class='td_center'>".$typeformated."</td>\n";
 		echo "<td class='td_link'><a href='".$_SERVER['PHP_SELF']."?edit=$line_num'>$l_edit</a></td>\n";
 		echo "<td class='td_link'><a href='".$_SERVER['PHP_SELF']."?del=$line_num'>$l_delete</a></td>\n";
 		echo "</tr>\n";
