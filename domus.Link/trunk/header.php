@@ -7,7 +7,7 @@
 
 <head>
 	<title><?php echo $l_title; ?></title>
-	<link rel="stylesheet" type="text/css" media="screen" href="<?php echo $styledir.$style ?>" />
+	<link rel="stylesheet" type="text/css" media="screen" href="themes/<?php echo $theme."/".$theme.".css" ?>" />
 </head>
 
 <body>

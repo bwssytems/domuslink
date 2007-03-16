@@ -38,7 +38,7 @@ div#dlogo {
 	border: solid 1px #cccccc;
 	-moz-border-radius: 5px;
 	text-align: center;
-	display: block;
+	/* display: block; */
 }
 
 div#dlogo a {
@@ -114,9 +114,15 @@ div#head1
 
 /* TABLES */
 
-table, table tr td
+table, table tr td {
+	-moz-border-radius: 3px;
+}
+
+table, table tr td.topbar
 {
 	-moz-border-radius: 3px;
+	/*filter:alpha(opacity=80);
+	-moz-opacity:0.8;*/
 }
 
 td {
@@ -163,7 +169,7 @@ form {
 input {
 	border: solid 1px #cccccc;
 	background-color: #ffefc3;
-	-moz-border-radius: 3px;
+	/* -moz-border-radius: 3px; */
 	height: 100%;
 }
 
@@ -175,9 +181,9 @@ input {
 
 /* OTHER */
 
-/*table, table tr td.topbar
+/* table, table tr td.topbar
 {
-	-moz-border-radius: 0px;
+	-moz-border-radius: 3px;
 	/*filter:alpha(opacity=80);
 	-moz-opacity:0.8;*/
 }*/

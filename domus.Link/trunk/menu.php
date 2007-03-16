@@ -3,7 +3,7 @@
 
 <!-- start domuslink logo div -->
 <div id="dlogo">
-	<img src="images/logo_sm.gif">
+	<a href="http://domus.link.co.pt" target="_blank"></a>
 </div>
 <!-- end domuslink logo div -->
 
