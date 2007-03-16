@@ -112,6 +112,11 @@ div#head1
 	margin-bottom: 10px;
 }
 
+div#error {
+	padding-top: 20px;
+	text-align: center;
+}
+
 /* TABLES */
 
 table, table tr td {

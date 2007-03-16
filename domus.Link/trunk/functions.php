@@ -10,7 +10,8 @@ function getfile($filename) {
 		$content = file($filename);
 	}
 	else {
-		die($filename.' dosent exist or isnt readable!');
+		header("Location: error.php?file=".$filename."&msg=nread");
+		die();
 	}
 	return $content;
 }
@@ -23,12 +24,13 @@ function writefile($content, $filename) {
 		foreach ($content as $line) {
 			$write = fwrite($fp, $line);
 		}
+		header("Location: ".$_SERVER['PHP_SELF']);
 	}
 	else {
-		die($filename.' file not writable!');
+		header("Location: error.php?file=".$filename."&msg=nwrite");
+		die();
 	}
 	fclose($fp);
-	header("Location: ".$_SERVER['PHP_SELF']);
 }
 
 /* Add Device to device file - receives device file to add to */
