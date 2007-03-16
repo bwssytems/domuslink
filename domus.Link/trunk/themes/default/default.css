@@ -31,17 +31,20 @@ div#pagewrapper {
 }
 
 div#dlogo {
+	background: #ffffff url(images/logo_sm.gif) no-repeat center center;
 	width: 180px;
-	/* height: 50px;  */
+	height: 40px;
 	background-color: #ffffff;
 	border: solid 1px #cccccc;
 	-moz-border-radius: 5px;
 	text-align: center;
+	display: block;
 }
 
-div#header img {
-	padding-top: 3px;
-	padding-bottom: 3px;
+div#dlogo a {
+	width: 180px;
+	height: 40px;
+	display: block;
 }
 
 
@@ -97,7 +100,7 @@ div#footer {
 
 div#head1
 {
-	background: #ffffff url(../images/h1_bg2.gif) no-repeat top left;
+	background: #ffffff url(images/h1_bg2.gif) no-repeat top left;
 	font-size: 140.00%;
 	font-weight: bold;
 	text-decoration: none;
