@@ -19,7 +19,7 @@ if ($msg == "nwrite") {
 	echo "Check that all files within db/ directory are chmod 755.";
 }
 echo "</div>";
-
 // end <div id=content>
+
 include ('footer.php');
 ?>
