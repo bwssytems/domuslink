@@ -41,21 +41,23 @@ function display($content) {
 	// heyu.conf settings list
 	echo "<table border='0' cellspacing='2' cellpadding='2' align='center'>\n";
 	foreach ($content as $line_num => $line) {
-		list($directive, $valuenf) = split(" ", $line, 2);
-		$value = substr($valuenf, 0, -1); // removes end of line char
+		list($directivenf, $valuenf) = split(" ", $line, 2);
+		$value = rtrim($valuenf, "\n");
 		echo "<tr>\n";
-		echo "<td><b>".$directive."</b></td>\n";
-		echo "<td>".$value."</td>\n";
+		$directive = str_replace("_", " ", $directivenf); //removes "_"
+		echo "<td width='200' class='td_right'><b>".$directive." :&nbsp;</b></td>\n";
+		echo "<td width='100'>".$value."</td>\n";
 		echo "</tr>\n";
 		//echo "<tr><td height=5 colspan=3></td></tr>\n";
 		//echo "<tr><td height=1 bgcolor=#000000 colspan=3></td></tr>\n";
 		//echo "<tr><td height=5 colspan=3></td></tr>\n";
 	}
-	echo "</table>\n";
 
+	echo "<tr><td colspan='2'>\n";
 	echo "<form action='".$_SERVER['PHP_SELF']."?action=edit' method='post'>\n";
-	echo "<input type='submit' value='Edit' />\n";
-	echo "</form>";
+	echo "<input type='submit' value='Edit' class='formbtn' /></form>\n";
+	echo "</td></tr>\n";
+	echo "</table>\n";
 }
 
 function edit($content) {
@@ -63,14 +65,15 @@ function edit($content) {
 	echo "<table border='0' cellspacing='2' cellpadding='2' align='center'>\n";
 
 	foreach ($content as $line_num => $line) {
-		list($directive, $valuenf) = split(" ", $line, 2);
-		$value = substr($valuenf, 0, -1); // removes end of line char
+		list($directivenf, $valuenf) = split(" ", $line, 2);
+		$value = rtrim($valuenf, "\n");
 		echo "<tr>\n";
-		echo "<td><b>".$directive."</b></td>\n";
+		$directive = str_replace("_", " ", $directivenf); //removes "_"
+		echo "<td width='200' class='td_right'><b>".$directive." :&nbsp;</b></td>\n";
 
-		switch ($directive) {
+		switch ($directivenf) {
 			case "SCRIPT_MODE":
-				echo "<td><select name='$directive'>\n";
+				echo "<td><select name='$directivenf'>\n";
 				if ($value == "SCRIPTS") {
 					echo "<option selected value='SCRIPTS'>SCRIPTS</option>\n";
 					echo "<option value='HEYUHELPER'>HEYUHELPER</option>\n";
@@ -82,7 +85,7 @@ function edit($content) {
 				break;
 
 			case "MODE":
-				echo "<td><select name='$directive'>\n";
+				echo "<td><select name='$directivenf'>\n";
 				if ($value == "COMPATIBLE") {
 					echo "<option selected value='COMPATIBLE'>COMPATIBLE</option>\n";
 					echo "<option value='HEYU'>HEYU</option>\n";
@@ -97,20 +100,20 @@ function edit($content) {
 			case "COMPRESS_MACROS":
 			case "REPL_DELAYED_MACROS":;
 			case "WRITE_CHECK_FILES":
-				echo "<td><select name='$directive'>\n";
+				echo "<td><select name='$directivenf'>\n";
 				echo yesnoopt($value);
 				echo "</select></td>\n";
 				break;
 
 			case "DAWN_OPTION":
 			case "DUSK_OPTION":
-				echo "<td><select name='$directive'>\n";
+				echo "<td><select name='$directivenf'>\n";
 				echo dawnduskopt($value);
 				echo "</select></td>\n";
 				break;
 
 			default:
-				echo "<td><input type='text' name='$directive' value='$value' /></td>\n";
+				echo "<td><input type='text' name='$directivenf' value='$value' /></td>\n";
 		}
 
 		echo "</tr>\n";
@@ -119,16 +122,10 @@ function edit($content) {
 		//echo "<tr><td height=5 colspan=3></td></tr>\n";
 	}
 
-	echo "<tr><td>";
-	echo "<input type='submit' value='Save Changes' class='formbtn' />\n";
-	echo "</form>";
-	echo "</td><td>\n";
-	echo "<form action='".$_SERVER['PHP_SELF']."' method='post'>";
-	echo "<input type='submit' value='Cancel' class='formbtn' /></form>";
-	echo "";
-	echo "</td></tr>\n";
-
-	echo "</table>\n";
+	echo "<tr><td><input type='submit' value='Save Changes' class='formbtn' /></form></td>";
+	echo "<td><form action='".$_SERVER['PHP_SELF']."' method='post'>\n";
+	echo "<input type='submit' value='Cancel' class='formbtn' /></form></td>";
+	echo "</tr></table>\n";
 }
 
 function yesnoopt($value) {

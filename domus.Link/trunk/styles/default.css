@@ -106,24 +106,26 @@ div#footer {
 
 div#head1
 {
+	background: #ffffff url(../images/h1_bg2.gif) no-repeat top left;
 	font-size: 140.00%;
 	font-weight: bold;
 	text-decoration: none;
 	letter-spacing: 5px;
 	/* text-align: center; */
 
-	height: 20px;
-	border-bottom: solid 2px #f3f3f3;
-	border-left: solid 15px #f3f3f3;
+	height: 23px;
+	/* border-bottom: solid 2px #f3f3f3;
+	border-left: solid 15px #f3f3f3; */
 	/* border-right: solid 15px #fdbd80; */
-	padding-left: 5px;
+	padding-left: 7px;
+	padding-top: 1px;
 	/* background-color : #cccccc; */
 	margin-top: 10px;
 	margin-bottom: 10px;
 
 	/* filter:alpha(opacity=80);
-	-moz-opacity:0.8; */
-	-moz-border-radius: 3px;
+	-moz-opacity:0.8;
+	-moz-border-radius: 3px;*/
 }
 
 /* TABLES */
@@ -148,6 +150,10 @@ td {
 	text-align: center;
 }
 
+.td_right {
+	text-align: right;
+}
+
 .td_header {
 	/* background-color : #fea801; */
 	/* border: dotted 1px #ffaf03; */
@@ -162,10 +168,11 @@ td {
 .td_link a {
 	text-decoration: none;
 	color: black;
+	display: block;
 }
 
 .td_link:hover {
-	background-color : #cccccc;
+	background-color : #ffefc3;
 	text-align: center;
 }
 
@@ -178,8 +185,9 @@ form {
 
 input {
 	border: solid 1px #cccccc;
-	background-color: #fdfdfd;
+	background-color: #ffefc3;
 	-moz-border-radius: 3px;
+	height: 100%;
 }
 
 .formbtn {

@@ -67,15 +67,12 @@ else
 	echo "$l_type: <input type='text' name='type' value='$typeformated' /><br />\n";
 
 	if ($editline != "") { // if editline has value change form buttos to "save" & "cancel"
-		echo "<input type='submit' value='$l_save' />\n";
-		echo "</form>";
+		echo "<input type='submit' value='$l_save' /></form>\n";
 		echo "<form action='".$_SERVER['PHP_SELF']."' method='post'>\n";
-		echo "<input type='submit' value='$l_cancel' />\n";
-		echo "</form>\n";
+		echo "<input type='submit' value='$l_cancel' /></form>\n";
 	}
 	else { // if not normal "add" button
-		echo "<input type='submit' value='$l_add' />\n";
-		echo "</form>\n";
+		echo "<input type='submit' value='$l_add' /></form>\n";
 	}
 
 	// end <div id=content>
