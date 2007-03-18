@@ -8,6 +8,19 @@
 <head>
 	<title><?php echo $l_title; ?></title>
 	<link rel="stylesheet" type="text/css" media="screen" href="themes/<?php echo $theme."/".$theme.".css" ?>" />
+
+	<SCRIPT LANGUAGE="JavaScript">
+	<!--
+	function copyright_date() {
+    	today=new Date();
+    	ynow=today.getFullYear();
+    	ystart='2007';
+    	if (ystart==ynow) { document.write("© "+ystart); }
+    	else { document.write("© "+ ystart +" - "+ynow); }
+    }
+    -->
+    </SCRIPT>
+
 </head>
 
 <body>

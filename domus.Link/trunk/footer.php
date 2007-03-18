@@ -5,7 +5,7 @@
 
 <!-- start footer div -->
 <div id="footer">
-Istvan Hubay Cebrian © 2007
+<SCRIPT LANGUAGE="JavaScript">copyright_date();</SCRIPT>
 </div>
 <!-- end footer div -->
 
