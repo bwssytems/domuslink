@@ -1,11 +1,18 @@
 <?php
 /* British language file */
 
-$l_title = 'domus.Link Control Panel';
+$l_title = 'domus.Link';
 
+$l_head_ctrlp = 'Control Panel';
 $l_head_dev = 'Devices';
 $l_head_devadd = 'Add Device';
 $l_head_devedit = 'Edit Device';
+
+/* Login */
+$l_login = 'Login';
+$l_logintxt = 'Please enter password in text box and click on login!';
+$l_password = 'Password:';
+$l_wrongpass = 'Wrong password! Please try again.';
 
 /* Menu */
 $l_menu_main = 'Main';

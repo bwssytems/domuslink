@@ -39,7 +39,7 @@ else
 function display($content) {
 
 	// heyu.conf settings list
-	echo "<table border='0' cellspacing='2' cellpadding='2' align='center'>\n";
+	echo "<table border='0' cellspacing='2' cellpadding='2' align='center' class='table_outline'>\n";
 	foreach ($content as $line_num => $line) {
 		list($directivenf, $valuenf) = split(" ", $line, 2);
 		$value = rtrim($valuenf, "\n");
@@ -62,7 +62,7 @@ function display($content) {
 
 function edit($content) {
 	echo "<form action='".$_SERVER['PHP_SELF']."?action=save' method='post'>";
-	echo "<table border='0' cellspacing='2' cellpadding='2' align='center'>\n";
+	echo "<table border='0' cellspacing='2' cellpadding='2' align='center' class='table_outline'>\n";
 
 	foreach ($content as $line_num => $line) {
 		list($directivenf, $valuenf) = split(" ", $line, 2);

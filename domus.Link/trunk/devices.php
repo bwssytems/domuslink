@@ -4,7 +4,6 @@ if (!isset($_COOKIE["dluser"]))
 	header("Location: login.php");
 else
 {
-	//require ('config.inc.php');
 	include ('functions.php');
 
 	// includes have to be in this order due to start and end of div id content
@@ -25,7 +24,7 @@ else
 	}
 
 	// start device list
-	echo "<table border='0' cellspacing='2' cellpadding='2' align='center'>\n";
+	echo "<table border='0' cellspacing='2' cellpadding='2' align='center' class='table_outline'>\n";
 	echo "<tr><td class='td_header' width='70'>$l_device</td>\n";
 	echo "<td class='td_header' width='300'>$l_description</td>\n";
 	echo "<td class='td_header' width='70'>$l_type</td>\n";

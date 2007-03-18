@@ -9,7 +9,7 @@ $msg = $_GET["msg"];
 
 // start <div id=content>
 echo "<div id='head1'>Error</div>";
-echo "<div id='error'>";
+echo "<div id='centered'>";
 if ($msg == "nread") {
 	echo "<b>$file dosen't seem to exist!</b><br>";
 	echo "Check config.inc.php if path is correct.";

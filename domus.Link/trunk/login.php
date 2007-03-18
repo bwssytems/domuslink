@@ -1,28 +1,27 @@
 <?php
-
-require('config.inc.php');
-
 include ('header.php');
 include ('menu.php');
 
 if ($_POST['txtPassword'] != $password) {
 
 	// Start div id=content
-	echo "<h1>Login</h1>";
+	echo "<div id='head1'>$l_login</div>";
+	echo "<div id='centered'>";
 
 	if ($_POST['txtPassword'] == "" ) {
-		echo "<br>Please enter password in text box and click on login!<br><br>\n";
+		echo "$l_logintxt<br><br>\n";
 	}
 	elseif ($_POST['txtPassword'] != "" ) {
-		echo "<br>Wrong password, please try again!<br><br>\n";
+		echo "$l_wrongpass<br><br>\n";
 	}
 
 ?>
 	<form name="form" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-		<p><label for="txtpassword">Password:</label>
-		<br /><input type="password" title="Enter your password" name="txtPassword" /></p>
-		<p><input type="submit" name="Submit" value="Login" /></p>
+		<p><label for="txtpassword"><?php echo $l_password ?></label>
+		<input type="password" name="txtPassword" />
+		<input type="submit" name="Submit" value="<?php echo $l_login ?>" /></p>
 	</form>
+</div>
 <?php
 
 	include ('footer.php');

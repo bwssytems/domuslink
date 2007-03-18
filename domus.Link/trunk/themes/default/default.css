@@ -38,7 +38,6 @@ div#dlogo {
 	border: solid 1px #cccccc;
 	-moz-border-radius: 5px;
 	text-align: center;
-	/* display: block; */
 }
 
 div#dlogo a {
@@ -49,9 +48,6 @@ div#dlogo a {
 
 
 div#menu {
-	/*background-color: #ffffff;
-	border: solid 1px #ffaf03;*/
-
 	float: left;
 	width: 180px;
 	height: auto;
@@ -60,10 +56,6 @@ div#menu {
 
 	margin-top: 5px;
 	margin-bottom: 5px;
-
-	/*filter:alpha(opacity=80);
-	-moz-opacity:0.8;
-	-moz-border-radius: 5px;*/
 }
 
 div#content {
@@ -112,29 +104,25 @@ div#head1
 	margin-bottom: 10px;
 }
 
-div#error {
+div#centered {
 	padding-top: 20px;
 	text-align: center;
 }
 
 /* TABLES */
 
-table, table tr td {
+.table_outline tr td {
 	-moz-border-radius: 3px;
+	border: solid 1px #cccccc;
+	/* text-align: left; */
+	padding-left: 0px;
 }
 
-table, table tr td.topbar
-{
-	-moz-border-radius: 3px;
-	/*filter:alpha(opacity=80);
-	-moz-opacity:0.8;*/
-}
-
-td {
+/* td {
 	border: solid 1px #cccccc;
 	text-align: left;
 	padding-left: 0px;
-}
+} */
 
 .td_header {
 	text-align: center;
@@ -161,7 +149,6 @@ td {
 
 .td_link:hover {
 	background-color : #ffefc3;
-	text-align: center;
 }
 
 /* FORMS */
