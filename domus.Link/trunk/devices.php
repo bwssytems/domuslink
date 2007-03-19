@@ -54,7 +54,7 @@ else
 		echo "<input type='hidden' name='line' value='$editline' / >";
 	}
 	else { // if not, add "add" form header
-		echo "<div id='head1'>$l_head_devadd</div>";
+		echo "<h1>$l_head_devadd</h1>";
 		$code = null;
 		$desc = null;
 		$typeformated = null;
