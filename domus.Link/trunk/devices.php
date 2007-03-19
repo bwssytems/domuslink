@@ -46,7 +46,7 @@ else
 
 	// start add/edit device
 	if ($editline != "") { // if editline has value get values & change form header
-		echo "<div id='head1'>$l_head_devedit</div>";
+		echo "<h1>$l_head_devedit</h1>";
 		$devices = getfile($devicefile);
 		list($code, $desc, $type) = split("##", $devices[$editline], 3);
 		$typeformated = substr($type, 0, -3); // removes end of line char
