@@ -10,7 +10,7 @@ else
 	include ('header.php');
 	include ('menu.php');
 	// start <div id=content>
-	echo "<div id='head1'>$l_head_dev</div>";
+	echo "<h1>$l_head_dev</h1>";
 
 	if ($_GET) { // if postback
 		$deline = $_GET["del"];

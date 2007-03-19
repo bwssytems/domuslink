@@ -8,7 +8,7 @@ $file = $_GET["file"];
 $msg = $_GET["msg"];
 
 // start <div id=content>
-echo "<div id='head1'>Error</div>";
+echo "<h1>Error</h1>";
 echo "<div id='centered'>";
 if ($msg == "nread") {
 	echo "<b>$file dosen't seem to exist!</b><br>";

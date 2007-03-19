@@ -18,6 +18,20 @@ body {
 	background-color: #fdfdfd;
 }
 
+h1
+{
+	background: #ffffff url(images/h1_bg2.gif) no-repeat top left;
+	font-size: 140.00%;
+	font-weight: bold;
+	text-decoration: none;
+	letter-spacing: 5px;
+	height: 23px;
+	padding-left: 7px;
+	padding-top: 1px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
 /* DIVS */
 
 div#pagewrapper {
@@ -85,20 +99,6 @@ div#footer {
 
 	text-align: center;
 	font-size: 80.00%;
-}
-
-div#head1
-{
-	background: #ffffff url(images/h1_bg2.gif) no-repeat top left;
-	font-size: 140.00%;
-	font-weight: bold;
-	text-decoration: none;
-	letter-spacing: 5px;
-	height: 23px;
-	padding-left: 7px;
-	padding-top: 1px;
-	margin-top: 10px;
-	margin-bottom: 10px;
 }
 
 div#centered {

@@ -5,7 +5,7 @@ include ('menu.php');
 if ($_POST['txtPassword'] != $password) {
 
 	// Start div id=content
-	echo "<div id='head1'>$l_login</div>";
+	echo "<h1>$l_login</h1>";
 	echo "<div id='centered'>";
 
 	if ($_POST['txtPassword'] == "" ) {
