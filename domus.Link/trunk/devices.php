@@ -31,6 +31,7 @@ else
 	echo "<td class='td_header' colspan='2' width='100'>$l_actions</td></tr>\n";
 	foreach (getfile($devicefile) as $line_num => $line) {
 		list($code, $desc, $type) = split("##", $line, 3);
+		//$typeformated = rtrim($type, "\n");
 		$typeformated = substr($type, 0, -3);
 		echo "<tr>\n";
 		echo "<td class='td_center'>".$code."</td>\n";
