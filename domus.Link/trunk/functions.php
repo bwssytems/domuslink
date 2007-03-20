@@ -27,7 +27,7 @@ function checkonstate($unit) {
 }
 
 function getheyupath() {
-	require ('config.inc.php');
+	include ('config.inc.php');
 	return $heyuexec;
 }
 
