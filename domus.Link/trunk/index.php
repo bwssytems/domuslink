@@ -6,13 +6,13 @@ if (!isset($_COOKIE["dluser"])) {
 else
 {
 	include ('functions.php');
-	include('header.php');
-	include('menu.php');
+	include ('header.php');
+	include ('menu.php');
 	// start <div id=content>
 	echo "<h1>$l_head_ctrlp</h1>";
 
 	if ($_GET) { // if postback
-		execheyucmd();
+		execheyucmd($heyuexec);
 	}
 
 	// start device list
@@ -29,8 +29,8 @@ else
 		echo "<td class='td_center'>".$code."</td>\n";
 		echo "<td>".$desc."</td>\n";
 		echo "<td class='td_center'>".$typeformated."</td>\n";
-		if (checkonstate($code) == "1") {
-			echo "<td class='td_linkACTIVE'><a href='".$_SERVER['PHP_SELF']."?action=on&device=$code'>ON</a></td>\n";
+		if (checkonstate($code, $heyuexec) == "1") {
+			echo "<td class='td_linkACTIVE'>ON</td>\n";
 			echo "<td class='td_link'><a href='".$_SERVER['PHP_SELF']."?action=off&device=$code'>OFF</a></td>\n";
 		}
 		else {
@@ -43,7 +43,7 @@ else
 	// end device list
 
 	// end <div id=content>
-	include('footer.php');
+	include ('footer.php');
 }
 
 ?>

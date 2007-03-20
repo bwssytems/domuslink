@@ -4,31 +4,27 @@
  *
  */
 
-
-function execheyucmd() {
+/* Heyu functions  */
+function execheyucmd($heyuexec) {
 	$unit = $_GET["device"];
 	$value = $_GET["value"];
 	$action = $_GET["action"];
 
 	if ($action=="on"||$action=="off"){
-		$cmd = getheyupath()." ".$action." ".$unit;
+		$cmd = $heyuexec." ".$action." ".$unit;
 	} elseif ($action=="dim" || $action=="bright" || $action=="dimb"){
-		//$cmd .= $action." ".$unit." ".$value;
+		//$cmd = $heyuexec." ".$action." ".$unit." ".$value;
 	}
-	//echo "<br />".$cmd;
+	$result = null; $retval = null;
 	exec($cmd, $result, $retval);
 	header("Location: ".$_SERVER['PHP_SELF']);
 }
 
-function checkonstate($unit) {
-	$cmd = getheyupath()." onstate ".$unit;
+function checkonstate($unit, $heyuexec) {
+	$cmd = $heyuexec." onstate ".$unit;
+	$result = null; $retval = null;
 	exec($cmd, $result, $retval);
 	return $result[0];
-}
-
-function getheyupath() {
-	include ('config.inc.php');
-	return $heyuexec;
 }
 
 /* Get File - reads and returns file contents in an array */
@@ -43,7 +39,7 @@ function getfile($filename) {
 	return $content;
 }
 
-/* Write File - receives array and filename to write to */
+/* Write File - receives array with contents and filename to write to */
 function writefile($content, $filename) {
 	$fp = fopen($filename,'w');
 
