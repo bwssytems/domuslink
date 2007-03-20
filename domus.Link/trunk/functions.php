@@ -4,6 +4,33 @@
  *
  */
 
+
+function execheyucmd() {
+	$unit = $_GET["device"];
+	$value = $_GET["value"];
+	$action = $_GET["action"];
+
+	if ($action=="on"||$action=="off"){
+		$cmd = getheyupath()." ".$action." ".$unit;
+	} elseif ($action=="dim" || $action=="bright" || $action=="dimb"){
+		//$cmd .= $action." ".$unit." ".$value;
+	}
+	//echo "<br />".$cmd;
+	exec($cmd, $result, $retval);
+	header("Location: ".$_SERVER['PHP_SELF']);
+}
+
+function checkonstate($unit) {
+	$cmd = getheyupath()." onstate ".$unit;
+	exec($cmd, $result, $retval);
+	return $result[0];
+}
+
+function getheyupath() {
+	require ('config.inc.php');
+	return $heyuexec;
+}
+
 /* Get File - reads and returns file contents in an array */
 function getfile($filename) {
 	if (is_readable($filename) == true) {

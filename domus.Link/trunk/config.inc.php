@@ -6,6 +6,7 @@ $password = "123";
 /* File locations */
 $heyuconf = "db/heyu.conf";
 $devicefile = "db/devices.db";
+$heyuexec = "/usr/local/bin/heyu";
 
 /* Default language for frontend
  * Leave blank for automatic browser setting detection
