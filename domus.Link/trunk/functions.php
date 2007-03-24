@@ -17,6 +17,9 @@ function execheyucmd($heyuexec) {
 	}
 	$result = null; $retval = null;
 	exec($cmd, $result, $retval);
+	//echo "cmd: $cmd<br>";
+	//echo "result: $result[0]<br>";
+	//echo "retval: $retval<br>";
 	header("Location: ".$_SERVER['PHP_SELF']);
 }
 
@@ -24,7 +27,10 @@ function checkonstate($unit, $heyuexec) {
 	$cmd = $heyuexec." onstate ".$unit;
 	$result = null; $retval = null;
 	exec($cmd, $result, $retval);
-	return $result[0];
+	echo "cmd: $cmd<br>";
+	echo "result: $result[0]<br>";
+	echo "retval: $retval<br>";
+	//return $result[0];
 }
 
 /* Get File - reads and returns file contents in an array */
