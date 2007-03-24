@@ -11,7 +11,7 @@ function execheyucmd($heyuexec) {
 	$action = $_GET["action"];
 
 	if ($action=="on"||$action=="off"){
-		$cmd = $heyuexec." ".$action." ".$unit;
+		$cmd = $heyuexec." ".$action." ".$unit." 2>&1";
 	} elseif ($action=="dim" || $action=="bright" || $action=="dimb"){
 		//$cmd = $heyuexec." ".$action." ".$unit." ".$value;
 	}
@@ -20,17 +20,25 @@ function execheyucmd($heyuexec) {
 	//echo "cmd: $cmd<br>";
 	//echo "result: $result[0]<br>";
 	//echo "retval: $retval<br>";
-	header("Location: ".$_SERVER['PHP_SELF']);
+	if ($result[0] == "") {
+		header("Location: ".$_SERVER['PHP_SELF']);
+	} else {
+		header("Location: error.php?msg=".$result[0]);
+	}
 }
 
 function checkonstate($unit, $heyuexec) {
-	$cmd = $heyuexec." onstate ".$unit;
+	$cmd = $heyuexec." onstate ".$unit." 2>&1";
 	$result = null; $retval = null;
 	exec($cmd, $result, $retval);
-	echo "cmd: $cmd<br>";
-	echo "result: $result[0]<br>";
-	echo "retval: $retval<br>";
-	//return $result[0];
+	//echo "cmd: $cmd<br>";
+	//echo "result: $result[0]<br>";
+	//echo "retval: $retval<br>";
+	if ($result[0] == "1" || $result[0] == "0") {
+		return $result[0];
+	} else {
+		header("Location: error.php?msg=".$result[0]);
+	}
 }
 
 /* Get File - reads and returns file contents in an array */
