@@ -19,7 +19,7 @@ if ($msg == "nwrite") {
 	echo "Check that all files within db/ directory are chmod 755.";
 }
 else {
-	echo "<b>".$msg."</b>";
+	echo "<b>".stripslashes($msg)."</b>";
 }
 echo "</div>";
 // end <div id=content>
