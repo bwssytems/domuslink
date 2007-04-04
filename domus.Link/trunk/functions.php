@@ -16,29 +16,29 @@ function execheyucmd($heyuexec) {
 		//$cmd = $heyuexec." ".$action." ".$unit." ".$value;
 	}
 	$result = null; $retval = null;
-	exec($cmd, $result, $retval);
+	//exec($cmd, $result, $retval);
 	//echo "cmd: $cmd<br>";
 	//echo "result: $result[0]<br>";
 	//echo "retval: $retval<br>";
-	if ($result[0] == "") {
+	//if ($result[0] == "") {
 		header("Location: ".$_SERVER['PHP_SELF']);
-	} else {
-		header("Location: error.php?msg=".$result[0]);
-	}
+	//} else {
+	//	header("Location: error.php?msg=".$result[0]);
+	//}
 }
 
 function checkonstate($unit, $heyuexec) {
 	$cmd = $heyuexec." onstate ".$unit." 2>&1";
 	$result = null; $retval = null;
-	exec($cmd, $result, $retval);
+	//exec($cmd, $result, $retval);
 	//echo "cmd: $cmd<br>";
 	//echo "result: $result[0]<br>";
 	//echo "retval: $retval<br>";
-	if ($result[0] == "1" || $result[0] == "0") {
+	//if ($result[0] == "1" || $result[0] == "0") {
 		return $result[0];
-	} else {
-		header("Location: error.php?msg=".$result[0]);
-	}
+	//} else {
+	//	header("Location: error.php?msg=".$result[0]);
+	//}
 }
 
 /* Get File - reads and returns file contents in an array */
@@ -74,7 +74,7 @@ function writefile($content, $filename) {
 function adddevice($devicefile){
 	$devices = getfile($devicefile);
 
-	$newdevice = $_POST["device"]."##".$_POST["description"]."##".$_POST["type"]."//\n";
+	$newdevice = "ALIAS ".$_POST["description"]." ".$_POST["device"]." ".$_POST["type"]." # ".$_POST["unit"]."\n";
 	array_push($devices, $newdevice);
 	writefile($devices, $devicefile);
 }
@@ -82,7 +82,7 @@ function adddevice($devicefile){
 /* Edit Device - receives device file */
 function editdevice($devicefile) {
 	$line = $_POST["line"]; // line being edited
-	$editeddev = $_POST["device"]."##".$_POST["description"]."##".$_POST["type"]."//\n";
+	$editeddev = "ALIAS ".$_POST["description"]." ".$_POST["device"]." ".$_POST["type"]." # ".$_POST["unit"]."\n";
 	$devices = getfile($devicefile); // get original device file contents
 
 	if ($line == 0 || (count($devices) - 1) == $line) { // first or last line editing

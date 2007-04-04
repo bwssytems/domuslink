@@ -4,8 +4,10 @@
 $password = "123";
 
 /* File locations */
-$heyuconf = "db/heyu.conf";
-$devicefile = "db/devices.db";
+$heyuconf = "db/x10.conf";
+$typefile = "db/types";
+$unitfile = "db/units";
+//$devicefile = "db/devices.db";
 $heyuexec = "/usr/local/bin/heyu";
 
 /* Default language for frontend
@@ -19,9 +21,9 @@ $lang = "";
 $theme = "default";
 
 
-/* ###########################
- * DO NOT EDIT ANYTHING BELLOW
- * ###########################
+/* ##########################
+ * DO NOT EDIT ANYTHING BELOW
+ * ##########################
  */
 
 require_once('lang.php');

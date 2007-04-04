@@ -4,10 +4,7 @@ if (!isset($_COOKIE["dluser"]))
 	header("Location: login.php");
 else
 {
-	//require ('config.inc.php');
 	include ('functions.php');
-
-	// includes have to be in this order due to start and end of div id content
 	include ('header.php');
 	include ('menu.php');
 
@@ -19,10 +16,25 @@ else
 		if ($action == "save") {
 			$i = 0;
 			foreach ($_POST as $key => $value) {
-				$newcontent[$i] = $key." ".$value."\n";
+				if (substr($key, 0, 5) == "ALIAS") {
+					//echo $i."  ".substr($key, 0, 5)." ".$value."\n<br>";
+					$newcontent[$i] = substr($key, 0, 5)." ".$value."\n";
+				}
+				elseif (substr($key, 0, 5) == "SCENE") {
+					//echo $i."  ".substr($key, 0, 5)." ".$value."\n<br>";
+					$newcontent[$i] = substr($key, 0, 5)." ".$value."\n";
+				}
+				elseif (substr($key, 0, 7) == "USERSYN") {
+					//echo $i."  ".substr($key, 0, 7)." ".$value."\n<br>";
+					$newcontent[$i] = substr($key, 0, 7)." ".$value."\n";
+				}
+				else {
+					//echo $i."  ".$key." ".$value."\n<br>";
+					$newcontent[$i] = $key." ".$value."\n";
+				}
 				$i++;
 			}
-		writefile($newcontent, $heyuconf);
+			writefile($newcontent, $heyuconf);
 		}
 		if ($action == "edit") {
 			edit(getfile($heyuconf));
@@ -37,23 +49,21 @@ else
 }
 
 function display($content) {
-
-	// heyu.conf settings list
 	echo "<table border='0' cellspacing='2' cellpadding='2' align='center' class='table_outline'>\n";
 	foreach ($content as $line_num => $line) {
-		list($directivenf, $valuenf) = split(" ", $line, 2);
-		$value = rtrim($valuenf, "\n");
-		echo "<tr>\n";
-		$directive = str_replace("_", " ", $directivenf); //removes "_"
-		echo "<td width='200' class='td_right'><b>".$directive." :&nbsp;</b></td>\n";
-		echo "<td width='100'>".$value."</td>\n";
-		echo "</tr>\n";
-		//echo "<tr><td height=5 colspan=3></td></tr>\n";
-		//echo "<tr><td height=1 bgcolor=#000000 colspan=3></td></tr>\n";
-		//echo "<tr><td height=5 colspan=3></td></tr>\n";
+		if (substr($line, 0, 1) != "#" && $line != "\n" && substr($line, 0, 5) != "ALIAS" &&
+		substr($line, 0, 5) != "SCENE" && substr($line, 0, 7) != "USERSYN" && $line != " \n") {
+			list($directivenf, $valuenf) = split(" ", $line, 2);
+			$value = rtrim($valuenf, "\n");
+			echo "<tr>\n";
+			$directive = str_replace("_", " ", $directivenf); //removes "_"
+			echo "<td width='200' class='td_right'><b>".$directive." :&nbsp;</b></td>\n";
+			echo "<td width='100'>".$value."</td>\n";
+			echo "</tr>\n";
+		}
 	}
 
-	echo "<tr><td colspan='2'>\n";
+	echo "<tr><td colspan='3'>\n";
 	echo "<form action='".$_SERVER['PHP_SELF']."?action=edit' method='post'>\n";
 	echo "<input type='submit' value='Edit' class='formbtn' /></form>\n";
 	echo "</td></tr>\n";
@@ -64,67 +74,82 @@ function edit($content) {
 	echo "<form action='".$_SERVER['PHP_SELF']."?action=save' method='post'>";
 	echo "<table border='0' cellspacing='2' cellpadding='2' align='center' class='table_outline'>\n";
 
+	$act = 0; $sct = 0; $usct = 0; // alias, scene and usersyn counts for posts
+
 	foreach ($content as $line_num => $line) {
 		list($directivenf, $valuenf) = split(" ", $line, 2);
 		$value = rtrim($valuenf, "\n");
-		echo "<tr>\n";
+
 		$directive = str_replace("_", " ", $directivenf); //removes "_"
-		echo "<td width='200' class='td_right'><b>".$directive." :&nbsp;</b></td>\n";
-
-		switch ($directivenf) {
-			case "SCRIPT_MODE":
-				echo "<td><select name='$directivenf'>\n";
-				if ($value == "SCRIPTS") {
-					echo "<option selected value='SCRIPTS'>SCRIPTS</option>\n";
-					echo "<option value='HEYUHELPER'>HEYUHELPER</option>\n";
-				} else {
-					echo "<option value='SCRIPTS'>SCRIPTS</option>\n";
-					echo "<option selected value='HEYUHELPER'>HEYUHELPER</option>\n";
-				}
-				echo "</select></td>\n";
-				break;
-
-			case "MODE":
-				echo "<td><select name='$directivenf'>\n";
-				if ($value == "COMPATIBLE") {
-					echo "<option selected value='COMPATIBLE'>COMPATIBLE</option>\n";
-					echo "<option value='HEYU'>HEYU</option>\n";
-				} else {
-					echo "<option value='COMPATIBLE'>COMPATIBLE</option>\n";
-					echo "<option selected value='HEYU'>HEYU</option>\n";
-				}
-				echo "</select></td>\n";
-				break;
-
-			case "COMBINE_EVENTS":
-			case "COMPRESS_MACROS":
-			case "REPL_DELAYED_MACROS":;
-			case "WRITE_CHECK_FILES":
-				echo "<td><select name='$directivenf'>\n";
-				echo yesnoopt($value);
-				echo "</select></td>\n";
-				break;
-
-			case "DAWN_OPTION":
-			case "DUSK_OPTION":
-				echo "<td><select name='$directivenf'>\n";
-				echo dawnduskopt($value);
-				echo "</select></td>\n";
-				break;
-
-			default:
-				echo "<td><input type='text' name='$directivenf' value='$value' /></td>\n";
+		if ($directive == "ALIAS") {
+			echo "<input type='hidden' name='$directivenf$act' value='$value' />\n";
+			$act++;
 		}
+		elseif ($directive == "SCENE") {
+			echo "<input type='hidden' name='$directivenf$sct' value='$value' />\n";
+			$sct++;
+		}
+		elseif ($directive == "USERSYN") {
+			echo "<input type='hidden' name='$directivenf$usct' value='$value' />\n";
+			$usct++;
+		}
+		else {
+			echo "<tr>\n<td width='200' class='td_right'><b>".$directive." :&nbsp;</b></td>\n";
 
-		echo "</tr>\n";
-		//echo "<tr><td height=5 colspan=3></td></tr>\n";
-		//echo "<tr><td height=1 bgcolor=#000000 colspan=3></td></tr>\n";
-		//echo "<tr><td height=5 colspan=3></td></tr>\n";
-	}
+			switch ($directivenf) {
+				case "SCRIPT_MODE":
+					echo "<td><select name='$directivenf'>\n";
+					if ($value == "SCRIPTS") {
+						echo "<option selected value='SCRIPTS'>SCRIPTS</option>\n";
+						echo "<option value='HEYUHELPER'>HEYUHELPER</option>\n";
+					} else {
+						echo "<option value='SCRIPTS'>SCRIPTS</option>\n";
+						echo "<option selected value='HEYUHELPER'>HEYUHELPER</option>\n";
+					}
+					echo "</select></td>\n";
+					break;
 
-	echo "<tr><td><input type='submit' value='Save Changes' class='formbtn' /></form></td>";
+				case "MODE":
+					echo "<td><select name='$directivenf'>\n";
+					if ($value == "COMPATIBLE") {
+						echo "<option selected value='COMPATIBLE'>COMPATIBLE</option>\n";
+						echo "<option value='HEYU'>HEYU</option>\n";
+					} else {
+						echo "<option value='COMPATIBLE'>COMPATIBLE</option>\n";
+						echo "<option selected value='HEYU'>HEYU</option>\n";
+					}
+					echo "</select></td>\n";
+					break;
+
+				case "COMBINE_EVENTS":
+				case "COMPRESS_MACROS":
+				case "REPL_DELAYED_MACROS":;
+				case "WRITE_CHECK_FILES":
+				case "ACK_HAILS":
+				case "AUTOFETCH":
+					echo "<td><select name='$directivenf'>\n";
+					echo yesnoopt($value);
+					echo "</select></td>\n";
+					break;
+
+				case "DAWN_OPTION":
+				case "DUSK_OPTION":
+					echo "<td><select name='$directivenf'>\n";
+					echo dawnduskopt($value);
+					echo "</select></td>\n";
+					break;
+
+				default:
+					echo "<td><input type='text' name='$directivenf' value='$value' /></td>\n";
+			} // end switch
+
+			echo "</tr>\n";
+		} // end else if
+	} // end foreach loop
+
+	echo "<tr><td><input type='submit' value='Save Changes' class='formbtn' /></form></td>\n";
 	echo "<td><form action='".$_SERVER['PHP_SELF']."' method='post'>\n";
-	echo "<input type='submit' value='Cancel' class='formbtn' /></form></td>";
+	echo "<input type='submit' value='Cancel' class='formbtn' /></form></td>\n";
 	echo "</tr></table>\n";
 }
 
