@@ -7,7 +7,7 @@ $password = "123";
 $heyuconf = "db/x10.conf";
 $typefile = "db/types";
 $unitfile = "db/units";
-//$devicefile = "db/devices.db";
+$devicefile = "db/devices.db";
 $heyuexec = "/usr/local/bin/heyu";
 
 /* Default language for frontend
