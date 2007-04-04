@@ -36,4 +36,7 @@ $l_cancel = 'Cancel';
 $l_edit = 'Edit';
 $l_delete = 'Delete';
 
+/* Alerts */
+$l_delete_yn = 'Are you sure you want to delete?';
+
 ?>

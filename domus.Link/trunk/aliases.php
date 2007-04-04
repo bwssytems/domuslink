@@ -37,7 +37,7 @@ else
 			echo "<td>".$desc."</td>\n";
 			echo "<td class='td_center'>".$type."</td>\n";
 			echo "<td class='td_link'><a href='".$_SERVER['PHP_SELF']."?edit=$line_num'>$l_edit</a></td>\n";
-			echo "<td class='td_link'><a href='".$_SERVER['PHP_SELF']."?del=$line_num'>$l_delete</a></td>\n</tr>\n";
+			echo "<td class='td_link'><a href='".$_SERVER['PHP_SELF']."?del=$line_num' onclick=\"return confirm('$l_delete_yn')\">$l_delete</a></td>\n</tr>\n";
 		}
 	}
 	echo "</table>\n";
