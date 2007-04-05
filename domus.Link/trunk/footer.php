@@ -14,8 +14,6 @@ if (isset($_GET["hstate"])) {
 	$hstate = $_GET["hstate"];
 	if ($hstate == "stop") {
 		heyustartstop ($heyuexec, stop);
-		header("Location: error.php");
-		//header("Location: ".$_SERVER['PHP_SELF']);
 	}
 	if ($hstate == "start") {
 		echo heyustartstop ($heyuexec, start);

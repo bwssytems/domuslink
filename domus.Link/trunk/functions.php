@@ -8,14 +8,15 @@ function heyustartstop ($heyuexec, $action) {
 	if ($action == "start") {
 		$cmd = $heyuexec." start";
 	}
-	if ($action == "stop") {
+	elseif ($action == "stop") {
 		$cmd = $heyuexec." stop";
 	}
-	if ($action == "restart") {
+	elseif ($action == "restart") {
 		$cmd = $heyuexec." restart";
 	}
 	exec($cmd, $result, $retval);
 	exec("sleep 2");
+	header("Location: error.php");
 }
 
 function chkheyustate() {
