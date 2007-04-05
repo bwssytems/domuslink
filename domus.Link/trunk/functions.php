@@ -4,7 +4,30 @@
  *
  */
 
-/* Heyu functions  */
+function heyustartstop ($heyuexec, $action) {
+	if ($action == "start") {
+		$cmd = $heyuexec." start";
+	}
+	if ($action == "stop") {
+		$cmd = $heyuexec." stop";
+	}
+	if ($action == "restart") {
+		$cmd = $heyuexec." restart";
+	}
+	exec($cmd, $result, $retval);
+	exec("sleep 2");
+}
+
+function chkheyustate() {
+	$cmd = "ps x | grep [h]eyu_";
+	exec($cmd, $result, $retval);
+	if (count($result) == 2) {
+		return "running";
+	} else {
+		return "not runinng";
+	}
+}
+
 function execheyucmd($heyuexec) {
 	$unit = $_GET["device"];
 	$value = $_GET["value"];
@@ -17,9 +40,6 @@ function execheyucmd($heyuexec) {
 	}
 	$result = null; $retval = null;
 	exec($cmd, $result, $retval);
-	//echo "cmd: $cmd<br>";
-	//echo "result: $result[0]<br>";
-	//echo "retval: $retval<br>";
 	if ($result[0] == "") {
 		header("Location: ".$_SERVER['PHP_SELF']);
 	} else {
@@ -31,9 +51,6 @@ function checkonstate($unit, $heyuexec) {
 	$cmd = $heyuexec." onstate ".$unit." 2>&1";
 	$result = null; $retval = null;
 	exec($cmd, $result, $retval);
-	//echo "cmd: $cmd<br>";
-	//echo "result: $result[0]<br>";
-	//echo "retval: $retval<br>";
 	if ($result[0] == "1" || $result[0] == "0") {
 		return $result[0];
 	} else {

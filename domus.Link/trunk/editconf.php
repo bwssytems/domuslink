@@ -16,22 +16,14 @@ else
 		if ($action == "save") {
 			$i = 0;
 			foreach ($_POST as $key => $value) {
-				if (substr($key, 0, 5) == "ALIAS") {
-					//echo $i."  ".substr($key, 0, 5)." ".$value."\n<br>";
+				if (substr($key, 0, 5) == "ALIAS")
 					$newcontent[$i] = substr($key, 0, 5)." ".$value."\n";
-				}
-				elseif (substr($key, 0, 5) == "SCENE") {
-					//echo $i."  ".substr($key, 0, 5)." ".$value."\n<br>";
+				elseif (substr($key, 0, 5) == "SCENE")
 					$newcontent[$i] = substr($key, 0, 5)." ".$value."\n";
-				}
-				elseif (substr($key, 0, 7) == "USERSYN") {
-					//echo $i."  ".substr($key, 0, 7)." ".$value."\n<br>";
+				elseif (substr($key, 0, 7) == "USERSYN")
 					$newcontent[$i] = substr($key, 0, 7)." ".$value."\n";
-				}
-				else {
-					//echo $i."  ".$key." ".$value."\n<br>";
+				else
 					$newcontent[$i] = $key." ".$value."\n";
-				}
 				$i++;
 			}
 			writefile($newcontent, $heyuconf);
