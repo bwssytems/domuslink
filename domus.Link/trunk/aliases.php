@@ -10,7 +10,7 @@ else
 	include ('header.php');
 	include ('menu.php');
 	// start <div id=content>
-	echo "<h1>$l_head_al</h1>";
+	echo "<h1>$l_head_al</h1>\n\n";
 
 	if ($_GET) { // if postback
 		$deline = $_GET["del"];
@@ -45,7 +45,7 @@ else
 
 	// start add/edit device
 	if ($editline != "") { // if editline has value get values & change form header
-		echo "<h1>$l_head_aledit</h1>";
+		echo "<h1>$l_head_aledit</h1>\n\n";
 		$devices = getfile($heyuconf);
 		list($n, $desc, $code, $typecomment) = split(" ", $devices[$editline], 4);
 		list($type, $comment) = split(" # ", $typecomment, 2);
@@ -53,7 +53,7 @@ else
 		echo "<input type='hidden' name='line' value='$editline' / >";
 	}
 	else { // if not, add "add" form header
-		echo "<h1>$l_head_aladd</h1>";
+		echo "<h1>$l_head_aladd</h1>\n\n";
 		$code = null; $desc = null; $type = null; $comment = null;
 		echo "<form action='".$_SERVER['PHP_SELF']."?action=add' method='post'>";
 	}

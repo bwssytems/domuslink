@@ -9,7 +9,7 @@ else
 	include ('header.php');
 	include ('menu.php');
 	// start <div id=content>
-	echo "<h1>$l_head_ctrlp</h1>";
+	echo "<h1>$l_head_ctrlp</h1>\n\n";
 
 	if ($_GET) { // if postback
 		execheyucmd($heyuexec);
