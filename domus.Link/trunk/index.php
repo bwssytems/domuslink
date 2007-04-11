@@ -21,7 +21,7 @@ else
 	echo "<td class='td_header' width='300'>$l_description</td>\n";
 	echo "<td class='td_header' width='70'>$l_type</td>\n";
 	echo "<td class='td_header' colspan='2' width='100'>$l_actions</td></tr>\n";
-	foreach (getfile($devicefile) as $line_num => $line) {
+	/*foreach (getfile($devicefile) as $line_num => $line) {
 		list($code, $desc, $type) = split("##", $line, 3);
 		//$typeformated = rtrim($type, "\n");
 		$typeformated = substr($type, 0, -3);
@@ -38,7 +38,7 @@ else
 			echo "<td class='td_linkACTIVE'><a href='".$_SERVER['PHP_SELF']."?action=off&device=$code'>OFF</a></td>\n";
 		}
 		echo "</tr>\n";
-	}
+	}*/
 	echo "</table>\n";
 	// end device list
 
