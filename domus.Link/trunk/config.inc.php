@@ -4,11 +4,10 @@
 $password = "123";
 
 /* File locations */
-$heyuconf = "db/x10.conf";
+$heyuconf = "/etc/heyu/x10.conf";
+$heyuexec = "/usr/local/bin/heyu";
 $typefile = "db/types";
 $unitfile = "db/units";
-$devicefile = "db/devices.db";
-$heyuexec = "/usr/local/bin/heyu";
 
 /* Default language for frontend
  * Leave blank for automatic browser setting detection

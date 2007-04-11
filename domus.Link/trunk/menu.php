@@ -8,9 +8,8 @@
 	<!-- end domuslink logo div -->
 
 	<a href='/'><?php echo $l_menu_main ?></a><br />
-	<a href='devices.php'><?php echo $l_menu_dev ?></a><br />
 	<a href='aliases.php'><?php echo $l_menu_al ?></a><br />
-	<a href='editconf.php'><?php echo $l_menu_conf ?></a>
+	<a href='heyuconf.php'><?php echo $l_menu_conf ?></a>
 
 </div>
 <!-- end menu div -->

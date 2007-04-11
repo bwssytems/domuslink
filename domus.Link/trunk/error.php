@@ -4,23 +4,10 @@ include ('functions.php');
 include ('header.php');
 include ('menu.php');
 
-$file = $_GET["file"];
-$msg = $_GET["msg"];
-
 // start <div id=content>
 echo "<h1>Error</h1>";
 echo "<div id='centered'>";
-if ($msg == "nread") {
-	echo "<b>$file dosen't seem to exist!</b><br>";
-	echo "Check config.inc.php if path is correct.";
-}
-if ($msg == "nwrite") {
-	echo "<b>$file is not writable!</b><br><br>";
-	echo "Check that all files within db/ directory are chmod 755.";
-}
-else {
-	echo "<b>".stripslashes($msg)."</b>";
-}
+echo "<b>".stripslashes($_GET["msg"])."</b>";
 echo "</div>";
 // end <div id=content>
 

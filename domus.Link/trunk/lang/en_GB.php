@@ -20,7 +20,6 @@ $l_wrongpass = 'Wrong password! Please try again.';
 
 /* Menu */
 $l_menu_main = 'Main';
-$l_menu_dev = 'Add/Remove/Edit Devices';
 $l_menu_al = 'Aliases';
 $l_menu_conf = 'Heyu Configuration';
 

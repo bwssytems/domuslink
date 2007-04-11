@@ -16,7 +16,6 @@ $l_wrongpass = 'Palavra chave errada! Por favor tente de novo.';
 
 /* Menu */
 $l_menu_main = 'Principal';
-$l_menu_dev = 'Adicionar/Remover/Editar Dispositivos';
 $l_menu_conf = 'Configurações Heyu';
 
 /* Devices */

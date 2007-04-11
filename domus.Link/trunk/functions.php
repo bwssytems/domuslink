@@ -6,21 +6,28 @@
 
 function heyustartstop ($heyuexec, $action) {
 	if ($action == "start") {
-		$cmd = $heyuexec." start";
+		$cmd = $heyuexec." start 2>&1";
 	}
 	elseif ($action == "stop") {
-		$cmd = $heyuexec." stop";
+		$cmd = $heyuexec." stop 2>&1";
 	}
 	elseif ($action == "restart") {
-		$cmd = $heyuexec." restart";
+		$cmd = $heyuexec." restart 2>&1";
 	}
+	$result = null; $retval = null;
 	exec($cmd, $result, $retval);
-	exec("sleep 2");
-	header("Location: error.php");
+	//exec("sleep 2");
+	if ($result[0] == "starting heyu_relay" || $result[0] == "") {
+		header("Location: ".$_SERVER['PHP_SELF']);
+	}
+	else {
+		header("Location: error.php?msg=".$result[0]);
+	}
 }
 
 function chkheyustate() {
 	$cmd = "ps x | grep [h]eyu_";
+	$result = null; $retval = null;
 	exec($cmd, $result, $retval);
 	if (count($result) == 2) {
 		return "running";
@@ -65,7 +72,7 @@ function getfile($filename) {
 		$content = file($filename);
 	}
 	else {
-		header("Location: error.php?file=".$filename."&msg=nread");
+		header("Location: error.php?msg=".$filename." not found or not readable!");
 		die();
 	}
 	return $content;
@@ -82,7 +89,7 @@ function writefile($content, $filename) {
 		header("Location: ".$_SERVER['PHP_SELF']);
 	}
 	else {
-		header("Location: error.php?file=".$filename."&msg=nwrite");
+		header("Location: error.php?msg=".$filename." not writable!");
 		die();
 	}
 	fclose($fp);
@@ -111,7 +118,6 @@ function editdevice($devicefile) {
 		array_splice($devices, $line, 1, $editeddev);
 		$devices = array_merge($devices, $end);
 	}
-
 	writefile($devices, $devicefile);
 }
 

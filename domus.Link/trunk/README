@@ -10,9 +10,3 @@
 
   Edit you php.ini file (usually located within apache configuration dir)
   locate output_buffering and make sure it is set to "on".
-
-  2) HEYU: Can't open tty line. Check the permissions.
-
-  Make sure your tty device is readable by all or the web user.
-
-  Slackware: ttyS0: chmod o+rw /dev/tts/0
