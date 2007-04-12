@@ -9,7 +9,7 @@ else
 	include ('menu.php');
 
 	// start <div id=content>
-	echo "<h1>$l_menu_conf</h1>";
+	echo "<h1>$l_hconf</h1>";
 
 	if ($_GET) {
 		$action = $_GET["action"];

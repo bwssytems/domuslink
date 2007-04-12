@@ -9,7 +9,7 @@ else
 	include ('header.php');
 	include ('menu.php');
 	// start <div id=content>
-	echo "<h1>$l_head_ctrlp</h1>\n\n";
+	echo "<h1>$l_ctrlp</h1>\n\n";
 
 	if ($_GET) { // if postback
 		execheyucmd($heyuexec);
@@ -17,9 +17,9 @@ else
 
 	// start device list
 	echo "<table border='0' cellspacing='2' cellpadding='2' align='center' class='table_outline'>\n";
-	echo "<tr><td class='td_header' width='70'>$l_device</td>\n";
-	echo "<td class='td_header' width='300'>$l_description</td>\n";
-	echo "<td class='td_header' width='70'>$l_type</td>\n";
+	echo "<tr><td class='td_header' width='70'>$l_code</td>\n";
+	echo "<td class='td_header' width='300'>$l_label</td>\n";
+	echo "<td class='td_header' width='70'>$l_module</td>\n";
 	echo "<td class='td_header' colspan='2' width='100'>$l_actions</td></tr>\n";
 	/*foreach (getfile($devicefile) as $line_num => $line) {
 		list($code, $desc, $type) = split("##", $line, 3);
