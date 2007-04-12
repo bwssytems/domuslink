@@ -23,6 +23,7 @@ $l_menu_conf = 'Heyu Setup';
 $l_code = 'Code';
 $l_label = 'Label';
 $l_module = 'Module';
+$l_type = 'Type';
 $l_actions = 'Actions';
 
 $l_add = 'Add';

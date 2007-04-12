@@ -31,7 +31,7 @@
 <div id="header">
 	<table cellspacing="0" cellpadding="0" border="0">
 	  <tr>
-		<td width="180" ><a href="http://domus.link.co.pt" target="_blank"><img src="themes/<?php echo $theme ?>/images/logo_sm.gif" border="0" /></a></td>
+		<td width="180" ><a href="http://domus.link.co.pt" target="_blank"><img src="themes/<?php echo $theme ?>/images/logo.gif" border="0" /></a></td>
 		<td width="10">&nbsp;</td>
 		<td width="590" align="right">
 			<table cellspacing="0" cellpadding="0" border="0" height="34">

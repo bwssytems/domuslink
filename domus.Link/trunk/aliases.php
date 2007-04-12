@@ -26,8 +26,9 @@ else
 	// start device list
 	echo "<table border='0' cellspacing='2' cellpadding='2' align='center' class='table_outline'>\n";
 	echo "<tr><td class='td_header' width='70'>$l_code</td>\n";
-	echo "<td class='td_header' width='300'>$l_label</td>\n";
+	echo "<td class='td_header' width='280'>$l_label</td>\n";
 	echo "<td class='td_header' width='70'>$l_module</td>\n";
+	echo "<td class='td_header' width='70'>$l_type</td>\n";
 	echo "<td class='td_header' colspan='2' width='100'>$l_actions</td></tr>\n";
 	foreach (getfile($heyuconf) as $line_num => $line) {
 		if (substr($line, 0, 5) == "ALIAS") {
@@ -36,6 +37,7 @@ else
 			echo "<tr>\n<td class='td_center'>".$code."</td>\n";
 			echo "<td>".$label."</td>\n";
 			echo "<td class='td_center'>".$module."</td>\n";
+			echo "<td class='td_center'>".$type."</td>\n";
 			echo "<td class='td_link'><a href='".$_SERVER['PHP_SELF']."?edit=$line_num'>$l_edit</a></td>\n";
 			echo "<td class='td_link'><a href='".$_SERVER['PHP_SELF']."?del=$line_num' onclick=\"return confirm('$l_delete_yn')\">$l_delete</a></td>\n</tr>\n";
 		}
