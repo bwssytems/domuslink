@@ -5,24 +5,16 @@
  */
 
 function heyustartstop ($heyuexec, $action) {
-	if ($action == "start") {
-		$cmd = $heyuexec." start 2>&1";
-	}
-	elseif ($action == "stop") {
-		$cmd = $heyuexec." stop 2>&1";
-	}
-	elseif ($action == "restart") {
-		$cmd = $heyuexec." restart 2>&1";
-	}
+	if ($action == "start") $cmd = $heyuexec." start 2>&1";
+	elseif ($action == "stop") $cmd = $heyuexec." stop 2>&1";
+	elseif ($action == "restart") $cmd = $heyuexec." restart 2>&1";
+
 	$result = null; $retval = null;
 	exec($cmd, $result, $retval);
-	//exec("sleep 2");
-	if ($result[0] == "starting heyu_relay" || $result[0] == "") {
+	if ($result[0] == "starting heyu_relay" || $result[0] == "")
 		header("Location: ".$_SERVER['PHP_SELF']);
-	}
-	else {
+	else
 		header("Location: error.php?msg=".$result[0]);
-	}
 }
 
 function chkheyustate() {
@@ -30,9 +22,9 @@ function chkheyustate() {
 	$result = null; $retval = null;
 	exec($cmd, $result, $retval);
 	if (count($result) == 2) {
-		return "running";
+		return "<font color=green>UP</font>";
 	} else {
-		return "not runinng";
+		return "<font color=red>DOWN</font>";
 	}
 }
 
