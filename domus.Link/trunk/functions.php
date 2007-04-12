@@ -22,9 +22,9 @@ function chkheyustate() {
 	$result = null; $retval = null;
 	exec($cmd, $result, $retval);
 	if (count($result) == 2) {
-		return "<font color=green>UP</font>";
+		return "<font color=green>$l_heyu_up</font>";
 	} else {
-		return "<font color=red>DOWN</font>";
+		return "<font color=red>$l_heyu_down</font>";
 	}
 }
 
@@ -87,30 +87,28 @@ function writefile($content, $filename) {
 	fclose($fp);
 }
 
-/* Add Device to device file - receives device file to add to */
-function adddevice($devicefile){
-	$devices = getfile($devicefile);
+function addalias($file){
+	$contents = getfile($file);
 
-	$newdevice = "ALIAS ".$_POST["description"]." ".$_POST["device"]." ".$_POST["type"]." # ".$_POST["unit"]."\n";
-	array_push($devices, $newdevice);
-	writefile($devices, $devicefile);
+	$newline = "ALIAS ".$_POST["label"]." ".$_POST["code"]." ".$_POST["module"]." # ".$_POST["type"]."\n";
+	array_push($contents, $newline);
+	writefile($contents, $file);
 }
 
-/* Edit Device - receives device file */
-function editdevice($devicefile) {
+function editalias($file) {
 	$line = $_POST["line"]; // line being edited
-	$editeddev = "ALIAS ".$_POST["description"]." ".$_POST["device"]." ".$_POST["type"]." # ".$_POST["unit"]."\n";
-	$devices = getfile($devicefile); // get original device file contents
+	$newline = "ALIAS ".$_POST["label"]." ".$_POST["code"]." ".$_POST["module"]." # ".$_POST["type"]."\n";
+	$contents = getfile($file);
 
-	if ($line == 0 || (count($devices) - 1) == $line) { // first or last line editing
-		array_splice($devices, $line, 1, $editeddev);
+	if ($line == 0 || (count($contents) - 1) == $line) { // first or last line editing
+		array_splice($contents, $line, 1, $newline);
 	}
 	else { // editing line in middle
-		$end = array_splice($devices, $line+1);
-		array_splice($devices, $line, 1, $editeddev);
-		$devices = array_merge($devices, $end);
+		$end = array_splice($contents, $line+1);
+		array_splice($contents, $line, 1, $newline);
+		$contents = array_merge($contents, $end);
 	}
-	writefile($devices, $devicefile);
+	writefile($contents, $file);
 }
 
 /* Delete Line - receives line and file to delete from */

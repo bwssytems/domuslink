@@ -19,23 +19,23 @@ else
 
 		// actions
 		if ($deline != "") { deleteline($deline, $heyuconf); }
-		if ($action == "add") { adddevice($heyuconf); }
-		if ($action == "save") { editdevice($heyuconf); }
+		if ($action == "add") { addalias($heyuconf); }
+		if ($action == "save") { editalias($heyuconf); }
 	}
 
 	// start device list
 	echo "<table border='0' cellspacing='2' cellpadding='2' align='center' class='table_outline'>\n";
-	echo "<tr><td class='td_header' width='70'>$l_device</td>\n";
-	echo "<td class='td_header' width='300'>$l_description</td>\n";
-	echo "<td class='td_header' width='70'>$l_type</td>\n";
+	echo "<tr><td class='td_header' width='70'>$l_code</td>\n";
+	echo "<td class='td_header' width='300'>$l_label</td>\n";
+	echo "<td class='td_header' width='70'>$l_module</td>\n";
 	echo "<td class='td_header' colspan='2' width='100'>$l_actions</td></tr>\n";
 	foreach (getfile($heyuconf) as $line_num => $line) {
 		if (substr($line, 0, 5) == "ALIAS") {
-			list($n, $desc, $code, $typecomment) = split(" ", $line, 4);
-			list($type, $comment) = split(" # ", $typecomment, 2);
+			list($alias, $label, $code, $module_type) = split(" ", $line, 4);
+			list($module, $type) = split(" # ", $module_type, 2);
 			echo "<tr>\n<td class='td_center'>".$code."</td>\n";
-			echo "<td>".$desc."</td>\n";
-			echo "<td class='td_center'>".$type."</td>\n";
+			echo "<td>".$label."</td>\n";
+			echo "<td class='td_center'>".$module."</td>\n";
 			echo "<td class='td_link'><a href='".$_SERVER['PHP_SELF']."?edit=$line_num'>$l_edit</a></td>\n";
 			echo "<td class='td_link'><a href='".$_SERVER['PHP_SELF']."?del=$line_num' onclick=\"return confirm('$l_delete_yn')\">$l_delete</a></td>\n</tr>\n";
 		}
@@ -46,38 +46,38 @@ else
 	// start add/edit device
 	if ($editline != "") { // if editline has value get values & change form header
 		echo "<h1>$l_head_aledit</h1>\n\n";
-		$devices = getfile($heyuconf);
-		list($n, $desc, $code, $typecomment) = split(" ", $devices[$editline], 4);
-		list($type, $comment) = split(" # ", $typecomment, 2);
+		$contents = getfile($heyuconf);
+		list($alias, $label, $code, $module_type) = split(" ", $contents[$editline], 4);
+		list($module, $type) = split(" # ", $module_type, 2);
 		echo "<form action='".$_SERVER['PHP_SELF']."?action=save' method='post'>";
 		echo "<input type='hidden' name='line' value='$editline' / >";
 	}
 	else { // if not, add "add" form header
 		echo "<h1>$l_head_aladd</h1>\n\n";
-		$code = null; $desc = null; $type = null; $comment = null;
+		$code = null; $label = null; $type = null; $comment = null;
 		echo "<form action='".$_SERVER['PHP_SELF']."?action=add' method='post'>";
 	}
 
 	// display text fields, empty or with values if editing
-	echo "$l_device: <input type='text' name='device' value='$code' /><br />\n";
-	echo "$l_description: <input type='text' name='description' value='$desc' /><br />\n";
-	echo "$l_type: <select name='type'>\n";
-	foreach (getfile($typefile) as $typenf) {
-		$typef = rtrim($typenf);
-		if ($type == $typef) {
-			echo "<option selected value='$typef'>$typef</option>\n";
+	echo "$l_code: <input type='text' name='code' value='$code' /><br />\n";
+	echo "$l_label: <input type='text' name='label' value='$label' /><br />\n";
+	echo "$l_module: <select name='module'>\n";
+	foreach (getfile($modulefile) as $modulenf) {
+		$modulef = rtrim($modulenf);
+		if ($module == $modulef) {
+			echo "<option selected value='$modulef'>$modulef</option>\n";
 		} else {
-			echo "<option value='$typef'>$typef</option>\n";
+			echo "<option value='$modulef'>$modulef</option>\n";
 		}
 	}
 	echo "</select><br />\n";
-	echo "Unit: <select name='unit'>\n";
-	foreach (getfile($unitfile) as $unitnf) {
-		$unit = rtrim($unitnf);
-		if (rtrim($comment) == $unit) {
-			echo "<option selected value='$unit'>$unit</option>\n";
+	echo "Type: <select name='type'>\n";
+	foreach (getfile($typefile) as $typenf) {
+		$typef = rtrim($typenf);
+		if (rtrim($type) == $typef) {
+			echo "<option selected value='$typef'>$typef</option>\n";
 		} else {
-			echo "<option value='$unit'>$unit</option>\n";
+			echo "<option value='$typef'>$typef</option>\n";
 		}
 	}
 	echo "</select><br />\n";

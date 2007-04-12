@@ -6,8 +6,8 @@ $password = "123";
 /* File locations */
 $heyuconf = "/etc/heyu/x10.conf";
 $heyuexec = "/usr/local/bin/heyu";
+$modulefile = "db/modules";
 $typefile = "db/types";
-$unitfile = "db/units";
 
 /* Default language for frontend
  * Leave blank for automatic browser setting detection

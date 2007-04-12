@@ -4,6 +4,7 @@
 	<div id="menuitem"><a href='aliases.php'><?php echo $l_menu_al ?></a></div>
 	<div id="menuitem"><a href='heyuconf.php'><?php echo $l_menu_conf ?></a></div>
 
+	<!-- start heyuctrl div -->
 	<div id="heyuctrl">
 	<b>Heyu Status:</b>
 	<?php
@@ -21,6 +22,7 @@
 	}
 	?>
 	</div>
+	<!-- end heyuctrl div -->
 </div>
 <!-- end menu div -->
 
