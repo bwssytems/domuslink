@@ -19,20 +19,21 @@ class Page {
 
 	function addHeader() {
 		$this->page .= include (INC_FILE_LOCATION.'header.inc.php');
+		$this->addMenu();
 	}
 
-	// Adds some more text to the page
+	function addMenu() {
+		$this->page .= include (INC_FILE_LOCATION.'menu.inc.php');
+	}
+
 	function addContent($content) {
+		$this->page .= "\n\n<!-- start content -->\n<div id='content'>\n";
 		$this->page .= $content;
+		$this->page .= "</div>\n<!-- end content -->\n";
 	}
 
-	// Generates the bottom of the page
 	function addFooter() {
-		$this->page .= <<<EOD
-<div align="center">&copy; $this->year $this->copyright</div>
-</body>
-</html>
-EOD;
+		$this->page .= include (INC_FILE_LOCATION.'footer.inc.php');
 	}
 
 	// Gets the contents of the page

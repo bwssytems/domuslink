@@ -47,7 +47,6 @@ $html = <<<EOD
 		</td>
 	  </tr>
 	</table>
-	<a href="http://domus.link.co.pt" target="_blank"></a>
 </div>
 <!-- end header div -->
 EOD;
