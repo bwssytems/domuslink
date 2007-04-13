@@ -9,9 +9,10 @@ require_once(CLASS_FILE_LOCATION.'heyuconf.class.php');
 $heyuconf = new HeyuConf();
 $html = new Page('Heyu Conf', $config['theme']);
 
-// Add content
+// Get heyu (x10.conf) file contents
 $content = $heyuconf->get($config['heyuconf']);
 
+// Add html body
 $html->addContent("<table border='0' cellspacing='2' cellpadding='2' align='center' class='table_outline'>\n");
 
 foreach ($content as $line_num => $line) {
