@@ -2,7 +2,7 @@
 
 $dirname = dirname(__FILE__);
 require_once($dirname.DIRECTORY_SEPARATOR.'include.php');
-require_once(CLASS_FILE_LOCATION.'Page.class.php');
+require_once(CLASS_FILE_LOCATION.'page.class.php');
 
 // Instantiate the page class $title, $year, $copyright
 $html = new Page('As Easy as it Gets', date('Y'),'Easy Systems Inc.');
