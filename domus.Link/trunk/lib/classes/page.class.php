@@ -6,13 +6,13 @@ class Page {
 	var $page;
 	var $title;
 	var $year;
-	var $copyright;
+	var $theme;
 
-	function Page($title, $year, $copyright) {
+	function Page($title, $year, $theme) {
 		$this->page = '';
 		$this->title = $title;
 		$this->year = $year;
-		$this->copyright = $copyright;
+		$this->theme = $theme;
 
 		$this->addHeader();
 	}
@@ -24,15 +24,15 @@ class Page {
 
 	function addMenu() {
 		$this->page .= include (INC_FILE_LOCATION.'menu.inc.php');
+		$this->page .= "\n\n<!-- start content -->\n<div id='content'>\n";
 	}
 
 	function addContent($content) {
-		$this->page .= "\n\n<!-- start content -->\n<div id='content'>\n";
 		$this->page .= $content;
-		$this->page .= "</div>\n<!-- end content -->\n";
 	}
 
 	function addFooter() {
+		$this->page .= "</div>\n<!-- end content -->\n";
 		$this->page .= include (INC_FILE_LOCATION.'footer.inc.php');
 	}
 

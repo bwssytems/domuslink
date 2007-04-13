@@ -4,20 +4,18 @@ $dirname = dirname(__FILE__);
 require_once($dirname.DIRECTORY_SEPARATOR.'include.php');
 require_once(CLASS_FILE_LOCATION.'page.class.php');
 
-// Instantiate the page class $title, $year, $copyright
-$html = new Page('As Easy as it Gets', date('Y'),'Easy Systems Inc.');
+// Instantiate the page class $title, $year, $copyright, $theme
+$html = new Page('As Easy as it Gets', date('Y'),$config['theme']);
 
 // Add something to the body of the page
-$html->addContent(
-<<< EOD
+$html->addContent(<<< EOD
 <p align="center">It's so easy to use!</p>\n
 <p align="center">It's so easy to use!</p>\n
 <p align="center">It's so easy to use!</p>\n
 EOD
 ); // end content
 
-$html->addContent(
-<<< EOD
+$html->addContent(<<< EOD
 <p align="center">It's so easy to use2!</p>\n
 <p align="center">It's so easy to use2!</p>\n
 <p align="center">It's so easy to use2!</p>\n
