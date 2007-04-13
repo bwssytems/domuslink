@@ -16,4 +16,7 @@ require(FUNC_FILE_LOCATION.'config.func.php');
 #Grab the current configuration
 $config =& $frontObj->GetConfig();
 
+#Load language file
+require(FUNC_FILE_LOCATION.'lang.func.php');
+
 ?>

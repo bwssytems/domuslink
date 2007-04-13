@@ -32,7 +32,7 @@ class Page {
 	}
 
 	function addFooter() {
-		$this->page .= "</div>\n<!-- end content -->\n";
+		$this->page .= "</div>\n<!-- end content -->\n\n";
 		$this->page .= include (INC_FILE_LOCATION.'footer.inc.php');
 	}
 

@@ -1,5 +1,6 @@
 <?php
 $html = <<<EOF
+
 <!-- start menu div -->
 <div id="menu">
 	<div id="menuitem"><a href="index.php">Home</a></div>

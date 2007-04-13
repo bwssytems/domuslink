@@ -30,10 +30,16 @@ this will return an array composed of a 4 item array for each language the os su
 4. primary language string, like English
 *******************************************/
 
-// choice of redirection header or just getting language data
-// to call this you only need to use the $feature parameter
-//get_languages(header);
+if ($config['lang'] != "")
+{
+	include(LANG_FILE_LOCATION.$config['lang'].'.php');
+}
+else // auto browser detection
+{
+	include(LANG_FILE_LOCATION.get_languages('header').'.php');
+}
 
+// get browser set language
 function get_languages( $feature, $spare='' )
 {
 	// get the languages
