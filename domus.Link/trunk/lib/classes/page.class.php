@@ -8,10 +8,9 @@ class Page {
 	var $year;
 	var $theme;
 
-	function Page($title, $year, $theme) {
+	function Page($title, $theme) {
 		$this->page = '';
 		$this->title = $title;
-		$this->year = $year;
 		$this->theme = $theme;
 
 		$this->addHeader();

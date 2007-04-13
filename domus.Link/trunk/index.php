@@ -4,8 +4,8 @@ $dirname = dirname(__FILE__);
 require_once($dirname.DIRECTORY_SEPARATOR.'include.php');
 require_once(CLASS_FILE_LOCATION.'page.class.php');
 
-// Instantiate the page class $title, $year, $copyright, $theme
-$html = new Page('As Easy as it Gets', date('Y'),$config['theme']);
+// Instantiate the page class $title, $theme
+$html = new Page('Main', $config['theme']);
 
 // Add something to the body of the page
 $html->addContent(<<< EOD

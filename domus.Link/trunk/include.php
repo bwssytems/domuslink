@@ -6,7 +6,6 @@ require_once($dirname.DIRECTORY_SEPARATOR.'fileloc.php');
 
 # Make new frontend object
 require_once(CLASS_FILE_LOCATION.'global.class.php');
-
 $frontObj =& new frontObject();
 
 #Load the config file
@@ -18,5 +17,8 @@ $config =& $frontObj->GetConfig();
 
 #Load language file
 require(FUNC_FILE_LOCATION.'lang.func.php');
+
+#Load misc functions
+require_once(FUNC_FILE_LOCATION.'misc.func.php');
 
 ?>
