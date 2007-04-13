@@ -31,12 +31,12 @@ $html = <<<EOD
 <div id="header">
 	<table cellspacing="0" cellpadding="0" border="0">
 	  <tr>
-		<td width="180" ><a href="http://domus.link.co.pt" target="_blank"><img src="themes/<?php echo $theme ?>/images/logo.gif" border="0" /></a></td>
+		<td width="180" ><a href="http://domus.link.co.pt" target="_blank"><img src="themes/XXX/images/logo.gif" border="0" /></a></td>
 		<td width="10">&nbsp;</td>
 		<td width="590" align="right">
 			<table cellspacing="0" cellpadding="0" border="0" height="34">
 			  <tr>
-			  	<td width="1" bgcolor="#cccccc"><img src="themes/<?php echo $theme ?>/images/1px.gif" border="0" /></td>
+			  	<td width="1" bgcolor="#cccccc"><img src="themes/XXX/images/1px.gif" border="0" /></td>
 			  	<td width="34">&nbsp;</td>
 			  	<td width="34"><a href = "javascript:history.back()">BACK</a></td>
 			  	<td width="34">&nbsp;</td>
