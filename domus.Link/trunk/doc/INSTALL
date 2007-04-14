@@ -1,0 +1,13 @@
+/*----------------------------------------------------------------------------+
+ |                                                                            |
+ |                                INSTALL                                     |
+ |                                                                            |
+ +----------------------------------------------------------------------------*/
+
+ It is assumed that you already have Heyu installed and running. If not refer
+ to heyu.org for heyu packages and install information.
+
+ 1) Unpack into web root
+ 2) chmod 777 dbs directory
+ 3) Edit config.inc.php
+ 4) Point web browser at webroot and use
