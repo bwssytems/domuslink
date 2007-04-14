@@ -1,6 +1,8 @@
 <?php
 
-function load_file($file) {
+// Load text file and returns it
+function load_file($file)
+{
 	if (is_readable($file) == true) {
 		$content = file($file);
 	}
