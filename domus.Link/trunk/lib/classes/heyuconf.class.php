@@ -5,18 +5,18 @@
 
 class heyuConf {
 
-	//var $location;
-	//var $file;
+	var $heyuconf;
+	var $filename;
 
-	function heyuConf() {
+	function heyuConf($filename) {
 		$this->heyuconf = '';
+		$this->filename = $filename;
+
+		$this->load($filename);
 	}
 
-	function get($file) {
+	function load($file) {
 		$this->heyuconf = load_file($file);
-		$content = $this->heyuconf;
-
-		return $content;
 	}
 
 	function edit() {
@@ -25,6 +25,11 @@ class heyuConf {
 
 	function save() {
 
+	}
+
+	function get() {
+		$content = $this->heyuconf;
+		return $content;
 	}
 
 }
