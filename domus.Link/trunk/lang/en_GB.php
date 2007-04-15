@@ -1,6 +1,7 @@
 <?php
 /* British language file */
 
+$l_dlurl = 'http://domus.link.co.pt';
 $l_title = 'domus.Link';
 
 $l_main = 'Main';
