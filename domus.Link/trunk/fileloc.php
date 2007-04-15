@@ -8,5 +8,6 @@ define("FUNC_FILE_LOCATION", dirname(__FILE__) . DIRECTORY_SEPARATOR . 'lib' . D
 define("CLASS_FILE_LOCATION", dirname(__FILE__) . DIRECTORY_SEPARATOR . 'lib' . DIRECTORY_SEPARATOR . 'classes' . DIRECTORY_SEPARATOR);
 define("INC_FILE_LOCATION", dirname(__FILE__) . DIRECTORY_SEPARATOR . 'lib' . DIRECTORY_SEPARATOR . 'inc' . DIRECTORY_SEPARATOR);
 
-define("THEME_FILE_LOCATION", 'themes/');
+#define("THEME_FILE_LOCATION", '/theme');
+define("THEME_FILE_LOCATION", 'theme/');
 ?>
