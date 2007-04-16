@@ -15,23 +15,14 @@ class heyuConf {
 		$this->load($filename);
 	}
 
-	function load($file) {
-		$this->heyuconf = load_file($file);
-	}
-
-	function edit() {
-
-	}
-
-	function save() {
-
+	function load($filename) {
+		$this->heyuconf = load_file($filename);
 	}
 
 	function get() {
 		$content = $this->heyuconf;
 		return $content;
 	}
-
 }
 
 ?>

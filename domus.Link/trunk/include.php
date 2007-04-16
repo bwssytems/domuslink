@@ -18,7 +18,8 @@ $config =& $frontObj->GetConfig();
 #Load language file
 require(FUNC_FILE_LOCATION.'lang.func.php');
 
-#Load misc functions
+#Load functions
+require_once(FUNC_FILE_LOCATION.'file.func.php');
 require_once(FUNC_FILE_LOCATION.'misc.func.php');
 
 ?>
