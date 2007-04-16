@@ -6,7 +6,7 @@ $html = <<<EOF
 	<div id="menuitem"><a href="index.php">Home</a></div>
 	<div id="menuitem"><a href="aliases.php">Aliases</a></div>
 	<div id="menuitem"><a href="heyuconf.php">Heyu Setup</a></div>
-	<div id="menuitem"><a href="admin.php">Admin</a></div>
+	<div id="menuitem"><a href="admin/frontend.php">Admin</a></div>
 
 	<!-- start heyuctrl div -->
 	<div id="heyuctrl">
