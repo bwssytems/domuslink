@@ -30,13 +30,19 @@ this will return an array composed of a 4 item array for each language the os su
 4. primary language string, like English
 *******************************************/
 
-if ($config['lang'] != "")
-{
-	include(LANG_FILE_LOCATION.$config['lang'].'.php');
-}
-else // auto browser detection
-{
-	include(LANG_FILE_LOCATION.get_languages('header').'.php');
+function lang_load($cfglang) {
+	$lang = array();
+
+	if ($cfglang != "")
+	{
+		include_once(LANG_FILE_LOCATION.$cfglang.'.php');
+	}
+	else // auto browser detection
+	{
+		include_once(LANG_FILE_LOCATION.get_languages('header').'.php');
+	}
+
+	return $lang;
 }
 
 // get browser set language

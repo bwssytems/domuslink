@@ -23,9 +23,12 @@ class frontObject {
 
 	function & GetLanguageFile($cfglang)
 	{
-		if(!$cfglang) {
-			//detect browser language
+		if (!isset($this->lang))
+		{
+			$langinstance = lang_load($cfglang);
+			$this->lang = &$langinstance;
 		}
-		$this->lang;
+
+		return $this->lang;
 	}
 }

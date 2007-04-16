@@ -29,9 +29,11 @@ function config_text($config)
 \$config['heyuconf'] = '{$config['heyuconf']}';
 \$config['heyuexec'] = '{$config['heyuexec']}';
 
-# Configuration Options
+# Frontend password
 \$config['password'] = '{$config['password']}';
+# Language (available options en_GB and pt_PT)
 \$config['lang'] = '{$config['lang']}';
+# Theme
 \$config['theme'] = '{$config['theme']}';
 EOF;
 

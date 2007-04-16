@@ -7,8 +7,10 @@
 $config['heyuconf'] = '/etc/heyu/x10.conf';
 $config['heyuexec'] = '/usr/local/bin/heyu';
 
-# Configuration Options
+# Frontend password
 $config['password'] = '123';
+# Language (available options en_GB and pt_PT)
 $config['lang'] = '';
+# Theme
 $config['theme'] = 'default';
 ?>
