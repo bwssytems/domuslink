@@ -8,6 +8,7 @@ class frontObject {
 
 	// Config object containing variable from config.php
 	var $config;
+	var $lang;
 
 	function & GetConfig()
 	{
@@ -18,5 +19,13 @@ class frontObject {
 		}
 
 		return $this->config;
+	}
+
+	function & GetLanguageFile($cfglang)
+	{
+		if(!$cfglang) {
+			//detect browser language
+		}
+		$this->lang;
 	}
 }
