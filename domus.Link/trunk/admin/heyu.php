@@ -1,7 +1,7 @@
 <?php
 
 $dirname = dirname(__FILE__);
-require_once($dirname.DIRECTORY_SEPARATOR.'include.php');
+require_once('..'.DIRECTORY_SEPARATOR.'include.php');
 require_once(CLASS_FILE_LOCATION.'page.class.php');
 require_once(CLASS_FILE_LOCATION.'heyuconf.class.php');
 
