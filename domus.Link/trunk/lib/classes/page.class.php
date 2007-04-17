@@ -5,12 +5,13 @@
 class Page {
 	var $page;
 	var $title;
-	var $year;
+	var $urlpath;
 	var $theme;
 
-	function Page($title, $theme) {
+	function Page($title, $urlpath, $theme) {
 		$this->page = '';
 		$this->title = $title;
+		$this->urlpath = $urlpath;
 		$this->theme = $theme;
 
 		$this->addHeader();

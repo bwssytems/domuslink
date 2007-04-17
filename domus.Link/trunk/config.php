@@ -13,4 +13,6 @@ $config['password'] = '123';
 $config['lang'] = '';
 # Theme
 $config['theme'] = 'default';
+# Url Path
+$config['url_path'] = '/domus.Link';
 ?>

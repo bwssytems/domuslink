@@ -5,7 +5,7 @@ require_once('..'.DIRECTORY_SEPARATOR.'include.php');
 require_once(CLASS_FILE_LOCATION.'page.class.php');
 
 // Instantiate the page class $title, $theme
-$html = new Page('Admin', $config['theme']);
+$html = new Page('Admin', $config['url_path'], $config['theme']);
 
 // Add something to the body of the page
 $html->addContent("
@@ -23,6 +23,7 @@ else {
 
 $html->addContent("
 theme: <input type='text' name='theme' value=".$config['theme']." /><br />\n
+url_path: <input type='text' name='theme' value=".$config['url_path']." /><br />\n
 <input type='submit' value='Save Changes' class='formbtn' />
 </form>");
 
@@ -35,6 +36,7 @@ if ($_GET["action"] == "save") {
 	$newconfig['password'] = $_POST["password"];
 	$newconfig['lang'] = $_POST["lang"];
 	$newconfig['theme'] = $_POST["theme"];
+	$newconfig['url_path'] = $_POST["url_path"];
 
 	$configfile = CONFIG_FILE_LOCATION;
 	## build the content for config file

@@ -7,7 +7,7 @@ require_once(CLASS_FILE_LOCATION.'heyuconf.class.php');
 
 // Instantiate classes
 $heyuconf = new HeyuConf($config['heyuconf']);
-$html = new Page('Heyu Conf', $config['theme']);
+$html = new Page('Heyu Conf', $config['url_path'], $config['theme']);
 
 // Get heyu (x10.conf) file contents
 $content = $heyuconf->get();

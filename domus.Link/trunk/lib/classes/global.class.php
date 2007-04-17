@@ -21,11 +21,11 @@ class frontObject {
 		return $this->config;
 	}
 
-	function & GetLanguageFile($cfglang)
+	function & GetLanguageFile()
 	{
 		if (!isset($this->lang))
 		{
-			$langinstance = lang_load($cfglang);
+			$langinstance = lang_load($this->config['lang']);
 			$this->lang = &$langinstance;
 		}
 

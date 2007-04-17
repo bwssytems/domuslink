@@ -3,10 +3,10 @@ $html = <<<EOF
 
 <!-- start menu div -->
 <div id="menu">
-	<div id="menuitem"><a href="index.php">Home</a></div>
-	<div id="menuitem"><a href="aliases.php">Aliases</a></div>
-	<div id="menuitem"><a href="heyuconf.php">Heyu Setup</a></div>
-	<div id="menuitem"><a href="admin/frontend.php">Admin</a></div>
+	<div id="menuitem"><a href="$this->urlpath/index.php">Home</a></div>
+	<div id="menuitem"><a href="$this->urlpath/aliases.php">Aliases</a></div>
+	<div id="menuitem"><a href="$this->urlpath/heyuconf.php">Heyu Setup</a></div>
+	<div id="menuitem"><a href="$this->urlpath/admin/frontend.php">Admin</a></div>
 
 	<!-- start heyuctrl div -->
 	<div id="heyuctrl">

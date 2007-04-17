@@ -9,6 +9,7 @@ function config_load()
 	$config["password"] = "123";
 	$config["lang"] = "";
 	$config["theme"] = "default";
+	$config["url_path"] = "/";
 
 	if (file_exists(CONFIG_FILE_LOCATION))
 	{
@@ -35,6 +36,8 @@ function config_text($config)
 \$config['lang'] = '{$config['lang']}';
 # Theme
 \$config['theme'] = '{$config['theme']}';
+# Url Path
+\$config['url_path'] = '{$config['url_path']}';
 EOF;
 
 	return $result;

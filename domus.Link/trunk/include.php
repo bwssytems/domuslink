@@ -22,6 +22,6 @@ require_once(FUNC_FILE_LOCATION.'misc.func.php');
 $config =& $frontObj->GetConfig();
 
 #Load language file
-$lang =& $frontObj->GetLanguageFile($config['lang']);
+$lang =& $frontObj->GetLanguageFile();
 
 ?>

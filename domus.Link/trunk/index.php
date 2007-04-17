@@ -5,7 +5,7 @@ require_once($dirname.DIRECTORY_SEPARATOR.'include.php');
 require_once(CLASS_FILE_LOCATION.'page.class.php');
 
 // Instantiate the page class $title, $theme
-$html = new Page('Main', $config['theme']);
+$html = new Page('Main', $config['url_path'], $config['theme']);
 
 $html->addContent("test".$lang['title']);
 
