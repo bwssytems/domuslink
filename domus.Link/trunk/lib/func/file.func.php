@@ -12,7 +12,8 @@ function load_file($file)
 	return $content;
 }
 
-function save_file($content, $filename) {
+function save_file($content, $filename)
+{
 	$fp = fopen($filename,'w');
 
 	if (is_writable($filename) == true) {
@@ -26,6 +27,35 @@ function save_file($content, $filename) {
 		die();
 	}
 	fclose($fp);
+}
+
+function add_alias($content, $file)
+{
+	$newline = "ALIAS ".$_POST["label"]." ".$_POST["code"]." ".$_POST["module"]." # ".$_POST["type"]."\n";
+	array_push($content, $newline);
+	save_file($content, $file);
+}
+
+function edit_alias($content, $file)
+{
+	$line = $_POST["line"]; // line being edited
+	$newline = "ALIAS ".$_POST["label"]." ".$_POST["code"]." ".$_POST["module"]." # ".$_POST["type"]."\n";
+
+	if ($line == 0 || (count($content) - 1) == $line) { // first or last line editing
+		array_splice($content, $line, 1, $newline);
+	}
+	else { // editing line in middle
+		$end = array_splice($content, $line+1);
+		array_splice($content, $line, 1, $newline);
+		$content = array_merge($content, $end);
+	}
+	save_file($content, $file);
+}
+
+function delete_line($content, $file, $line)
+{
+	array_splice($content, $line, 1);
+	save_file($content, $file);
 }
 
 ?>

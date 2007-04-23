@@ -32,7 +32,7 @@ if (!isset($_GET["action"])) {
 				"<td class='td_center'>".$module."</td>\n" .
 				"<td class='td_center'>".$type."</td>\n" .
 				"<td class='td_link'><a href='".$_SERVER['PHP_SELF']."?edit=$line_num'>EDIT</a></td>\n" .
-				"<td class='td_link'><a href='".$_SERVER['PHP_SELF']."?del=$line_num' onclick=\"return confirm('ARE YOU SURE?')\">DELETE</a></td>\n</tr>\n");
+				"<td class='td_link'><a href='".$_SERVER['PHP_SELF']."?action=del&line=$line_num' onclick=\"return confirm('ARE YOU SURE?')\">DELETE</a></td>\n</tr>\n");
 		}
 	}
 	$html->addContent("</table>");
@@ -65,7 +65,7 @@ if (!isset($_GET["action"])) {
 		}
 	}
 	$html->addContent("</select><br />\n");
-	$html->addContent("Type: <select name='type'>\n");
+	$html->addContent("TYPE: <select name='type'>\n");
 	foreach (load_file(TYPE_FILE_LOCATION) as $typenf) {
 		$typef = rtrim($typenf);
 		if (rtrim($type) == $typef) {
@@ -88,10 +88,13 @@ if (!isset($_GET["action"])) {
 }
 else {
 	if ($_GET["action"] == "add") {
-
+		add_alias($content, $config['heyuconf']);
 	}
 	elseif ($_GET["action"] == "save") {
-
+		edit_alias($content, $config['heyuconf']);
+	}
+	elseif ($_GET["action"] == "del") {
+		delete_line($content, $config['heyuconf'], $_GET["line"]);
 	}
 }
 

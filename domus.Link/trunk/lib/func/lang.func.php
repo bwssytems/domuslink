@@ -30,6 +30,7 @@ this will return an array composed of a 4 item array for each language the os su
 4. primary language string, like English
 *******************************************/
 
+// Added by Istvan Cebrian
 function lang_load($cfglang) {
 	$lang = array();
 
@@ -44,6 +45,7 @@ function lang_load($cfglang) {
 
 	return $lang;
 }
+// End addition
 
 // get browser set language
 function get_languages( $feature, $spare='' )
