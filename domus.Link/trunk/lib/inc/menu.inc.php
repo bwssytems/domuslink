@@ -4,7 +4,7 @@ $html = <<<EOF
 <!-- start menu div -->
 <div id="menu">
 	<div id="menuitem"><a href="$this->urlpath/index.php">Home</a></div>
-	<div id="menuitem"><a href="$this->urlpath/aliases.php">Aliases</a></div>
+	<div id="menuitem"><a href="$this->urlpath/admin/aliases.php">Aliases</a></div>
 	<div id="menuitem"><a href="$this->urlpath/admin/heyu.php">Heyu Setup</a></div>
 	<div id="menuitem"><a href="$this->urlpath/admin/frontend.php">Admin</a></div>
 
