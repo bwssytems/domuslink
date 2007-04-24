@@ -14,15 +14,17 @@ function heyu_ctrl($heyuexec, $action)
 		header("Location: error.php?msg=".$result[0]);
 }
 
-function heyu_state_check()
+function heyu_state_check($bin)
 {
 	$cmd = "ps x | grep [h]eyu_";
 	$result = null; $retval = null;
 	exec($cmd, $result, $retval);
 	if (count($result) == 2) {
-		return "<font color=green>UP</font>";
+		if (!$bin) return "<font color=green>UP</font>";
+		else return 1;
 	} else {
-		return "<font color=red>DOWN</font>";
+		if (!$bin) return "<font color=red>DOWN</font>";
+		else return 0;
 	}
 }
 

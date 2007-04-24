@@ -7,9 +7,8 @@ require_once(CLASS_FILE_LOCATION.'page.class.php');
 // Instantiate the page class $title, $theme
 $html = new Page('Admin', $config, $lang);
 
-// Add something to the body of the page
-$html->addContent("
-<form action='".$_SERVER['PHP_SELF']."?action=save' method='post'>
+$html->addContent("<h1>Frontend Administration</h1>\n\n");
+$html->addContent("<form action='".$_SERVER['PHP_SELF']."?action=save' method='post'>
 heyuconf: <input type='text' name='heyuconf' value=".$config['heyuconf']." /><br />\n
 heyuexec: <input type='text' name='heyuexec' value=".$config['heyuexec']." /><br />\n
 pass: <input type='text' name='password' value=".$config['password']." /><br />\n");
@@ -24,11 +23,11 @@ else {
 $html->addContent("
 theme: <input type='text' name='theme' value=".$config['theme']." /><br />\n
 url_path: <input type='text' name='theme' value=".$config['url_path']." /><br />\n
-<input type='submit' value='Save Changes' class='formbtn' />
+<input type='submit' value='Save Changes' />
 </form>");
 
 $html->addContent("<form action='".$_SERVER['PHP_SELF']."' method='post'>\n" .
-	"<input type='submit' value='Cancel' class='formbtn' /></form>\n");
+	"<input type='submit' value='Cancel' /></form>\n");
 
 if ($_GET["action"] == "save") {
 	$newconfig['heyuconf'] = $_POST["heyuconf"];

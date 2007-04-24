@@ -24,7 +24,7 @@ class Page {
 
 	function addMenu() {
 		$this->page .= include(INC_FILE_LOCATION.'menu.inc.php');
-		$this->page .= include(INC_FILE_LOCATION.'heyuctrl.inc.php');
+		//$this->page .= include(INC_FILE_LOCATION.'heyuctrl.inc.php');
 		$this->page .= "\n\n<!-- start content -->\n<div id='content'>\n";
 	}
 

@@ -13,7 +13,8 @@ $html = new Page('Heyu Conf', $config, $lang);
 $content = $heyuconf->get();
 
 // Add html body
-$html->addContent("<table border='0' cellspacing='2' cellpadding='2' align='center' class='table_outline'>\n");
+$html->addContent("<h1>Heyu Configuration</h1>\n\n");
+$html->addContent("<table border='0' cellspacing='2' cellpadding='2' align='center'>\n");
 
 if (!isset($_GET["action"])) {
 	foreach ($content as $line_num => $line) {
@@ -23,7 +24,7 @@ if (!isset($_GET["action"])) {
 			$value = rtrim($valuenf, "\n");
 			$html->addContent("<tr>\n");
 			$directive = str_replace("_", " ", $directivenf); //removes "_"
-			$html->addContent("<td width='200' class='td_right'><b>".$directive." :&nbsp;</b></td>\n" .
+			$html->addContent("<td width='200'><b>".$directive." :&nbsp;</b></td>\n" .
 					"<td width='100'>".$value."</td>\n" .
 					"</tr>\n");
 		}
@@ -31,14 +32,14 @@ if (!isset($_GET["action"])) {
 
 	$html->addContent("<tr><td colspan='3'>\n" .
 		"<form action='".$_SERVER['PHP_SELF']."?action=edit' method='post'>\n" .
-		"<input type='submit' value='Edit' class='formbtn' /></form>\n" .
+		"<input type='submit' value='Edit' /></form>\n" .
 		"</td></tr>\n" .
 		"</table>\n");
 }
 else {
 	if ($_GET["action"] == "edit") {
 		$html->addContent("<form action='".$_SERVER['PHP_SELF']."?action=save' method='post'>");
-		$html->addContent("<table border='0' cellspacing='2' cellpadding='2' align='center' class='table_outline'>\n");
+		$html->addContent("<table border='0' cellspacing='2' cellpadding='2' align='center'>\n");
 
 		$act = 0; $sct = 0; $usct = 0; // alias, scene and usersyn counts for posts
 
@@ -60,7 +61,7 @@ else {
 				$usct++;
 			}
 			else {
-				$html->addContent("<tr>\n<td width='200' class='td_right'><b>".$directive." :&nbsp;</b></td>\n");
+				$html->addContent("<tr>\n<td width='200'><b>".$directive." :&nbsp;</b></td>\n");
 
 				switch ($directivenf) {
 					case "SCRIPT_MODE":
@@ -113,9 +114,9 @@ else {
 			} // end else
 		} // end foreach loop
 
-		$html->addContent("<tr><td><input type='submit' value='Save Changes' class='formbtn' /></form></td>\n" .
+		$html->addContent("<tr><td><input type='submit' value='Save Changes' /></form></td>\n" .
 				"<td><form action='".$_SERVER['PHP_SELF']."' method='post'>\n" .
-				"<input type='submit' value='Cancel' class='formbtn' /></form></td>\n" .
+				"<input type='submit' value='Cancel' /></form></td>\n" .
 				"</tr></table>\n");
 	} // end if edit
 	elseif ($_GET["action"] == "save") {

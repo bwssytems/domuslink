@@ -6,12 +6,9 @@ $html = <<<EOD
 </div>
 <!-- end footer div -->
 
-</div>
-<!-- end pagewrapper div -->
-
 </body>
 </html>
-<!-- domus.Link - By: Istvan Cebrian - http://domus.link.co.pt -->
+<!-- domus.Link - By: Istvan Cebrian - http://icebrian.net/domuslink -->
 EOD;
 
 return $html;

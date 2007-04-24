@@ -7,17 +7,7 @@ require_once(CLASS_FILE_LOCATION.'page.class.php');
 // Instantiate the page pass config and lang values
 $html = new Page('Main', $config, $lang);
 
-$html->addContent("test".$lang['title']);
-
-// Add something to the body of the page
-$html->addContent("<p align='center'>It's so easy to use!</p>\n" .
-		"<p align=center>It's so easy to use!</p>\n" .
-		"<p align=center>It's so easy to use!</p>\n"); // end content
-
-$html->addContent("<p align=center>It's so easy to use2!</p>\n" .
-		"<p align=center>It's so easy to use2!</p>\n" .
-		"<p align=center>It's so easy to use2!</p>\n"); // end content
-
+$html->addContent("test".$_SERVER['REQUEST_URI']);
 
 // Display the page
 echo $html->get();

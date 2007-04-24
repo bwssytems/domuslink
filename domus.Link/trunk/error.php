@@ -5,7 +5,7 @@ require_once($dirname.DIRECTORY_SEPARATOR.'include.php');
 require_once(CLASS_FILE_LOCATION.'page.class.php');
 
 // Instantiate the page pass config and lang values
-$html = new Page('Main', $config, $lang);
+$html = new Page('Error', $config, $lang);
 
 $html->addContent("<h1>Error</h1>");
 $html->addContent("<div id='centered'>");

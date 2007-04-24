@@ -12,13 +12,14 @@ $html = new Page('Aliases', $config, $lang);
 // Get heyu (x10.conf) file contents
 $content = $heyuconf->get();
 
+$html->addContent("<h1>ALIASES</h1>\n\n");
 // Table start
-$html->addContent("<table border='0' cellspacing='2' cellpadding='2' align='center' class='table_outline'>\n" .
-	"<tr><td class='td_header' width='70'>CODE</td>\n" .
-	"<td class='td_header' width='280'>LABEL</td>\n" .
-	"<td class='td_header' width='70'>MODULE</td>\n" .
-	"<td class='td_header' width='70'>TYPE</td>\n" .
-	"<td class='td_header' colspan='2' width='100'>ACTIONS</td></tr>\n");
+$html->addContent("<table border='1' cellspacing='2' cellpadding='2' align='center'>\n" .
+	"<tr><td width='70'>CODE</td>\n" .
+	"<td width='280'>LABEL</td>\n" .
+	"<td width='70'>MODULE</td>\n" .
+	"<td width='70'>TYPE</td>\n" .
+	"<td colspan='2' width='100'>ACTIONS</td></tr>\n");
 
 if (!isset($_GET["action"])) {
 
@@ -27,12 +28,12 @@ if (!isset($_GET["action"])) {
 		if (substr($line, 0, 5) == "ALIAS") {
 			list($alias, $label, $code, $module_type) = split(" ", $line, 4);
 			list($module, $type) = split(" # ", $module_type, 2);
-			$html->addContent("<tr>\n<td class='td_center'>".$code."</td>\n" .
+			$html->addContent("<tr>\n<td>".$code."</td>\n" .
 				"<td>".$label."</td>\n" .
-				"<td class='td_center'>".$module."</td>\n" .
-				"<td class='td_center'>".$type."</td>\n" .
-				"<td class='td_link'><a href='".$_SERVER['PHP_SELF']."?edit=$line_num'>EDIT</a></td>\n" .
-				"<td class='td_link'><a href='".$_SERVER['PHP_SELF']."?action=del&line=$line_num' onclick=\"return confirm('ARE YOU SURE?')\">DELETE</a></td>\n</tr>\n");
+				"<td>".$module."</td>\n" .
+				"<td>".$type."</td>\n" .
+				"<td><a href='".$_SERVER['PHP_SELF']."?edit=$line_num'>EDIT</a></td>\n" .
+				"<td><a href='".$_SERVER['PHP_SELF']."?action=del&line=$line_num' onclick=\"return confirm('ARE YOU SURE?')\">DELETE</a></td>\n</tr>\n");
 		}
 	}
 	$html->addContent("</table>");

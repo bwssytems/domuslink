@@ -12,7 +12,7 @@ $config['password'] = '123';
 # Language (available options en_GB and pt_PT)
 $config['lang'] = '';
 # Theme
-$config['theme'] = 'default';
+$config['theme'] = 'new';
 # Url Path
 $config['url_path'] = '/domus.Link';
 ?>

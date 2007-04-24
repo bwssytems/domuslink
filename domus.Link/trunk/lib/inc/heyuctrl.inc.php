@@ -6,20 +6,22 @@ $html = <<<EOF
 	<b>Heyu Status:</b>
 EOF;
 
-$html .= heyu_state_check();
+$html .= heyu_state_check(false);
 
-$heyuexec = $this->config['heyuexec'];
+$html .= "<br><b>Heyu Control</b><br>";
 
-$html .= "<br><b>Heyu Control</b><br>
-<a href=".$_SERVER['PHP_SELF']."?daemon=start>".$this->lang['start']."</a>
-| <a href=".$_SERVER['PHP_SELF']."?daemon=reload>RELOAD</a>
-| <a href=".$_SERVER['PHP_SELF']."?daemon=stop>STOP</a>";
+if (heyu_state_check(true) == 1)
+	$html .= $this->lang['start']."
+	| <a href=".$_SERVER['PHP_SELF']."?daemon=reload>RELOAD</a>
+	| <a href=".$_SERVER['PHP_SELF']."?daemon=stop>STOP</a>";
+else
+	$html .= "<a href=".$_SERVER['PHP_SELF']."?daemon=start>".$this->lang['start']."</a> | RELOAD | STOP";
 
 if (isset($_GET["daemon"])) {
 	$daemon = $_GET["daemon"];
-	if ($daemon == "start") heyu_ctrl($heyuexec, start);
-	elseif ($daemon == "stop") heyu_ctrl($heyuexec, stop);
-	elseif ($daemon == "reload") heyu_ctrl($heyuexec, restart);
+	if ($daemon == "start") heyu_ctrl($this->config['heyuexec'], start);
+	elseif ($daemon == "stop") heyu_ctrl($this->config['heyuexec'], stop);
+	elseif ($daemon == "reload") heyu_ctrl($this->config['heyuexec'], restart);
 }
 
 $html .= <<<EOF
