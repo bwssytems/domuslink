@@ -8,22 +8,23 @@ class Page {
 	var $urlpath;
 	var $theme;
 
-	function Page($title, $urlpath, $theme) {
+	function Page($title, $config, $lang) {
 		$this->page = '';
 		$this->title = $title;
-		$this->urlpath = $urlpath;
-		$this->theme = $theme;
+		$this->config = $config;
+		$this->lang = $lang;
 
 		$this->addHeader();
 	}
 
 	function addHeader() {
-		$this->page .= include (INC_FILE_LOCATION.'header.inc.php');
+		$this->page .= include(INC_FILE_LOCATION.'header.inc.php');
 		$this->addMenu();
 	}
 
 	function addMenu() {
-		$this->page .= include (INC_FILE_LOCATION.'menu.inc.php');
+		$this->page .= include(INC_FILE_LOCATION.'menu.inc.php');
+		$this->page .= include(INC_FILE_LOCATION.'heyuctrl.inc.php');
 		$this->page .= "\n\n<!-- start content -->\n<div id='content'>\n";
 	}
 
@@ -33,7 +34,7 @@ class Page {
 
 	function addFooter() {
 		$this->page .= "</div>\n<!-- end content -->\n\n";
-		$this->page .= include (INC_FILE_LOCATION.'footer.inc.php');
+		$this->page .= include(INC_FILE_LOCATION.'footer.inc.php');
 	}
 
 	// Gets the contents of the page

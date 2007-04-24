@@ -6,6 +6,7 @@
 
 $lang['dlurl'] = 'http://icebrian.net/domuslink';
 $lang['title'] = 'domus.Link EN';
+$lang['start'] = 'start';
 
 /* British language file */
 /*

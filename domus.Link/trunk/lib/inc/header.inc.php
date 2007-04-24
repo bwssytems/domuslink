@@ -1,5 +1,7 @@
 <?php
+$urlpath = $this->config['url_path'];
 $themeloc = THEME_FILE_LOCATION;
+$theme = $this->config['theme'];
 
 $html = <<<EOD
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -9,7 +11,7 @@ $html = <<<EOD
 
 <head>
 	<title>$this->title</title>
-	<link rel="stylesheet" type="text/css" media="screen" href="$this->urlpath/$themeloc/$this->theme/$this->theme.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="$urlpath/$themeloc/$theme/$theme.css" />
 
 	<SCRIPT LANGUAGE="JavaScript">
 	<!--
@@ -33,12 +35,12 @@ $html = <<<EOD
 <div id="header">
 	<table cellspacing="0" cellpadding="0" border="0">
 	  <tr>
-		<td width="180" ><a href="http://domus.link.co.pt" target="_blank"><img src="$this->urlpath/$themeloc/$this->theme/images/logo.gif" border="0" /></a></td>
+		<td width="180" ><a href="http://domus.link.co.pt" target="_blank"><img src="$urlpath/$themeloc/$theme/images/logo.gif" border="0" /></a></td>
 		<td width="10">&nbsp;</td>
 		<td width="590" align="right">
 			<table cellspacing="0" cellpadding="0" border="0" height="34">
 			  <tr>
-			  	<td width="1" bgcolor="#cccccc"><img src="$this->urlpath/$themeloc/$this->theme/images/1px.gif" border="0" /></td>
+			  	<td width="1" bgcolor="#cccccc"><img src="$urlpath/$themeloc/$theme/images/1px.gif" border="0" /></td>
 			  	<td width="34">&nbsp;</td>
 			  	<td width="34"><a href = "javascript:history.back()">BACK</a></td>
 			  	<td width="34">&nbsp;</td>

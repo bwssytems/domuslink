@@ -17,9 +17,11 @@ require(FUNC_FILE_LOCATION.'config.func.php');
 require_once(FUNC_FILE_LOCATION.'lang.func.php');
 require_once(FUNC_FILE_LOCATION.'file.func.php');
 require_once(FUNC_FILE_LOCATION.'misc.func.php');
+require_once(FUNC_FILE_LOCATION.'cmd.func.php');
 
 #Grab the current configuration
 $config =& $frontObj->GetConfig();
+setcookie("heyuexec", $config['heyuexec'], 0);
 
 #Load language file
 $lang =& $frontObj->GetLanguageFile();

@@ -10,3 +10,8 @@
 
   Edit you php.ini file (usually located within apache configuration dir)
   locate output_buffering and make sure it is set to "on".
+
+  2) HEYU: Can't open TTY line. check permissions!
+
+  Question: Have you updated your kernel recently? If so, remove Heyu
+  and rebuild with new kernel.
