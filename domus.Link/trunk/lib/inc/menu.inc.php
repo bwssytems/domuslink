@@ -13,10 +13,17 @@ $html = <<<EOF
 	<div id="menuitem"><a href="$urlpath/admin/setup.php">Setup</a></div>
 </div>
 <!-- end menu div -->
-
+<div id="black_sep"></div>
 <!-- start submenu div -->
 <div id="submenu">
 EOF;
+
+if (substr($_SERVER['REQUEST_URI'], -9, 9) == "index.php") {
+	$html .= "<p>Texto explaining area</p>";
+}
+if (substr($_SERVER['REQUEST_URI'], -8, 8) == "heyu.php") {
+	$html .= "<p>This is where you can configure Heyu.</p>";
+}
 
 if (substr(strstr($_SERVER['REQUEST_URI'], "admin"), 0, 5) == "admin") {
 	$html .= <<<EOF
@@ -29,7 +36,6 @@ EOF;
 $html .=<<<EOF
 </div>
 <!-- end submenu div -->
-<div id="submenu_spacer"></div>
 EOF;
 
 return $html;
