@@ -8,7 +8,7 @@ require_once(CLASS_FILE_LOCATION.'page.class.php');
 $html = new Page('Main', $config, $lang);
 
 
-//substr_count($config['url_path'], '/' );
+//substr_count($config['url_path'], '/');
 //list($directivenf, $valuenf) = split(" ", $line, 2);
 //$newstring =strstr ($string, "That");
 $newstring =strstr($_SERVER['REQUEST_URI'], "admin");
