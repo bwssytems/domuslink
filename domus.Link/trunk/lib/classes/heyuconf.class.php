@@ -12,7 +12,6 @@ class heyuConf {
 	{
 		$this->heyuconf = '';
 		$this->filename = $filename;
-		$this->alias = '';
 	}
 
 	function load()
@@ -20,25 +19,53 @@ class heyuConf {
 		$this->heyuconf = load_file($this->filename);
 	}
 
-	function get_aliases()
+	function get()
 	{
-		$this->load();
+		$content = $this->heyuconf;
+		return $content;
+	}
+
+	function get_aliases($req_type)
+	{
 		$i = 0;
 		foreach ($this->heyuconf as $line)
 		{
 			if (substr($line, 0, 5) == "ALIAS")
 			{
-				$array[$i] = $line;
+				$aliases[$i] = $line;
 				$i++;
 			}
 		}
-		return $array;
-	}
+		$i = 0;
+		foreach ($aliases as $line)
+		{
+			list($alias, $label, $code, $module_type) = split(" ", $line, 4);
+			list($module, $typenf) = split(" # ", $module_type, 2);
+			$type = rtrim($typenf);
 
-	function get()
-	{
-		$content = $this->heyuconf;
-		return $content;
+			if ($req_type == "Lights" && $type == "Light")
+			{
+				$array[$i] = $line;
+				$i++;
+			}
+			elseif ($req_type == "Appliances" && $type == "Appliance")
+			{
+				$array[$i] = $line;
+				$i++;
+			}
+			elseif ($req_type == "Irrigation" && $type == "Irrigation")
+			{
+				$array[$i] = $line;
+				$i++;
+			}
+			elseif ($req_type == "HVAC" && $type == "HVAC")
+			{
+				$array[$i] = $line;
+				$i++;
+			}
+
+		}
+		return $array;
 	}
 }
 
