@@ -10,16 +10,20 @@ $heyuconf = new HeyuConf($config['heyuconf']);
 $html = new Page('Heyu Conf', $config, $lang);
 
 // Get heyu (x10.conf) file contents
+$heyuconf->load();
 $content = $heyuconf->get();
 
 // Add html body
 $html->addContent("<h1>Heyu Configuration</h1>\n\n");
 $html->addContent("<table border='0' cellspacing='2' cellpadding='2' align='center'>\n");
 
-if (!isset($_GET["action"])) {
-	foreach ($content as $line_num => $line) {
+if (!isset($_GET["action"]))
+{
+	foreach ($content as $line_num => $line)
+	{
 		if (substr($line, 0, 1) != "#" && $line != "\n" && substr($line, 0, 5) != "ALIAS" &&
-		substr($line, 0, 5) != "SCENE" && substr($line, 0, 7) != "USERSYN" && $line != " \n") {
+		substr($line, 0, 5) != "SCENE" && substr($line, 0, 7) != "USERSYN" && $line != " \n")
+		{
 			list($directivenf, $valuenf) = split(" ", $line, 2);
 			$value = rtrim($valuenf, "\n");
 			$html->addContent("<tr>\n");
@@ -36,40 +40,51 @@ if (!isset($_GET["action"])) {
 		"</td></tr>\n" .
 		"</table>\n");
 }
-else {
-	if ($_GET["action"] == "edit") {
+else
+{
+	if ($_GET["action"] == "edit")
+	{
 		$html->addContent("<form action='".$_SERVER['PHP_SELF']."?action=save' method='post'>");
 		$html->addContent("<table border='0' cellspacing='2' cellpadding='2' align='center'>\n");
 
 		$act = 0; $sct = 0; $usct = 0; // alias, scene and usersyn counts for posts
 
-		foreach ($content as $line_num => $line) {
+		foreach ($content as $line_num => $line)
+		{
 			list($directivenf, $valuenf) = split(" ", $line, 2);
 			$value = rtrim($valuenf, "\n");
 
 			$directive = str_replace("_", " ", $directivenf); //removes "_"
-			if ($directive == "ALIAS") {
+			if ($directive == "ALIAS")
+			{
 				$html->addContent("<input type='hidden' name='$directivenf$act' value='$value' />\n");
 				$act++;
 			}
-			elseif ($directive == "SCENE") {
+			elseif ($directive == "SCENE")
+			{
 				$html->addContent("<input type='hidden' name='$directivenf$sct' value='$value' />\n");
 				$sct++;
 			}
-			elseif ($directive == "USERSYN") {
+			elseif ($directive == "USERSYN")
+			{
 				$html->addContent("<input type='hidden' name='$directivenf$usct' value='$value' />\n");
 				$usct++;
 			}
-			else {
+			else
+			{
 				$html->addContent("<tr>\n<td width='200'><b>".$directive." :&nbsp;</b></td>\n");
 
-				switch ($directivenf) {
+				switch ($directivenf)
+				{
 					case "SCRIPT_MODE":
 						$html->addContent("<td><select name='$directivenf'>\n");
-						if ($value == "SCRIPTS") {
+						if ($value == "SCRIPTS")
+						{
 							$html->addContent("<option selected value='SCRIPTS'>SCRIPTS</option>\n" .
 									"<option value='HEYUHELPER'>HEYUHELPER</option>\n");
-						} else {
+						}
+						else
+						{
 							$html->addContent("<option value='SCRIPTS'>SCRIPTS</option>\n" .
 									"<option selected value='HEYUHELPER'>HEYUHELPER</option>\n");
 						}
@@ -78,10 +93,13 @@ else {
 
 					case "MODE":
 						$html->addContent("<td><select name='$directivenf'>\n");
-						if ($value == "COMPATIBLE") {
+						if ($value == "COMPATIBLE")
+						{
 							$html->addContent("<option selected value='COMPATIBLE'>COMPATIBLE</option>\n" .
 									"<option value='HEYU'>HEYU</option>\n");
-						} else {
+						}
+						else
+						{
 							$html->addContent("<option value='COMPATIBLE'>COMPATIBLE</option>\n" .
 									"<option selected value='HEYU'>HEYU</option>\n");
 						}
@@ -119,9 +137,11 @@ else {
 				"<input type='submit' value='Cancel' /></form></td>\n" .
 				"</tr></table>\n");
 	} // end if edit
-	elseif ($_GET["action"] == "save") {
+	elseif ($_GET["action"] == "save")
+	{
 		$i = 0;
-		foreach ($_POST as $key => $value) {
+		foreach ($_POST as $key => $value)
+		{
 			if (substr($key, 0, 5) == "ALIAS")
 				$newcontent[$i] = substr($key, 0, 5)." ".$value."\n";
 			elseif (substr($key, 0, 5) == "SCENE")

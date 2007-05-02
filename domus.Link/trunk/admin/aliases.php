@@ -1,6 +1,6 @@
 <?php
 
-$dirname = dirname(__FILE__);
+//$dirname = dirname(__FILE__);
 require_once('..'.DIRECTORY_SEPARATOR.'include.php');
 require_once(CLASS_FILE_LOCATION.'page.class.php');
 require_once(CLASS_FILE_LOCATION.'heyuconf.class.php');
@@ -10,22 +10,26 @@ $heyuconf = new HeyuConf($config['heyuconf']);
 $html = new Page('Aliases', $config, $lang);
 
 // Get heyu (x10.conf) file contents
+$heyuconf->load();
 $content = $heyuconf->get();
 
 $html->addContent("<h1>ALIASES</h1>\n\n");
 // Table start
-$html->addContent("<table border='1' cellspacing='2' cellpadding='2' align='center'>\n" .
+$html->addContent("<table border='0' cellspacing='2' cellpadding='2' align='center'>\n" .
 	"<tr><td width='70'>CODE</td>\n" .
 	"<td width='280'>LABEL</td>\n" .
 	"<td width='70'>MODULE</td>\n" .
 	"<td width='70'>TYPE</td>\n" .
 	"<td colspan='2' width='100'>ACTIONS</td></tr>\n");
 
-if (!isset($_GET["action"])) {
+if (!isset($_GET["action"]))
+{
 
 	// Aliases
-	foreach ($content as $line_num => $line) {
-		if (substr($line, 0, 5) == "ALIAS") {
+	foreach ($content as $line_num => $line)
+	{
+		if (substr($line, 0, 5) == "ALIAS")
+		{
 			list($alias, $label, $code, $module_type) = split(" ", $line, 4);
 			list($module, $type) = split(" # ", $module_type, 2);
 			$html->addContent("<tr>\n<td>".$code."</td>\n" .
@@ -39,7 +43,8 @@ if (!isset($_GET["action"])) {
 	$html->addContent("</table>");
 
 	// Form Headers
-	if (isset($_GET["edit"])) {
+	if (isset($_GET["edit"]))
+	{
 		$editline = $_GET["edit"];
 		$html->addContent("<h1>EDIT ALIAS</h1>\n\n");
 		list($alias, $label, $code, $module_type) = split(" ", $content[$editline], 4);
@@ -47,7 +52,8 @@ if (!isset($_GET["action"])) {
 		$html->addContent("<form action='".$_SERVER['PHP_SELF']."?action=save' method='post'>");
 		$html->addContent("<input type='hidden' name='line' value='$editline' / >");
 	}
-	else {
+	else
+	{
 		$html->addContent("<h1>ADD ALIAS</h1>\n\n");
 		$code = null; $label = null; $type = null; $comment = null;
 		$html->addContent("<form action='".$_SERVER['PHP_SELF']."?action=add' method='post'>");
@@ -57,44 +63,62 @@ if (!isset($_GET["action"])) {
 	$html->addContent("CODE: <input type='text' name='code' value='$code' /><br />\n");
 	$html->addContent("LABEL: <input type='text' name='label' value='$label' /><br />\n");
 	$html->addContent("MODULE: <select name='module'>\n");
-	foreach (load_file(MODULE_FILE_LOCATION) as $modulenf) {
+
+	// Load module types from file
+	foreach (load_file(MODULE_FILE_LOCATION) as $modulenf)
+	{
 		$modulef = rtrim($modulenf);
-		if ($module == $modulef) {
+		if ($module == $modulef)
+		{
 			$html->addContent("<option selected value='$modulef'>$modulef</option>\n");
-		} else {
+		}
+		else
+		{
 			$html->addContent("<option value='$modulef'>$modulef</option>\n");
 		}
 	}
 	$html->addContent("</select><br />\n");
 	$html->addContent("TYPE: <select name='type'>\n");
-	foreach (load_file(TYPE_FILE_LOCATION) as $typenf) {
+
+	// Load types (Appliance, Lights, etc) from file
+	foreach (load_file(TYPE_FILE_LOCATION) as $typenf)
+	{
 		$typef = rtrim($typenf);
-		if (rtrim($type) == $typef) {
+		if (rtrim($type) == $typef)
+		{
 			$html->addContent("<option selected value='$typef'>$typef</option>\n");
-		} else {
+		}
+		else
+		{
 			$html->addContent("<option value='$typef'>$typef</option>\n");
 		}
 	}
 	$html->addContent("</select><br />\n");
 
-	// Form Buttons (ADD/SAVE)
-	if (isset($_GET["edit"])) {
+	// Form Buttons (ADD/EDIT therefore SAVE)
+	if (isset($_GET["edit"]))
+	{
 		$html->addContent("<input type='submit' value='SAVE' /></form>\n");
 		$html->addContent("<form action='".$_SERVER['PHP_SELF']."' method='post'>\n");
 		$html->addContent("<input type='submit' value='CANCEL' /></form>\n");
 	}
-	else {
+	else
+	{
 		$html->addContent("<input type='submit' value='ADD' /></form>\n");
 	}
 }
-else {
-	if ($_GET["action"] == "add") {
-		add_alias($content, $config['heyuconf']);
+else
+{
+	if ($_GET["action"] == "add")
+	{
+		add_line($content, $config['heyuconf'], 'alias');
 	}
-	elseif ($_GET["action"] == "save") {
-		edit_alias($content, $config['heyuconf']);
+	elseif ($_GET["action"] == "save")
+	{
+		edit_line($content, $config['heyuconf'], 'alias');
 	}
-	elseif ($_GET["action"] == "del") {
+	elseif ($_GET["action"] == "del")
+	{
 		delete_line($content, $config['heyuconf'], $_GET["line"]);
 	}
 }
