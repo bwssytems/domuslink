@@ -58,4 +58,19 @@ function delete_line($content, $file, $line)
 	save_file($content, $file);
 }
 
+function list_dir_content($dir)
+{
+	$dn = opendir($dir);
+	$exclude = array("README", ".", "..", ".svn");
+	
+	while($fn = readdir($dn)) {
+		if ($fn == $exclude[0] || $fn == $exclude[1] || $fn == $exclude[2] || $fn == $exclude[3]) continue;
+		$directories[] = $fn;
+	}
+	
+	sort($directories);
+	closedir($dn);
+	return $directories;
+}
+
 ?>

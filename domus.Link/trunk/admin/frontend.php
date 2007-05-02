@@ -13,22 +13,49 @@ heyuconf: <input type='text' name='heyuconf' value=".$config['heyuconf']." /><br
 heyuexec: <input type='text' name='heyuexec' value=".$config['heyuexec']." /><br />\n
 pass: <input type='text' name='password' value=".$config['password']." /><br />\n");
 
-if ($config['lang'] == "") {
-	$html->addContent("lang: <input type='text' name='lang' value='' /><br />\n");
+// Language dropdown
+$files = list_dir_content(LANG_FILE_LOCATION);
+$html->addContent("lang: <select name='lang'>\n");
+$found = false;
+foreach ($files as $file) {
+	$name = substr($file, 0, -4);  // remove file extension
+	if ($name == $config['lang']) {
+		$html->addContent("<option selected value='$name'>$name</option>\n");
+		$found = true;
+	} else {
+		$html->addContent("<option value='$name'>$name</option>\n");
+	}
 }
-else {
-	$html->addContent("lang: <input type='text' name='lang' value=".$config['lang']." /><br />\n");
+if (!$found) {
+	$html->addContent("<option selected value=''>auto</option>\n");
+} else {
+	$html->addContent("<option value=''>auto</option>\n");
 }
+$html->addContent("</select><br />\n");
+// End language selection
+
+// Theme dropdown
+$subdir = list_dir_content(FULL_THEME_FILE_LOCATION);
+$html->addContent("theme: <select name='theme'>\n");
+foreach ($subdir as $dir) {
+	if ($dir == $config['theme']) {
+		$html->addContent("<option selected value='$dir'>$dir</option>\n");
+	} else {
+		$html->addContent("<option value='$dir'>$dir</option>\n");
+	}
+}
+$html->addContent("</select><br />\n");
+// End theme selection
 
 $html->addContent("
-theme: <input type='text' name='theme' value=".$config['theme']." /><br />\n
-url_path: <input type='text' name='theme' value=".$config['url_path']." /><br />\n
+url_path: <input type='text' name='url_path' value=".$config['url_path']." /><br />\n
 <input type='submit' value='Save Changes' />
 </form>");
 
 $html->addContent("<form action='".$_SERVER['PHP_SELF']."' method='post'>\n" .
 	"<input type='submit' value='Cancel' /></form>\n");
 
+// If saving values
 if ($_GET["action"] == "save") {
 	$newconfig['heyuconf'] = $_POST["heyuconf"];
 	$newconfig['heyuexec'] = $_POST["heyuexec"];
