@@ -1,14 +1,14 @@
 <?php
 
-$html = <<<EOF
+/*$html = <<<EOF
 	<!-- start heyuctrl div -->
 	<div id="heyuctrl">
 	<b>Heyu Status:</b>
-EOF;
+EOF;*/
 
 $html .= heyu_state_check(false);
 
-$html .= "<br><b>Heyu Control</b><br>";
+/*$html .= "<br><b>Heyu Control</b><br>";*/
 
 if (heyu_state_check(true) == 1)
 	$html .= $this->lang['start']."
@@ -24,13 +24,13 @@ if (isset($_GET["daemon"])) {
 	elseif ($daemon == "reload") heyu_ctrl($this->config['heyuexec'], restart);
 }
 
-$html .= <<<EOF
+/*$html .= <<<EOF
 	</div>
 	<!-- end heyuctrl div -->
 
 </div>
 <!-- end menu div -->
-EOF;
+EOF;*/
 
 return $html;
 
