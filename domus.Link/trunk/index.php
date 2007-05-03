@@ -12,51 +12,70 @@ $heyuconf = new HeyuConf($config['heyuconf']);
 ## Load x10.conf file
 $heyuconf->load();
 
-## Get aliases of type Lights
-$lights = $heyuconf->get_aliases('Lights');
-if (count($lights) > 0 )
+## Aliases  of type Lights
+if ($_GET["page"] == "lights" || !isset($_GET["page"]) || $_GET["page"] == "main")
 {
-	$html->addContent("<h1>Lights</h1>");
-	foreach ($lights as $light)
+	$lights = $heyuconf->get_aliases('Lights');
+	if (count($lights) > 0 )
 	{
-		$html->addContent("alias: $light<br>");
+		$html->addContent("<h1>Lights</h1>");
+		//$html->addContent("<table cellspacing='0' cellpadding='0' border='0'>\n");
+		foreach ($lights as $light)
+		{
+			list($code, $label) = split(" ", $light, 2);
+			$html->addContent("code: $code - label: $label<br>");
+		}
 	}
 }
 
-## Get aliases of type Appliances
-$appliances = $heyuconf->get_aliases('Appliances');
-if (count($appliances) > 0 )
+## Aliases of type Appliances
+if ($_GET["page"] == "appliances" || !isset($_GET["page"]) || $_GET["page"] == "main")
 {
-	$html->addContent("<h1>Appliances</h1>");
-	foreach ($appliances as $appliance)
+	$appliances = $heyuconf->get_aliases('Appliances');
+	if (count($appliances) > 0 )
 	{
-		$html->addContent("alias: $appliance<br>");
+		$html->addContent("<h1>Appliances</h1>");
+		foreach ($appliances as $appliance)
+		{
+			$html->addContent("alias: $appliance<br>");
+		}
 	}
 }
 
-## Get aliases of type Irrigation
-$irrigation = $heyuconf->get_aliases('Irrigation');
-if (count($irrigation) > 0 )
+## Aliases of type Irrigation
+if ($_GET["page"] == "irrigation" || !isset($_GET["page"]) || $_GET["page"] == "main")
 {
-	$html->addContent("<h1>Irrigation</h1>");
-	foreach ($irrigation as $sprinkler)
+	$irrigation = $heyuconf->get_aliases('Irrigation');
+	if (count($irrigation) > 0 )
 	{
-		$html->addContent("alias: $sprinkler<br>");
+		$html->addContent("<h1>Irrigation</h1>");
+		foreach ($irrigation as $sprinkler)
+		{
+			$html->addContent("alias: $sprinkler<br>");
+		}
 	}
 }
 
-## Get aliases of type HVAC
-$hvac = $heyuconf->get_aliases('HVAC');
-if (count($hvac) > 0 )
+## Aliases of type HVAC
+if ($_GET["page"] == "hvac" || !isset($_GET["page"]) || $_GET["page"] == "main")
 {
-	$html->addContent("<h1>HVAC</h1>");
-	foreach ($hvac as $line)
+	$hvac = $heyuconf->get_aliases('HVAC');
+	if (count($hvac) > 0 )
 	{
-		$html->addContent("alias: $line<br>");
+		$html->addContent("<h1>HVAC</h1>");
+		foreach ($hvac as $line)
+		{
+			$html->addContent("alias: $line<br>");
+		}
 	}
 }
 
 ## Display the page
 echo $html->get();
+
+function table_make()
+{
+
+}
 
 ?>

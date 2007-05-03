@@ -45,7 +45,8 @@ class heyuConf {
 
 			if ($req_type == "Lights" && $type == "Light")
 			{
-				$array[$i] = $line;
+				$array[$i] = $code." ".$label;
+				//$array[$i] = ("Code" => $code, "Label" => $label);
 				$i++;
 			}
 			elseif ($req_type == "Appliances" && $type == "Appliance")

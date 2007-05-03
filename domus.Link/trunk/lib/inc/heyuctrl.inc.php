@@ -1,21 +1,19 @@
 <?php
 
-/*$html = <<<EOF
-	<!-- start heyuctrl div -->
-	<div id="heyuctrl">
-	<b>Heyu Status:</b>
-EOF;*/
+//$htmli .= "\n<!-- start heyuctrl div -->\n<div id='heyuctrl'>\n";
 
-$html .= heyu_state_check(false);
+$htmli = heyu_state_check(false);
 
-/*$html .= "<br><b>Heyu Control</b><br>";*/
+$htmli .= "&nbsp;&nbsp;";
 
-if (heyu_state_check(true) == 1)
-	$html .= $this->lang['start']."
-	| <a href=".$_SERVER['PHP_SELF']."?daemon=reload>RELOAD</a>
-	| <a href=".$_SERVER['PHP_SELF']."?daemon=stop>STOP</a>";
-else
-	$html .= "<a href=".$_SERVER['PHP_SELF']."?daemon=start>".$this->lang['start']."</a> | RELOAD | STOP";
+if (heyu_state_check(true) == 1) ## if heyu running, remove link on START
+{
+	$htmli .= $this->lang['start'];
+	$htmli .= " | <a href=".$_SERVER['PHP_SELF']."?daemon=reload>RELOAD</a> ";
+	$htmli .= "| <a href=".$_SERVER['PHP_SELF']."?daemon=stop>STOP</a>";
+}
+else ## if heyu stopped remove link for RELOAD and STOP
+	$htmli .= "<a href=".$_SERVER['PHP_SELF']."?daemon=start>".$this->lang['start']."</a> | RELOAD | STOP";
 
 if (isset($_GET["daemon"])) {
 	$daemon = $_GET["daemon"];
@@ -24,14 +22,8 @@ if (isset($_GET["daemon"])) {
 	elseif ($daemon == "reload") heyu_ctrl($this->config['heyuexec'], restart);
 }
 
-/*$html .= <<<EOF
-	</div>
-	<!-- end heyuctrl div -->
+//$htmli .= "\n</div>\n<!-- end heyuctrl div -->\n";
 
-</div>
-<!-- end menu div -->
-EOF;*/
-
-return $html;
+return $htmli;
 
 ?>
