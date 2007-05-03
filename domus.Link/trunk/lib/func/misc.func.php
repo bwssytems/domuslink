@@ -1,8 +1,9 @@
 <?php
 
-/*
+/**
  * List dir contents - be it directories or files
  *
+ * @param $dir to get listing from
  */
 function list_dir_content($dir)
 {
@@ -20,7 +21,7 @@ function list_dir_content($dir)
 	return $directories;
 }
 
-/*
+/**
  *
  *
  */

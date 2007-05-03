@@ -22,6 +22,8 @@ function load_file($file)
 /**
  * Save file
  *
+ * @param $content new content to be saved
+ * @param $filename of file to save to
  */
 function save_file($content, $filename)
 {
