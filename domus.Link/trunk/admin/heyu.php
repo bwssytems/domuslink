@@ -10,8 +10,6 @@ $heyuconf = new HeyuConf($config['heyuconf']);
 
 ## Set template parameters
 $tpl->set('title', 'Heyu Setup');
-$tpl->set('urlpath', $config['url_path']);
-$tpl->set('theme', $config['theme']);
 
 ## Get heyu (x10.conf) file contents/settings
 $settings = $heyuconf->get();

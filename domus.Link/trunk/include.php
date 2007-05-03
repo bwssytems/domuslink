@@ -8,10 +8,6 @@ require_once($dirname.DIRECTORY_SEPARATOR.'fileloc.php');
 require_once(CLASS_FILE_LOCATION.'global.class.php');
 $frontObj =& new frontObject();
 
-# Make new template object
-require_once(CLASS_FILE_LOCATION.'tpl.class.php');
-$tpl = & new Template(TPL_FILE_LOCATION.'layout.tpl');
-
 #Load other functions
 require_once(FUNC_FILE_LOCATION.'lang.func.php');
 require_once(FUNC_FILE_LOCATION.'file.func.php');
@@ -22,6 +18,12 @@ require_once(FUNC_FILE_LOCATION.'cmd.func.php');
 require($dirname.DIRECTORY_SEPARATOR.'version.php');
 require(FUNC_FILE_LOCATION.'config.func.php');
 $config =& $frontObj->GetConfig();
+
+# Make new template object
+require_once(CLASS_FILE_LOCATION.'tpl.class.php');
+$tpl = & new Template(TPL_FILE_LOCATION.'layout.tpl');
+$tpl->set('urlpath', $config['url_path']);
+$tpl->set('theme', $config['theme']);
 
 //setcookie("heyuexec", $config['heyuexec'], 0);
 

@@ -8,14 +8,9 @@ require_once(CLASS_FILE_LOCATION.'heyuconf.class.php');
 ## Instantiate HeyuConf class
 $heyuconf = new HeyuConf($config['heyuconf']);
 
-## Instantiate templates
-//$tpl = & new Template(TPL_FILE_LOCATION.'layout.tpl');
+## Template specific
 $tpl_body = & new Template(TPL_FILE_LOCATION.'all_controls.tpl');
-
-## Set template parameters
 $tpl->set('title', 'Main');
-$tpl->set('urlpath', $config['url_path']);
-$tpl->set('theme', $config['theme']);
 
 ## Aliases  of type Lights
 if ($_GET["page"] == "lights" || !isset($_GET["page"]) || $_GET["page"] == "main")
