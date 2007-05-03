@@ -1,8 +1,9 @@
 <?php
 
-/*
+/**
  * Load file
  *
+ * @param $file represent file to load
  */
 function load_file($file)
 {
@@ -18,7 +19,7 @@ function load_file($file)
 	return $content;
 }
 
-/*
+/**
  * Save file
  *
  */
@@ -42,11 +43,12 @@ function save_file($content, $filename)
 	fclose($fp);
 }
 
-/*
+/**
  * Add line to file
- *   $content = file contents
- *   $file = file location
- *   $editing = represents what is being edited
+ *
+ * @param $content file contents being received
+ * @param $file complete file location
+ * @param $editing represents what is being edited
  */
 function add_line($content, $file, $editing)
 {
@@ -61,12 +63,12 @@ function add_line($content, $file, $editing)
 	save_file($content, $file);
 }
 
-/*
+/**
  * Edit line in file
- *   $content = file contents
- *   $file = file location
- *   $editing = represents what is being edited
  *
+ * @param $content file contents being received
+ * @param $file complete file location
+ * @param $editing represents what is being edited
  */
 function edit_line($content, $file, $editing)
 {
@@ -93,7 +95,7 @@ function edit_line($content, $file, $editing)
 	save_file($content, $file);
 }
 
-/*
+/**
  * Delete line from file
  *
  */

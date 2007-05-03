@@ -12,6 +12,8 @@ class heyuConf {
 	{
 		$this->heyuconf = '';
 		$this->filename = $filename;
+
+		$this->load();
 	}
 
 	function load()

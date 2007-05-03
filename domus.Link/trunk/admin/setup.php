@@ -1,15 +1,16 @@
 <?php
 
-$dirname = dirname(__FILE__);
+//$dirname = dirname(__FILE__);
 require_once('..'.DIRECTORY_SEPARATOR.'include.php');
-require_once(CLASS_FILE_LOCATION.'page.class.php');
 
-// Instantiate the page pass config and lang values
-$html = new Page('Setup', $config, $lang);
+## Set template parameters
+$tpl->set('title', 'Setup');
+$tpl->set('urlpath', $config['url_path']);
+$tpl->set('theme', $config['theme']);
 
-$html->addContent("SETUP");
+## Display the page
+$tpl->set('content', 'SETUP');
 
-// Display the page
-echo $html->get();
+echo $tpl->fetch(TPL_FILE_LOCATION.'layout.tpl');
 
 ?>
