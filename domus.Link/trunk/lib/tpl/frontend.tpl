@@ -40,7 +40,7 @@ theme: <select name="theme">
 <br />
 
 url_path: <input type="text" name="url_path" value="<?=$url_path;?>" /><br />
-<input type='submit' value='Save' />
+<input type="submit" value="Save" />
 </form>
 
 <form action="<?=$_SERVER['PHP_SELF'];?>" method="post">
