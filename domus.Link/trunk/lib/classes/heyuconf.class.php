@@ -8,6 +8,11 @@ class heyuConf {
 	var $heyuconf;
 	var $filename;
 
+	/**
+	 * Constructor
+	 *
+	 * @param $filename represents name and location
+	 */
 	function heyuConf($filename)
 	{
 		$this->heyuconf = '';
@@ -16,17 +21,28 @@ class heyuConf {
 		$this->load();
 	}
 
+	/**
+	 * Load heyu settings from defined file in config.php
+	 */
 	function load()
 	{
 		$this->heyuconf = load_file($this->filename);
 	}
 
+	/**
+	 * Return heyu settings from defined file in config.php
+	 */
 	function get()
 	{
 		$content = $this->heyuconf;
 		return $content;
 	}
 
+	/**
+	 * Get Aliases
+	 *
+	 * @param $req_type Type of alias requested
+	 */
 	function get_aliases($req_type)
 	{
 		$i = 0;
