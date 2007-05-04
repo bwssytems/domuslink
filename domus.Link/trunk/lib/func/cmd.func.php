@@ -33,8 +33,9 @@ function heyu_exec($heyuexec)
 	$unit = $_GET["device"];
 	$value = $_GET["value"];
 	$action = $_GET["action"];
+	$page = $_GET['page'];
 
-	if ($action=="on"||$action=="off"){
+	if ($action == "on" || $action == "off"){
 		$cmd = $heyuexec." ".$action." ".$unit." 2>&1";
 	} elseif ($action=="dim" || $action=="bright" || $action=="dimb"){
 		//$cmd = $heyuexec." ".$action." ".$unit." ".$value;
@@ -42,7 +43,10 @@ function heyu_exec($heyuexec)
 	$result = null; $retval = null;
 	exec($cmd, $result, $retval);
 	if ($result[0] == "") {
-		header("Location: ".$_SERVER['PHP_SELF']);
+		if ($page != "")
+			header("Location: ".$_SERVER['PHP_SELF']."?page=".$page);
+		else
+			header("Location: ".$_SERVER['PHP_SELF']);
 	} else {
 		header("Location: error.php?msg=".$result[0]);
 	}

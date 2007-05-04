@@ -60,6 +60,11 @@ if ($_GET["page"] == "hvac" || !isset($_GET["page"]) || $_GET["page"] == "main")
 	}
 }
 
+if (isset($_GET['action']))
+{
+	heyu_exec($config['heyuexec']);
+}
+
 ## Display the page
 $tpl->set('content', $tpl_body);
 
