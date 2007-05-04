@@ -19,6 +19,7 @@ if ($_GET["page"] == "lights" || !isset($_GET["page"]) || $_GET["page"] == "main
 	if (count($lights) > 0 ) // If > 0 then modules of type Lights exist therefore display them
 	{
 		$tpl_lights = & new Template(TPL_FILE_LOCATION.'ctrl_table.tpl');
+		$tpl_lights->set('header', 'Lights');
 		$tpl_lights->set('modules', $lights);
 		$tpl_body->set('lights', $tpl_lights);
 	}
@@ -31,6 +32,7 @@ if ($_GET["page"] == "appliances" || !isset($_GET["page"]) || $_GET["page"] == "
 	if (count($appliances) > 0 ) // If > 0 then modules of type Appliances exist therefore display them
 	{
 		$tpl_app = & new Template(TPL_FILE_LOCATION.'ctrl_table.tpl');
+		$tpl_app->set('header', 'Appliances');
 		$tpl_app->set('modules', $appliances);
 		$tpl_body->set('appliances', $tpl_app);
 	}
@@ -43,6 +45,7 @@ if ($_GET["page"] == "irrigation" || !isset($_GET["page"]) || $_GET["page"] == "
 	if (count($irrigation) > 0 ) // If > 0 then modules of type Irrigation exist therefore display them
 	{
 		$tpl_irrig = & new Template(TPL_FILE_LOCATION.'ctrl_table.tpl');
+		$tpl_irrig->set('header', 'Irrigation');
 		$tpl_irrig->set('modules', $irrigation);
 		$tpl_body->set('irrigation', $tpl_irrig);
 	}
@@ -55,6 +58,7 @@ if ($_GET["page"] == "hvac" || !isset($_GET["page"]) || $_GET["page"] == "main")
 	if (count($hvac) > 0 ) // If > 0 then modules of type HVAC exist therefore display them
 	{
 		$tpl_hvac = & new Template(TPL_FILE_LOCATION.'ctrl_table.tpl');
+		$tpl_hvac->set('header', 'HVAC');
 		$tpl_hvac->set('modules', $hvac);
 		$tpl_body->set('hvac', $tpl_hvac);
 	}
