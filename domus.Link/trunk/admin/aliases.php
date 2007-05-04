@@ -2,128 +2,50 @@
 
 //$dirname = dirname(__FILE__);
 require_once('..'.DIRECTORY_SEPARATOR.'include.php');
-require_once(CLASS_FILE_LOCATION.'page.class.php');
 require_once(CLASS_FILE_LOCATION.'heyuconf.class.php');
 
-// Instantiate classes
+## Instantiate HeyuConf class
 $heyuconf = new HeyuConf($config['heyuconf']);
-$html = new Page('Aliases', $config, $lang);
+## Get heyu (x10.conf) file contents/settings
+$settings = $heyuconf->get();
 
-// Get heyu (x10.conf) file contents
-$heyuconf->load();
-$content = $heyuconf->get();
+## Set template parameters
+$tpl->set('title', 'Aliases');
 
-$html->addContent("<h1>ALIASES</h1>\n\n");
-// Table start
-$html->addContent("<table border='0' cellspacing='2' cellpadding='2' align='center'>\n" .
-	"<tr><td width='70'>CODE</td>\n" .
-	"<td width='280'>LABEL</td>\n" .
-	"<td width='70'>MODULE</td>\n" .
-	"<td width='70'>TYPE</td>\n" .
-	"<td colspan='2' width='100'>ACTIONS</td></tr>\n");
+$tpl_body = & new Template(TPL_FILE_LOCATION.'aliases.tpl');
+$tpl_body->set('aliases', $settings);
 
 if (!isset($_GET["action"]))
 {
-
-	// Aliases
-	foreach ($content as $line_num => $line)
-	{
-		if (substr($line, 0, 5) == "ALIAS")
-		{
-			list($alias, $label, $code, $module_type) = split(" ", $line, 4);
-			list($module, $type) = split(" # ", $module_type, 2);
-			$html->addContent("<tr>\n<td>".$code."</td>\n" .
-				"<td>".$label."</td>\n" .
-				"<td>".$module."</td>\n" .
-				"<td>".$type."</td>\n" .
-				"<td><a href='".$_SERVER['PHP_SELF']."?edit=$line_num'>EDIT</a></td>\n" .
-				"<td><a href='".$_SERVER['PHP_SELF']."?action=del&line=$line_num' onclick=\"return confirm('ARE YOU SURE?')\">DELETE</a></td>\n</tr>\n");
-		}
-	}
-	$html->addContent("</table>");
-
-	// Form Headers
-	if (isset($_GET["edit"]))
-	{
-		$editline = $_GET["edit"];
-		$html->addContent("<h1>EDIT ALIAS</h1>\n\n");
-		list($alias, $label, $code, $module_type) = split(" ", $content[$editline], 4);
-		list($module, $type) = split(" # ", $module_type, 2);
-		$html->addContent("<form action='".$_SERVER['PHP_SELF']."?action=save' method='post'>");
-		$html->addContent("<input type='hidden' name='line' value='$editline' / >");
-	}
-	else
-	{
-		$html->addContent("<h1>ADD ALIAS</h1>\n\n");
-		$code = null; $label = null; $type = null; $comment = null;
-		$html->addContent("<form action='".$_SERVER['PHP_SELF']."?action=add' method='post'>");
-	}
-
-	// Form TEXT fields (with values to edit or not)
-	$html->addContent("CODE: <input type='text' name='code' value='$code' /><br />\n");
-	$html->addContent("LABEL: <input type='text' name='label' value='$label' /><br />\n");
-	$html->addContent("MODULE: <select name='module'>\n");
-
-	// Load module types from file
-	foreach (load_file(MODULE_FILE_LOCATION) as $modulenf)
-	{
-		$modulef = rtrim($modulenf);
-		if ($module == $modulef)
-		{
-			$html->addContent("<option selected value='$modulef'>$modulef</option>\n");
-		}
-		else
-		{
-			$html->addContent("<option value='$modulef'>$modulef</option>\n");
-		}
-	}
-	$html->addContent("</select><br />\n");
-	$html->addContent("TYPE: <select name='type'>\n");
-
-	// Load types (Appliance, Lights, etc) from file
-	foreach (load_file(TYPE_FILE_LOCATION) as $typenf)
-	{
-		$typef = rtrim($typenf);
-		if (rtrim($type) == $typef)
-		{
-			$html->addContent("<option selected value='$typef'>$typef</option>\n");
-		}
-		else
-		{
-			$html->addContent("<option value='$typef'>$typef</option>\n");
-		}
-	}
-	$html->addContent("</select><br />\n");
-
-	// Form Buttons (ADD/EDIT therefore SAVE)
-	if (isset($_GET["edit"]))
-	{
-		$html->addContent("<input type='submit' value='SAVE' /></form>\n");
-		$html->addContent("<form action='".$_SERVER['PHP_SELF']."' method='post'>\n");
-		$html->addContent("<input type='submit' value='CANCEL' /></form>\n");
-	}
-	else
-	{
-		$html->addContent("<input type='submit' value='ADD' /></form>\n");
-	}
+	$tpl_add = & new Template(TPL_FILE_LOCATION.'aliases_add.tpl');
+	$tpl_body->set('form', $tpl_add);
 }
 else
 {
-	if ($_GET["action"] == "add")
+	if ($_GET["action"] == "edit")
 	{
-		add_line($content, $config['heyuconf'], 'alias');
+		$tpl_edit = & new Template(TPL_FILE_LOCATION.'aliases_edit.tpl');
+		$tpl_edit->set('alias', $settings[$_GET['line']]); // sets contents of line being edited
+		$tpl_edit->set('linenum', $_GET['line']); // sets number of line being edited
+		$tpl_body->set('form', $tpl_edit);
+	}
+	elseif ($_GET["action"] == "add")
+	{
+		add_line($settings, $config['heyuconf'], 'alias');
 	}
 	elseif ($_GET["action"] == "save")
 	{
-		edit_line($content, $config['heyuconf'], 'alias');
+		edit_line($settings, $config['heyuconf'], 'alias');
 	}
 	elseif ($_GET["action"] == "del")
 	{
-		delete_line($content, $config['heyuconf'], $_GET["line"]);
+		delete_line($settings, $config['heyuconf'], $_GET["line"]);
 	}
 }
 
-// Display the page
-echo $html->get();
+## Display the page
+$tpl->set('content', $tpl_body);
+
+echo $tpl->fetch(TPL_FILE_LOCATION.'layout.tpl');
 
 ?>

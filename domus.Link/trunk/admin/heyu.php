@@ -7,12 +7,11 @@ require_once(CLASS_FILE_LOCATION.'heyuconf.class.php');
 
 ## Instantiate HeyuConf class
 $heyuconf = new HeyuConf($config['heyuconf']);
+## Get heyu (x10.conf) file contents/settings
+$settings = $heyuconf->get();
 
 ## Set template parameters
 $tpl->set('title', 'Heyu Setup');
-
-## Get heyu (x10.conf) file contents/settings
-$settings = $heyuconf->get();
 
 if (!isset($_GET["action"]))
 {

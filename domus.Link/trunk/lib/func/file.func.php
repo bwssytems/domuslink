@@ -68,8 +68,8 @@ function add_line($content, $file, $editing)
 /**
  * Edit line in file
  *
- * @param $content file contents being received
- * @param $file complete file location
+ * @param $content file contents
+ * @param $file being edited
  * @param $editing represents what is being edited
  */
 function edit_line($content, $file, $editing)
@@ -100,6 +100,9 @@ function edit_line($content, $file, $editing)
 /**
  * Delete line from file
  *
+ * @param $content file contents
+ * @param $file being edited
+ * @param $line to be deleted
  */
 function delete_line($content, $file, $line)
 {

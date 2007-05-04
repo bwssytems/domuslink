@@ -48,22 +48,21 @@ class heyuConf {
 			if ($req_type == "Lights" && $type == "Light")
 			{
 				$array[$i] = $code." ".$label;
-				//$array[$i] = ("Code" => $code, "Label" => $label);
 				$i++;
 			}
 			elseif ($req_type == "Appliances" && $type == "Appliance")
 			{
-				$array[$i] = $line;
+				$array[$i] = $code." ".$label;
 				$i++;
 			}
 			elseif ($req_type == "Irrigation" && $type == "Irrigation")
 			{
-				$array[$i] = $line;
+				$array[$i] = $code." ".$label;
 				$i++;
 			}
 			elseif ($req_type == "HVAC" && $type == "HVAC")
 			{
-				$array[$i] = $line;
+				$array[$i] = $code." ".$label;
 				$i++;
 			}
 
