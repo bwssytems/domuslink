@@ -2,17 +2,16 @@
 
 $dirname = dirname(__FILE__);
 require_once($dirname.DIRECTORY_SEPARATOR.'include.php');
-require_once(CLASS_FILE_LOCATION.'page.class.php');
 
-// Instantiate the page pass config and lang values
-$html = new Page('Error', $config, $lang);
+## Set template parameters
+$tpl->set('title', 'Error');
 
-$html->addContent("<h1>Error</h1>");
-$html->addContent("<div id='centered'>");
-$html->addContent("<b>".stripslashes($_GET["msg"])."</b>");
-$html->addContent("</div>");
+$tpl_body = & new Template(TPL_FILE_LOCATION.'error.tpl');
+$tpl_body->set('errormsg', stripslashes($_GET["msg"]));
 
-// Display the page
-echo $html->get();
+## Display the page
+$tpl->set('content', $tpl_body);
+
+echo $tpl->fetch(TPL_FILE_LOCATION.'layout.tpl');
 
 ?>
