@@ -1,6 +1,6 @@
 <?php
 /*
- * © Copyright 2003 Brian Lozier (brian -at- massassi -dot- net)
+ * By: Brian Lozier (brian -at- massassi -dot- net)
  * http://www.massassi.com/php/articles/template_engines/
  *
  */

@@ -9,7 +9,6 @@ require_once(CLASS_FILE_LOCATION.'global.class.php');
 $frontObj =& new frontObject();
 
 #Load other functions
-require_once(FUNC_FILE_LOCATION.'lang.func.php');
 require_once(FUNC_FILE_LOCATION.'file.func.php');
 require_once(FUNC_FILE_LOCATION.'misc.func.php');
 require_once(FUNC_FILE_LOCATION.'cmd.func.php');
@@ -28,6 +27,7 @@ $tpl->set('theme', $config['theme']);
 //setcookie("heyuexec", $config['heyuexec'], 0);
 
 #Load language file
+require_once(FUNC_FILE_LOCATION.'lang.func.php');
 $lang =& $frontObj->GetLanguageFile();
 
 ?>
