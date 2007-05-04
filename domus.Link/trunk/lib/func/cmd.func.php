@@ -31,7 +31,7 @@ function heyu_state_check($bin)
 function heyu_exec($heyuexec)
 {
 	$unit = $_GET["device"];
-	$value = $_GET["value"];
+	//$value = $_GET["value"];
 	$action = $_GET["action"];
 	$page = $_GET['page'];
 
