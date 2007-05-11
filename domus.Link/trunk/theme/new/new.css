@@ -7,7 +7,7 @@
 
 body {
 	width: 100%;
-	background-color: #ffffff;
+	background-color: #fff;
 	font-family: Verdana,Geneva,Arial,Helvetica,sans-serif;
 	font-size: 12px;
 }
@@ -37,7 +37,7 @@ div#menuitem a {
 	text-decoration: none;
 	color: #666666;
 	display: block;
-	border-left: 1px solid #eeeeee;
+	border-left: 1px solid #eee;
 	padding-top: 6px;
 	padding-bottom: 7px;
 }
@@ -46,22 +46,22 @@ div#menuitem a:hover {
 	text-decoration: none;
 	background: transparent url(images/menu_bg_active.gif);
 	color: #eeeeee;
-	border-left: 1px solid #000000;
+	border-left: 1px solid #000;
 }
 
 div#black_sep {
-	background-color: #000000;
+	background-color: #000;
 	height: 12px;
 }
 
 /* SUB MENU */
 div#submenu {
-	background-color: #ffffff;
+	background-color: #fff;
 	height: 18px;
 	color: #666666;
 	font-size: 10px;
-	border-bottom: 1px dotted #666666;
-	border-right: 1px solid #000000;
+	border-bottom: 1px dotted #666;
+	border-right: 1px solid #000;
 }
 
 div#submenu p {
@@ -77,13 +77,13 @@ div#submenuitem {
 	float: right;
 	text-align: center;
 	font-size: 10px;
-	border-left: 1px solid #000000;
-	border-bottom: 1px solid #000000;
+	border-left: 1px solid #000;
+	border-bottom: 1px solid #000;
 }
 
 div#submenuitem a {
 	text-decoration: none;
-	color: #000000;
+	color: #000;
 	display: block;
 	padding-left: 30px;
 	padding-right: 30px;
@@ -93,8 +93,8 @@ div#submenuitem a {
 
 div#submenuitem a:hover {
 	text-decoration: none;
-	background-color: #666666;
-	color: #eeeeee;
+	background-color: #666;
+	color: #eee;
 }
 
 div#submenu_spacer {
@@ -114,10 +114,20 @@ div#content {
 }
 
 div#footer {
-	background-color: #333333;
-	color: #999999;
+	background-color: #333;
 	padding: 4px;
 	margin-top: 5px;
+}
+
+div#footer table {
+	color: #666;
+	font-size: 10px;
+}
+
+div#footer a {
+	color: #666;
+	text-decoration: none;
+	border-bottom: 1px dotted #666;
 }
 
 div#centered {
@@ -137,7 +147,7 @@ h1
 	font-size: 16px;
 	padding-top: 4px;
 	padding-bottom: 2px;
-	border-bottom: 1px solid #666666;
+	border-bottom: 1px solid #666;
 	margin-bottom: 6px;
 }
 

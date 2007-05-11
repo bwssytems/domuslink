@@ -23,6 +23,7 @@ require_once(CLASS_FILE_LOCATION.'tpl.class.php');
 $tpl = & new Template(TPL_FILE_LOCATION.'layout.tpl');
 $tpl->set('urlpath', $config['url_path']);
 $tpl->set('theme', $config['theme']);
+$tpl->set('heyuexec', $config['heyuexec']);
 
 //setcookie("heyuexec", $config['heyuexec'], 0);
 

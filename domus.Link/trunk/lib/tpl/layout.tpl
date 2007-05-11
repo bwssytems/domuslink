@@ -71,11 +71,25 @@ if (substr(strstr($_SERVER['REQUEST_URI'], "admin"), 0, 5) == "admin") { ?>
 <table cellspacing="0" cellpadding="0" border="0" width="100%">
   <tr>
    <td>
-     heyuctrl
+     Heyu Status: <?=heyu_state_check(false);?>
+     <? if (heyu_state_check(true) == 1): ## if heyu running, remove link on START ?>
+     	( <a href="<? $_SERVER['PHP_SELF'];?>?daemon=reload">RELOAD</a> |
+	    <a href="<? $_SERVER['PHP_SELF'];?>?daemon=stop">STOP</a> )
+     <? else: ## if heyu stopped remove link for RELOAD and STOP ?>
+     	( <a href="<? $_SERVER['PHP_SELF'];?>?daemon=start">START</a> )
+     <? endif; ?>
+
+     <? if (isset($_GET["daemon"])): ?>
+     <? $daemon = $_GET["daemon"]; ?>
+     	<? if ($daemon == "start"): heyu_ctrl($heyuexec, start); ?>
+	    <? elseif ($daemon == "stop"): heyu_ctrl($heyuexec, stop);  ?>
+	    <? elseif ($daemon == "reload"): heyu_ctrl($heyuexec, restart); ?>
+	    <? endif; ?>
+     <? endif; ?>
    </td>
    <td>&nbsp;</td>
-   <td>
-     <SCRIPT LANGUAGE="JavaScript">copyright_date();</SCRIPT>
+   <td align="right">
+     <a href="http://icebrian.net/domuslink">domus.Link</a> <SCRIPT LANGUAGE="JavaScript">copyright_date();</SCRIPT> - Istvan Hubay Cebrian
    </td>
   </tr>
 </table>
