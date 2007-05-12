@@ -27,7 +27,7 @@ if ($page == "lights" || !$page || $page == "main")
 	$lights = $heyuconf->get_aliases('Lights');
 	if (count($lights) > 0 ) // If > 0 then modules of type Lights exist therefore display them
 	{
-		$tpl_lights = & new Template(TPL_FILE_LOCATION.'ctrl_table.tpl');
+		$tpl_lights = & new Template(TPL_FILE_LOCATION.'ctrl_dim_table.tpl');
 		$tpl_lights->set('header', 'Lights');
 		$tpl_lights->set('page', $page);
 		$tpl_lights->set('modules', $lights);

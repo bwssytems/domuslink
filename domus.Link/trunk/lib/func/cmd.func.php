@@ -30,14 +30,14 @@ function heyu_state_check($bin)
 
 function heyu_exec($heyuexec)
 {
-	$unit = $_GET["device"];
-	//$value = $_GET["value"];
 	$action = $_GET["action"];
+	$unit = $_GET["device"];
+	$value = $_GET["value"];
 	$page = $_GET['page'];
 
 	if ($action == "on" || $action == "off"){
 		$cmd = $heyuexec." ".$action." ".$unit." 2>&1";
-	} elseif ($action=="dim" || $action=="bright" || $action=="dimb"){
+	} elseif ($action=="dim" || $action=="bright" || $action=="dimb" || $action=="brightb"){
 		//$cmd = $heyuexec." ".$action." ".$unit." ".$value;
 	}
 	$result = null; $retval = null;
@@ -54,6 +54,19 @@ function heyu_exec($heyuexec)
 
 function state_check($unit, $heyuexec)
 {
+	$cmd = $heyuexec." onstate ".$unit." 2>&1";
+	$result = null; $retval = null;
+	exec($cmd, $result, $retval);
+	if ($result[0] == "1" || $result[0] == "0") {
+		return $result[0];
+	} else {
+		header("Location: error.php?msg=".$result[0]);
+	}
+}
+
+function get_dim_level($unit, $heyuexec)
+{
+	// TODO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	$cmd = $heyuexec." onstate ".$unit." 2>&1";
 	$result = null; $retval = null;
 	exec($cmd, $result, $retval);
