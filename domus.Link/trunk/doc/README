@@ -16,6 +16,6 @@
   Question: Have you updated your kernel recently? If so, remove Heyu
   and rebuild with new kernel.
 
-  3) Enable short_open_tag in php.ini
+  3) Pages apearing with little or no content?
 
-  Therefore short_open_tag = On, then restart apache, check phpinfo() is correct.
+  Enable short_open_tag in php.ini, then restart apache, check phpinfo(); is correct.
