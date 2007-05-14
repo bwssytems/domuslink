@@ -46,17 +46,11 @@
 
 <!-- start submenu div -->
 <div id="submenu">
-<?php if (substr($_SERVER['REQUEST_URI'], -9, 9) == "index.php") { ?>
-	<p>Texto explaining area</p>
-<?php }
-if (substr($_SERVER['REQUEST_URI'], -8, 8) == "heyu.php") { ?>
-	<p>This is where you can configure Heyu.</p>
-<?php }
-if (substr(strstr($_SERVER['REQUEST_URI'], "admin"), 0, 5) == "admin") { ?>
+<? if (substr(strstr($_SERVER['REQUEST_URI'], "admin"), 0, 5) == "admin"): ?>
 <div id="submenuitem"><a href="<?=$urlpath;?>/admin/heyu.php">Heyu Setup</a></div>
 <div id="submenuitem"><a href="<?=$urlpath;?>/admin/aliases.php">Aliases</a></div>
 <div id="submenuitem"><a href="<?=$urlpath;?>/admin/frontend.php">Frontend</a></div>
-<? } ?>
+<? endif; ?>
 </div>
 <!-- end submenu div -->
 
@@ -72,10 +66,10 @@ if (substr(strstr($_SERVER['REQUEST_URI'], "admin"), 0, 5) == "admin") { ?>
   <tr>
    <td>
      Heyu Status: <?=heyu_state_check(false);?>
-     <? if (heyu_state_check(true) == 1): ## if heyu running, remove link on START ?>
+     <? if (heyu_state_check(true)): ?>
      	( <a href="<? $_SERVER['PHP_SELF'];?>?daemon=reload">RELOAD</a> |
 	    <a href="<? $_SERVER['PHP_SELF'];?>?daemon=stop">STOP</a> )
-     <? else: ## if heyu stopped remove link for RELOAD and STOP ?>
+     <? else:  ?>
      	( <a href="<? $_SERVER['PHP_SELF'];?>?daemon=start">START</a> )
      <? endif; ?>
 

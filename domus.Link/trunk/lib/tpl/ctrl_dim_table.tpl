@@ -9,7 +9,7 @@
   <?
   foreach($modules as $module):
   list($code, $label) = split(" ", $module, 2);
-  if (state_check($code, "/usr/local/bin/heyu") == "1"): $AA = "1"; else: $AA = "0"; endif;
+  if (on_state($code, "/usr/local/bin/heyu") == "1"): $AA = "1"; else: $AA = "0"; endif;
   //$x = "2";
   //if($x%2): $AAb = "odd"; else: $AAb ="even"; endif;
   ?>
@@ -22,7 +22,7 @@
         <?
         /*
         #say dimvalue = 12 50%
-        $dimvalue = get_dim_level($code, "/usr/local/bin/heyu");
+        $dimvalue = dim_state($code, "/usr/local/bin/heyu");
         #if even do nothin if odd add one
         if($dimvalue%2): $dimvalue++; endif;
         $level = $dimvalue/2; #so if $dimlevel initially 12, now $level is 6 (half way)
