@@ -56,17 +56,13 @@
 require_once('..'.DIRECTORY_SEPARATOR.'include.php');
 
 ## Set template parameters
-$tpl->set('title', 'Frontend Admin');
+$tpl->set('title', $lang['frontendadmin']);
 
 if (!isset($_GET["action"]))
 {
 	$tpl_body = & new Template(TPL_FILE_LOCATION.'frontend.tpl');
-	$tpl_body->set('heyuconf', $config['heyuconf']);
-	$tpl_body->set('heyuexec', $config['heyuexec']);
-	$tpl_body->set('password', $config['password']);
-	$tpl_body->set('lang', $config['lang']);
-	$tpl_body->set('theme', $config['theme']);
-	$tpl_body->set('url_path', $config['url_path']);
+	$tpl_body->set('config', $config);
+	$tpl_body->set('lang', $lang);
 }
 elseif ($_GET["action"] == "save")
 {
