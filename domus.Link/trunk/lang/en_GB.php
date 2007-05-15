@@ -4,50 +4,21 @@
  *
  */
 
+/** v0.1 **/
+
 $lang['dlurl'] = 'http://icebrian.net/domuslink';
-$lang['title'] = 'domus.Link EN';
-$lang['start'] = 'START';
+$lang['title'] = 'domus.Link';
 
-/* British language file */
-/*
-$l_dlurl = 'http://domus.link.co.pt';
-$l_title = 'domus.Link';
+$lang['all'] = 'All';
+$lang['lights'] = 'Lights';
+$lang['appliances'] = 'Appliances';
+$lang['irrigation'] = 'Irrigation';
+$lang['hvac'] = 'HVAC';
+$lang['events'] = 'Events';
+$lang['setup'] = 'Setup';
 
-$l_main = 'Main';
-$l_ctrlp = 'Control Panel';
-$l_aliases = 'Aliases';
-$l_aladd = 'Add Alias';
-$l_aledit = 'Edit Alias';
-$l_hconf = 'Heyu Setup';
-
-Login
-$l_login = 'Login';
-$l_logintxt = 'Please enter password in text box and click on login!';
-$l_password = 'Password:';
-$l_wrongpass = 'Wrong password! Please try again.';
+$lang['setup_txt'] = 'This is where you can configure all settings.<br>' .
+		'Please select option from sub-menu bellow "Setup"';
 
 
-Aliases
-$l_code = 'Code';
-$l_label = 'Label';
-$l_module = 'Module';
-$l_type = 'Type';
-$l_actions = 'Actions';
-
-$l_add = 'Add';
-$l_save = 'Save';
-$l_cancel = 'Cancel';
-$l_edit = 'Edit';
-$l_delete = 'Delete';
-
-Alerts
-$l_delete_yn = 'Are you sure you want to delete?';
-
-Heyu Ctrl
-$l_tit_status = 'Heyu status';
-$l_tit_ctrl = 'Heyu control';
-$l_heyu_start = 'Start';
-$l_heyu_stop = 'Stop';
-$l_heyu_reload = 'Reload';
-*/
 ?>

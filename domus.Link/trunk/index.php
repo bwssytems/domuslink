@@ -62,7 +62,7 @@ $heyuconf = new HeyuConf($config['heyuconf']);
 
 ## Template specific
 $tpl_body = & new Template(TPL_FILE_LOCATION.'all_controls.tpl');
-$tpl->set('title', 'Main');
+$tpl->set('title', $lang['title']);
 
 if (isset($_GET['page']))
 {
