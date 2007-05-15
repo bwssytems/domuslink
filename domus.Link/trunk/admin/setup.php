@@ -58,7 +58,14 @@ require_once('..'.DIRECTORY_SEPARATOR.'include.php');
 $tpl->set('title', 'Setup');
 
 ## Display the page
-$tpl->set('content', '<h1>'.$lang['setup'].'</h1>'.$lang['setup_txt']);
+if ($config['password'] != "" && !isset($_COOKIE["dluloged"]))
+{
+	header("Location: login.php");
+}
+else
+{
+	$tpl->set('content', '<h1>'.$lang['setup'].'</h1>'.$lang['setup_txt']);
+}
 
 echo $tpl->fetch(TPL_FILE_LOCATION.'layout.tpl');
 
