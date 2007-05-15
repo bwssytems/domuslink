@@ -33,11 +33,11 @@
 
 <!-- start menu div -->
 <div id="menu">
-  <div id="menuitem"><a href="<?=$urlpath;?>/index.php?page=main">Home</a></div>
+  <div id="menuitem"><a href="<?=$urlpath;?>/index.php?page=main">All</a></div>
   <div id="menuitem"><a href="<?=$urlpath;?>/index.php?page=lights">Lights</a></div>
   <div id="menuitem"><a href="<?=$urlpath;?>/index.php?page=appliances">Appliances</a></div>
   <div id="menuitem"><a href="<?=$urlpath;?>/index.php?page=irrigation">Irrigation</a></div>
-  <div id="menuitem"><a href="<?=$urlpath;?>/index.php?page=hvac">HVAC</a></div>
+<!--  <div id="menuitem"><a href="<?=$urlpath;?>/index.php?page=hvac">HVAC</a></div> -->
   <div id="menuitem"><a href="<?=$urlpath;?>/index.php">Events</a></div>
   <div id="menuitem"><a href="<?=$urlpath;?>/admin/setup.php">Setup</a></div>
 </div>

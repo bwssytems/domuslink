@@ -51,7 +51,7 @@
  | THE AUTHOR HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.            |
  |                                                                            |
  +----------------------------------------------------------------------------*/
- 
+
 ## Includes
 $dirname = dirname(__FILE__);
 require_once($dirname.DIRECTORY_SEPARATOR.'include.php');
@@ -116,7 +116,7 @@ if ($page == "irrigation" || !$page || $page == "main")
 }
 
 ## Aliases of type HVAC
-if ($page == "hvac" || !$page || $page == "main")
+/*if ($page == "hvac" || !$page || $page == "main")
 {
 	$hvac = $heyuconf->get_aliases('HVAC');
 	if (count($hvac) > 0 ) // If > 0 then modules of type HVAC exist therefore display them
@@ -127,7 +127,7 @@ if ($page == "hvac" || !$page || $page == "main")
 		$tpl_hvac->set('modules', $hvac);
 		$tpl_body->set('hvac', $tpl_hvac);
 	}
-}
+}*/
 
 if (isset($_GET['action']))
 {
