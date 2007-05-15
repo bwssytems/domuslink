@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Config Load
+ */
 function config_load()
 {
 	$config = array();
@@ -19,6 +22,9 @@ function config_load()
 	return $config;
 }
 
+/**
+ * Config contents
+ */
 function config_text($config)
 {
 	$result = <<<EOF
@@ -43,6 +49,9 @@ EOF;
 	return $result;
 }
 
+/**
+ * Config save
+ */
 function config_save($config)
 {
 	$filedir = dirname(CONFIG_FILE_LOCATION);
