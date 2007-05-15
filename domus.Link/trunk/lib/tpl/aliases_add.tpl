@@ -1,4 +1,4 @@
-<h1>ADD ALIAS</h1>
+<h2>ADD ALIAS</h2>
 
 <form action="<?=$_SERVER['PHP_SELF'];?>?action=add" method="post">
 CODE: <input type="text" name="code" value="" /><br />

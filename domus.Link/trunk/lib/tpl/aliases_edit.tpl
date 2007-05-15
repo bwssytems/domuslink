@@ -1,4 +1,4 @@
-<h1>EDIT ALIAS</h1>
+<h2>EDIT ALIAS</h2>
 
 <?php list($alias, $label, $code, $module_type) = split(" ", $alias, 4); ?>
 <?php list($module, $type) = split(" # ", $module_type, 2); ?>
