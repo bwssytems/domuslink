@@ -22,12 +22,24 @@ function list_dir_content($dir)
 }
 
 /**
+ * Label Parse
  *
- *
+ * @param $str represent string to parse
+ * @param $add boolean if true add "_" and change case to lower case, if false remove "_" and capitalize first letter of each word)
  */
-function label_parse()
+function label_parse($str, $add)
 {
-
+	if ($add)
+	{
+		$strf1 = str_replace(" ", "_", $str);
+		$strf2 = strtolower($strf1);
+	}
+	else
+	{
+		$strf1 = str_replace("_", " ", $str);
+		$strf2 = ucwords($strf1);
+	}
+	return $strf2;
 }
 
 ?>

@@ -55,7 +55,9 @@ function save_file($content, $filename)
 function add_line($content, $file, $editing)
 {
 	if ($editing == "alias")
-		$newline = "ALIAS ".$_POST["label"]." ".$_POST["code"]." ".$_POST["module"]." # ".$_POST["type"]."\n";
+	{
+		$newline = "ALIAS ".label_parse($_POST["label"], true)." ".$_POST["code"]." ".$_POST["module"]." # ".$_POST["type"]."\n";
+	}
 	elseif ($editing == "module")
 		$newline = $_POST["module"]."\n";
 	elseif ($editing == "type")
@@ -77,7 +79,9 @@ function edit_line($content, $file, $editing)
 	$line = $_POST["line"]; // line being edited
 
 	if ($editing == "alias")
-		$newline = "ALIAS ".$_POST["label"]." ".$_POST["code"]." ".$_POST["module"]." # ".$_POST["type"]."\n";
+	{
+		$newline = "ALIAS ".label_parse($_POST["label"], true)." ".$_POST["code"]." ".$_POST["module"]." # ".$_POST["type"]."\n";
+	}
 	elseif ($editing == "module")
 		$newline = $_POST["module"]."\n";
 	elseif ($editing == "type")

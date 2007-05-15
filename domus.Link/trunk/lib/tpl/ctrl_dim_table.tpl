@@ -9,12 +9,12 @@
   <?
   foreach($modules as $module):
   list($code, $label) = split(" ", $module, 2);
-  if (on_state($code, "/usr/local/bin/heyu") == "1"): $AA = "1"; else: $AA = "0"; endif;
+  //if (on_state($code, "/usr/local/bin/heyu") == "1"): $AA = "1"; else: $AA = "0"; endif;
   //$x = "2";
   //if($x%2): $AAb = "odd"; else: $AAb ="even"; endif;
   ?>
   <tr>
-    <td><?=$AA;?><?=$label;?></td>
+    <td><?=label_parse($label, false);?></td>
     <td><a href="<?=$_SERVER['PHP_SELF'];?>?action=on&device=<?=$code;?>&page=<?=$page;?>">ON</a></td>
     <td>
       <table cellspacing="0" cellpadding="0" border="1">

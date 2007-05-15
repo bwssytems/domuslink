@@ -9,7 +9,7 @@
   <?php foreach($modules as $module): ?>
   <?php list($code, $label) = split(" ", $module, 2); ?>
   <tr>
-    <td bgcolor="#FFFFFF"><?=$label;?></td>
+    <td bgcolor="#FFFFFF"><?=label_parse($label, false);?></td>
     <td bgcolor="#FFFFFF"><a href="<?=$_SERVER['PHP_SELF'];?>?action=on&device=<?=$code;?>&page=<?=$page;?>">ON</a></td>
     <td bgcolor="#FFFFFF"><a href="<?=$_SERVER['PHP_SELF'];?>?action=off&device=<?=$code;?>&page=<?=$page;?>">OFF</a></td>
   </tr>
