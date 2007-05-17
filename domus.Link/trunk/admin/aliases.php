@@ -65,14 +65,16 @@ if ($config['password'] != "" && !isset($_COOKIE["dluloged"]))
 else
 {
 	## Set template parameters
-	$tpl->set('title', 'Aliases');
+	$tpl->set('title', $lang['aliases']);
 
 	$tpl_body = & new Template(TPL_FILE_LOCATION.'aliases.tpl');
+	$tpl_body->set('lang', $lang);
 	$tpl_body->set('aliases', $settings);
 
 	if (!isset($_GET["action"]))
 	{
 		$tpl_add = & new Template(TPL_FILE_LOCATION.'aliases_add.tpl');
+		$tpl_add->set('lang', $lang);
 		$tpl_body->set('form', $tpl_add);
 	}
 	else
@@ -80,6 +82,7 @@ else
 		if ($_GET["action"] == "edit")
 		{
 			$tpl_edit = & new Template(TPL_FILE_LOCATION.'aliases_edit.tpl');
+			$tpl_edit->set('lang', $lang);
 			$tpl_edit->set('alias', $settings[$_GET['line']]); // sets contents of line being edited
 			$tpl_edit->set('linenum', $_GET['line']); // sets number of line being edited
 			$tpl_body->set('form', $tpl_edit);

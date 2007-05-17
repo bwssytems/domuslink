@@ -1,12 +1,12 @@
-<h1>ALIASES</h1>
+<h1><?=$lang['aliases'];?></h1>
 
-<table border="0" cellspacing="2" cellpadding="2" align="center">
+<table border="0" cellspacing="0" cellpadding="0" class="aliases">
   <tr>
-    <td width="70">CODE</td>
-    <td width="280">LABEL</td>
-    <td width="70">MODULE</td>
-    <td width="70">TYPE</td>
-    <td colspan="2" width="100">ACTIONS</td>
+    <td width="70"><h2><?=$lang['code'];?></h2></td>
+    <td width="280"><h2><?=$lang['label'];?></h2></td>
+    <td width="70"><h2><?=$lang['module'];?></h2></td>
+    <td width="70"><h2><?=$lang['type'];?></h2></td>
+    <td colspan="2" width="100" align="center"><h2><?=$lang['actions'];?></h2></td>
   </tr>
   <?php foreach($aliases as $line_num => $alias): ?>
     <?php if (substr($alias, 0, 5) == "ALIAS"): ?>
@@ -18,8 +18,8 @@
         <td><?=$label;?></td>
         <td><?=$module;?></td>
         <td><?=$type;?></td>
-        <td><a href="<?=$_SERVER['PHP_SELF'];?>?action=edit&line=<?=$line_num;?>">EDIT</a></td>
-        <td><a href="<?=$_SERVER['PHP_SELF'];?>?action=del&line=<?=$line_num;?>" onclick="return confirm('ARE YOU SURE?')">DELETE</a></td>
+        <td class="cell_center"><a href="<?=$_SERVER['PHP_SELF'];?>?action=edit&line=<?=$line_num;?>"><?=$lang['edit'];?></a></td>
+        <td class="cell_center"><a href="<?=$_SERVER['PHP_SELF'];?>?action=del&line=<?=$line_num;?>" onclick="return confirm('<?=$lang['deleteconfirm'];?>')"><?=$lang['delete'];?></a></td>
       </tr>
 	<? endif; ?>
   <?php endforeach; ?>

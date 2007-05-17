@@ -106,12 +106,12 @@
   </tr>
 </table>
 <br />
-<table cellspacing="0" cellpadding="0" border="0">
+<table cellspacing="0" cellpadding="0" border="0" class="tb_buttons">
   <tr>
-    <td><input type="submit" value="Save" /></form></td>
+    <td><input type="submit" value="<?=$lang['save'];?>" /></form></td>
     <td>
       <form action="<?=$_SERVER['PHP_SELF'];?>" method="post">
-      <input type="submit" value="Cancel" /></form>
+      <input type="submit" value="<?=$lang['cancel'];?>" /></form>
     </td>
   </tr>
 </table>

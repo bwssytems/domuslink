@@ -28,10 +28,10 @@
         $level = $dimvalue/2; #so if $dimlevel initially 12, now $level is 6 (half way)
         #now two for loops, one that goes up to 6 (inclusive) for ON status ($action=dim)
         #and the other from 7-11 OFF status ($action=bright)
-        for ($i = 0; $i = $level; $i++):
+        for ($i = 1; $i = $level; $i++):
         ...html...
         endfor;
-        for ($i = $level; $i = 11; $i++):
+        for ($i = $level; $i = 12; $i++):
         ...html...
         endfor;
         */

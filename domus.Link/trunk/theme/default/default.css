@@ -107,7 +107,7 @@ div#submenu_spacer {
 div#content {
 	padding-left: 20px;
 	padding-right: 20px;
-	padding-top: 10px;
+	/*padding-top: 10px;*/
 	padding-bottom: 10px;
 }
 
@@ -129,6 +129,12 @@ div#footer a {
 }
 
 div#centered {
+	width: 600px;
+	margin: 0pt auto;
+	/*border: 1px solid #ccc;*/
+}
+
+div#centered {
 	padding-top: 20px;
 	text-align: center;
 }
@@ -137,6 +143,40 @@ div#centered {
 table {
 	font-size: 12px;
 	line-height: 1.4em;
+}
+
+div#content table a {
+	color: #666;
+	display: block;
+	border: 1px solid #ccc;
+	text-decoration: none;
+}
+
+div#content table a:hover {
+	color: #666;
+	display: block;
+	border: 1px solid #ccc;
+	text-decoration: none;
+	background-color: #ccc;
+}
+
+.aliases td {
+	padding-left: 4px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+}
+
+.tb_buttons {
+	margin-top: 10px;
+	border: 1px solid #ccc;
+	width: 480px;
+	height: 30px;
+	text-align: right;
+	padding-right: 4px;
+}
+
+.cell_center {
+	text-align: center;
 }
 
 .dim_off {
@@ -162,10 +202,10 @@ table {
 
 h1 {
 	font-size: 16px;
-	padding-top: 4px;
+	padding-top: 15px;
 	padding-bottom: 2px;
 	border-bottom: 2px solid #666;
-	margin-bottom: 6px;
+	margin-bottom: 10px;
 }
 
 h2 {
@@ -188,4 +228,9 @@ h3, h4, h5, h6 {
 /*** OTHER ***/
 .code {
 	font-family: Courier;
+}
+
+form {
+	margin: 0;
+	padding: 0;
 }
