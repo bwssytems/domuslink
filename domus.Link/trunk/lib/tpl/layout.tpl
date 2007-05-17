@@ -75,9 +75,9 @@
 
      <? if (isset($_GET["daemon"])): ?>
      <? $daemon = $_GET["daemon"]; ?>
-     	<? if ($daemon == "start"): heyu_ctrl($heyuexec, start); ?>
-	    <? elseif ($daemon == "stop"): heyu_ctrl($heyuexec, stop);  ?>
-	    <? elseif ($daemon == "reload"): heyu_ctrl($heyuexec, restart); ?>
+     	<? if ($daemon == "start"): heyu_ctrl($config['heyuexec'], start); ?>
+	    <? elseif ($daemon == "stop"): heyu_ctrl($config['heyuexec'], stop);  ?>
+	    <? elseif ($daemon == "reload"): heyu_ctrl($config['heyuexec'], restart); ?>
 	    <? endif; ?>
      <? endif; ?>
    </td>
