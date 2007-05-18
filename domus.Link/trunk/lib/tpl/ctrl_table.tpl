@@ -1,17 +1,44 @@
 <h1><?=$header;?></h1>
 
-<table cellpadding="3" border="0" cellspacing="1" bgcolor="#CCCCCC">
-  <tr>
-    <td bgcolor="#F0F0F0">Label</td>
-    <td bgcolor="#F0F0F0" colspan="2">Actions</td>
-  </tr>
+<?
+$count = count($modules); // count num of modules
+if($count%2): $result=$count+1; endif; // if odd add 1
+$nlines = $count/2; // divide by two, which give number of lines in table
+$nlinescount = 0; // initialize counter
+$i = 0; //initializize counter for array
+?>
 
-  <?php foreach($modules as $module): ?>
-  <?php list($code, $label) = split(" ", $module, 2); ?>
-  <tr>
-    <td bgcolor="#FFFFFF"><?=label_parse($label, false);?></td>
-    <td bgcolor="#FFFFFF"><a href="<?=$_SERVER['PHP_SELF'];?>?action=on&device=<?=$code;?>&page=<?=$page;?>">ON</a></td>
-    <td bgcolor="#FFFFFF"><a href="<?=$_SERVER['PHP_SELF'];?>?action=off&device=<?=$code;?>&page=<?=$page;?>">OFF</a></td>
-  </tr>
-  <?php endforeach; ?>
+<table cellpadding="2" border="0" cellspacing="2" width="100%">
+
+<? while ($nlinescount<$nlines): ?>
+
+<tr>
+ <td align="center" width="50%">
+	<? list($code, $label) = split(" ", $modules[$i], 2); $i++; ?>
+	<table cellpadding="2" border="0" cellspacing="0">
+	  <tr>
+	    <td width="150px"><?=label_parse($label, false);?></td>
+	    <td><a href="<?=$_SERVER['PHP_SELF'];?>?action=on&device=<?=$code;?>&page=<?=$page;?>">ON</a></td>
+	    <td><a href="<?=$_SERVER['PHP_SELF'];?>?action=off&device=<?=$code;?>&page=<?=$page;?>">OFF</a></td>
+	  </tr>
+	</table>
+ </td>
+
+ <td align="center" width="50%">
+	<?
+	if ($i != $count):
+	list($code, $label) = split(" ", $modules[$i], 2); $i++; ?>
+	<table cellpadding="2" border="0" cellspacing="0">
+	  <tr>
+	    <td width="150px"><?=label_parse($label, false);?></td>
+	    <td><a href="<?=$_SERVER['PHP_SELF'];?>?action=on&device=<?=$code;?>&page=<?=$page;?>">ON</a></td>
+	    <td><a href="<?=$_SERVER['PHP_SELF'];?>?action=off&device=<?=$code;?>&page=<?=$page;?>">OFF</a></td>
+	  </tr>
+	</table>
+	<? endif; ?>
+ </td>
+</tr>
+
+<? $nlinescount++; endwhile; ?>
+
 </table>
