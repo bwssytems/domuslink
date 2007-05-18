@@ -15,7 +15,7 @@ $i = 0; //initializize counter for array
 <tr>
  <td align="center" width="50%">
 	<? list($code, $label) = split(" ", $modules[$i], 2); $i++; ?>
-	<table cellpadding="2" border="0" cellspacing="0">
+	<table cellpadding="2" border="0" cellspacing="2">
 	  <tr>
 	    <td width="150px"><?=label_parse($label, false);?></td>
 	    <td><a href="<?=$_SERVER['PHP_SELF'];?>?action=on&device=<?=$code;?>&page=<?=$page;?>">ON</a></td>
@@ -28,7 +28,7 @@ $i = 0; //initializize counter for array
 	<?
 	if ($i != $count):
 	list($code, $label) = split(" ", $modules[$i], 2); $i++; ?>
-	<table cellpadding="2" border="0" cellspacing="0">
+	<table cellpadding="2" border="0" cellspacing="2">
 	  <tr>
 	    <td width="150px"><?=label_parse($label, false);?></td>
 	    <td><a href="<?=$_SERVER['PHP_SELF'];?>?action=on&device=<?=$code;?>&page=<?=$page;?>">ON</a></td>
