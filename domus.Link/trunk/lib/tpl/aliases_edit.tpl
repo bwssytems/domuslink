@@ -56,7 +56,7 @@
   </tr>
   <tr>
     <td valign="top" width="150px">
-    <select name="module">
+    <select name="type">
     <? foreach (load_file(TYPE_FILE_LOCATION) as $typenf): ?>
     <? $typef = rtrim($typenf); ?>
     	<? if (rtrim($type) == $typef): ?>
