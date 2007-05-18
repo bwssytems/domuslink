@@ -69,13 +69,12 @@
   <? endif; // end if not alias, scene or usersyn ?>
 <? endforeach; ?>
 
+</table>
+
+<table cellspacing="0" cellpadding="0" border="0" class="tb_buttons">
   <tr>
-    <td>
-      <input type="submit" value="Save Changes" /></form>
-    </td>
-    <td>
-      <form action="<?=$_SERVER['PHP_SELF'];?>" method="post">
-      <input type="submit" value="Cancel" /></form>
-    </td>
+    <td><a href="#" onclick="javascript:window.open('../doc/heyuconf.htm','','scrollbars=yes,menubar=no,width=700,height=500,resizable=yes,toolbar=no,location=no,status=no');">help</a></td>
+    <td><input type="submit" value="<?=$lang['save'];?>" /></form></td>
+    <td><form action="<?=$_SERVER['PHP_SELF'];?>" method="post"><input type="submit" value="<?=$lang['cancel'];?>" /></form></td>
   </tr>
 </table>

@@ -4,7 +4,8 @@
 #
 
 # File locations
-$config['heyuconf'] = '/etc/heyu/x10.conf';
+#$config['heyuconf'] = '/etc/heyu/x10.conf';
+$config['heyuconf'] = 'H:/x10.conf';
 $config['heyuexec'] = '/usr/local/bin/heyu';
 
 # Frontend password
@@ -14,5 +15,5 @@ $config['lang'] = '';
 # Theme
 $config['theme'] = 'default';
 # Url Path
-$config['url_path'] = '/domus.Link';
+$config['url_path'] = '';
 ?>

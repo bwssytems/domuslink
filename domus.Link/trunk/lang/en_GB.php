@@ -18,6 +18,7 @@ $lang['events'] = 'Events';
 $lang['setup'] = 'Setup';
 
 $lang['add'] = 'Add';
+$lang['edit'] = 'Edit';
 $lang['save'] = 'Save';
 $lang['cancel'] = 'Cancel';
 
