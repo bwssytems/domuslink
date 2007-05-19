@@ -43,15 +43,15 @@ $lang['delete'] = 'Delete';
 $lang['deleteconfirm'] = 'Click on OK to confirm deletion.';
 
 /*** aliases txt ***/
-$lang['code_txt'] = 'Enter House and Unit code. Make sure it isnt being used. You can also use ie: "A1,2", in ' .
-		'this case select the empty module model.';
+$lang['code_txt'] = 'Enter House and Unit code. Make sure it isnt being used. Aliases such as "A1,2" are ' .
+		'currently not supported.';
 
 $lang['label_txt'] = 'Enter a description for this module. Note all spaces will be substituted with a "_" ' .
-		'and uppercase letters will be saved as lowercase';
+		'and uppercase letters will be saved as lowercase.';
 
 $lang['module_txt'] = 'Choose modules model type.';
 
-$lang['type_txt'] = 'Select what type of function module will preform';
+$lang['type_txt'] = 'Select what this module will control.';
 
 /*** heyuconf txt ***/
 $lang['heyuconf_txt'] = 'The configuration file contains several critical pieces ' .
