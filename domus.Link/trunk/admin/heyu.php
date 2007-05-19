@@ -72,6 +72,7 @@ else
 	if (!isset($_GET["action"]))
 	{
 		$tpl_body = & new Template(TPL_FILE_LOCATION.'heyuconf_view.tpl');
+		$tpl_body->set('config', $config);
 		$tpl_body->set('lang', $lang);
 		$tpl_body->set('settings', $settings);
 	}
@@ -81,6 +82,7 @@ else
 		if ($_GET["action"] == "edit")
 		{
 			$tpl_body = & new Template(TPL_FILE_LOCATION.'heyuconf_edit.tpl');
+			$tpl_body->set('config', $config);
 			$tpl_body->set('lang', $lang);
 			$tpl_body->set('settings', $settings);
 		}

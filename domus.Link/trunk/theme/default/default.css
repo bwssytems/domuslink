@@ -134,6 +134,11 @@ div#centered {
 	/*border: 1px solid #ccc;*/
 }
 
+div#help {
+	/*float: right;*/
+	padding-left: 4px;
+}
+
 div#centered {
 	padding-top: 20px;
 	text-align: center;
@@ -145,14 +150,14 @@ table {
 	line-height: 1.4em;
 }
 
-div#content table a {
+.aliases a {
 	color: #666;
 	display: block;
 	border: 1px solid #ccc;
 	text-decoration: none;
 }
 
-div#content table a:hover {
+.aliases a:hover {
 	color: #666;
 	display: block;
 	border: 1px solid #ccc;
