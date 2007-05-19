@@ -18,8 +18,11 @@ $i = 0; //initializize counter for array
 	<table cellpadding="2" border="0" cellspacing="2">
 	  <tr>
 	    <td width="150px"><?=label_parse($label, false);?></td>
-	    <td><a href="<?=$_SERVER['PHP_SELF'];?>?action=on&device=<?=$code;?>&page=<?=$page;?>">ON</a></td>
-	    <td><a href="<?=$_SERVER['PHP_SELF'];?>?action=off&device=<?=$code;?>&page=<?=$page;?>">OFF</a></td>
+	    <? if (on_state($code, $heyuexec)): ?>
+	    	<td><a href="<?=$_SERVER['PHP_SELF'];?>?action=off&device=<?=$code;?>&page=<?=$page;?>">OFF</a></td>
+	    <? else: ?>
+	    	<td><a href="<?=$_SERVER['PHP_SELF'];?>?action=on&device=<?=$code;?>&page=<?=$page;?>">ON</a></td>
+	    <? endif; ?>
 	  </tr>
 	</table>
  </td>
@@ -31,8 +34,11 @@ $i = 0; //initializize counter for array
 	<table cellpadding="2" border="0" cellspacing="2">
 	  <tr>
 	    <td width="150px"><?=label_parse($label, false);?></td>
-	    <td><a href="<?=$_SERVER['PHP_SELF'];?>?action=on&device=<?=$code;?>&page=<?=$page;?>">ON</a></td>
-	    <td><a href="<?=$_SERVER['PHP_SELF'];?>?action=off&device=<?=$code;?>&page=<?=$page;?>">OFF</a></td>
+	    <? if (on_state($code, $heyuexec)): ?>
+	    	<td><a href="<?=$_SERVER['PHP_SELF'];?>?action=off&device=<?=$code;?>&page=<?=$page;?>">OFF</a></td>
+	    <? else: ?>
+	    	<td><a href="<?=$_SERVER['PHP_SELF'];?>?action=on&device=<?=$code;?>&page=<?=$page;?>">ON</a></td>
+	    <? endif; ?>
 	  </tr>
 	</table>
 	<? endif; ?>

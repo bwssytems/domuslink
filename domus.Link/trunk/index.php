@@ -79,11 +79,12 @@ if ($page == "lights" || !$page || $page == "main")
 	$lights = $heyuconf->get_aliases('Lights');
 	if (count($lights) > 0 ) // If > 0 then modules of type Lights exist therefore display them
 	{
-		$tpl_lights = & new Template(TPL_FILE_LOCATION.'ctrl_dim_table.tpl');
-		$tpl_lights->set('header', 'Lights');
-		$tpl_lights->set('page', $page);
-		$tpl_lights->set('modules', $lights);
-		$tpl_body->set('lights', $tpl_lights);
+		$tpl_subbody = & new Template(TPL_FILE_LOCATION.'ctrl_dim_table.tpl');
+		$tpl_subbody->set('header', 'Lights');
+		$tpl_subbody->set('page', $page);
+		$tpl_subbody->set('heyuexec', $config['heyuexec']);
+		$tpl_subbody->set('modules', $lights);
+		$tpl_body->set('lights', $tpl_subbody);
 	}
 }
 
@@ -93,11 +94,12 @@ if ($page == "appliances" || !$page || $page == "main")
 	$appliances = $heyuconf->get_aliases('Appliances');
 	if (count($appliances) > 0 ) // If > 0 then modules of type Appliances exist therefore display them
 	{
-		$tpl_app = & new Template(TPL_FILE_LOCATION.'ctrl_table.tpl');
-		$tpl_app->set('header', 'Appliances');
-		$tpl_app->set('page', $page);
-		$tpl_app->set('modules', $appliances);
-		$tpl_body->set('appliances', $tpl_app);
+		$tpl_subbody = & new Template(TPL_FILE_LOCATION.'ctrl_table.tpl');
+		$tpl_subbody->set('header', 'Appliances');
+		$tpl_subbody->set('page', $page);
+		$tpl_subbody->set('heyuexec', $config['heyuexec']);
+		$tpl_subbody->set('modules', $appliances);
+		$tpl_body->set('appliances', $tpl_subbody);
 	}
 }
 
@@ -107,11 +109,12 @@ if ($page == "irrigation" || !$page || $page == "main")
 	$irrigation = $heyuconf->get_aliases('Irrigation');
 	if (count($irrigation) > 0 ) // If > 0 then modules of type Irrigation exist therefore display them
 	{
-		$tpl_irrig = & new Template(TPL_FILE_LOCATION.'ctrl_table.tpl');
-		$tpl_irrig->set('header', 'Irrigation');
-		$tpl_irrig->set('page', $page);
-		$tpl_irrig->set('modules', $irrigation);
-		$tpl_body->set('irrigation', $tpl_irrig);
+		$tpl_subbody = & new Template(TPL_FILE_LOCATION.'ctrl_table.tpl');
+		$tpl_subbody->set('header', 'Irrigation');
+		$tpl_subbody->set('page', $page);
+		$tpl_subbody->set('heyuexec', $config['heyuexec']);
+		$tpl_subbody->set('modules', $irrigation);
+		$tpl_body->set('irrigation', $tpl_subbody);
 	}
 }
 

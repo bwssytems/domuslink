@@ -51,7 +51,7 @@
  | THE AUTHOR HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.            |
  |                                                                            |
  +----------------------------------------------------------------------------*/
- 
+
 /**
  * Heyu Control
  *
@@ -151,7 +151,9 @@ function on_state($unit, $heyuexec)
 
 	if ($result[0] == "1" || $result[0] == "0")
 	{
-		return $result[0];
+		if ($result[0] == "1") return true;
+		else return false;
+
 	}
 	else
 	{
