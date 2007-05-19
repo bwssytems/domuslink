@@ -3,6 +3,7 @@
 <head>
   <title><?=$title;?></title>
   <link rel="stylesheet" type="text/css" media="screen" href="<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/<?=$config['theme'];?>.css" />
+  <link rel="shortcut icon" href="<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/favicon.ico" type="image/x-icon" />
 
   <SCRIPT LANGUAGE="JavaScript">
   <!--

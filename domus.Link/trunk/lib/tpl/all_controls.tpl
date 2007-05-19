@@ -1,4 +1,3 @@
 <?=$lights;?>
 <?=$appliances;?>
 <?=$irrigation;?>
-<?=$hvac;?>
