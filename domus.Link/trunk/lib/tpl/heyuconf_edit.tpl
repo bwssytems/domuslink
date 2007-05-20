@@ -1,4 +1,4 @@
-<h1>Heyu Configuration</h1>
+<h1><?=$lang['heyuconf'];?></h1>
 <table border="0" cellspacing="2" cellpadding="2" align="center">
 <form action="<?=$_SERVER['PHP_SELF'];?>?action=save" method="post">
 

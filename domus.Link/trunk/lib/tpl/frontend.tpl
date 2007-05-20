@@ -4,12 +4,12 @@
 <!-- HeyuConf -->
 <table cellspacing="4" cellpadding="4" border="0">
   <tr>
-    <td colspan="3"><h2><?=$lang['heyuconf'];?></h2></td>
+    <td colspan="3"><h2><?=$lang['heyuconfile'];?></h2></td>
   </tr>
   <tr>
     <td valign="top" width="150px"><input type="text" name="heyuconf" value="<?=$config['heyuconf'];?>" /></td>
     <td width="30px">&nbsp;</td>
-    <td width="300px"><?=$lang['heyuconf_txt'];?></td>
+    <td width="300px"><?=$lang['heyuconfile_txt'];?></td>
   </tr>
 </table>
 <br />

@@ -80,7 +80,7 @@ if ($page == "lights" || !$page || $page == "main")
 	if (count($lights) > 0 ) // If > 0 then modules of type Lights exist therefore display them
 	{
 		$tpl_subbody = & new Template(TPL_FILE_LOCATION.'ctrl_dim_table.tpl');
-		$tpl_subbody->set('header', 'Lights');
+		$tpl_subbody->set('header', $lang['lights']);
 		$tpl_subbody->set('page', $page);
 		$tpl_subbody->set('heyuexec', $config['heyuexec']);
 		$tpl_subbody->set('modules', $lights);
@@ -95,7 +95,7 @@ if ($page == "appliances" || !$page || $page == "main")
 	if (count($appliances) > 0 ) // If > 0 then modules of type Appliances exist therefore display them
 	{
 		$tpl_subbody = & new Template(TPL_FILE_LOCATION.'ctrl_table.tpl');
-		$tpl_subbody->set('header', 'Appliances');
+		$tpl_subbody->set('header', $lang['appliances']);
 		$tpl_subbody->set('page', $page);
 		$tpl_subbody->set('heyuexec', $config['heyuexec']);
 		$tpl_subbody->set('modules', $appliances);
@@ -110,7 +110,7 @@ if ($page == "irrigation" || !$page || $page == "main")
 	if (count($irrigation) > 0 ) // If > 0 then modules of type Irrigation exist therefore display them
 	{
 		$tpl_subbody = & new Template(TPL_FILE_LOCATION.'ctrl_table.tpl');
-		$tpl_subbody->set('header', 'Irrigation');
+		$tpl_subbody->set('header', $lang['irrigation']);
 		$tpl_subbody->set('page', $page);
 		$tpl_subbody->set('heyuexec', $config['heyuexec']);
 		$tpl_subbody->set('modules', $irrigation);

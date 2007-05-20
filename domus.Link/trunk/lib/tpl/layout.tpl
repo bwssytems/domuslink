@@ -48,9 +48,9 @@
 <!-- start submenu div -->
 <div id="submenu">
 <? if (substr(strstr($_SERVER['REQUEST_URI'], "admin"), 0, 5) == "admin"): ?>
-<div id="submenuitem"><a href="<?=$config['url_path'];?>/admin/heyu.php">Heyu Setup</a></div>
-<div id="submenuitem"><a href="<?=$config['url_path'];?>/admin/aliases.php">Aliases</a></div>
-<div id="submenuitem"><a href="<?=$config['url_path'];?>/admin/frontend.php">Frontend</a></div>
+<div id="submenuitem"><a href="<?=$config['url_path'];?>/admin/heyu.php"><?=$lang['heyusetup'];?></a></div>
+<div id="submenuitem"><a href="<?=$config['url_path'];?>/admin/aliases.php"><?=$lang['aliases'];?></a></div>
+<div id="submenuitem"><a href="<?=$config['url_path'];?>/admin/frontend.php"><?=$lang['frontend'];?></a></div>
 <? endif; ?>
 </div>
 <!-- end submenu div -->
@@ -66,12 +66,12 @@
 <table cellspacing="0" cellpadding="0" border="0" width="100%">
   <tr>
    <td>
-     Heyu Status: <?=heyu_state_check(false);?>
+     <?=$lang['heyustatus'];?> <?=heyu_state_check(false);?>
      <? if (heyu_state_check(true)): ?>
-     	( <a href="<? $_SERVER['PHP_SELF'];?>?daemon=reload">RELOAD</a> |
-	    <a href="<? $_SERVER['PHP_SELF'];?>?daemon=stop">STOP</a> )
+     	( <a href="<? $_SERVER['PHP_SELF'];?>?daemon=reload"><?=$lang['reload'];?></a> |
+	    <a href="<? $_SERVER['PHP_SELF'];?>?daemon=stop"><?=$lang['stop'];?></a> )
      <? else:  ?>
-     	( <a href="<? $_SERVER['PHP_SELF'];?>?daemon=start">START</a> )
+     	( <a href="<? $_SERVER['PHP_SELF'];?>?daemon=start"><?=$lang['start'];?></a> )
      <? endif; ?>
 
      <? if (isset($_GET["daemon"])): ?>

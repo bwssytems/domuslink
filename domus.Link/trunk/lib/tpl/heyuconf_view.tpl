@@ -1,4 +1,4 @@
-<h1>Heyu Configuration</h1>
+<h1><?=$lang['heyuconf'];?></h1>
 <table border="0" cellspacing="2" cellpadding="2" align="center">
 <?php foreach($settings as $setting):
   if (substr($setting, 0, 1) != "#" && $setting != "\n" && substr($setting, 0, 5) != "ALIAS" &&

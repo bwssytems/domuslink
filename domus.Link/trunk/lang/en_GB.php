@@ -16,14 +16,24 @@ $lang['irrigation'] = 'Irrigation';
 $lang['hvac'] = 'HVAC';
 $lang['events'] = 'Events';
 $lang['setup'] = 'Setup';
+$lang['heyusetup'] = 'Heyu Setup';
+$lang['frontend'] = 'Frontend';
 
 $lang['add'] = 'Add';
 $lang['edit'] = 'Edit';
 $lang['save'] = 'Save';
 $lang['cancel'] = 'Cancel';
+$lang['delete'] = 'Delete';
+$lang['deleteconfirm'] = 'Click on OK to confirm deletion.';
+
+$lang['heyustatus'] = 'Heyu Status';
+$lang['start'] = 'START';
+$lang['reload'] = 'RELOAD';
+$lang['stop'] = 'STOP';
 
 $lang['frontendadmin'] = 'Frontend Configuration';
-$lang['heyuconf'] = 'Heyu Configuration File';
+$lang['heyucon'] = 'Heyu Configuration';
+$lang['heyuconfile'] = 'Heyu Configuration File';
 $lang['heyuexec'] = 'Heyu Executable';
 $lang['password'] = 'Setup Area Password';
 $lang['language'] = 'Frontend Language';
@@ -38,9 +48,6 @@ $lang['label'] = 'Label';
 $lang['module'] = 'Module';
 $lang['type'] = 'Type';
 $lang['actions'] = 'Actions';
-$lang['edit'] = 'Edit';
-$lang['delete'] = 'Delete';
-$lang['deleteconfirm'] = 'Click on OK to confirm deletion.';
 
 /*** aliases txt ***/
 $lang['code_txt'] = 'Enter House and Unit code. Make sure it isnt being used. Aliases such as "A1,2" are ' .
@@ -54,7 +61,7 @@ $lang['module_txt'] = 'Choose modules model type.';
 $lang['type_txt'] = 'Select what this module will control.';
 
 /*** heyuconf txt ***/
-$lang['heyuconf_txt'] = 'The configuration file contains several critical pieces ' .
+$lang['heyuconfile_txt'] = 'The configuration file contains several critical pieces ' .
 		'of information that the heyu program needs in order to function, ' .
 		'plus a number of user options. This file is typically named <span class="code">x10.conf</span> ' .
 		'and usually located in <span class="code">/etc/heyu</span> for system wide use.';

@@ -5,7 +5,6 @@
 
 # File locations
 $config['heyuconf'] = '/etc/heyu/x10.conf';
-#$config['heyuconf'] = 'H:/x10.conf';
 $config['heyuexec'] = '/usr/local/bin/heyu';
 
 # Frontend password
