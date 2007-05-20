@@ -64,7 +64,7 @@ if ($_POST['txtPassword'] != $config['password'])
 else
 {
 	setcookie("dluloged", "admin", 0);
-	if (isset($_POST['from']))
+	if ($_POST['from'] != "")
 		header("Location: ".$_POST['from'].".php");
 	else
 		header("Location: setup.php");
