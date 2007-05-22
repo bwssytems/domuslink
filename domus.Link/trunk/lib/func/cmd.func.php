@@ -78,9 +78,8 @@ function heyu_ctrl($heyuexec, $action)
 /**
  * Heyu Status Check
  *
- * @param $bin boolean, if true return, true or false for state
  */
-function heyu_state_check($bin)
+function heyu_state_check()
 {
 	$cmd = "ps x | grep [h]eyu_";
 	$result = null; $retval = null;
@@ -88,16 +87,10 @@ function heyu_state_check($bin)
 
 	if (count($result) == 2)
 	{
-		if (!$bin)
-			return "<font color=green>UP</font>";
-		else
-			return true;
+		return true;
 	} else
 	{
-		if (!$bin)
-			return "<font color=red>DOWN</font>";
-		else
-			return false;
+		return false;
 	}
 }
 
@@ -181,6 +174,28 @@ function dim_state($unit, $heyuexec)
 	{
 		header("Location: error.php?msg=".$result[0]);
 	}
+}
+
+/**
+ * Dim Level
+ *
+ * @param $unit code of module to check
+ * @param $heyuexec full path and location of heyu executable
+ */
+function dim_level($unit, $heyuexec)
+{
+	$cmd = $heyuexec." dimlevel ".$unit." 2>&1";
+	$result = null; $retval = null;
+	exec($cmd, $result, $retval);
+
+	//if ($result[0])
+	//{
+		return $result[0];
+	//}
+	//else
+	//{
+	//	header("Location: error.php?msg=".$result[0]);
+	//}
 }
 
 ?>

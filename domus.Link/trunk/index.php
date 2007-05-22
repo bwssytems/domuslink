@@ -82,7 +82,7 @@ if ($page == "lights" || !$page || $page == "main")
 		$tpl_subbody = & new Template(TPL_FILE_LOCATION.'ctrl_dim_table.tpl');
 		$tpl_subbody->set('header', $lang['lights']);
 		$tpl_subbody->set('page', $page);
-		$tpl_subbody->set('heyuexec', $config['heyuexec']);
+		$tpl_subbody->set('config', $config);
 		$tpl_subbody->set('modules', $lights);
 		$tpl_body->set('lights', $tpl_subbody);
 	}
@@ -97,7 +97,7 @@ if ($page == "appliances" || !$page || $page == "main")
 		$tpl_subbody = & new Template(TPL_FILE_LOCATION.'ctrl_table.tpl');
 		$tpl_subbody->set('header', $lang['appliances']);
 		$tpl_subbody->set('page', $page);
-		$tpl_subbody->set('heyuexec', $config['heyuexec']);
+		$tpl_subbody->set('config', $config);
 		$tpl_subbody->set('modules', $appliances);
 		$tpl_body->set('appliances', $tpl_subbody);
 	}
@@ -112,7 +112,7 @@ if ($page == "irrigation" || !$page || $page == "main")
 		$tpl_subbody = & new Template(TPL_FILE_LOCATION.'ctrl_table.tpl');
 		$tpl_subbody->set('header', $lang['irrigation']);
 		$tpl_subbody->set('page', $page);
-		$tpl_subbody->set('heyuexec', $config['heyuexec']);
+		$tpl_subbody->set('config', $config);
 		$tpl_subbody->set('modules', $irrigation);
 		$tpl_body->set('irrigation', $tpl_subbody);
 	}

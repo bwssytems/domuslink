@@ -66,12 +66,12 @@
 <table cellspacing="0" cellpadding="0" border="0" width="100%">
   <tr>
    <td>
-     <?=$lang['heyustatus'];?> <?=heyu_state_check(false);?>
-     <? if (heyu_state_check(true)): ?>
-     	( <a href="<? $_SERVER['PHP_SELF'];?>?daemon=reload"><?=$lang['reload'];?></a> |
+     <?=$lang['heyustatus'];?>
+     <? if (heyu_state_check()): ?>
+     	<img src="<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/heyu_on.gif" /> ( <a href="<? $_SERVER['PHP_SELF'];?>?daemon=reload"><?=$lang['reload'];?></a> |
 	    <a href="<? $_SERVER['PHP_SELF'];?>?daemon=stop"><?=$lang['stop'];?></a> )
      <? else:  ?>
-     	( <a href="<? $_SERVER['PHP_SELF'];?>?daemon=start"><?=$lang['start'];?></a> )
+     	<img src="<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/heyu_off.gif" /> ( <a href="<? $_SERVER['PHP_SELF'];?>?daemon=start"><?=$lang['start'];?></a> )
      <? endif; ?>
 
      <? if (isset($_GET["daemon"])): ?>
