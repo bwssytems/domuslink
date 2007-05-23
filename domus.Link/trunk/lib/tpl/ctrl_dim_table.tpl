@@ -5,85 +5,146 @@ $count = count($modules); // count num of modules
 if($count%2): $result=$count+1; endif; // if odd add 1
 $nlines = $count/2; // divide by two, which give number of lines in table
 $nlinescount = 0; // initialize counter
-$i = 0; //initializize counter for array
+$pos = 0; //initializize counter for array
 ?>
 
-<table cellpadding="2" border="0" cellspacing="2" width="100%">
+<table cellpadding="0" border="0" cellspacing="0" width="100%">
 
-<? while ($nlinescount<$nlines): ?>
+<? while ($nlinescount<$nlines): // start table line loop ?>
+
+<tr><td colspan="2">&nbsp;</td></tr>
 
 <tr>
- <td align="center" width="50%">
+  <!-- Start Col 1 -->
+  <td align="center" width="50%">
 
-<? list($code, $label) = split(" ", $modules[$i], 2); $i++; ?>
-<table cellspacing="0" cellpadding="0" border="0">
-  <tr>
-    <td><img src="<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/ctrlbox_lightsheader_left.gif" /></td>
-    <td colspan="4" width="225px" background="<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/ctrlbox_lightsheader_bg.gif"><input type="text" name="label" value="<?=label_parse($label, false);?>" class="ctrlbox_lights_label"  /></td>
-    <td><img src="<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/ctrlbox_lightsheader_right.gif" /></td>
-  </tr>
-  <tr><td colspan="6"><img src="<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/1px.gif" height="4px" /></td></tr>
-  <tr>
-    <td><img src="<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/ctrlbox_left.gif" /></td>
-    <td><? if (on_state($code, $config['heyuexec'])): ?><img src="<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/ctrlbox_light_on.gif" /><? else: ?><img src="<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/ctrlbox_light_off.gif" /><? endif; ?></td>
-    <td><img src="<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/ctrlbox_icon_sep.gif" /></td>
-    <td width="132px" background="<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/ctrlbox_middle_bg.gif"></td>
-    <td><? if (on_state($code, $config['heyuexec'])): ?><a href="<?=$_SERVER['PHP_SELF'];?>?action=off&device=<?=$code;?>&page=<?=$page;?>"><img src="<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/ctrlbox_switch_on.gif" border="0" /></a><? else: ?><a href="<?=$_SERVER['PHP_SELF'];?>?action=on&device=<?=$code;?>&page=<?=$page;?>"><img src="<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/ctrlbox_switch_off.gif" border="0" /></a><? endif; ?></td>
-    <td><img src="<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/ctrlbox_right.gif" /></td>
-  </tr>
-</table>
+  <? list($code, $label) = split(" ", $modules[$pos], 2); $pos++; ?>
+  <table cellspacing="0" cellpadding="0" border="0">
+    <tr>
+	  <td><img src="<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/ctrlbox_lightsheader_left.gif" /></td>
+	  <td colspan="4" width="225px" background="<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/ctrlbox_lightsheader_bg.gif"><input type="text" name="label" value="<?=label_parse($label, false);?>" class="ctrlbox_lights_label"  /></td>
+	  <td><img src="<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/ctrlbox_lightsheader_right.gif" /></td>
+    </tr>
+    <tr><td colspan="6"><img src="<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/1px.gif" height="2px" /></td></tr>
+    <tr>
+	  <td><img src="<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/ctrlbox_left.gif" /></td>
+	  <td><? if (on_state($code, $config['heyuexec'])): ?><img src="<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/ctrlbox_light_on.gif" /><? else: ?><img src="<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/ctrlbox_light_off.gif" /><? endif; ?></td>
+	  <td><img src="<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/ctrlbox_icon_sep.gif" /></td>
 
- </td>
+	  <td width="132px" background="<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/ctrlbox_middle_bg.gif">
 
- <td align="center" width="50%">
-	<?
-	if ($i != $count):
-	list($code, $label) = split(" ", $modules[$i], 2); $i++; ?>
-<table cellspacing="0" cellpadding="0" border="0">
-  <tr>
-    <td><img src="<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/ctrlbox_lightsheader_left.gif" /></td>
-    <td colspan="4" width="225px" background="<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/ctrlbox_lightsheader_bg.gif"><input type="text" name="label" value="<?=label_parse($label, false);?>" class="ctrlbox_lights_label"  /></td>
-    <td><img src="<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/ctrlbox_lightsheader_right.gif" /></td>
-  </tr>
-  <tr><td colspan="6"><img src="<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/1px.gif" height="4px" /></td></tr>
-  <tr>
-    <td><img src="<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/ctrlbox_left.gif" /></td>
-    <td><? if (on_state($code, $config['heyuexec'])): ?><img src="<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/ctrlbox_light_on.gif" /><? else: ?><img src="<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/ctrlbox_light_off.gif" /><? endif; ?></td>
-    <td><img src="<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/ctrlbox_icon_sep.gif" /></td>
-    <td width="132px" background="<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/ctrlbox_middle_bg.gif">
+	  <!-- Start Dimmer Table -->
+	  <table cellspacing="0" cellpaddin="0" border="0" class="dimmer">
+	   <tr>
+	    <td>
+	    <? if (dim_level($code, $config['heyuexec']) == "6"): $val = 1; elseif (dim_level($code, $config['heyuexec']) == "5"): $val = 2; else: $val = 3; endif; ?>
+	    <a href="<?=$_SERVER['PHP_SELF'];?>?action=dim&device=<?=$code;?>&value=<?=$val;?>&page=<?=$page;?>">
+	    <img src="<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/lights_dim.gif" border="0" /></a>
+	    </td>
+	    <? $dimpercent = dim_level($code, $config['heyuexec']);
+	    if ($dimpercent == "100"):
+	      $level = 12;
+	    elseif ($dimpercent == "0"):
+	      $level = floor($dimpercent/12) + 1;
+	    elseif ($dimpercent == "2"):
+	      $level = floor($dimpercent/12) + 2;
+	    elseif ($dimpercent == "5"):
+	      $level = floor($dimpercent/12) + 3;
+	    else:
+	      $level = floor($dimpercent/12) + 4;
+	    endif;
 
-<table cellspacing="0" cellpaddin="0" border="0" class="dimmer">
-<tr>
-<td><img src="<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/lights_dim.gif" border="0" /></td>
-<?
-$dimpercent = dim_level($code, $config['heyuexec']);
-if ($dimpercent == "100" || $dimpercent == "0"):
-$level = floor($dimpercent/9) + 1;
-else:
-$level = floor($dimpercent/9) + 2;
-endif;
-for ($i = 1; $i < $level; $i++):
-?>
-<td><img src="<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/lights_level_<?=$i;?>_on.gif" /></td>
-<?
-endfor;
-for ($i = $level; $i < 12; $i++):
-?>
-<td><img src="<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/lights_level_<?=$i;?>_off.gif" /></td>
-<? endfor; ?>
-<td><img src="<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/lights_bright.gif" border="0" /></td>
+	    for ($i = 1; $i < $level; $i++): ?>
+	    <td><img src="<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/lights_level_<?=$i;?>_on.gif" /></td>
+	    <? endfor;
+	    for ($i = $level; $i < 12; $i++): ?>
+	    <td><img src="<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/lights_level_<?=$i;?>_off.gif" /></td>
+		<? endfor; ?>
+		<? if (dim_level($code, $config['heyuexec']) == "6"): $val = 3; elseif (dim_level($code, $config['heyuexec']) == "5"): $val = 1; elseif (dim_level($code, $config['heyuexec']) == "2"): $val = 2; else: $val = 3; endif; ?>
+		<td><a href="<?=$_SERVER['PHP_SELF'];?>?action=bright&device=<?=$code;?>&value=<?=$val;?>&page=<?=$page;?>">
+		<img src="<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/lights_bright.gif" border="0" /></a>
+		</td>
+	   </tr>
+	  </table>
+	  <!-- End Dimmer Table -->
+
+	  </td>
+
+	  <td><? if (on_state($code, $config['heyuexec'])): ?><a href="<?=$_SERVER['PHP_SELF'];?>?action=off&device=<?=$code;?>&page=<?=$page;?>"><img src="<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/ctrlbox_switch_on.gif" border="0" /></a><? else: ?><a href="<?=$_SERVER['PHP_SELF'];?>?action=on&device=<?=$code;?>&page=<?=$page;?>"><img src="<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/ctrlbox_switch_off.gif" border="0" /></a><? endif; ?></td>
+	  <td><img src="<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/ctrlbox_right.gif" /></td>
+    </tr>
+  </table>
+
+  </td>
+  <!-- End Col 1 -->
+
+  <!-- Start Col 2 -->
+  <td align="center" width="50%">
+  <?
+  if ($pos != $count):
+  list($code, $label) = split(" ", $modules[$pos], 2); $pos++; ?>
+  <table cellspacing="0" cellpadding="0" border="0">
+    <tr>
+	  <td><img src="<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/ctrlbox_lightsheader_left.gif" /></td>
+	  <td colspan="4" width="225px" background="<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/ctrlbox_lightsheader_bg.gif"><input type="text" name="label" value="<?=label_parse($label, false);?>" class="ctrlbox_lights_label"  /></td>
+	  <td><img src="<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/ctrlbox_lightsheader_right.gif" /></td>
+	</tr>
+	<tr><td colspan="6"><img src="<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/1px.gif" height="2px" /></td></tr>
+	<tr>
+	  <td><img src="<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/ctrlbox_left.gif" /></td>
+	  <td><? if (on_state($code, $config['heyuexec'])): ?><img src="<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/ctrlbox_light_on.gif" /><? else: ?><img src="<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/ctrlbox_light_off.gif" /><? endif; ?></td>
+	  <td><img src="<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/ctrlbox_icon_sep.gif" /></td>
+
+	  <td width="132px" background="<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/ctrlbox_middle_bg.gif">
+
+	  <!-- Start Dimmer Table -->
+	  <table cellspacing="0" cellpaddin="0" border="0" class="dimmer">
+	   <tr>
+	    <td>
+	    <? if (dim_level($code, $config['heyuexec']) == "6"): $val = 1; elseif (dim_level($code, $config['heyuexec']) == "5"): $val = 2; else: $val = 3; endif; ?>
+	    <a href="<?=$_SERVER['PHP_SELF'];?>?action=dim&device=<?=$code;?>&value=<?=$val;?>&page=<?=$page;?>">
+	    <img src="<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/lights_dim.gif" border="0" /></a>
+	    </td>
+	    <? $dimpercent = dim_level($code, $config['heyuexec']);
+	    if ($dimpercent == "100"):
+	      $level = 12;
+	    elseif ($dimpercent == "0"):
+	      $level = floor($dimpercent/12) + 1;
+	    elseif ($dimpercent == "2"):
+	      $level = floor($dimpercent/12) + 2;
+	    elseif ($dimpercent == "5"):
+	      $level = floor($dimpercent/12) + 3;
+	    else:
+	      $level = floor($dimpercent/12) + 4;
+	    endif;
+
+	    for ($i = 1; $i < $level; $i++): ?>
+	    <td><img src="<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/lights_level_<?=$i;?>_on.gif" /></td>
+	    <? endfor;
+	    for ($i = $level; $i < 12; $i++): ?>
+	    <td><img src="<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/lights_level_<?=$i;?>_off.gif" /></td>
+		<? endfor; ?>
+		<? if (dim_level($code, $config['heyuexec']) == "6"): $val = 3; elseif (dim_level($code, $config['heyuexec']) == "5"): $val = 1; elseif (dim_level($code, $config['heyuexec']) == "2"): $val = 2; else: $val = 3; endif; ?>
+		<td><a href="<?=$_SERVER['PHP_SELF'];?>?action=bright&device=<?=$code;?>&value=<?=$val;?>&page=<?=$page;?>">
+		<img src="<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/lights_bright.gif" border="0" /></a>
+		</td>
+	   </tr>
+	  </table>
+	  <!-- End Dimmer Table -->
+
+	  </td>
+
+	  <td><? if (on_state($code, $config['heyuexec'])): ?><a href="<?=$_SERVER['PHP_SELF'];?>?action=off&device=<?=$code;?>&page=<?=$page;?>"><img src="<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/ctrlbox_switch_on.gif" border="0" /></a><? else: ?><a href="<?=$_SERVER['PHP_SELF'];?>?action=on&device=<?=$code;?>&page=<?=$page;?>"><img src="<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/ctrlbox_switch_off.gif" border="0" /></a><? endif; ?></td>
+	  <td><img src="<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/ctrlbox_right.gif" /></td>
+	</tr>
+  </table>
+  <? endif; ?>
+  </td>
+  <!-- End Col 2 -->
+
 </tr>
-</table>
 
-    </td>
-    <td><? if (on_state($code, $config['heyuexec'])): ?><a href="<?=$_SERVER['PHP_SELF'];?>?action=off&device=<?=$code;?>&page=<?=$page;?>"><img src="<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/ctrlbox_switch_on.gif" border="0" /></a><? else: ?><a href="<?=$_SERVER['PHP_SELF'];?>?action=on&device=<?=$code;?>&page=<?=$page;?>"><img src="<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/ctrlbox_switch_off.gif" border="0" /></a><? endif; ?></td>
-    <td><img src="<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/ctrlbox_right.gif" /></td>
-  </tr>
-</table>
-	<? endif; ?>
- </td>
-</tr>
-
-<? $nlinescount++; endwhile; ?>
+<? $nlinescount++; endwhile; // end table line loop ?>
 
 </table>
+

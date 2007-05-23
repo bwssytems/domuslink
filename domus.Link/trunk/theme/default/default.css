@@ -232,6 +232,9 @@ h3, h4, h5, h6 {
 }
 
 /*** OTHER ***/
+.spacer {
+padding-top: 15px;
+}
 .ctrlbox_label {
 	width: 120px;
 	margin-left: 6px;

@@ -150,7 +150,7 @@ function on_state($unit, $heyuexec)
 	}
 	else
 	{
-		header("Location: error.php?msg=".$result[0]);
+		header("Location: error.php?msg=onSTATE ".$result[0]);
 	}
 }
 

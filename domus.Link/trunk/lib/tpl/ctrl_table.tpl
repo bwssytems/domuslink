@@ -8,9 +8,10 @@ $nlinescount = 0; // initialize counter
 $i = 0; //initializize counter for array
 ?>
 
-<table cellpadding="5" border="0" cellspacing="10" width="100%">
+<table cellpadding="0" border="0" cellspacing="0" width="100%">
 
 <? while ($nlinescount<$nlines): ?>
+<tr><td colspan="2">&nbsp;</td></tr>
 
 <tr>
  <td align="center" width="50%">
