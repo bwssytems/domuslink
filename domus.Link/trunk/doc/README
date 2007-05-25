@@ -13,9 +13,10 @@
 
   2) HEYU: Can't open TTY line. check permissions!
 
-  Question: Have you updated your kernel recently? If so, remove Heyu
-  and rebuild with new kernel.
+  Check apache/webserver user has permissions to use tty port
 
-  3) Pages apearing with little or no content?
+  chmod o+rw /dev/tts/0 (for slackware ttyS0 port)
+
+  3) Pages apearing with little, no content or white?
 
   Enable short_open_tag in php.ini, then restart apache, check phpinfo(); is correct.

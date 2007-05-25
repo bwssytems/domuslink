@@ -55,7 +55,7 @@ $pos = 0; //initializize counter for array
 	    endif;
 
 	    for ($i = 1; $i < $level; $i++): ?>
-	    <td><img src="<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/lights_level_<?=$i;?>_on.gif" /></td>
+	    <td><img src="<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/lights_level_<?=$i;?>_on.gif" border="0" /></a></td>
 	    <? endfor;
 	    for ($i = $level; $i < 12; $i++): ?>
 	    <td><img src="<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/lights_level_<?=$i;?>_off.gif" /></td>
