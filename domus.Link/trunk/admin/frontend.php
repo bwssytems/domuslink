@@ -74,8 +74,9 @@ else
 		$newconfig['heyuexec'] = $_POST["heyuexec"];
 		$newconfig['password'] = $_POST["password"];
 		$newconfig['lang'] = $_POST["lang"];
-		$newconfig['theme'] = $_POST["theme"];
 		$newconfig['url_path'] = $_POST["url_path"];
+		$newconfig['theme'] = $_POST["theme"];
+		$newconfig['imgs'] = $_POST["imgs"];
 
 		$configfile = CONFIG_FILE_LOCATION;
 

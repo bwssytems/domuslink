@@ -14,7 +14,20 @@
     if (ystart==ynow) { document.write("© "+ystart); }
     else { document.write("© "+ ystart +" - "+ynow); }
    }
-  -->
+
+   //preload()
+   //{
+   //	var image1 = new Image();
+   //	image1.src = "<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/menu_all_on.gif.gif";
+   //	var image2 = new Image();
+   //	image2.src = "<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/menu_lights_on.gif.gif";
+   //}
+
+   function roll(img_name, img_src)
+   {
+   	document[img_name].src = img_src;
+   }
+   //-->
   </SCRIPT>
 </head>
 
@@ -34,6 +47,7 @@
 
 <!-- start menu div -->
 <div id="menu">
+<? if ($config['imgs'] == "OFF"): ?>
   <div id="menuitem"><a href="<?=$config['url_path'];?>/index.php?page=main"><?=$lang['all'];?></a></div>
   <div id="menuitem"><a href="<?=$config['url_path'];?>/index.php?page=lights"><?=$lang['lights'];?></a></div>
   <div id="menuitem"><a href="<?=$config['url_path'];?>/index.php?page=appliances"><?=$lang['appliances'];?></a></div>
@@ -41,6 +55,15 @@
 <!--  <div id="menuitem"><a href="<?=$config['url_path'];?>/index.php?page=hvac"><?=$lang['hvac'];?></a></div> -->
   <div id="menuitem"><a href="<?=$config['url_path'];?>/index.php"><?=$lang['events'];?></a></div>
   <div id="menuitem"><a href="<?=$config['url_path'];?>/admin/setup.php"><?=$lang['setup'];?></a></div>
+<? else: ?>
+  <div id="menuitem_img"><a href="<?=$config['url_path'];?>/index.php?page=main" onmouseover="roll('img_1', '<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/menu_all_on.gif')" onmouseout="roll('img_1', '<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/menu_all_off.gif')"><img alt="<?=$lang['all'];?>" src="<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/menu_all_off.gif" border="0" name="img_1" /></a></div>
+  <div id="menuitem_img"><a href="<?=$config['url_path'];?>/index.php?page=lights" onmouseover="roll('img_2', '<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/menu_lights_on.gif')" onmouseout="roll('img_2', '<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/menu_lights_off.gif')"><img alt="<?=$lang['lights'];?>" src="<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/menu_lights_off.gif" border="0" name="img_2" /></a></div>
+  <div id="menuitem_img"><a href="<?=$config['url_path'];?>/index.php?page=appliances" onmouseover="roll('img_3', '<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/menu_appliances_on.gif')" onmouseout="roll('img_3', '<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/menu_appliances_off.gif')"><img alt="<?=$lang['appliances'];?>" src="<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/menu_appliances_off.gif" border="0" name="img_3" /></a></div>
+  <div id="menuitem_img"><a href="<?=$config['url_path'];?>/index.php?page=irrigation" onmouseover="roll('img_4', '<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/menu_irrigation_on.gif')" onmouseout="roll('img_4', '<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/menu_irrigation_off.gif')"><img alt="<?=$lang['irrigation'];?>" src="<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/menu_irrigation_off.gif" border="0" name="img_4" /></a></div>
+<!-- <div id="menuitem_img"><a href="<?=$config['url_path'];?>/index.php?page=hvac" onmouseover="roll('img_5', '<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/menu_hvac_on.gif')" onmouseout="roll('img_5', '<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/menu_hvac_off.gif')"><img alt="<?=$lang['hvac'];?>" src="<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/menu_hvac_off.gif" border="0" name="img_5" /></a></div> -->
+  <div id="menuitem_img"><a href="<?=$config['url_path'];?>/index.php" onmouseover="roll('img_6', '<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/menu_events_on.gif')" onmouseout="roll('img_6', '<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/menu_events_off.gif')"><img alt="<?=$lang['events'];?>" src="<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/menu_events_off.gif" border="0" name="img_6" /></a></div>
+  <div id="menuitem_img"><a href="<?=$config['url_path'];?>/admin/setup.php" onmouseover="roll('img_7', '<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/menu_setup_on.gif')" onmouseout="roll('img_7', '<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/menu_setup_off.gif')"><img alt="<?=$lang['setup'];?>" src="<?=$config['url_path'];?>/theme/<?=$config['theme'];?>/images/menu_setup_off.gif" border="0" name="img_7" /></a></div>
+<? endif; ?>
 </div>
 <!-- end menu div -->
 <div id="black_sep"></div><!-- separator div -->

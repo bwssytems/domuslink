@@ -69,6 +69,18 @@
   </tr>
 </table>
 <br />
+<!-- URL Path -->
+<table cellspacing="4" cellpadding="4" border="0">
+  <tr>
+    <td colspan="3"><h2><?=$lang['urlpath'];?></h2></td>
+  </tr>
+  <tr>
+    <td valign="top" width="150px"><input type="text" name="url_path" value="<?=$config['url_path'];?>" /></td>
+    <td width="30px">&nbsp;</td>
+    <td width="300px"><?=$lang['urlpath_txt'];?></td>
+  </tr>
+</table>
+<br />
 <!-- Theme -->
 <table cellspacing="4" cellpadding="4" border="0">
   <tr>
@@ -94,15 +106,28 @@
   </tr>
 </table>
 <br />
-<!-- URL Path -->
+<!-- Images -->
 <table cellspacing="4" cellpadding="4" border="0">
   <tr>
-    <td colspan="3"><h2><?=$lang['urlpath'];?></h2></td>
+    <td colspan="3"><h2><?=$lang['imgs'];?></h2></td>
   </tr>
   <tr>
-    <td valign="top" width="150px"><input type="text" name="url_path" value="<?=$config['url_path'];?>" /></td>
+    <td valign="top" width="150px">
+    <!-- Images dropdown -->
+    <select name="imgs">
+    <? $options = array('ON', 'OFF'); ?>
+    <? foreach ($options as $key=>$opt): ?>
+     <? if ($opt == $config['imgs']): ?>
+       <option selected value="<?=$opt;?>"><?=$opt;?></option>
+     <? else: ?>
+       <option value="<?=$opt;?>"><?=$opt;?></option>
+     <? endif; ?>
+    <? endforeach; ?>
+    </select>
+    <!-- End images dropdown -->
+    </td>
     <td width="30px">&nbsp;</td>
-    <td width="300px"><?=$lang['urlpath_txt'];?></td>
+    <td width="300px"><?=$lang['imgs_txt'];?></td>
   </tr>
 </table>
 <br />

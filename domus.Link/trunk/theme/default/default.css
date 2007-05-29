@@ -21,7 +21,7 @@ div#header {
 
 /* MENU */
 div#menu {
-	height: 30px;
+	height: 40px;
 	background: transparent url(images/menu_bg.gif);
 	line-height: 1.2em;
 }
@@ -39,11 +39,33 @@ div#menuitem a {
 	color: #666666;
 	display: block;
 	border-left: 1px solid #eee;
-	padding-top: 6px;
-	padding-bottom: 7px;
+	padding-top: 11px;
+	padding-bottom: 12px;
 }
 
 div#menuitem a:hover {
+	text-decoration: none;
+	background: transparent url(images/menu_bg_active.gif);
+	color: #eeeeee;
+	border-left: 1px solid #000;
+}
+
+div#menuitem_img {
+	float: left;
+	width: 16.645%; /* 100/6 ~= 16.667 , 100/7 ~= 14.274 */
+	text-align: center;
+	font-size: 14px;
+	line-height: 1.2em;
+}
+
+div#menuitem_img a {
+	text-decoration: none;
+	color: #666666;
+	display: block;
+	border-left: 1px solid #eee;
+}
+
+div#menuitem_img a:hover {
 	text-decoration: none;
 	background: transparent url(images/menu_bg_active.gif);
 	color: #eeeeee;

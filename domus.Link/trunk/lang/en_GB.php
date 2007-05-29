@@ -37,8 +37,9 @@ $lang['heyuconfile'] = 'Heyu Configuration File';
 $lang['heyuexec'] = 'Heyu Executable';
 $lang['password'] = 'Setup Area Password';
 $lang['language'] = 'Frontend Language';
-$lang['theme'] = 'Frontend Theme';
+$lang['imgs'] = 'Menu Images';
 $lang['urlpath'] = 'URL Path';
+$lang['theme'] = 'Frontend Theme';
 
 $lang['aliases'] = 'Aliases';
 $lang['addalias'] = 'Add Alias';
@@ -77,6 +78,8 @@ $lang['language_txt'] = 'Define the language for the frontend here. You can also
 		'is not found it will default to English';
 
 $lang['theme_txt'] = 'Select a theme for the GUI.';
+
+$lang['imgs_txt'] = 'Select whether or not you would like to use images instead of text on the menu bar.';
 
 $lang['urlpath_txt'] = 'This setting defines the URL path of the frontend. ' .
 		'For example if you are running domus.Link in a sub folder say <span class="code">' .
