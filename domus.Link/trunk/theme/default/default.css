@@ -52,7 +52,7 @@ div#menuitem a:hover {
 
 div#menuitem_img {
 	float: left;
-	width: 16.645%; /* 100/6 ~= 16.667 , 100/7 ~= 14.274 */
+	width: 20%; /* 100/5 = 20, 100/6 ~= 16.667 , 100/7 ~= 14.274 */
 	text-align: center;
 	font-size: 14px;
 	line-height: 1.2em;
@@ -140,6 +140,10 @@ div#footer {
 	margin-top: 5px;
 }
 
+div#footer img {
+	vertical-align: middle;
+}
+
 div#footer table {
 	color: #666;
 	font-size: 10px;
@@ -149,6 +153,12 @@ div#footer a {
 	color: #666;
 	text-decoration: none;
 	border-bottom: 1px dotted #666;
+}
+
+div#footer a:hover {
+	color: #999;
+	text-decoration: none;
+	border-bottom: 1px dotted #999;
 }
 
 div#centered {

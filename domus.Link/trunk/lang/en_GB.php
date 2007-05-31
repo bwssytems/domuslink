@@ -6,7 +6,7 @@
 
 /** v0.1 **/
 
-$lang['dlurl'] = 'http://icebrian.net/domuslink';
+$lang['dlurl'] = 'http://domus.link.co.pt';
 $lang['title'] = 'domus.Link';
 
 $lang['all'] = 'All';
