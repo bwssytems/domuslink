@@ -42,14 +42,14 @@ div#menuitem a {
 	padding-top: 11px;
 	padding-bottom: 12px;
 }
-
+/*
 div#menuitem a:hover {
 	text-decoration: none;
 	background: transparent url(images/menu_bg_active.gif);
 	color: #eeeeee;
 	border-left: 1px solid #000;
 }
-
+*/
 div#menuitem_img {
 	float: left;
 	width: 20%; /* 100/5 = 20, 100/6 ~= 16.667 , 100/7 ~= 14.274 */
@@ -64,14 +64,14 @@ div#menuitem_img a {
 	display: block;
 	border-left: 1px solid #eee;
 }
-
+/*
 div#menuitem_img a:hover {
 	text-decoration: none;
 	background: transparent url(images/menu_bg_active.gif);
 	color: #eeeeee;
 	border-left: 1px solid #000;
 }
-
+*/
 div#black_sep {
 	background-color: #000;
 	height: 12px;
@@ -127,7 +127,7 @@ div#submenu_spacer {
 }
 
 div#content {
-background-color: #efefef;
+	background-color: #efefef;
 	padding-left: 20px;
 	padding-right: 20px;
 	/*padding-top: 10px;*/
