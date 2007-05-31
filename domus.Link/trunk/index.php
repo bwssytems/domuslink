@@ -38,7 +38,7 @@ if ($page == "lights" || !$page || $page == "main")
 	$lights = $heyuconf->get_aliases('Lights');
 	if (count($lights) > 0 ) // If > 0 then modules of type Lights exist therefore display them
 	{
-		$tpl_subbody = & new Template(TPL_FILE_LOCATION.'ctrl_dim_table.tpl');
+		$tpl_subbody = & new Template(TPL_FILE_LOCATION.'ctrl_light_table.tpl');
 		$tpl_subbody->set('header', $lang['lights']);
 		$tpl_subbody->set('page', $page);
 		$tpl_subbody->set('config', $config);
@@ -53,7 +53,7 @@ if ($page == "appliances" || !$page || $page == "main")
 	$appliances = $heyuconf->get_aliases('Appliances');
 	if (count($appliances) > 0 ) // If > 0 then modules of type Appliances exist therefore display them
 	{
-		$tpl_subbody = & new Template(TPL_FILE_LOCATION.'ctrl_table.tpl');
+		$tpl_subbody = & new Template(TPL_FILE_LOCATION.'ctrl_app_table.tpl');
 		$tpl_subbody->set('header', $lang['appliances']);
 		$tpl_subbody->set('page', $page);
 		$tpl_subbody->set('config', $config);
