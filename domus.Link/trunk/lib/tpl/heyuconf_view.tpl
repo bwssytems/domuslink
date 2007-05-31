@@ -1,5 +1,5 @@
 <h1><?=$lang['heyuconf'];?></h1>
-<table border="0" cellspacing="2" cellpadding="2" align="center">
+<table border="0" cellspacing="2" cellpadding="2">
 <?php foreach($settings as $setting):
   if (substr($setting, 0, 1) != "#" && $setting != "\n" && substr($setting, 0, 5) != "ALIAS" &&
   substr($setting, 0, 5) != "SCENE" && substr($setting, 0, 7) != "USERSYN" && $setting != " \n"):

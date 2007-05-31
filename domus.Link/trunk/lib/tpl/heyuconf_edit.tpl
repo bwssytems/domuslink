@@ -1,5 +1,5 @@
 <h1><?=$lang['heyuconf'];?></h1>
-<table border="0" cellspacing="2" cellpadding="2" align="center">
+<table border="0" cellspacing="2" cellpadding="2">
 <form action="<?=$_SERVER['PHP_SELF'];?>?action=save" method="post">
 
 <? $act = 0; $sct = 0; $usct = 0; // alias, scene and usersyn counts for posts ?>

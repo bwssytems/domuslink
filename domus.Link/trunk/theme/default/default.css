@@ -52,7 +52,7 @@ div#menuitem a:hover {
 */
 div#menuitem_img {
 	float: left;
-	width: 20%; /* 100/5 = 20, 100/6 ~= 16.667 , 100/7 ~= 14.274 */
+	width: 19.94%; /* 100/5 = 20, 100/6 ~= 16.667 , 100/7 ~= 14.274 */
 	text-align: center;
 	font-size: 14px;
 	line-height: 1.2em;
@@ -161,20 +161,9 @@ div#footer a:hover {
 	border-bottom: 1px dotted #999;
 }
 
-div#centered {
-	width: 600px;
-	margin: 0pt auto;
-	/*border: 1px solid #ccc;*/
-}
-
 div#help {
 	/*float: right;*/
 	padding-left: 4px;
-}
-
-div#centered {
-	padding-top: 20px;
-	text-align: center;
 }
 
 /*** TABLES ***/

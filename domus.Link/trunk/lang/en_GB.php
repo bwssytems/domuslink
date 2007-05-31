@@ -32,7 +32,7 @@ $lang['reload'] = 'RELOAD';
 $lang['stop'] = 'STOP';
 
 $lang['frontendadmin'] = 'Frontend Configuration';
-$lang['heyucon'] = 'Heyu Configuration';
+$lang['heyuconf'] = 'Heyu Configuration';
 $lang['heyuconfile'] = 'Heyu Configuration File';
 $lang['heyuexec'] = 'Heyu Executable';
 $lang['password'] = 'Setup Area Password';
