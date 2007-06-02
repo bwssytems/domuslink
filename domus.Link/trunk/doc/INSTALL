@@ -16,17 +16,22 @@
  4) Copy supplied x10.conf file to location of your x10.conf file,
     usually in /etc/heyu.
     (The supplied x10.conf file is prepared for use with the frontend)
+    ie: cp x10.conf /etc/heyu/x10.conf
 
  5) Edit supplied x10.conf file and change TTY directive to suit
     your system.
-    - Do not add tabs, or extra spaces between option and directive.
+    - Do not add tabs, or extra spaces between options and directive.
     - Leave everything else as is.
 
- 5) Change permissions on config.php file to either 777 or
-    web server user and group.
-    ie: chmod 777 config.php or chmod apache:apache config.php
+ 6) Change x10.conf file permissions so that webserver can change it.
+    ie: chmod apache:apache /etc/heyu/x10.conf
+    or: chmod +rw /etc/heyu/x10.conf
 
- 6) Edit config.php to suit your needs, or use the frontend to do so.
+ 7) Change config.php file permissions so that webserver can change it.
+    ie: chmod apache:apache config.php
+    or: chmod +rw config.php
+
+ 8) Edit config.php to suit your needs, or use the frontend to do so.
 
 
  ------------------------------------------------------------------------
@@ -38,3 +43,7 @@
  X) Change permission on TTY port so that webserver can use it.
     ie: chmod o+rw /dev/ttyS0
     on slackware: chmod o+rw /dev/tts/0
+
+
+ Finally, point your web browser to you webserver. If you placed it in the root
+ folder http://localhost should suffice.
