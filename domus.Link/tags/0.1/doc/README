@@ -1,0 +1,37 @@
+/*----------------------------------------------------------------------------+
+ |                                                                            |
+ |                                 README                                     |
+ |                                                                            |
+ +----------------------------------------------------------------------------*/
+
+  ----------------
+  Installing
+  ----------------
+  Refer to /doc/INSTALL.
+
+
+
+  ----------------
+  Troubleshooting
+  ----------------
+  1) Warning: Cannot modify header information - headers already sent
+
+  Edit you php.ini file (usually located within apache configuration dir)
+  locate "output_buffering" and make sure it is set to "on".
+
+  2) HEYU: Can't open TTY line. check permissions!
+
+  Check apache/webserver user has permissions to use tty port
+
+  chmod o+rw /dev/tts/0 (for slackware ttyS0 port)
+
+  3) Pages apearing with little, no content or white?
+
+  Enable short_open_tag in php.ini, then restart apache, check phpinfo(); is correct.
+
+
+
+  ----------------
+  License
+  ----------------
+  Refer to /doc/LICENSE
