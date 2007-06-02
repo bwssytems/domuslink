@@ -70,7 +70,7 @@ function config_text($config)
 # Language - Define the language for the frontend here.
 # If left blank browsers preferred language will be used.
 # In case a language is not found it will default to English
-# Options: en_GB and pt_PT
+# Options: en_GB
 \$config['lang'] = '{$config['lang']}';
 
 # Url Path - This setting defines the URL path of the frontend.
