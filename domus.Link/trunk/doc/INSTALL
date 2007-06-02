@@ -30,11 +30,11 @@
 
 
  ------------------------------------------------------------------------
- The next step will probably not be required, however if you keep getting
- a "HEYU: Can't open TTY line. check permissions!" then please follow it.
+ The next step might not be required, however, if you keep getting a
+ "HEYU: Can't open TTY line. check permissions!" then please follow it.
  ------------------------------------------------------------------------
 
 
- X) Change permission on TTY port so that webserver user can use it.
+ X) Change permission on TTY port so that webserver can use it.
     ie: chmod o+rw /dev/ttyS0
     on slackware: chmod o+rw /dev/tts/0

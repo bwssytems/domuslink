@@ -32,72 +32,80 @@ else
 	$page = null;
 }
 
-## Aliases  of type Lights
-if ($page == "lights" || !$page || $page == "main")
+
+if (heyu_state_check())
 {
-	$lights = $heyuconf->get_aliases('Lights');
-	if (count($lights) > 0 ) // If > 0 then modules of type Lights exist therefore display them
+	## Aliases  of type Lights
+	if ($page == "lights" || !$page || $page == "main")
 	{
-		$tpl_subbody = & new Template(TPL_FILE_LOCATION.'ctrl_light_table.tpl');
-		$tpl_subbody->set('header', $lang['lights']);
-		$tpl_subbody->set('page', $page);
-		$tpl_subbody->set('config', $config);
-		$tpl_subbody->set('modules', $lights);
-		$tpl_body->set('lights', $tpl_subbody);
+		$lights = $heyuconf->get_aliases('Lights');
+		if (count($lights) > 0 ) // If > 0 then modules of type Lights exist therefore display them
+		{
+			$tpl_subbody = & new Template(TPL_FILE_LOCATION.'ctrl_light_table.tpl');
+			$tpl_subbody->set('header', $lang['lights']);
+			$tpl_subbody->set('page', $page);
+			$tpl_subbody->set('config', $config);
+			$tpl_subbody->set('modules', $lights);
+			$tpl_body->set('lights', $tpl_subbody);
+		}
 	}
-}
 
-## Aliases of type Appliances
-if ($page == "appliances" || !$page || $page == "main")
-{
-	$appliances = $heyuconf->get_aliases('Appliances');
-	if (count($appliances) > 0 ) // If > 0 then modules of type Appliances exist therefore display them
+	## Aliases of type Appliances
+	if ($page == "appliances" || !$page || $page == "main")
 	{
-		$tpl_subbody = & new Template(TPL_FILE_LOCATION.'ctrl_app_table.tpl');
-		$tpl_subbody->set('header', $lang['appliances']);
-		$tpl_subbody->set('page', $page);
-		$tpl_subbody->set('config', $config);
-		$tpl_subbody->set('modules', $appliances);
-		$tpl_body->set('appliances', $tpl_subbody);
+		$appliances = $heyuconf->get_aliases('Appliances');
+		if (count($appliances) > 0 ) // If > 0 then modules of type Appliances exist therefore display them
+		{
+			$tpl_subbody = & new Template(TPL_FILE_LOCATION.'ctrl_app_table.tpl');
+			$tpl_subbody->set('header', $lang['appliances']);
+			$tpl_subbody->set('page', $page);
+			$tpl_subbody->set('config', $config);
+			$tpl_subbody->set('modules', $appliances);
+			$tpl_body->set('appliances', $tpl_subbody);
+		}
 	}
-}
 
-## Aliases of type Irrigation
-if ($page == "irrigation" || !$page || $page == "main")
-{
-	$irrigation = $heyuconf->get_aliases('Irrigation');
-	if (count($irrigation) > 0 ) // If > 0 then modules of type Irrigation exist therefore display them
+	## Aliases of type Irrigation
+	if ($page == "irrigation" || !$page || $page == "main")
 	{
-		$tpl_subbody = & new Template(TPL_FILE_LOCATION.'ctrl_irrig_table.tpl');
-		$tpl_subbody->set('header', $lang['irrigation']);
-		$tpl_subbody->set('page', $page);
-		$tpl_subbody->set('config', $config);
-		$tpl_subbody->set('modules', $irrigation);
-		$tpl_body->set('irrigation', $tpl_subbody);
+		$irrigation = $heyuconf->get_aliases('Irrigation');
+		if (count($irrigation) > 0 ) // If > 0 then modules of type Irrigation exist therefore display them
+		{
+			$tpl_subbody = & new Template(TPL_FILE_LOCATION.'ctrl_irrig_table.tpl');
+			$tpl_subbody->set('header', $lang['irrigation']);
+			$tpl_subbody->set('page', $page);
+			$tpl_subbody->set('config', $config);
+			$tpl_subbody->set('modules', $irrigation);
+			$tpl_body->set('irrigation', $tpl_subbody);
+		}
 	}
-}
 
-## Aliases of type HVAC
-/*if ($page == "hvac" || !$page || $page == "main")
-{
-	$hvac = $heyuconf->get_aliases('HVAC');
-	if (count($hvac) > 0 ) // If > 0 then modules of type HVAC exist therefore display them
+	## Aliases of type HVAC
+	/*if ($page == "hvac" || !$page || $page == "main")
 	{
-		$tpl_hvac = & new Template(TPL_FILE_LOCATION.'ctrl_table.tpl');
-		$tpl_hvac->set('header', 'HVAC');
-		$tpl_hvac->set('page', $page);
-		$tpl_hvac->set('modules', $hvac);
-		$tpl_body->set('hvac', $tpl_hvac);
+		$hvac = $heyuconf->get_aliases('HVAC');
+		if (count($hvac) > 0 ) // If > 0 then modules of type HVAC exist therefore display them
+		{
+			$tpl_hvac = & new Template(TPL_FILE_LOCATION.'ctrl_table.tpl');
+			$tpl_hvac->set('header', 'HVAC');
+			$tpl_hvac->set('page', $page);
+			$tpl_hvac->set('modules', $hvac);
+			$tpl_body->set('hvac', $tpl_hvac);
+		}
+	}*/
+
+	if (isset($_GET['action']))
+	{
+		heyu_exec($config['heyuexec']);
 	}
-}*/
 
-if (isset($_GET['action']))
-{
-	heyu_exec($config['heyuexec']);
+	## Display the page
+	$tpl->set('content', $tpl_body);
 }
-
-## Display the page
-$tpl->set('content', $tpl_body);
+else
+{
+	$tpl->set('content', '<h1>HEYU IS OFF!</h1>Please start heyu!<br />You may need to change permissions to tty port.');
+}
 
 echo $tpl->fetch(TPL_FILE_LOCATION.'layout.tpl');
 
