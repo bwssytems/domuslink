@@ -24,11 +24,11 @@
     - Leave everything else as is.
 
  6) Change x10.conf file permissions so that webserver can change it.
-    ie: chmod apache:apache /etc/heyu/x10.conf
+    ie: chown apache:apache /etc/heyu/x10.conf
     or: chmod +rw /etc/heyu/x10.conf
 
  7) Change config.php file permissions so that webserver can change it.
-    ie: chmod apache:apache config.php
+    ie: chown apache:apache config.php
     or: chmod +rw config.php
 
  8) Edit config.php to suit your needs, or use the frontend to do so.
