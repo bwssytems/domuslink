@@ -1,6 +1,6 @@
-<h1><?=$lang['heyuconf'];?></h1>
+<h1><?php $lang['heyuconf'];?></h1>
 <table border="0" cellspacing="2" cellpadding="2">
-<form action="<?=$_SERVER['PHP_SELF'];?>?action=save" method="post">
+<form action="<?php $_SERVER['PHP_SELF'];?>?action=save" method="post">
 
 <? $act = 0; $sct = 0; $usct = 0; // alias, scene and usersyn counts for posts ?>
 <? foreach($settings as $setting): ?>
@@ -9,23 +9,23 @@
   $directive = str_replace("_", " ", $directivenf); ?>
 
   <? if ($directive == "ALIAS"): ?>
-  <input type="hidden" name="<?=$directivenf;?><?=$act;?>" value="<?=$value;?>" />
+  <input type="hidden" name="<?php $directivenf;?><?php $act;?>" value="<?php $value;?>" />
   <? $act++; ?>
   <? elseif ($directive == "SCENE"): ?>
-    <input type="hidden" name="<?=$directivenf;?><?=$act;?>" value="<?=$value;?>" />
+    <input type="hidden" name="<?php $directivenf;?><?php $act;?>" value="<?php $value;?>" />
     <? $sct++; ?>
   <? elseif ($directive == "USERSYN"): ?>
-    <input type="hidden" name="<?=$directivenf;?><?=$act;?>" value="<?=$value;?>" />
+    <input type="hidden" name="<?php $directivenf;?><?php $act;?>" value="<?php $value;?>" />
     <? $usct++; ?>
   <? else: // if not alias, scene or usersyn ?>
     <tr>
       <td width="200">
-        <b><?=$directive;?> :&nbsp;</b>
+        <b><?php $directive;?> :&nbsp;</b>
       </td>
 
     <? if ($directivenf == "SCRIPT_MODE"): ?>
       <td>
-        <select name="<?=$directivenf;?>">
+        <select name="<?php $directivenf;?>">
         <? if ($value == "SCRIPTS"): ?>
           <option selected value='SCRIPTS'>SCRIPTS</option>
           <option value='HEYUHELPER'>HEYUHELPER</option>
@@ -37,7 +37,7 @@
       </td>
       <? elseif ($directivenf == "MODE"): ?>
       <td>
-        <select name="<?=$directivenf;?>">
+        <select name="<?php $directivenf;?>">
           <? if ($value == "COMPATIBLE"): ?>
             <option selected value="COMPATIBLE">COMPATIBLE</option>
             <option value="HEYU">HEYU</option>
@@ -50,19 +50,19 @@
       <? elseif ($directivenf == "COMBINE_EVENTS" || $directivenf == "COMPRESS_MACROS" || $directivenf == "REPL_DELAYED_MACROS" ||
       $directivenf == "WRITE_CHECK_FILES" || $directivenf == "ACK_HAILS" || $directivenf == "AUTOFETCH"): ?>
       <td>
-        <select name="<?=$directivenf;?>">
+        <select name="<?php $directivenf;?>">
           <? echo yesnoopt($value); ?>
         </select>
       </td>
       <? elseif ($directivenf == "DAWN_OPTION" || $directivenf == "DUSK_OPTION"): ?>
       <td>
-        <select name="<?=$directivenf;?>">
+        <select name="<?php $directivenf;?>">
           <? echo dawnduskopt($value); ?>
         </select>
       </td>
       <? else: ?>
         <td>
-          <input type="text" name="<?=$directivenf;?>" value="<?=$value;?>" />
+          <input type="text" name="<?php $directivenf;?>" value="<?php $value;?>" />
         </td>
       <? endif; ?>
     </tr>
@@ -73,8 +73,8 @@
 
 <table cellspacing="0" cellpadding="0" border="0" class="tb_buttons">
   <tr>
-  	<td align="left"><div id="help"><a href="#" onclick="javascript:window.open('../doc/heyuconf.htm','','scrollbars=yes,menubar=no,width=700,height=500,resizable=yes,toolbar=no,location=no,status=no');"><img src="../theme/<?=$config['theme'];?>/images/icon_help.gif" border="0" alt="Help" /></a></div></td>
-    <td><input type="submit" value="<?=$lang['save'];?>" /></form></td>
-    <td><form action="<?=$_SERVER['PHP_SELF'];?>" method="post"><input type="submit" value="<?=$lang['cancel'];?>" /></form></td>
+  	<td align="left"><div id="help"><a href="#" onclick="javascript:window.open('../doc/heyuconf.htm','','scrollbars=yes,menubar=no,width=700,height=500,resizable=yes,toolbar=no,location=no,status=no');"><img src="../theme/<?php $config['theme'];?>/images/icon_help.gif" border="0" alt="Help" /></a></div></td>
+    <td><input type="submit" value="<?php $lang['save'];?>" /></form></td>
+    <td><form action="<?php $_SERVER['PHP_SELF'];?>" method="post"><input type="submit" value="<?php $lang['cancel'];?>" /></form></td>
   </tr>
 </table>

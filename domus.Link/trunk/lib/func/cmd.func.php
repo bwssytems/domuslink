@@ -1,4 +1,4 @@
-<?php
+<?php 
 /*
  * domus.Link :: Web-based frontend for Heyu
  * Copyright 2007, Istvan Hubay Cebrian

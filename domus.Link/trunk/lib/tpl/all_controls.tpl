@@ -1,3 +1,3 @@
-<?=$lights;?>
-<?=$appliances;?>
-<?=$irrigation;?>
+<?php $lights;?>
+<?php $appliances;?>
+<?php $irrigation;?>

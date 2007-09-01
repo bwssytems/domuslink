@@ -1,4 +1,4 @@
-<?php
+<?php 
 /*
 Script Name: Full Operating system language detection
 Author: Harald Hope, Website: http://techpatterns.com/

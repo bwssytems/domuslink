@@ -5,9 +5,9 @@
 	Your password does not match, please try again.<br><br>
 <? endif; ?>
 
-<form name="form" method="post" action="<?=$_SERVER['PHP_SELF'];?>">
+<form name="form" method="post" action="<?php $_SERVER['PHP_SELF'];?>">
 <p><label for="txtpassword">Password:</label>
-<input type="hidden" name="from" value="<?=$_GET['from'];?>" />
+<input type="hidden" name="from" value="<?php $_GET['from'];?>" />
 <input type="password" name="txtPassword" />
 <input type="submit" name="Submit" value="Login" /></p>
 </form>

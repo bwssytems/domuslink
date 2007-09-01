@@ -1,4 +1,4 @@
-<?php
+<?php 
 define("CONFIG_FILE_LOCATION", dirname(__FILE__) . DIRECTORY_SEPARATOR . 'config.php');
 define("DB_FILE_LOCATION", dirname(__FILE__) . DIRECTORY_SEPARATOR . 'db' . DIRECTORY_SEPARATOR);
 define("MODULE_FILE_LOCATION", dirname(__FILE__) . DIRECTORY_SEPARATOR . 'db' . DIRECTORY_SEPARATOR . 'modules');

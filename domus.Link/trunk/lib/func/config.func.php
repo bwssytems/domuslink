@@ -1,4 +1,4 @@
-<?php
+<?php 
 /*
  * domus.Link :: Web-based frontend for Heyu
  * Copyright 2007, Istvan Hubay Cebrian
@@ -103,7 +103,7 @@ function config_save($config)
 		$handle = fopen($filename, "w");
 		if ($handle)
 		{
-			fwrite($handle, "<?php\n");
+			fwrite($handle, "<?php \n");
 			fwrite($handle, config_text($config));
 			fwrite($handle, "\n?>");
 			fclose($handle);

@@ -1,4 +1,4 @@
-<?php
+<?php 
 /*
  * French International Language File
  *
@@ -64,7 +64,7 @@ $lang['heyuconfile_txt'] = 'Le fichier de configuration contient de l'informatio
 		'au bon fonctionnement de Heyu ' .
 		'ainsi que plusieurs options usagers. Ce fichier est généralement nommé <span class="code">x10.conf</span> ' .             'et est généralement situé sous <span class="code">/etc/heyu</span>.';
 
-$lang['heyuexec_txt'] = 'Cette entrée spécifie l'emplacement le d'exécutable de Heyu' .
+$lang['heyuexec_txt'] = 'Cette entrée spécifie lemplacement le d exécutable de Heyu' .
 		'Généralement il est situé sous <span class="code">/usr/local/bin/</span>';
 
 $lang['password_txt'] = 'Définissez un mot-de-passe ici pour limiter l'accès au panneau de configuration. ' .

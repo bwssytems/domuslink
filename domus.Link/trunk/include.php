@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 # Load definitions
 $dirname = dirname(__FILE__);
