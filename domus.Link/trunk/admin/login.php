@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  * domus.Link :: Web-based frontend for Heyu
  * Copyright 2007, Istvan Hubay Cebrian
@@ -15,22 +15,28 @@ require_once('..'.DIRECTORY_SEPARATOR.'include.php');
 
 ## Set template parameters
 $tpl->set('title', 'Login');
-
-if ($_POST['txtPassword'] != $config['password'])
+if ($_POST)
 {
-	$tpl_body = & new Template(TPL_FILE_LOCATION.'login.tpl');
+	if ($_POST['txtPassword'] != $config['password'])
+		$tpl_body = & new Template(TPL_FILE_LOCATION.'login.tpl');
+	else
+	{
+		setcookie("dluloged", "admin", 0);
+		if ($_POST['from'] != "")
+			header("Location: ".$_POST['from'].".php");
+		else
+			header("Location: setup.php");
+	}
 }
 else
-{
-	setcookie("dluloged", "admin", 0);
-	if ($_POST['from'] != "")
-		header("Location: ".$_POST['from'].".php");
-	else
-		header("Location: setup.php");
-}
+	$tpl_body = & new Template(TPL_FILE_LOCATION.'login.tpl');
+
 
 ## Display the page
-$tpl->set('content', $tpl_body);
+if (!empty($tpl_body))
+{
+	$tpl->set('content', $tpl_body);
+}
 
 echo $tpl->fetch(TPL_FILE_LOCATION.'layout.tpl');
 

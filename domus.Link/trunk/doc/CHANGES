@@ -3,3 +3,24 @@
  |                               CHANGES                                      |
  |                                                                            |
  +----------------------------------------------------------------------------*/
+
+ 0.1 (first release)
+ -----
+ 	* Web based Heyu configuration
+ 	* Add/Remove/Edit Aliases
+    * Alias modules divided by type (Lights, Appliance, etc)
+    * ON/OFF Controls for every type
+    * DIM/BRIGHT Controls for Lights
+    * Multilingual
+    * Themeable
+
+ 0.1.1 (bug fixes, no new features)
+ ------
+ 	* Disabled 'short_open_tag' for security reason's
+ 	  Thanks to Julien Touche for pointing this out
+ 	* Added Dutch translation
+ 	  Thanks to Frank
+ 	* Added French translation
+ 	  Thanks to 'Child from Korn' and Thierry Moutet
+ 	* Various other
+ 	  Thanks again to Frank

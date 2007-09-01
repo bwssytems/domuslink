@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  * domus.Link :: Web-based frontend for Heyu
  * Copyright 2007, Istvan Hubay Cebrian
@@ -40,11 +40,11 @@ function heyu_ctrl($heyuexec, $action)
  */
 function heyu_state_check()
 {
-	$cmd = "ps x | grep [h]eyu_";
+	$cmd = "ps ax | grep [h]eyu";
 	$result = null; $retval = null;
 	exec($cmd, $result, $retval);
 
-	if (count($result) == 2)
+	if (count($result) >= 1)
 	{
 		return true;
 	} else
@@ -109,7 +109,7 @@ function on_state($unit, $heyuexec)
 	}
 	else
 	{
-		header("Location: error.php?msg=onSTATE ".$result[0]);
+		header("Location: error.php?msg=".$result[0]);
 	}
 }
 

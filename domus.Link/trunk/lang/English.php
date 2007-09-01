@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  * British English Language File
  *
@@ -75,7 +75,7 @@ $lang['password_txt'] = 'Define a password here to access the setup area of the 
 
 $lang['language_txt'] = 'Define the language for the frontend here. You can also ' .
 		'select auto, which will use the browsers preferred language. In case a language' .
-		'is not found it will default to English';
+		' isn\'t found it will default to English';
 
 $lang['theme_txt'] = 'Select a theme for the GUI.';
 

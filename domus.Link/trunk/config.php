@@ -30,7 +30,7 @@ $config['password'] = '123';
 # If left blank browsers preferred language will be used.
 # In case a language is not found it will default to English
 # Options: en_GB
-$config['lang'] = '';
+$config['lang'] = 'English';
 
 # Url Path - This setting defines the URL path of the frontend.
 # For example if you are running domus.Link in a sub folder
