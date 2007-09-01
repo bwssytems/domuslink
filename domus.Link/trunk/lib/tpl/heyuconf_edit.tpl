@@ -1,80 +1,80 @@
-<h1><?php $lang['heyuconf'];?></h1>
+<h1><?php echo ($lang['heyuconf']);?></h1>
 <table border="0" cellspacing="2" cellpadding="2">
-<form action="<?php $_SERVER['PHP_SELF'];?>?action=save" method="post">
+<form action="<?php echo($_SERVER['PHP_SELF']); ?>?action=save" method="post">
 
-<? $act = 0; $sct = 0; $usct = 0; // alias, scene and usersyn counts for posts ?>
-<? foreach($settings as $setting): ?>
-  <? list($directivenf, $valuenf) = split(" ", $setting, 2);
+<?php $act = 0; $sct = 0; $usct = 0; // alias, scene and usersyn counts for posts ?>
+<?php foreach($settings as $setting): ?>
+  <?php list($directivenf, $valuenf) = split(" ", $setting, 2);
   $value = rtrim($valuenf, "\n");
   $directive = str_replace("_", " ", $directivenf); ?>
 
-  <? if ($directive == "ALIAS"): ?>
-  <input type="hidden" name="<?php $directivenf;?><?php $act;?>" value="<?php $value;?>" />
-  <? $act++; ?>
-  <? elseif ($directive == "SCENE"): ?>
-    <input type="hidden" name="<?php $directivenf;?><?php $act;?>" value="<?php $value;?>" />
-    <? $sct++; ?>
-  <? elseif ($directive == "USERSYN"): ?>
-    <input type="hidden" name="<?php $directivenf;?><?php $act;?>" value="<?php $value;?>" />
-    <? $usct++; ?>
-  <? else: // if not alias, scene or usersyn ?>
+  <?php if ($directive == "ALIAS"): ?>
+  <input type="hidden" name="<?php echo $directivenf; echo $act; ?>" value="<?php echo $value; ?>" />
+  <?php $act++; ?>
+  <?php elseif ($directive == "SCENE"): ?>
+    <input type="hidden" name="<?php echo $directivenf; echo $act; ?>" value="<?php echo $value; ?>" />
+    <?php $sct++; ?>
+  <?php elseif ($directive == "USERSYN"): ?>
+    <input type="hidden" name="<?php echo $directivenf; echo $act; ?>" value="<?php echo $value; ?>" />
+    <?php $usct++; ?>
+  <?php else: // if not alias, scene or usersyn ?>
     <tr>
       <td width="200">
-        <b><?php $directive;?> :&nbsp;</b>
+        <b><?php echo $directive; ?> :&nbsp;</b>
       </td>
 
-    <? if ($directivenf == "SCRIPT_MODE"): ?>
+    <?php if ($directivenf == "SCRIPT_MODE"): ?>
       <td>
-        <select name="<?php $directivenf;?>">
-        <? if ($value == "SCRIPTS"): ?>
+        <select name="<?php echo($directivenf); ?>">
+        <?php if ($value == "SCRIPTS"): ?>
           <option selected value='SCRIPTS'>SCRIPTS</option>
           <option value='HEYUHELPER'>HEYUHELPER</option>
-        <? else: ?>
+        <?php else: ?>
           <option value='SCRIPTS'>SCRIPTS</option>
           <option selected value='HEYUHELPER'>HEYUHELPER</option>
-        <? endif ?>
+        <?php endif ?>
         </select>
       </td>
-      <? elseif ($directivenf == "MODE"): ?>
+      <?php elseif ($directivenf == "MODE"): ?>
       <td>
-        <select name="<?php $directivenf;?>">
-          <? if ($value == "COMPATIBLE"): ?>
+        <select name="<?php echo($directivenf); ?>">
+          <?php if ($value == "COMPATIBLE"): ?>
             <option selected value="COMPATIBLE">COMPATIBLE</option>
             <option value="HEYU">HEYU</option>
-          <? else: ?>
+          <?php else: ?>
             <option value="COMPATIBLE">COMPATIBLE</option>
             <option selected value="HEYU">HEYU</option>
-          <? endif ?>
+          <?php endif ?>
         </select>
       </td>
-      <? elseif ($directivenf == "COMBINE_EVENTS" || $directivenf == "COMPRESS_MACROS" || $directivenf == "REPL_DELAYED_MACROS" ||
+      <?php elseif ($directivenf == "COMBINE_EVENTS" || $directivenf == "COMPRESS_MACROS" || $directivenf == "REPL_DELAYED_MACROS" ||
       $directivenf == "WRITE_CHECK_FILES" || $directivenf == "ACK_HAILS" || $directivenf == "AUTOFETCH"): ?>
       <td>
-        <select name="<?php $directivenf;?>">
-          <? echo yesnoopt($value); ?>
+        <select name="<?php echo($directivenf); ?>">
+          <?php echo yesnoopt($value); ?>
         </select>
       </td>
-      <? elseif ($directivenf == "DAWN_OPTION" || $directivenf == "DUSK_OPTION"): ?>
+      <?php elseif ($directivenf == "DAWN_OPTION" || $directivenf == "DUSK_OPTION"): ?>
       <td>
-        <select name="<?php $directivenf;?>">
-          <? echo dawnduskopt($value); ?>
+        <select name="<?php echo($directivenf); ?>">
+          <?php echo dawnduskopt($value); ?>
         </select>
       </td>
-      <? else: ?>
+      <?php else: ?>
         <td>
-          <input type="text" name="<?php $directivenf;?>" value="<?php $value;?>" />
+          <input type="text" name="<?php echo($directivenf); ?>" value="<?php echo($value); ?>" />
         </td>
-      <? endif; ?>
+      <?php endif; ?>
     </tr>
-  <? endif; // end if not alias, scene or usersyn ?>
-<? endforeach; ?>
+  <?php endif; // end if not alias, scene or usersyn ?>
+<?php endforeach; ?>
 
 </table>
 
 <table cellspacing="0" cellpadding="0" border="0" class="tb_buttons">
   <tr>
-  	<td align="left"><div id="help"><a href="#" onclick="javascript:window.open('../doc/heyuconf.htm','','scrollbars=yes,menubar=no,width=700,height=500,resizable=yes,toolbar=no,location=no,status=no');"><img src="../theme/<?php $config['theme'];?>/images/icon_help.gif" border="0" alt="Help" /></a></div></td>
-    <td><input type="submit" value="<?php $lang['save'];?>" /></form></td>
-    <td><form action="<?php $_SERVER['PHP_SELF'];?>" method="post"><input type="submit" value="<?php $lang['cancel'];?>" /></form></td>
+  	<td align="left"><div id="help"><a href="#" onclick="javascript:window.open('../doc/heyuconf.htm','','scrollbars=yes,menubar=no,width=700,height=500,resizable=yes,toolbar=no,location=no,status=no');"><img src="../theme/<?php echo($config['theme']); ?>/images/icon_help.gif" border="0" alt="Help" /></a></div></td>
+    <td><input type="submit" value="<?php echo($lang['save']); ?>" /></form></td>
+    <td><form action="<?php echo($_SERVER['PHP_SELF']); ?>" method="post"><input type="submit" value="<?php echo($lang['cancel']); ?>" /></form></td>
   </tr>
 </table>

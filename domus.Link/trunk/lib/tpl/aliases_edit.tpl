@@ -1,7 +1,7 @@
 <h1><?php echo ($lang['editalias']);?></h1>
 
-<?php  list($alias, $label, $code, $module_type) = split(" ", $alias, 4); ?>
-<?php  list($module, $type) = split(" # ", $module_type, 2); ?>
+<?php list($alias, $label, $code, $module_type) = split(" ", $alias, 4); ?>
+<?php list($module, $type) = split(" # ", $module_type, 2); ?>
 <form action="<?php $_SERVER['PHP_SELF'];?>?action=save" method="post">
 <input type="hidden" name="line" value="<?php echo $linenum;?>" / >
 
@@ -75,6 +75,6 @@
 <table cellspacing="0" cellpadding="0" border="0" class="tb_buttons">
   <tr>
     <td><input type="submit" value="<?php echo ($lang['save']);?>" /></form></td>
-    <td><form action="<?php $_SERVER['PHP_SELF'];?>" method="post"><input type="submit" value="<?php echo ($lang['cancel']);?>" /></form></td>
+    <td><form action="<?php echo($_SERVER['PHP_SELF']); ?>" method="post"><input type="submit" value="<?php echo ($lang['cancel']);?>" /></form></td>
   </tr>
 </table>

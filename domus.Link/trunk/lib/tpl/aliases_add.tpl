@@ -1,6 +1,6 @@
 <h1><?php echo ($lang['addalias']); ?></h1>
 
-<form action="<?php $_SERVER['PHP_SELF']; ?>?action=add" method="post">
+<form action="<?php echo($_SERVER['PHP_SELF']); ?>?action=add" method="post">
 <!-- Code -->
 <table cellspacing="0" cellpadding="0" border="0">
   <tr>

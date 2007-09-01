@@ -1,11 +1,11 @@
 <h1>Login</h1>
-<? if (!isset($_POST['txtPassword'])): ?>
+<?php if (!isset($_POST['txtPassword'])): ?>
 	Please enter your password below.<br><br>
-<? elseif ($_POST['txtPassword'] != "" ): ?>
+<?php elseif ($_POST['txtPassword'] != "" ): ?>
 	Your password does not match, please try again.<br><br>
-<? endif; ?>
+<?php endif; ?>
 
-<form name="form" method="post" action="<?php $_SERVER['PHP_SELF'];?>">
+<form name="form" method="post" action="<?php echo($_SERVER['PHP_SELF']); ?>">
 <p><label for="txtpassword">Password:</label>
 <input type="hidden" name="from" value="<?php $_GET['from'];?>" />
 <input type="password" name="txtPassword" />

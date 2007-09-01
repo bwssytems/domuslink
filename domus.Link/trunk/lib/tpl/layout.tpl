@@ -98,7 +98,7 @@
 <table cellspacing="0" cellpadding="0" border="0" width="100%">
   <tr>
    <td>
-     <?php $lang['heyustatus'];?>:
+     <?php echo ($lang['heyustatus']);?>:
      <?php if (heyu_state_check()): ?>
      	<img src="<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/heyu_on.gif" /> ( <a href="<?php $_SERVER['PHP_SELF'];?>?daemon=reload"><?php echo ($lang['reload']);?></a> |
 	    <a href="<?php $_SERVER['PHP_SELF'];?>?daemon=stop"><?php echo ($lang['stop']);?></a> )

@@ -1,6 +1,6 @@
-<?php 
+<?php
 /*
- * French International Language File
+ * French Language File
  *
  */
 
@@ -9,84 +9,87 @@
 $lang['dlurl'] = 'http://domus.link.co.pt';
 $lang['title'] = 'domus.Link';
 
-$lang['all'] = 'Tout';
+$lang['all'] = 'Tous';
 $lang['lights'] = 'Lumières';
 $lang['appliances'] = 'Appareils';
 $lang['irrigation'] = 'Irrigation';
-$lang['hvac'] = 'Thermostat';
+$lang['hvac'] = 'HVAC';
 $lang['events'] = 'Evènements';
-$lang['setup'] = 'Configuration';
+$lang['setup'] = 'Installation';
 $lang['heyusetup'] = 'Configuration de Heyu';
-$lang['frontend'] = 'Panneau';
+$lang['frontend'] = 'Interface publique';
 
 $lang['add'] = 'Ajouter';
 $lang['edit'] = 'Modifier';
-$lang['save'] = 'Sauvegarder';
+$lang['save'] = 'Enregistrer';
 $lang['cancel'] = 'Annuler';
 $lang['delete'] = 'Supprimer';
-$lang['deleteconfirm'] = 'Cliquez sur OK pour confirmer la suppression.';    
+$lang['deleteconfirm'] = 'Cliquer sur OK pour confirmer la suppression.';
 
-$lang['heyustatus'] = 'Heyu Status';
-$lang['start'] = 'DÉMARRER';
-$lang['reload'] = 'REDÉMARRER';
-$lang['stop'] = 'ARRÊT';
+$lang['heyustatus'] = 'Etat de Heyu';
+$lang['start'] = 'DEMARRER';
+$lang['reload'] = 'RECHARGER';
+$lang['stop'] = 'ARRETER';
 
-$lang['frontendadmin'] = 'Configuration du Panneau';
+$lang['frontendadmin'] = 'Configuration de l\'interface publique';
 $lang['heyuconf'] = 'Configuration de Heyu';
-$lang['heyuconfile'] = 'Fichier de configuration Heyu';
-$lang['heyuexec'] = 'Executable Heyu';
-$lang['password'] = 'Configuration du Area Password';
-$lang['language'] = 'Sélection du Language';
+$lang['heyuconfile'] = 'Fichier de configuration de Heyu';
+$lang['heyuexec'] = 'Exécutable Heyu';
+$lang['password'] = 'Mot de passe de la zone de paramétrage';
+$lang['language'] = 'Langage de l\'interface publique';
 $lang['imgs'] = 'Menu Images';
-$lang['urlpath'] = 'Lien URL';
-$lang['theme'] = 'Sélection du Thème';
+$lang['urlpath'] = 'Chemin de l\'URL';
+$lang['theme'] = 'Thème de l\'interface publique';
 
-$lang['aliases'] = 'Liste des Alias';
-$lang['addalias'] = 'Ajouts d'Alias';
-$lang['editalias'] = 'Modifications d'Alias';
+$lang['aliases'] = 'Noms des modules';
+$lang['addalias'] = 'Ajouter un module';
+$lang['editalias'] = 'Modifier un module';
 $lang['code'] = 'Code';
-$lang['label'] = 'Étiquette';
+$lang['label'] = 'Nom symbolique';
 $lang['module'] = 'Module';
 $lang['type'] = 'Type';
 $lang['actions'] = 'Actions';
 
 /*** aliases txt ***/
-$lang['code_txt'] = 'Entrez le House et Unit code. Assurez-vous qu'il n'est pas déjà utilisé. Les Alias tel que "A1,2" ne sont présentement pas supportés.';
+$lang['code_txt'] = 'Entrez le code Maison et Unité. Assurez vous qu\'il n\'est pas déjà utilisé. Les noms symboliques tels que "A1,2" ne sont ' .
+		' pas supporté pour le moment.';
 
-$lang['label_txt'] = 'Entrez une description pour ce module. Veuillez noter que tous les espaces seront remplacés par des "_" et les majuscules seront converties en minuscules.';
+$lang['label_txt'] = 'Entrez une description pour ce module. Notez que tous les espaces seront remplacés par un "_" ' .
+		'et que les lettres majuscules seront sauvegardées comme des minuscules.';
 
-$lang['module_txt'] = 'Sélectionnez le type de module utilisé.';
+$lang['module_txt'] = 'Choisissez le type de modèle du module.';
 
-$lang['type_txt'] = 'Quel type d'appareil ce module contrôlera t'il.';
+$lang['type_txt'] = 'Sélectionnez ce que ce module contrôle.';
 
 /*** heyuconf txt ***/
-$lang['heyuconfile_txt'] = 'Le fichier de configuration contient de l'information critique' .
-		'au bon fonctionnement de Heyu ' .
-		'ainsi que plusieurs options usagers. Ce fichier est généralement nommé <span class="code">x10.conf</span> ' .             'et est généralement situé sous <span class="code">/etc/heyu</span>.';
+$lang['heyuconfile_txt'] = 'Le fichier de configuration contient plusieurs informations critiques ' .
+		'dont le programme heyu a besoin pour fonctionner correctement, ' .
+		'ainsi que des options utilisateur. Ce fichier s\'appelle typiquement <span class="code">x10.conf</span> ' .
+		'et il est généralement situé dans <span class="code">/etc/heyu</span> pour les utilisations classiques du système.';
 
-$lang['heyuexec_txt'] = 'Cette entrée spécifie lemplacement le d exécutable de Heyu' .
-		'Généralement il est situé sous <span class="code">/usr/local/bin/</span>';
+$lang['heyuexec_txt'] = 'Ce paramètre spécifie l\'endroit où se trouve le fichier exécutable Heyu. ' .
+		'Typiquement, il se trouve dans <span class="code">/usr/local/bin/</span>';
 
-$lang['password_txt'] = 'Définissez un mot-de-passe ici pour limiter l'accès au panneau de configuration. ' .
-		'Laissez <span class="code">vide</span> si vous ne désirez pas utiliser de mot-de-passe.';
+$lang['password_txt'] = 'Définissez un mot de passe ici pour accéder à la zone de paramétrage de l\'interface publique. ' .
+		'Laissez <span class="code">vide</span> pour désactiver le mot de passe.';
 
-$lang['language_txt'] = 'Sélectrionnez le language désiré ici. Vous pouvez également ' .
-		'choisir le mode auto qui utilisera le language par défault de l'utilisatueur. Si le language ' .
-		'désiré est introuvable, le language par default (Anglais) sera sélectionné';
+$lang['language_txt'] = 'Définissez le langage de l\'interface utilisateur ici. Vous pouvez aussi ' .
+		'sélectionner auto, pour utiliser le langage préféré du navigateur. Dans le cas où le langage ' .
+		'n\'est pas trouvé, English sera sélectionné par défaut';
 
-$lang['theme_txt'] = 'Sélection d'un thème pour l'interface graphique.';
+$lang['theme_txt'] = 'Sélectionnez un thème pour l\'interface graphique.';
 
-$lang['imgs_txt'] = 'Selection de l'affichage ou non des images dans la barre de menu.';
+$lang['imgs_txt'] = 'Sélectionnez si vous voulez ou non utiliser des images à la place du texte dans la barre de menu.';
 
-$lang['urlpath_txt'] = 'Ici vous pouvez ajuster selon vos besoin le URL ou se situe Domus. ' .
-		'Par exemple si Domus est exécuté à partir d'un sous-répertroire, <span class="code">' .
-		'http://your-host/domuslink</span>, alors ce champ devrait indiquer ' .
-		'<span class="code">/domuslink</span>. Laissez vide si Domus est installé au niveau du root ' .
-		'de votre serveur. Ex: <span class="code">http://your-host/</span>';
+$lang['urlpath_txt'] = 'Ce paramètre définit le chemin de l\'URL de l\'interface publique. ' .
+		'Par exemple, si vous exécutez domus.Link dans un sous répertoire, indiquez <span class="code">' .
+		'http://your-host/domuslink</span>, ensuite vous devez définir le chemin de l\'url comme ' .
+		'<span class="code">/domuslink</span>. Laissez vide si vous exécutez domus.Link à la racine ' .
+		'c-a-d <span class="code">http://your-host/</span>';
 
 /*** other txt ***/
-$lang['setup_txt'] = 'C'est à partir d'ici que vous pouvez tout configurer.<br>' .
-		'SVP sélectionnez une option du sous menu "Configuration"';
+$lang['setup_txt'] = 'C\'est ici que vous pouvez configurer tous les paramètres.<br>' .
+		'S\'il vous plaît, sélectionnez une option dans le sous-menu sous "Installation"';
 
 
 ?>
