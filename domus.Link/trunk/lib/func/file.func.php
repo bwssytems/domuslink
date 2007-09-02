@@ -50,7 +50,7 @@ function save_file($content, $filename)
 	}
 	else
 	{
-		header("Location: error.php?msg=".$filename." not writable!");
+		header("Location: ../error.php?msg=".$filename." not writable!");
 		die();
 	}
 	fclose($fp);

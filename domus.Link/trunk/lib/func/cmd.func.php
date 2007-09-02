@@ -40,14 +40,15 @@ function heyu_ctrl($heyuexec, $action)
  */
 function heyu_state_check()
 {
-	$cmd = "ps ax | grep [h]eyu";
-	$result = null; $retval = null;
-	exec($cmd, $result, $retval);
-
-	if (count($result) >= 1)
+	$cmd = "ps x";
+	$result = null; $retval = null; $result_exec = null;
+	exec($cmd, $result_exec, $retval);
+	$result = preg_grep('/[h]eyu_/', $result_exec);
+	if (count($result) == 2)
 	{
 		return true;
-	} else
+	}
+	else
 	{
 		return false;
 	}

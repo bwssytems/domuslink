@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  * By: Brian Lozier (brian -at- massassi -dot- net)
  * http://www.massassi.com/php/articles/template_engines/
@@ -32,7 +32,8 @@ class Template {
     function fetch($file = null) {
         if(!$file) $file = $this->file;
 
-        extract($this->vars);          // Extract the vars to local namespace
+        if (is_array($this->vars))
+        	extract($this->vars);      // Extract the vars to local namespace
         ob_start();                    // Start output buffering
         include($file);                // Include the file
         $contents = ob_get_contents(); // Get the contents of the buffer

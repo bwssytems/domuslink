@@ -92,4 +92,9 @@ $lang['setup_txt'] = 'C\'est ici que vous pouvez configurer tous les paramètres.
 		'S\'il vous plaît, sélectionnez une option dans le sous-menu sous "Installation"';
 
 
+/**** v0.1.1 aditions/changes ***/
+
+$lang['heyubaseloc'] = 'Heyu File Location';
+$lang['heyubaseloc_txt'] = 'Heyu base directory - This directory is where Heyu searches for it\'s configuration files, and stores state information';
+
 ?>

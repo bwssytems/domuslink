@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  * domus.Link :: Web-based frontend for Heyu
  * Copyright 2007, Istvan Hubay Cebrian
@@ -18,7 +18,8 @@ function config_load()
 {
 	$config = array();
 
-	$config["heyuconf"] = "/etc/heyu/x10.conf";
+	$config["heyu_base"] = "/etc/heyu";
+	$config["heyuconf"] = "x10.conf";
 	$config["heyuexec"] = "/usr/local/bin/heyu";
 	$config["password"] = "123";
 	$config["lang"] = "";
@@ -36,6 +37,9 @@ function config_load()
 
 /**
  * Config contents
+ *
+ * @param $config Settings
+ *
  */
 function config_text($config)
 {
@@ -48,10 +52,15 @@ function config_text($config)
 # File locations
 # --------------
 
-# heyuconf setting - This file is typically named
+# Heyu base directory - This directory is where Heyu
+# searches for it's configuration files, and stores
+# state information
+\$config['heyu_base'] = '{$config['heyu_base']}';
+
+# heyuconf file - This file is typically named
 # x10.conf and usually located in /etc/heyu for
 # system wide use
-\$config['heyuconf'] = '{$config['heyuconf']}';
+\$config['heyuconf'] = \$config['heyu_base'].'{$config['heyuconf']}';
 
 # heyuexec setting - This setting specifies the
 # location of the Heyu exectuable file. Typically
@@ -93,6 +102,9 @@ EOF;
 
 /**
  * Config save
+ *
+ * @param $config Settings
+ *
  */
 function config_save($config)
 {

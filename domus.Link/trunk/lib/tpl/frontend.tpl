@@ -1,13 +1,25 @@
 <h1><?php echo ($lang['frontendadmin']); ?></h1>
 
 <form action="<?php echo ($_SERVER['PHP_SELF']); ?>?action=save" method="post">
+<!-- HeyuBase -->
+<table cellspacing="4" cellpadding="4" border="0">
+  <tr>
+    <td colspan="3"><h2><?php echo ($lang['heyubaseloc']); ?></h2></td>
+  </tr>
+  <tr>
+    <td valign="top" width="150px"><input type="text" name="heyu_base" value="<?php echo ($config['heyu_base']); ?>" /></td>
+    <td width="30px">&nbsp;</td>
+    <td width="300px"><?php echo ($lang['heyubaseloc_txt']); ?></td>
+  </tr>
+</table>
+<br />
 <!-- HeyuConf -->
 <table cellspacing="4" cellpadding="4" border="0">
   <tr>
     <td colspan="3"><h2><?php echo ($lang['heyuconfile']); ?></h2></td>
   </tr>
   <tr>
-    <td valign="top" width="150px"><input type="text" name="heyuconf" value="<?php echo ($config['heyuconf']); ?>" /></td>
+    <td valign="top" width="150px"><input type="text" name="heyuconf" value="<?php echo substr($config['heyuconf'], strlen($config['heyu_base'])); ?>" /></td>
     <td width="30px">&nbsp;</td>
     <td width="300px"><?php echo ($lang['heyuconfile_txt']); ?></td>
   </tr>

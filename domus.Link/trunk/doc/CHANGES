@@ -24,3 +24,6 @@
  	  Thanks to 'Child from Korn' and Thierry Moutet
  	* Various other
  	  Thanks again to Frank
+
+ 	  - Config file not writable, correct redirect.
+ 	  - Added new config option

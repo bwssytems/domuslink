@@ -7,10 +7,15 @@
 # File locations
 # --------------
 
-# heyuconf setting - This file is typically named
+# Heyu base directory - This directory is where Heyu
+# searches for it's configuration files, and stores
+# state information
+$config['heyu_base'] = '/etc/heyu/';
+
+# heyuconf file - This file is typically named
 # x10.conf and usually located in /etc/heyu for
 # system wide use
-$config['heyuconf'] = '/etc/heyu/x10.conf';
+$config['heyuconf'] = $config['heyu_base'].'x10.conf';
 
 # heyuexec setting - This setting specifies the
 # location of the Heyu exectuable file. Typically

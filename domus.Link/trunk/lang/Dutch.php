@@ -91,4 +91,9 @@ $lang['setup_txt'] = 'Pas hier de instellingen aan.<br>' .
 		'Kies een optie uit het submenu onder "Installatie"';
 
 
+/**** v0.1.1 aditions/changes ***/
+
+$lang['heyubaseloc'] = 'Heyu File Location';
+$lang['heyubaseloc_txt'] = 'Heyu base directory - This directory is where Heyu searches for it\'s configuration files, and stores state information';
+
 ?>

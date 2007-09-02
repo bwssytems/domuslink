@@ -80,9 +80,9 @@
 <!-- start submenu div -->
 <div id="submenu">
 <?php if (substr(strstr($_SERVER['REQUEST_URI'], "admin"), 0, 5) == "admin"): ?>
-<div id="submenuitem"><a href="<?php echo ($config['url_path']);?>/admin/heyu.php"><?php echo ($lang['heyusetup']);?></a></div>
-<div id="submenuitem"><a href="<?php echo ($config['url_path']);?>/admin/aliases.php"><?php echo ($lang['aliases']);?></a></div>
-<div id="submenuitem"><a href="<?php echo ($config['url_path']);?>/admin/frontend.php"><?php echo ($lang['frontend']);?></a></div>
+<div id="submenuitem"><a href="<?php echo ($config['url_path']);?>/admin/heyu.php"><?php echo ($lang['heyusetup']); ?></a></div>
+<div id="submenuitem"><a href="<?php echo ($config['url_path']);?>/admin/aliases.php"><?php echo ($lang['aliases']); ?></a></div>
+<div id="submenuitem"><a href="<?php echo ($config['url_path']);?>/admin/frontend.php"><?php echo ($lang['frontend']); ?></a></div>
 <?php endif; ?>
 </div>
 <!-- end submenu div -->
@@ -100,10 +100,10 @@
    <td>
      <?php echo ($lang['heyustatus']);?>:
      <?php if (heyu_state_check()): ?>
-     	<img src="<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/heyu_on.gif" /> ( <a href="<?php $_SERVER['PHP_SELF'];?>?daemon=reload"><?php echo ($lang['reload']);?></a> |
-	    <a href="<?php $_SERVER['PHP_SELF'];?>?daemon=stop"><?php echo ($lang['stop']);?></a> )
+     	<img src="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/images/heyu_on.gif" /> ( <a href="<?php echo ($_SERVER['PHP_SELF']); ?>?daemon=reload"><?php echo ($lang['reload']);?></a> |
+	    <a href="<?php echo ($_SERVER['PHP_SELF']); ?>?daemon=stop"><?php echo ($lang['stop']); ?></a> )
      <?php else:  ?>
-     	<img src="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/images/heyu_off.gif" /> ( <a href="<?php $_SERVER['PHP_SELF'];?>?daemon=start"><?php echo ($lang['start']);?></a> )
+     	<img src="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/images/heyu_off.gif" /> ( <a href="<?php echo ($_SERVER['PHP_SELF']); ?>?daemon=start"><?php echo ($lang['start']);?></a> )
      <?php endif; ?>
 
      <?php if (isset($_GET["daemon"])): ?>

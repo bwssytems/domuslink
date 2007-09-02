@@ -14,22 +14,37 @@
 require_once('..'.DIRECTORY_SEPARATOR.'include.php');
 
 ## Set template parameters
-$tpl->set('title', 'Login');
+$tpl->set('title', $lang['login']);
+
 if ($_POST)
 {
 	if ($_POST['txtPassword'] != $config['password'])
-		$tpl_body = & new Template(TPL_FILE_LOCATION.'login.tpl');
+	{
+		$authed = false;
+	}
 	else
 	{
-		setcookie("dluloged", "admin", 0);
-		if ($_POST['from'] != "")
-			header("Location: ".$_POST['from'].".php");
-		else
-			header("Location: setup.php");
+		$authed = true;
 	}
 }
 else
+{
+	$authed = false;
+}
+
+if ($authed)
+{
+	setcookie("dluloged", "admin", 0);
+	if ($_POST['from'] != "")
+		header("Location: ".$_POST['from'].".php");
+	else
+		header("Location: setup.php");
+}
+else
+{
 	$tpl_body = & new Template(TPL_FILE_LOCATION.'login.tpl');
+	$tpl_body->set('lang', $lang);
+}
 
 
 ## Display the page

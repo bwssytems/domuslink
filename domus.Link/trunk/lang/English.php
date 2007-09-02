@@ -91,5 +91,10 @@ $lang['urlpath_txt'] = 'This setting defines the URL path of the frontend. ' .
 $lang['setup_txt'] = 'This is where you can configure all settings.<br>' .
 		'Please select option from sub-menu bellow "Setup"';
 
+/**** v0.1.1 aditions/changes ***/
+
+$lang['login'] = 'Login';
+$lang['heyubaseloc'] = 'Heyu File Location';
+$lang['heyubaseloc_txt'] = 'Heyu base directory - This directory is where Heyu searches for it\'s configuration files, and stores state information';
 
 ?>

@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  * domus.Link :: Web-based frontend for Heyu
  * Copyright 2007, Istvan Hubay Cebrian
@@ -29,6 +29,7 @@ else
 	}
 	elseif ($_GET["action"] == "save")
 	{
+		$newconfig['heyu_base'] = $_POST["heyu_base"];
 		$newconfig['heyuconf'] = $_POST["heyuconf"];
 		$newconfig['heyuexec'] = $_POST["heyuexec"];
 		$newconfig['password'] = $_POST["password"];
@@ -46,8 +47,7 @@ else
 		}
 		else
 		{
-			echo "Error: Cannot write to $configfile.<br />\n";
-			exit;
+			header("Location: ../error.php?msg=".$configfile." not writable!");
 	    }
 	}
 

@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*----------------------------------------------------------------------------+
  |                                                                            |
  |                  domus.Link - a frontend for Heyu                          |
@@ -104,6 +104,7 @@ class heyuConf {
 			}
 		}
 		$i = 0;
+		$array = array();
 		foreach ($aliases as $line)
 		{
 			list($alias, $label, $code, $module_type) = split(" ", $line, 4);
