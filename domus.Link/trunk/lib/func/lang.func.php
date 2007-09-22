@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
 Script Name: Full Operating system language detection
 Author: Harald Hope, Website: http://techpatterns.com/
@@ -108,15 +108,23 @@ function get_languages( $feature, $spare='' )
 		switch ( $user_languages[0][1] )// get default primary language, the first one in array that is
 		{
 			case 'pt':
-				$lang = 'pt_PT';
-				$found = true;
+				$lang = 'Portugues';
+				$found = false;
 				break;
 			case 'pt-br':
-				$lang = 'pt_PT';
-				$found = true;
+				$lang = 'Portugues';
+				$found = false;
 				break;
 			case 'en':
-				$lang = 'en_GB';
+				$lang = 'English';
+				$found = true;
+				break;
+			case 'nl':
+				$lang = 'Dutch';
+				$found = true;
+				break;
+			case 'fr':
+				$lang = 'French';
 				$found = true;
 				break;
 			default:
@@ -128,7 +136,7 @@ function get_languages( $feature, $spare='' )
 		}
 		else
 		{
-			return "en_GB";
+			return "English";
 		}
 	}
 }

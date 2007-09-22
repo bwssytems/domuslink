@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  * domus.Link :: Web-based frontend for Heyu
  * Copyright 2007, Istvan Hubay Cebrian
@@ -13,6 +13,8 @@
 
 /**
  * List dir contents - be it directories or files
+ *
+ * Description: List's a specified directories contents, while excluding README files, ., .., and .svn
  *
  * @param $dir to get listing from
  */
@@ -34,6 +36,9 @@ function list_dir_content($dir)
 
 /**
  * Label Parse
+ *
+ * Description: Parses labels so that underscores (_) are either removed or added in substituition of spaces.
+ * 				Letters are also converted to lowercase or first letter is capitilized.
  *
  * @param $str represent string to parse
  * @param $add boolean if true add "_" and change case to lower case, if false remove "_" and capitalize first letter of each word)
