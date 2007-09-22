@@ -60,7 +60,7 @@ else
 					$newcontent[$i] = $key." ".$value."\n";
 				$i++;
 			}
-			save_file($newcontent, $config['heyuconf'], true);
+			save_file($newcontent, $config['heyuconf']);
 		}
 	}
 
