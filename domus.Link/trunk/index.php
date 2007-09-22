@@ -104,7 +104,7 @@ if (heyu_state_check())
 }
 else
 {
-	$tpl->set('content', '<h1>HEYU IS NOT REUNNING!</h1>Please start heyu!<br />You may need to change permissions to tty port.');
+	$tpl->set('content', $lang['not_running']);
 }
 
 echo $tpl->fetch(TPL_FILE_LOCATION.'layout.tpl');

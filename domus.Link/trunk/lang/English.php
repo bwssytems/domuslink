@@ -96,5 +96,6 @@ $lang['setup_txt'] = 'This is where you can configure all settings.<br>' .
 $lang['login'] = 'Login';
 $lang['heyubaseloc'] = 'Heyu File Location';
 $lang['heyubaseloc_txt'] = 'Heyu base directory - This directory is where Heyu searches for it\'s configuration files, and stores state information';
+$lang['not_running'] = '<h1>HEYU IS NOT RUNNING!</h1>Please start heyu!<br />You may need to change permissions to tty port.'
 
 ?>
