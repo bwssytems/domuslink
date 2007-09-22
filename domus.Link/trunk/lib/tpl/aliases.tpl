@@ -25,4 +25,4 @@
   <?php endforeach; ?>
 </table>
 
-<?php echo $form; ?>
+<?php if (!empty($form)) echo($form); ?>

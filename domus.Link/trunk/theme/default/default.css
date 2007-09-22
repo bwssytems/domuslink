@@ -4,7 +4,7 @@
 }
 
 body {
-	width: 100%;
+	/*width: 100%;*/
 	background-color: #fff;
 	font-family: Verdana,Geneva,Arial,Helvetica,sans-serif;
 	font-size: 12px;
@@ -28,7 +28,7 @@ div#menu {
 
 div#menuitem {
 	float: left;
-	width: 16.645%; /* 100/6 ~= 16.667 , 100/7 ~= 14.274 */
+	width: 19.9%; /* 100/5=20 100/6 ~= 16.667 , 100/7 ~= 14.274 */
 	text-align: center;
 	font-size: 14px;
 	line-height: 1.2em;
@@ -89,7 +89,7 @@ div#submenu {
 }
 
 div#submenu p {
-	padding-left: 10;
+	padding-left: 10px;
 	padding-top: 3px;
 	padding-bottom: 3px;
 	font-size: 10px;
@@ -133,6 +133,7 @@ div#content {
 	/*padding-top: 10px;*/
 	padding-bottom: 10px;
 }
+
 
 div#footer {
 	background-color: #333;

@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  * domus.Link :: Web-based frontend for Heyu
  * Copyright 2007, Istvan Hubay Cebrian
@@ -20,8 +20,8 @@ require_once(CLASS_FILE_LOCATION.'heyuconf.class.php');
 $heyuconf = new HeyuConf($config['heyuconf']);
 
 ## Template specific
-$tpl_body = & new Template(TPL_FILE_LOCATION.'all_controls.tpl');
 $tpl->set('title', $lang['title']);
+$tpl_body = & new Template(TPL_FILE_LOCATION.'all_controls.tpl');
 
 if (isset($_GET['page']))
 {
@@ -104,7 +104,7 @@ if (heyu_state_check())
 }
 else
 {
-	$tpl->set('content', '<h1>HEYU IS OFF!</h1>Please start heyu!<br />You may need to change permissions to tty port.');
+	$tpl->set('content', '<h1>HEYU IS NOT REUNNING!</h1>Please start heyu!<br />You may need to change permissions to tty port.');
 }
 
 echo $tpl->fetch(TPL_FILE_LOCATION.'layout.tpl');

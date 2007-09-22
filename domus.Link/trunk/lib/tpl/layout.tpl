@@ -48,13 +48,13 @@
 <!-- start menu div -->
 <div id="menu">
 <?php if ($config['imgs'] == "OFF"): ?>
-  <div id="menuitem"><a href="<?php echo ($config['url_path']);?>/index.php?page=main"><?php echo ($lang['all']);?></a></div>
-  <div id="menuitem"><a href="<?php echo ($config['url_path']);?>/index.php?page=lights"><?php echo ($lang['lights']);?></a></div>
-  <div id="menuitem"><a href="<?php echo ($config['url_path']);?>/index.php?page=appliances"><?php echo ($lang['appliances']);?></a></div>
-  <div id="menuitem"><a href="<?php echo ($config['url_path']);?>/index.php?page=irrigation"><?php echo ($lang['irrigation']);?></a></div>
+  <div id="menuitem"><a href="<?php echo ($config['url_path']); ?>/index.php?page=main"><?php echo ($lang['all']); ?></a></div>
+  <div id="menuitem"><a href="<?php echo ($config['url_path']); ?>/index.php?page=lights"><?php echo ($lang['lights']); ?></a></div>
+  <div id="menuitem"><a href="<?php echo ($config['url_path']); ?>/index.php?page=appliances"><?php echo ($lang['appliances']); ?></a></div>
+  <div id="menuitem"><a href="<?php echo ($config['url_path']); ?>/index.php?page=irrigation"><?php echo ($lang['irrigation']); ?></a></div>
 <!--  <div id="menuitem"><a href="<?php echo ($config['url_path']);?>/index.php?page=hvac"><?php echo ($lang['hvac']);?></a></div> -->
 <!--  <div id="menuitem"><a href="<?php echo ($config['url_path']);?>/index.php"><?php echo ($lang['events']);?></a></div> -->
-  <div id="menuitem"><a href="<?php echo ($config['url_path']);?>/admin/setup.php"><?php echo ($lang['setup']);?></a></div>
+  <div id="menuitem"><a href="<?php echo ($config['url_path']); ?>/admin/setup.php"><?php echo ($lang['setup']); ?></a></div>
 <?php else: ?>
 <!--
   <div id="menuitem_img"><a href="<?php echo ($config['url_path']);?>/index.php?page=main" onmouseover="roll('img_1', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_all_on.gif')" onmouseout="roll('img_1', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_all_off.gif')"><img alt="<?php echo ($lang['all']);?>" src="<?php $config['url_path'];?>/theme/<?php echo ($config['theme']);?>/images/menu_all_off.gif" border="0" name="img_1" /></a></div>
@@ -89,7 +89,7 @@
 
 <!-- start content -->
 <div id="content">
-<?php echo $content; ?>
+<?php if (!empty($content)) echo($content); ?>
 </div>
 <!-- end content -->
 
@@ -100,7 +100,7 @@
    <td>
      <?php echo ($lang['heyustatus']);?>:
      <?php if (heyu_state_check()): ?>
-     	<img src="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/images/heyu_on.gif" /> ( <a href="<?php echo ($_SERVER['PHP_SELF']); ?>?daemon=reload"><?php echo ($lang['reload']);?></a> |
+     	<img src="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/images/heyu_on.gif" /> ( <a href="<?php echo ($_SERVER['PHP_SELF']); ?>?daemon=restart"><?php echo ($lang['reload']);?></a> |
 	    <a href="<?php echo ($_SERVER['PHP_SELF']); ?>?daemon=stop"><?php echo ($lang['stop']); ?></a> )
      <?php else:  ?>
      	<img src="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/images/heyu_off.gif" /> ( <a href="<?php echo ($_SERVER['PHP_SELF']); ?>?daemon=start"><?php echo ($lang['start']);?></a> )
@@ -108,9 +108,9 @@
 
      <?php if (isset($_GET["daemon"])): ?>
      <?php $daemon = $_GET["daemon"]; ?>
-     	<?php if ($daemon == "start"): heyu_ctrl($config['heyuexec'], start); ?>
-	    <?php elseif ($daemon == "stop"): heyu_ctrl($config['heyuexec'], stop);  ?>
-	    <?php elseif ($daemon == "reload"): heyu_ctrl($config['heyuexec'], restart); ?>
+     	<?php if ($daemon == "start"): heyu_ctrl($config['heyuexec'], 'start'); ?>
+	    <?php elseif ($daemon == "stop"): heyu_ctrl($config['heyuexec'], 'stop');  ?>
+	    <?php elseif ($daemon == "restart"): heyu_ctrl($config['heyuexec'], 'restart'); ?>
 	    <?php endif; ?>
      <?php endif; ?>
    </td>

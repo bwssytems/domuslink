@@ -6,6 +6,7 @@
 
  0.1 (first release)
  -----
+  Features:
  	* Web based Heyu configuration
  	* Add/Remove/Edit Aliases
     * Alias modules divided by type (Lights, Appliance, etc)
@@ -22,7 +23,7 @@
  	  Thanks to Frank
  	* Added French translation
  	  Thanks to 'Child from Korn' and Thierry Moutet
- 	* Various other
+ 	* Various other fixes/corrections/security enhancements
  	  Thanks again to Frank
 
  	  - Config file not writable, correct redirect.

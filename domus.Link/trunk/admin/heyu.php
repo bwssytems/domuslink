@@ -60,7 +60,7 @@ else
 					$newcontent[$i] = $key." ".$value."\n";
 				$i++;
 			}
-			save_file($newcontent, $config['heyuconf']);
+			save_file($newcontent, $config['heyuconf'], true);
 		}
 	}
 
@@ -113,6 +113,7 @@ else
 	}
 
 	## Display the page
+	if (!isset($tpl_body)) $tpl_body = null;
 	$tpl->set('content', $tpl_body);
 
 	echo $tpl->fetch(TPL_FILE_LOCATION.'layout.tpl');

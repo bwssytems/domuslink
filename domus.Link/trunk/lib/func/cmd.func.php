@@ -23,15 +23,22 @@ function heyu_ctrl($heyuexec, $action)
 		$cmd = $heyuexec." start 2>&1";
 	elseif ($action == "stop")
 		$cmd = $heyuexec." stop 2>&1";
-	elseif ($action == "reload")
+	elseif ($action == "restart")
 		$cmd = $heyuexec." restart 2>&1";
 
-	$result = null; $retval = null;
+	$result = array(); $retval = null;
 	exec($cmd, $result, $retval);
-	if ($result[0] == "starting heyu_relay" || $result[0] == "")
-		header("Location: ".$_SERVER['PHP_SELF']);
+
+	if (count($result)>0)
+	{
+		if ($result[0] == "starting heyu_relay" || $result[0] == "")
+			header("Location: ".$_SERVER['PHP_SELF']);
+		else
+			header("Location: error.php?msg=".$result[0]);
+	}
 	else
-		header("Location: error.php?msg=".$result[0]);
+		header("Location: ".$_SERVER['PHP_SELF']);
+
 }
 
 /**
@@ -41,9 +48,10 @@ function heyu_ctrl($heyuexec, $action)
 function heyu_state_check()
 {
 	$cmd = "ps x";
-	$result = null; $retval = null; $result_exec = null;
+	$result = array(); $retval = null; $result_exec = null;
 	exec($cmd, $result_exec, $retval);
 	$result = preg_grep('/[h]eyu_/', $result_exec);
+
 	if (count($result) == 2)
 	{
 		return true;
@@ -74,7 +82,7 @@ function heyu_exec($heyuexec)
 		$cmd = $heyuexec." ".$action." ".$unit." ".$_GET["value"];
 	}
 
-	$result = null; $retval = null;
+	$result = array(); $retval = null;
 	exec($cmd, $result, $retval);
 
 	if ($result[0] == "")
@@ -99,7 +107,7 @@ function heyu_exec($heyuexec)
 function on_state($unit, $heyuexec)
 {
 	$cmd = $heyuexec." onstate ".$unit." 2>&1";
-	$result = null; $retval = null;
+	$result = array(); $retval = null;
 	exec($cmd, $result, $retval);
 
 	if ($result[0] == "1" || $result[0] == "0")
@@ -145,7 +153,7 @@ function dim_state($unit, $heyuexec)
 function dim_level($unit, $heyuexec)
 {
 	$cmd = $heyuexec." dimlevel ".$unit." 2>&1";
-	$result = null; $retval = null;
+	$result = array(); $retval = null;
 	exec($cmd, $result, $retval);
 
 	//if ($result[0])

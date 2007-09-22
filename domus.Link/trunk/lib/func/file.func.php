@@ -46,7 +46,9 @@ function save_file($content, $filename)
 		{
 			$write = fwrite($fp, $line);
 		}
+
 		header("Location: ".$_SERVER['PHP_SELF']);
+
 	}
 	else
 	{

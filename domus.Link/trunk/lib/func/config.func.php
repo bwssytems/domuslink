@@ -110,8 +110,8 @@ function config_save($config)
 {
 	$filedir = dirname(CONFIG_FILE_LOCATION);
 	$filename = CONFIG_FILE_LOCATION;
-	if (is_writable($filename) || is_writable($filedir))
-	{
+	//if (is_writable($filename) || is_writable($filedir))
+	//{
 		$handle = fopen($filename, "w");
 		if ($handle)
 		{
@@ -120,7 +120,7 @@ function config_save($config)
 			fwrite($handle, "\n?>");
 			fclose($handle);
 		}
-	}
+	//}
 }
 
 ?>
