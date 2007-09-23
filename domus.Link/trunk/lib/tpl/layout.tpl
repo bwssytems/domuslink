@@ -29,6 +29,13 @@
    }
    //-->
   </SCRIPT>
+
+  <!--[if IE]>
+  <style type="text/css">
+    #content { width:100%; }
+    #footer { width: 100%; }
+  </style>
+  <![endif]-->
 </head>
 
 <body>

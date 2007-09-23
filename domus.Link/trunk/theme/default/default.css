@@ -4,11 +4,16 @@
 }
 
 body {
-	/*width: 100%;*/
+	width: 100%;
 	background-color: #fff;
 	font-family: Verdana,Geneva,Arial,Helvetica,sans-serif;
 	font-size: 12px;
 	line-height: 1.4em;
+}
+
+form {
+	margin: 0;
+	padding: 0;
 }
 
 /*** DIVS ***/
@@ -52,7 +57,7 @@ div#menuitem a:hover {
 */
 div#menuitem_img {
 	float: left;
-	width: 19.94%; /* 100/5 = 20, 100/6 ~= 16.667 , 100/7 ~= 14.274 */
+	width: 19.90%; /* 100/5 = 20, 100/6 ~= 16.667 , 100/7 ~= 14.274 */
 	text-align: center;
 	font-size: 14px;
 	line-height: 1.2em;
@@ -130,10 +135,8 @@ div#content {
 	background-color: #efefef;
 	padding-left: 20px;
 	padding-right: 20px;
-	/*padding-top: 10px;*/
 	padding-bottom: 10px;
 }
-
 
 div#footer {
 	background-color: #333;
@@ -255,8 +258,9 @@ h3, h4, h5, h6 {
 
 /*** OTHER ***/
 .spacer {
-padding-top: 15px;
+	padding-top: 15px;
 }
+
 .ctrlbox_label_on {
 	width: 120px;
 	margin-left: 6px;
@@ -319,9 +323,4 @@ padding-top: 15px;
 
 .code {
 	font-family: Courier;
-}
-
-form {
-	margin: 0;
-	padding: 0;
 }
