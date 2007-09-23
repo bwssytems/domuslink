@@ -1,4 +1,4 @@
-<?php 
+<?php
 #
 # domus.Link (Heyu Frontend) Configuration File
 #
@@ -34,7 +34,7 @@ $config['password'] = '123';
 # Language - Define the language for the frontend here.
 # If left blank browsers preferred language will be used.
 # In case a language is not found it will default to English
-# Options: en_GB
+# Options: Dutch, French, English
 $config['lang'] = 'English';
 
 # Url Path - This setting defines the URL path of the frontend.
