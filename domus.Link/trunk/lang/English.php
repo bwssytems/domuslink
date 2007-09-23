@@ -55,11 +55,12 @@ $lang['label_txt'] = 'Enter a description for this module. Note all spaces will 
 $lang['module_txt'] = 'Choose modules model type.';
 $lang['type_txt'] = 'Select what this module will control.';
 
-$lang['heyubaseloc_txt'] = 'Heyu base directory - This directory is where Heyu searches for it\'s configuration files, and stores state information';
-$lang['theme_txt'] = 'Select a theme for the GUI.';
-$lang['imgs_txt'] = 'Select whether or not you would like to use images instead of text on the menu bar.';
 $lang['heyuexec_txt'] = 'This setting specifies the location of the Heyu exectuable file. Typically this will be in <span class="code">/usr/local/bin/</span>';
 $lang['password_txt'] = 'Define a password here to access the setup area of the frontend. Leave <span class="code">blank</span> to disable password.';
+$lang['theme_txt'] = 'Select a theme for the GUI.';
+$lang['imgs_txt'] = 'Select whether or not you would like to use images instead of text on the menu bar.';
+$lang['setup_txt'] = 'This is where you can configure all settings.<br>Please select option from sub-menu bellow "Setup"';
+$lang['heyubaseloc_txt'] = 'Heyu base directory - This directory is where Heyu searches for it\'s configuration files, and stores state information';
 $lang['language_txt'] = 'Define the language for the frontend here. You can also ' .
 		'select auto, which will use the browsers preferred language. In case a language' .
 		' isn\'t found it will default to English';
@@ -72,7 +73,6 @@ $lang['urlpath_txt'] = 'This setting defines the URL path of the frontend. ' .
 		'http://your-host/domuslink</span>, then you should define the url path as ' .
 		'<span class="code">/domuslink</span>. Leave blank if your are running domus.Link at ' .
 		'the root ie <span class="code">http://your-host/</span>';
-$lang['setup_txt'] = 'This is where you can configure all settings.<br>Please select option from sub-menu bellow "Setup"';
 
 $lang['error_not_running'] = '<h1>HEYU IS NOT RUNNING!</h1>Please start heyu!<br />You may need to change permissions to tty port.';
 $lang['error_special_chars'] = 'Special characters in the alias label are not allowed.<br><br>Please try again. <a href=admin/aliases.php>Back</a>';

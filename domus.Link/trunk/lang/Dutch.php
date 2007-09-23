@@ -59,6 +59,8 @@ $lang['heyuexec_txt'] = 'Deze optie geeft aan waar het uitvoerbare bestand van H
 $lang['password_txt'] = 'Geef hier het wachtwoord voor het configuratiescherm op. Laat deze optie <span class="code">leeg</span> om geen wachtwoord te gebruiken.';
 $lang['theme_txt'] = 'Selecteer een thema voor de GUI.';
 $lang['imgs_txt'] = 'Kies of je plaatjes in het menu wilt gebruiken.';
+$lang['setup_txt'] = 'Pas hier de instellingen aan.<br>Kies een optie uit het submenu onder "Installatie"';
+$lang['heyubaseloc_txt'] = 'Heyu Bestandslocatie - In deze map zoekt Heyu voor de configuratie bestanden en slaat de status informatie op';
 $lang['language_txt'] = 'Geeft hier de taal van de frontend op. Je kunt ook kiezen voor de optie "auto". ' .
 		'Deze optie gebruikt dan de voorkeurstaal van de browser. Indien de taal niet bestaat' .
 		'dan zal de Engelse taal worden gebruikt.';
@@ -71,9 +73,7 @@ $lang['urlpath_txt'] = 'Deze optie bepaalt welke directory moet worden gebruikt 
 		'http://your-host/domuslink</span>, kies dan hier voor ' .
 		'<span class="code">/domuslink</span>. Laat deze optie leeg indien je domus.Link in de ' .
 		'root-directorie (bijvoorbeeld <span class="code">http://your-host/</span>)';
-$lang['setup_txt'] = 'Pas hier de instellingen aan.<br>Kies een optie uit het submenu onder "Installatie"';
 
-$lang['heyubaseloc_txt'] = 'Heyu Bestandslocatie - In deze map zoekt Heyu voor de configuratie bestanden en slaat de status informatie op';
 $lang['error_not_running'] = '<h1>HEYU IS NIET GESTART!</h1>Start heyu opnieuw!<br />Het is mogelijk dat je de rechten voor de tty port moet aanpassen.';
 $lang['error_special_chars'] = 'Speciale karakters in de synoniemen tekst zijn niet toegestaan.<br><br>Probeer het opnieuw. <a href=admin/aliases.php>Terug</a>';
 
