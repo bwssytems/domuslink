@@ -26,5 +26,6 @@
  	* Various other fixes/corrections/security enhancements
  	  Thanks again to Frank
 
- 	  - Config file not writable, correct redirect.
+ 	  - Config file not writable, corrected redirect.
  	  - Added new config option
+ 	  - If state file not located or corrupt, restore or create new

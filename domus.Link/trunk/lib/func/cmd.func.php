@@ -118,7 +118,14 @@ function on_state($unit, $heyuexec)
 	}
 	else
 	{
-		header("Location: error.php?msg=".$result[0]);
+		if ($result[0] = 'Unable to read state file.')
+		{
+			$cmd = $heyuexec." fetchstate";
+			$result = array(); $retval = null;
+			exec($cmd, $result, $retval);
+		}
+		else
+			header("Location: error.php?msg=".$result[0]);
 	}
 }
 
