@@ -104,7 +104,7 @@ if (heyu_state_check())
 }
 else
 {
-	$tpl->set('content', $lang['not_running']);
+	$tpl->set('content', $lang['error_not_running']);
 }
 
 echo $tpl->fetch(TPL_FILE_LOCATION.'layout.tpl');

@@ -26,12 +26,12 @@ function list_dir_content($dir)
 	while($fn = readdir($dn))
 	{
 		if ($fn == $exclude[0] || $fn == $exclude[1] || $fn == $exclude[2] || $fn == $exclude[3]) continue;
-		$directories[] = $fn;
+		$files[] = $fn;
 	}
 
-	sort($directories);
+	sort($files);
 	closedir($dn);
-	return $directories;
+	return $files;
 }
 
 /**

@@ -49,5 +49,5 @@ $config['theme'] = 'default';
 
 # Images - Select ON or OFF if you want images to be displayed
 # in the menu bar instead of text.
-$config['imgs'] = 'OFF';
+$config['imgs'] = 'ON';
 ?>
