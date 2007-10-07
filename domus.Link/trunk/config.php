@@ -1,4 +1,4 @@
-<?php
+<?php 
 #
 # domus.Link (Heyu Frontend) Configuration File
 #

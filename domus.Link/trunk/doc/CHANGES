@@ -4,6 +4,12 @@
  |                                                                            |
  +----------------------------------------------------------------------------*/
 
+ 0.1.2
+ ------
+ 	* Added Swedish translation
+ 	  Thanks to Tobias Axelsson
+ 	* Updated Dutch translation
+
  0.1.1 (bug fixes, no new features) - 23/Sep/2007
  ------
  	* Disabled 'short_open_tag' for security reason's
