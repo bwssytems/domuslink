@@ -4,6 +4,29 @@
 <!-- HeyuBase -->
 <table cellspacing="4" cellpadding="4" border="0">
   <tr>
+    <td colspan="3"><h2>Computer Interface</h2></td>
+  </tr>
+  <tr>
+    <td valign="top" width="150px">
+    <select name="pc_interface">
+		<?php $options = array('CM11A', 'CM17A'); ?>
+		<?php foreach ($options as $key=>$opt): ?>
+			<?php if ($opt == $config['pc_interface']): ?>
+				<option selected value="<?php echo $opt; ?>"><?php echo $opt; ?></option>
+			<?php else: ?>
+				<option value="<?php echo $opt; ?>"><?php echo $opt; ?></option>
+			<?php endif; ?>
+		<?php endforeach; ?>
+    </select>
+    </td>
+    <td width="30px">&nbsp;</td>
+    <td width="300px">Computer Interface</td>
+  </tr>
+</table>
+<br />
+<!-- HeyuBase -->
+<table cellspacing="4" cellpadding="4" border="0">
+  <tr>
     <td colspan="3"><h2><?php echo ($lang['heyubaseloc']); ?></h2></td>
   </tr>
   <tr>

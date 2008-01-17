@@ -3,6 +3,13 @@
 # domus.Link (Heyu Frontend) Configuration File
 #
 
+# ------------------
+# Computer Interface
+# ------------------
+# Here one can set which type of computer interface
+# is in use, either a CM11A or a CM17A
+$config['pc_interface'] = 'CM11A';
+
 # --------------
 # File locations
 # --------------

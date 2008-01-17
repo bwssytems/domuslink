@@ -18,6 +18,7 @@ function config_load()
 {
 	$config = array();
 
+	$config["pc_interface"] = "CM11A";
 	$config["heyu_base"] = "/etc/heyu";
 	$config["heyuconf"] = "x10.conf";
 	$config["heyuexec"] = "/usr/local/bin/heyu";
@@ -47,6 +48,13 @@ function config_text($config)
 #
 # domus.Link (Heyu Frontend) Configuration File
 #
+
+# ------------------
+# Computer Interface
+# ------------------
+# Here one can set which type of computer interface
+# is in use, either a CM11A or a CM17A
+\$config['pc_interface'] = '{$config['pc_interface']}';
 
 # --------------
 # File locations

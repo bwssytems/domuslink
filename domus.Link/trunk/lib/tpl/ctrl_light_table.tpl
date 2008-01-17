@@ -38,7 +38,7 @@ $pos = 0; //initializize counter for array
 	   <tr>
 	    <td>
 	    <?php if (dim_level($code, $config['heyuexec']) == "6"): $val = 1; elseif (dim_level($code, $config['heyuexec']) == "5"): $val = 2; else: $val = 3; endif; ?>
-	    <a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=dim&device=<?php echo $code; ?>&value=<?php echo $val; ?>&page=<?php echo $page; ?>">
+	    <a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=<?php echo ($config['DIM']); ?>&device=<?php echo $code; ?>&value=<?php echo $val; ?>&page=<?php echo $page; ?>">
 	    <img src="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/images/lights_dim.gif" border="0" /></a>
 	    </td>
 	    <?php $dimpercent = dim_level($code, $config['heyuexec']);
@@ -61,13 +61,13 @@ $pos = 0; //initializize counter for array
 	    <td><img src="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/images/lights_level_<?php echo $i; ?>_off.gif" /></td>
 		<?php endfor; ?>
 		<?php if (dim_level($code, $config['heyuexec']) == "6"): $val = 3; elseif (dim_level($code, $config['heyuexec']) == "5"): $val = 1; elseif (dim_level($code, $config['heyuexec']) == "2"): $val = 2; else: $val = 3; endif; ?>
-		<td><a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=bright&device=<?php echo $code; ?>&value=<?php echo $val; ?>&page=<?php echo $page; ?>"><img src="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/images/lights_bright.gif" border="0" /></a></td>
+		<td><a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=<?php echo ($config['BRIGHT']); ?>&device=<?php echo $code; ?>&value=<?php echo $val; ?>&page=<?php echo $page; ?>"><img src="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/images/lights_bright.gif" border="0" /></a></td>
 	   </tr>
 	  </table>
 	  <!-- End Dimmer Table -->
 	  </td>
 
-	  <td><a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=off&device=<?php echo $code; ?>&page=<?php echo $page; ?>"><img src="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/images/ctrlbox_switch_on.gif" border="0" /></a></td>
+	  <td><a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=<?php echo ($config['OFF']); ?>&device=<?php echo $code; ?>&page=<?php echo $page; ?>"><img src="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/images/ctrlbox_switch_on.gif" border="0" /></a></td>
 	  <td><img src="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/images/ctrlbox_right.gif" /></td>
     </tr>
     </table>
@@ -93,19 +93,19 @@ $pos = 0; //initializize counter for array
 	  <table cellspacing="0" cellpaddin="0" border="0" class="dimmer">
 	   <tr>
 	    <td>
-	    <a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=dim&device=<?php echo $code; ?>&value=3&page=<?php echo $page; ?>">
+	    <a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=<?php echo ($config['DIM']); ?>&device=<?php echo $code; ?>&value=3&page=<?php echo $page; ?>">
 	    <img src="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/images/lights_dim.gif" border="0" /></a>
 	    </td>
 	    <?php for ($i = 1; $i < 12; $i++): ?>
 	    <td><img src="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/images/lights_level_<?php echo $i; ?>_off.gif" /></td>
 	    <?php endfor; ?>
-		<td><a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=bright&device=<?php echo $code; ?>&value=3&page=<?php echo $page; ?>"><img src="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/images/lights_bright.gif" border="0" /></a></td>
+		<td><a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=<?php echo ($config['BRIGHT']); ?>&device=<?php echo $code; ?>&value=3&page=<?php echo $page; ?>"><img src="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/images/lights_bright.gif" border="0" /></a></td>
 	   </tr>
 	  </table>
 	  <!-- End Dimmer Table -->
 	  </td>
 
-	  <td><a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=on&device=<?php echo $code; ?>&page=<?php echo $page; ?>"><img src="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/images/ctrlbox_switch_off.gif" border="0" /></a></td>
+	  <td><a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=<?php echo ($config['ON']); ?>&device=<?php echo $code; ?>&page=<?php echo $page; ?>"><img src="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/images/ctrlbox_switch_off.gif" border="0" /></a></td>
 	  <td><img src="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/images/ctrlbox_right.gif" /></td>
 	 </tr>
 
@@ -145,7 +145,7 @@ $pos = 0; //initializize counter for array
 	   <tr>
 	    <td>
 	    <?php if (dim_level($code, $config['heyuexec']) == "6"): $val = 1; elseif (dim_level($code, $config['heyuexec']) == "5"): $val = 2; else: $val = 3; endif; ?>
-	    <a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=dim&device=<?php echo $code; ?>&value=<?php echo $val; ?>&page=<?php echo $page; ?>">
+	    <a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=<?php echo ($config['DIM']); ?>&device=<?php echo $code; ?>&value=<?php echo $val; ?>&page=<?php echo $page; ?>">
 	    <img src="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/images/lights_dim.gif" border="0" /></a>
 	    </td>
 	    <?php $dimpercent = dim_level($code, $config['heyuexec']);
@@ -168,13 +168,13 @@ $pos = 0; //initializize counter for array
 	    <td><img src="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/images/lights_level_<?php echo $i;?>_off.gif" /></td>
 		<?php endfor; ?>
 		<?php if (dim_level($code, $config['heyuexec']) == "6"): $val = 3; elseif (dim_level($code, $config['heyuexec']) == "5"): $val = 1; elseif (dim_level($code, $config['heyuexec']) == "2"): $val = 2; else: $val = 3; endif; ?>
-		<td><a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=bright&device=<?php echo $code; ?>&value=<?php echo $val; ?>&page=<?php echo $page; ?>"><img src="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/images/lights_bright.gif" border="0" /></a></td>
+		<td><a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=<?php echo ($config['BRIGHT']); ?>&device=<?php echo $code; ?>&value=<?php echo $val; ?>&page=<?php echo $page; ?>"><img src="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/images/lights_bright.gif" border="0" /></a></td>
 	   </tr>
 	  </table>
 	  <!-- End Dimmer Table -->
 	  </td>
 
-	  <td><a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=off&device=<?php echo $code; ?>&page=<?php echo $page; ?>"><img src="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/images/ctrlbox_switch_on.gif" border="0" /></a></td>
+	  <td><a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=<?php echo ($config['OFF']); ?>&device=<?php echo $code; ?>&page=<?php echo $page; ?>"><img src="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/images/ctrlbox_switch_on.gif" border="0" /></a></td>
 	  <td><img src="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/images/ctrlbox_right.gif" /></td>
     </tr>
     </table>
@@ -200,19 +200,19 @@ $pos = 0; //initializize counter for array
 	  <table cellspacing="0" cellpaddin="0" border="0" class="dimmer">
 	   <tr>
 	    <td>
-	    <a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=dim&device=<?php echo $code; ?>&value=3&page=<?php echo $page; ?>">
+	    <a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=<?php echo ($config['DIM']); ?>&device=<?php echo $code; ?>&value=3&page=<?php echo $page; ?>">
 	    <img src="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/images/lights_dim.gif" border="0" /></a>
 	    </td>
 	    <?php for ($i = 1; $i < 12; $i++): ?>
 	    <td><img src="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/images/lights_level_<?php echo $i; ?>_off.gif" /></td>
 	    <?php endfor; ?>
-		<td><a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=bright&device=<?php echo $code; ?>&value=3&page=<?php echo $page; ?>"><img src="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/images/lights_bright.gif" border="0" /></a></td>
+		<td><a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=<?php echo ($config['BRIGHT']); ?>&device=<?php echo $code; ?>&value=3&page=<?php echo $page; ?>"><img src="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/images/lights_bright.gif" border="0" /></a></td>
 	   </tr>
 	  </table>
 	  <!-- End Dimmer Table -->
 	  </td>
 
-	  <td><a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=on&device=<?php echo $code; ?>&page=<?php echo $page; ?>"><img src="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/images/ctrlbox_switch_off.gif" border="0" /></a></td>
+	  <td><a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=<?php echo ($config['ON']); ?>&device=<?php echo $code; ?>&page=<?php echo $page; ?>"><img src="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/images/ctrlbox_switch_off.gif" border="0" /></a></td>
 	  <td><img src="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/images/ctrlbox_right.gif" /></td>
 	 </tr>
 

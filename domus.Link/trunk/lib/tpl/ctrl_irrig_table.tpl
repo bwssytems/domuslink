@@ -23,14 +23,14 @@ $i = 0; //initializize counter for array
        <td><img src="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/images/ctrlbox_irrig_on.gif" /></td>
        <td><img src="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/images/ctrlbox_icon_sep.gif" /></td>
        <td width="132px" background="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/images/ctrlbox_middle_bg.gif"><input type="text" name="label" value="<?php echo label_parse($label, false);?>" class="ctrlbox_label_on"  /></td>
-       <td><a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=off&device=<?php echo $code; ?>&page=<?php echo $page; ?>"><img src="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/images/ctrlbox_switch_on.gif" border="0" /></a></td>
+       <td><a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=<?php echo ($config['OFF']); ?>&device=<?php echo $code; ?>&page=<?php echo $page; ?>"><img src="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/images/ctrlbox_switch_on.gif" border="0" /></a></td>
        <td><img src="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/images/ctrlbox_right.gif" /></td>
      <?php else: ?>
        <td><img src="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/images/ctrlbox_left.gif" /></td>
        <td><img src="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/images/ctrlbox_irrig_off.gif" /></td>
        <td><img src="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/images/ctrlbox_icon_sep.gif" /></td>
        <td width="132px" background="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/images/ctrlbox_middle_bg.gif"><input type="text" name="label" value="<?php echo label_parse($label, false);?>" class="ctrlbox_label_off"  /></td>
-       <td><a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=on&device=<?php echo $code;?>&page=<?php echo $page; ?>"><img src="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/images/ctrlbox_switch_off.gif" border="0" /></a></td>
+       <td><a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=<?php echo ($config['ON']); ?>&device=<?php echo $code;?>&page=<?php echo $page; ?>"><img src="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/images/ctrlbox_switch_off.gif" border="0" /></a></td>
        <td><img src="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/images/ctrlbox_right.gif" /></td>
      <?php endif; ?>
    </tr>
@@ -48,14 +48,14 @@ $i = 0; //initializize counter for array
        <td><img src="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/images/ctrlbox_irrig_on.gif" /></td>
        <td><img src="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/images/ctrlbox_icon_sep.gif" /></td>
        <td width="132px" background="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/images/ctrlbox_middle_bg.gif"><input type="text" name="label" value="<?php echo label_parse($label, false);?>" class="ctrlbox_label_on"  /></td>
-       <td><a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=off&device=<?php echo $code; ?>&page=<?php echo $page; ?>"><img src="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/images/ctrlbox_switch_on.gif" border="0" /></a></td>
+       <td><a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=<?php echo ($config['OFF']); ?>&device=<?php echo $code; ?>&page=<?php echo $page; ?>"><img src="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/images/ctrlbox_switch_on.gif" border="0" /></a></td>
        <td><img src="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/images/ctrlbox_right.gif" /></td>
      <?php else: ?>
        <td><img src="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/images/ctrlbox_left.gif" /></td>
        <td><img src="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/images/ctrlbox_irrig_off.gif" /></td>
        <td><img src="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/images/ctrlbox_icon_sep.gif" /></td>
        <td width="132px" background="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/images/ctrlbox_middle_bg.gif"><input type="text" name="label" value="<?php echo label_parse($label, false);?>" class="ctrlbox_label_off"  /></td>
-       <td><a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=on&device=<?php echo $code; ?>&page=<?php echo $page; ?>"><img src="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/images/ctrlbox_switch_off.gif" border="0" /></a></td>
+       <td><a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=<?php echo ($config['ON']); ?>&device=<?php echo $code; ?>&page=<?php echo $page; ?>"><img src="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/images/ctrlbox_switch_off.gif" border="0" /></a></td>
        <td><img src="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/images/ctrlbox_right.gif" /></td>
      <?php endif; ?>
    </tr>
