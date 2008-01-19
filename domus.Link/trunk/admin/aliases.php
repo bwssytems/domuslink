@@ -17,9 +17,10 @@ require_once(CLASS_FILE_LOCATION.'heyuconf.class.php');
 ## Instantiate HeyuConf class
 $heyuconf = new HeyuConf($config['heyuconf']);
 ## Get heyu (x10.conf) file contents/settings
-$settings = $heyuconf->get();
+$settings = $heyuconf->get_aliases('ALL');
+//$settings = $heyuconf->get();
 ## Disallowed characters for alias label (separator |)
-$chars = '/ã|é|à|ç|õ|ñ|è|ñ|ª|º|~|è|!|"|\#|\$|\^|%|\&|\?|\«|\»/';
+$chars = '/ï¿½|ï¿½|ï¿½|ï¿½|ï¿½|ï¿½|ï¿½|ï¿½|ï¿½|ï¿½|~|ï¿½|!|"|\#|\$|\^|%|\&|\?|\ï¿½|\ï¿½/';
 
 if ($config['password'] != "" && !isset($_COOKIE["dluloged"]))
 	header("Location: login.php?from=aliases");
@@ -51,14 +52,14 @@ else
 		elseif ($_GET["action"] == "add")
 		{
 			if (preg_match($chars, $_POST["label"]))
-				header("Location: ../error.php?msg=".$lang['error_special_chars']);
+				header("Location: ".check_url()."/error.php?msg=".$lang['error_special_chars']);
 			else
 				add_line($settings, $config['heyuconf'], 'alias');
 		}
 		elseif ($_GET["action"] == "save")
 		{
 			if (preg_match($chars, $_POST["label"]))
-				header("Location: ../error.php?msg=".$lang['error_special_chars']);
+				header("Location: ".check_url()."/error.php?msg=".$lang['error_special_chars']);
 			else
 				edit_line($settings, $config['heyuconf'], 'alias');
 		}

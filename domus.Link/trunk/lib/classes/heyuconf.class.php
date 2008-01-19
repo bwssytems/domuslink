@@ -103,37 +103,43 @@ class heyuConf {
 				$i++;
 			}
 		}
-		$i = 0;
-		$array = array();
-		foreach ($aliases as $line)
+		if ($req_type != "ALL") 
 		{
-			list($alias, $label, $code, $module_type) = split(" ", $line, 4);
-			list($module, $typenf) = split(" # ", $module_type, 2);
-			$type = rtrim($typenf);
-
-			if ($req_type == "Lights" && $type == "Light")
+			$i = 0;
+			$array = array();
+			foreach ($aliases as $line)
 			{
-				$array[$i] = $code." ".$label;
-				$i++;
+				list($alias, $label, $code, $module_type) = split(" ", $line, 4);
+				list($module, $typenf) = split(" # ", $module_type, 2);
+				$type = rtrim($typenf);
+	
+				if ($req_type == "Lights" && $type == "Light")
+				{
+					$array[$i] = $code." ".$label;
+					$i++;
+				}
+				elseif ($req_type == "Appliances" && $type == "Appliance")
+				{
+					$array[$i] = $code." ".$label;
+					$i++;
+				}
+				elseif ($req_type == "Irrigation" && $type == "Irrigation")
+				{
+					$array[$i] = $code." ".$label;
+					$i++;
+				}
+				elseif ($req_type == "HVAC" && $type == "HVAC")
+				{
+					$array[$i] = $code." ".$label;
+					$i++;
+				}
+	
 			}
-			elseif ($req_type == "Appliances" && $type == "Appliance")
-			{
-				$array[$i] = $code." ".$label;
-				$i++;
-			}
-			elseif ($req_type == "Irrigation" && $type == "Irrigation")
-			{
-				$array[$i] = $code." ".$label;
-				$i++;
-			}
-			elseif ($req_type == "HVAC" && $type == "HVAC")
-			{
-				$array[$i] = $code." ".$label;
-				$i++;
-			}
-
+			return $array;	// Specific type of ALIAS		
 		}
-		return $array;
+		else
+			return $aliases; // All ALIASES
+
 	}
 }
 

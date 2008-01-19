@@ -48,7 +48,7 @@ else
 		}
 		else
 		{
-			header("Location: ../error.php?msg=".$configfile." not writable!");
+			header("Location: ".check_url()."/error.php?msg=".$configfile." not writable!");
 	    }
 	}
 
