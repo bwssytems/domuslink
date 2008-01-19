@@ -73,11 +73,11 @@ function heyu_exec($heyuexec)
 	$unit = $_GET["device"];
 	$page = $_GET['page'];
 
-	if ($action == "on" || $action == "off")
+	if ($action == "on" || $action == "off" || $action == "fon" || $action == "foff")
 	{
 		$cmd = $heyuexec." ".$action." ".$unit." 2>&1";
 	}
-	elseif ($action=="dim" || $action=="bright" || $action=="dimb" || $action=="brightb")
+	elseif ($action=="dim" || $action=="bright" || $action=="dimb" || $action=="brightb" || $action=="fdim" || $action=="fbright")
 	{
 		$cmd = $heyuexec." ".$action." ".$unit." ".$_GET["value"];
 	}
@@ -163,14 +163,7 @@ function dim_level($unit, $heyuexec)
 	$result = array(); $retval = null;
 	exec($cmd, $result, $retval);
 
-	//if ($result[0])
-	//{
-		return $result[0];
-	//}
-	//else
-	//{
-	//	header("Location: error.php?msg=".$result[0]);
-	//}
+	return $result[0];
 }
 
 ?>

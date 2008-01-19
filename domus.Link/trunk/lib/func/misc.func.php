@@ -58,4 +58,16 @@ function label_parse($str, $add)
 	return $strf2;
 }
 
+/**
+ * Check URL
+ * 
+ * Description: This function is used primarily due to error.php. Since error's could be thrown from either
+ * the root or from the admin section a way is needed to detect where and only return the url path if any.
+ * 
+ */
+function check_url()
+{
+	return substr($_SERVER['PHP_SELF'], 0, strpos($_SERVER['PHP_SELF'], '/admin'));	
+}
+
 ?>

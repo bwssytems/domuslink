@@ -24,7 +24,7 @@ function load_file($file)
 	}
 	else
 	{
-		header("Location: error.php?msg=".$file." not found or not readable!");
+		header("Location: ".check_url()."/error.php?msg=".$file." not found or not readable!");
 		die();
 	}
 	return $content;
@@ -52,7 +52,7 @@ function save_file($content, $filename)
 	}
 	else
 	{
-		header("Location: ../error.php?msg=".$filename." not writable!");
+		header("Location: ".check_url()."/error.php?msg=".$filename." not found or not writable!");
 		die();
 	}
 	fclose($fp);
