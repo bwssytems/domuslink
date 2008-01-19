@@ -38,6 +38,7 @@ else
 		$newconfig['url_path'] = $_POST["url_path"];
 		$newconfig['theme'] = $_POST["theme"];
 		$newconfig['imgs'] = $_POST["imgs"];
+		$newconfig['refresh'] = $_POST["refresh"];
 
 		$configfile = CONFIG_FILE_LOCATION;
 

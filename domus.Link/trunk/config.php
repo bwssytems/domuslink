@@ -57,4 +57,9 @@ $config['theme'] = 'default';
 # Images - Select ON or OFF if you want images to be displayed
 # in the menu bar instead of text.
 $config['imgs'] = 'ON';
+
+# Refresh - This setting defines the amount of time between page
+# refreshes. The page being refreshed is the main page where modules
+# are displayed. Leave empty to disable this feature.
+$config['refresh'] = '';
 ?>

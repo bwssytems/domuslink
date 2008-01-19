@@ -27,6 +27,7 @@ function config_load()
 	$config["url_path"] = "/";
 	$config["theme"] = "default";
 	$config["imgs"] = "ON";
+	$config["refresh"] = "0";
 
 	if (file_exists(CONFIG_FILE_LOCATION))
 	{
@@ -103,6 +104,11 @@ function config_text($config)
 # Images - Select ON or OFF if you want images to be displayed
 # in the menu bar instead of text.
 \$config['imgs'] = '{$config['imgs']}';
+
+# Refresh - This setting defines the amount of time between page
+# refreshes. The page being refreshed is the main page where modules
+# are displayed. Leave empty to disable this feature.
+\$config['refresh'] = '{$config['refresh']}';
 EOF;
 
 	return $result;

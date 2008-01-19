@@ -166,6 +166,18 @@
   </tr>
 </table>
 <br />
+<!-- Refresh -->
+<table cellspacing="4" cellpadding="4" border="0">
+  <tr>
+    <td colspan="3"><h2>Refresh Rate</h2></td>
+  </tr>
+  <tr>
+    <td valign="top" width="160px"><input type="text" size="10" name="refresh" value="<?php echo ($config['refresh']); ?>" /></td>
+    <td width="30px">&nbsp;</td>
+    <td width="300px">Refresh Rate</td>
+  </tr>
+</table>
+<br />
 <table cellspacing="0" cellpadding="0" border="0" class="tb_buttons">
   <tr>
     <td><input type="submit" value="<?php echo ($lang['save']); ?>" /></form></td>

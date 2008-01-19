@@ -4,6 +4,9 @@
   <title><?php echo $title; ?></title>
   <link rel="stylesheet" type="text/css" media="screen" href="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/<?php echo ($config['theme']); ?>.css" />
   <link rel="shortcut icon" href="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/images/favicon.ico" type="image/x-icon" />
+  <?php if (strpos($_SERVER['PHP_SELF'], "index.php") != false): ?>
+  <META HTTP-EQUIV=Refresh CONTENT="<?php echo ($config['refresh']); ?>">
+  <?php endif; ?>
 
   <SCRIPT LANGUAGE="JavaScript">
   <!--
@@ -11,8 +14,8 @@
     today=new Date();
     ynow=today.getFullYear();
     ystart='2007';
-    if (ystart==ynow) { document.write("© "+ystart); }
-    else { document.write("© "+ ystart +" - "+ynow); }
+    if (ystart==ynow) { document.write("ï¿½ "+ystart); }
+    else { document.write("ï¿½ "+ ystart +" - "+ynow); }
    }
 
    //preload()
