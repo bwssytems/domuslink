@@ -70,4 +70,23 @@ function check_url()
 	return substr($_SERVER['PHP_SELF'], 0, strpos($_SERVER['PHP_SELF'], '/admin'));	
 }
 
+function parse_config($config)
+{
+	if ($config['pc_interface'] == 'CM11A') 
+	{
+		$config['ON'] = 'on';
+		$config['OFF'] = 'off';
+		$config['BRIGHT'] = 'bright';
+		$config['DIM'] = 'dim';
+	} 
+	else
+	{
+		$config['ON'] = 'fon';
+		$config['OFF'] = 'foff';
+		$config['BRIGHT'] = 'fbright';
+		$config['DIM'] = 'fdim';
+	}
+	return $config;
+}
+
 ?>

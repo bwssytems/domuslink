@@ -16,21 +16,7 @@ require_once(FUNC_FILE_LOCATION.'cmd.func.php');
 #Load config file functions and grab settings
 require($dirname.DIRECTORY_SEPARATOR.'version.php');
 require(FUNC_FILE_LOCATION.'config.func.php');
-$config =& $frontObj->GetConfig();
-if ($config['pc_interface'] == 'CM11A') 
-{
-	$config['ON'] = 'on';
-	$config['OFF'] = 'off';
-	$config['BRIGHT'] = 'bright';
-	$config['DIM'] = 'dim';
-} 
-else
-{
-	$config['ON'] = 'fon';
-	$config['OFF'] = 'foff';
-	$config['BRIGHT'] = 'fbright';
-	$config['DIM'] = 'fdim';
-}
+$config =& parse_config($frontObj->GetConfig());
 
 #Load language file
 require_once(FUNC_FILE_LOCATION.'lang.func.php');
