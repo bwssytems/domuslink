@@ -4,10 +4,10 @@
 <!-- HeyuBase -->
 <table cellspacing="4" cellpadding="4" border="0">
   <tr>
-    <td colspan="3"><h2>Computer Interface</h2></td>
+    <td colspan="3"><h2><?php echo ($lang['pcinterface']); ?></h2></td>
   </tr>
   <tr>
-    <td valign="top" width="150px">
+    <td valign="top" width="160px">
     <select name="pc_interface">
 		<?php $options = array('CM11A', 'CM17A'); ?>
 		<?php foreach ($options as $key=>$opt): ?>
@@ -20,7 +20,7 @@
     </select>
     </td>
     <td width="30px">&nbsp;</td>
-    <td width="300px">Computer Interface</td>
+    <td width="300px"><?php echo ($lang['pcinterface_txt']); ?></td>
   </tr>
 </table>
 <br />
@@ -30,7 +30,7 @@
     <td colspan="3"><h2><?php echo ($lang['heyubaseloc']); ?></h2></td>
   </tr>
   <tr>
-    <td valign="top" width="150px"><input type="text" name="heyu_base" value="<?php echo ($config['heyu_base']); ?>" /></td>
+    <td valign="top" width="160px"><input type="text" name="heyu_base" value="<?php echo ($config['heyu_base']); ?>" /></td>
     <td width="30px">&nbsp;</td>
     <td width="300px"><?php echo ($lang['heyubaseloc_txt']); ?></td>
   </tr>
@@ -42,7 +42,7 @@
     <td colspan="3"><h2><?php echo ($lang['heyuconfile']); ?></h2></td>
   </tr>
   <tr>
-    <td valign="top" width="150px"><input type="text" name="heyuconf" value="<?php echo substr($config['heyuconf'], strlen($config['heyu_base'])); ?>" /></td>
+    <td valign="top" width="160px"><input type="text" name="heyuconf" value="<?php echo substr($config['heyuconf'], strlen($config['heyu_base'])); ?>" /></td>
     <td width="30px">&nbsp;</td>
     <td width="300px"><?php echo ($lang['heyuconfile_txt']); ?></td>
   </tr>
@@ -54,7 +54,7 @@
     <td colspan="3"><h2><?php echo ($lang['heyuexec']); ?></h2></td>
   </tr>
   <tr>
-    <td valign="top" width="150px"><input type="text" name="heyuexec" value="<?php echo ($config['heyuexec']); ?>" /></td>
+    <td valign="top" width="160px"><input type="text" name="heyuexec" value="<?php echo ($config['heyuexec']); ?>" /></td>
     <td width="30px">&nbsp;</td>
     <td width="300px"><?php echo ($lang['heyuexec_txt']); ?></td>
   </tr>
@@ -66,7 +66,7 @@
     <td colspan="3"><h2><?php echo ($lang['password']); ?></h2></td>
   </tr>
   <tr>
-    <td valign="top" width="150px"><input type="text" name="password" value="<?php echo ($config['password']); ?>" /></td>
+    <td valign="top" width="160px"><input type="text" name="password" value="<?php echo ($config['password']); ?>" /></td>
     <td width="30px">&nbsp;</td>
     <td width="300px"><?php echo ($lang['password_txt']); ?></td>
   </tr>
@@ -78,7 +78,7 @@
    <td colspan="3"><h2><?php echo ($lang['language']); ?></h2></td>
   </tr>
   <tr>
-    <td valign="top" width="150px">
+    <td valign="top" width="160px">
     <!-- Language dropdown -->
     <?php $files = list_dir_content(LANG_FILE_LOCATION); $found = false; ?>
     <select name='lang'>
@@ -110,7 +110,7 @@
     <td colspan="3"><h2><?php echo ($lang['urlpath']); ?></h2></td>
   </tr>
   <tr>
-    <td valign="top" width="150px"><input type="text" name="url_path" value="<?php echo ($config['url_path']); ?>" /></td>
+    <td valign="top" width="160px"><input type="text" name="url_path" value="<?php echo ($config['url_path']); ?>" /></td>
     <td width="30px">&nbsp;</td>
     <td width="300px"><?php echo ($lang['urlpath_txt']); ?></td>
   </tr>
@@ -122,7 +122,7 @@
     <td colspan="3"><h2><?php echo ($lang['theme']); ?></h2></td>
   </tr>
   <tr>
-    <td valign="top" width="150px">
+    <td valign="top" width="160px">
     <!-- Theme dropdown -->
     <?php $subdir = list_dir_content(FULL_THEME_FILE_LOCATION); ?>
     <select name="theme">
@@ -147,7 +147,7 @@
     <td colspan="3"><h2><?php echo ($lang['imgs']); ?></h2></td>
   </tr>
   <tr>
-    <td valign="top" width="150px">
+    <td valign="top" width="160px">
     <!-- Images dropdown -->
     <select name="imgs">
     <?php $options = array('ON', 'OFF'); ?>

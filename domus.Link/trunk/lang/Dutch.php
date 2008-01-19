@@ -4,6 +4,11 @@
  *
  */
 
+// new start v0.1.2
+$lang['pcinterface'] = 'Computer Interface Type';
+$lang['pcinterface_txt'] = 'The Computer Interface can either be the CM11A or the CM17A. The CM11A is the most common and therefore selected by default.';
+// new end
+
 $lang['dlurl'] = 'http://domus.link.co.pt';
 $lang['title'] = 'domus.Link';
 

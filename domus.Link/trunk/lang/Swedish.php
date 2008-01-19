@@ -3,6 +3,11 @@
  * Swedish Language File
  *
  */
+ 
+// new start v0.1.2
+$lang['pcinterface'] = 'Computer Interface Type';
+$lang['pcinterface_txt'] = 'The Computer Interface can either be the CM11A or the CM17A. The CM11A is the most common and therefore selected by default.';
+// new end
 
 $lang['dlurl'] = 'http://domus.link.co.pt';
 $lang['title'] = 'domus.Link';
@@ -12,22 +17,22 @@ $lang['lights'] = 'belysning';
 $lang['appliances'] = 'Utrustning';
 $lang['irrigation'] = 'Irrigation';
 $lang['hvac'] = 'HVAC';
-$lang['events'] = 'Händelse';
-$lang['setup'] = 'Inställningar';
-$lang['heyusetup'] = 'Heyu inställningar';
+$lang['events'] = 'Hï¿½ndelse';
+$lang['setup'] = 'Instï¿½llningar';
+$lang['heyusetup'] = 'Heyu instï¿½llningar';
 $lang['frontend'] = 'Frontend';
 $lang['login'] = 'Logga in';
 
-$lang['add'] = 'Lägg till';
-$lang['edit'] = 'Ändra';
+$lang['add'] = 'Lï¿½gg till';
+$lang['edit'] = 'ï¿½ndra';
 $lang['save'] = 'Spara';
 $lang['cancel'] = 'Avbryt';
 $lang['delete'] = 'Ta bort';
-$lang['deleteconfirm'] = 'Tryck OK för att bekräfta borttagning.';
+$lang['deleteconfirm'] = 'Tryck OK fï¿½r att bekrï¿½fta borttagning.';
 
 $lang['aliases'] = 'Alias';
-$lang['addalias'] = 'Lägg till Alias';
-$lang['editalias'] = 'Ändra Alias';
+$lang['addalias'] = 'Lï¿½gg till Alias';
+$lang['editalias'] = 'ï¿½ndra Alias';
 $lang['code'] = 'Kod';
 $lang['label'] = 'Namn';
 $lang['module'] = 'Modul';
@@ -42,37 +47,37 @@ $lang['stop'] = 'STOPP';
 $lang['frontendadmin'] = 'Frontend Konfiguration';
 $lang['heyuconf'] = 'Heyu Konfiguration';
 $lang['heyuconfile'] = 'Heyu Konfigurationsfil';
-$lang['heyuexec'] = 'Heyu binär';
-$lang['password'] = 'Lösenord för inställningsarea';
-$lang['language'] = 'Språk för Frontend';
+$lang['heyuexec'] = 'Heyu binï¿½r';
+$lang['password'] = 'Lï¿½senord fï¿½r instï¿½llningsarea';
+$lang['language'] = 'Sprï¿½k fï¿½r Frontend';
 $lang['imgs'] = 'Menybilder';
-$lang['urlpath'] = 'URL sökväg';
-$lang['theme'] = 'Tema för Frontend';
+$lang['urlpath'] = 'URL sï¿½kvï¿½g';
+$lang['theme'] = 'Tema fï¿½r Frontend';
 $lang['heyubaseloc'] = 'Heyu Filbas';
 
-$lang['code_txt'] = 'Fyll i Hus och modulkod. Var noga med att den inte redan används. Alias som "A1,2" är ännu inte supportade.';
-$lang['label_txt'] = 'Fyll i en beskrivning för denna modulen. Var uppmärksam på att alla mellanrum kommer att bli utbytta med ett "_" och stora bokstäver med små.';
-$lang['module_txt'] = 'Välj typ av modul.';
-$lang['type_txt'] = 'Välj vad denna modulen kommer att kontrollera.';
+$lang['code_txt'] = 'Fyll i Hus och modulkod. Var noga med att den inte redan anvï¿½nds. Alias som "A1,2" ï¿½r ï¿½nnu inte supportade.';
+$lang['label_txt'] = 'Fyll i en beskrivning fï¿½r denna modulen. Var uppmï¿½rksam pï¿½ att alla mellanrum kommer att bli utbytta med ett "_" och stora bokstï¿½ver med smï¿½.';
+$lang['module_txt'] = 'Vï¿½lj typ av modul.';
+$lang['type_txt'] = 'Vï¿½lj vad denna modulen kommer att kontrollera.';
 
-$lang['heyuexec_txt'] = 'Denna inställning specifierar var i systemet man finner heyu exekverbara fil. Standardsökvägen för denna är <span class="code">/usr/local/bin/</span>';
-$lang['password_txt'] = 'Välj ett lösenord här för access till inställningsarean för denna frontändan. Lämna den helt <span class="code">tom</span> om du vill avaktivera användning av lösenord.';
-$lang['theme_txt'] = 'Välj ett tema för GUIT.';
-$lang['imgs_txt'] = 'Välj om du vill ha bilder eller bara ren text i menyraden.';
-$lang['setup_txt'] = 'Här kan du ställa in alla inställningar.<br>Var god välj en av undermenyerna under "Inställningar".';
-$lang['heyubaseloc_txt'] = 'Heyu filbas - Detta är katalogen som Heyu hittar sina konfigurationsfiler och filer för statusinformation i.';
-$lang['language_txt'] = 'Definierar språket för fromtändan. Du kan också sätta denna till auto, vilket låter browsern välja språk istället. Engelska kommer att väljas som språk om språket inte hittas.';
-$lang['heyuconfile_txt'] = 'Konfigurationsfilen innehåller flera kritiska delar ' .
-		'som heyu behöver för att fungera, ' .
-		'plus ett antal användaroptioner. Denna filen är vanligtvis kallad <span class="code">x10.conf</span> ' .
-		'och hittas vanligtvis  i katalogen <span class="code">/etc/heyu</span> för att hela systemet skalla ha åtkomst till den.';
-$lang['urlpath_txt'] = 'Denna inställningen definierar sökvägen till frontändan. ' .
-		'Till exempel om du kör domus.Link i en katalog som <span class="code">' .
-		'http://your-host/domuslink</span>, skulle URL sökväg bli ' .
-		'<span class="code">/domuslink</span>. Lämna denna tom om du kör domus.Link ' .
+$lang['heyuexec_txt'] = 'Denna instï¿½llning specifierar var i systemet man finner heyu exekverbara fil. Standardsï¿½kvï¿½gen fï¿½r denna ï¿½r <span class="code">/usr/local/bin/</span>';
+$lang['password_txt'] = 'Vï¿½lj ett lï¿½senord hï¿½r fï¿½r access till instï¿½llningsarean fï¿½r denna frontï¿½ndan. Lï¿½mna den helt <span class="code">tom</span> om du vill avaktivera anvï¿½ndning av lï¿½senord.';
+$lang['theme_txt'] = 'Vï¿½lj ett tema fï¿½r GUIT.';
+$lang['imgs_txt'] = 'Vï¿½lj om du vill ha bilder eller bara ren text i menyraden.';
+$lang['setup_txt'] = 'Hï¿½r kan du stï¿½lla in alla instï¿½llningar.<br>Var god vï¿½lj en av undermenyerna under "Instï¿½llningar".';
+$lang['heyubaseloc_txt'] = 'Heyu filbas - Detta ï¿½r katalogen som Heyu hittar sina konfigurationsfiler och filer fï¿½r statusinformation i.';
+$lang['language_txt'] = 'Definierar sprï¿½ket fï¿½r fromtï¿½ndan. Du kan ocksï¿½ sï¿½tta denna till auto, vilket lï¿½ter browsern vï¿½lja sprï¿½k istï¿½llet. Engelska kommer att vï¿½ljas som sprï¿½k om sprï¿½ket inte hittas.';
+$lang['heyuconfile_txt'] = 'Konfigurationsfilen innehï¿½ller flera kritiska delar ' .
+		'som heyu behï¿½ver fï¿½r att fungera, ' .
+		'plus ett antal anvï¿½ndaroptioner. Denna filen ï¿½r vanligtvis kallad <span class="code">x10.conf</span> ' .
+		'och hittas vanligtvis  i katalogen <span class="code">/etc/heyu</span> fï¿½r att hela systemet skalla ha ï¿½tkomst till den.';
+$lang['urlpath_txt'] = 'Denna instï¿½llningen definierar sï¿½kvï¿½gen till frontï¿½ndan. ' .
+		'Till exempel om du kï¿½r domus.Link i en katalog som <span class="code">' .
+		'http://your-host/domuslink</span>, skulle URL sï¿½kvï¿½g bli ' .
+		'<span class="code">/domuslink</span>. Lï¿½mna denna tom om du kï¿½r domus.Link ' .
 		'i din webbrot dvs. <span class="code">http://your-host/</span>';
 
-$lang['error_not_running'] = '<h1>HEYU ÄR INTE STARTAD!</h1>Var god starta heyu!<br />Du behöver eventuellt ändra dina rättigheter för tty-porten, t.ex. /dev/ttyS0 eller /dev/ttyUSB0. Se dokumentation i doc/INSTALL för mer information.';
+$lang['error_not_running'] = '<h1>HEYU ï¿½R INTE STARTAD!</h1>Var god starta heyu!<br />Du behï¿½ver eventuellt ï¿½ndra dina rï¿½ttigheter fï¿½r tty-porten, t.ex. /dev/ttyS0 eller /dev/ttyUSB0. Se dokumentation i doc/INSTALL fï¿½r mer information.';
 $lang['error_special_chars'] = 'Special characters in the alias label are not allowed.<br><br>Please try again. <a href=admin/aliases.php>Back</a>';
 
 ?>
