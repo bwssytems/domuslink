@@ -6,9 +6,16 @@
 
  0.1.2
  ------
+ 	* Added native support for CM17A devices
+ 	* Added an auto-refresh setting to the frontend
+ 	* Fixed some error handling bugs
+ 	* Fixed various other minor bugs
+	* Added Italian translation
+	  Thanks to Stefano Bodini
  	* Added Swedish translation
  	  Thanks to Tobias Axelsson
  	* Updated Dutch translation
+ 	  Thanks to Frank
 
  0.1.1 (bug fixes, no new features) - 23/Sep/2007
  ------
