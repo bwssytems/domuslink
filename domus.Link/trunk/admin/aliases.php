@@ -20,7 +20,7 @@ $heyuconf = new HeyuConf($config['heyuconf']);
 $settings = $heyuconf->get_aliases('ALL');
 //$settings = $heyuconf->get();
 ## Disallowed characters for alias label (separator |)
-$chars = '/�|�|�|�|�|�|�|�|�|�|~|�|!|"|\#|\$|\^|%|\&|\?|\�|\�/';
+$chars = '/ã|é|à|ç|õ|ñ|è|ñ|ª|º|~|è|!|"|\#|\$|\^|%|\&|\?|\«|\»/';
 
 if ($config['password'] != "" && !isset($_COOKIE["dluloged"]))
 	header("Location: login.php?from=aliases");
