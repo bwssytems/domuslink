@@ -14,8 +14,8 @@
     today=new Date();
     ynow=today.getFullYear();
     ystart='2007';
-    if (ystart==ynow) { document.write("� "+ystart); }
-    else { document.write("� "+ ystart +" - "+ynow); }
+    if (ystart==ynow) { document.write("© "+ystart); }
+    else { document.write("© "+ ystart +" - "+ynow); }
    }
 
    //preload()
