@@ -70,6 +70,14 @@ function check_url()
 	return substr($_SERVER['PHP_SELF'], 0, strpos($_SERVER['PHP_SELF'], '/admin'));	
 }
 
+/**
+ * Parse Config
+ * 
+ * Description: This functions receives $config containing all the configuration options, checks to see which
+ * computer interface is being used, and assign's the correct commands for controling devices.
+ * 
+ * @param $config contains all the frontend's configuration options
+ */
 function parse_config($config)
 {
 	if ($config['pc_interface'] == 'CM11A') 
