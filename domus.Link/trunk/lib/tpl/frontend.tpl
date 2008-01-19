@@ -169,12 +169,12 @@
 <!-- Refresh -->
 <table cellspacing="4" cellpadding="4" border="0">
   <tr>
-    <td colspan="3"><h2>Refresh Rate</h2></td>
+    <td colspan="3"><h2><?php echo ($lang['refresh']); ?></h2></td>
   </tr>
   <tr>
     <td valign="top" width="160px"><input type="text" size="10" name="refresh" value="<?php echo ($config['refresh']); ?>" /></td>
     <td width="30px">&nbsp;</td>
-    <td width="300px">Refresh Rate</td>
+    <td width="300px"><?php echo ($lang['refresh_txt']); ?></td>
   </tr>
 </table>
 <br />
