@@ -33,6 +33,12 @@ $config['heyuexec'] = '/usr/local/bin/heyu';
 # Frontend Settings
 # -----------------
 
+# Security Level, Possible values are:
+# 0 - No security/Password protection
+# 1 - Password protection for administration area
+# 2 - Password protection for frontend and administration area
+$config['seclevel'] = '1';
+
 # Frontend password - Define a password here to
 # access the setup area of the frontend.
 # Leave blank to disable password.

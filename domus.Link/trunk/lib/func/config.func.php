@@ -22,6 +22,7 @@ function config_load()
 	$config["heyu_base"] = "/etc/heyu";
 	$config["heyuconf"] = "x10.conf";
 	$config["heyuexec"] = "/usr/local/bin/heyu";
+	$config["seclevel"] = "1";
 	$config["password"] = "123";
 	$config["lang"] = "";
 	$config["url_path"] = "/";
@@ -79,6 +80,12 @@ function config_text($config)
 # -----------------
 # Frontend Settings
 # -----------------
+
+# Security Level, Possible values are:
+# 0 - No security/Password protection
+# 1 - Password protection for administration area
+# 2 - Password protection for frontend and administration area
+\$config['seclevel'] = '{$config['seclevel']}';
 
 # Frontend password - Define a password here to
 # access the setup area of the frontend.

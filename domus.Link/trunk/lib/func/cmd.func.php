@@ -32,12 +32,18 @@ function heyu_ctrl($heyuexec, $action)
 	if (count($result)>0)
 	{
 		if ($result[0] == "starting heyu_relay" || $result[0] == "")
-			header("Location: ".$_SERVER['PHP_SELF']);
+			if (substr($_SERVER['PHP_SELF'], -9) == "error.php")
+				header("Location: index.php"); // To redirect when on error.php
+			else
+				header("Location: ".$_SERVER['PHP_SELF']);
 		else
 			header("Location: error.php?msg=".$result[0]);
 	}
-	else
-		header("Location: ".$_SERVER['PHP_SELF']);
+	else // For stopping
+		if (substr($_SERVER['PHP_SELF'], -9) == "error.php")
+			header("Location: index.php");
+		else
+			header("Location: ".$_SERVER['PHP_SELF']);
 
 }
 

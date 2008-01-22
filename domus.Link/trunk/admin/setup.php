@@ -13,18 +13,18 @@
 
 require_once('..'.DIRECTORY_SEPARATOR.'include.php');
 
+## Security validation's
+if ($config['seclevel'] != "0") 
+{
+	if (!isset($_COOKIE["dluloged"]))
+		header("Location: login.php");
+}
+
 ## Set template parameters
 $tpl->set('title', 'Setup');
 
 ## Display the page
-if ($config['password'] != "" && !isset($_COOKIE["dluloged"]))
-{
-	header("Location: login.php");
-}
-else
-{
-	$tpl->set('content', '<h1>'.$lang['setup'].'</h1>'.$lang['setup_txt']);
-}
+$tpl->set('content', '<h1>'.$lang['setup'].'</h1>'.$lang['setup_txt']);
 
 echo $tpl->fetch(TPL_FILE_LOCATION.'layout.tpl');
 

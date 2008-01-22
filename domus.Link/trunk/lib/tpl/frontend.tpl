@@ -1,7 +1,7 @@
 <h1><?php echo ($lang['frontendadmin']); ?></h1>
 
 <form action="<?php echo ($_SERVER['PHP_SELF']); ?>?action=save" method="post">
-<!-- HeyuBase -->
+<!-- Interface -->
 <table cellspacing="4" cellpadding="4" border="0">
   <tr>
     <td colspan="3"><h2><?php echo ($lang['pcinterface']); ?></h2></td>
@@ -57,6 +57,29 @@
     <td valign="top" width="160px"><input type="text" name="heyuexec" value="<?php echo ($config['heyuexec']); ?>" /></td>
     <td width="30px">&nbsp;</td>
     <td width="300px"><?php echo ($lang['heyuexec_txt']); ?></td>
+  </tr>
+</table>
+<br />
+<!-- Security Level -->
+<table cellspacing="4" cellpadding="4" border="0">
+  <tr>
+    <td colspan="3"><h2><?php echo ($lang['seclevel']); ?></h2></td>
+  </tr>
+  <tr>
+    <td valign="top" width="160px">
+    <select name="seclevel">
+		<?php $options = array('0', '1', '2'); ?>
+		<?php foreach ($options as $key=>$opt): ?>
+			<?php if ($opt == $config['seclevel']): ?>
+				<option selected value="<?php echo $opt; ?>"><?php echo $opt; ?></option>
+			<?php else: ?>
+				<option value="<?php echo $opt; ?>"><?php echo $opt; ?></option>
+			<?php endif; ?>
+		<?php endforeach; ?>
+    </select>
+    </td>
+    <td width="30px">&nbsp;</td>
+    <td width="300px"><?php echo ($lang['seclevel_txt']); ?></td>
   </tr>
 </table>
 <br />

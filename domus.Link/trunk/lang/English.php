@@ -5,8 +5,10 @@
  */
  
 // new start v0.1.2
+$lang['seclevel'] = 'Security Level';
 $lang['pcinterface'] = 'Computer Interface Type';
 $lang['refresh'] = 'Page Refresh Timer';
+$lang['seclevel_txt'] = 'Possible values are: <br>0 - None; <br>1 - Only administration; <br>2 - Entire frontend.';
 $lang['pcinterface_txt'] = 'The Computer Interface can either be the CM11A or the CM17A. The CM11A is the most common and therefore selected by default.';
 $lang['refresh_txt'] = 'By setting this field the main page in which the modules are shown shall be refreshed every X seconds. To disable, leave field blank.';
 // new end

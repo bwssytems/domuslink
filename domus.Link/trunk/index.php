@@ -19,6 +19,13 @@ require_once(CLASS_FILE_LOCATION.'heyuconf.class.php');
 ## Instantiate HeyuConf class
 $heyuconf = new HeyuConf($config['heyuconf']);
 
+## Security validation's
+if ($config['seclevel'] == "2") 
+{
+	if (!isset($_COOKIE["dluloged"]))
+		header("Location: admin/login.php?from=index");
+}
+
 ## Template specific
 $tpl->set('title', $lang['title']);
 $tpl_body = & new Template(TPL_FILE_LOCATION.'all_controls.tpl');
@@ -108,5 +115,6 @@ else
 }
 
 echo $tpl->fetch(TPL_FILE_LOCATION.'layout.tpl');
+
 
 ?>

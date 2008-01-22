@@ -20,23 +20,26 @@ if ($_POST)
 {
 	if ($_POST['txtPassword'] != $config['password'])
 	{
-		$authed = false;
+		$authenticated = false;
 	}
 	else
 	{
-		$authed = true;
+		$authenticated = true;
 	}
 }
 else
 {
-	$authed = false;
+	$authenticated = false;
 }
 
-if ($authed)
+if ($authenticated)
 {
-	setcookie("dluloged", "admin", 0);
+	setcookie("dluloged", "admin", 0, $config['url_path']);
 	if ($_POST['from'] != "")
-		header("Location: ".$_POST['from'].".php");
+		if ($_POST['from'] == "index")
+			header("Location: ".$config['url_path']."/".$_POST['from'].".php");
+		else
+			header("Location: ".$_POST['from'].".php");
 	else
 		header("Location: setup.php");
 }
