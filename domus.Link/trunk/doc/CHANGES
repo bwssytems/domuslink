@@ -9,6 +9,7 @@
  	* Added native support for CM17A devices
  	* Added security level's for password protection (none, admin & everything)
  	* Added an auto-refresh setting to the frontend
+ 	* Heyu now automatically restart's when changes are made to it's settings
  	* Bug correction with START and STOP for Heyu when on error.php
  	* Fixed some error handling bugs
  	* Fixed various other minor bugs
