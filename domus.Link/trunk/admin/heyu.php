@@ -63,8 +63,13 @@ else
 				$newcontent[$i] = $key." ".$value."\n";
 			$i++;
 		}
-		save_file($newcontent, $config['heyuconf']);
+		save_file($newcontent, $config['heyuconf'], true);
 	}
+	/*elseif ($_GET["action"] == "reload") 
+	{
+		//heyu_ctrl($config['heyuexec'], 'stop');
+		header("Location: ".$_SERVER['PHP_SELF']);
+	}*/
 }
 
 function yesnoopt($value) {

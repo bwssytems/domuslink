@@ -21,25 +21,7 @@ $heyuconf = new HeyuConf($config['heyuconf']);
 ## Get heyu (x10.conf) file contents/settings
 $settings = $heyuconf->get();
 
-if ($config['password'] != "" && !isset($_COOKIE["dluloged"]))
-	header("Location: login.php?from=heyu");
-else
-{
-	$tpl->set('title', 'Restarting Heyu');
-
-	$tpl_body = & new Template(TPL_FILE_LOCATION.'reload.tpl');
-	$tpl_body->set('config', $config);
-	//$tpl_body->set('lang', $lang);
-
-	## Display the page
-	$tpl->set('content', $tpl_body);
-
-	echo $tpl->fetch(TPL_FILE_LOCATION.'layout.tpl');
-
-	//sleep(3);
-	//heyu_ctrl($config['heyuexec'], 'stop');
-	//header("Location: heyu.php");
-}
-
+heyu_ctrl($config['heyuexec'], 'restart');
+header("Location: heyu.php");
 
 ?>

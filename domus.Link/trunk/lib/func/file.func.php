@@ -36,7 +36,7 @@ function load_file($file)
  * @param $content new content to be saved
  * @param $filename of file to save to
  */
-function save_file($content, $filename)
+function save_file($content, $filename, $isheyuconf)
 {
 	$fp = fopen($filename,'w');
 
@@ -46,8 +46,10 @@ function save_file($content, $filename)
 		{
 			$write = fwrite($fp, $line);
 		}
-
-		header("Location: ".$_SERVER['PHP_SELF']);
+		if ($isheyuconf)
+			header("Location: ".check_url()."/admin/reload.php");
+		else
+			header("Location: ".$_SERVER['PHP_SELF']);
 
 	}
 	else
