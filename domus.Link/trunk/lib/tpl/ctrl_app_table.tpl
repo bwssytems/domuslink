@@ -8,7 +8,7 @@ $nlinescount = 0; // initialize counter
 $i = 0; //initializize counter for array
 ?>
 
-<table cellpadding="0" border="0" cellspacing="0" width="100%">
+<table cellpadding="2" border="1" cellspacing="0" width="100%">
 
 <?php while ($nlinescount<$nlines): ?>
 <tr><td colspan="2">&nbsp;</td></tr>
