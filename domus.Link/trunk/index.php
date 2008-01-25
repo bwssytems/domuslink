@@ -18,6 +18,7 @@ require_once(CLASS_FILE_LOCATION.'heyuconf.class.php');
 
 ## Instantiate HeyuConf class
 $heyuconf = new HeyuConf($config['heyuconf']);
+$cols = 2; // <<<<<<<<<<<<<----------------------------------- TO ADD TO CONFIG!!!!!!!!!!!
 
 ## Security validation's
 if ($config['seclevel'] == "2") 
@@ -61,13 +62,22 @@ if (heyu_state_check())
 	if ($page == "appliances" || !$page || $page == "main")
 	{
 		$appliances = $heyuconf->get_aliases('Appliances');
+		$total = count($appliances);
+		
 		if (count($appliances) > 0 ) // If > 0 then modules of type Appliances exist therefore display them
 		{
-			$tpl_subbody = & new Template(TPL_FILE_LOCATION.'ctrl_app_table.tpl');
+			$tpl_subbody = & new Template(TPL_FILE_LOCATION.'ctrl_table.tpl');
 			$tpl_subbody->set('header', $lang['appliances']);
-			$tpl_subbody->set('page', $page);
+			
 			$tpl_subbody->set('config', $config);
+			$tpl_subbody->set('page', $page);
+			$tpl_subbody->set('type', "app");
 			$tpl_subbody->set('modules', $appliances);
+			
+			$tpl_subbody->set('rows', ceil($total / $cols));
+			$tpl_subbody->set('cols', $cols);
+			$tpl_subbody->set('arraysize', $total);
+			
 			$tpl_body->set('appliances', $tpl_subbody);
 		}
 	}
@@ -76,30 +86,25 @@ if (heyu_state_check())
 	if ($page == "irrigation" || !$page || $page == "main")
 	{
 		$irrigation = $heyuconf->get_aliases('Irrigation');
+		$total = count($irrigation);
+		
 		if (count($irrigation) > 0 ) // If > 0 then modules of type Irrigation exist therefore display them
 		{
-			$tpl_subbody = & new Template(TPL_FILE_LOCATION.'ctrl_irrig_table.tpl');
+			$tpl_subbody = & new Template(TPL_FILE_LOCATION.'ctrl_table.tpl');
 			$tpl_subbody->set('header', $lang['irrigation']);
-			$tpl_subbody->set('page', $page);
+			
 			$tpl_subbody->set('config', $config);
+			$tpl_subbody->set('page', $page);
+			$tpl_subbody->set('type', "irrig");
 			$tpl_subbody->set('modules', $irrigation);
+			
+			$tpl_subbody->set('rows', ceil($total / $cols));
+			$tpl_subbody->set('cols', $cols);
+			$tpl_subbody->set('arraysize', $total);
+			
 			$tpl_body->set('irrigation', $tpl_subbody);
 		}
 	}
-
-	## Aliases of type HVAC
-	/*if ($page == "hvac" || !$page || $page == "main")
-	{
-		$hvac = $heyuconf->get_aliases('HVAC');
-		if (count($hvac) > 0 ) // If > 0 then modules of type HVAC exist therefore display them
-		{
-			$tpl_hvac = & new Template(TPL_FILE_LOCATION.'ctrl_table.tpl');
-			$tpl_hvac->set('header', 'HVAC');
-			$tpl_hvac->set('page', $page);
-			$tpl_hvac->set('modules', $hvac);
-			$tpl_body->set('hvac', $tpl_hvac);
-		}
-	}*/
 
 	if (isset($_GET['action']))
 	{
@@ -116,5 +121,25 @@ else
 
 echo $tpl->fetch(TPL_FILE_LOCATION.'layout.tpl');
 
+function switch_box($module, $type, $config, $page) 
+{
+	list($code, $label) = split(" ", $module, 2);
+	
+	if (on_state($code, $config['heyuexec'])) { $state = 'on'; $action = $config['OFF']; }
+	else { $state = 'off'; $action = $config['ON']; }
+	
+	$str = $type.'_'.$state.'.gif';
+	
+	$html .= '<table cellspacing="0" cellpadding="0" border="0"><tr>';
+	$html .= '<td><img src="'.$config['url_path'].'/theme/'.$config['theme'].'/images/ctrlbox_left.gif" /></td>';
+	$html .= '<td><img src="'.$config['url_path'].'/theme/'.$config['theme'].'/images/ctrlbox_'.$str.'" /></td>';
+	$html .= '<td><img src="'.$config['url_path'].'/theme/'.$config['theme'].'/images/ctrlbox_icon_sep.gif" /></td>';
+	$html .= '<td width="132px" background="'.$config['url_path'].'/theme/'.$config['theme'].'/images/ctrlbox_middle_bg.gif"><input type="text" name="label" value="'.label_parse($label, false).'" class="ctrlbox_label_'.$state.'"  /></td>';
+	$html .= '<td><a href="'.$_SERVER['PHP_SELF'].'?action='.$action.'&device='.$code.'&page='.$page.'"><img src="'.$config['url_path'].'/theme/'.$config['theme'].'/images/ctrlbox_switch_'.$state.'.gif" border="0" /></a></td>';
+	$html .= '<td><img src="'.$config['url_path'].'/theme/'.$config['theme'].'/images/ctrlbox_right.gif" /></td>';
+	$html .= '</tr></table>';
+	
+	return $html;
+}
 
 ?>
