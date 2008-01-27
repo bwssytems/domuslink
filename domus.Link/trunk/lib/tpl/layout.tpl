@@ -4,7 +4,7 @@
   <title><?php echo $title; ?></title>
   <link rel="stylesheet" type="text/css" media="screen" href="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/<?php echo ($config['theme']); ?>.css" />
   <link rel="shortcut icon" href="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/images/favicon.ico" type="image/x-icon" />
-  <?php if (strpos($_SERVER['PHP_SELF'], "index.php") != false): ?>
+  <?php if (strpos($_SERVER['PHP_SELF'], "index.php") != false && $config['refresh'] != ""): ?>
   <META HTTP-EQUIV=Refresh CONTENT="<?php echo ($config['refresh']); ?>">
   <?php endif; ?>
 

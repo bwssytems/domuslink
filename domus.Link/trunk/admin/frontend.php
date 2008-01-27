@@ -40,6 +40,7 @@ elseif ($_GET["action"] == "save")
 	$newconfig['lang'] = $_POST["lang"];
 	$newconfig['url_path'] = $_POST["url_path"];
 	$newconfig['theme'] = $_POST["theme"];
+	$newconfig['cols'] = $_POST["cols"];
 	$newconfig['imgs'] = $_POST["imgs"];
 	$newconfig['refresh'] = $_POST["refresh"];
 

@@ -164,6 +164,18 @@
   </tr>
 </table>
 <br />
+<!-- Cols -->
+<table cellspacing="4" cellpadding="4" border="0">
+  <tr>
+    <td colspan="3"><h2><?php echo ($lang['cols']); ?></h2></td>
+  </tr>
+  <tr>
+    <td valign="top" width="160px"><input type="text" size="10" name="cols" value="<?php echo ($config['cols']); ?>" /></td>
+    <td width="30px">&nbsp;</td>
+    <td width="300px"><?php echo ($lang['cols_txt']); ?></td>
+  </tr>
+</table>
+<br />
 <!-- Images -->
 <table cellspacing="4" cellpadding="4" border="0">
   <tr>

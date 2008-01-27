@@ -27,7 +27,7 @@ $config['heyuconf'] = $config['heyu_base'].'x10.conf';
 # heyuexec setting - This setting specifies the
 # location of the Heyu exectuable file. Typically
 # this will be in /usr/local/bin/
-$config['heyuexec'] = '/usr/local/bin/heyu';
+$config['heyuexec'] = '/usr/bin/heyu';
 
 # -----------------
 # Frontend Settings
@@ -60,6 +60,10 @@ $config['url_path'] = '/domus.Link';
 # Theme - GUI's Theme
 $config['theme'] = 'default';
 
+# Cols - Number of colums per row. In other words, this setting
+# define how many control's apear on each row. 
+$config['cols'] = '2';
+
 # Images - Select ON or OFF if you want images to be displayed
 # in the menu bar instead of text.
 $config['imgs'] = 'ON';
@@ -67,5 +71,5 @@ $config['imgs'] = 'ON';
 # Refresh - This setting defines the amount of time between page
 # refreshes. The page being refreshed is the main page where modules
 # are displayed. Leave empty to disable this feature.
-$config['refresh'] = '';
+$config['refresh'] = '60';
 ?>

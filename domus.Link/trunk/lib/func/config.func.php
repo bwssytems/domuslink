@@ -27,6 +27,7 @@ function config_load()
 	$config["lang"] = "";
 	$config["url_path"] = "/";
 	$config["theme"] = "default";
+	$config["cols"] = "2";
 	$config["imgs"] = "ON";
 	$config["refresh"] = "0";
 
@@ -108,6 +109,10 @@ function config_text($config)
 # Theme - GUI's Theme
 \$config['theme'] = '{$config['theme']}';
 
+# Cols - Number of colums per row. In other words, this setting
+# define how many control's apear on each row. 
+\$config['cols'] = '{$config['cols']}';
+
 # Images - Select ON or OFF if you want images to be displayed
 # in the menu bar instead of text.
 \$config['imgs'] = '{$config['imgs']}';
@@ -142,6 +147,37 @@ function config_save($config)
 			fclose($handle);
 		}
 	//}
+}
+
+/**
+ * Parse Config
+ * 
+ * Description: This functions receives $config containing all the configuration options, checks to see which
+ * computer interface is being used, and assign's the correct commands for controling devices.
+ * 
+ * @param $config contains all the frontend's configuration options
+ */
+function parse_config($config)
+{
+	if ($config['pc_interface'] == 'CM11A') 
+	{
+		$config['cmd_on'] = 'on';
+		$config['cmd_off'] = 'off';
+		$config['cmd_bright'] = 'bright';
+		$config['cmd_dim'] = 'dim';
+		$config['cmd_brightb'] = 'brightb';
+		$config['cmd_dimb'] = 'dimb';
+	} 
+	else
+	{
+		$config['cmd_on'] = 'fon';
+		$config['cmd_off'] = 'foff';
+		$config['cmd_bright'] = 'fbright';
+		$config['cmd_dim'] = 'fdim';
+		$config['cmd_brightb'] = 'fbright';
+		$config['cmd_dimb'] = 'fdim';
+	}
+	return $config;
 }
 
 ?>
