@@ -4,12 +4,15 @@
  |                                                                            |
  +----------------------------------------------------------------------------*/
 
- 0.1.2
+ 0.2
  ------
+ 	* Completely rewrote way of handling control table's, reduced from ~350 lines
+ 	  of code to about 50.
+	* Added configuration option to choose how many modules appear per line. 
  	* Added native support for CM17A devices
  	* Added security level's for password protection (none, admin & everything)
  	* Added an auto-refresh setting to the frontend
- 	* Heyu now automatically restart's when changes are made to it's settings
+ 	* Heyu now automatically reload's when changes are made to it's settings
  	* Bug correction with START and STOP for Heyu when on error.php
  	* Fixed some error handling bugs
  	* Fixed various other minor bugs

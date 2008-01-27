@@ -58,14 +58,8 @@ function heyu_state_check()
 	exec($cmd, $result_exec, $retval);
 	$result = preg_grep('/[h]eyu_/', $result_exec);
 
-	if (count($result) == 2)
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
+	if (count($result) == 2) return true;
+	else return false;
 }
 
 /**

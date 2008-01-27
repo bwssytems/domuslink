@@ -13,8 +13,10 @@
 
 /**
  * Load file
+ * 
+ * Description: This function loads a file and returns the whole content
  *
- * @param $file represent file to load
+ * @param $file represent's file to load
  */
 function load_file($file)
 {
@@ -32,9 +34,13 @@ function load_file($file)
 
 /**
  * Save file
+ * 
+ * Description: This function saves a file to the specified filename
  *
  * @param $content new content to be saved
  * @param $filename of file to save to
+ * @param $isheyuconf boolean that represent's if changes being saved
+ *         are from the heyu settings. If true then force a reload
  */
 function save_file($content, $filename, $isheyuconf)
 {

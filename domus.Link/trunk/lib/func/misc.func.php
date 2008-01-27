@@ -70,4 +70,34 @@ function check_url()
 	return substr($_SERVER['PHP_SELF'], 0, strpos($_SERVER['PHP_SELF'], '/admin'));	
 }
 
+/**
+ * Check is alias contains various modules
+ * 
+ * Description: This function received an alias and check's if string contain's a ","
+ * If it does, then string has various aliases
+ * 
+ * @param $alias represents alias received
+ * 
+ */
+function is_multi_alias($alias)
+{
+	return strpos($alias, ",");
+	
+	/*
+	$housecode = substr($alias, 0, 1);
+	$tok = strtok($alias, ",");
+	$i = 0;
+
+	while ($tok !== false) {
+    	if ($i==0) $array[$i] = $tok;
+    	else $array[$i] = $housecode.$tok;
+    	$tok = strtok(",");
+	    $i++;
+	}
+
+	if (sizeof($array) > 1) return $array;
+	else return false;
+	*/
+}
+
 ?>

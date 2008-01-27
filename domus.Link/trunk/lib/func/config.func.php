@@ -136,17 +136,15 @@ function config_save($config)
 {
 	$filedir = dirname(CONFIG_FILE_LOCATION);
 	$filename = CONFIG_FILE_LOCATION;
-	//if (is_writable($filename) || is_writable($filedir))
-	//{
-		$handle = fopen($filename, "w");
-		if ($handle)
-		{
-			fwrite($handle, "<?php \n");
-			fwrite($handle, config_text($config));
-			fwrite($handle, "\n?>");
-			fclose($handle);
-		}
-	//}
+	
+	$handle = fopen($filename, "w");
+	if ($handle)
+	{
+		fwrite($handle, "<?php \n");
+		fwrite($handle, config_text($config));
+		fwrite($handle, "\n?>");
+		fclose($handle);
+	}
 }
 
 /**
