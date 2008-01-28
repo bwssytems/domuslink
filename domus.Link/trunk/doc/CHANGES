@@ -4,11 +4,13 @@
  |                                                                            |
  +----------------------------------------------------------------------------*/
 
- 0.2
+ 0.1.2
  ------
+	* Added support for multi-aliases such as A2,5,6.
  	* Completely rewrote way of handling control table's, reduced from ~350 lines
  	  of code to about 50.
-	* Added configuration option to choose how many modules appear per line. 
+	* Added configuration option to choose how many modules appear per line.
+	* Added dim/bright click controls to intensity table
  	* Added native support for CM17A devices
  	* Added security level's for password protection (none, admin & everything)
  	* Added an auto-refresh setting to the frontend
