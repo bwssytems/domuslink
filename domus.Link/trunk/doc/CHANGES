@@ -4,7 +4,7 @@
  |                                                                            |
  +----------------------------------------------------------------------------*/
 
- 0.1.2
+ v0.2
  ------
 	* Added support for multi-aliases such as A2,5,6.
  	* Completely rewrote way of handling control table's, reduced from ~350 lines
@@ -25,7 +25,7 @@
  	* Updated Dutch translation
  	  Thanks to Frank
 
- 0.1.1 (bug fixes, no new features) - 23/Sep/2007
+ v0.1.1 (bug fixes, no new features) - 23/Sep/2007
  ------
  	* Disabled 'short_open_tag' for security reason's
  	  Thanks to Julien Touche for pointing this out
@@ -41,7 +41,7 @@
  	  Thanks again to Julien Touche.
  	* Various other fixes/corrections/security enhancements
 
- 0.1 (first release) - 02/Jun/2007
+ v0.1 (first release) - 02/Jun/2007
  -----
   Features:
  	* Web based Heyu configuration
