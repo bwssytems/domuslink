@@ -5,14 +5,14 @@
  */
 
 // new start v0.1.2
-$lang['cols'] = 'Controls per line';
-$lang['seclevel'] = 'Security Level';
-$lang['pcinterface'] = 'Computer Interface Type';
-$lang['refresh'] = 'Page Refresh Timer';
-$lang['cols_txt'] = 'This value define how many controls apear on the main page per line. Default is 2.';
-$lang['seclevel_txt'] = 'Possible values are: <br>0 - None; <br>1 - Only administration; <br>2 - Entire frontend.';
-$lang['pcinterface_txt'] = 'The Computer Interface can either be the CM11A or the CM17A. The CM11A is the most common and therefore selected by default.';
-$lang['refresh_txt'] = 'By setting this field the main page in which the modules are shown shall be refreshed every X seconds. To disable, leave field blank.';
+$lang['cols'] = ' Controlelrs per regel';
+$lang['seclevel'] = ' Beveiliginsniveau';
+$lang['pcinterface'] = ' Computer interface type';
+$lang['refresh'] = ' Interval verversen pagina';
+$lang['cols_txt'] = ' Deze waarde bepaalt hoeveel controllers er op de hoofdpagina per regel staan.  Standaardwaarde is 2';
+$lang['seclevel_txt'] = ' De mogelijke waardes zijn: <br>0 -  Geen; <br>1 -  Alleen administratie; <br>2 -  Gehele voorkant.';
+$lang['pcinterface_txt'] = ' De computer interface kan CM11A of CM17A  zijn .  De meest voorkomende is de CM11A  en staat daarom als standaard ingesteld.';
+$lang['refresh_txt'] = ' Dit veld geeft de interval aan van het verversen van de modules op de hoofdpagina.  Laat dit veld leeg om deze optie niet te gebruiken.';
 // new end
 
 $lang['dlurl'] = 'http://domus.link.co.pt';
@@ -26,7 +26,7 @@ $lang['hvac'] = 'HVAC';
 $lang['events'] = 'Gebeurtenissen';
 $lang['setup'] = 'Installatie';
 $lang['heyusetup'] = 'Heyu Installatie';
-$lang['frontend'] = 'Website';
+$lang['frontend'] = 'Hoofdpagina';
 $lang['login'] = 'Inloggen';
 
 $lang['add'] = 'Toevoegen';

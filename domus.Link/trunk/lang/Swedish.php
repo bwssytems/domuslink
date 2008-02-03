@@ -5,14 +5,14 @@
  */
  
 // new start v0.1.2
-$lang['cols'] = 'Controls per line';
-$lang['seclevel'] = 'Security Level';
-$lang['pcinterface'] = 'Computer Interface Type';
-$lang['refresh'] = 'Page Refresh Timer';
-$lang['cols_txt'] = 'This value define how many controls apear on the main page per line. Default is 2.';
-$lang['seclevel_txt'] = 'Possible values are: <br>0 - None; <br>1 - Only administration; <br>2 - Entire frontend.';
-$lang['pcinterface_txt'] = 'The Computer Interface can either be the CM11A or the CM17A. The CM11A is the most common and therefore selected by default.';
-$lang['refresh_txt'] = 'By setting this field the main page in which the modules are shown shall be refreshed every X seconds. To disable, leave field blank.';
+$lang['cols'] = 'Kontroller per rad';
+$lang['seclevel'] = 'Säkerhetsnivå';
+$lang['pcinterface'] = 'Datorgränssnitt';
+$lang['refresh'] = 'Siduppdateringstimer';
+$lang['cols_txt'] = 'Detta värde konfigurerare hur många kontroller som syns på huvudsidan per rad. Default är 2.';
+$lang['seclevel_txt'] = 'Möjliga värden är: <br>0 - Inga; <br>1 - Endast administration; <br>2 - Hela frontend.';
+$lang['pcinterface_txt'] = 'Datorgränssnittet kan antingen vara CM11A eller CM17A. CM11A är den vanligaste förekommande och därför vald som standard.';
+$lang['refresh_txt'] = 'Genom att sätta ett värde i detta fält kommer huvudsidan där modulerna visas att uppdatera sig varje X sekund. För att stänga av denna funktion, lämna fältet tomt.';
 // new end
 
 $lang['dlurl'] = 'http://domus.link.co.pt';
