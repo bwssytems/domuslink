@@ -9,7 +9,7 @@
 
 	<?php for ($ii = 0; $ii != $cols; $ii++): ?>
 		<td align="center" valign="middle">
-			<?php if ($arraysize != $arraypos):
+			<?php if ($arraypos < $arraysize):
 				echo switch_table($modules[$arraypos], $type, $config, $page);
 			endif; ?>
 		</td>
