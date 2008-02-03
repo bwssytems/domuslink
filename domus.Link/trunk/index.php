@@ -172,8 +172,8 @@ function switch_table($module, $type, $config, $page)
 	{
 		$html .= '<td background="'.$config['url_path'].'/theme/'.$config['theme'].'/images/ctrlbox_middle_bg.gif" width="50px">';
 		$html .= '<table cellspacing="0" cellpadding="0" border="0">';
-		$html .= '<tr><td><a href="'.$_SERVER['PHP_SELF'].'?action='.$config['cmd_on'].'&device='.$code.'&page='.$page.'"><img src="'.$config['url_path'].'/theme/'.$config['theme'].'/images/ctrlbox_button_on.gif" border="0" /></a></td></tr>';
-		$html .= '<tr><td><a href="'.$_SERVER['PHP_SELF'].'?action='.$config['cmd_off'].'&device='.$code.'&page='.$page.'"><img src="'.$config['url_path'].'/theme/'.$config['theme'].'/images/ctrlbox_button_off.gif" border="0" /></a></td></tr>';
+		$html .= '<tr><td><a href="'.$_SERVER['PHP_SELF'].'?action='.$config['cmd_on'].'&device='.$code.'&page='.$page.'"><img src="'.$config['url_path'].'/theme/'.$config['theme'].'/images/ctrlbox_button_on.gif" border="0" /></a></td>';
+		$html .= '<td><a href="'.$_SERVER['PHP_SELF'].'?action='.$config['cmd_off'].'&device='.$code.'&page='.$page.'"><img src="'.$config['url_path'].'/theme/'.$config['theme'].'/images/ctrlbox_button_off.gif" border="0" /></a></td></tr>';
 		$html .= '</table>';
 		$html .= '</td>';
 	}
