@@ -11,33 +11,46 @@
 
   <SCRIPT LANGUAGE="JavaScript">
   <!--
-   function copyright_date() {
-    today=new Date();
-    ynow=today.getFullYear();
-    ystart='2007';
-    if (ystart==ynow) { document.write("&copy; "+ystart); }
-    else { document.write("&copy; "+ ystart +" - "+ynow); }
+   function copyrightDate() 
+   {
+	today=new Date();
+	ynow=today.getFullYear();
+	ystart='2007';
+	
+	if (ystart==ynow) 
+		document.write("&copy; "+ystart);
+	else 
+		document.write("&copy; "+ ystart +" - "+ynow);
    }
 
-   //preload()
-   //{
-   //	var image1 = new Image();
-   //	image1.src = "<?php $config['url_path'];?>/theme/<?php $config['theme'];?>/images/menu_all_on.gif.gif";
-   //	var image2 = new Image();
-   //	image2.src = "<?php $config['url_path'];?>/theme/<?php $config['theme'];?>/images/menu_lights_on.gif.gif";
-   //}
-
-   function roll(img_name, img_src)
+   function imgRoll(img_name, img_src)
    {
    	document[img_name].src = img_src;
+   }
+   
+   function divShowHide(div, state)
+   {
+   	if (state) {
+   		if (state == 'visible')
+   			div.style.display = '';
+   		else
+   			div.style.display = 'none';
+   	}
+   	
+   	else {
+   		if (div.style.display == '')
+   			div.style.display = 'none';
+   		else
+   			div.style.display = '';
+   	}
    }
    //-->
   </SCRIPT>
 
   <!--[if IE]>
   <style type="text/css">
-    #content { width:100%; }
-    #footer { width: 100%; }
+    #content { width: 100%; }
+    #footer  { width: 100%; }
   </style>
   <![endif]-->
 </head>
@@ -59,42 +72,39 @@
 <!-- start menu div -->
 <div id="menu">
 <?php if ($config['imgs'] == "OFF"): ?>
-  <div id="menuitem"><a href="<?php echo ($config['url_path']); ?>/index.php?page=main"><?php echo ($lang['all']); ?></a></div>
-  <div id="menuitem"><a href="<?php echo ($config['url_path']); ?>/index.php?page=lights"><?php echo ($lang['lights']); ?></a></div>
-  <div id="menuitem"><a href="<?php echo ($config['url_path']); ?>/index.php?page=appliances"><?php echo ($lang['appliances']); ?></a></div>
-  <div id="menuitem"><a href="<?php echo ($config['url_path']); ?>/index.php?page=irrigation"><?php echo ($lang['irrigation']); ?></a></div>
-  <div id="menuitem"><a href="<?php echo ($config['url_path']); ?>/admin/setup.php"><?php echo ($lang['setup']); ?></a></div>
+  <div id="menuitem"><p><a href="<?php echo ($config['url_path']); ?>/index.php?page=home"><?php echo ($lang['home']); ?></a></p></div>
+  <div id="menuitem"><p><a href="<?php echo ($config['url_path']); ?>/index.php?page=lights"><?php echo ($lang['lights']); ?></a></p></div>
+  <div id="menuitem"><p><a href="<?php echo ($config['url_path']); ?>/index.php?page=appliances"><?php echo ($lang['appliances']); ?></a></p></div>
+  <div id="menuitem"><p><a href="<?php echo ($config['url_path']); ?>/index.php?page=irrigation"><?php echo ($lang['irrigation']); ?></a></p></div>
+  <div id="menuitem"><p><a href="<?php echo ($config['url_path']); ?>/admin/setup.php"><?php echo ($lang['setup']); ?></a></p></div>
 <?php else: ?>
-  <div id="menuitem_img"><a href="<?php echo ($config['url_path']);?>/index.php?page=main" onmouseover="roll('img_1', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_home_on.png')" onmouseout="roll('img_1', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_home_off.png')"><img alt="<?php echo ($lang['all']);?>" src="<?php $config['url_path'];?>/theme/<?php echo ($config['theme']);?>/images/menu_home_off.png" border="0" name="img_1" /></a></div>
-  <div id="menuitem_img"><a href="<?php echo ($config['url_path']);?>/index.php?page=lights" onmouseover="roll('img_2', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_lights_on.png')" onmouseout="roll('img_2', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_lights_off.png')"><img alt="<?php echo ($lang['lights']);?>" src="<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_lights_off.png" border="0" name="img_2" /></a></div>
-  <div id="menuitem_img"><a href="<?php echo ($config['url_path']);?>/index.php?page=appliances" onmouseover="roll('img_3', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_appliances_on.png')" onmouseout="roll('img_3', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_appliances_off.png')"><img alt="<?php echo ($lang['appliances']);?>" src="<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_appliances_off.png" border="0" name="img_3" /></a></div>
-  <div id="menuitem_img"><a href="<?php echo ($config['url_path']);?>/index.php?page=irrigation" onmouseover="roll('img_4', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_irrigation_on.png')" onmouseout="roll('img_4', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_irrigation_off.png')"><img alt="<?php echo ($lang['irrigation']);?>" src="<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_irrigation_off.png" border="0" name="img_4" /></a></div>
-  <div id="menuitem_img"><a href="<?php echo ($config['url_path']);?>/admin/setup.php" onmouseover="roll('img_7', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_setup_on.png')" onmouseout="roll('img_7', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_setup_off.png')"><img alt="<?php echo ($lang['setup']);?>" src="<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_setup_off.png" border="0" name="img_7" /></a></div>
-<!--
-  <div id="menuitem_img"><a href="<?php echo ($config['url_path']);?>/index.php?page=main"><img alt="<?php echo ($lang['all']);?>" src="<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_home_off.png" border="0" name="img_1" /></a></div>
-  <div id="menuitem_img"><a href="<?php echo ($config['url_path']);?>/index.php?page=lights"><img alt="<?php echo ($lang['lights']);?>" src="<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_lights.gif" border="0" name="img_2" /></a></div>
-  <div id="menuitem_img"><a href="<?php echo ($config['url_path']);?>/index.php?page=appliances"><img alt="<?php echo ($lang['appliances']);?>" src="<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_appliances.gif" border="0" name="img_3" /></a></div>
-  <div id="menuitem_img"><a href="<?php echo ($config['url_path']);?>/index.php?page=irrigation"><img alt="<?php echo ($lang['irrigation']);?>" src="<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_irrigation.gif" border="0" name="img_4" /></a></div>
-  <div id="menuitem_img"><a href="<?php echo ($config['url_path']);?>/admin/setup.php"><img alt="<?php echo ($lang['setup']);?>" src="<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_setup.gif" border="0" name="img_7" /></a></div>
--->
+  <div id="menuitem"><a href="<?php echo ($config['url_path']);?>/index.php?page=home" onmouseover="imgRoll('img_1', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_home_on.png')" onmouseout="imgRoll('img_1', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_home_off.png')"><img alt="<?php echo ($lang['home']);?>" src="<?php echo($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_home_off.png" border="0" name="img_1" /></a></div>
+  <div id="menuitem"><a href="<?php echo ($config['url_path']);?>/index.php?page=lights" onmouseover="imgRoll('img_2', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_lights_on.png')" onmouseout="imgRoll('img_2', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_lights_off.png')"><img alt="<?php echo ($lang['lights']);?>" src="<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_lights_off.png" border="0" name="img_2" /></a></div>
+  <div id="menuitem"><a href="<?php echo ($config['url_path']);?>/index.php?page=appliances" onmouseover="imgRoll('img_3', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_appliances_on.png')" onmouseout="imgRoll('img_3', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_appliances_off.png')"><img alt="<?php echo ($lang['appliances']);?>" src="<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_appliances_off.png" border="0" name="img_3" /></a></div>
+  <div id="menuitem"><a href="<?php echo ($config['url_path']);?>/index.php?page=irrigation" onmouseover="imgRoll('img_4', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_irrigation_on.png')" onmouseout="imgRoll('img_4', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_irrigation_off.png')"><img alt="<?php echo ($lang['irrigation']);?>" src="<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_irrigation_off.png" border="0" name="img_4" /></a></div>
+  <div id="menuitem"><a href="#" onclick="divShowHide(setupmenu, 'visible');" style="cursor:hand" onmouseover="imgRoll('img_7', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_setup_on.png')" onmouseout="imgRoll('img_7', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_setup_off.png')"><img alt="<?php echo ($lang['setup']);?>" src="<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_setup_off.png" border="0" name="img_7" /></a></div>
 <?php endif; ?>
 </div>
 <!-- end menu div -->
+
 <div id="black_sep"></div><!-- separator div -->
 
-<!-- start submenu div -->
-<div id="submenu">
-<?php if (substr(strstr($_SERVER['REQUEST_URI'], "admin"), 0, 5) == "admin"): ?>
-<div id="submenuitem"><a href="<?php echo ($config['url_path']);?>/admin/heyu.php"><?php echo ($lang['heyusetup']); ?></a></div>
-<div id="submenuitem"><a href="<?php echo ($config['url_path']);?>/admin/aliases.php"><?php echo ($lang['aliases']); ?></a></div>
-<div id="submenuitem"><a href="<?php echo ($config['url_path']);?>/admin/frontend.php"><?php echo ($lang['frontend']); ?></a></div>
-<?php endif; ?>
+<!-- start setup div -->
+<div id="setupmenu" style="display:none">
+  <div id="setupmenuitem"><a href="<?php echo ($config['url_path']);?>/admin/heyu.php"><?php echo ($lang['heyusetup']); ?></a></div>
+  <div id="setupmenuitem"><a href="<?php echo ($config['url_path']);?>/admin/frontend.php"><?php echo ($lang['frontend']); ?></a></div>
+  <div id="setupmenuitem"><a href="<?php echo ($config['url_path']);?>/admin/frontend.php"><?php echo ($lang['floorplan']); ?></a></div>
+  <div id="setupmenuitem"><a href="<?php echo ($config['url_path']);?>/admin/aliases.php"><?php echo ($lang['aliases']); ?></a></div>
 </div>
-<!-- end submenu div -->
+<?php if (substr(strstr($_SERVER['REQUEST_URI'], "admin"), 0, 5) == "admin"): ?>
+<SCRIPT LANGUAGE="JavaScript">divShowHide(setupmenu, 'visible');</SCRIPT>
+<?php endif; ?>
+<!-- end setup div -->
 
 <!-- start content -->
 <div id="content">
 <?php if (!empty($content)) echo($content); ?>
+content goes here
 </div>
 <!-- end content -->
 
@@ -121,7 +131,7 @@
    </td>
    <td>&nbsp;</td>
    <td align="right">
-     <a href="<?php echo ($lang['dlurl']); ?>">domus.Link</a> v<?php echo $ver; ?> - <SCRIPT LANGUAGE="JavaScript">copyright_date();</SCRIPT> Istvan Hubay Cebrian
+     <a href="<?php echo ($lang['dlurl']); ?>">domus.Link</a> v<?php echo $ver; ?> - <SCRIPT LANGUAGE="JavaScript">copyrightDate();</SCRIPT> Istvan Hubay Cebrian
    </td>
   </tr>
 </table>

@@ -71,5 +71,5 @@ $config['imgs'] = 'ON';
 # Refresh - This setting defines the amount of time between page
 # refreshes. The page being refreshed is the main page where modules
 # are displayed. Leave empty to disable this feature.
-$config['refresh'] = '60';
+$config['refresh'] = '';
 ?>

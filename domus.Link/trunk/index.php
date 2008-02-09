@@ -43,7 +43,7 @@ else
 if (heyu_state_check())
 {
 	## Aliases  of type Lights
-	if ($page == "lights" || !$page || $page == "main")
+	if ($page == "lights" || !$page || $page == "home")
 	{
 		$lights = $heyuconf->get_aliases('Lights');
 		$total = count($lights);
@@ -67,7 +67,7 @@ if (heyu_state_check())
 	}
 
 	## Aliases of type Appliances
-	if ($page == "appliances" || !$page || $page == "main")
+	if ($page == "appliances" || !$page || $page == "home")
 	{
 		$appliances = $heyuconf->get_aliases('Appliances');
 		$total = count($appliances);
@@ -91,7 +91,7 @@ if (heyu_state_check())
 	}
 
 	## Aliases of type Irrigation
-	if ($page == "irrigation" || !$page || $page == "main")
+	if ($page == "irrigation" || !$page || $page == "home")
 	{
 		$irrigation = $heyuconf->get_aliases('Irrigation');
 		$total = count($irrigation);

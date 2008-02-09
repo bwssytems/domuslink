@@ -1,6 +1,6 @@
 * {
-	margin:0;
-	padding:0;
+	margin: 0;
+	padding: 0;
 }
 
 body {
@@ -24,85 +24,51 @@ div#header {
 	line-height: 1.2em;
 }
 
-/* MENU */
+/************** MENU **************/
 div#menu {
 	height: 40px;
-	background: transparent url(images/menu_bg.gif);
-	line-height: 1.2em;
+}
+
+div#menu img {
+	padding-top: 2px;
+	padding-bottom: 3px;
 }
 
 div#menuitem {
 	float: left;
-	width: 19.9%; /* 100/5=20 100/6 ~= 16.667 , 100/7 ~= 14.274 */
+	width: 19.9%;
 	text-align: center;
 	font-size: 14px;
-	line-height: 1.2em;
+}
+
+div#menuitem p {
+	border-left: 1px solid #eee;
+	padding-top: 11px;
+	padding-bottom: 12px;
 }
 
 div#menuitem a {
 	text-decoration: none;
 	color: #666666;
 	display: block;
-	border-left: 1px solid #eee;
-	padding-top: 11px;
-	padding-bottom: 12px;
-}
-/*
-div#menuitem a:hover {
-	text-decoration: none;
-	background: transparent url(images/menu_bg_active.gif);
-	color: #eeeeee;
-	border-left: 1px solid #000;
-}
-*/
-div#menuitem_img {
-	float: left;
-	width: 19.90%; /* 100/5 = 20, 100/6 ~= 16.667 , 100/7 ~= 14.274 */
-	text-align: center;
-	font-size: 14px;
-	line-height: 1.2em;
 }
 
-div#menuitem_img a {
-	text-decoration: none;
-	color: #666666;
-	display: block;
-	border-left: 1px solid #eee;
-}
-/*
-div#menuitem_img a:hover {
-	text-decoration: none;
-	background: transparent url(images/menu_bg_active.gif);
-	color: #eeeeee;
-	border-left: 1px solid #000;
-}
-*/
 div#black_sep {
 	background-color: #000;
-	height: 12px;
+	height: 8px;
 }
 
-/* SUB MENU */
-div#submenu {
-	background: #fff url(images/header_left_corner.gif) no-repeat;
+/************** SETUP MENU **************/
+div#setupmenu {
+	background: #fff url(images/header_left.gif) no-repeat;
 	height: 18px;
-	color: #666666;
 	font-size: 10px;
 	border-bottom: 1px dotted #666;
 	border-right: 1px solid #000;
 	line-height: 1.2em;
 }
 
-div#submenu p {
-	padding-left: 10px;
-	padding-top: 3px;
-	padding-bottom: 3px;
-	font-size: 10px;
-	font-style: italic;
-	float: left;
-}
-
-div#submenuitem {
+div#setupmenuitem {
 	float: right;
 	text-align: center;
 	font-size: 10px;
@@ -110,7 +76,7 @@ div#submenuitem {
 	border-bottom: 1px solid #000;
 }
 
-div#submenuitem a {
+div#setupmenuitem a {
 	text-decoration: none;
 	color: #000;
 	display: block;
@@ -120,24 +86,21 @@ div#submenuitem a {
 	padding-bottom: 3px;
 }
 
-div#submenuitem a:hover {
+div#setupmenuitem a:hover {
 	text-decoration: none;
 	background-color: #666;
 	color: #eee;
 }
 
-div#submenu_spacer {
-	background: transparent url(images/submenu_spacer.gif);
-	height: 30px;
-}
-
+/************** CONTENT **************/
 div#content {
-	background-color: #efefef;
+	/*background-color: #efefef;*/
 	padding-left: 20px;
 	padding-right: 20px;
 	padding-bottom: 10px;
 }
 
+/************** FOOTER **************/
 div#footer {
 	background-color: #333;
 	padding: 4px;

@@ -4,6 +4,11 @@
  *
  */
  
+// new or changes for v0.9
+$lang['home'] = 'Home';
+$lang['floorplan'] = 'Floorplan';
+// end 
+
 // new start v0.1.2
 $lang['cols'] = 'Controls per line';
 $lang['seclevel'] = 'Security Level';
@@ -18,14 +23,13 @@ $lang['refresh_txt'] = 'By setting this field the main page in which the modules
 $lang['dlurl'] = 'http://domus.link.co.pt';
 $lang['title'] = 'domus.Link';
 
-$lang['all'] = 'All';
 $lang['lights'] = 'Lights';
 $lang['appliances'] = 'Appliances';
 $lang['irrigation'] = 'Irrigation';
 $lang['hvac'] = 'HVAC';
 $lang['events'] = 'Events';
 $lang['setup'] = 'Setup';
-$lang['heyusetup'] = 'Heyu Setup';
+$lang['heyusetup'] = 'Heyu';
 $lang['frontend'] = 'Frontend';
 $lang['login'] = 'Login';
 
