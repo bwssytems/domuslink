@@ -39,7 +39,7 @@ else
 	$page = null;
 }
 
-
+/*
 if (heyu_state_check())
 {
 	## Aliases  of type Lights
@@ -126,7 +126,7 @@ else
 {
 	$tpl->set('content', $lang['error_not_running']);
 }
-
+*/
 echo $tpl->fetch(TPL_FILE_LOCATION.'layout.tpl');
 
 function switch_table($module, $type, $config, $page) 
