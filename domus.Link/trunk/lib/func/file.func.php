@@ -101,7 +101,7 @@ function edit_line($content, $file, $editing)
 
 	if ($editing == "alias")
 	{
-		$newline = "ALIAS ".label_parse($_POST["label"], true)." ".$_POST["code"]." ".$_POST["module"]." # ".$_POST["type"]."\n";
+		$newline = "ALIAS ".label_parse($_POST["label"], true)." ".$_POST["code"]." ".$_POST["module"]." # ".$_POST["type"].",".$_POST["loc"]."\n";
 	}
 	elseif ($editing == "module")
 		$newline = $_POST["module"]."\n";

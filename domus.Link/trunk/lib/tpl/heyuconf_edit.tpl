@@ -1,7 +1,14 @@
-<h1><?php echo ($lang['heyuconf']);?></h1>
-<table border="0" cellspacing="2" cellpadding="2">
 <form action="<?php echo($_SERVER['PHP_SELF']); ?>?action=save" method="post">
 
+<table cellspacing="0" cellpadding="0" border="0" width="450px" align="middle" class="content">
+<tr><th colspan="3"><?php echo ($lang['heyuconf']);?></th></tr>
+
+<tr>
+<td align="center" colspan="3">
+
+<!-- start -->
+
+<table border="0" cellspacing="0" cellpadding="0" class="clear">
 <?php $act = 0; $sct = 0; $usct = 0; // alias, scene and usersyn counts for posts ?>
 <?php foreach($settings as $setting): ?>
   <?php list($directivenf, $valuenf) = split(" ", $setting, 2);
@@ -20,7 +27,7 @@
   <?php else: // if not alias, scene or usersyn ?>
     <tr>
       <td width="200">
-        <b><?php echo $directive; ?> :&nbsp;</b>
+        <h6><?php echo $directive; ?> :&nbsp;</h6>
       </td>
 
     <?php if ($directivenf == "SCRIPT_MODE"): ?>
@@ -68,13 +75,16 @@
     </tr>
   <?php endif; // end if not alias, scene or usersyn ?>
 <?php endforeach; ?>
-
 </table>
 
-<table cellspacing="0" cellpadding="0" border="0" class="tb_buttons">
-  <tr>
-  	<td align="left"><div id="help"><a href="#" onclick="javascript:window.open('../doc/heyuconf.htm','','scrollbars=yes,menubar=no,width=700,height=500,resizable=yes,toolbar=no,location=no,status=no');"><img src="../theme/<?php echo($config['theme']); ?>/images/icon_help.gif" border="0" alt="Help" /></a></div></td>
-    <td><input type="submit" value="<?php echo($lang['save']); ?>" /></form></td>
-    <td><form action="<?php echo($_SERVER['PHP_SELF']); ?>" method="post"><input type="submit" value="<?php echo($lang['cancel']); ?>" /></form></td>
-  </tr>
+<!-- end -->
+
+</td>
+</tr>
+
+<tr>
+  	<td style="border-right:none;" align="left" width="20px"><a href="#" onclick="javascript:window.open('../doc/heyuconf.htm','','scrollbars=yes,menubar=no,width=700,height=500,resizable=yes,toolbar=no,location=no,status=no');">Help</a></div></td>
+    <td style="border-left:none;border-right:none;" align="right"><input type="submit" value="<?php echo($lang['save']); ?>" /></form></td>
+    <td style="border-left:none;"><form action="<?php echo($_SERVER['PHP_SELF']); ?>" method="post"><input type="submit" value="<?php echo($lang['cancel']); ?>" /></form></td>
+</tr>
 </table>

@@ -17,7 +17,7 @@
 	ynow=today.getFullYear();
 	ystart='2007';
 	
-	if (ystart==ynow) 
+	if (ystart == ynow) 
 		document.write("&copy; "+ystart);
 	else 
 		document.write("&copy; "+ ystart +" - "+ynow);
@@ -30,18 +30,20 @@
    
    function divShowHide(div, state)
    {
-   	if (state) {
-   		if (state == 'visible')
-   			div.style.display = '';
-   		else
-   			div.style.display = 'none';
+   	if (state) 
+	{
+		if (state == 'visible')
+			div.style.display = '';
+		else
+			div.style.display = 'none';
    	}
    	
-   	else {
+   	else 
+	{
    		if (div.style.display == '')
-   			div.style.display = 'none';
+			div.style.display = 'none';
    		else
-   			div.style.display = '';
+			div.style.display = '';
    	}
    }
    //-->
@@ -76,18 +78,18 @@
   <div id="menuitem"><p><a href="<?php echo ($config['url_path']); ?>/index.php?page=lights"><?php echo ($lang['lights']); ?></a></p></div>
   <div id="menuitem"><p><a href="<?php echo ($config['url_path']); ?>/index.php?page=appliances"><?php echo ($lang['appliances']); ?></a></p></div>
   <div id="menuitem"><p><a href="<?php echo ($config['url_path']); ?>/index.php?page=irrigation"><?php echo ($lang['irrigation']); ?></a></p></div>
-  <div id="menuitem"><p><a href="<?php echo ($config['url_path']); ?>/admin/setup.php"><?php echo ($lang['setup']); ?></a></p></div>
+  <div id="menuitem"><p><a href="#" onclick="divShowHide(setupmenu);"><?php echo ($lang['setup']); ?></a></p></div>
 <?php else: ?>
   <div id="menuitem"><a href="<?php echo ($config['url_path']);?>/index.php?page=home" onmouseover="imgRoll('img_1', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_home_on.png')" onmouseout="imgRoll('img_1', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_home_off.png')"><img alt="<?php echo ($lang['home']);?>" src="<?php echo($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_home_off.png" border="0" name="img_1" /></a></div>
   <div id="menuitem"><a href="<?php echo ($config['url_path']);?>/index.php?page=lights" onmouseover="imgRoll('img_2', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_lights_on.png')" onmouseout="imgRoll('img_2', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_lights_off.png')"><img alt="<?php echo ($lang['lights']);?>" src="<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_lights_off.png" border="0" name="img_2" /></a></div>
   <div id="menuitem"><a href="<?php echo ($config['url_path']);?>/index.php?page=appliances" onmouseover="imgRoll('img_3', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_appliances_on.png')" onmouseout="imgRoll('img_3', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_appliances_off.png')"><img alt="<?php echo ($lang['appliances']);?>" src="<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_appliances_off.png" border="0" name="img_3" /></a></div>
   <div id="menuitem"><a href="<?php echo ($config['url_path']);?>/index.php?page=irrigation" onmouseover="imgRoll('img_4', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_irrigation_on.png')" onmouseout="imgRoll('img_4', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_irrigation_off.png')"><img alt="<?php echo ($lang['irrigation']);?>" src="<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_irrigation_off.png" border="0" name="img_4" /></a></div>
-  <div id="menuitem"><a href="#" onclick="divShowHide(setupmenu, 'visible');" style="cursor:hand" onmouseover="imgRoll('img_7', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_setup_on.png')" onmouseout="imgRoll('img_7', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_setup_off.png')"><img alt="<?php echo ($lang['setup']);?>" src="<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_setup_off.png" border="0" name="img_7" /></a></div>
+  <div id="menuitem"><a href="#" onclick="divShowHide(setupmenu);" style="cursor:hand" onmouseover="imgRoll('img_7', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_setup_on.png')" onmouseout="imgRoll('img_7', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_setup_off.png')"><img alt="<?php echo ($lang['setup']);?>" src="<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_setup_off.png" border="0" name="img_7" /></a></div>
 <?php endif; ?>
 </div>
 <!-- end menu div -->
 
-<div id="black_sep"></div><!-- separator div -->
+<div id="black_sep1"></div><!-- separator div -->
 
 <!-- start setup div -->
 <div id="setupmenu" style="display:none">
@@ -103,38 +105,19 @@
 
 <!-- start content -->
 <div id="content">
-<?php if (!empty($content)) echo($content); ?>
-content goes here
+<table cellspacing="0" cellpadding="0" border="0" width="100%">
+ <tr>
+  <td align="center">
+  <?php if (!empty($content)) echo($content); ?>
+  </td>
+ </tr>
+</table>
 </div>
 <!-- end content -->
 
 <!-- start footer div -->
 <div id="footer">
-<table cellspacing="0" cellpadding="0" border="0" width="100%">
-  <tr>
-   <td>
-     <?php echo ($lang['heyustatus']);?>:
-     <?php if (heyu_state_check()): ?>
-     	<img src="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/images/heyu_on.gif" /> ( <a href="<?php echo ($_SERVER['PHP_SELF']); ?>?daemon=restart"><?php echo ($lang['reload']);?></a> |
-	    <a href="<?php echo ($_SERVER['PHP_SELF']); ?>?daemon=stop"><?php echo ($lang['stop']); ?></a> )
-     <?php else:  ?>
-     	<img src="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/images/heyu_off.gif" /> ( <a href="<?php echo ($_SERVER['PHP_SELF']); ?>?daemon=start"><?php echo ($lang['start']);?></a> )
-     <?php endif; ?>
 
-     <?php if (isset($_GET["daemon"])): ?>
-     <?php $daemon = $_GET["daemon"]; ?>
-     	<?php if ($daemon == "start"): heyu_ctrl($config['heyuexec'], 'start'); ?>
-	    <?php elseif ($daemon == "stop"): heyu_ctrl($config['heyuexec'], 'stop');  ?>
-	    <?php elseif ($daemon == "restart"): heyu_ctrl($config['heyuexec'], 'restart'); ?>
-	    <?php endif; ?>
-     <?php endif; ?>
-   </td>
-   <td>&nbsp;</td>
-   <td align="right">
-     <a href="<?php echo ($lang['dlurl']); ?>">domus.Link</a> v<?php echo $ver; ?> - <SCRIPT LANGUAGE="JavaScript">copyrightDate();</SCRIPT> Istvan Hubay Cebrian
-   </td>
-  </tr>
-</table>
 </div>
 <!-- end footer div -->
 

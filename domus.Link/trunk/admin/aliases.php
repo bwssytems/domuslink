@@ -45,9 +45,17 @@ else
 {
 	if ($_GET["action"] == "edit")
 	{
+		list($temp, $label, $code, $module_type_loc) = split(" ", $settings[$_GET['line']], 4);
+		list($module, $type_loc) = split(" # ", $module_type_loc, 2);
+		list($type, $loc) = split(",", $type_loc, 2);
+		
 		$tpl_edit = & new Template(TPL_FILE_LOCATION.'aliases_edit.tpl');
-		$tpl_edit->set('lang', $lang);
-		$tpl_edit->set('alias', $settings[$_GET['line']]); // sets contents of line being edited
+		$tpl_edit->set('lang', $lang);		
+		$tpl_edit->set('label', $label);
+		$tpl_edit->set('code', $code);
+		$tpl_edit->set('module', $module);
+		$tpl_edit->set('type', $type);
+		$tpl_edit->set('loc', $loc);
 		$tpl_edit->set('linenum', $_GET['line']); // sets number of line being edited
 		$tpl_body->set('form', $tpl_edit);
 	}

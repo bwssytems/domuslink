@@ -14,41 +14,30 @@
 require_once('..'.DIRECTORY_SEPARATOR.'include.php');
 
 ## Set template parameters
-$tpl->set('title', $lang['login']);
+$tpl->set('lang', $lang);
 
-if ($_POST)
-{
-	if ($_POST['txtPassword'] != $config['password'])
-	{
-		$authenticated = false;
-	}
-	else
-	{
-		$authenticated = true;
-	}
-}
-else
-{
-	$authenticated = false;
-}
+$authenticated = false;
 
-if ($authenticated)
+if ($_POST) 
 {
-	setcookie("dluloged", "admin", 0, $config['url_path']);
-	if ($_POST['from'] != "")
-		if ($_POST['from'] == "index")
+	$origin = $_POST['from'];
+	
+	if ($_POST['password'] == $config['password'])
+	{
+		setcookie("dluloged", "admin", 0, $config['url_path']);
+		
+		if ($origin == "index")
 			header("Location: ".$config['url_path']."/".$_POST['from'].".php");
 		else
 			header("Location: ".$_POST['from'].".php");
+	}
 	else
-		header("Location: setup.php");
-}
-else
-{
-	$tpl_body = & new Template(TPL_FILE_LOCATION.'login.tpl');
-	$tpl_body->set('lang', $lang);
+		header("Location: login.php?from=".$_POST['from']."&failed=true");
+	
 }
 
+$tpl_body = & new Template(TPL_FILE_LOCATION.'login.tpl');
+$tpl_body->set('lang', $lang);
 
 ## Display the page
 if (!empty($tpl_body))
