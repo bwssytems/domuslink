@@ -11,7 +11,7 @@
     list($directivenf, $valuenf) = split(" ", $setting, 2); ?>
     <tr>
       <td width="200"><h6><?php echo(str_replace("_", " ", $directivenf)); ?>:&nbsp;</h6></td>
-      <td width="100"><?php echo(rtrim($valuenf, "\n")); ?></td>
+      <td width="120"><?php echo(rtrim($valuenf, "\n")); ?></td>
     </tr>
     <?php endif; ?>
 <?php endforeach; ?>

@@ -71,20 +71,11 @@ function save_file($content, $filename, $isheyuconf)
  *
  * @param $content file contents being received
  * @param $file complete file location
- * @param $editing represents what is being edited
+ * @param $editing represents what type is being edited (alias, location, etc)
  */
 function add_line($content, $file, $editing)
 {
-	if ($editing == "alias")
-	{
-		$newline = "ALIAS ".label_parse($_POST["label"], true)." ".$_POST["code"]." ".$_POST["module"]." # ".$_POST["type"]."\n";
-	}
-	elseif ($editing == "module")
-		$newline = $_POST["module"]."\n";
-	elseif ($editing == "type")
-		$newline = $_POST["type"]."\n";
-
-	array_push($content, $newline);
+	array_push($content, build_newline($editing));
 	save_file($content, $file);
 }
 
@@ -93,32 +84,23 @@ function add_line($content, $file, $editing)
  *
  * @param $content file contents
  * @param $file being edited
- * @param $editing represents what is being edited
+ * @param $editing represents what type is being edited (alias, location, etc)
  */
 function edit_line($content, $file, $editing)
 {
 	$line = $_POST["line"]; // line being edited
 
-	if ($editing == "alias")
-	{
-		$newline = "ALIAS ".label_parse($_POST["label"], true)." ".$_POST["code"]." ".$_POST["module"]." # ".$_POST["type"].",".$_POST["loc"]."\n";
-	}
-	elseif ($editing == "module")
-		$newline = $_POST["module"]."\n";
-	elseif ($editing == "type")
-		$newline = $_POST["type"]."\n";
-
-
 	if ($line == 0 || (count($content) - 1) == $line) // first or last line editing
 	{
-		array_splice($content, $line, 1, $newline);
+		array_splice($content, $line, 1, build_newline($editing));
 	}
 	else // when editing line in middle
 	{
 		$end = array_splice($content, $line+1);
-		array_splice($content, $line, 1, $newline);
+		array_splice($content, $line, 1, build_newline($editing));
 		$content = array_merge($content, $end);
 	}
+	
 	save_file($content, $file);
 }
 
@@ -135,4 +117,44 @@ function delete_line($content, $file, $line)
 	save_file($content, $file);
 }
 
+/**
+ * Build line to add or alter to a file
+ * 
+ * @param $type represents type of line being created
+ */
+function build_newline($type)
+{
+	switch ($type)
+	{
+	case "alias":
+		return "ALIAS ".label_parse($_POST["label"], true)." ".$_POST["code"]." ".$_POST["module"]." # ".$_POST["type"].",".$_POST["loc"]."\n";
+		break;
+	case "floorplan":
+		return $_POST["location"]."\n";
+		break;
+	case "module":
+		return $_POST["module"]."\n";
+		break;
+	case "type":
+		return $_POST["type"]."\n";
+		break;	
+	}
+}
+
+/**
+ * Changes position of two lines in array
+ * 
+ * @param $array original array to use
+ * @param $org_pos initial position of line
+ * @param $final_pos final position of line
+ * @param $file in which array contents are located
+ */
+function reorder_array($array, $org_pos, $final_pos, $file) 
+{
+	$tmp = $array[$org_pos];
+	$array[$org_pos] = $array[$final_pos];
+	$array[$final_pos] = $tmp;
+	
+	save_file($array, $file);
+}
 ?>

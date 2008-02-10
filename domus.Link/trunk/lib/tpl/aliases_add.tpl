@@ -1,6 +1,6 @@
 <form action="<?php echo($_SERVER['PHP_SELF']); ?>?action=add" method="post">
 
-<table cellspacing="0" cellpadding="0" border="0" width="600px" class="content">
+<table cellspacing="0" cellpadding="0" border="0" class="content">
 <tr><th><?php echo ($lang['addalias']); ?></th></tr>
 
 <tr><td>
@@ -10,7 +10,6 @@
   <tr>
     <td valign="top" width="50px"><h6><?php echo ($lang['code']); ?>:</h6></td>
     <td valign="top" width="150px"><input type="text" name="code" value="" size="10" /></td>
-    <td><?php echo ($lang['code_txt']);?></td>
   </tr>
 </table>
 
@@ -22,7 +21,6 @@
   <tr>
     <td valign="top" width="50px"><h6><?php echo ($lang['label']);?>:</h6></td>
     <td valign="top" width="150px"><input type="text" name="label" value="" size="20" /></td>
-    <td><?php echo ($lang['label_txt']);?></td>
   </tr>
 </table>
 
@@ -31,7 +29,6 @@
 
 <!-- Modules -->
 <table cellspacing="0" cellpadding="0" border="0" class="clear">
-
   <tr>
     <td valign="top" width="50px"><h6><?php echo ($lang['module']);?>:</h6></td>
     <td valign="top" width="150px">
@@ -42,7 +39,6 @@
 	<?php endforeach; ?>
 	</select>
     </td>
-    <td><?php echo ($lang['module_txt']);?></td>
   </tr>
 </table>
 
@@ -61,7 +57,6 @@
 	<?php endforeach; ?>
 	</select>
     </td>
-    <td><?php echo ($lang['type_txt']);?></td>
   </tr>
 </table>
 
@@ -80,7 +75,6 @@
 	<?php endforeach; ?>
 	</select>
     </td>
-    <td><?php echo ($lang['location_txt']);?></td>
   </tr>
 </table>
 

@@ -16,8 +16,9 @@ require_once(CLASS_FILE_LOCATION.'heyuconf.class.php');
 
 ## Instantiate HeyuConf class
 $heyuconf = new HeyuConf($config['heyuconf']);
-## Get heyu (x10.conf) file contents/settings
+## Get heyu (x10.conf) file contents and aliases
 $settings = $heyuconf->get();
+$aliases = $heyuconf->getAliases();
 ## Disallowed characters for alias label (separator |)
 $chars = '/ã|é|à|ç|õ|ñ|è|ñ|ª|º|~|è|!|"|\#|\$|\^|%|\&|\?|\«|\»/';
 
@@ -33,7 +34,9 @@ $tpl->set('title', $lang['aliases']);
 
 $tpl_body = & new Template(TPL_FILE_LOCATION.'aliases.tpl');
 $tpl_body->set('lang', $lang);
-$tpl_body->set('aliases', $settings);
+$tpl_body->set('aliases', $aliases);
+$tpl_body->set('config', $config);
+$tpl_body->set('size', count($aliases));
 
 if (!isset($_GET["action"]))
 {
@@ -76,6 +79,11 @@ else
 	elseif ($_GET["action"] == "del")
 	{
 		delete_line($settings, $config['heyuconf'], $_GET["line"]);
+	}
+	elseif($_GET["action"] == "move")
+	{
+		if ($_GET["dir"] == "up") reorder_array($settings, $_GET['line'], $_GET['line']-1, $config['heyuconf']);
+		if ($_GET["dir"] == "down") reorder_array($settings, $_GET['line'], $_GET['line']+1, $config['heyuconf']);
 	}
 }
 

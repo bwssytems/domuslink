@@ -27,11 +27,11 @@
   <?php else: // if not alias, scene or usersyn ?>
     <tr>
       <td width="200">
-        <h6><?php echo $directive; ?> :&nbsp;</h6>
+        <h6><?php echo $directive; ?>:&nbsp;</h6>
       </td>
 
     <?php if ($directivenf == "SCRIPT_MODE"): ?>
-      <td>
+      <td width="120">
         <select name="<?php echo($directivenf); ?>">
         <?php if ($value == "SCRIPTS"): ?>
           <option selected value='SCRIPTS'>SCRIPTS</option>
@@ -43,7 +43,7 @@
         </select>
       </td>
       <?php elseif ($directivenf == "MODE"): ?>
-      <td>
+      <td width="120">
         <select name="<?php echo($directivenf); ?>">
           <?php if ($value == "COMPATIBLE"): ?>
             <option selected value="COMPATIBLE">COMPATIBLE</option>
@@ -56,20 +56,20 @@
       </td>
       <?php elseif ($directivenf == "COMBINE_EVENTS" || $directivenf == "COMPRESS_MACROS" || $directivenf == "REPL_DELAYED_MACROS" ||
       $directivenf == "WRITE_CHECK_FILES" || $directivenf == "ACK_HAILS" || $directivenf == "AUTOFETCH"): ?>
-      <td>
+      <td width="120">
         <select name="<?php echo($directivenf); ?>">
           <?php echo yesnoopt($value); ?>
         </select>
       </td>
       <?php elseif ($directivenf == "DAWN_OPTION" || $directivenf == "DUSK_OPTION"): ?>
-      <td>
+      <td width="120">
         <select name="<?php echo($directivenf); ?>">
           <?php echo dawnduskopt($value); ?>
         </select>
       </td>
       <?php else: ?>
-        <td>
-          <input type="text" name="<?php echo($directivenf); ?>" value="<?php echo($value); ?>" />
+        <td width="120">
+          <input type="text" name="<?php echo($directivenf); ?>" value="<?php echo($value); ?>" size="15" />
         </td>
       <?php endif; ?>
     </tr>

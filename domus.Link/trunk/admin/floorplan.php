@@ -12,49 +12,71 @@
  */
 
 require_once('..'.DIRECTORY_SEPARATOR.'include.php');
+require_once(CLASS_FILE_LOCATION.'heyuconf.class.php');
+
+## Instantiate HeyuConf class
+$heyuconf = new HeyuConf($config['heyuconf']);
+## Get locations
+$locations = load_file(FPLAN_FILE_LOCATION);
+$locsize = count($locations);
+## Disallowed characters for label (separator |)
+$chars = '/ã|é|à|ç|õ|ñ|è|ñ|ª|º|~|è|!|"|\#|\$|\^|%|\&|\?|\«|\»/';
 
 ## Security validation's
 if ($config['seclevel'] != "0") 
 {
 	if (!isset($_COOKIE["dluloged"]))
-		header("Location: login.php?from=frontend");
+		header("Location: login.php?from=floorplan");
 }
 
 ## Set template parameters
-$tpl->set('title', $lang['frontendadmin']);
+$tpl->set('title', $lang['floorplan']);
+
+$tpl_body = & new Template(TPL_FILE_LOCATION.'floorplan.tpl');
+$tpl_body->set('lang', $lang);
+$tpl_body->set('config', $config);
+$tpl_body->set('locations', $locations);
+$tpl_body->set('locsize', $locsize);
 
 if (!isset($_GET["action"]))
 {
-	$tpl_body = & new Template(TPL_FILE_LOCATION.'frontend.tpl');
-	$tpl_body->set('config', $config);
-	$tpl_body->set('lang', $lang);
+	$tpl_add = & new Template(TPL_FILE_LOCATION.'location_add.tpl');
+	$tpl_add->set('lang', $lang);
+	$tpl_body->set('form', $tpl_add);
 }
-elseif ($_GET["action"] == "save")
+else
 {
-	$newconfig['pc_interface'] = $_POST["pc_interface"];
-	$newconfig['heyu_base'] = $_POST["heyu_base"];
-	$newconfig['heyuconf'] = $_POST["heyuconf"];
-	$newconfig['heyuexec'] = $_POST["heyuexec"];
-	$newconfig['seclevel'] = $_POST["seclevel"];
-	$newconfig['password'] = $_POST["password"];
-	$newconfig['lang'] = $_POST["lang"];
-	$newconfig['url_path'] = $_POST["url_path"];
-	$newconfig['theme'] = $_POST["theme"];
-	$newconfig['cols'] = $_POST["cols"];
-	$newconfig['imgs'] = $_POST["imgs"];
-	$newconfig['refresh'] = $_POST["refresh"];
-
-	$configfile = CONFIG_FILE_LOCATION;
-
-	if ((file_exists($configfile) && is_writable($configfile)) || !file_exists($configfile))
+	if ($_GET["action"] == "edit")
 	{
-		config_save($newconfig);
-		header("Location: ".$_SERVER['PHP_SELF']);
+		$tpl_edit = & new Template(TPL_FILE_LOCATION.'location_edit.tpl');
+		$tpl_edit->set('lang', $lang);		
+		$tpl_edit->set('loc', $locations[$_GET['line']]);
+		$tpl_edit->set('linenum', $_GET['line']); // sets number of line being edited
+		$tpl_body->set('form', $tpl_edit);
 	}
-	else
+	elseif ($_GET["action"] == "add")
 	{
-		header("Location: ".check_url()."/error.php?msg=".$configfile." not writable!");
-    }
+		if (preg_match($chars, $_POST["label"]))
+			header("Location: ".check_url()."/error.php?msg=".$lang['error_special_chars']);
+		else
+			add_line($locations, FPLAN_FILE_LOCATION, 'floorplan');
+	}
+	elseif ($_GET["action"] == "save")
+	{
+		if (preg_match($chars, $_POST["label"]))
+			header("Location: ".check_url()."/error.php?msg=".$lang['error_special_chars']);
+		else
+			edit_line($locations, FPLAN_FILE_LOCATION, 'floorplan');
+	}
+	elseif ($_GET["action"] == "del")
+	{
+		delete_line($locations, FPLAN_FILE_LOCATION, $_GET["line"]);
+	}
+	elseif($_GET["action"] == "move")
+	{
+		if ($_GET["dir"] == "up") reorder_array($locations, $_GET['line'], $_GET['line']-1, FPLAN_FILE_LOCATION);
+		if ($_GET["dir"] == "down") reorder_array($locations, $_GET['line'], $_GET['line']+1, FPLAN_FILE_LOCATION);
+	}
 }
 
 ## Display the page

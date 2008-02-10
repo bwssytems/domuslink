@@ -51,18 +51,21 @@ class heyuConf {
 	 *
 	 * @param $req_type Type of alias requested
 	 */
-	function get_aliases($req_type)
+	function getAliases($req_type)
 	{
 		$i = 0;
-		foreach ($this->heyuconf as $line)
+		foreach ($this->heyuconf as $num => $line)
 		{
 			if (substr($line, 0, 5) == "ALIAS")
 			{
-				$aliases[$i] = $line;
+				//store alias in new array along with line numb of original file
+				$aliases[$i] = $line."@".$num;
 				$i++;
 			}
 		}
-		if ($req_type != "ALL") 
+		
+		/*
+		if ($req_type) 
 		{
 			$i = 0;
 			$array = array();
@@ -97,7 +100,9 @@ class heyuConf {
 			return $array;	// Specific type of ALIAS		
 		}
 		else
-			return $aliases; // All ALIASES
+		*/
+		
+		return $aliases; // All ALIASES
 
 	}
 }

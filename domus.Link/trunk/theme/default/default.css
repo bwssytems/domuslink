@@ -21,13 +21,10 @@ form {
 a {
 	color: #90ACBF;
 	text-decoration: none;
-	/*display: block;*/
 }
 
 a:hover {
 	text-decoration: none;
-	/*display: block;
-	background-color: #eee;*/
 }
 
 /************** HEADER **************/
@@ -78,7 +75,7 @@ div#setupmenu {
 	background: #fff url(images/header_left.gif) no-repeat;
 	height: 18px;
 	font-size: 10px;
-	border-bottom: 1px dotted #666;
+	border-bottom: 1px dotted #ccc;
 	border-right: 1px solid #ccc;
 	line-height: 1.2em;
 }
@@ -149,6 +146,7 @@ table.clear td {
 
 /************** HEADINGS **************/
 
+/* h6 used mostly in table column headers */
 h6 {
 	font-size: 12px;
 	font-weight: bold;

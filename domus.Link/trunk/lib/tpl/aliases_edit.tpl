@@ -3,7 +3,7 @@
 <form action="<?php echo ($_SERVER['PHP_SELF']); ?>?action=save" method="post">
 <input type="hidden" name="line" value="<?php echo $linenum; ?>" / >
 
-<table cellspacing="0" cellpadding="0" border="0" width="600px" class="content">
+<table cellspacing="0" cellpadding="0" border="0" class="content">
 <tr><th colspan="2"><?php echo ($lang['editalias']);?></th></tr>
 
 <tr><td colspan="2">
@@ -13,7 +13,6 @@
   <tr>
     <td valign="top" width="50px"><h6><?php echo ($lang['code']); ?>:</h6></td>
     <td valign="top" width="150px"><input type="text" name="code" value="<?php echo $code; ?>" size="10" /></td>
-    <td><?php echo ($lang['code_txt']);?></td>
   </tr>
 </table>
 
@@ -25,7 +24,6 @@
   <tr>
     <td valign="top" width="50px"><h6><?php echo ($lang['label']);?>:</h6></td>
     <td valign="top" width="150px"><input type="text" name="label" value="<?php echo $label; ?>" size="20" /></td>
-    <td><?php echo ($lang['label_txt']);?></td>
   </tr>
 </table>
 
@@ -34,7 +32,6 @@
 
 <!-- Modules -->
 <table cellspacing="0" cellpadding="0" border="0" class="clear">
-
   <tr>
     <td valign="top" width="50px"><h6><?php echo ($lang['module']);?>:</h6></td>
     <td valign="top" width="150px">
@@ -49,7 +46,6 @@
     <?php endforeach; ?>
 	</select>
     </td>
-    <td><?php echo ($lang['module_txt']);?></td>
   </tr>
 </table>
 
@@ -71,7 +67,6 @@
     	<?php endif; ?>
     <?php endforeach; ?>
     </td>
-    <td><?php echo ($lang['type_txt']);?></td>
   </tr>
 </table>
 
@@ -94,15 +89,13 @@
 	<?php endforeach; ?>
 	</select>
     </td>
-    <td><?php echo ($lang['location_txt']);?></td>
   </tr>
 </table>
 
 </td></tr>
 
 <tr>
-<td align="right"><input type="submit" value="<?php echo ($lang['save']); ?>" /></form></td>
+<td style="border-right: none;" align="right"><input type="submit" value="<?php echo ($lang['save']); ?>" /></form></td>
 <td style="border-left: none;"><form action="<?php echo($_SERVER['PHP_SELF']); ?>" method="post"><input type="submit" value="<?php echo ($lang['cancel']); ?>" /></form></td>
-</td>
 </tr>
 </table>
