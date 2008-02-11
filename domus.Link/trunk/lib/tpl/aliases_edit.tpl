@@ -16,9 +16,6 @@
   </tr>
 </table>
 
-</td></tr>
-<tr><td colspan="2">
-
 <!-- Label -->
 <table cellspacing="0" cellpadding="0" border="0" class="clear">
   <tr>
@@ -26,9 +23,6 @@
     <td valign="top" width="150px"><input type="text" name="label" value="<?php echo $label; ?>" size="20" /></td>
   </tr>
 </table>
-
-</td></tr>
-<tr><td colspan="2">
 
 <!-- Modules -->
 <table cellspacing="0" cellpadding="0" border="0" class="clear">
@@ -49,9 +43,6 @@
   </tr>
 </table>
 
-</td></tr>
-<tr><td colspan="2">
-
 <!-- Type -->
 <table cellspacing="0" cellpadding="0" border="0" class="clear">
   <tr>
@@ -69,9 +60,6 @@
     </td>
   </tr>
 </table>
-
-</td></tr>
-<tr><td colspan="2">
 
 <!-- Location -->
 <table cellspacing="0" cellpadding="0" border="0" class="clear">

@@ -18,7 +18,7 @@
 list($temp, $first_line) = split("@", $aliases[0], 2);
 list($temp, $last_line) = split("@", $aliases[$size-1], 2);
 
-foreach($aliases as $line_num => $alias_num):
+foreach($aliases as $alias_num):
 	list($alias, $line_num) = split("@", $alias_num, 2);
 	list($alias, $label, $code, $module_type) = split(" ", $alias, 4);
 	list($module, $typenloc) = split(" # ", $module_type, 2);

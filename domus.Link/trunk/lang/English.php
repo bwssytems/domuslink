@@ -4,7 +4,6 @@
  *
  */
 
-/* main */
 $lang['dlurl'] = 'http://domus.link.co.pt';
 $lang['title'] = 'domus.Link';
 
@@ -18,7 +17,6 @@ $lang['floorplan'] = 'Floorplan';
 $lang['frontend'] = 'Frontend';
 $lang['heyusetup'] = 'Heyu';
 
-/* buttons and controls */
 $lang['add'] = 'Add';
 $lang['edit'] = 'Edit';
 $lang['save'] = 'Save';
@@ -53,8 +51,6 @@ $lang['refresh'] = 'Page Refresh Timer';
 $lang['location'] = 'Location';
 $lang['addlocation'] = 'Add Location';
 $lang['editlocation'] = 'Edit Location';
-
-/* messages */
 $lang['heyustatus'] = 'Heyu Status';
 $lang['deleteconfirm'] = 'Are you sure you want to delete this module?';
 $lang['enter_password'] = 'Please enter your password to access the administration area.';
@@ -78,5 +74,6 @@ $lang['refresh_txt'] = 'By setting this field the main page in which the modules
 $lang['error_not_running'] = '<h1>HEYU IS NOT RUNNING!</h1>Please start heyu!<br />You may need to change permissions to tty port.';
 $lang['error_special_chars'] = 'Special characters in the alias label are not allowed.<br><br>Please try again. <a href=admin/aliases.php>Back</a>';
 $lang['error_wrong_pass'] = '<b>Error</b>. Your password is incorrect.';
+$lang['error_loc_in_use'] = 'The location you are atempting to remove is currently in use.';
 
 ?>

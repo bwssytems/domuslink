@@ -1,6 +1,6 @@
 <form action="<?php echo($_SERVER['PHP_SELF']); ?>?action=save" method="post">
 
-<table cellspacing="0" cellpadding="0" border="0" width="450px" align="middle" class="content">
+<table cellspacing="0" cellpadding="0" border="0" width="400px" align="middle" class="content">
 <tr><th colspan="3"><?php echo ($lang['heyuconf']);?></th></tr>
 
 <tr>

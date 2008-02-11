@@ -1,4 +1,4 @@
-<table cellspacing="0" cellpadding="0" border="0" width="450px" align="middle" class="content">
+<table cellspacing="0" cellpadding="0" border="0" width="400px" align="middle" class="content">
 <tr><th colspan="2"><?php echo($lang['heyuconf']); ?></th></tr>
 
 <tr>

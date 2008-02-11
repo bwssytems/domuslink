@@ -13,9 +13,6 @@
   </tr>
 </table>
 
-</td></tr>
-<tr><td>
-
 <!-- Label -->
 <table cellspacing="0" cellpadding="0" border="0" class="clear">
   <tr>
@@ -23,9 +20,6 @@
     <td valign="top" width="150px"><input type="text" name="label" value="" size="20" /></td>
   </tr>
 </table>
-
-</td></tr>
-<tr><td>
 
 <!-- Modules -->
 <table cellspacing="0" cellpadding="0" border="0" class="clear">
@@ -42,9 +36,6 @@
   </tr>
 </table>
 
-</td></tr>
-<tr><td>
-
 <!-- Type -->
 <table cellspacing="0" cellpadding="0" border="0" class="clear">
   <tr>
@@ -59,9 +50,6 @@
     </td>
   </tr>
 </table>
-
-</td></tr>
-<tr><td>
 
 <!-- Location -->
 <table cellspacing="0" cellpadding="0" border="0" class="clear">

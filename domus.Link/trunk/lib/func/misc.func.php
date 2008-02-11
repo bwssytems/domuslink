@@ -38,7 +38,7 @@ function list_dir_content($dir)
  * Label Parse
  *
  * Description: Parses labels so that underscores (_) are either removed or added in substituition of spaces.
- * 				Letters are also converted to lowercase or first letter is capitilized.
+ * Letters are also converted to lowercase or first letter is capitilized.
  *
  * @param $str represent string to parse
  * @param $add boolean if true add "_" and change case to lower case, if false remove "_" and capitalize first letter of each word)
@@ -71,7 +71,7 @@ function check_url()
 }
 
 /**
- * Check is alias contains various modules
+ * Check if alias contains various modules
  * 
  * Description: This function received an alias and check's if string contain's a ","
  * If it does, then string has various aliases

@@ -27,7 +27,7 @@ if ($config['seclevel'] == "2")
 }
 
 ## Template specific
-$tpl->set('title', $lang['title']);
+$tpl->set('title', $lang['home']);
 $tpl_body = & new Template(TPL_FILE_LOCATION.'all_controls.tpl');
 
 if (isset($_GET['page']))

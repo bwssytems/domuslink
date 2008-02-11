@@ -1,6 +1,6 @@
 <form action="<?php echo ($_SERVER['PHP_SELF']); ?>?action=save" method="post">
 
-<table cellspacing="0" cellpadding="0" border="0" width="600px" align="middle" class="content">
+<table cellspacing="0" cellpadding="0" border="0" width="550px" align="middle" class="content">
 <tr><th colspan="2"><?php echo ($lang['frontendadmin']); ?></th></tr>
 
 <tr>

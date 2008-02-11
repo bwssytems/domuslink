@@ -16,6 +16,7 @@ require_once(CLASS_FILE_LOCATION.'heyuconf.class.php');
 
 ## Instantiate HeyuConf class
 $heyuconf = new HeyuConf($config['heyuconf']);
+$aliases = $heyuconf->getAliases();
 ## Get locations
 $locations = load_file(FPLAN_FILE_LOCATION);
 $locsize = count($locations);
@@ -70,7 +71,22 @@ else
 	}
 	elseif ($_GET["action"] == "del")
 	{
-		delete_line($locations, FPLAN_FILE_LOCATION, $_GET["line"]);
+		$loc2rm = $locations[$_GET["line"]];
+		$found = false;
+		
+		// check if location is in use
+		foreach($aliases as $alias_num) 
+		{
+			list($alias, $line_num) = split("@", $alias_num, 2);
+			list($temp, $label, $code, $module_type) = split(" ", $alias, 4);
+			list($module, $typenloc) = split(" # ", $module_type, 2);
+			list($type, $loc) = split(",", $typenloc, 2);
+			
+			if ($loc2rm == $loc) $found = true;
+		}
+		
+		if (!$found) delete_line($locations, FPLAN_FILE_LOCATION, $_GET["line"]);
+		else header("Location: ".check_url()."/error.php?msg=".$lang['error_loc_in_use']);
 	}
 	elseif($_GET["action"] == "move")
 	{
