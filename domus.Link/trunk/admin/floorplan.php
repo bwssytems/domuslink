@@ -16,6 +16,7 @@ require_once(CLASS_FILE_LOCATION.'heyuconf.class.php');
 
 ## Instantiate HeyuConf class
 $heyuconf = new HeyuConf($config['heyuconf']);
+$settings = $heyuconf->get();
 $aliases = $heyuconf->getAliases();
 ## Get locations
 $locations = load_file(FPLAN_FILE_LOCATION);
@@ -47,51 +48,89 @@ if (!isset($_GET["action"]))
 }
 else
 {
-	if ($_GET["action"] == "edit")
+	switch ($_GET["action"])
 	{
-		$tpl_edit = & new Template(TPL_FILE_LOCATION.'location_edit.tpl');
-		$tpl_edit->set('lang', $lang);		
-		$tpl_edit->set('loc', $locations[$_GET['line']]);
-		$tpl_edit->set('linenum', $_GET['line']); // sets number of line being edited
-		$tpl_body->set('form', $tpl_edit);
-	}
-	elseif ($_GET["action"] == "add")
-	{
-		if (preg_match($chars, $_POST["label"]))
-			header("Location: ".check_url()."/error.php?msg=".$lang['error_special_chars']);
-		else
-			add_line($locations, FPLAN_FILE_LOCATION, 'floorplan');
-	}
-	elseif ($_GET["action"] == "save")
-	{
-		if (preg_match($chars, $_POST["label"]))
-			header("Location: ".check_url()."/error.php?msg=".$lang['error_special_chars']);
-		else
-			edit_line($locations, FPLAN_FILE_LOCATION, 'floorplan');
-	}
-	elseif ($_GET["action"] == "del")
-	{
-		$loc2rm = $locations[$_GET["line"]];
-		$found = false;
+		// edit location
+		case "edit":
+			$tpl_edit = & new Template(TPL_FILE_LOCATION.'location_edit.tpl');
+			$tpl_edit->set('lang', $lang);		
+			$tpl_edit->set('loc', $locations[$_GET['line']]);
+			$tpl_edit->set('linenum', $_GET['line']); // sets number of line being edited
+			$tpl_body->set('form', $tpl_edit);
+			break;
 		
-		// check if location is in use
-		foreach($aliases as $alias_num) 
-		{
-			list($alias, $line_num) = split("@", $alias_num, 2);
-			list($temp, $label, $code, $module_type) = split(" ", $alias, 4);
-			list($module, $typenloc) = split(" # ", $module_type, 2);
-			list($type, $loc) = split(",", $typenloc, 2);
+		// add location	
+		case "add":
+			if (preg_match($chars, $_POST["label"]))
+				header("Location: ".check_url()."/error.php?msg=".$lang['error_special_chars']);
+			else
+				add_line($locations, FPLAN_FILE_LOCATION, 'floorplan');
+			break;
+		
+		// save location (called from edits)
+		case "save":
+			if (preg_match($chars, $_POST["label"]))
+				header("Location: ".check_url()."/error.php?msg=".$lang['error_special_chars']);
+			else
+			{
+				$orgloc1 = $locations[$_POST["line"]]; // get original location name
+				$newloc = $_POST["location"];  // get new location name
+				$i = 0;
+				
+				// check if original location name is in use
+				foreach($settings as $line) 
+				{
+					if (substr($line, 0, 5) == "ALIAS") 
+					{
+						list($temp, $label, $code, $module_type_loc) = split(" ", $line, 4);
+						list($module, $type_loc) = split(" # ", $module_type_loc, 2);
+						list($type, $orgloc2) = split(",", $type_loc, 2);
 			
-			if ($loc2rm == $loc) $found = true;
-		}
+						// if location in use, then substitute with new name
+						if ($orgloc1 == $orgloc2) 
+						{
+							$array[$i] = $temp." ".$label." ".$code." ".$module." # ".$type.",".$newloc."\n";
+							$changed = true;	
+						}
+						else $array[$i] = $line;
+					}
+					else 
+						$array[$i] = $line;
+						
+					$i++;
+				}
+				
+				edit_line($locations, FPLAN_FILE_LOCATION, 'floorplan'); // save new floorplan
+				if ($changed) save_file($array, $config['heyuconf']); // save heyu conf file if changes made
+			}
+			break;
 		
-		if (!$found) delete_line($locations, FPLAN_FILE_LOCATION, $_GET["line"]);
-		else header("Location: ".check_url()."/error.php?msg=".$lang['error_loc_in_use']);
-	}
-	elseif($_GET["action"] == "move")
-	{
-		if ($_GET["dir"] == "up") reorder_array($locations, $_GET['line'], $_GET['line']-1, FPLAN_FILE_LOCATION);
-		if ($_GET["dir"] == "down") reorder_array($locations, $_GET['line'], $_GET['line']+1, FPLAN_FILE_LOCATION);
+		// delete location	
+		case "del":
+			$loc2rm = $locations[$_GET["line"]];
+			$found = false;
+		
+			// check if location is in use
+			foreach($aliases as $alias_num) 
+			{
+				list($alias, $temp) = split("@", $alias_num, 2);
+				list($temp, $temp, $temp, $module_type) = split(" ", $alias, 4);
+				list($temp, $typenloc) = split(" # ", $module_type, 2);
+				list($temp, $loc) = split(",", $typenloc, 2);
+			
+				if ($loc2rm == $loc) $found = true;
+			}
+		
+			// if location was found do not allow removal
+			if (!$found) delete_line($locations, FPLAN_FILE_LOCATION, $_GET["line"]);
+			else header("Location: ".check_url()."/error.php?msg=".$lang['error_loc_in_use']);
+			break;
+		
+		// move up/down location
+		case "move":
+			if ($_GET["dir"] == "up") reorder_array($locations, $_GET['line'], $_GET['line']-1, FPLAN_FILE_LOCATION);
+			if ($_GET["dir"] == "down") reorder_array($locations, $_GET['line'], $_GET['line']+1, FPLAN_FILE_LOCATION);
+			break;	
 	}
 }
 

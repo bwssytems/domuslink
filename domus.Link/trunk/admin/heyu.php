@@ -51,16 +51,28 @@ else
 	elseif ($_GET["action"] == "save")
 	{
 		$i = 0;
+		
+		// $_POST contains all lines in heyu conf file.
+		// $key represents each directive, alias (with #, so ALIAS1,ALIAS2,etc), etc
+		// $value represents directive value or full string of ALIAS,SCENE,etc
 		foreach ($_POST as $key => $value)
 		{
-			if (substr($key, 0, 5) == "ALIAS")
-				$newcontent[$i] = substr($key, 0, 5)." ".$value."\n";
-			elseif (substr($key, 0, 5) == "SCENE")
-				$newcontent[$i] = substr($key, 0, 5)." ".$value."\n";
-			elseif (substr($key, 0, 7) == "USERSYN")
-				$newcontent[$i] = substr($key, 0, 7)." ".$value."\n";
-			else
-				$newcontent[$i] = $key." ".$value."\n";
+			$primary = substr($key, 0, 5);
+			switch ($primary)
+			{
+				case "ALIAS":
+					$newcontent[$i] = $primary." ".$value."\n";
+					break;
+				case "SCENE":
+					$newcontent[$i] = $primary." ".$value."\n";
+					break;
+				case "USERS": // USERSYN
+					$newcontent[$i] = substr($key, 0, 7)." ".$value."\n";
+					break;
+				default:
+					$newcontent[$i] = $key." ".$value."\n";
+					break;
+			}
 			$i++;
 		}
 		save_file($newcontent, $config['heyuconf'], true);

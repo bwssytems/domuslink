@@ -39,9 +39,10 @@ else
 	$page = null;
 }
 
-/*
+
 if (heyu_state_check())
 {
+/*	
 	## Aliases  of type Lights
 	if ($page == "lights" || !$page || $page == "home")
 	{
@@ -121,12 +122,13 @@ if (heyu_state_check())
 
 	## Display the page
 	$tpl->set('content', $tpl_body);
+	*/
 }
 else
 {
 	$tpl->set('content', $lang['error_not_running']);
 }
-*/
+
 echo $tpl->fetch(TPL_FILE_LOCATION.'layout.tpl');
 
 

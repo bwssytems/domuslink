@@ -46,44 +46,46 @@ if (!isset($_GET["action"]))
 }
 else
 {
-	if ($_GET["action"] == "edit")
+	switch ($_GET["action"])
 	{
-		list($temp, $label, $code, $module_type_loc) = split(" ", $settings[$_GET['line']], 4);
-		list($module, $type_loc) = split(" # ", $module_type_loc, 2);
-		list($type, $loc) = split(",", $type_loc, 2);
+		case "edit":
+			list($temp, $label, $code, $module_type_loc) = split(" ", $settings[$_GET['line']], 4);
+			list($module, $type_loc) = split(" # ", $module_type_loc, 2);
+			list($type, $loc) = split(",", $type_loc, 2);
+			
+			$tpl_edit = & new Template(TPL_FILE_LOCATION.'aliases_edit.tpl');
+			$tpl_edit->set('lang', $lang);		
+			$tpl_edit->set('label', $label);
+			$tpl_edit->set('code', $code);
+			$tpl_edit->set('module', $module);
+			$tpl_edit->set('type', $type);
+			$tpl_edit->set('loc', $loc);
+			$tpl_edit->set('linenum', $_GET['line']); // sets number of line being edited
+			$tpl_body->set('form', $tpl_edit);
+			break;
 		
-		$tpl_edit = & new Template(TPL_FILE_LOCATION.'aliases_edit.tpl');
-		$tpl_edit->set('lang', $lang);		
-		$tpl_edit->set('label', $label);
-		$tpl_edit->set('code', $code);
-		$tpl_edit->set('module', $module);
-		$tpl_edit->set('type', $type);
-		$tpl_edit->set('loc', $loc);
-		$tpl_edit->set('linenum', $_GET['line']); // sets number of line being edited
-		$tpl_body->set('form', $tpl_edit);
-	}
-	elseif ($_GET["action"] == "add")
-	{
-		if (preg_match($chars, $_POST["label"]))
-			header("Location: ".check_url()."/error.php?msg=".$lang['error_special_chars']);
-		else
-			add_line($settings, $config['heyuconf'], 'alias');
-	}
-	elseif ($_GET["action"] == "save")
-	{
-		if (preg_match($chars, $_POST["label"]))
-			header("Location: ".check_url()."/error.php?msg=".$lang['error_special_chars']);
-		else
-			edit_line($settings, $config['heyuconf'], 'alias');
-	}
-	elseif ($_GET["action"] == "del")
-	{
-		delete_line($settings, $config['heyuconf'], $_GET["line"]);
-	}
-	elseif($_GET["action"] == "move")
-	{
-		if ($_GET["dir"] == "up") reorder_array($settings, $_GET['line'], $_GET['line']-1, $config['heyuconf']);
-		if ($_GET["dir"] == "down") reorder_array($settings, $_GET['line'], $_GET['line']+1, $config['heyuconf']);
+		case "add":
+			if (preg_match($chars, $_POST["label"]))
+				header("Location: ".check_url()."/error.php?msg=".$lang['error_special_chars']);
+			else
+				add_line($settings, $config['heyuconf'], 'alias');
+			break;
+		
+		case "save":
+			if (preg_match($chars, $_POST["label"]))
+				header("Location: ".check_url()."/error.php?msg=".$lang['error_special_chars']);
+			else
+				edit_line($settings, $config['heyuconf'], 'alias');
+			break;
+		
+		case "del":
+			delete_line($settings, $config['heyuconf'], $_GET["line"]);
+			break;
+		
+		case "move":
+			if ($_GET["dir"] == "up") reorder_array($settings, $_GET['line'], $_GET['line']-1, $config['heyuconf']);
+			if ($_GET["dir"] == "down") reorder_array($settings, $_GET['line'], $_GET['line']+1, $config['heyuconf']);
+			break;	
 	}
 }
 

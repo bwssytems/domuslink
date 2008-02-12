@@ -126,18 +126,18 @@ function build_newline($type)
 {
 	switch ($type)
 	{
-	case "alias":
-		return "ALIAS ".label_parse($_POST["label"], true)." ".$_POST["code"]." ".$_POST["module"]." # ".$_POST["type"].",".$_POST["loc"]."\n";
-		break;
-	case "floorplan":
-		return $_POST["location"]."\n";
-		break;
-	case "module":
-		return $_POST["module"]."\n";
-		break;
-	case "type":
-		return $_POST["type"]."\n";
-		break;	
+		case "alias":
+			return "ALIAS ".label_parse($_POST["label"], true)." ".$_POST["code"]." ".$_POST["module"]." # ".$_POST["type"].",".$_POST["loc"]."\n";
+			break;
+		case "floorplan":
+			return $_POST["location"]."\n";
+			break;
+		case "module":
+			return $_POST["module"]."\n";
+			break;
+		case "type":
+			return $_POST["type"]."\n";
+			break;	
 	}
 }
 
