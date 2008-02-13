@@ -42,25 +42,22 @@ class heyuConf {
 	 */
 	function get()
 	{
-		$content = $this->heyuconf;
-		return $content;
+		return $this->heyuconf;
 	}
 
 	/**
 	 * Get Aliases
 	 *
-	 * @param $numb boolean, if true add line number of original file
+	 * @param $number boolean, if true add line number of original file
 	 */
-	function getAliases($numb)
+	function getAliases($number, $i = 0)
 	{
-		$i = 0;
 		foreach ($this->heyuconf as $num => $line)
 		{
 			if (substr($line, 0, 5) == "ALIAS")
 			{
-				//store alias in new array along with line numb of original file
-				if ($numb) $aliases[$i] = $line."@".$num;
-				else $aliases[$i] = $line;
+				//if $number = true, store alias in new array along with line numb of original file
+				$aliases[$i] = ($number) ? $aliases[$i] = $line."@".$num : $aliases[$i] = $line;
 				$i++;
 			}
 		}
@@ -73,10 +70,8 @@ class heyuConf {
 	 * 
 	 * @param $loc represents the wanted location
 	 */
-	function getAliasesByLocation($loc)
+	function getAliasesByLocation($loc, $i = 0)
 	{
-		$i = 0;
-		
 		foreach ($this->getAliases(false) as $line)
 		{
 			list($temp, $label, $code, $module_type_loc) = split(" ", $line, 4);
@@ -96,12 +91,11 @@ class heyuConf {
 	/**
 	 * Get Aliases By Type
 	 * 
-	 * @param $aliases represents an array that is specific to only one house area
+	 * @param $aliases represents an array of aliases built by getAliasesByLocation
 	 * @param $type represents the type os module (light, appliance, etc)
 	 */
-	function getAliasesByType($aliases, $type)
+	function getAliasesByType($aliases, $type, $i = 0)
 	{
-		$i = 0;
 		foreach ($aliases as $alias)
 		{
 			list($label, $code, $orgtype) = split (" ", $alias, 3);
