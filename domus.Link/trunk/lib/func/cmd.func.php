@@ -53,10 +53,10 @@ function heyu_ctrl($heyuexec, $action)
  */
 function heyu_state_check()
 {
-	$cmd = "ps x";
+	$cmd = "ps ax";
 	$result = array(); $retval = null; $result_exec = null;
 	exec($cmd, $result_exec, $retval);
-	$result = preg_grep('/[h]eyu_/', $result_exec);
+	$result = preg_grep('/[h]eyu/', $result_exec);
 
 	if (count($result) == 2) return true;
 	else return false;

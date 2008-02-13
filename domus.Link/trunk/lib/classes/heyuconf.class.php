@@ -49,9 +49,9 @@ class heyuConf {
 	/**
 	 * Get Aliases
 	 *
-	 * @param $req_type Type of alias requested
+	 * @param $numb boolean, if true add line number of original file
 	 */
-	function getAliases($req_type)
+	function getAliases($numb)
 	{
 		$i = 0;
 		foreach ($this->heyuconf as $num => $line)
@@ -59,52 +59,62 @@ class heyuConf {
 			if (substr($line, 0, 5) == "ALIAS")
 			{
 				//store alias in new array along with line numb of original file
-				$aliases[$i] = $line."@".$num;
+				if ($numb) $aliases[$i] = $line."@".$num;
+				else $aliases[$i] = $line;
 				$i++;
 			}
 		}
 		
-		/*
-		if ($req_type) 
-		{
-			$i = 0;
-			$array = array();
-			foreach ($aliases as $line)
-			{
-				list($alias, $label, $code, $module_type) = split(" ", $line, 4);
-				list($module, $typenf) = split(" # ", $module_type, 2);
-				$type = rtrim($typenf);
-	
-				if ($req_type == "Lights" && $type == "Light")
-				{
-					$array[$i] = $code." ".$label;
-					$i++;
-				}
-				elseif ($req_type == "Appliances" && $type == "Appliance")
-				{
-					$array[$i] = $code." ".$label;
-					$i++;
-				}
-				elseif ($req_type == "Irrigation" && $type == "Irrigation")
-				{
-					$array[$i] = $code." ".$label;
-					$i++;
-				}
-				elseif ($req_type == "HVAC" && $type == "HVAC")
-				{
-					$array[$i] = $code." ".$label;
-					$i++;
-				}
-	
-			}
-			return $array;	// Specific type of ALIAS		
-		}
-		else
-		*/
-		
-		return $aliases; // All ALIASES
-
+		return $aliases;
 	}
+	
+	/**
+	 * Get Aliases By Location
+	 * 
+	 * @param $loc represents the wanted location
+	 */
+	function getAliasesByLocation($loc)
+	{
+		$i = 0;
+		
+		foreach ($this->getAliases(false) as $line)
+		{
+			list($temp, $label, $code, $module_type_loc) = split(" ", $line, 4);
+			list($module, $type_loc) = split(" # ", $module_type_loc, 2);
+			list($type, $orgloc) = split(",", $type_loc, 2);
+			
+			if ($orgloc == $loc) 
+			{
+				$request[$i] = $label." ".$code." ".$type; // $type is kept to use in getAliasesByType
+				$i++;
+			}
+		}
+		
+		return $request;
+	}
+	
+	/**
+	 * Get Aliases By Type
+	 * 
+	 * @param $aliases represents an array that is specific to only one house area
+	 * @param $type represents the type os module (light, appliance, etc)
+	 */
+	function getAliasesByType($aliases, $type)
+	{
+		$i = 0;
+		foreach ($aliases as $alias)
+		{
+			list($label, $code, $orgtype) = split (" ", $alias, 3);
+			
+			if ($orgtype == $type)
+			{
+				$request[$i] = $label." ".$code;
+				$i++;
+			}
+		}
+		
+		return $request;
+	} 
 }
 
 ?>

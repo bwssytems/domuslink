@@ -128,7 +128,7 @@
 <!-- URL Path -->
 <table cellspacing="0" cellpadding="0" border="0" class="clear">
   <tr>
-    <td colspan="2"><h6><?php echo ($lang['urlpath']); ?></h6></td>
+    <td colspan="2" style="border-bottom:1px dotted #ccc;"><h6><?php echo ($lang['urlpath']); ?></h6></td>
   </tr>
   <tr>
     <td valign="top" width="150px"><input type="text" name="url_path" value="<?php echo ($config['url_path']); ?>" /></td>

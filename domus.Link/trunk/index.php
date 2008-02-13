@@ -30,100 +30,63 @@ if ($config['seclevel'] == "2")
 $tpl->set('title', $lang['home']);
 $tpl_body = & new Template(TPL_FILE_LOCATION.'all_controls.tpl');
 
-if (isset($_GET['page']))
+// get which page is open
+if (isset($_GET['page'])) $page = $_GET['page'];
+else $page = "home";
+
+// check if heyu is running, if true display modules
+if (!heyu_state_check())
 {
-	$page = $_GET['page'];
-}
-else
-{
-	$page = null;
-}
-
-
-if (heyu_state_check())
-{
-/*	
-	## Aliases  of type Lights
-	if ($page == "lights" || !$page || $page == "home")
-	{
-		$lights = $heyuconf->get_aliases('Lights');
-		$total = count($lights);
+	foreach (load_file(FPLAN_FILE_LOCATION) as $location)
+	{				
+		$aliases = $heyuconf->getAliasesByLocation($location);
 		
-		if ($total > 0 ) // If > 0 then modules of type Lights exist therefore display them
-		{
-			$tpl_subbody = & new Template(TPL_FILE_LOCATION.'ctrl_table.tpl');
-			$tpl_subbody->set('header', $lang['lights']);
-			
-			$tpl_subbody->set('config', $config);
-			$tpl_subbody->set('page', $page);
-			$tpl_subbody->set('type', "light");
-			$tpl_subbody->set('modules', $lights);
-			
-			$tpl_subbody->set('rows', ceil($total / $config['cols']));
-			$tpl_subbody->set('cols', $config['cols']);
-			$tpl_subbody->set('arraysize', $total);
-			
-			$tpl_body->set('lights', $tpl_subbody);
-		}
-	}
-
-	## Aliases of type Appliances
-	if ($page == "appliances" || !$page || $page == "home")
-	{
-		$appliances = $heyuconf->get_aliases('Appliances');
-		$total = count($appliances);
+		// 1. master bedrom - 0
+		// 2. living room - 3 (0 lights)
+		// 3. kitchen - 1 (0 lights)
+		// 4. garden - 5 (3 lights)
 		
-		if ($total > 0 ) // If > 0 then modules of type Appliances exist therefore display them
-		{
-			$tpl_subbody = & new Template(TPL_FILE_LOCATION.'ctrl_table.tpl');
-			$tpl_subbody->set('header', $lang['appliances']);
+		if (count($aliases) > 0)
+		{		
+			if ($page == "home")
+			{
+				echo "<br><h1>".$location."</h1>";
+				foreach ($aliases as $alias) echo $alias."<br>";
+			}
+			elseif ($page == "lights")
+			{
+				$lights = $heyuconf->getAliasesByType($aliases, "Light");
+				if (count($lights) > 0)
+				{
+					echo "<br><h1>".$location."</h1>";
+					foreach ($lights as $light) 
+						echo $light."<br>";
+				}
+			}
+			elseif ($page == "appliances")
+			{
+				$appliances = $heyuconf->getAliasesByType($aliases, "Appliance");
+				if (count($appliances) > 0)
+				{
+					echo "<br><h1>".$location."</h1>";
+					foreach ($appliances as $appliance) 
+						echo $appliance."<br>";
+				}
+			}
+			elseif ($page == "irrigation")
+			{
+				$irrigation = $heyuconf->getAliasesByType($aliases, "Irrigation");
+				if (count($irrigation) > 0)
+				{
+					echo "<br><h1>".$location."</h1>";
+					foreach ($irrigation as $irrig) 
+						echo $irrig."<br>";
+				}
+			}
 			
-			$tpl_subbody->set('config', $config);
-			$tpl_subbody->set('page', $page);
-			$tpl_subbody->set('type', "app");
-			$tpl_subbody->set('modules', $appliances);
-			
-			$tpl_subbody->set('rows', ceil($total / $config['cols']));
-			$tpl_subbody->set('cols', $config['cols']);
-			$tpl_subbody->set('arraysize', $total);
-			
-			$tpl_body->set('appliances', $tpl_subbody);
-		}
-	}
-
-	## Aliases of type Irrigation
-	if ($page == "irrigation" || !$page || $page == "home")
-	{
-		$irrigation = $heyuconf->get_aliases('Irrigation');
-		$total = count($irrigation);
-		
-		if ($total > 0 ) // If > 0 then modules of type Irrigation exist therefore display them
-		{
-			$tpl_subbody = & new Template(TPL_FILE_LOCATION.'ctrl_table.tpl');
-			$tpl_subbody->set('header', $lang['irrigation']);
-			
-			$tpl_subbody->set('config', $config);
-			$tpl_subbody->set('page', $page);
-			$tpl_subbody->set('type', "irrig");
-			$tpl_subbody->set('modules', $irrigation);
-			
-			$tpl_subbody->set('rows', ceil($total / $config['cols']));
-			$tpl_subbody->set('cols', $config['cols']);
-			$tpl_subbody->set('arraysize', $total);
-			
-			$tpl_body->set('irrigation', $tpl_subbody);
-		}
-	}
-
-	if (isset($_GET['action']))
-	{
-		heyu_exec($config['heyuexec']);
-	}
-
-	## Display the page
-	$tpl->set('content', $tpl_body);
-	*/
-}
+		} // end if count > 0
+	} // end foreach
+} // end if heyu running
 else
 {
 	$tpl->set('content', $lang['error_not_running']);

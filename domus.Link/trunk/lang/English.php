@@ -12,6 +12,7 @@ $lang['lights'] = 'Lights';
 $lang['appliances'] = 'Appliances';
 $lang['irrigation'] = 'Irrigation';
 $lang['login'] = 'Login';
+$lang['setup'] = 'Setup';
 $lang['aliases'] = 'Aliases';
 $lang['floorplan'] = 'Floorplan';
 $lang['frontend'] = 'Frontend';

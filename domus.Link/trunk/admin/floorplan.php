@@ -21,8 +21,6 @@ $aliases = $heyuconf->getAliases();
 ## Get locations
 $locations = load_file(FPLAN_FILE_LOCATION);
 $locsize = count($locations);
-## Disallowed characters for label (separator |)
-$chars = '/ã|é|à|ç|õ|ñ|è|ñ|ª|º|~|è|!|"|\#|\$|\^|%|\&|\?|\«|\»/';
 
 ## Security validation's
 if ($config['seclevel'] != "0") 
@@ -61,48 +59,40 @@ else
 		
 		// add location	
 		case "add":
-			if (preg_match($chars, $_POST["label"]))
-				header("Location: ".check_url()."/error.php?msg=".$lang['error_special_chars']);
-			else
-				add_line($locations, FPLAN_FILE_LOCATION, 'floorplan');
+			add_line($locations, FPLAN_FILE_LOCATION, 'floorplan');
 			break;
 		
 		// save location (called from edits)
 		case "save":
-			if (preg_match($chars, $_POST["label"]))
-				header("Location: ".check_url()."/error.php?msg=".$lang['error_special_chars']);
-			else
-			{
-				$orgloc1 = $locations[$_POST["line"]]; // get original location name
-				$newloc = $_POST["location"];  // get new location name
-				$i = 0;
-				
-				// check if original location name is in use
-				foreach($settings as $line) 
-				{
-					if (substr($line, 0, 5) == "ALIAS") 
-					{
-						list($temp, $label, $code, $module_type_loc) = split(" ", $line, 4);
-						list($module, $type_loc) = split(" # ", $module_type_loc, 2);
-						list($type, $orgloc2) = split(",", $type_loc, 2);
+			$orgloc1 = $locations[$_POST["line"]]; // get original location name
+			$newloc = $_POST["location"];  // get new location name
+			$i = 0;
 			
-						// if location in use, then substitute with new name
-						if ($orgloc1 == $orgloc2) 
-						{
-							$array[$i] = $temp." ".$label." ".$code." ".$module." # ".$type.",".$newloc."\n";
-							$changed = true;	
-						}
-						else $array[$i] = $line;
+			// check if original location name is in use
+			foreach($settings as $line) 
+			{
+				if (substr($line, 0, 5) == "ALIAS") 
+				{
+					list($temp, $label, $code, $module_type_loc) = split(" ", $line, 4);
+					list($module, $type_loc) = split(" # ", $module_type_loc, 2);
+					list($type, $orgloc2) = split(",", $type_loc, 2);
+		
+					// if and ALIAS and location in use, then substitute with new name and add to array
+					if ($orgloc1 == $orgloc2) 
+					{
+						$array[$i] = $temp." ".$label." ".$code." ".$module." # ".$type.",".$newloc."\n";
+						$changed = true;	
 					}
-					else 
-						$array[$i] = $line;
-						
-					$i++;
+					else $array[$i] = $line; // else just add line to array
 				}
-				
-				edit_line($locations, FPLAN_FILE_LOCATION, 'floorplan'); // save new floorplan
-				if ($changed) save_file($array, $config['heyuconf']); // save heyu conf file if changes made
+				else 
+					$array[$i] = $line; // if != ALIAS add to array
+					
+				$i++;
 			}
+			
+			edit_line($locations, FPLAN_FILE_LOCATION, 'floorplan'); // save new floorplan
+			if ($changed) save_file($array, $config['heyuconf']); // save heyu conf file if changes made
 			break;
 		
 		// delete location	
