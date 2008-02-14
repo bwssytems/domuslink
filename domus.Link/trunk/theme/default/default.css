@@ -106,7 +106,9 @@ div#setupmenuitem a:hover {
 
 /************** CONTENT **************/
 div#content {
-	padding: 15px;
+	padding-left: 15px;
+	padding-right: 15px;
+	padding-bottom: 15px;
 }
 
 /************** FOOTER **************/
@@ -114,7 +116,14 @@ div#footer {
 	border-top: 1px solid #ccc;
 	border-bottom: 4px solid #c5d0d3;
 	height: 18px;
-	/*padding: 4px;*/
+	padding-left: 15px;
+	padding-right: 15px;
+	background-color: #eee;
+}
+
+div#copyright {
+	font-size: 10px;
+	text-align: center;
 }
 
 /************** TABLES **************/
@@ -131,6 +140,7 @@ table.content th {
 	color: #000;
 	font-size: 16px;
 	border-bottom: 2px solid #c5d0d3;
+	padding-top: 15px;
 }
 
 table.content td {
@@ -145,6 +155,10 @@ table.clear td {
 }
 
 /************** HEADINGS **************/
+
+h1 {
+	padding-top: 15px;
+}
 
 /* h6 used mostly in table column headers */
 h6 {

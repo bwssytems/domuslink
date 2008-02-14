@@ -51,7 +51,7 @@ function heyu_ctrl($heyuexec, $action)
  * Heyu Status Check
  *
  */
-function heyu_state_check()
+function heyu_running()
 {
 	$cmd = "ps ax";
 	$result = array(); $retval = null; $result_exec = null;
@@ -163,6 +163,17 @@ function dim_level($unit, $heyuexec)
 	$result = array(); $retval = null;
 	exec($cmd, $result, $retval);
 
+	return $result[0];
+}
+
+/**
+ * Uptime
+ */
+function uptime()
+{
+	$cmd = "uptime 2>&1";
+	$result = array(); $retval = null;
+	exec ($cmd, $result, $retval);
 	return $result[0];
 }
 

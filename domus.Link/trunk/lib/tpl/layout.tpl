@@ -11,42 +11,41 @@
 
   <SCRIPT LANGUAGE="JavaScript">
   <!--
-   function copyrightDate() 
-   {
-	today=new Date();
-	ynow=today.getFullYear();
-	ystart='2007';
-	
-	if (ystart == ynow) 
-		document.write("&copy; "+ystart);
-	else 
-		document.write("&copy; "+ ystart +" - "+ynow);
-   }
-
-   function imgRoll(img_name, img_src)
-   {
-   	document[img_name].src = img_src;
-   }
-   
-   function divShowHide(div, state)
-   {
-   	if (state) 
+	function copyrightDate() 
 	{
-		if (state == 'visible')
-			div.style.display = '';
+		today = new Date();
+		ynow = today.getFullYear();
+		ystart='2007';
+		
+		if (ystart == ynow)
+			document.write("&copy; "+ystart);
 		else
-			div.style.display = 'none';
-   	}
-   	
-   	else 
+			document.write("&copy; "+ ystart +" - "+ynow);
+	}
+	
+	function imgRoll(img_name, img_src)
 	{
-   		if (div.style.display == '')
-			div.style.display = 'none';
-   		else
-			div.style.display = '';
-   	}
-   }
-   //-->
+		document[img_name].src = img_src;
+	}
+	
+	function divShowHide(div, state)
+	{
+		if (state) 
+		{
+			if (state == 'visible')
+				div.style.display = '';
+			else
+				div.style.display = 'none';
+		}
+		else
+		{
+			if (div.style.display == '')
+				div.style.display = 'none';
+			else
+				div.style.display = '';
+		}
+	}
+  //-->
   </SCRIPT>
 
   <!--[if IE]>
@@ -117,10 +116,23 @@
 
 <!-- start footer div -->
 <div id="footer">
-
+<table cellspacing="0" cellpadding="0" border="0" width="100%">
+<tr><td>
+<?php echo ($lang['heyustatus']);?>:
+<?php if (heyu_running()): ?>
+Running (<a href="<?php echo ($_SERVER['PHP_SELF']); ?>?daemon=restart"><?php echo ($lang['reload']);?></a>|<a href="<?php echo ($_SERVER['PHP_SELF']); ?>?daemon=stop"><?php echo ($lang['stop']); ?></a>)
+<?php else:  ?>
+Down (<a href="<?php echo ($_SERVER['PHP_SELF']); ?>?daemon=start"><?php echo ($lang['start']);?></a>)
+<?php endif; ?>
+</td>
+<td align="center"></td>
+<td align="right"><?php echo (uptime()); ?></td>
+</tr>
+</table>
 </div>
 <!-- end footer div -->
-
+<br>
+<div id="copyright"><a href="<?php echo ($lang['dlurl']); ?>">domus.Link</a> (v<?php echo $ver; ?>) <SCRIPT LANGUAGE="JavaScript">copyrightDate();</SCRIPT> Istvan Hubay Cebrian</div>
 </body>
 </html>
 <!-- domus.Link - Copyright (c) 2007-2008 - Istvan Cebrian - http://domus.link.co.pt -->

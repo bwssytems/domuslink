@@ -1,4 +1,24 @@
-<form action="<?php echo($_SERVER['PHP_SELF']); ?>?action=add" method="post">
+<script language="JavaScript" type="text/javascript">
+<!--
+function validateForm(form)
+{
+	if (form.code.value == "") {
+		alert( "The code field is empty, please try again." );
+		form.code.focus();
+		return false ;
+	}
+	
+	if (form.label.value == "") {
+		alert( "The label field is empty, please try again." );
+		form.label.focus();
+		return false ;
+	}
+
+  return true ;
+}
+//-->
+</script>
+<form action="<?php echo($_SERVER['PHP_SELF']); ?>?action=add" method="post" onsubmit="return validateForm(this);">
 
 <table cellspacing="0" cellpadding="0" border="0" class="content">
 <tr><th><?php echo ($lang['addalias']); ?></th></tr>

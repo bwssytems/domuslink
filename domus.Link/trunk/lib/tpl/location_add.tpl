@@ -1,4 +1,18 @@
-<form action="<?php echo($_SERVER['PHP_SELF']); ?>?action=add" method="post">
+<script language="JavaScript" type="text/javascript">
+<!--
+function validateForm(form)
+{
+	if (form.location.value == "") {
+		alert( "The field is empty, please try again." );
+		form.location.focus();
+		return false ;
+	}
+
+  return true ;
+}
+//-->
+</script>
+<form action="<?php echo($_SERVER['PHP_SELF']); ?>?action=add" method="post" onsubmit="return validateForm(this);">
 
 <table cellspacing="0" cellpadding="0" border="0" width="200px" class="content">
 <tr><th><?php echo ($lang['addlocation']); ?></th></tr>

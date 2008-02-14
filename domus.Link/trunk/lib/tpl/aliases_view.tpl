@@ -41,9 +41,7 @@ foreach($aliases as $alias_num):
 </table>
 
 <?php 
-if (!empty($form)): ?>
- <br />
-<?php 
+if (!empty($form)):
  echo($form);
- endif; 
+endif; 
 ?>

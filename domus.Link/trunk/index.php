@@ -34,7 +34,7 @@ if (isset($_GET['page'])) $page = $_GET['page'];
 else $page = "home";
 
 // check if heyu is running, if true display modules
-if (!heyu_state_check())
+if (heyu_running())
 {
 	// loop through each location in floorplan file
 	foreach (load_file(FPLAN_FILE_LOCATION) as $loc => $location)

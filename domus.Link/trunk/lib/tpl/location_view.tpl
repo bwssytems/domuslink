@@ -27,9 +27,7 @@ foreach($locations as $line_num => $loc):
 </table>
 
 <?php 
-if (!empty($form)): ?>
- <br />
-<?php 
+if (!empty($form)):
  echo($form);
- endif; 
+endif; 
 ?>
