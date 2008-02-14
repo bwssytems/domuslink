@@ -32,7 +32,7 @@ if ($config['seclevel'] != "0")
 ## Set template parameters
 $tpl->set('title', $lang['aliases']);
 
-$tpl_body = & new Template(TPL_FILE_LOCATION.'aliases.tpl');
+$tpl_body = & new Template(TPL_FILE_LOCATION.'aliases_view.tpl');
 $tpl_body->set('lang', $lang);
 $tpl_body->set('aliases', $aliases);
 $tpl_body->set('config', $config);
