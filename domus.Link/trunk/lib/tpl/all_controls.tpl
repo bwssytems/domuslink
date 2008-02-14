@@ -5,3 +5,17 @@
 <?php if (!empty($ctrl4)) echo($ctrl4); ?>
 <?php if (!empty($ctrl5)) echo($ctrl5); ?>
 <?php if (!empty($ctrl6)) echo($ctrl6); ?>
+<?php if (!empty($ctrl7)) echo($ctrl7); ?>
+<?php if (!empty($ctrl8)) echo($ctrl8); ?>
+<?php if (!empty($ctrl9)) echo($ctrl9); ?>
+<?php if (!empty($ctrl10)) echo($ctrl10); ?>
+<?php if (!empty($ctrl11)) echo($ctrl11); ?>
+<?php if (!empty($ctrl12)) echo($ctrl12); ?>
+<?php if (!empty($ctrl13)) echo($ctrl13); ?>
+<?php if (!empty($ctrl14)) echo($ctrl14); ?>
+<?php if (!empty($ctrl15)) echo($ctrl15); ?>
+<?php if (!empty($ctrl16)) echo($ctrl16); ?>
+<?php if (!empty($ctrl17)) echo($ctrl17); ?>
+<?php if (!empty($ctrl18)) echo($ctrl18); ?>
+<?php if (!empty($ctrl19)) echo($ctrl19); ?>
+<?php if (!empty($ctrl20)) echo($ctrl20); ?>

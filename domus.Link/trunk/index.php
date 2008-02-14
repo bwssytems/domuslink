@@ -28,7 +28,6 @@ if ($config['seclevel'] == "2")
 
 ## Template specific
 $tpl->set('title', $lang['home']);
-$tpl_body = & new Template(TPL_FILE_LOCATION.'all_controls.tpl');
 
 // get which page is open
 if (isset($_GET['page'])) $page = $_GET['page'];
@@ -38,68 +37,41 @@ else $page = "home";
 if (!heyu_state_check())
 {
 	// loop through each location in floorplan file
-	foreach (load_file(FPLAN_FILE_LOCATION) as $count => $location)
-	{				
+	foreach (load_file(FPLAN_FILE_LOCATION) as $loc => $location)
+	{
+		// get all aliases specific to location
 		$localized_aliases = $heyuconf->getAliasesByLocation($location);
 		
+		// if location contains aliases/modules then display them
 		if (count($localized_aliases) > 0)
-		{		
-			if ($page == "home")
+		{
+			switch($page)
 			{
-				$zone_tpl[$count] = & new Template(TPL_FILE_LOCATION.'area_box.tpl');
-				$zone_tpl[$count]->set('header', $location);
+				case "home":
+					$html .= buildLocationTable($location, $localized_aliases);
+					break;
 				
-				foreach ($localized_aliases as $alias) 
-					echo $alias."<br>";
-			}
-			elseif ($page == "lights")
-			{
-				$typed_aliases = $heyuconf->getAliasesByType($localized_aliases, "Light");
-				if (count($typed_aliases) > 0)
-				{
-					$zone_tpl[$count] = & new Template(TPL_FILE_LOCATION.'area_box.tpl');
-					$zone_tpl[$count]->set('header', $location);
+				case "lights":
+					$typed_aliases = $heyuconf->getAliasesByType($localized_aliases, "Light");
+					if (count($typed_aliases) > 0) $html .= buildLocationTable($location, $typed_aliases);
+					break;
 					
-					foreach ($typed_aliases as $light) 
-						echo $light."<br>";
-				}
-			}
-			
-			elseif ($page == "appliances")
-			{
-				$typed_aliases = $heyuconf->getAliasesByType($localized_aliases, "Appliance");
-				if (count($typed_aliases) > 0)
-				{
-					echo "<br><h1>".$location."</h1>";
+				case "appliances":
+					$typed_aliases = $heyuconf->getAliasesByType($localized_aliases, "Appliance");
+					if (count($typed_aliases) > 0) $html .= buildLocationTable($location, $typed_aliases);
+					break;
+				
+				case "irrigation":
+					$typed_aliases = $heyuconf->getAliasesByType($localized_aliases, "Irrigation");
+					if (count($typed_aliases) > 0) $html .= buildLocationTable($location, $typed_aliases);
+					break;
 					
-					foreach ($typed_aliases as $appliance) 
-						echo $appliance."<br>";
-				}
-			}
-			
-			elseif ($page == "irrigation")
-			{
-				$typed_aliases = $heyuconf->getAliasesByType($localized_aliases, "Irrigation");
-				if (count($typed_aliases) > 0)
-				{
-					echo "<br><h1>".$location."</h1>";
-					
-					foreach ($typed_aliases as $valve) 
-						echo $valve."<br>";
-				}
-			}
-			
+			} // end switch
 		} // end if count > 0
 	} // end foreach
 	
-	// add each zone to template
-	foreach ($zone_tpl as $key => $zone)
-	{
-		$tpl_body->set('ctrl'.$key, $zone);
-	}
-	
 	// add complete template to content area in layout
-	$tpl->set('content', $tpl_body);
+	$tpl->set('content', $html);
 	
 } // end if heyu running
 else
@@ -109,5 +81,29 @@ else
 
 // display the page
 echo $tpl->fetch(TPL_FILE_LOCATION.'layout.tpl');
+
+function buildLocationTable($loc, $aliases)
+{
+	$html = null;
+	$zone_tpl = & new Template(TPL_FILE_LOCATION.'floorplan_table.tpl');
+	$zone_tpl->set('header', $loc);
+	
+	// iterate array specific to a house zone
+	foreach ($aliases as $alias) 
+	{
+		$html .= buildModuleCtrl($alias);
+	}
+	
+	$zone_tpl->set('modules',$html);
+	
+	return $zone_tpl->fetch(TPL_FILE_LOCATION.'floorplan_table.tpl');
+}
+
+function buildModuleCtrl($alias)
+{
+	$mod = & new Template(TPL_FILE_LOCATION.'module.tpl');
+	$mod->set('alias', $alias);
+	return $mod->fetch(TPL_FILE_LOCATION.'module.tpl');
+}
 
 ?>

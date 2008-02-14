@@ -85,7 +85,7 @@ class heyuConf {
 			}
 		}
 		
-		return $request;
+		if (!empty($request)) return $request;
 	}
 	
 	/**
@@ -107,7 +107,7 @@ class heyuConf {
 			}
 		}
 		
-		return $request;
+		if (!empty($request)) return $request;
 	} 
 }
 
