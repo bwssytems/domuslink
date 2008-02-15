@@ -37,7 +37,7 @@ function heyu_ctrl($heyuexec, $action)
 			else
 				header("Location: ".$_SERVER['PHP_SELF']);
 		else
-			header("Location: error.php?msg=".$result[0]);
+			header("Location: ".check_url()."/error.php?msg=".$result[0]);
 	}
 	else // For stopping
 		if (substr($_SERVER['PHP_SELF'], -9) == "error.php")
@@ -58,8 +58,10 @@ function heyu_running()
 	exec($cmd, $result_exec, $retval);
 	$result = preg_grep('/[h]eyu/', $result_exec);
 
-	if (count($result) == 2) return true;
-	else return false;
+	if (count($result) == 2) 
+		return true;
+	else 
+		return false;
 }
 
 /**
@@ -94,7 +96,7 @@ function heyu_exec($heyuexec)
 	}
 	else
 	{
-		header("Location: error.php?msg=".$result[0]);
+		header("Location: ".check_url()."/error.php?msg=".$result[0]);
 	}
 }
 
@@ -104,6 +106,7 @@ function heyu_exec($heyuexec)
  * @param $unit code of module to check
  * @param $heyuexec full path and location of heyu executable
  */
+
 function on_state($unit, $heyuexec)
 {
 	$cmd = $heyuexec." onstate ".$unit." 2>&1";
@@ -112,8 +115,10 @@ function on_state($unit, $heyuexec)
 
 	if ($result[0] == "1" || $result[0] == "0")
 	{
-		if ($result[0] == "1") return true;
-		else return false;
+		if ($result[0] == "1") 
+			return true;
+		else 
+			return false;
 
 	}
 	else
@@ -125,7 +130,7 @@ function on_state($unit, $heyuexec)
 			exec($cmd, $result, $retval);
 		}
 		else
-			header("Location: error.php?msg=".$result[0]);
+			header("Location: ".check_url()."/error.php?msg=".$result[0]);
 	}
 }
 
@@ -147,7 +152,7 @@ function dim_state($unit, $heyuexec)
 	}
 	else
 	{
-		header("Location: error.php?msg=".$result[0]);
+		header("Location: ".check_url()."/error.php?msg=".$result[0]);
 	}
 }
 

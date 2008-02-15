@@ -8,14 +8,15 @@ body {
 	width: 100%;
 	background-color: #fff;
 	font-family: Verdana,Geneva,Arial,Helvetica,sans-serif;
-	font-size: 12px;
+	font-size: 10px;
 	line-height: 1.4em;
 	color: #666;
 }
 
-form {
+form input, select, option, textarea {
 	margin: 0;
 	padding: 0;
+	font-size: 10px;
 }
 
 a {
@@ -74,7 +75,7 @@ div#black_sep1 {
 div#setupmenu {
 	background: #fff url(images/header_left.gif) no-repeat;
 	height: 18px;
-	font-size: 10px;
+	/*font-size: 10px;*/
 	border-bottom: 1px dotted #ccc;
 	border-right: 1px solid #ccc;
 	line-height: 1.2em;
@@ -83,7 +84,7 @@ div#setupmenu {
 div#setupmenuitem {
 	float: right;
 	text-align: center;
-	font-size: 10px;
+	/*font-size: 10px;*/
 	border-left: 1px solid #ccc;
 	border-bottom: 1px solid #ccc;
 }
@@ -109,6 +110,8 @@ div#content {
 	padding-left: 15px;
 	padding-right: 15px;
 	padding-bottom: 15px;
+	width: auto;
+	height: auto;
 }
 
 /************** FOOTER **************/
@@ -116,6 +119,7 @@ div#footer {
 	border-top: 1px solid #ccc;
 	border-bottom: 4px solid #c5d0d3;
 	height: 18px;
+	padding-top: 2px;
 	padding-left: 15px;
 	padding-right: 15px;
 	background-color: #eee;
@@ -128,7 +132,7 @@ div#copyright {
 
 /************** TABLES **************/
 table {
-	font-size: 12px;
+	font-size: 10px;
 	line-height: 1.4em;
 	border: none;
 }
@@ -138,9 +142,11 @@ table.content {
 
 table.content th {
 	color: #000;
-	font-size: 16px;
+	font-size: 14px;
+	font-weight: bold;
 	border-bottom: 2px solid #c5d0d3;
-	padding-top: 15px;
+	padding-top: 20px;
+	padding-bottom: 5px;
 }
 
 table.content td {
@@ -155,6 +161,8 @@ table.clear td {
 	border: none;
 }
 
+/************* TESTING ***************/
+
 div#module {
 	float: left;
 	margin: 5px;
@@ -164,8 +172,8 @@ div#module {
 
 table.temp th {
 	color: #666;
-	font-size: 12px;
-	font-weight: bold;
+	font-size: 11px;
+	font-weight: normal;
 	background-color: #eee;
 	padding: 0;
 	border: 0;
@@ -184,12 +192,9 @@ h1 {
 
 /* h6 used mostly in table column headers */
 h6 {
-	font-size: 12px;
+	font-size: 11px;
 	font-weight: bold;
 }
-
-
-
 
 
 

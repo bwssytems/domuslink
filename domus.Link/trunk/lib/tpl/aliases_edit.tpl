@@ -11,7 +11,7 @@
 <!-- Code -->
 <table cellspacing="0" cellpadding="0" border="0" class="clear">
   <tr>
-    <td valign="top" width="50px"><h6><?php echo ($lang['code']); ?>:</h6></td>
+    <td valign="top" width="60px"><h6><?php echo ($lang['code']); ?>:</h6></td>
     <td valign="top" width="150px"><input type="text" name="code" value="<?php echo $code; ?>" size="10" /></td>
   </tr>
 </table>
@@ -19,7 +19,7 @@
 <!-- Label -->
 <table cellspacing="0" cellpadding="0" border="0" class="clear">
   <tr>
-    <td valign="top" width="50px"><h6><?php echo ($lang['label']);?>:</h6></td>
+    <td valign="top" width="60px"><h6><?php echo ($lang['label']);?>:</h6></td>
     <td valign="top" width="150px"><input type="text" name="label" value="<?php echo $label; ?>" size="20" /></td>
   </tr>
 </table>
@@ -27,7 +27,7 @@
 <!-- Modules -->
 <table cellspacing="0" cellpadding="0" border="0" class="clear">
   <tr>
-    <td valign="top" width="50px"><h6><?php echo ($lang['module']);?>:</h6></td>
+    <td valign="top" width="60px"><h6><?php echo ($lang['module']);?>:</h6></td>
     <td valign="top" width="150px">
     <select name="module">
     <?php foreach (load_file(MODULE_FILE_LOCATION) as $modulenf): ?>
@@ -46,7 +46,7 @@
 <!-- Type -->
 <table cellspacing="0" cellpadding="0" border="0" class="clear">
   <tr>
-    <td valign="top" width="50px"><h6><?php echo ($lang['type']);?>:</h6></td>
+    <td valign="top" width="60px"><h6><?php echo ($lang['type']);?>:</h6></td>
     <td valign="top" width="150px">
     <select name="type">
     <?php foreach ($modtypes as $key => $typenf): ?>
@@ -64,7 +64,7 @@
 <!-- Location -->
 <table cellspacing="0" cellpadding="0" border="0" class="clear">
   <tr>
-    <td valign="top" width="50px"><h6><?php echo ($lang['location']);?>:</h6></td>
+    <td valign="top" width="60px"><h6><?php echo ($lang['location']);?>:</h6></td>
     <td valign="top" width="150px">
     <select name="loc">
 	<?php foreach (load_file(FPLAN_FILE_LOCATION) as $locnf): ?>

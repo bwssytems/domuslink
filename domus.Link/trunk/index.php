@@ -19,7 +19,7 @@ require_once(CLASS_FILE_LOCATION.'heyuconf.class.php');
 ## Instantiate HeyuConf class
 $heyuconf = new HeyuConf($config['heyuconf']);
 
-## Security validation's
+// Security validation's
 if ($config['seclevel'] == "2") 
 {
 	if (!isset($_COOKIE["dluloged"]))
@@ -35,12 +35,12 @@ if (isset($_GET["daemon"]))
 	if ($daemon == "restart") heyu_ctrl($config['heyuexec'], 'restart');
 }
 
-## Template specific
-$tpl->set('title', $lang['home']);
-
 // get which page is open
 if (isset($_GET['page'])) $page = $_GET['page'];
 else $page = "home";
+
+// set page title
+$tpl->set('title', ucwords($page));
 
 // check if heyu is running, if true display modules
 if (heyu_running())
@@ -96,6 +96,9 @@ else
 // display the page
 echo $tpl->fetch(TPL_FILE_LOCATION.'layout.tpl');
 
+/**
+ * 
+ */
 function buildLocationTable($loc, $aliases, $modtypes, $config)
 {
 	$html = null;
@@ -113,6 +116,9 @@ function buildLocationTable($loc, $aliases, $modtypes, $config)
 	return $zone_tpl->fetch(TPL_FILE_LOCATION.'floorplan_table.tpl');
 }
 
+/**
+ * 
+ */
 function buildModuleCtrl($alias, $modtypes, $config)
 {
 	list($label, $code, $type) = split(" ", $alias, 3);

@@ -132,7 +132,8 @@ Down (<a href="<?php echo ($_SERVER['PHP_SELF']); ?>?daemon=start"><?php echo ($
 </div>
 <!-- end footer div -->
 <br>
-<div id="copyright"><a href="<?php echo ($lang['dlurl']); ?>">domus.Link</a> (v<?php echo $ver; ?>) <SCRIPT LANGUAGE="JavaScript">copyrightDate();</SCRIPT> Istvan Hubay Cebrian</div>
+<div id="copyright"><a href="<?php echo ($lang['dlurl']); ?>" target="_blank">domus.Link</a> v<?php echo $ver; ?> (<a href="http://domus.link.co.pt/update.php?ver=<?php echo $ver; ?>" target="_blank">check for updates</a>)<br>
+<SCRIPT LANGUAGE="JavaScript">copyrightDate();</SCRIPT> Istvan Hubay Cebrian</div>
 </body>
 </html>
 <!-- domus.Link - Copyright (c) 2007-2008 - Istvan Cebrian - http://domus.link.co.pt -->
