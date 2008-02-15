@@ -5,10 +5,10 @@
 
 <table cellspacing="0" cellpadding="0" border="0" class="clear">
 <tr>
-  <td width="60px"><h6><?php echo ($lang['code']);?></h6></td>
+  <td width="70px"><h6><?php echo ($lang['code']);?></h6></td>
   <td width="144px"><h6><?php echo ($lang['label']);?></h6></td>
   <td width="70px"><h6><?php echo ($lang['module']);?></h6></td>
-  <td width="80px"><h6><?php echo ($lang['type']);?></h6></td>
+  <td width="70px"><h6><?php echo ($lang['type']);?></h6></td>
   <td width="110px"><h6><?php echo ($lang['location']);?></h6></td>
   <td colspan="2" width="100px" align="center"><h6><?php echo ($lang['actions']);?></h6></td>
   <td colspan="2" align="center"><h6><?php echo ($lang['move']);?></h6></td>
@@ -37,7 +37,7 @@ foreach($aliases as $alias_num):
 <?php endforeach; ?>
 </table>
 
-<td></tr>
+</td></tr>
 </table>
 
 <?php 

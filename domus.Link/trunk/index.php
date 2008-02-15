@@ -26,6 +26,15 @@ if ($config['seclevel'] == "2")
 		header("Location: admin/login.php?from=index");
 }
 
+// start/stop controls for heyu
+if (isset($_GET["daemon"])) 
+{
+	$daemon = $_GET["daemon"];
+	if ($daemon == "start") heyu_ctrl($config['heyuexec'], 'start');
+	if ($daemon == "stop") heyu_ctrl($config['heyuexec'], 'stop');
+	if ($daemon == "restart") heyu_ctrl($config['heyuexec'], 'restart');
+}
+
 ## Template specific
 $tpl->set('title', $lang['home']);
 
@@ -48,27 +57,32 @@ if (heyu_running())
 			switch($page)
 			{
 				case "home":
-					$html .= buildLocationTable($location, $localized_aliases);
+					$html .= buildLocationTable($location, $localized_aliases, $modtypes, $config);
 					break;
 				
 				case "lights":
-					$typed_aliases = $heyuconf->getAliasesByType($localized_aliases, "Light");
-					if (count($typed_aliases) > 0) $html .= buildLocationTable($location, $typed_aliases);
+					$typed_aliases = $heyuconf->getAliasesByType($localized_aliases, $modtypes['light']);
+					if (count($typed_aliases) > 0) $html .= buildLocationTable($location, $typed_aliases, $modtypes, $config);
 					break;
 					
 				case "appliances":
-					$typed_aliases = $heyuconf->getAliasesByType($localized_aliases, "Appliance");
-					if (count($typed_aliases) > 0) $html .= buildLocationTable($location, $typed_aliases);
+					$typed_aliases = $heyuconf->getAliasesByType($localized_aliases, $modtypes['appliance']);
+					if (count($typed_aliases) > 0) $html .= buildLocationTable($location, $typed_aliases, $modtypes, $config);
 					break;
 				
 				case "irrigation":
-					$typed_aliases = $heyuconf->getAliasesByType($localized_aliases, "Irrigation");
-					if (count($typed_aliases) > 0) $html .= buildLocationTable($location, $typed_aliases);
+					$typed_aliases = $heyuconf->getAliasesByType($localized_aliases, $modtypes['irrigation']);
+					if (count($typed_aliases) > 0) $html .= buildLocationTable($location, $typed_aliases, $modtypes, $config);
 					break;
 					
 			} // end switch
 		} // end if count > 0
 	} // end foreach
+	
+	if (isset($_GET['action']))
+	{
+		heyu_exec($config['heyuexec']);
+	}
 	
 	// add complete template to content area in layout
 	$tpl->set('content', $html);
@@ -82,7 +96,7 @@ else
 // display the page
 echo $tpl->fetch(TPL_FILE_LOCATION.'layout.tpl');
 
-function buildLocationTable($loc, $aliases)
+function buildLocationTable($loc, $aliases, $modtypes, $config)
 {
 	$html = null;
 	$zone_tpl = & new Template(TPL_FILE_LOCATION.'floorplan_table.tpl');
@@ -91,7 +105,7 @@ function buildLocationTable($loc, $aliases)
 	// iterate array specific to a house zone
 	foreach ($aliases as $alias) 
 	{
-		$html .= buildModuleCtrl($alias);
+		$html .= buildModuleCtrl($alias, $modtypes, $config);
 	}
 	
 	$zone_tpl->set('modules',$html);
@@ -99,10 +113,41 @@ function buildLocationTable($loc, $aliases)
 	return $zone_tpl->fetch(TPL_FILE_LOCATION.'floorplan_table.tpl');
 }
 
-function buildModuleCtrl($alias)
+function buildModuleCtrl($alias, $modtypes, $config)
 {
-	$mod = & new Template(TPL_FILE_LOCATION.'module.tpl');
-	$mod->set('alias', $alias);
+	list($label, $code, $type) = split(" ", $alias, 3);
+	$multi_alias = is_multi_alias($code); // check if A1,2 or just A1
+	
+	if (on_state($code, $config['heyuexec'])) { $txtlabel = 'off'; $state = 'on'; $action = $config['cmd_off']; }
+	else { $txtlabel = 'on'; $state = 'off'; $action = $config['cmd_on']; }
+
+	switch ($type)
+	{
+		case $modtypes['light']:
+			$mod = & new Template(TPL_FILE_LOCATION.'module.tpl');
+			$mod->set('label', $label);
+			$mod->set('code', $code);
+			$mod->set('action', $action);
+			$mod->set('txtlabel', $txtlabel);
+			break;
+			
+		case $modtypes['appliance']:
+			$mod = & new Template(TPL_FILE_LOCATION.'module.tpl');
+			$mod->set('label', $label);
+			$mod->set('code', $code);
+			$mod->set('action', $action);
+			$mod->set('txtlabel', $txtlabel);
+			break;
+		
+		case $modtypes['irrigation']:
+			$mod = & new Template(TPL_FILE_LOCATION.'module.tpl');
+			$mod->set('label', $label);
+			$mod->set('code', $code);
+			$mod->set('action', $action);
+			$mod->set('txtlabel', $txtlabel);
+			break;
+	}
+	
 	return $mod->fetch(TPL_FILE_LOCATION.'module.tpl');
 }
 

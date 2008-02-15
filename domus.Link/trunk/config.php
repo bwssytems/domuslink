@@ -60,10 +60,6 @@ $config['url_path'] = '/domus.Link';
 # Theme - GUI's Theme
 $config['theme'] = 'default';
 
-# Cols - Number of colums per row. In other words, this setting
-# define how many control's apear on each row. 
-$config['cols'] = '2';
-
 # Images - Select ON or OFF if you want images to be displayed
 # in the menu bar instead of text.
 $config['imgs'] = 'ON';

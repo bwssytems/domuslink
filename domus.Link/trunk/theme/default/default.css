@@ -148,10 +148,32 @@ table.content td {
 	border-left: 1px dotted #ccc;
 	border-right: 1px dotted #ccc;
 	border-bottom: 1px dotted #ccc;
+	background-color: #fbfbfb;
 }
 
 table.clear td {
 	border: none;
+}
+
+div#module {
+	float: left;
+	margin: 5px;
+	padding:2px;
+	border: 1px solid #ccc;
+}
+
+table.temp th {
+	color: #666;
+	font-size: 12px;
+	font-weight: bold;
+	background-color: #eee;
+	padding: 0;
+	border: 0;
+}
+
+table.temp td {
+	border: none;
+	padding: 0;
 }
 
 /************** HEADINGS **************/

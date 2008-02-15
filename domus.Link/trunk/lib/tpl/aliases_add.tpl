@@ -62,7 +62,7 @@ function validateForm(form)
     <td valign="top" width="50px"><h6><?php echo ($lang['type']);?>:</h6></td>
     <td valign="top" width="150px">
     <select name="type">
-	<?php foreach (load_file(TYPE_FILE_LOCATION) as $typenf): ?>
+	<?php foreach ($modtypes as $key => $typenf): ?>
 	<?php $typef = rtrim($typenf); ?>
 		<option value="<?php echo $typef;?>"><?php echo $typef;?></option>
 	<?php endforeach; ?>

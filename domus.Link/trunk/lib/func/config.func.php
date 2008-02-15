@@ -27,7 +27,6 @@ function config_load()
 	$config["lang"] = "";
 	$config["url_path"] = "/";
 	$config["theme"] = "default";
-	$config["cols"] = "2";
 	$config["imgs"] = "ON";
 	$config["refresh"] = "0";
 
@@ -108,10 +107,6 @@ function config_text($config)
 
 # Theme - GUI's Theme
 \$config['theme'] = '{$config['theme']}';
-
-# Cols - Number of colums per row. In other words, this setting
-# define how many control's apear on each row. 
-\$config['cols'] = '{$config['cols']}';
 
 # Images - Select ON or OFF if you want images to be displayed
 # in the menu bar instead of text.

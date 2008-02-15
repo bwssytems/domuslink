@@ -8,9 +8,7 @@
 
 <table cellspacing="0" cellpadding="0" border="0" class="clear">
   <tr><td align="center"><h6><?php echo ($lang['location']); ?>:</h6></td></tr>
-  <tr>
-    <td width="150px"><input type="text" name="location" value="<?php echo $loc; ?>" size="20" /></td>
-  </tr>
+  <tr><td align="center" width="150px"><input type="text" name="location" value="<?php echo $loc; ?>" size="25" /></td></tr>
 </table>
 
 </td></tr>

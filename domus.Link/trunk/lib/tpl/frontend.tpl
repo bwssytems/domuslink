@@ -160,17 +160,6 @@
   </tr>
 </table>
 <br />
-<!-- Cols -->
-<table cellspacing="0" cellpadding="0" border="0" class="clear">
-  <tr>
-    <td colspan="2" style="border-bottom:1px dotted #ccc;"><h6><?php echo ($lang['cols']); ?></h6></td>
-  </tr>
-  <tr>
-    <td valign="top" width="150px"><input type="text" size="10" name="cols" value="<?php echo ($config['cols']); ?>" /></td>
-    <td width="350px"><?php echo ($lang['cols_txt']); ?></td>
-  </tr>
-</table>
-<br />
 <!-- Images -->
 <table cellspacing="0" cellpadding="0" border="0" class="clear">
   <tr>

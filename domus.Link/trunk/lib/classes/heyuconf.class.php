@@ -102,7 +102,7 @@ class heyuConf {
 			
 			if ($orgtype == $type)
 			{
-				$request[$i] = $label." ".$code;
+				$request[$i] = $label." ".$code." ".$type;
 				$i++;
 			}
 		}

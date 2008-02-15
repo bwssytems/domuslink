@@ -3,6 +3,7 @@
 # Load definitions
 $dirname = dirname(__FILE__);
 require_once($dirname.DIRECTORY_SEPARATOR.'fileloc.php');
+require_once($dirname.DIRECTORY_SEPARATOR.'constants.php');
 
 # Make new frontend object
 require_once(CLASS_FILE_LOCATION.'global.class.php');

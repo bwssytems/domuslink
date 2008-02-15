@@ -42,6 +42,7 @@ if (!isset($_GET["action"]))
 {
 	$tpl_add = & new Template(TPL_FILE_LOCATION.'aliases_add.tpl');
 	$tpl_add->set('lang', $lang);
+	$tpl_add->set('modtypes', $modtypes);
 	$tpl_body->set('form', $tpl_add);
 }
 else
@@ -58,6 +59,7 @@ else
 			$tpl_edit->set('label', $label);
 			$tpl_edit->set('code', $code);
 			$tpl_edit->set('module', $module);
+			$tpl_edit->set('modtypes', $modtypes);
 			$tpl_edit->set('type', $type);
 			$tpl_edit->set('loc', $loc);
 			$tpl_edit->set('linenum', $_GET['line']); // sets number of line being edited

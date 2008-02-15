@@ -23,7 +23,7 @@ foreach($locations as $line_num => $loc):
 <?php endforeach; ?>
 </table>
 
-<td></tr>
+</td></tr>
 </table>
 
 <?php 
