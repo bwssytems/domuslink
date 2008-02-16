@@ -65,6 +65,20 @@ function heyu_running()
 }
 
 /**
+ * Heyu Info
+ * 
+ * @param $heyuexec hold complete path and executable for heyu
+ */
+function heyu_info($heyuexec)
+{
+	$cmd = $heyuexec." info 2>&1";
+	$result = array(); $retval = null;
+	exec($cmd, $result, $retval);
+	
+	return $result;
+}
+
+/**
  * Heyu Exec
  *
  * @param $heyuexec full path and location of heyu executable

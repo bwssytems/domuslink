@@ -16,8 +16,7 @@ require_once(CLASS_FILE_LOCATION.'heyuconf.class.php');
 
 ## Instantiate HeyuConf class
 $heyuconf = new HeyuConf($config['heyuconf']);
-$settings = $heyuconf->get();
-$aliases = $heyuconf->getAliases();
+
 ## Get locations
 $locations = load_file(FPLAN_FILE_LOCATION);
 $locsize = count($locations);
@@ -69,7 +68,7 @@ else
 			$i = 0;
 			
 			// check if original location name is in use
-			foreach($settings as $line) 
+			foreach($heyuconf->get() as $line) 
 			{
 				if (substr($line, 0, 5) == "ALIAS") 
 				{
@@ -99,9 +98,9 @@ else
 		case "del":
 			$loc2rm = $locations[$_GET["line"]];
 			$found = false;
-		
+			
 			// check if location is in use
-			foreach($aliases as $alias_num) 
+			foreach($heyuconf->getAliases() as $alias_num) 
 			{
 				list($alias, $temp) = split("@", $alias_num, 2);
 				list($temp, $temp, $temp, $module_type) = split(" ", $alias, 4);

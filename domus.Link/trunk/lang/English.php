@@ -33,6 +33,7 @@ $lang['reload'] = 'reload';
 $lang['stop'] = 'stop';
 $lang['login'] = 'Login';
 $lang['move'] = 'Move';
+$lang['info'] = 'Info';
 $lang['addalias'] = 'Add Alias';
 $lang['editalias'] = 'Edit Alias';
 $lang['frontendadmin'] = 'Frontend Configuration';

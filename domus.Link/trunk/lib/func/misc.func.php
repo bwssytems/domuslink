@@ -67,7 +67,13 @@ function label_parse($str, $add)
  */
 function check_url()
 {
-	return substr($_SERVER['PHP_SELF'], 0, strpos($_SERVER['PHP_SELF'], '/admin'));	
+	if (strpos($_SERVER['PHP_SELF'], '/admin') > 0)
+		return substr($_SERVER['PHP_SELF'], 0, strpos($_SERVER['PHP_SELF'], '/admin'));
+	else 
+	{
+		list($temp, $url_path, $temp2) = split("/", $_SERVER['PHP_SELF'], 3);
+		return "/".$url_path;
+	}
 }
 
 /**

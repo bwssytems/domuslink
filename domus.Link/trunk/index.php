@@ -29,10 +29,18 @@ if ($config['seclevel'] == "2")
 // start/stop controls for heyu
 if (isset($_GET["daemon"])) 
 {
-	$daemon = $_GET["daemon"];
-	if ($daemon == "start") heyu_ctrl($config['heyuexec'], 'start');
-	if ($daemon == "stop") heyu_ctrl($config['heyuexec'], 'stop');
-	if ($daemon == "restart") heyu_ctrl($config['heyuexec'], 'restart');
+	switch ($_GET["daemon"])
+	{
+		case "start":
+			heyu_ctrl($config['heyuexec'], 'start');
+			break;
+		case "stop":
+			heyu_ctrl($config['heyuexec'], 'stop');
+			break;
+		case "restart":
+			heyu_ctrl($config['heyuexec'], 'restart');
+			break;
+	}
 }
 
 // get which page is open
@@ -45,43 +53,57 @@ $tpl->set('title', ucwords($page));
 // check if heyu is running, if true display modules
 if (heyu_running())
 {
-	// loop through each location in floorplan file
-	foreach (load_file(FPLAN_FILE_LOCATION) as $loc => $location)
-	{
-		// get all aliases specific to location
-		$localized_aliases = $heyuconf->getAliasesByLocation($location);
-		
-		// if location contains aliases/modules then display them
-		if (count($localized_aliases) > 0)
-		{
-			switch($page)
-			{
-				case "home":
-					$html .= buildLocationTable($location, $localized_aliases, $modtypes, $config);
-					break;
-				
-				case "lights":
-					$typed_aliases = $heyuconf->getAliasesByType($localized_aliases, $modtypes['light']);
-					if (count($typed_aliases) > 0) $html .= buildLocationTable($location, $typed_aliases, $modtypes, $config);
-					break;
-					
-				case "appliances":
-					$typed_aliases = $heyuconf->getAliasesByType($localized_aliases, $modtypes['appliance']);
-					if (count($typed_aliases) > 0) $html .= buildLocationTable($location, $typed_aliases, $modtypes, $config);
-					break;
-				
-				case "irrigation":
-					$typed_aliases = $heyuconf->getAliasesByType($localized_aliases, $modtypes['irrigation']);
-					if (count($typed_aliases) > 0) $html .= buildLocationTable($location, $typed_aliases, $modtypes, $config);
-					break;
-					
-			} // end switch
-		} // end if count > 0
-	} // end foreach
-	
+	// if any action set, act on it
 	if (isset($_GET['action']))
 	{
-		heyu_exec($config['heyuexec']);
+		switch ($_GET['action'])
+		{
+			case "info":
+				$info = & new Template(TPL_FILE_LOCATION.'info.tpl');
+				$info->set('lang', $lang);
+				$info->set('lines', heyu_info($config['heyuexec']));
+				$html = $info->fetch(TPL_FILE_LOCATION.'info.tpl');
+				break;
+			default:
+				heyu_exec($config['heyuexec']);
+		}
+	}
+	// else display modules
+	else
+	{
+		// loop through each location in floorplan file
+		foreach (load_file(FPLAN_FILE_LOCATION) as $loc => $location)
+		{
+			// get all aliases specific to location
+			$localized_aliases = $heyuconf->getAliasesByLocation($location);
+			
+			// if location contains aliases/modules then display them
+			if (count($localized_aliases) > 0)
+			{
+				switch($page)
+				{
+					case "home":
+						$html .= buildLocationTable($location, $localized_aliases, $modtypes, $config);
+						break;
+					
+					case "lights":
+						$typed_aliases = $heyuconf->getAliasesByType($localized_aliases, $modtypes['light']);
+						if (count($typed_aliases) > 0) $html .= buildLocationTable($location, $typed_aliases, $modtypes, $config);
+						break;
+						
+					case "appliances":
+						$typed_aliases = $heyuconf->getAliasesByType($localized_aliases, $modtypes['appliance']);
+						if (count($typed_aliases) > 0) $html .= buildLocationTable($location, $typed_aliases, $modtypes, $config);
+						break;
+					
+					case "irrigation":
+						$typed_aliases = $heyuconf->getAliasesByType($localized_aliases, $modtypes['irrigation']);
+						if (count($typed_aliases) > 0) $html .= buildLocationTable($location, $typed_aliases, $modtypes, $config);
+						break;
+						
+				} // end switch
+			} // end if count > 0
+		} // end foreach
 	}
 	
 	// add complete template to content area in layout

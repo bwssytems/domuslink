@@ -120,7 +120,7 @@
 <tr><td>
 <?php echo ($lang['heyustatus']);?>:
 <?php if (heyu_running()): ?>
-Running (<a href="<?php echo ($_SERVER['PHP_SELF']); ?>?daemon=restart"><?php echo ($lang['reload']);?></a>|<a href="<?php echo ($_SERVER['PHP_SELF']); ?>?daemon=stop"><?php echo ($lang['stop']); ?></a>)
+Running (<a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=info"><?php echo strtolower($lang['info']);?></a>|<a href="<?php echo ($_SERVER['PHP_SELF']); ?>?daemon=restart"><?php echo ($lang['reload']);?></a>|<a href="<?php echo ($_SERVER['PHP_SELF']); ?>?daemon=stop"><?php echo ($lang['stop']); ?></a>)
 <?php else:  ?>
 Down (<a href="<?php echo ($_SERVER['PHP_SELF']); ?>?daemon=start"><?php echo ($lang['start']);?></a>)
 <?php endif; ?>
