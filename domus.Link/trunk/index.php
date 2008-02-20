@@ -66,6 +66,7 @@ if (heyu_running())
 				break;
 			default:
 				heyu_exec($config['heyuexec']);
+				break;
 		}
 	}
 	// else display modules
@@ -156,7 +157,9 @@ function buildModuleCtrl($alias, $modtypes, $config)
 			$mod->set('label', $label);
 			$mod->set('code', $code);
 			$mod->set('action', $action);
-			$mod->set('txtlabel', $txtlabel);
+			$mod->set('state', $state);
+			$mod->set('config', $config);
+			//$mod->set('txtlabel', $txtlabel);
 			break;
 			
 		case $modtypes['appliance']:
@@ -164,7 +167,9 @@ function buildModuleCtrl($alias, $modtypes, $config)
 			$mod->set('label', $label);
 			$mod->set('code', $code);
 			$mod->set('action', $action);
-			$mod->set('txtlabel', $txtlabel);
+			$mod->set('state', $state);
+			$mod->set('config', $config);
+			//$mod->set('txtlabel', $txtlabel);
 			break;
 		
 		case $modtypes['irrigation']:
@@ -172,7 +177,9 @@ function buildModuleCtrl($alias, $modtypes, $config)
 			$mod->set('label', $label);
 			$mod->set('code', $code);
 			$mod->set('action', $action);
-			$mod->set('txtlabel', $txtlabel);
+			$mod->set('state', $state);
+			$mod->set('config', $config);
+			//$mod->set('txtlabel', $txtlabel);
 			break;
 	}
 	

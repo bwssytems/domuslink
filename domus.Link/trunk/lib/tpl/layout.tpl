@@ -15,7 +15,7 @@
 	{
 		today = new Date();
 		ynow = today.getFullYear();
-		ystart='2007';
+		ystart = '2007';
 		
 		if (ystart == ynow)
 			document.write("&copy; "+ystart);
@@ -117,12 +117,13 @@
 <!-- start footer div -->
 <div id="footer">
 <table cellspacing="0" cellpadding="0" border="0" width="100%">
-<tr><td>
+ <tr>
+  <td>
 <?php echo ($lang['heyustatus']);?>:
 <?php if (heyu_running()): ?>
-Running (<a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=info"><?php echo strtolower($lang['info']);?></a>|<a href="<?php echo ($_SERVER['PHP_SELF']); ?>?daemon=restart"><?php echo ($lang['reload']);?></a>|<a href="<?php echo ($_SERVER['PHP_SELF']); ?>?daemon=stop"><?php echo ($lang['stop']); ?></a>)
+<?php echo $lang['running']; ?> (<a href="<?php echo ($config['url_path']);?>/?action=info"><?php echo strtolower($lang['info']);?></a>|<a href="<?php echo ($config['url_path']);?>/?daemon=restart"><?php echo ($lang['reload']);?></a>|<a href="<?php echo ($config['url_path']);?>/?daemon=stop"><?php echo ($lang['stop']); ?></a>)
 <?php else:  ?>
-Down (<a href="<?php echo ($_SERVER['PHP_SELF']); ?>?daemon=start"><?php echo ($lang['start']);?></a>)
+<?php echo $lang['down']; ?> (<a href="<?php echo ($config['url_path']);?>/?daemon=start"><?php echo ($lang['start']);?></a>)
 <?php endif; ?>
 </td>
 <td align="center"></td>
@@ -132,8 +133,8 @@ Down (<a href="<?php echo ($_SERVER['PHP_SELF']); ?>?daemon=start"><?php echo ($
 </div>
 <!-- end footer div -->
 <br>
-<div id="copyright"><a href="<?php echo ($lang['dlurl']); ?>" target="_blank">domus.Link</a> v<?php echo $ver; ?> (<a href="http://domus.link.co.pt/update.php?ver=<?php echo $ver; ?>" target="_blank">check for updates</a>)<br>
-<SCRIPT LANGUAGE="JavaScript">copyrightDate();</SCRIPT> Istvan Hubay Cebrian</div>
+<div id="copyright"><a href="<?php echo ($lang['dlurl']); ?>" target="_blank">domus.Link :: Heyu Frontend</a> v<?php echo $ver; ?>
+<br>Copyright <SCRIPT LANGUAGE="JavaScript">copyrightDate();</SCRIPT><br>Istvan Hubay Cebrian</div>
 </body>
 </html>
 <!-- domus.Link - Copyright (c) 2007-2008 - Istvan Cebrian - http://domus.link.co.pt -->

@@ -34,6 +34,8 @@ $lang['stop'] = 'stop';
 $lang['login'] = 'Login';
 $lang['move'] = 'Move';
 $lang['info'] = 'Info';
+$lang['running'] = 'Running';
+$lang['Down'] = 'Down';
 $lang['addalias'] = 'Add Alias';
 $lang['editalias'] = 'Edit Alias';
 $lang['frontendadmin'] = 'Frontend Configuration';
@@ -52,7 +54,7 @@ $lang['refresh'] = 'Page Refresh Timer';
 $lang['location'] = 'Location';
 $lang['addlocation'] = 'Add Location';
 $lang['editlocation'] = 'Edit Location';
-$lang['heyustatus'] = 'Heyu Status';
+$lang['heyustatus'] = 'Heyu status';
 $lang['deleteconfirm'] = 'Are you sure you want to delete this module?';
 $lang['enter_password'] = 'Please enter your password to access the administration area.';
 

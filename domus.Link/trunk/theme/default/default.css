@@ -52,6 +52,7 @@ div#menuitem {
 	width: 19.9%;
 	text-align: center;
 	font-size: 14px;
+	height: 40px;
 }
 
 div#menuitem p {
@@ -165,24 +166,41 @@ table.clear td {
 
 div#module {
 	float: left;
-	margin: 5px;
-	padding:2px;
-	border: 1px solid #ccc;
-}
-
-table.temp th {
-	color: #666;
-	font-size: 11px;
-	font-weight: normal;
-	background-color: #eee;
-	padding: 0;
-	border: 0;
+	width: 160px;
+	height: 36px;
+	background: #ccc url(images/button.gif) no-repeat;
+	padding-top: 3px;
+	padding-left: 5px;
+	padding-right: 5px;
+	padding-bottom: 6px;
+	margin: 8px;
 }
 
 table.temp td {
-	border: none;
+	border: 0;
 	padding: 0;
+	margin: 0;
+	font-size: 9px;
 }
+
+.on {
+	color: green;
+}
+
+.off {
+	color: #b07171;
+}
+
+input.module {
+	border: 0;
+	padding: 0;
+	font-size: 11px;
+	width: 110px;
+	text-align: center;
+	color: #666;
+	font-weight: bold;
+}
+
 
 /************** HEADINGS **************/
 
