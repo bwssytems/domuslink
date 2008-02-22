@@ -75,7 +75,7 @@ function save_file($content, $filename, $isheyuconf)
  */
 function add_line($content, $file, $editing)
 {
-	array_push($content, build_newline($editing));
+	array_push($content, build_new_line($editing));
 	save_file($content, $file);
 }
 
@@ -92,12 +92,12 @@ function edit_line($content, $file, $editing)
 
 	if ($line == 0 || (count($content) - 1) == $line) // first or last line editing
 	{
-		array_splice($content, $line, 1, build_newline($editing));
+		array_splice($content, $line, 1, build_new_line($editing));
 	}
 	else // when editing line in middle
 	{
 		$end = array_splice($content, $line+1);
-		array_splice($content, $line, 1, build_newline($editing));
+		array_splice($content, $line, 1, build_new_line($editing));
 		$content = array_merge($content, $end);
 	}
 	
@@ -118,11 +118,11 @@ function delete_line($content, $file, $line)
 }
 
 /**
- * Build line to add or alter to a file
+ * Build line to add or alter in a file
  * 
  * @param $type represents type of line being created
  */
-function build_newline($type)
+function build_new_line($type)
 {
 	switch ($type)
 	{

@@ -1,0 +1,35 @@
+<div id="module">
+<table cellspacing="0" cellpadding="0" border="0" class="module" height="37px">
+<tr>
+<td width="17" valign="top" class="<?php echo $state; ?>"><?php echo $state; ?></td>
+<td width="110px" valign="bottom" height="22"><input type="text" value="<?php echo label_parse($label, false); ?>" class="module"  /></td>
+<td rowspan="2"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?action=<?php echo $action; ?>&device=<?php echo $code; ?>&page=home"><img src="<?php echo $config['url_path']; ?>/theme/<?php echo $config['theme']; ?>/images/switch_<?php echo $state; ?>.gif" border="0" /></a></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td valign="bottom" align="center">
+
+<!-- dimmer table start -->
+<table cellspacing="0" cellpadding="0" border="0" class="dimlevel" align="center">
+<tr>
+<?php for($i = 1; $i <= 5; $i++): ?>
+  <?php if ($i <= $level): ?>
+    <td class="dimlevelon"><a href="#"><img src="<?php echo $config['url_path']; ?>/theme/<?php echo $config['theme']; ?>/images/1px.gif" border="0" height="1px" width="1px" /></a></td>
+    <?php if ($i != 5): // dont display if last level ?>
+      <td style="border: 0; width: 5px;"><img src="<?php echo $config['url_path']; ?>/theme/<?php echo $config['theme']; ?>/images/1px.gif" border="0" height="1px" width="1px" /></td>
+    <?php endif; ?>
+  <?php else: ?>
+    <td class="dimleveloff"><a href="#"><img src="<?php echo $config['url_path']; ?>/theme/<?php echo $config['theme']; ?>/images/1px.gif" border="0" height="1px" width="1px" /></a></td>
+    <?php if ($i != 5): // dont display if last level ?>
+      <td style="border: 0; width: 5px;"><img src="<?php echo $config['url_path']; ?>/theme/<?php echo $config['theme']; ?>/images/1px.gif" border="0" height="1px" width="1px" /></td>
+    <?php endif; ?>
+  <?php endif; ?>
+<?php endfor; ?>
+<tr>
+</table>
+<!-- dimmer table end -->
+
+</td>
+</tr>
+</table>
+</div>

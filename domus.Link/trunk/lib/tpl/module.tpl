@@ -1,5 +1,5 @@
 <div id="module">
-<table cellspacing="0" cellpadding="0" border="1" class="temp">
+<table cellspacing="0" cellpadding="0" border="1" class="module">
 <tr>
 <td width="17" valign="top" class="<?php echo $state; ?>"><?php echo $state; ?></td>
 <td width="110px" rowspan="2"><input type="text" value="<?php echo label_parse($label, false); ?>" class="module"  /></td>

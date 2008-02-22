@@ -84,22 +84,22 @@ if (heyu_running())
 				switch($page)
 				{
 					case "home":
-						$html .= buildLocationTable($location, $localized_aliases, $modtypes, $config);
+						$html .= build_location_tb($location, $localized_aliases, $modtypes, $config);
 						break;
 					
 					case "lights":
 						$typed_aliases = $heyuconf->getAliasesByType($localized_aliases, $modtypes['light']);
-						if (count($typed_aliases) > 0) $html .= buildLocationTable($location, $typed_aliases, $modtypes, $config);
+						if (count($typed_aliases) > 0) $html .= build_location_tb($location, $typed_aliases, $modtypes, $config);
 						break;
 						
 					case "appliances":
 						$typed_aliases = $heyuconf->getAliasesByType($localized_aliases, $modtypes['appliance']);
-						if (count($typed_aliases) > 0) $html .= buildLocationTable($location, $typed_aliases, $modtypes, $config);
+						if (count($typed_aliases) > 0) $html .= build_location_tb($location, $typed_aliases, $modtypes, $config);
 						break;
 					
 					case "irrigation":
 						$typed_aliases = $heyuconf->getAliasesByType($localized_aliases, $modtypes['irrigation']);
-						if (count($typed_aliases) > 0) $html .= buildLocationTable($location, $typed_aliases, $modtypes, $config);
+						if (count($typed_aliases) > 0) $html .= build_location_tb($location, $typed_aliases, $modtypes, $config);
 						break;
 						
 				} // end switch
@@ -122,7 +122,7 @@ echo $tpl->fetch(TPL_FILE_LOCATION.'layout.tpl');
 /**
  * 
  */
-function buildLocationTable($loc, $aliases, $modtypes, $config)
+function build_location_tb($loc, $aliases, $modtypes, $config)
 {
 	$html = null;
 	$zone_tpl = & new Template(TPL_FILE_LOCATION.'floorplan_table.tpl');
@@ -131,7 +131,7 @@ function buildLocationTable($loc, $aliases, $modtypes, $config)
 	// iterate array specific to a house zone
 	foreach ($aliases as $alias) 
 	{
-		$html .= buildModuleCtrl($alias, $modtypes, $config);
+		$html .= build_module_tb($alias, $modtypes, $config);
 	}
 	
 	$zone_tpl->set('modules',$html);
@@ -142,7 +142,7 @@ function buildLocationTable($loc, $aliases, $modtypes, $config)
 /**
  * 
  */
-function buildModuleCtrl($alias, $modtypes, $config)
+function build_module_tb($alias, $modtypes, $config)
 {
 	list($label, $code, $type) = split(" ", $alias, 3);
 	$multi_alias = is_multi_alias($code); // check if A1,2 or just A1
@@ -153,15 +153,16 @@ function buildModuleCtrl($alias, $modtypes, $config)
 	switch ($type)
 	{
 		case $modtypes['light']:
-			$mod = & new Template(TPL_FILE_LOCATION.'module.tpl');
-			$mod->set('label', $label);
-			$mod->set('code', $code);
-			$mod->set('action', $action);
-			$mod->set('state', $state);
+			$mod = & new Template(TPL_FILE_LOCATION.'light.tpl');
 			$mod->set('config', $config);
-			//$mod->set('txtlabel', $txtlabel);
+			$mod->set('state', $state);
+			$mod->set('label', $label);
+			$mod->set('action', $action);
+			$mod->set('code', $code);
+			$mod->set('level', level_calc(curr_dim_level($code, $config['heyuexec'])));
+			return $mod->fetch(TPL_FILE_LOCATION.'light.tpl');
 			break;
-			
+
 		case $modtypes['appliance']:
 			$mod = & new Template(TPL_FILE_LOCATION.'module.tpl');
 			$mod->set('label', $label);
@@ -170,6 +171,7 @@ function buildModuleCtrl($alias, $modtypes, $config)
 			$mod->set('state', $state);
 			$mod->set('config', $config);
 			//$mod->set('txtlabel', $txtlabel);
+			return $mod->fetch(TPL_FILE_LOCATION.'module.tpl');
 			break;
 		
 		case $modtypes['irrigation']:
@@ -180,10 +182,68 @@ function buildModuleCtrl($alias, $modtypes, $config)
 			$mod->set('state', $state);
 			$mod->set('config', $config);
 			//$mod->set('txtlabel', $txtlabel);
+			return $mod->fetch(TPL_FILE_LOCATION.'module.tpl');
 			break;
 	}
+}
+
+/**
+ * 
+ */
+function dim_bright($currlevel, $reqlevel, $config, $code) 
+{	
+	if ($currlevel == $reqlevel) return;
 	
-	return $mod->fetch(TPL_FILE_LOCATION.'module.tpl');
+	if ($currlevel < $reqlevel) 
+	{
+		$act = $config['cmd_bright'];
+		$rlevel = $reqlevel - $currlevel; // 5 - 0 = 5 full bright
+	}
+	if ($currlevel > $reqlevel) 
+	{
+		$act = $config['cmd_dim'];
+		$rlevel = $currlevel - $reqlevel; // 5 - 0 = 5 full dim
+	}
+	
+	// levels:   1, 2,  3,  4, 5
+	// increase: 4, 8, 12, 16, 22
+	
+	switch ($rlevel)
+	{
+		case 1:
+			$pcmd = $act." ".$code." 4";
+			break;
+		
+		case 2:
+			$pcmd = $act." ".$code." 8";
+			break;
+			
+		case 3:
+			$pcmd = $act." ".$code." 12";
+			break;
+			
+		case 4:
+			$pcmd = $act." ".$code." 16";
+			break;
+			
+		case 5:
+			// on or off
+			$pcmd = $act." ".$code." 22";
+			break;
+	}
+}
+
+/**
+ * 
+ */
+function level_calc($dimpercent) 
+{
+	if ($dimpercent == "0") return 0;
+	elseif ($dimpercent > "82" && $dimpercent <= "100") return 5;
+	elseif ($dimpercent > "60" && $dimpercent <= "82") return 4;
+	elseif ($dimpercent > "40" && $dimpercent <= "60") return 3;
+	elseif ($dimpercent > "20" && $dimpercent <= "40") return 2;
+	elseif ($dimpercent > "0" && $dimpercent <= "20") return 1;
 }
 
 ?>

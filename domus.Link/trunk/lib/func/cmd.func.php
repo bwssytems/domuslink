@@ -93,7 +93,7 @@ function heyu_exec($heyuexec)
 	{
 		$cmd = $heyuexec." ".$action." ".$unit." 2>&1";
 	}
-	elseif ($action=="dim" || $action=="bright" || $action=="dimb" || $action=="brightb" || $action=="fdim" || $action=="fbright")
+	else
 	{
 		$cmd = $heyuexec." ".$action." ".$unit." ".$_GET["value"];
 	}
@@ -176,13 +176,10 @@ function dim_state($unit, $heyuexec)
  * @param $unit code of module to check
  * @param $heyuexec full path and location of heyu executable
  */
-function dim_level($unit, $heyuexec)
+function curr_dim_level($unit, $heyuexec)
 {
-	$cmd = $heyuexec." dimlevel ".$unit." 2>&1";
-	$result = array(); $retval = null;
-	exec($cmd, $result, $retval);
-
-	return $result[0];
+	$rs = execute_cmd($heyuexec." dimlevel ".$unit." 2>&1");
+	return $rs[0];
 }
 
 /**
@@ -190,10 +187,16 @@ function dim_level($unit, $heyuexec)
  */
 function uptime()
 {
-	$cmd = "uptime 2>&1";
-	$result = array(); $retval = null;
-	exec ($cmd, $result, $retval);
-	return $result[0];
+	$rs = execute_cmd("uptime 2>&1");
+	return $rs[0];
 }
 
+/**
+ * 
+ */
+function execute_cmd($cmd, $result = array(), $retval = null)
+{
+	exec ($cmd, $result, $retval);
+	return $result;
+}
 ?>
