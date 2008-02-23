@@ -138,19 +138,23 @@ function dim_bright($state, $currlevel, $reqlevel, $code, $config)
 	switch ($incdec)
 	{
 		case 1:
-			$cmd .= " 4";
+			if ($state == "on") $cmd .= " 4";
+			else $cmd .= " 22";
 			break;
 		case 2:
-			$cmd .= " 8";
+			if ($state == "on") $cmd .= " 8";
+			else $cmd .= " 16";
 			break;	
 		case 3:
 			$cmd .= " 12";
 			break;
 		case 4:
-			$cmd .= " 16";
+			if ($state == "on") $cmd .= " 16";
+			else $cmd .= " 8";
 			break;
 		case 5:
-			$cmd .= " 22";
+			if ($state == "on") $cmd .= " 22";
+			else $cmd .= " 4";
 			break;
 	}
 	
@@ -172,7 +176,7 @@ function on_state($code, $heyuexec)
 	{
 		if ($rs[0] == "1") return true;
 	}
-	else // if result is diff than 0 or 1
+	else
 	{
 		if ($rs[0] = 'Unable to read state file.')
 		{

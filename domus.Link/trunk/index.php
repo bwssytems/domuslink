@@ -45,7 +45,7 @@ if (isset($_GET["daemon"]))
 
 // get which page is open
 if (isset($_GET['page'])) $page = $_GET['page'];
-else $page = "home";
+else header("Location: ".$_SERVER['PHP_SELF']."?page=home");
 
 // set page title
 $tpl->set('title', ucwords($page));
@@ -153,6 +153,7 @@ function build_module_tb($alias, $modtypes, $config)
 			$mod->set('label', $label);
 			$mod->set('action', $action);
 			$mod->set('code', $code);
+			$mod->set('page', $_GET['page']);
 			$mod->set('level', level_calc(curr_dim_level($code, $config['heyuexec'])));
 			return $mod->fetch(TPL_FILE_LOCATION.'light.tpl');
 			break;
