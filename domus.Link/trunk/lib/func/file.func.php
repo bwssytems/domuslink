@@ -33,40 +33,6 @@ function load_file($file)
 }
 
 /**
- * Save file
- * 
- * Description: This function saves a file to the specified filename
- *
- * @param $content new content to be saved
- * @param $filename of file to save to
- * @param $isheyuconf boolean that represent's if changes being saved
- *         are from the heyu settings. If true then force a reload
- */
-function save_file($content, $filename, $isheyuconf)
-{
-	$fp = fopen($filename,'w');
-
-	if (is_writable($filename) == true)
-	{
-		foreach ($content as $line)
-		{
-			$write = fwrite($fp, $line);
-		}
-		if ($isheyuconf)
-			header("Location: ".check_url()."/admin/reload.php");
-		else
-			header("Location: ".$_SERVER['PHP_SELF']);
-
-	}
-	else
-	{
-		header("Location: ".check_url()."/error.php?msg=".$filename." not found or not writable!");
-		die();
-	}
-	fclose($fp);
-}
-
-/**
  * Add line to file
  *
  * @param $content file contents being received
@@ -105,19 +71,6 @@ function edit_line($content, $file, $editing)
 }
 
 /**
- * Delete line from file
- *
- * @param $content file contents
- * @param $file being edited
- * @param $line to be deleted
- */
-function delete_line($content, $file, $line)
-{
-	array_splice($content, $line, 1);
-	save_file($content, $file);
-}
-
-/**
  * Build line to add or alter in a file
  * 
  * @param $type represents type of line being created
@@ -142,6 +95,19 @@ function build_new_line($type)
 }
 
 /**
+ * Delete line from file
+ *
+ * @param $content file contents
+ * @param $file being edited
+ * @param $line to be deleted
+ */
+function delete_line($content, $file, $line)
+{
+	array_splice($content, $line, 1);
+	save_file($content, $file);
+}
+
+/**
  * Changes position of two lines in array
  * 
  * @param $array original array to use
@@ -157,4 +123,39 @@ function reorder_array($array, $org_pos, $final_pos, $file)
 	
 	save_file($array, $file);
 }
+
+/**
+ * Save file
+ * 
+ * Description: This function saves a file to the specified filename
+ *
+ * @param $content new content to be saved
+ * @param $filename of file to save to
+ * @param $isheyuconf boolean that represent's if changes being saved
+ *         are from the heyu settings. If true then force a reload
+ */
+function save_file($content, $filename, $isheyuconf)
+{
+	$fp = fopen($filename,'w');
+
+	if (is_writable($filename) == true)
+	{
+		foreach ($content as $line)
+		{
+			$write = fwrite($fp, $line);
+		}
+		if ($isheyuconf)
+			header("Location: ".check_url()."/admin/reload.php");
+		else
+			header("Location: ".$_SERVER['PHP_SELF']);
+
+	}
+	else
+	{
+		header("Location: ".check_url()."/error.php?msg=".$filename." not found or not writable!");
+		die();
+	}
+	fclose($fp);
+}
+
 ?>

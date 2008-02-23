@@ -14,6 +14,8 @@
 $dirname = dirname(__FILE__);
 require_once($dirname.DIRECTORY_SEPARATOR.'include.php');
 
+if (!isset($_GET["msg"])) header("Location: index.php");
+
 ## Set template parameters
 $tpl->set('title', 'Error');
 

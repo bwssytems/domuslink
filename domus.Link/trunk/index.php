@@ -65,7 +65,7 @@ if (heyu_running())
 				$html = $info->fetch(TPL_FILE_LOCATION.'info.tpl');
 				break;
 			default:
-				heyu_exec($config['heyuexec']);
+				heyu_action($config);
 				break;
 		}
 	}
@@ -119,9 +119,6 @@ else
 // display the page
 echo $tpl->fetch(TPL_FILE_LOCATION.'layout.tpl');
 
-/**
- * 
- */
 function build_location_tb($loc, $aliases, $modtypes, $config)
 {
 	$html = null;
@@ -139,9 +136,6 @@ function build_location_tb($loc, $aliases, $modtypes, $config)
 	return $zone_tpl->fetch(TPL_FILE_LOCATION.'floorplan_table.tpl');
 }
 
-/**
- * 
- */
 function build_module_tb($alias, $modtypes, $config)
 {
 	list($label, $code, $type) = split(" ", $alias, 3);
@@ -188,53 +182,12 @@ function build_module_tb($alias, $modtypes, $config)
 }
 
 /**
+ * Level Calc
  * 
- */
-function dim_bright($currlevel, $reqlevel, $config, $code) 
-{	
-	if ($currlevel == $reqlevel) return;
-	
-	if ($currlevel < $reqlevel) 
-	{
-		$act = $config['cmd_bright'];
-		$rlevel = $reqlevel - $currlevel; // 5 - 0 = 5 full bright
-	}
-	if ($currlevel > $reqlevel) 
-	{
-		$act = $config['cmd_dim'];
-		$rlevel = $currlevel - $reqlevel; // 5 - 0 = 5 full dim
-	}
-	
-	// levels:   1, 2,  3,  4, 5
-	// increase: 4, 8, 12, 16, 22
-	
-	switch ($rlevel)
-	{
-		case 1:
-			$pcmd = $act." ".$code." 4";
-			break;
-		
-		case 2:
-			$pcmd = $act." ".$code." 8";
-			break;
-			
-		case 3:
-			$pcmd = $act." ".$code." 12";
-			break;
-			
-		case 4:
-			$pcmd = $act." ".$code." 16";
-			break;
-			
-		case 5:
-			// on or off
-			$pcmd = $act." ".$code." 22";
-			break;
-	}
-}
-
-/**
+ * Description: Calculates a readable level between 1-5.
+ * Only used in index.php when construction the template.
  * 
+ * @param $dimpercent represents current dim level of specific module
  */
 function level_calc($dimpercent) 
 {

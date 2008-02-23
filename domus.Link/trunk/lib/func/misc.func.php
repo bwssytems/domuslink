@@ -103,4 +103,28 @@ function is_multi_alias($alias)
 	*/
 }
 
+/**
+ * Uptime
+ * 
+ * Description: Return the result for the uptime command
+ * 
+ */
+function uptime()
+{
+	$rs = execute_cmd("uptime 2>&1");
+	return $rs[0];
+}
+
+/**
+ * Execute Command
+ * 
+ * Description: Common function to execute commands
+ * 
+ */
+function execute_cmd($cmd, $result = array(), $retval = null)
+{
+	exec ($cmd, $result, $retval);
+	return $result;
+}
+
 ?>

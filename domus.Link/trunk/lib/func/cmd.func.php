@@ -19,31 +19,32 @@
  */
 function heyu_ctrl($heyuexec, $action)
 {
-	if ($action == "start")
-		$cmd = $heyuexec." start 2>&1";
-	elseif ($action == "stop")
-		$cmd = $heyuexec." stop 2>&1";
-	elseif ($action == "restart")
-		$cmd = $heyuexec." restart 2>&1";
-
-	$result = array(); $retval = null;
-	exec($cmd, $result, $retval);
-
-	if (count($result)>0)
+	switch ($action)
 	{
-		if ($result[0] == "starting heyu_relay" || $result[0] == "")
-			if (substr($_SERVER['PHP_SELF'], -9) == "error.php")
-				header("Location: index.php"); // To redirect when on error.php
-			else
-				header("Location: ".$_SERVER['PHP_SELF']);
-		else
-			header("Location: ".check_url()."/error.php?msg=".$result[0]);
+		case "start":
+			$cmd = $heyuexec." start 2>&1";
+			break;
+		case "stop":
+			$cmd = $heyuexec." stop 2>&1";
+			break;
+		case "restart":
+			$cmd = $heyuexec." restart 2>&1";
+			break;
 	}
-	else // For stopping
-		if (substr($_SERVER['PHP_SELF'], -9) == "error.php")
-			header("Location: index.php");
-		else
+
+	$rs = execute_cmd($cmd);
+
+	if (count($rs)>0)
+	{
+		if ($rs[0] == "starting heyu_relay" || $rs[0] == "")
 			header("Location: ".$_SERVER['PHP_SELF']);
+		else
+			header("Location: ".check_url()."/error.php?msg=".$rs[0]);
+	}
+	else // rs empty when stopping
+	{
+		header("Location: ".$_SERVER['PHP_SELF']);
+	}
 
 }
 
@@ -53,29 +54,19 @@ function heyu_ctrl($heyuexec, $action)
  */
 function heyu_running()
 {
-	$cmd = "ps ax";
-	$result = array(); $retval = null; $result_exec = null;
-	exec($cmd, $result_exec, $retval);
-	$result = preg_grep('/[h]eyu/', $result_exec);
+	$rs = execute_cmd("ps ax");
 
-	if (count($result) == 2) 
-		return true;
-	else 
-		return false;
+	if (count(preg_grep('/[h]eyu/', $rs)) == 2) return true;
 }
 
 /**
  * Heyu Info
  * 
- * @param $heyuexec hold complete path and executable for heyu
+ * @param $heyuexec holds complete path and executable for heyu
  */
 function heyu_info($heyuexec)
 {
-	$cmd = $heyuexec." info 2>&1";
-	$result = array(); $retval = null;
-	exec($cmd, $result, $retval);
-	
-	return $result;
+	return execute_cmd($heyuexec." info 2>&1");
 }
 
 /**
@@ -83,68 +74,113 @@ function heyu_info($heyuexec)
  *
  * @param $heyuexec full path and location of heyu executable
  */
-function heyu_exec($heyuexec)
+function heyu_action($config)
 {
-	$action = $_GET["action"];
-	$unit = $_GET["device"];
-	$page = $_GET['page'];
-
-	if ($action == "on" || $action == "off" || $action == "fon" || $action == "foff")
+	switch ($_GET["action"])
 	{
-		$cmd = $heyuexec." ".$action." ".$unit." 2>&1";
+		case "on":
+		case "off":
+		case "fon":
+		case "foff":
+			$cmd = $config['heyuexec']." ".$_GET["action"]." ".$_GET["code"]." 2>&1";
+			break;
+		case "db":
+			$cmd = dim_bright($_GET["state"], $_GET["curr"], $_GET["req"], $_GET["code"], $config);
+			break;
 	}
-	else
-	{
-		$cmd = $heyuexec." ".$action." ".$unit." ".$_GET["value"];
-	}
+	
+	if ($cmd) $rs = execute_cmd($cmd);
 
-	$result = array(); $retval = null;
-	exec($cmd, $result, $retval);
-
-	if ($result[0] == "")
+	if ($rs[0] == "")
 	{
-		if ($page != "")
-			header("Location: ".$_SERVER['PHP_SELF']."?page=".$page);
+		if (isset($_GET['page']))
+			header("Location: ".$_SERVER['PHP_SELF']."?page=". $_GET['page']);
 		else
 			header("Location: ".$_SERVER['PHP_SELF']);
 	}
 	else
 	{
-		header("Location: ".check_url()."/error.php?msg=".$result[0]);
+		header("Location: ".check_url()."/error.php?msg=".$rs[0]);
 	}
+}
+
+/**
+ * Dim Bright Lights
+ * 
+ * @param $currlevel current intensity level at which the module is
+ * @param $reqlevel intensity level requested
+ * @param $code modules code
+ * @param $config file
+ * 
+ */
+function dim_bright($state, $currlevel, $reqlevel, $code, $config) 
+{	
+	
+	if ($currlevel == $reqlevel) return false;
+	
+	if ($currlevel < $reqlevel) 
+	{
+		if ($state == "off")
+			$cmd = $config['cmd_dimb']." ".$code;
+		else
+			$cmd = $config['cmd_bright']." ".$code;
+			
+		$incdec = $reqlevel - $currlevel;
+	}
+	elseif ($currlevel > $reqlevel) 
+	{
+		//if (on_state($code, $config['heyuexec']))
+		$cmd = $config['cmd_dim']." ".$code;
+		$incdec = $currlevel - $reqlevel;
+	}
+	
+	// select how much to increase or decrease level by.
+	switch ($incdec)
+	{
+		case 1:
+			$cmd .= " 4";
+			break;
+		case 2:
+			$cmd .= " 8";
+			break;	
+		case 3:
+			$cmd .= " 12";
+			break;
+		case 4:
+			$cmd .= " 16";
+			break;
+		case 5:
+			$cmd .= " 22";
+			break;
+	}
+	
+	return $config['heyuexec']." ".$cmd;
 }
 
 /**
  * On State
  *
- * @param $unit code of module to check
+ * @param $code code of module to check
  * @param $heyuexec full path and location of heyu executable
  */
 
-function on_state($unit, $heyuexec)
+function on_state($code, $heyuexec)
 {
-	$cmd = $heyuexec." onstate ".$unit." 2>&1";
-	$result = array(); $retval = null;
-	exec($cmd, $result, $retval);
+	$rs = execute_cmd($heyuexec." onstate ".$code." 2>&1");
 
-	if ($result[0] == "1" || $result[0] == "0")
+	if ($rs[0] == "1" || $rs[0] == "0")
 	{
-		if ($result[0] == "1") 
-			return true;
-		else 
-			return false;
-
+		if ($rs[0] == "1") return true;
 	}
-	else
+	else // if result is diff than 0 or 1
 	{
-		if ($result[0] = 'Unable to read state file.')
+		if ($rs[0] = 'Unable to read state file.')
 		{
 			$cmd = $heyuexec." fetchstate";
-			$result = array(); $retval = null;
-			exec($cmd, $result, $retval);
+			$rs = execute_cmd($cmd);
 		}
 		else
-			header("Location: ".check_url()."/error.php?msg=".$result[0]);
+			header("Location: ".check_url()."/error.php?msg=".$rs[0]);
 	}
 }
 
@@ -154,6 +190,7 @@ function on_state($unit, $heyuexec)
  * @param $unit code of module to check
  * @param $heyuexec full path and location of heyu executable
  */
+ /*
 function dim_state($unit, $heyuexec)
 {
 	$cmd = $heyuexec." dimstate ".$unit." 2>&1";
@@ -169,7 +206,7 @@ function dim_state($unit, $heyuexec)
 		header("Location: ".check_url()."/error.php?msg=".$result[0]);
 	}
 }
-
+*/
 /**
  * Dim Level
  *
@@ -182,21 +219,4 @@ function curr_dim_level($unit, $heyuexec)
 	return $rs[0];
 }
 
-/**
- * Uptime
- */
-function uptime()
-{
-	$rs = execute_cmd("uptime 2>&1");
-	return $rs[0];
-}
-
-/**
- * 
- */
-function execute_cmd($cmd, $result = array(), $retval = null)
-{
-	exec ($cmd, $result, $retval);
-	return $result;
-}
 ?>
