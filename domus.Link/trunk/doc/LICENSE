@@ -1,9 +1,9 @@
 /*----------------------------------------------------------------------------+
  |                                                                            |
- |                  domus.Link - a frontend for Heyu                          |
+ |             domus.Link :: Web based frontend for Heyu                      |
  |                                                                            |
- |                Copyright 2007, Istvan Hubay Cebrian                        |
- |                      All Rights Reserved                                   |
+ |             Copyright 2007-2008, Istvan Hubay Cebrian                      |
+ |                       All Rights Reserved                                  |
  |                                                                            |
  |                                                                            |
  | This software is licensed free of charge for non-commercial distribution   |
@@ -20,7 +20,7 @@
  |	    to send them to the domus.Link maintainer so there's a focal point    |
  |      for distributing improved versions.                                   |
  |                                                                            |
- | As used herein, domus.Link is copyrighted to Istvan H. Cebrian.            |
+ | As used herein, domus.Link is copyrighted to Istvan Hubay Cebrian.         |
  |                                                                            |
  | HEYU is a trademark of Daniel B. Suthers.                                  |
  | X10, CM11A, and ActiveHome are trademarks of X-10 (USA) Inc.               |
@@ -28,10 +28,10 @@
  |                                                                            |
  | The author is not affiliated with any of these companies.                  |
  |                                                                            |
- | Istvan H. Cebrian                                                          |
+ | Istvan Hubay Cebrian                                                       |
  | Author and Maintainer                                                      |
  | Lisbon, Portugal                                                           |
- | Email: me -at- icebrian.net                                                |
+ | Email: istvan.cebrian -at- domus.link.co.pt                                |
  |                                                                            |
  | Disclaimers:                                                               |
  | THERE IS NO ASSURANCE THAT THIS SOFTWARE IS FREE OF DEFECTS AND IT MUST    |

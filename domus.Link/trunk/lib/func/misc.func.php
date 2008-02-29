@@ -121,10 +121,10 @@ function uptime()
  * Description: Common function to execute commands
  * 
  */
-function execute_cmd($cmd, $result = array(), $retval = null)
+function execute_cmd($cmd, $rs = array(), $retval = null)
 {
-	exec ($cmd, $result, $retval);
-	return $result;
+	exec ($cmd, $rs, $retval);
+	return $rs;
 }
 
 ?>

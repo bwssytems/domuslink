@@ -2,7 +2,7 @@
 <table cellspacing="0" cellpadding="0" border="0" class="module" height="37px">
 <tr>
 <td width="17" valign="top" class="<?php echo $state; ?>"><?php echo $state; ?></td>
-<td width="110px" valign="bottom" height="22"><input type="text" value="<?php echo label_parse($label, false); ?>" class="module"  /></td>
+<td width="110px" valign="bottom" height="22"><input type="text" value="<?php echo $label; ?>" class="module"  /></td>
 <td rowspan="2"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?action=<?php echo $action; ?>&code=<?php echo $code; ?>&page=<?php echo $page; ?>"><img src="<?php echo $config['url_path']; ?>/theme/<?php echo $config['theme']; ?>/images/switch_<?php echo $state; ?>.gif" border="0" /></a></td>
 </tr>
 <tr>

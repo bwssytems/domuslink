@@ -89,17 +89,20 @@ if (heyu_running())
 					
 					case "lights":
 						$typed_aliases = $heyuconf->getAliasesByType($localized_aliases, $modtypes['light']);
-						if (count($typed_aliases) > 0) $html .= build_location_tb($location, $typed_aliases, $modtypes, $config);
+						if (count($typed_aliases) > 0) 
+							$html .= build_location_tb($location, $typed_aliases, $modtypes, $config);
 						break;
 						
 					case "appliances":
 						$typed_aliases = $heyuconf->getAliasesByType($localized_aliases, $modtypes['appliance']);
-						if (count($typed_aliases) > 0) $html .= build_location_tb($location, $typed_aliases, $modtypes, $config);
+						if (count($typed_aliases) > 0) 
+							$html .= build_location_tb($location, $typed_aliases, $modtypes, $config);
 						break;
 					
 					case "irrigation":
 						$typed_aliases = $heyuconf->getAliasesByType($localized_aliases, $modtypes['irrigation']);
-						if (count($typed_aliases) > 0) $html .= build_location_tb($location, $typed_aliases, $modtypes, $config);
+						if (count($typed_aliases) > 0) 
+							$html .= build_location_tb($location, $typed_aliases, $modtypes, $config);
 						break;
 						
 				} // end switch
@@ -119,6 +122,18 @@ else
 // display the page
 echo $tpl->fetch(TPL_FILE_LOCATION.'layout.tpl');
 
+
+
+/**
+ * Build Location Table
+ * 
+ * Description:
+ * 
+ * @param $loc
+ * @param $aliases
+ * @param $modtypes
+ * @param $config
+ */
 function build_location_tb($loc, $aliases, $modtypes, $config)
 {
 	$html = null;
@@ -136,50 +151,52 @@ function build_location_tb($loc, $aliases, $modtypes, $config)
 	return $zone_tpl->fetch(TPL_FILE_LOCATION.'floorplan_table.tpl');
 }
 
+/**
+ * Build Module Table
+ * 
+ * Description:
+ * 
+ * @param $alias
+ * @param $modtypes
+ * @param $config
+ */
 function build_module_tb($alias, $modtypes, $config)
 {
 	list($label, $code, $type) = split(" ", $alias, 3);
 	$multi_alias = is_multi_alias($code); // check if A1,2 or just A1
 	
-	if (on_state($code, $config['heyuexec'])) { $txtlabel = 'off'; $state = 'on'; $action = $config['cmd_off']; }
-	else { $txtlabel = 'on'; $state = 'off'; $action = $config['cmd_on']; }
-
-	switch ($type)
+	// if alias is a multi alias, on state should not be checked
+	if (!$multi_alias) 
 	{
-		case $modtypes['light']:
-			$mod = & new Template(TPL_FILE_LOCATION.'light.tpl');
-			$mod->set('config', $config);
-			$mod->set('state', $state);
-			$mod->set('label', $label);
-			$mod->set('action', $action);
-			$mod->set('code', $code);
-			$mod->set('page', $_GET['page']);
-			$mod->set('level', level_calc(curr_dim_level($code, $config['heyuexec'])));
-			return $mod->fetch(TPL_FILE_LOCATION.'light.tpl');
-			break;
-
-		case $modtypes['appliance']:
-			$mod = & new Template(TPL_FILE_LOCATION.'module.tpl');
-			$mod->set('label', $label);
-			$mod->set('code', $code);
-			$mod->set('action', $action);
-			$mod->set('state', $state);
-			$mod->set('config', $config);
-			//$mod->set('txtlabel', $txtlabel);
-			return $mod->fetch(TPL_FILE_LOCATION.'module.tpl');
-			break;
-		
-		case $modtypes['irrigation']:
-			$mod = & new Template(TPL_FILE_LOCATION.'module.tpl');
-			$mod->set('label', $label);
-			$mod->set('code', $code);
-			$mod->set('action', $action);
-			$mod->set('state', $state);
-			$mod->set('config', $config);
-			//$mod->set('txtlabel', $txtlabel);
-			return $mod->fetch(TPL_FILE_LOCATION.'module.tpl');
-			break;
+		if (on_state($code, $config['heyuexec'])) 
+		{
+			$state = 'on';
+			$txtlabel = 'off'; 
+			$action = $config['cmd_off']; 
+		}
+		else 
+		{ 
+			$state = 'off';
+			$txtlabel = 'on'; 
+			$action = $config['cmd_on']; 
+		}	
 	}
+	
+	// check if is a multi alias, if true, use modules.tpl, if not use template acording to type
+	$tpl = ($multi_alias) ? "modules.tpl" : strtolower($type).".tpl";
+	
+	// create new template
+	$mod = & new Template(TPL_FILE_LOCATION.$tpl);
+	$mod->set('config', $config);
+	$mod->set('state', $state);
+	$mod->set('label', label_parse($label, false));
+	$mod->set('action', $action);
+	$mod->set('code', $code);
+	$mod->set('page', $_GET['page']);
+	if ($type == $modtypes['light']) $mod->set('level', level_calc(curr_dim_level($code, $config['heyuexec'])));
+	
+	// return as html
+	return $mod->fetch(TPL_FILE_LOCATION.$tpl);
 }
 
 /**

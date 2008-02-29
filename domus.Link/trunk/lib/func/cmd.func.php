@@ -70,7 +70,7 @@ function heyu_info($heyuexec)
 }
 
 /**
- * Heyu Exec
+ * Heyu Action
  *
  * @param $heyuexec full path and location of heyu executable
  */
@@ -109,7 +109,7 @@ function heyu_action($config)
  * 
  * @param $currlevel current intensity level at which the module is
  * @param $reqlevel intensity level requested
- * @param $code modules code
+ * @param $code modules unitcode
  * @param $config file
  * 
  */
@@ -188,29 +188,6 @@ function on_state($code, $heyuexec)
 	}
 }
 
-/**
- * Dim State
- *
- * @param $unit code of module to check
- * @param $heyuexec full path and location of heyu executable
- */
- /*
-function dim_state($unit, $heyuexec)
-{
-	$cmd = $heyuexec." dimstate ".$unit." 2>&1";
-	$result = null; $retval = null;
-	exec($cmd, $result, $retval);
-
-	if ($result[0])
-	{
-		return $result[0];
-	}
-	else
-	{
-		header("Location: ".check_url()."/error.php?msg=".$result[0]);
-	}
-}
-*/
 /**
  * Dim Level
  *

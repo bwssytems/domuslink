@@ -43,16 +43,14 @@ elseif ($_GET["action"] == "save")
 	$newconfig['imgs'] = $_POST["imgs"];
 	$newconfig['refresh'] = $_POST["refresh"];
 
-	$configfile = CONFIG_FILE_LOCATION;
-
-	if ((file_exists($configfile) && is_writable($configfile)) || !file_exists($configfile))
+	if ((file_exists(CONFIG_FILE_LOCATION) && is_writable(CONFIG_FILE_LOCATION)) || !file_exists(CONFIG_FILE_LOCATION))
 	{
 		config_save($newconfig);
 		header("Location: ".$_SERVER['PHP_SELF']);
 	}
 	else
 	{
-		header("Location: ".check_url()."/error.php?msg=".$configfile." not writable!");
+		header("Location: ".check_url()."/error.php?msg=".CONFIG_FILE_LOCATION." not writable!");
     }
 }
 

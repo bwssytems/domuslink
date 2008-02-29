@@ -4,34 +4,72 @@
  |                                                                            |
  +----------------------------------------------------------------------------*/
 
- It is assumed that you already have Heyu installed and running. If not refer
- to http://heyu.org for heyu packages and install information.
+ Note:
+ -------
+ To run and use domus.Link you must first install Heyu. For more information
+ please refer to http://heyu.org
+ 
+ 
+ Assumptions:
+ --------------
+ The following install procedures assumes the following:
+ 
+ - Heyu configuration files located in /etc/heyu
+ - Websever root folder is /var/www
+ - And domus.Link is being installed in /var/www/domus.Link
+ 
+ 
+ Installation:
+ --------------
 
- 1) Download latest package.
+ 1) Download latest version from http://domus.link.co.pt/download
 
  2) Un-tar to a location within the webserver root or a specific directory.
+ 
+    ie: 
+        mv domuslink-XXX.tar.gz /var/www
+        cd /var/www
+        tar xfvz domuslink-XXX.tar.gz
 
- 3) Backup your x10.conf file!!! (VERY IMPORTANT)
+ 3) Backup existing x10.conf file (VERY IMPORTANT)
 
- 4) Copy supplied x10.conf file to location of your x10.conf file,
-    usually in /etc/heyu.
-    (The supplied x10.conf file is prepared for use with the frontend)
-    ie: cp x10.conf /etc/heyu/x10.conf
+    ie:
+        cp /etc/heyu/x10.conf /etc/heyu/x10.conf.backup
 
- 5) Edit supplied x10.conf file and change TTY directive to suit
-    your system.
-    - Do not add tabs, or extra spaces between options and directive.
+ 4) Copy supplied x10.conf to heyu conf. directory (VERY IMPORTANT)
+    
+    ie: 
+        cp /var/www/domus.Link/x10.conf /etc/heyu/x10.conf
+        
+    The supplied x10.conf file is prepared for use with the frontend and 
+    therefore must be used. The x10.conf file supplied with Heyu will not 
+    work with domus.Link.
+
+ 5) Edit x10.conf file and change TTY directive to suit your system.
+    - Do not add tabs, or extra spaces between options and directives.
+    - Do not add comments, or any other text.
     - Leave everything else as is.
+    
+    ie:
+        vi /etc/heyu/x10.conf
 
- 6) Change x10.conf file permissions so that webserver can change it.
-    ie: chown apache:apache /etc/heyu/x10.conf
-    or: chmod +rw /etc/heyu/x10.conf
+ 6) Change file permission so that webserver can read/write to the following files:
+    - /etc/heyu/x10.conf
+    - /var/www/domus.Link/db/floorplan 
+    - /var/www/domus.Link/config.php
+    
+    ie: 
+        chown apache:apache /etc/heyu/x10.conf /var/www/domus.Link/db/floorplan /var/www/domus.Link/config.php
+    
+    or: 
+        chmod o+rw /etc/heyu/x10.conf /var/www/domus.Link/db/floorplan /var/www/domus.Link/config.php
 
- 7) Change config.php file permissions so that webserver can change it.
-    ie: chown apache:apache config.php
-    or: chmod +rw config.php
-
- 8) Edit config.php to suit your needs, or use the frontend to do so.
+ 7) Setup apache acordingly, refer to http://httpd.apache.org if you don't know
+    how to do this.
+    
+ 8) Finally, point your web browser to you webserver. 
+    If you placed it in the root folder /var/www/ http://localhost should suffice.
+    If you placed it in /var/www/domus.Link then http://localhost/domus.Link
 
 
  ------------------------------------------------------------------------
@@ -40,10 +78,16 @@
  ------------------------------------------------------------------------
 
 
- X) Change permission on TTY port so that webserver can use it.
+ X) Change permission on TTY port so that heyu can use it.
+    
+    The typically used port is /dev/ttyS0 which usually is a sym. link to
+    /dev/tts/0 so in this case use the following commands:
+    
     ie: chmod o+rw /dev/ttyS0
-    on slackware: chmod o+rw /dev/tts/0
-
-
- Finally, point your web browser to you webserver. If you placed it in the root
- folder http://localhost should suffice.
+    or: chmod o+rw /dev/tts/0
+    
+    To check where /dev/ttyS0 links to, issue the following command:
+    
+    ls -l /dev/ttyS0
+    
+ 

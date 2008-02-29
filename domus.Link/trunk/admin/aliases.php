@@ -16,8 +16,7 @@ require_once(CLASS_FILE_LOCATION.'heyuconf.class.php');
 
 ## Instantiate HeyuConf class
 $heyuconf = new HeyuConf($config['heyuconf']);
-## Get heyu (x10.conf) file contents and aliases
-$settings = $heyuconf->get();
+## Get heyu (x10.conf) aliases
 $aliases = $heyuconf->getAliases(true);
 ## Disallowed characters for alias label (separator |)
 $chars = '/ã|é|à|ç|õ|ñ|è|ñ|ª|º|~|è|!|"|\#|\$|\^|%|\&|\?|\«|\»/';
@@ -47,6 +46,9 @@ if (!isset($_GET["action"]))
 }
 else
 {
+	## Get heyu (x10.conf) file contents
+	$settings = $heyuconf->get();
+	
 	switch ($_GET["action"])
 	{
 		case "edit":
