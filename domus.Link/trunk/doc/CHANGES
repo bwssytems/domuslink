@@ -6,7 +6,20 @@
  
  v0.9
  ------
- 	* 
+    * Implemented a two way module sorting (house area and type)
+    * Added floorplan administration
+    * Implmented sortable modules and floorplan feature
+    * Added validations when deleting or renaming house areas
+    * Completely separated code logic from presentation logic
+    * Added individual templates for each type of module
+    * Hopefully fixed way in which Heyu is checked if it is running
+    * Added Javascript field validation's to aliases and floorplan
+    * Redesigned footer layout
+    * Added computer uptime information to footer
+ 	* Added CM11x information viewing
+ 	* Redesigned default theme to be lighter and more dynamic
+ 	* Removed 'number of columns' option from frontend configuration
+ 	* Updated/corrected english translation 
  	* New email. Please use istvan.cebrian -at- domus.link.co.pt for any matter
  	  related to domus.Link.
 

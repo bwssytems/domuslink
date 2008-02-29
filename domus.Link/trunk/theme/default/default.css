@@ -136,9 +136,6 @@ table {
 	border: none;
 }
 
-table.content {
-}
-
 table.content th {
 	color: #000;
 	font-size: 14px;
@@ -181,14 +178,6 @@ table.module td {
 	font-size: 9px;
 }
 
-.on {
-	color: green;
-}
-
-.off {
-	color: #b07171;
-}
-
 input.module {
 	border: 0;
 	padding: 0;
@@ -219,6 +208,19 @@ table.dimlevel td {
 	display: block;
 	width: 8px;
 	height: 10px;
+}
+
+table.onofftb td {
+	border: 1px dotted #ccc;
+}
+
+.onoff a {
+	display:block;
+}
+
+.onoff a:hover {
+	display:block;
+	background-color: #e5e5e5;
 }
 
 

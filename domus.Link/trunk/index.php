@@ -165,19 +165,17 @@ function build_module_tb($alias, $modtypes, $config)
 	list($label, $code, $type) = split(" ", $alias, 3);
 	$multi_alias = is_multi_alias($code); // check if A1,2 or just A1
 	
-	// if alias is a multi alias, on state should not be checked
+	// if alias is a multi alias, module state is not checked
 	if (!$multi_alias) 
 	{
 		if (on_state($code, $config['heyuexec'])) 
 		{
 			$state = 'on';
-			$txtlabel = 'off'; 
 			$action = $config['cmd_off']; 
 		}
 		else 
 		{ 
 			$state = 'off';
-			$txtlabel = 'on'; 
 			$action = $config['cmd_on']; 
 		}	
 	}
@@ -188,12 +186,20 @@ function build_module_tb($alias, $modtypes, $config)
 	// create new template
 	$mod = & new Template(TPL_FILE_LOCATION.$tpl);
 	$mod->set('config', $config);
-	$mod->set('state', $state);
 	$mod->set('label', label_parse($label, false));
-	$mod->set('action', $action);
 	$mod->set('code', $code);
 	$mod->set('page', $_GET['page']);
-	if ($type == $modtypes['light']) $mod->set('level', level_calc(curr_dim_level($code, $config['heyuexec'])));
+	
+	if (!$multi_alias)
+	{
+		$mod->set('action', $action);
+		$mod->set('state', $state);	
+	}
+	
+	if ($type == $modtypes['light']) 
+	{
+		$mod->set('level', level_calc(curr_dim_level($code, $config['heyuexec'])));	
+	}
 	
 	// return as html
 	return $mod->fetch(TPL_FILE_LOCATION.$tpl);
@@ -203,7 +209,7 @@ function build_module_tb($alias, $modtypes, $config)
  * Level Calc
  * 
  * Description: Calculates a readable level between 1-5.
- * Only used in index.php when construction the template.
+ * Only used in index.php when building the template.
  * 
  * @param $dimpercent represents current dim level of specific module
  */
