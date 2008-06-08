@@ -37,7 +37,7 @@
 $active_group = "default";
 $active_record = TRUE;
 
-$db['default']['hostname'] = "localhost";
+$db['default']['hostname'] = "cerebellum";
 $db['default']['username'] = "tluser";
 $db['default']['password'] = "tlpass";
 $db['default']['database'] = "translatelink";
