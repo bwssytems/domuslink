@@ -9,16 +9,7 @@
 <?php foreach ($english as $key=>$text):
 
 $len = strlen($text); 
-if ($len >= 50 && $len < 100): $rows = 50;
-elseif ($len >= 100 && $len < 150): $rows = 70;
-elseif ($len >= 150 && $len < 200): $rows = 90;
-elseif ($len >= 200 && $len < 250): $rows = 100;
-elseif ($len >= 250 && $len < 300): $rows = 110;
-elseif ($len >= 300 && $len < 350): $rows = 130;
-elseif ($len >= 350 && $len < 400): $rows = 150;
-elseif ($len >= 400 && $len < 450): $rows = 190;
-elseif ($len >= 450 ): $rows = 250;
-endif; 
+$rows = $len - ($len / 3);
 
 $_text = str_replace("<", "&lt;", $text);
 ?>
@@ -27,7 +18,7 @@ $_text = str_replace("<", "&lt;", $text);
 <!-- translated -->
 <div class="row">
 
-<?php if ($len < 70): ?>
+<?php if ($len < 50): ?>
 <div class="label"><pre><label for="<?php echo $key;?>"><?php echo $_text; ?></label></pre></div>
 <div class="translation-div"><input id="<?php echo $key;?>" class="translation" type="text" value="<?php echo $other[$key]; ?>" name="<?php echo $key;?>"/></div>
 <?php else: ?>
@@ -42,7 +33,7 @@ $_text = str_replace("<", "&lt;", $text);
 <!-- un-translated -->
 <div class="row-nottranslated">
 
-<?php if ($len < 70): ?>
+<?php if ($len < 50): ?>
 <div class="label"><pre><label for="<?php echo $key;?>"><?php echo $_text; ?></label></pre></div>
 <div class="translation-div"><input id="<?php echo $key;?>" class="translation" type="text" value="<?php echo $other[$key]; ?>" name="<?php echo $key;?>"/></div>
 <?php else: ?>
