@@ -7,6 +7,7 @@
 <tr><td>Email:</td><td><input type="input" name="email" /></td></tr>
 <tr><td>Username:</td><td><input type="input" name="username" /></td></tr>
 <tr><td>Password:</td><td><input type="input" name="password" /></td></tr>
+<tr><td>Type:</td><td><?php echo form_dropdown('group_id', $groups, '2'); ?></td></tr>
 <tr><td>Status:</td><td><input type="input" name="status" /></td></tr>
 
 <tr><td></td><td><input type="submit" value="Add" /></td></tr>

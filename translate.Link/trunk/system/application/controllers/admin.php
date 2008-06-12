@@ -8,33 +8,75 @@ class Admin extends Controller {
 		
 		$this->load->helper('url');
 		$this->load->helper('form');
+		$this->load->helper('cookie');
 	}
 	
 	function index()
 	{
 		$data['title'] = "Translation Center - Administration";
 		
-		$data['users'] = $this->db->get('user');
-		/*
-		$data['users'] = $this->db->query('SELECT u.id, u.name, u.dt_added, l.int_name ' .
-				'FROM user u, user_lang ul, language l ' .
-				'where u.id = ul.user_id ' .
-				'and ul.lang_id = l.id ');
-		*/
+		if (!get_cookie('dl_tca')) 
+		{
+			$this->load->view('admin/header', $data);
+			$this->load->view('admin/menu');
+			$this->load->view('admin/login', $data);
+			$this->load->view('admin/footer');
+		}
+		else
+		{
+			$data['users'] = $this->db->get('user');
 		
-		$this->load->view('admin/header', $data);
-		$this->load->view('admin/menu');
-		$this->load->view('admin/body');
-		$this->load->view('admin/footer');
+			$this->load->view('admin/header', $data);
+			$this->load->view('admin/menu');
+			$this->load->view('admin/body', $data);
+			$this->load->view('admin/footer');
+		}
+	}
+	
+	function login()
+	{
+		$query = $this->db->query('select id, password from user where username = \''.$_POST['username'].'\' and group_id = 1');
+		
+		if ($query->num_rows() > 0)
+		{
+			$row = $query->row();
+			if ($row->password == $_POST['password']) 
+			{
+				set_cookie("dl_tca", $row->id, 0);
+				$sql = "INSERT INTO log (user_id, action, lang_id) VALUES (".$row->id.", 'login', null)";
+				$this->db->query($sql);
+			}
+			else
+			{
+				$sql = "INSERT INTO log (user_id, action, lang_id) VALUES (".$row->id.", 'failed login', null)";
+				$this->db->query($sql);
+			}
+		}
+		
+		redirect('admin/');
 	}
 	
 	function user_new()
 	{
 		$data['title'] = "Translation Center - User Add";
 		
+		$query = $this->db->query('select id as value, name as text from `group`');
+		
+		if ($query->num_rows())
+		{
+			foreach ($query->result_array() as $row)
+			{
+				$rs[$row['value']] = $row['text'];
+			}
+		}
+		$query->free_result();
+		unset($query);
+		
+		$data['groups'] = $rs;
+		
 		$this->load->view('admin/header', $data);
 		$this->load->view('admin/menu');
-		$this->load->view('admin/user_add');
+		$this->load->view('admin/user_add', $data);
 		$this->load->view('admin/footer');
 	}
 	
@@ -42,6 +84,20 @@ class Admin extends Controller {
 	{
 		$data['title'] = "Translation Center - User Edit";
 		$data['user'] = $this->db->query('select * from user where id = '.$this->uri->segment(3));
+		
+		$query = $this->db->query('select id as value, name as text from `group`');
+		
+		if ($query->num_rows())
+		{
+			foreach ($query->result_array() as $row)
+			{
+				$rs[$row['value']] = $row['text'];
+			}
+		}
+		$query->free_result();
+		unset($query);
+		
+		$data['groups'] = $rs;
 		
 		$this->load->view('admin/header', $data);
 		$this->load->view('admin/menu');
@@ -108,7 +164,7 @@ class Admin extends Controller {
 				'where u.id = ul.user_id ' .
 				'and ul.lang_id = l.id ' .
 				'and u.id = '.$data['uid']);
-				
+		
 		$query = $this->db->query('select id as value, int_name as text from language order by int_name asc');
 		
 		if ($query->num_rows())
@@ -116,7 +172,7 @@ class Admin extends Controller {
 			foreach ($query->result_array() as $row)
 			{
 				$rs[$row['value']] = $row['text'];
-			}	
+			}
 		}
 		$query->free_result();
 		unset($query);
@@ -144,7 +200,16 @@ class Admin extends Controller {
 	
 	function view_log()
 	{
+		$data['title'] = "Translation Center - Logs";
 		
+		$data['logs'] = $this->db->query('SELECT u.name, l.action, l.lang_id, l.date FROM log l, user u WHERE l.user_id = u.id ');
+		
+		$this->load->view('admin/header', $data);
+		$this->load->view('admin/menu');
+		$this->load->view('admin/log', $data);
+		$this->load->view('admin/footer');
 	}
+	
 }
+
 ?>

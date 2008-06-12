@@ -8,6 +8,7 @@
 <tr><td>Email:</td><td><input type="input" name="email" value="<?php echo $row->email; ?>"/></td></tr>
 <tr><td>Username:</td><td><input type="input" name="username" value="<?php echo $row->username; ?>"/></td></tr>
 <tr><td>Password:</td><td><input type="input" name="password" value="<?php echo $row->password; ?>"/></td></tr>
+<tr><td>Type:</td><td><?php echo form_dropdown('group_id', $groups, $row->group_id); ?></td></tr>
 <tr><td>Status:</td><td><input type="input" name="status" value="<?php echo $row->status; ?>"/></td></tr>
 <?php endforeach; ?>
 
