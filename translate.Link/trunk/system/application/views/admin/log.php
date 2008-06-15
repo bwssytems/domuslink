@@ -1,7 +1,13 @@
 <div id="content">
 
-<table cellspacing="2" cellpadding="2" border="0">
+<table cellspacing="0" cellpadding="3" border="1" style="font-size:10px">
 
+<tr>
+<th>Name</th>
+<th>Action</th>
+<th>Language</th>
+<th>Date</th>
+</tr>
 <?php foreach($logs->result() as $log): ?>
 <tr>
 <td align="center"><?php echo $log->name; ?></td>

@@ -43,12 +43,12 @@ class Admin extends Controller {
 			if ($row->password == $_POST['password']) 
 			{
 				set_cookie("dl_tca", $row->id, 0);
-				$sql = "INSERT INTO log (user_id, action, lang_id) VALUES (".$row->id.", 'login', null)";
+				$sql = "INSERT INTO log (user_id, action, lang_id) VALUES (".$row->id.", 'admin login', null)";
 				$this->db->query($sql);
 			}
 			else
 			{
-				$sql = "INSERT INTO log (user_id, action, lang_id) VALUES (".$row->id.", 'failed login', null)";
+				$sql = "INSERT INTO log (user_id, action, lang_id) VALUES (".$row->id.", 'failed admin login', null)";
 				$this->db->query($sql);
 			}
 		}
@@ -58,6 +58,8 @@ class Admin extends Controller {
 	
 	function user_new()
 	{
+		if (!get_cookie('dl_tca')) redirect('admin/');
+		
 		$data['title'] = "Translation Center - User Add";
 		
 		$query = $this->db->query('select id as value, name as text from `group`');
@@ -82,6 +84,8 @@ class Admin extends Controller {
 	
 	function user_edit()
 	{
+		if (!get_cookie('dl_tca')) redirect('admin/');
+		
 		$data['title'] = "Translation Center - User Edit";
 		$data['user'] = $this->db->query('select * from user where id = '.$this->uri->segment(3));
 		
@@ -136,6 +140,8 @@ class Admin extends Controller {
 	
 	function lang_new()
 	{
+		if (!get_cookie('dl_tca')) redirect('admin/');
+		
 		$data['title'] = "Translation Center - Language Add";
 		
 		$this->load->view('admin/header', $data);
@@ -153,6 +159,8 @@ class Admin extends Controller {
 	
 	function languages()
 	{
+		if (!get_cookie('dl_tca')) redirect('admin/');
+		
 		$data['title'] = "Translation Center - User Language(s)";
 		
 		$data['uid'] = $this->uri->segment(3);
@@ -200,6 +208,8 @@ class Admin extends Controller {
 	
 	function view_log()
 	{
+		if (!get_cookie('dl_tca')) redirect('admin/');
+		
 		$data['title'] = "Translation Center - Logs";
 		
 		$data['logs'] = $this->db->query('SELECT u.name, l.action, l.lang_id, l.date FROM log l, user u WHERE l.user_id = u.id ');
@@ -208,6 +218,34 @@ class Admin extends Controller {
 		$this->load->view('admin/menu');
 		$this->load->view('admin/log', $data);
 		$this->load->view('admin/footer');
+	}
+	
+	function clear_logs()
+	{
+		$ver = $this->uri->segment(3);
+		$data['title'] = "Translation Center - Clear Logs";
+		
+		if ($ver != "clear") 
+		{
+			$this->load->view('admin/header', $data);
+			$this->load->view('admin/menu');
+			$this->load->view('admin/clear_logs', $data);
+			$this->load->view('admin/footer');
+		}
+		else
+		{
+			$this->db->query('delete from log');
+			redirect('admin/view_log');
+		}
+	}
+	
+	function logout()
+	{
+		$uid = get_cookie('dl_tca');
+		$sql = "INSERT INTO log (user_id, action, lang_id) VALUES (".$uid.", 'admin logout', null)";
+		$this->db->query($sql);
+		delete_cookie("dl_tca");
+		redirect('admin/');
 	}
 	
 }
