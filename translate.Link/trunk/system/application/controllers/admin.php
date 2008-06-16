@@ -212,7 +212,7 @@ class Admin extends Controller {
 		
 		$data['title'] = "Translation Center - Logs";
 		
-		$data['logs'] = $this->db->query('SELECT u.name, l.action, l.lang_id, l.date FROM log l, user u WHERE l.user_id = u.id ');
+		$data['logs'] = $this->db->query('SELECT u.name, l.action, l.lang_id, l.date FROM log l, user u WHERE l.user_id = u.id order by l.date desc');
 		
 		$this->load->view('admin/header', $data);
 		$this->load->view('admin/menu');

@@ -142,7 +142,8 @@ class Main extends Controller {
 			$write = fwrite($fp, "<?php\n\n");
 			foreach ($_POST as $key=>$val)
 			{
-				$line = "\$lang[\"$key\"]=\"$val\";\n";
+				$_val = str_replace('"', "'", $val);
+				$line = "\$lang[\"$key\"]=\"$_val\";\n";
 				$write = fwrite($fp, $line);
 			}
 			
