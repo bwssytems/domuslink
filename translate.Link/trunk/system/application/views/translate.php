@@ -1,12 +1,12 @@
 <div id="content"><!-- Start Content -->
 
-<div class="english-heading">English</div>
+<div class="english-heading"><?php echo $original_lang; ?></div>
 <div class="translation-heading"><?php echo $translated_lang; ?></div>
 
 <?php echo form_open('main/save/'.$this->uri->segment(3)); ?>
 <div style="display:none"></div>
 
-<?php foreach ($english as $key=>$text):
+<?php foreach ($org_lang_array as $key=>$text):
 
 $len = strlen($text); 
 $rows = $len - ($len / 3);

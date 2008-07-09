@@ -1,7 +1,8 @@
 <div style="clear: both;"/>
 <!-- Start Footer -->
 <div id="footer">
-translate.Link (c) - Istvan Hubay Cebrian 2008
+&copy; Copyright 2008 - <a href="http://translate.link.co.pt" target="_blank">translate.Link</a> (v.1.1)<br />
+translate.Link is free software released under the General Public License
 </div>
 <!-- End Footer -->
 

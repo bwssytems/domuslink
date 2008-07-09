@@ -2,6 +2,7 @@
 
 class Main extends Controller {
 	
+	
 	function Main()
 	{
 		parent::Controller();
@@ -9,34 +10,33 @@ class Main extends Controller {
 		$this->load->helper('url');
 		$this->load->helper('form');
 		$this->load->helper('cookie');
-		
-		
 	}
 	
+	/**
+	 * 
+	 */
 	function index()
 	{
-		include 'config.php';
-		$data = $cfg;
-		$data['page_title'] .= " - Login";
+		$data['title'] = config_item('title');
+		$data['logo'] = config_item('logo');
 		
 		if (!get_cookie('dl_tc')) 
 		{
 			$this->load->view('header', $data);
 			$this->load->view('menu');
-			$this->load->view('login', $data);
+			$this->load->view('login');
 			$this->load->view('footer');
 		}
 		else
 		{
-			//$query = $this->db->query('select id, lang_id from user_lang where user_id = '.get_cookie("dl_tc"));
+			$sql = 'select l.id, l.org_name, l.int_name from user_lang ul, language l where ul.user_id = '.get_cookie('dl_tc').' and ul.lang_id = l.id';
 			
-			//if ($query->num_rows() != 1)
-				redirect('main/list_lang');
-			//else
-			//{
-			//	$row = $query->row();
-			//	redirect('main/translate/'.$row->lang_id);
-			//}
+			$data['langs'] = $this->db->query($sql);
+					
+			$this->load->view('header', $data);
+			$this->load->view('menu');
+			$this->load->view('lang_list', $data);
+			$this->load->view('footer');
 		}
 	}
 	
@@ -70,55 +70,39 @@ class Main extends Controller {
 	}
 	
 	/**
-	 * List available languages for translation
 	 * 
 	 */
-	function list_lang()
-	{
-		if (!get_cookie('dl_tc')) redirect('');
-		
-		include 'config.php';
-		$data['page_title'] .= " - Available Languages";
-				
-		$data['langs'] = $this->db->query('select l.id, l.org_name, l.int_name ' .
-				'from user_lang ul, language l ' .
-				'where ul.user_id = '.get_cookie('dl_tc').
-				' and ul.lang_id = l.id');
-				
-		$this->load->view('header', $data);
-		$this->load->view('menu');
-		$this->load->view('lang_list', $data);
-		$this->load->view('footer');
-	}
-	
 	function translate()
 	{
 		// check if authenticated
 		if (!get_cookie('dl_tc')) redirect('');
 		
-		include 'config.php';
+		// intialize vars
+		$data['title'] = config_item('title');
+		$data['logo'] = config_item('logo');
 		
-		// get details
+		$lang = null;
+		
 		$uid = get_cookie('dl_tc');
 		$lid = $this->uri->segment(3);
 		
 		// check if user can edit language (in case manually entered in url)
 		$query = $this->db->query('select * from user_lang where user_id = '.$uid.' and lang_id ='.$lid);
-		if ($query->num_rows() < 1) redirect('main/list_lang');
+		if ($query->num_rows() < 1) redirect('/');
 		
 		// get language details
 		$query = $this->db->get_where('language', 'id ='.$lid);
 		$row = $query->row();
 		
 		$data['translated_lang'] = $row->org_name.'/'.$row->int_name;
-		$data['page_title'] .= " - $row->int_name Translation";
+		$data['original_lang'] = config_item('org_lang');
 		
-		//load language files
-		$lang = null;
-		include 'languages/English.php';
-		$data['english'] = $lang;
+		//load original language file
+		include config_item('lang_file_loc').config_item('org_lang_file');
+		$data['org_lang_array'] = $lang;
 		
-		include 'languages/'.$row->tag.'.php';
+		//load language file to translate
+		include config_item('lang_file_loc').$row->tag.'.php';
 		$data['other'] = $lang;
 		
 		// set-up views/page
@@ -128,6 +112,9 @@ class Main extends Controller {
 		$this->load->view('footer');
 	}
 	
+	/**
+	 * 
+	 */
 	function save()
 	{
 		$uid = get_cookie('dl_tc');
@@ -136,7 +123,7 @@ class Main extends Controller {
 		$query = $this->db->get_where('language', 'id ='.$lid);
 		$row = $query->row();
 		
-		$filename = 'languages/'.$row->tag.'.php';;
+		$filename = config_item('lang_file_loc').$row->tag.'.php';;
 		
 		$fp = fopen($filename,'w');
 
@@ -156,17 +143,20 @@ class Main extends Controller {
 			$sql = "INSERT INTO log (user_id, action, lang_id) VALUES (".$uid.", 'update', ".$lid.")";
 			$this->db->query($sql);
 			
-			redirect('main/list_lang');
+			redirect('/');
 			
 		}
 		else
 		{
-			echo "Error!!! Language files not writable!!";
+			echo "Error! Language files not writable. You need to set apropriate permissions.";
 		}
 		fclose($fp);
 		
 	}
 	
+	/**
+	 * 
+	 */
 	function logout()
 	{
 		$uid = get_cookie('dl_tc');

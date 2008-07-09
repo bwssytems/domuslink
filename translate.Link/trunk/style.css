@@ -44,6 +44,7 @@ div#pagewrapper {
 }
 
 div#header {
+	height: 50px;
 }
 
 div#menu {
@@ -172,9 +173,10 @@ div.formbuttons input {
 
 div#footer {
 	padding-top: 5px;
+	padding-bottom: 5px;
 	margin-top: 5px;
 	border-top: 1px dotted #666;
-	height: 20px;
+	/*height: 20px;*/
 	text-align: center;
 	font-size: 10px;
 }

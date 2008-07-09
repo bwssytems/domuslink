@@ -11,7 +11,7 @@
 |	http://www.your-site.com/
 |
 */
-$config['base_url']	= "http://glia-0a/translate.Link/";
+//$config['base_url']	= "";
 
 /*
 |--------------------------------------------------------------------------

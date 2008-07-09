@@ -41,7 +41,7 @@
 */
 
 $route['default_controller'] = "main";
-$route['scaffolding_trigger'] = "scaff";
+$route['scaffolding_trigger'] = "";
 
 
 /* End of file routes.php */
