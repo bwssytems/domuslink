@@ -9,11 +9,14 @@ class Main extends Controller {
 		$this->load->helper('url');
 		$this->load->helper('form');
 		$this->load->helper('cookie');
+		
+		
 	}
 	
 	function index()
 	{
 		include 'config.php';
+		$data = $cfg;
 		$data['page_title'] .= " - Login";
 		
 		if (!get_cookie('dl_tc')) 
