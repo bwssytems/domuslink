@@ -132,7 +132,7 @@ class Main extends Controller {
 			$write = fwrite($fp, "\n?>");
 			fclose($fp);
 			
-			$sql = "INSERT INTO log (user_id, action, language) VALUES (".$uid.", 'update', ".$lid.")";
+			$sql = "INSERT INTO log (user_id, action, language) VALUES (".$uid.", 'update', '".$row->int_name."')";
 			$this->db->query($sql);
 			
 			redirect('/');

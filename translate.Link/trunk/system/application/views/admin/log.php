@@ -10,9 +10,9 @@
 </tr>
 <?php foreach($logs->result() as $log): ?>
 <tr>
-<td align="center"><?php echo $log->name; ?></td>
+<td align="center"><?php echo $log->username; ?></td>
 <td align="center"><?php echo $log->action; ?></td>
-<td align="center"><?php echo $log->lang_id; ?></td>
+<td align="center"><?php echo $log->language; ?></td>
 <td align="center"><?php echo $log->date; ?></td>
 </tr>
 <?php endforeach; ?>

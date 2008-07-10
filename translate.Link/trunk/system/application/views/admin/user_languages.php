@@ -11,7 +11,7 @@
 </tr>
 <?php foreach($assoc_langs->result() as $row): ?>
 <tr class="row">
-<td><?php echo $row->int_name; ?></td><td><font size="-2"><?php echo anchor('admin/lang_unassociate/'.$row->ul_id.'/'.$this->uri->segment(3), 'Remove'); ?></font></td>
+<td><?php echo $row->int_name; ?></td><td align="center"><font size="-2"><?php echo anchor('admin/lang_unassociate/'.$row->ul_id.'/'.$this->uri->segment(3), 'Remove'); ?></font></td>
 </tr>
 <?php endforeach; ?>
 <tr><td colspan="2"><?php echo form_open('admin/lang_associate'); ?>

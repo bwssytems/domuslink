@@ -1,8 +1,8 @@
 <div id="content">
 
 <?php echo form_open('admin/user_save'); ?>
-<table cellspacing="2" cellpadding="2" border="0">
-
+<table cellspacing="2" cellpadding="2" border="0" align="center">
+<tr><td align="center" colspan="2"><h2>User Edit</td></tr>
 <?php foreach($user->result() as $row): ?>
 <tr><td>Name:</td><td><input type="hidden" name="id" value="<?php echo $row->id; ?>"/><input type="input" name="name" value="<?php echo $row->name; ?>"/></td></tr>
 <tr><td>Email:</td><td><input type="input" name="email" value="<?php echo $row->email; ?>"/></td></tr>
@@ -16,4 +16,5 @@
 </table>
 <?php echo form_close(); ?>
 
+<br />
 </div>

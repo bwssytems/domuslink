@@ -19,7 +19,7 @@
 <div id="pagewrapper">
 
 <div id="header">
-<table cellspacing="0" cellpadding="0" border="0" width="100%">
+<table cellspacing="0" cellpadding="0" border="0" width="100%" height="50">
 <tr>
 <td width="265px"><a href="http://translate.link.co.pt" target="_blank"><img src="images/<?php echo config_item('logo'); ?>" border="0" /></a></td>
 <td align="center"><h1><?php echo config_item('title'); ?> Administration</h1></td>

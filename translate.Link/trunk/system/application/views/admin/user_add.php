@@ -1,8 +1,8 @@
 <div id="content">
 
 <?php echo form_open('admin/user_add'); ?>
-<table cellspacing="2" cellpadding="2" border="0">
-
+<table cellspacing="2" cellpadding="2" border="0" align="center">
+<tr><td align="center" colspan="2"><h2>Add User</td></tr>
 <tr><td>Name:</td><td><input type="input" name="name" /></td></tr>
 <tr><td>Email:</td><td><input type="input" name="email" /></td></tr>
 <tr><td>Username:</td><td><input type="input" name="username" /></td></tr>
@@ -14,4 +14,5 @@
 </table>
 <?php echo form_close(); ?>
 
+<br />
 </div>

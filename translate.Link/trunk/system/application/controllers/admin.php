@@ -31,6 +31,9 @@ class Admin extends Controller {
 		}
 	}
 	
+	/**
+	 * Login form, is user is part of Admin group and password is the same then create cookie
+	 */
 	function login()
 	{
 		$query = $this->db->query('select id, password from user where username = \''.$_POST['username'].'\' and group_id = 1');
@@ -54,11 +57,12 @@ class Admin extends Controller {
 		redirect('admin/');
 	}
 	
+	/**
+	 * Displays form to add a new user
+	 */
 	function user_new()
 	{
 		if (!get_cookie('dl_tca')) redirect('admin/');
-		
-		$data['title'] = "Translation Center - User Add";
 		
 		$query = $this->db->query('select id as value, name as text from `group`');
 		
@@ -74,17 +78,19 @@ class Admin extends Controller {
 		
 		$data['groups'] = $rs;
 		
-		$this->load->view('admin/header', $data);
+		$this->load->view('admin/header');
 		$this->load->view('admin/menu');
 		$this->load->view('admin/user_add', $data);
 		$this->load->view('footer');
 	}
 	
+	/**
+	 * Edit user information
+	 */
 	function user_edit()
 	{
 		if (!get_cookie('dl_tca')) redirect('admin/');
 		
-		$data['title'] = "Translation Center - User Edit";
 		$data['user'] = $this->db->query('select * from user where id = '.$this->uri->segment(3));
 		
 		$query = $this->db->query('select id as value, name as text from `group`');
@@ -101,12 +107,15 @@ class Admin extends Controller {
 		
 		$data['groups'] = $rs;
 		
-		$this->load->view('admin/header', $data);
+		$this->load->view('admin/header');
 		$this->load->view('admin/menu');
 		$this->load->view('admin/user_edit', $data);
 		$this->load->view('footer');
 	}
 	
+	/**
+	 * Save changes made to user information
+	 */
 	function user_save()
 	{
 		$this->db->update('user', $_POST, 'id = '.$_POST['id']);
@@ -114,6 +123,9 @@ class Admin extends Controller {
 		redirect('admin/');
 	}
 	
+	/**
+	 * Adds a new user to translation center
+	 */
 	function user_add()
 	{
 		$this->db->insert('user', $_POST);
@@ -121,6 +133,9 @@ class Admin extends Controller {
 		redirect('admin/');
 	}
 	
+	/**
+	 * Confirm user removal
+	 */
 	function user_delete_confirm()
 	{
 		$data['title'] = "Translation Center - Remove User?";
@@ -131,6 +146,9 @@ class Admin extends Controller {
 		$this->load->view('footer');
 	}
 	
+	/**
+	 * If deletion confirmed remove all traces from DB
+	 */
 	function user_delete()
 	{
 		echo "Code commented!";
@@ -146,16 +164,58 @@ class Admin extends Controller {
 		*/
 	}
 	
+	/**
+	 * Lists available languages and gives user edit/remove capabilities
+	 */
 	function languages()
 	{
-		/* <?php echo anchor('admin/lang_new/', 'Add Language'); ?> */
+		if (!get_cookie('dl_tca')) redirect('admin/');
 		
-		$this->load->view('admin/header', $data);
+		$data['languages'] = $this->db->get('language');
+		
+		$this->load->view('admin/header');
 		$this->load->view('admin/menu');
-		$this->load->view('admin/languages');
+		$this->load->view('admin/languages', $data);
 		$this->load->view('footer');
 	}
 	
+	/**
+	 * Edits existing language from Database
+	 */
+	function lang_edit()
+	{
+		//$data['lang_id'] = $this->uri->segment(3);
+		
+		$data['language'] = $this->db->query('select * from language where id = '.$this->uri->segment(3));
+		
+		$this->load->view('admin/header');
+		$this->load->view('admin/menu');
+		$this->load->view('admin/lang_edit', $data);
+		$this->load->view('footer');
+	}
+	
+	/**
+	 * Save changes to language
+	 */
+	function lang_save()
+	{
+		$this->db->update('language', $_POST, 'id = '.$_POST['id']);
+		
+		redirect('admin/languages');
+	}
+	
+	/**
+	 * Removes language from database
+	 */
+	function lang_remove()
+	{
+		$data['lang_id'] = $this->uri->segment(3);
+		
+	}
+	
+	/**
+	 * Loads new language form
+	 */
 	function lang_new()
 	{
 		if (!get_cookie('dl_tca')) redirect('admin/');
@@ -166,6 +226,9 @@ class Admin extends Controller {
 		$this->load->view('footer');
 	}
 	
+	/**
+	 * Inserts new language in DB
+	 */
 	function lang_add()
 	{
 		$this->db->insert('language', $_POST);
@@ -173,6 +236,9 @@ class Admin extends Controller {
 		redirect('admin/');
 	}
 	
+	/**
+	 * Lists all associated languages to user.
+	 */
 	function user_languages()
 	{
 		if (!get_cookie('dl_tca')) redirect('admin/');
@@ -209,12 +275,18 @@ class Admin extends Controller {
 		$this->load->view('footer');
 	}
 	
+	/**
+	 * Associates a new language to a specific user
+	 */
 	function lang_associate()
 	{
 		$this->db->insert('user_lang', $_POST);
 		redirect('admin/user_languages/'.$_POST['user_id']);
 	}
 	
+	/**
+	 * Removes a language association from a user
+	 */
 	function lang_unassociate()
 	{
 		$this->db->delete('user_lang', 'id ='.$this->uri->segment(3));
@@ -228,7 +300,7 @@ class Admin extends Controller {
 		
 		$data['title'] = "Translation Center - Logs";
 		
-		$data['logs'] = $this->db->query('SELECT u.name, l.action, l.lang_id, l.date FROM log l, user u WHERE l.user_id = u.id order by l.date desc');
+		$data['logs'] = $this->db->query('SELECT u.username, l.action, l.language, l.date FROM log l, user u WHERE l.user_id = u.id order by l.date desc');
 		
 		$this->load->view('admin/header', $data);
 		$this->load->view('admin/menu');
@@ -245,7 +317,7 @@ class Admin extends Controller {
 		{
 			$this->load->view('admin/header', $data);
 			$this->load->view('admin/menu');
-			$this->load->view('admin/clear_logs', $data);
+			$this->load->view('admin/log_clear', $data);
 			$this->load->view('footer');
 		}
 		else
@@ -258,8 +330,8 @@ class Admin extends Controller {
 	function logout()
 	{
 		$uid = get_cookie('dl_tca');
-		$sql = "INSERT INTO log (user_id, action, lang_id) VALUES (".$uid.", 'admin logout', null)";
-		$this->db->query($sql);
+		//$sql = "INSERT INTO log (user_id, action, lang_id) VALUES (".$uid.", 'admin logout', null)";
+		//$this->db->query($sql);
 		delete_cookie("dl_tca");
 		redirect('admin/');
 	}

@@ -3,7 +3,7 @@
 $lang["dlurl"]="http://domus.link.co.pt";
 $lang["title"]="domus.Link";
 $lang["home"]="Home";
-$lang["lights"]="Luzes";
+$lang["lights"]="Luzes1";
 $lang["appliances"]="Appliances";
 $lang["irrigation"]="Irrigação";
 $lang["login"]="Login";
@@ -24,7 +24,7 @@ $lang["type"]="Tipo";
 $lang["actions"]="Acções";
 $lang["start"]="iniciar";
 $lang["reload"]="reload";
-$lang["stop"]="stop";
+$lang["stop"]="parar";
 $lang["move"]="Move";
 $lang["info"]="Info";
 $lang["running"]="Running";
