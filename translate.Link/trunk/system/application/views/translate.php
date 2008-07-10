@@ -1,7 +1,7 @@
 <div id="content"><!-- Start Content -->
 
-<div class="english-heading"><?php echo $original_lang; ?></div>
-<div class="translation-heading"><?php echo $translated_lang; ?></div>
+<div class="english-heading"><?php echo config_item('org_lang'); ?></div>
+<div class="translation-heading"><?php echo $translated_lang_title; ?></div>
 
 <?php echo form_open('main/save/'.$this->uri->segment(3)); ?>
 <div style="display:none"></div>

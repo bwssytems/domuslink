@@ -22,19 +22,6 @@ h1 {
 	font-weight: bold;
 }
 
-/*
-code {
-	font-family: Monaco, Verdana, Sans-serif;
-	font-size: 12px;
-	background-color: #f9f9f9;
-	border: 1px solid #D0D0D0;
-	color: #002166;
-	display: block;
-	margin: 14px 0 14px 0;
-	padding: 12px 10px 12px 10px;
-}
-*/
-
 div#pagewrapper {
 	width: 99%;
 	margin: 0;
@@ -44,6 +31,7 @@ div#pagewrapper {
 }
 
 div#header {
+	padding-left: 8px;
 	height: 50px;
 }
 
@@ -189,4 +177,8 @@ ul {
 
 li {
 	margin: 5px;
+}
+
+tr.row:hover {
+	background-color: #eee;
 }

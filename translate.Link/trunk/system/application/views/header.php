@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 
 <head>
-<title><?php echo $title; ?></title>
+<title><?php echo config_item('title'); ?></title>
 <meta name="author" content="Istvan Hubay Cebrian" />
 <meta name="description" content="" />
 <meta name="keywords" content="" />
@@ -25,8 +25,8 @@
 
 <table cellspacing="0" cellpadding="0" border="0" width="100%" height="50px">
 <tr>
-<td width="265px"><a href="http://translate.link.co.pt" target="_blank"><img src="<?php echo $logo; ?>" border="0" /></a></td>
-<td align="center"><h1><?php echo $title; ?></h1></td>
+<td width="265px"><a href="http://translate.link.co.pt" target="_blank"><img src="images/<?php echo config_item('logo'); ?>" border="0" /></a></td>
+<td align="center"><h1><?php echo config_item('title'); ?></h1></td>
 </tr>
 </table>
 

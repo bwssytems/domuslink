@@ -17,12 +17,9 @@ class Main extends Controller {
 	 */
 	function index()
 	{
-		$data['title'] = config_item('title');
-		$data['logo'] = config_item('logo');
-		
 		if (!get_cookie('dl_tc')) 
 		{
-			$this->load->view('header', $data);
+			$this->load->view('header');
 			$this->load->view('menu');
 			$this->load->view('login');
 			$this->load->view('footer');
@@ -56,13 +53,13 @@ class Main extends Controller {
 			if ($row->password == $_POST['password']) 
 			{
 				set_cookie("dl_tc", $row->id, 0);
-				$sql = "INSERT INTO log (user_id, action, lang_id) VALUES (".$row->id.", 'login', null)";
-				$this->db->query($sql);
+				//$sql = "INSERT INTO log (user_id, action, language) VALUES (".$row->id.", 'login', null)";
+				//$this->db->query($sql);
 			}
 			else
 			{
-				$sql = "INSERT INTO log (user_id, action, lang_id) VALUES (".$row->id.", 'failed login', null)";
-				$this->db->query($sql);
+				//$sql = "INSERT INTO log (user_id, action, language) VALUES (".$row->id.", 'failed login', null)";
+				//$this->db->query($sql);
 			}
 		}
 		
@@ -78,11 +75,7 @@ class Main extends Controller {
 		if (!get_cookie('dl_tc')) redirect('');
 		
 		// intialize vars
-		$data['title'] = config_item('title');
-		$data['logo'] = config_item('logo');
-		
 		$lang = null;
-		
 		$uid = get_cookie('dl_tc');
 		$lid = $this->uri->segment(3);
 		
@@ -94,19 +87,18 @@ class Main extends Controller {
 		$query = $this->db->get_where('language', 'id ='.$lid);
 		$row = $query->row();
 		
-		$data['translated_lang'] = $row->org_name.'/'.$row->int_name;
-		$data['original_lang'] = config_item('org_lang');
+		$data['translated_lang_title'] = $row->org_name.'/'.$row->int_name;
 		
 		//load original language file
-		include config_item('lang_file_loc').config_item('org_lang_file');
+		include 'languages/'.config_item('org_lang_file');
 		$data['org_lang_array'] = $lang;
 		
 		//load language file to translate
-		include config_item('lang_file_loc').$row->tag.'.php';
+		include 'languages/'.$row->filename.'.php';
 		$data['other'] = $lang;
 		
 		// set-up views/page
-		$this->load->view('header', $data);
+		$this->load->view('header');
 		$this->load->view('menu');
 		$this->load->view('translate', $data);
 		$this->load->view('footer');
@@ -123,7 +115,7 @@ class Main extends Controller {
 		$query = $this->db->get_where('language', 'id ='.$lid);
 		$row = $query->row();
 		
-		$filename = config_item('lang_file_loc').$row->tag.'.php';;
+		$filename = 'languages/'.$row->filename.'.php';;
 		
 		$fp = fopen($filename,'w');
 
@@ -140,7 +132,7 @@ class Main extends Controller {
 			$write = fwrite($fp, "\n?>");
 			fclose($fp);
 			
-			$sql = "INSERT INTO log (user_id, action, lang_id) VALUES (".$uid.", 'update', ".$lid.")";
+			$sql = "INSERT INTO log (user_id, action, language) VALUES (".$uid.", 'update', ".$lid.")";
 			$this->db->query($sql);
 			
 			redirect('/');
@@ -159,9 +151,9 @@ class Main extends Controller {
 	 */
 	function logout()
 	{
-		$uid = get_cookie('dl_tc');
-		$sql = "INSERT INTO log (user_id, action, lang_id) VALUES (".$uid.", 'logout', null)";
-		$this->db->query($sql);
+		//$uid = get_cookie('dl_tc');
+		//$sql = "INSERT INTO log (user_id, action, language) VALUES (".$uid.", 'logout', null)";
+		//$this->db->query($sql);
 		delete_cookie("dl_tc");
 		redirect('/');
 	}

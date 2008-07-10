@@ -37,10 +37,10 @@
 $active_group = "default";
 $active_record = TRUE;
 
-$db['default']['hostname'] = "cerebellum";
-$db['default']['username'] = "tluser";
-$db['default']['password'] = "tlpass";
-$db['default']['database'] = "translatelink";
+$db['default']['hostname'] = config_item('db_hostname');
+$db['default']['username'] = config_item('db_username');
+$db['default']['password'] = config_item('db_password');
+$db['default']['database'] = config_item('database');
 $db['default']['dbdriver'] = "mysql";
 $db['default']['dbprefix'] = "";
 $db['default']['pconnect'] = TRUE;

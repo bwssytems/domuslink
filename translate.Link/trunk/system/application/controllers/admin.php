@@ -13,23 +13,21 @@ class Admin extends Controller {
 	
 	function index()
 	{
-		$data['title'] = "Translation Center - Administration";
-		
 		if (!get_cookie('dl_tca')) 
 		{
-			$this->load->view('admin/header', $data);
+			$this->load->view('admin/header');
 			$this->load->view('admin/menu');
-			$this->load->view('admin/login', $data);
-			$this->load->view('admin/footer');
+			$this->load->view('admin/login');
+			$this->load->view('footer');
 		}
 		else
 		{
 			$data['users'] = $this->db->get('user');
 		
-			$this->load->view('admin/header', $data);
+			$this->load->view('admin/header');
 			$this->load->view('admin/menu');
 			$this->load->view('admin/body', $data);
-			$this->load->view('admin/footer');
+			$this->load->view('footer');
 		}
 	}
 	
@@ -43,13 +41,13 @@ class Admin extends Controller {
 			if ($row->password == $_POST['password']) 
 			{
 				set_cookie("dl_tca", $row->id, 0);
-				$sql = "INSERT INTO log (user_id, action, lang_id) VALUES (".$row->id.", 'admin login', null)";
-				$this->db->query($sql);
+				//$sql = "INSERT INTO log (user_id, action, language) VALUES (".$row->id.", 'admin login', null)";
+				//$this->db->query($sql);
 			}
 			else
 			{
-				$sql = "INSERT INTO log (user_id, action, lang_id) VALUES (".$row->id.", 'failed admin login', null)";
-				$this->db->query($sql);
+				//$sql = "INSERT INTO log (user_id, action, language) VALUES (".$row->id.", 'failed admin login', null)";
+				//$this->db->query($sql);
 			}
 		}
 		
@@ -79,7 +77,7 @@ class Admin extends Controller {
 		$this->load->view('admin/header', $data);
 		$this->load->view('admin/menu');
 		$this->load->view('admin/user_add', $data);
-		$this->load->view('admin/footer');
+		$this->load->view('footer');
 	}
 	
 	function user_edit()
@@ -106,7 +104,7 @@ class Admin extends Controller {
 		$this->load->view('admin/header', $data);
 		$this->load->view('admin/menu');
 		$this->load->view('admin/user_edit', $data);
-		$this->load->view('admin/footer');
+		$this->load->view('footer');
 	}
 	
 	function user_save()
@@ -121,6 +119,16 @@ class Admin extends Controller {
 		$this->db->insert('user', $_POST);
 		
 		redirect('admin/');
+	}
+	
+	function user_delete_confirm()
+	{
+		$data['title'] = "Translation Center - Remove User?";
+		
+		$this->load->view('admin/header', $data);
+		$this->load->view('admin/menu');
+		$this->load->view('admin/lang_add');
+		$this->load->view('footer');
 	}
 	
 	function user_delete()
@@ -138,16 +146,24 @@ class Admin extends Controller {
 		*/
 	}
 	
+	function languages()
+	{
+		/* <?php echo anchor('admin/lang_new/', 'Add Language'); ?> */
+		
+		$this->load->view('admin/header', $data);
+		$this->load->view('admin/menu');
+		$this->load->view('admin/languages');
+		$this->load->view('footer');
+	}
+	
 	function lang_new()
 	{
 		if (!get_cookie('dl_tca')) redirect('admin/');
 		
-		$data['title'] = "Translation Center - Language Add";
-		
-		$this->load->view('admin/header', $data);
+		$this->load->view('admin/header');
 		$this->load->view('admin/menu');
 		$this->load->view('admin/lang_add');
-		$this->load->view('admin/footer');
+		$this->load->view('footer');
 	}
 	
 	function lang_add()
@@ -157,7 +173,7 @@ class Admin extends Controller {
 		redirect('admin/');
 	}
 	
-	function languages()
+	function user_languages()
 	{
 		if (!get_cookie('dl_tca')) redirect('admin/');
 		
@@ -189,21 +205,21 @@ class Admin extends Controller {
 		
 		$this->load->view('admin/header', $data);
 		$this->load->view('admin/menu');
-		$this->load->view('admin/languages', $data);
-		$this->load->view('admin/footer');
+		$this->load->view('admin/user_languages', $data);
+		$this->load->view('footer');
 	}
 	
 	function lang_associate()
 	{
 		$this->db->insert('user_lang', $_POST);
-		redirect('admin/languages/'.$_POST['user_id']);
+		redirect('admin/user_languages/'.$_POST['user_id']);
 	}
 	
 	function lang_unassociate()
 	{
 		$this->db->delete('user_lang', 'id ='.$this->uri->segment(3));
 		
-		redirect('admin/languages/'.$this->uri->segment(4));
+		redirect('admin/user_languages/'.$this->uri->segment(4));
 	}
 	
 	function view_log()
@@ -217,7 +233,7 @@ class Admin extends Controller {
 		$this->load->view('admin/header', $data);
 		$this->load->view('admin/menu');
 		$this->load->view('admin/log', $data);
-		$this->load->view('admin/footer');
+		$this->load->view('footer');
 	}
 	
 	function clear_logs()
@@ -230,7 +246,7 @@ class Admin extends Controller {
 			$this->load->view('admin/header', $data);
 			$this->load->view('admin/menu');
 			$this->load->view('admin/clear_logs', $data);
-			$this->load->view('admin/footer');
+			$this->load->view('footer');
 		}
 		else
 		{
