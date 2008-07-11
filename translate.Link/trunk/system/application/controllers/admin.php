@@ -22,6 +22,7 @@ class Admin extends Controller {
 		}
 		else
 		{
+			$this->db->order_by('username', 'asc'); 
 			$data['users'] = $this->db->get('user');
 		
 			$this->load->view('admin/header');
@@ -137,12 +138,14 @@ class Admin extends Controller {
 	 * Confirm user removal
 	 */
 	function user_delete_confirm()
-	{
-		$data['title'] = "Translation Center - Remove User?";
+	{		
+		$query = $this->db->get_where('user', 'id ='.$this->uri->segment(3));
+		$row = $query->row();
+		$data['user_name'] = $row->name;
 		
-		$this->load->view('admin/header', $data);
+		$this->load->view('admin/header');
 		$this->load->view('admin/menu');
-		$this->load->view('admin/lang_add');
+		$this->load->view('admin/user_delete',$data);
 		$this->load->view('footer');
 	}
 	
@@ -151,17 +154,23 @@ class Admin extends Controller {
 	 */
 	function user_delete()
 	{
-		echo "Code commented!";
-		/*
-		$this->db->delete('user', 'id ='.$this->uri->segment(3));
-		$query = $this->db->query('select id from user_lang where user_id = '.$this->uri->segment(3));
-		foreach ($query->result() as $row)
+		if (!get_cookie('dl_tca')) redirect('admin/');
+		
+		$confirmed = $this->uri->segment(3);
+		
+		if ($confirmed == "confirmed")
 		{
-			$this->db->delete('log', 'user_lang_id = '.$row->id);
+			//remove language associations
+			$this->db->delete('user_lang', 'user_id ='.$this->uri->segment(4));
+			
+			//remove all logs for this user
+			$this->db->delete('log', 'user_id ='.$this->uri->segment(4));
+			
+			//remove user
+			$this->db->delete('user', 'id ='.$this->uri->segment(4));
 		}
-		$this->db->delete('user_lang', 'user_id ='.$this->uri->segment(3));
+		
 		redirect('admin/');
-		*/
 	}
 	
 	/**
@@ -171,10 +180,11 @@ class Admin extends Controller {
 	{
 		if (!get_cookie('dl_tca')) redirect('admin/');
 		
+		$this->db->order_by('int_name', 'asc'); 
 		$data['languages'] = $this->db->get('language');
 		
 		$this->load->view('admin/header');
-		$this->load->view('admin/menu');
+		$this->load->view('admin/menu_lang');
 		$this->load->view('admin/languages', $data);
 		$this->load->view('footer');
 	}
@@ -207,10 +217,36 @@ class Admin extends Controller {
 	/**
 	 * Removes language from database
 	 */
-	function lang_remove()
+	function lang_delete_confirm()
 	{
 		$data['lang_id'] = $this->uri->segment(3);
 		
+		$query = $this->db->get_where('language', 'id ='.$this->uri->segment(3));
+		$row = $query->row();
+		$data['language'] = $row->int_name;
+		
+		$this->load->view('admin/header');
+		$this->load->view('admin/menu');
+		$this->load->view('admin/lang_delete',$data);
+		$this->load->view('footer');
+	}
+	
+	function lang_delete()
+	{
+		if (!get_cookie('dl_tca')) redirect('admin/');
+		
+		$confirmed = $this->uri->segment(3);
+		
+		if ($confirmed == "confirmed")
+		{
+			//remove user / language associations
+			$this->db->delete('user_lang', 'lang_id ='.$this->uri->segment(4));
+			
+			//remove language
+			$this->db->delete('language', 'id ='.$this->uri->segment(4));
+		}
+		
+		redirect('admin/');
 	}
 	
 	/**
@@ -243,8 +279,6 @@ class Admin extends Controller {
 	{
 		if (!get_cookie('dl_tca')) redirect('admin/');
 		
-		$data['title'] = "Translation Center - User Language(s)";
-		
 		$data['uid'] = $this->uri->segment(3);
 		$query = $this->db->query('select name from user where id = '.$data['uid'].' limit 1');
 		$row = $query->row_array();
@@ -269,7 +303,7 @@ class Admin extends Controller {
 		
 		$data['avail_langs'] = $rs;
 		
-		$this->load->view('admin/header', $data);
+		$this->load->view('admin/header');
 		$this->load->view('admin/menu');
 		$this->load->view('admin/user_languages', $data);
 		$this->load->view('footer');
@@ -308,16 +342,18 @@ class Admin extends Controller {
 		$this->load->view('footer');
 	}
 	
+	/**
+	 * 
+	 */
 	function clear_logs()
 	{
 		$ver = $this->uri->segment(3);
-		$data['title'] = "Translation Center - Clear Logs";
 		
 		if ($ver != "clear") 
 		{
-			$this->load->view('admin/header', $data);
+			$this->load->view('admin/header');
 			$this->load->view('admin/menu');
-			$this->load->view('admin/log_clear', $data);
+			$this->load->view('admin/log_clear');
 			$this->load->view('footer');
 		}
 		else
@@ -327,6 +363,9 @@ class Admin extends Controller {
 		}
 	}
 	
+	/**
+	 * 
+	 */
 	function logout()
 	{
 		$uid = get_cookie('dl_tca');

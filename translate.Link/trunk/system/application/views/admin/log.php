@@ -3,7 +3,7 @@
 <table cellspacing="0" cellpadding="3" border="1" style="font-size:10px">
 
 <tr>
-<th>Name</th>
+<th>Username</th>
 <th>Action</th>
 <th>Language</th>
 <th>Date</th>

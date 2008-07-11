@@ -3,7 +3,7 @@
 $lang["dlurl"]="http://domus.link.co.pt";
 $lang["title"]="domus.Link";
 $lang["home"]="Home";
-$lang["lights"]="Luzes1";
+$lang["lights"]="Luzes";
 $lang["appliances"]="Appliances";
 $lang["irrigation"]="Irrigação";
 $lang["login"]="Login";
