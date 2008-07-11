@@ -5,6 +5,6 @@
 |&nbsp;&nbsp;&nbsp;&nbsp;<?php echo anchor('admin/user_new/', 'Add User'); ?>&nbsp;&nbsp;&nbsp;&nbsp;
 |&nbsp;&nbsp;&nbsp;&nbsp;<?php echo anchor('admin/languages/', 'Languages'); ?>&nbsp;&nbsp;&nbsp;&nbsp;
 |&nbsp;&nbsp;&nbsp;&nbsp;<?php echo anchor('admin/view_log/', 'View Log'); ?>&nbsp;&nbsp;&nbsp;&nbsp;
-|&nbsp;&nbsp;&nbsp;&nbsp;<?php echo anchor('admin/logout/', 'Logout'); ?>&nbsp;
+|&nbsp;&nbsp;&nbsp;&nbsp;<?php echo anchor('admin/logout/', 'Logout'); ?>&nbsp;&nbsp;&nbsp;&nbsp;
 <?php endif; ?>
 </div>
