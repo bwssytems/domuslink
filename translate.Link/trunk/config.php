@@ -1,7 +1,14 @@
 <?php
 /**
- *  translate.Link Configuration file.
- *  
+ * translate.Link Configuration File
+ *
+ * An open source PHP Translation Center
+ *
+ * @package		translate.Link
+ * @author		Istvan Hubay Cebrian
+ * @copyright	Copyright (c) 2008, Istvan Hubay Cebrian
+ * @license		/license/translatelink.txt
+ * @link		http://translate.link.co.pt
  */
 
 /*

@@ -1,5 +1,15 @@
 <?php
-
+/**
+ * translate.Link
+ *
+ * An open source PHP Translation Center
+ *
+ * @package		translate.Link
+ * @author		Istvan Hubay Cebrian
+ * @copyright	Copyright (c) 2008, Istvan Hubay Cebrian
+ * @license		/license/translatelink.txt
+ * @link		http://translate.link.co.pt
+ */
 class Admin extends Controller {
 
 	function Admin()
@@ -37,25 +47,36 @@ class Admin extends Controller {
 	 */
 	function login()
 	{
-		$query = $this->db->query('select id, password from user where username = \''.$_POST['username'].'\' and group_id = 1');
+		$query = $this->db->query('select id, password, status from user where username = \''.$_POST['username'].'\' and group_id = 1');
 		
 		if ($query->num_rows() > 0)
 		{
 			$row = $query->row();
 			if ($row->password == $_POST['password']) 
 			{
-				set_cookie("dl_tca", $row->id, 0);
+				if ($row->status == "AC")
+				{
+					set_cookie("dl_tca", $row->id, 0);
+					redirect('admin/');
+				}
+				else
+				{
+					$this->load->view('header');
+					$this->load->view('menu');
+					$this->load->view('deactivated');
+					$this->load->view('footer');
+				}
 				//$sql = "INSERT INTO log (user_id, action, language) VALUES (".$row->id.", 'admin login', null)";
 				//$this->db->query($sql);
 			}
+			/*
 			else
 			{
-				//$sql = "INSERT INTO log (user_id, action, language) VALUES (".$row->id.", 'failed admin login', null)";
-				//$this->db->query($sql);
+				$sql = "INSERT INTO log (user_id, action, language) VALUES (".$row->id.", 'failed admin login', null)";
+				$this->db->query($sql);
 			}
+			*/
 		}
-		
-		redirect('admin/');
 	}
 	
 	/**
@@ -78,6 +99,11 @@ class Admin extends Controller {
 		unset($query);
 		
 		$data['groups'] = $rs;
+		
+		$data['status'] = array(
+                  'AC'  => 'Active',
+                  'DE'  => 'Deactivated',
+                  );
 		
 		$this->load->view('admin/header');
 		$this->load->view('admin/menu');
@@ -107,6 +133,11 @@ class Admin extends Controller {
 		unset($query);
 		
 		$data['groups'] = $rs;
+		
+		$data['status'] = array(
+          'AC'  => 'Active',
+          'DE'  => 'Deactivated',
+          );
 		
 		$this->load->view('admin/header');
 		$this->load->view('admin/menu');

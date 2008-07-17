@@ -1,4 +1,15 @@
 <?php
+/**
+ * translate.Link
+ *
+ * An open source PHP Translation Center
+ *
+ * @package		translate.Link
+ * @author		Istvan Hubay Cebrian
+ * @copyright	Copyright (c) 2008, Istvan Hubay Cebrian
+ * @license		/license/translatelink.txt
+ * @link		http://translate.link.co.pt
+ */
 
 class Main extends Controller {
 	
@@ -45,25 +56,39 @@ class Main extends Controller {
 	 */
 	function login()
 	{
-		$query = $this->db->query('select id, password from user where username = \''.$_POST['username'].'\'');
+		$query = $this->db->query('select id, password, status from user where username = \''.$_POST['username'].'\'');
 		
 		if ($query->num_rows() > 0)
 		{
 			$row = $query->row();
 			if ($row->password == $_POST['password']) 
 			{
-				set_cookie("dl_tc", $row->id, 0);
+				if ($row->status == "AC")
+				{
+					set_cookie("dl_tc", $row->id, 0);
+					redirect('');
+				}
+				else
+				{
+					$this->load->view('header');
+					$this->load->view('menu');
+					$this->load->view('deactivated');
+					$this->load->view('footer');
+				}				
+					
 				//$sql = "INSERT INTO log (user_id, action, language) VALUES (".$row->id.", 'login', null)";
 				//$this->db->query($sql);
 			}
+			/*
 			else
 			{
-				//$sql = "INSERT INTO log (user_id, action, language) VALUES (".$row->id.", 'failed login', null)";
-				//$this->db->query($sql);
+				$sql = "INSERT INTO log (user_id, action, language) VALUES (".$row->id.", 'failed login', null)";
+				$this->db->query($sql);
 			}
+			*/
 		}
 		
-		redirect('');
+		
 	}
 	
 	/**

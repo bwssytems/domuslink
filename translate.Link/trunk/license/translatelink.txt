@@ -1,3 +1,13 @@
+This license applies to all files contained within the following directories:
+
+  /system/application/controllers
+  /system/application/views
+  /config.php
+  /style.php
+  
+All of these files are not part of the CodeIgniter PHP Framework. 
+----------------------------------------------------------------------------
+
 Copyright (c) 2008, Istvan Hubay Cebrian.
 All rights reserved.
 
@@ -22,12 +32,8 @@ the following conditions are met:
    of the change and the names of those who changed them.
 
 5. Products derived from the Software must include an acknowledgment that
-   they are derived from CodeIgniter in their documentation and/or other
-   materials provided with the distribution.
-
-6. Products derived from the Software may not be called "CodeIgniter",
-   nor may "CodeIgniter" appear in their name, without prior written
-   permission from EllisLab, Inc.
+   they are derived from CodeIgniter/translate.Link in their documentation 
+   and/or other materials provided with the distribution.
 
 
 INDEMNITY
