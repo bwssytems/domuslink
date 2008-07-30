@@ -23,7 +23,7 @@ foreach($aliases as $alias_num):
 	list($alias, $label, $code, $module_type) = split(" ", $alias, 4);
 	list($module, $typenloc) = split(" # ", $module_type, 2);
 	list($type, $loc) = split(",", $typenloc, 2); ?>
-<tr>
+<tr class="row">
   <td><?php echo $code;?></td>
   <td><?php echo $label;?></td>
   <td><?php echo $module;?></td>

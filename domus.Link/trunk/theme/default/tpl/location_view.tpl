@@ -13,7 +13,7 @@
 <?php
 foreach($locations as $line_num => $loc):
   $locf = rtrim($locnf); ?>
-<tr>
+<tr class="row">
   <td><?php echo $loc;?></td>
   <td align="center" width="20px"><a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=edit&line=<?php echo $line_num;?>"><?php echo ($lang['edit']);?></a></td>
   <td align="center" width="20px"><a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=del&line=<?php echo $line_num;?>" onclick="return confirm('<?php echo ($lang['deleteconfirm']);?>')"><?php echo ($lang['delete']);?></a></td>

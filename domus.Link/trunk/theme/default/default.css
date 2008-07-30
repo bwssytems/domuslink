@@ -153,6 +153,10 @@ table.content td {
 	/*background-color: #fbfbfb;*/
 }
 
+tr.row:hover {
+	background-color: #eee;
+}
+
 table.clear td {
 	border: none;
 }
