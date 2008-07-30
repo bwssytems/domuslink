@@ -56,7 +56,7 @@ function heyu_running()
 {
 	$rs = execute_cmd("ps ax");
 
-	if (count(preg_grep('/[h]eyu/', $rs)) == 2) return true;
+	if (count(preg_grep('/[h]eyu/', $rs)) >= 2) return true;
 }
 
 /**
