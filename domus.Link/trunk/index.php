@@ -19,6 +19,9 @@ require_once(CLASS_FILE_LOCATION.'heyuconf.class.php');
 ## Instantiate HeyuConf class
 $heyuconf = new HeyuConf($config['heyuconf']);
 
+## Define templates location acording to theme
+define("TPL_FILE_LOCATION", dirname(__FILE__) . DIRECTORY_SEPARATOR . 'theme' . DIRECTORY_SEPARATOR . $config['theme'] . DIRECTORY_SEPARATOR . 'tpl' . DIRECTORY_SEPARATOR);
+
 // Security validation's
 if ($config['seclevel'] == "2") 
 {
