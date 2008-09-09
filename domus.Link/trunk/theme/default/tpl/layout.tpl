@@ -134,7 +134,7 @@
 <!-- end footer div -->
 <br>
 <div id="copyright"><a href="<?php echo ($lang['dlurl']); ?>" target="_blank">domus.Link :: Heyu Frontend</a> v<?php echo $ver; ?>
-<br>Copyright <SCRIPT LANGUAGE="JavaScript">copyrightDate();</SCRIPT><br>Istvan Hubay Cebrian</div>
+<br>Copyright <SCRIPT LANGUAGE="JavaScript">copyrightDate();</SCRIPT><br><a href="http://icebrian.net" target="_blank">Istvan Hubay Cebrian</a></div>
 </body>
 </html>
 <!-- domus.Link - Copyright (c) 2007-2008 - Istvan Cebrian - http://domus.link.co.pt -->
