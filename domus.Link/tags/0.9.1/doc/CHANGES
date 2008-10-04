@@ -1,0 +1,88 @@
+/*----------------------------------------------------------------------------+
+ |                                                                            |
+ |                               CHANGES                                      |
+ |                                                                            |
+ +----------------------------------------------------------------------------*/
+ 
+ v0.9.1 (minor release) - 04/Oct/2008
+ ------
+    * A few UI enhancements
+    * Updated language files
+    * New languages (German, Portuguese and Spanish)
+      Thanks to Raimund Scheiber (German translation)
+      and Israel Santana Alemán (Spanish translation)
+    * A few bug fixes
+ 
+ v0.9 (major release) - 01/Mar/2008
+ ------
+    * Implemented a two way module sorting (house area and type)
+    * Added floorplan administration
+    * Implmented sortable modules and floorplan feature
+    * Added validations when deleting or renaming house areas
+    * Completely separated code logic from presentation logic
+    * Added individual templates for each type of module
+    * Hopefully fixed way in which Heyu is checked if it is running
+    * Added Javascript field validation's to aliases and floorplan
+    * Redesigned footer layout
+    * Added computer uptime information to footer
+ 	* Added CM11x information viewing
+ 	* Redesigned default theme to be lighter and more dynamic
+ 	* Removed 'number of columns' option from frontend configuration
+ 	* Updated/corrected english translation 
+ 	* New email. Please use istvan.cebrian -at- domus.link.co.pt for any matter
+ 	  related to domus.Link.
+
+[vesion number jump... why... well I want v1.0 be be first V with events]
+
+ v0.2 (major release) - 03/Feb/2008
+ ------
+	* Added support for multi-aliases such as A2,5,6.
+ 	* Completely rewrote way of handling control table's, reduced 
+ 	  from ~350 lines of code to about 50.
+	* Added configuration option to choose how many modules appear 
+	  per line on control page.
+	* Added dim/bright click controls to intensity table
+ 	* Added native support for CM17A devices
+ 	* Added security level's for password protection 
+ 	  (none, admin & everything)
+ 	* Added an auto-refresh setting to the frontend
+ 	* Heyu now automatically reload's when changes are made to it's settings
+ 	* Bug correction with START and STOP for Heyu when on error.php
+ 	* Fixed some error handling bugs
+ 	* Fixed various other minor bugs
+ 	* Changed theme icons. Now currently uses icons from the
+ 	  Crystal icon pack (http://www.everaldo.com/crystal/)
+ 	  by Everaldo Coelho which are licensed under the LGPL.
+	* Added Italian translation
+	  Thanks to Stefano Bodini
+ 	* Added Swedish translation
+ 	  Thanks to Tobias Axelsson
+ 	* Updated Dutch translation
+ 	  Thanks to Frank
+
+ v0.1.1 (bug fixes, no new features) - 23/Sep/2007
+ ------
+ 	* Disabled 'short_open_tag' for security reason's
+ 	  Thanks to Julien Touche for pointing this out
+ 	* Added Dutch translation
+ 	  Thanks to Frank
+ 	* Added French translation
+ 	  Thanks to 'Child from Korn' and Thierry Moutet
+ 	* Fixed various PHP warning messages.
+ 	* Added more error handling code
+ 	* Changed languages dropdown so that full names are given instead of ie: en_GB
+ 	* Fixed IE CSS bugs
+ 	* Implemented a different solution for checking if Heyu is running.
+ 	  Thanks again to Julien Touche.
+ 	* Various other fixes/corrections/security enhancements
+
+ v0.1 (first release) - 02/Jun/2007
+ -----
+  Features:
+ 	* Web based Heyu configuration
+ 	* Add/Remove/Edit Aliases
+    * Alias modules divided by type (Lights, Appliance, etc)
+    * ON/OFF Controls for every type
+    * DIM/BRIGHT Controls for Lights
+    * Multilingual
+    * Themeable
