@@ -60,10 +60,9 @@ $lang["enter_password"] = "Please enter your password to access the administrati
 
 /* help texts */
 $lang["heyuexec_txt"] = "This setting specifies the location of the Heyu exectuable file. Typically this will be in /usr/local/bin/";
-$lang["password_txt"] = "Define a password to access the selected areas. Leave blank to disable.";
+$lang["password_txt"] = "Define a password to access the selected areas.";
 $lang["theme_txt"] = "Select a theme for the GUI.";
 $lang["imgs_txt"] = "Select whether or not you would like to use images instead of text on the menu bar.";
-$lang["setup_txt"] = "This is where you can configure all settings.<br>Please select option from sub-menu bellow 'Setup'";
 $lang["heyubaseloc_txt"] = "Heyu base directory - This directory is where Heyu searches for it's configuration files, and stores state information.";
 $lang["language_txt"] = "Define the language for the frontend here. You can also select auto, which will use the browsers preferred language.";
 $lang["heyuconfile_txt"] = "This file is typically named x10.conf and usually located in /etc/heyu/ for system wide use.";

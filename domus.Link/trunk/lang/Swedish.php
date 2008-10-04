@@ -54,7 +54,6 @@ $lang["heyuexec_txt"]="Denna inställning specifierar var i systemet man finner 
 $lang["password_txt"]="Definiera ett lösenord för att komma åt de valda områdena. Lämna tomt för att inaktivera.";
 $lang["theme_txt"]="Välj ett tema för GUIT.";
 $lang["imgs_txt"]="Välj om du vill ha bilder eller bara ren text i menyraden.";
-$lang["setup_txt"]="Här kan du ställa in alla inställningar.<br>Var god välj en av undermenyerna under 'Inställningar'.";
 $lang["heyubaseloc_txt"]="Heyu filbas - Detta är katalogen som Heyu hittar sina konfigurationsfiler och filer för statusinformation i.";
 $lang["language_txt"]="Definierar språket för fromtändan. Du kan också sätta denna till auto, vilket låter browsern välja språk istället. Engelska kommer att väljas som språk om språket inte hittas.";
 $lang["heyuconfile_txt"]="Konfigurationsfilen innehåller flera kritiska delar som heyu behöver för att fungera, plus ett antal användaroptioner. Denna filen är vanligtvis kallad x10.conf och hittas vanligtvis  i katalogen /etc/heyu för att hela systemet skalla ha åtkomst till den.";

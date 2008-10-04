@@ -4,7 +4,16 @@
  |                                                                            |
  +----------------------------------------------------------------------------*/
  
- v0.9
+ v0.9.1 (minor release) - 04/Oct/2008
+ ------
+    * A few UI enhancements
+    * Updated language files
+    * New languages (German, Portuguese and Spanish)
+      Thanks to Raimund Scheiber (German translation)
+      and Israel Santana Alemán (Spanish translation)
+    * A few bug fixes
+ 
+ v0.9 (major release) - 01/Mar/2008
  ------
     * Implemented a two way module sorting (house area and type)
     * Added floorplan administration
@@ -23,7 +32,9 @@
  	* New email. Please use istvan.cebrian -at- domus.link.co.pt for any matter
  	  related to domus.Link.
 
- v0.2
+[vesion number jump... why... well I want v1.0 be be first V with events]
+
+ v0.2 (major release) - 03/Feb/2008
  ------
 	* Added support for multi-aliases such as A2,5,6.
  	* Completely rewrote way of handling control table's, reduced 
