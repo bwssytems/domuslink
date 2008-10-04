@@ -49,7 +49,7 @@ div#menu img {
 
 div#menuitem {
 	float: left;
-	width: 19.9%;
+	width: 16.59%;
 	text-align: center;
 	font-size: 14px;
 	height: 40px;
@@ -104,13 +104,48 @@ div#setupmenuitem a:hover {
 	color: #666;
 }
 
+/************** EVENTS MENU **************/
+div#eventsmenu {
+	background: #fff url(images/header_left.gif) no-repeat;
+	height: 18px;
+	border-bottom: 1px dotted #ccc;
+	border-right: 1px solid #ccc;
+	line-height: 1.2em;
+}
+
+div#eventsmenuitem {
+	float: right;
+	text-align: center;
+	border-left: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+}
+
+div#eventsmenuitem a {
+	text-decoration: none;
+	color: #000;
+	display: block;
+	padding-left: 30px;
+	padding-right: 30px;
+	padding-top: 3px;
+	padding-bottom: 3px;
+}
+
+div#eventsmenuitem a:hover {
+	text-decoration: none;
+	background-color: #ccc;
+	color: #666;
+}
+
 /************** CONTENT **************/
 div#content {
 	padding-left: 15px;
 	padding-right: 15px;
 	padding-bottom: 15px;
+	
+	/*
 	width: auto;
 	height: auto;
+	*/
 }
 
 /************** FOOTER **************/
@@ -167,7 +202,7 @@ div#module {
 	float: left;
 	width: 160px;
 	height: 36px;
-	background: #ccc url(images/button.gif) no-repeat;
+	background: #fff url(images/button.gif) no-repeat;
 	padding-top: 3px;
 	padding-left: 5px;
 	padding-right: 5px;

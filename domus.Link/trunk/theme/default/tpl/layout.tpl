@@ -77,18 +77,32 @@
   <div id="menuitem"><p><a href="<?php echo ($config['url_path']); ?>/index.php?page=lights"><?php echo ($lang['lights']); ?></a></p></div>
   <div id="menuitem"><p><a href="<?php echo ($config['url_path']); ?>/index.php?page=appliances"><?php echo ($lang['appliances']); ?></a></p></div>
   <div id="menuitem"><p><a href="<?php echo ($config['url_path']); ?>/index.php?page=irrigation"><?php echo ($lang['irrigation']); ?></a></p></div>
-  <div id="menuitem"><p><a href="#" onclick="divShowHide(setupmenu);"><?php echo ($lang['setup']); ?></a></p></div>
+  <div id="menuitem"><p><a href="#" onclick="divShowHide(setupmenu, 'hidden'); divShowHide(eventsmenu);"><?php echo ($lang['events']); ?></a></p></div>
+  <div id="menuitem"><p><a href="#" onclick="divShowHide(eventsmenu, 'hidden'); divShowHide(setupmenu);"><?php echo ($lang['setup']); ?></a></p></div>
 <?php else: ?>
   <div id="menuitem"><a href="<?php echo ($config['url_path']);?>/index.php?page=home" onmouseover="imgRoll('img_1', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_home_on.png')" onmouseout="imgRoll('img_1', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_home_off.png')"><img alt="<?php echo ($lang['home']);?>" src="<?php echo($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_home_off.png" border="0" name="img_1" /></a></div>
   <div id="menuitem"><a href="<?php echo ($config['url_path']);?>/index.php?page=lights" onmouseover="imgRoll('img_2', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_lights_on.png')" onmouseout="imgRoll('img_2', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_lights_off.png')"><img alt="<?php echo ($lang['lights']);?>" src="<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_lights_off.png" border="0" name="img_2" /></a></div>
   <div id="menuitem"><a href="<?php echo ($config['url_path']);?>/index.php?page=appliances" onmouseover="imgRoll('img_3', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_appliances_on.png')" onmouseout="imgRoll('img_3', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_appliances_off.png')"><img alt="<?php echo ($lang['appliances']);?>" src="<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_appliances_off.png" border="0" name="img_3" /></a></div>
   <div id="menuitem"><a href="<?php echo ($config['url_path']);?>/index.php?page=irrigation" onmouseover="imgRoll('img_4', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_irrigation_on.png')" onmouseout="imgRoll('img_4', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_irrigation_off.png')"><img alt="<?php echo ($lang['irrigation']);?>" src="<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_irrigation_off.png" border="0" name="img_4" /></a></div>
-  <div id="menuitem"><a href="#" onclick="divShowHide(setupmenu);" onmouseover="imgRoll('img_7', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_setup_on.png')" onmouseout="imgRoll('img_7', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_setup_off.png')"><img alt="<?php echo ($lang['setup']);?>" src="<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_setup_off.png" border="0" name="img_7" /></a></div>
+  <div id="menuitem"><a href="#" onclick="divShowHide(setupmenu, 'hidden'); divShowHide(eventsmenu);" onmouseover="imgRoll('img_6', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_events_on.png')" onmouseout="imgRoll('img_6', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_events_off.png')"><img alt="<?php echo ($lang['events']);?>" src="<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_events_off.png" border="0" name="img_6" /></a></div>
+  <div id="menuitem"><a href="#" onclick="divShowHide(eventsmenu, 'hidden'); divShowHide(setupmenu);" onmouseover="imgRoll('img_7', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_setup_on.png')" onmouseout="imgRoll('img_7', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_setup_off.png')"><img alt="<?php echo ($lang['setup']);?>" src="<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_setup_off.png" border="0" name="img_7" /></a></div>
 <?php endif; ?>
 </div>
 <!-- end menu div -->
 
 <div id="black_sep1"></div><!-- separator div -->
+
+<!-- start events div -->
+<div id="eventsmenu" style="display:none">
+  <div id="menuspacer"  style="height: 18px; width: 16.8%; float: right; border-left: 1px solid #ccc;">&nbsp;</div>
+  <div id="eventsmenuitem"><a href="<?php echo ($config['url_path']);?>/events/upload.php"><?php echo ($lang['upload']); ?></a></div>
+  <div id="eventsmenuitem"><a href="<?php echo ($config['url_path']);?>/events/triggers.php"><?php echo ($lang['triggers']); ?></a></div>
+  <div id="eventsmenuitem"><a href="<?php echo ($config['url_path']);?>/events/timmers.php"><?php echo ($lang['timmers']); ?></a></div>
+</div>
+<?php if (substr(strstr($_SERVER['REQUEST_URI'], "events"), 0, 5) == "events"): ?>
+<SCRIPT LANGUAGE="JavaScript">divShowHide(eventsmenu, 'visible');</SCRIPT>
+<?php endif; ?>
+<!-- end setup div -->
 
 <!-- start setup div -->
 <div id="setupmenu" style="display:none">
