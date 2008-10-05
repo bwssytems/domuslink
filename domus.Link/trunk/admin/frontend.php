@@ -17,7 +17,7 @@ require_once('..'.DIRECTORY_SEPARATOR.'include.php');
 if ($config['seclevel'] != "0") 
 {
 	if (!isset($_COOKIE["dluloged"]))
-		header("Location: login.php?from=frontend");
+		header("Location: ../login.php?from=admin/frontend");
 }
 
 ## Set template parameters

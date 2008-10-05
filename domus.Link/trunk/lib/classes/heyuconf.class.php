@@ -44,6 +44,23 @@ class heyuConf {
 	{
 		return $this->heyuconf;
 	}
+	
+	/**
+	 * Get defined schedule file from heyu configuration file
+	 */
+	function getSchedFile()
+	{
+		foreach ($this->heyuconf as $num => $line)
+		{
+			if (substr($line, 0, 13) == "SCHEDULE_FILE")
+			{
+				$schedfile = trim(substr($line, 14));
+				break;
+			}			
+		}
+		
+		return $schedfile;
+	}
 
 	/**
 	 * Get Aliases
@@ -108,7 +125,7 @@ class heyuConf {
 		}
 		
 		if (!empty($request)) return $request;
-	} 
+	}
 }
 
 ?>

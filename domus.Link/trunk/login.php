@@ -11,7 +11,8 @@
  *
  */
 
-require_once('..'.DIRECTORY_SEPARATOR.'include.php');
+$dirname = dirname(__FILE__);
+require_once($dirname.DIRECTORY_SEPARATOR.'include.php');
 
 ## Set template parameters
 $tpl->set('lang', $lang);

@@ -25,7 +25,7 @@ $locsize = count($locations);
 if ($config['seclevel'] != "0") 
 {
 	if (!isset($_COOKIE["dluloged"]))
-		header("Location: login.php?from=floorplan");
+		header("Location: ../login.php?from=admin/floorplan");
 }
 
 ## Set template parameters

@@ -99,7 +99,7 @@
   <div id="eventsmenuitem"><a href="<?php echo ($config['url_path']);?>/events/triggers.php"><?php echo ($lang['triggers']); ?></a></div>
   <div id="eventsmenuitem"><a href="<?php echo ($config['url_path']);?>/events/timmers.php"><?php echo ($lang['timmers']); ?></a></div>
 </div>
-<?php if (substr(strstr($_SERVER['REQUEST_URI'], "events"), 0, 5) == "events"): ?>
+<?php if (substr(strstr($_SERVER['REQUEST_URI'], "events"), 0, 6) == "events"): ?>
 <SCRIPT LANGUAGE="JavaScript">divShowHide(eventsmenu, 'visible');</SCRIPT>
 <?php endif; ?>
 <!-- end setup div -->

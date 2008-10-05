@@ -25,7 +25,7 @@ $chars = '/ã|é|à|ç|õ|ñ|è|ñ|ª|º|~|è|!|"|\#|\$|\^|%|\&|\?|\«|\»/';
 if ($config['seclevel'] != "0") 
 {
 	if (!isset($_COOKIE["dluloged"]))
-		header("Location: login.php?from=aliases");
+		header("Location: ../login.php?from=admin/aliases");
 }
 
 ## Set template parameters

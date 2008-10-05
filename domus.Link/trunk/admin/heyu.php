@@ -20,7 +20,7 @@ require_once(CLASS_FILE_LOCATION.'heyuconf.class.php');
 if ($config['seclevel'] != "0") 
 {
 	if (!isset($_COOKIE["dluloged"]))
-		header("Location: login.php?from=heyu");
+		header("Location: ../login.php?from=admin/heyu");
 }
 
 ## Instantiate HeyuConf class
