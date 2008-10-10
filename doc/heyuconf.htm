@@ -1,0 +1,262 @@
+<html>
+<head>
+<title>Help</title>
+<style>
+body
+{
+	font-size: 11px;
+	line-height: 1.4em;
+	font-family: Verdana;
+	color: #333;
+}
+
+a
+{
+	text-decoration: none;
+	color: #333;
+}
+
+a:hover
+{
+	color: #000;
+}
+
+div#toc
+{
+	padding: 5px;
+	width: 200px;
+	border: 1px solid #ccc;
+	font-size: 10px;
+	line-height: 1.5em;
+}
+
+div#toc h1
+{
+	font-weight: bold;
+	border-bottom: 1px dotted #333;
+	padding: 0;
+	margin: 0 0 5px 0;
+	font-size: 12px;
+}
+
+div#content
+{
+	padding: 5px;
+}
+
+div#top
+{
+	float: right;
+	margin-top: -24px;
+	font-size: 10px;
+	padding-right: 2px;
+}
+
+h1
+{
+	color: #000;
+	border-bottom: 1px dotted #333;
+	padding-top: 10px;
+	padding-bottom: 2px;
+	margin-bottom: 5px;
+	font-size: 14px;
+}
+
+h2
+{
+}
+</style>
+</head>
+
+<body>
+<a name="start"></a>
+<div id="toc">
+<h1>Contents</h1>
+<a href="#tty">TTY</a><br>
+<a href="#housecode">HOUSECODE</a><br>
+<a href="#logdir">LOG DIR</a><br>
+<a href="#scriptmode">SCRIPT MODE</a><br>
+<a href="#sched">SCHEDULE FILE</a><br>
+<a href="#mode">MODE</a><br>
+<a href="#progdays">PROGRAM DAYS</a><br>
+<a href="#combevents">COMBINE EVENTS</a><br>
+<a href="#compmacros">COMPRESS MACROS</a><br>
+
+<a href="#latlong">LATITUDE/LONGITUDE</a><br>
+<a href="#dddef">DAWNDUSK DEF</a><br>
+<a href="#ddopt">DAWN/DUSK OPTION</a><br>
+<a href="#mmdd">MIN/MAX DAWN/DUSK</a><br>
+<a href="#reppath">REPORT_PATH</a><br>
+<a href="#repdm">REPL_DELAYED_MACROS</a><br>
+<a href="#wchkfile">WRITE_CHECK_FILES</a><br>
+<a href="#defmod">DEFAULT_MODULE</a><br>
+<a href="#starteng">START_ENGINE</a><br>
+<a href="#umask">HEYU_UMASK</a><br>
+<a href="#maxpparms">MAX_PPARMS</a><br>
+<a href="#stattimeout">STATUS_TIMEOUT</a><br>
+<a href="#spftimeout">SPF_TIMEOUT</a><br>
+<a href="#rcsdecode">RCS_DECODE</a><br>
+<a href="#ackhails">ACK_HAILS</a><br>
+<a href="#autofetch">AUTOFETCH</a><br>
+</div>
+
+<div id="content">
+<a name="tty"></a><h1>TTY directive</h1><div id="top"><a href="#start">Top ^</a></div>
+The TTY directive is the most important.  Syntax is simply the word TTY, a space and then the full path name for the serial port to which the  CM11A is attached.  /dev/ttyS0 would be the first serial port (corresponding to COM1 under MS-DOS). Examples: /dev/cua0, /dev/usb/ttyUSB0 (implies a USB-Serial adapter)<br>
+<br>
+To configure Heyu for a CM10A interface (instead of a CM11A or CM12), append the keyword 'CM10A', Example: /dev/ttyS0 CM10A<br>
+<br>
+Note: If you´ve started Heyu before configuring for the CM10A, you must stop and start it up again.<br>
+
+<a name="housecode"></a><h1>HOUSECODE directive</h1><div id="top"><a href="#start">Top ^</a></div>
+The  housecode directive indicates the housecode for which the CM11A is to store in its internal registers the on/off/dim status of individual units when signals are sent or received over the AC power line.  The ´heyu reset´ command (with no housecode parameter supplied) will program the CM11A to use the housecode provided by this directive.  (It will not do this automatically.)<br>
+
+<a name="logdir"></a><h1>LOG DIR directive</h1><div id="top"><a href="#start">Top ^</a></div>
+Use  this  directive  to specify the directory in which the Heyu state engine daemon should write its log file 'heyu.log.{tty}'.  The keyword 'NONE' (which is the default) instructs Heyu to not write a log file. Example: /var/log/heyu/<br>
+<br>
+The log file will contain entries like appear in the Heyu monitor, and in addition, an entry whenever a script (excluding heyuhelper)  is  launched. It will also collect the text output of a launched script, if that output isn't redirected to a different file.<br>
+<br>
+Note  that the log file will continue to grow.  Manually delete or trim it from time to time, or configure a Unix utility like ´logrotate´ to manage it.<br>
+
+<a name="scriptmode"></a><h1>SCRIPT MODE directive</h1><div id="top"><a href="#start">Top ^</a></div>
+The options are HEYUHELPER or SCRIPTS, with the default being SCRIPTS.<br>
+<br>
+If  HEYUHELPER  is  chosen, a shell script named 'heyuhelper' on the user's path is executed every time an X10 function is received by Heyu from the interface.  The argument supplied to the script is of the form 'housecode|last_unit|function', where: housecode is the lower case letter a-p associated with the function which resulted in execution of 'heyuhelper' last_unit is the last unit code received on that housecode. Function will be one of the following:  On, Off, AllOn, AllOff, Dim, Bright, LightsOn, LightsOff, Preset, Extended, Hail, HailAck, Status, StatusOn, StatusOff, DataXfer.<br>
+<br>
+Examples of heyuhelper arguments:  a1On  b3Off c14Preset<br>
+<br>
+Note: The AllOn command in Heyu version 1.xx was interpreted to mean LightsOn (All Lights On).  It is not a native CM11A command.  In  Heyu  version 2, it instead indicates the simple 'On' function whenever all units 1-16 are addressed.<br>
+<br>
+Another difference from Heyu version 1.35 is that the heyuhelper script is not launched when an uploaded macro is executed.<br>
+<br>
+The heyuhelper script is only executed when X10 functions are received from the interface - not when addresses or powerfail messages are received or when functions are sent.<br>
+<br>
+All other script-oriented directives with the exception of SCRIPT_SHELL and SCRIPT_CTRL are ignored with the HEYUHELPER  option. Choosing  SCRIPTS allows one to use the full features of Heyu scripting (including execution of an existing ´heyuhelper´ script).<br>
+
+<a name="sched"></a><h1>SCHEDULE FILE directive</h1><div id="top"><a href="#start">Top ^</a></div>
+Instructs Heyu to use the named file as the user´s schedule file (which must be in the same directory as the configuration file). The default is x10.sched.<br>
+<br>
+Example: vacation.sched<br>
+
+<a name="mode"></a><h1>MODE directive</h1><div id="top"><a href="#start">Top ^</a></div>
+Heyu  can  operate  in one of two modes insofar as uploaded timers and macros are concerned. But before getting into these, first a few words about the CM11A interface´s internal clock:<br>
+<br>
+The CM11A clock has no notion of actual dates, but is merely a day counter which starts from 0 and increments daily until it reaches 365 (a total of 366 days), after which it rolls over to 0.  An independant counter keeps track of the weekday, starting at 0 (Sunday) and incrementing daily through 6 (Saturday) before rolling over to 0.  Additional counters track hours, minutes, and seconds with the usual rollovers. (The CM11A has no notion  of Standard versus Daylight Time.)  The day and weekday counters increment when the time rolls over to 0:00:00. <br>
+<br>
+In  either mode, the CM11A clock is maintained by Heyu on Standard Time thoughout the year. Timers scheduled by the user in Civil (i.e. wall clock) time are automatically divided by Heyu into separate timers for periods of Standard and Daylight Time during the year.  Time management is  intended to be handled by Heyu transparently to the user.<br>
+<br>
+In COMPATIBLE mode, the CM11A clock is configured such that Day 0 corresponds to Jan 1st in the current year and the uploaded schedule of timers and macros is prepared to run for 366 days, i.e., through either Dec 31st or the following Jan 1st, depending on whether the current year is a  leap  or common year.  In order to maintain the proper correspondence, the user´s schedule must be re-uploaded on Jan 1st, at least in years following common years. (The CM11A will otherwise keep chugging away, but events fired off will be a day in error.)<br>
+<br>
+In HEYU mode, the CM11A clock is configured such that Day 0 corresponds not to Jan 1st but to today´s date.  The uploaded schedule can be configured to  run for any period between 1 and 366 days via the PROGRAM_DAYS directive.  (See the description of that directive for reasons for wanting this.) The user´s schedule can be re-uploaded at any time prior to expiration of the PROGRAM_DAYS period and correspondance will be maintained for the next period  of PROGRAM_DAYS.  Note however that if this period is allowed to expire without re-uploading the schedule, the CM11A will cease to fire off any programmed events (unless of course the period is set for 366 days).<br>
+<br>
+The schedule should be programmed for the entire year regardless of the MODE or PROGRAM_DAYS directives.  Based on those directives, Heyu determines what  parts of it to use and what parts to ignore. In HEYU mode, events scheduled for execution on dates earlier than today´s date wrap around into next year.<br>
+<br>
+*** WARNING - WARNING - WARNING ***<br>
+Users running PCs configured for dual-boot between Linux and MS-Windows should NOT operate Heyu in HEYU mode if they expect to ever manually execute X-10´s ActiveHome(TM) program (or allow its "Communications Bridge" driver to be launched at boot time).  Here´s why:<br>
+<br>
+If  the CM11A detects that its AC power has been interrupted, even for a very short time, it will continually issue commands back to the PC requesting a clock update. ActiveHome and/or its Communications Bridge will _silently_ comply with this request (as will Heyu´s Relay), but ActiveHome will set  the  CM11A  clock to an incorrect date and time for HEYU mode.  (This is easily and automatically corrected by running the ´heyu setclock´ command, but the PC has to be rebooted back into Linux/Unix to do it.)<br>
+
+<a name="progdays"></a><h1>PROGRAM DAYS directive</h1><div id="top"><a href="#start">Top ^</a></div>
+When operating Heyu to upload timers and macros to the CM11A interface in HEYU mode, this directive instructs Heyu to compile the uploaded  schedule to  run for the number of days specified (1-366), beginning today.  This directive is ignored when Heyu is operated in COMPATIBLE mode.  The default value is 366 days.<br>
+<br>
+The advantage to running for a shorter number of days becomes evident when timers are programmed for Dawn or Dusk related times. Heyu subdivides the effective  timer date range from the user´s schedule file into subintervals, and assigns each with an approximation to the time of Dawn or Dusk over that subinterval.  The size of the CM11A EEPROM memory (1024 bytes) limits the number of subintervals which can be uploaded, but if each subinterval is itself shorter, the value assigned for Dawn or Dusk will more accurately reflect reality.<br>
+
+<a name="combevents"></a><h1>COMBINE EVENTS directive</h1><div id="top"><a href="#start">Top ^</a></div>
+This  directive  instructs  Heyu whether or not to combine events which have the same day-of-week code, date range, type (i.e., Clock, Dawn, or Dusk based), and time-of-day.  Heyu then needs to upload only a single timer executing a concatenated macro, which saves considerable EEPROM  space  when Dawn/Dusk relative timers are programmed. The choices are YES or NO, with the default being YES. The downside to using this feature is that the Heyu-assigned name of the concatenated macro will not be easily recognizable when displayed in Heyu´s monitor.<br>
+
+<a name="compmacros"></a><h1>COMPRESS MACROS directive</h1><div id="top"><a href="#start">Top ^</a></div>
+This directive instructs Heyu to merge unit codes for macro elements which have the same command, housecode, and "data" (e.g. dim level), and also eliminate duplicate elements.  It can save a few bytes of EEPROM space, when macros with similar elements are concatenated. The choices are YES or NO, with the default being NO.<br>
+<br>
+Example: macro mac1 0  on A1; on B1; on A2; on B3<br>
+Becomes: macro mac1 0  on A1,2; on B1,3<br>
+<br>
+Warning: If you program a macro like: macro mac1 0  on A1; off A1; on A1; off A1; on A1; off A1; ... and  expect  to  have a lamp on A1 repeatedly blinking on and off, better set this directive to NO, else the macro will be compressed to a single on and off.  (Heyu maintains the ordering in macros to the extent possible.)<br>
+
+<a name="latlong"></a><h1>LATITUDE/LONGITUDE directive</h1><div id="top"><a href="#start">Top ^</a></div>
+These are used to allow Heyu to compute the times of dawn and dusk over the year for your particular location.  There are no defaults.<br>
+<br>
+The  format  of  the directive lines is direction, degrees, a colon and the minutes. The LONGITUDE directive follows the same format.  Example: LATITUDE N37:41, LONGITUDE   W121:52<br>
+
+<a name="dddef"></a><h1>DAWNDUSK DEF directive</h1><div id="top"><a href="#start">Top ^</a></div>
+By default Heyu defines Dawn and Dusk to be Sunrise and Sunset.  This directive allows globally defining them instead as  the  morning  and  evening times of several standard twilights, as follows: <br>
+<br>
+RISESET (or simply ´R´) - Sunrise and Sunset (default)<br>
+CIVIL (or simply ´C´) - Civil Twilight<br>
+NAUTICAL (or simply ´N´) - Nautical Twilight<br>
+ASTRONOMICAL (or simply ´A´) - Astronomical Twilight<br>
+
+<a name="ddopt"></a><h1>DAWN/DUSK OPTION directive</h1><div id="top"><a href="#start">Top ^</a></div>
+These directives instruct Heyu how to assign the time for Dawn or Dusk in each timer subinterval. The options for this directive are:<br>
+<br>
+FIRST    - Use the Dawn/Dusk time for the first day in the subinterval.<br>
+EARLIEST - Use the earliest of the times for any day in the subinterval.<br>
+LATEST   - Use the latest of the times for any day in the subinterval.<br>
+AVERAGE  - Use the arithmetic average of the times in the subinterval.<br>
+MEDIAN   - Use a time halfway between the earliest and latest times.<br>
+<br>
+The default is FIRST, which is the most convenient for comparing Heyu´s computations with Dawn/Dusk times published in newspapers or by the US Naval Observatory.  (Remember that Heyu´s times are Standard Time, while newspapers generally publish Civil [wall clock] times.)<br>
+
+<a name="mmdd"></a><h1>MIN/MAX DAWN/DUSK directive</h1><div id="top"><a href="#start">Top ^</a></div>
+These directives allow bounds to be placed on the times of Dawn and Dusk computed by Heyu. For example, setting the value for MIN_DAWN to 06:30 will instruct Heyu to execute a timed event scheduled for dawn at 06:30 instead, whenever the computed time for dawn is earlier than 06:30.  These directives may be useful for users in extreme latitudes, when for example a lamp is scheduled to turn on at dusk and turn off at 9:30 PM.  But if  during the  summer  months dusk actually occurs after that hour, then the on/off cycle of the lamp would normally be reversed, turning on at that late dusk and remaining on until 9:30 PM the following day.<br>
+<br>
+The value for these directives are specified as hh:mm Civil (i.e., wall-clock) time.  The directives may be disabled with the word OFF in place of a time.  The default is OFF.<br>
+<br>
+Heyu  version  2  now  has  timer options for conditional compilation of events depending on the values of Dawn and Dusk, so these directives may no longer be useful.<br>
+<br>
+(Note: Due to Heyu´s optimizations, the order in which events scheduled for the same time are actually executed is not  necessarily  that  in  which they  appear  in the user´s schedule file.  Allow at least a one minute time difference when order is important.  The actual order can be determined from the list of timers in the OUTPUT TIMERS section of the report.txt file written when a schedule is uploaded or upload checked.)<br>
+
+<a name="reppath"></a><h1>REPORT PATH directive</h1><div id="top"><a href="#start">Top ^</a></div>
+Reports 'report.txt' and/or 'cronreport.txt' created when the command 'heyu upload [check|croncheck]' is run are by default written in the Heyu base directory,  i.e.,  the  directory  where  the  configuration  file  is stored.  This directive instructs Heyu where the user would like them written instead.  The full pathspec is required (127 characters maximum). Example: REPORT_PATH  ./<br>
+
+<a name="repdm"></a><h1>REPL DELAYED MACROS directive</h1><div id="top"><a href="#start">Top ^</a></div>
+This directive instructs Heyu to replace events having delayed macros with new events and new undelayed macros when possible.  (The  purpose  is  to avoid pending delayed macros, which are purged when a new schedule is uploaded.)  The choices are YES or NO, with the default being YES.<br>
+
+<a name="wchkfile"></a><h1>WRITE CHECK FILES directive</h1><div id="top"><a href="#start">Top ^</a></div>
+When a schedule is actually uploaded to the CM11A´s EEPROM, Heyu  records  critical  information  in  the  files  ´x10record´,  ´x10macroxref´,  and ´x10image´.   For  debugging or informational purposes, this directive instructs Heyu to write these files with a .check extension when ´heyu upload check´ is run.<br>
+<br>
+In addition, this directive instructs Heyu to write ´x10image.hex´ which is a human-readable hex dump of the EEPROM memory image. The choices here are YES or NO.  The default is NO.<br>
+
+<a name="defmod"></a><h1>DEFAULT MODULE directive</h1><div id="top"><a href="#start">Top ^</a></div>
+Sets the module attributes of all Housecode|Units which are not defined in an alias directive.  If not otherwise specified by  this  directive,  the default module is the standard X-10 plug-in lamp module (StdLM).<br>
+
+<a name="starteng"></a><h1>START ENGINE directive</h1><div id="top"><a href="#start">Top ^</a></div>
+Many  of  Heyu´s  features  require  the Heyu state engine daemon heyu_engine to be running. This directive instructs Heyu how heyu_engine is to be started.  With the default value of MANUAL, the engine must be started by entering ´heyu engine´ at the command line.   With  the  value  AUTO,  the engine will be started automatically along with Heyu´s other background processes when ´heyu start´ is run.  Example: START_ENGINE  AUTO<br>
+
+<a name="umask"></a><h1>HEYU UMASK directive</h1><div id="top"><a href="#start">Top ^</a></div>
+Governs the permissions for files created by Heyu.  The default for this directive is 0000 which results in files having permissions rw_rw_rw_.  The value 0002 results in files having permissions rw_rw_r__ ; the value 0022 results in files having permissions rw_r__r__. Example: HEYU_UMASK  0002<br>
+
+<a name="maxpparms"></a><h1>MAX PPARMS directive</h1><div id="top"><a href="#start">Top ^</a></div>
+Specifies the highest numbered postional parameter allowed in a scene.  The number may have any value between 1 and 999.  The default is 8.<br>
+
+<a name="stattimeout"></a><h1>STATUS TIMEOUT directive</h1><div id="top"><a href="#start">Top ^</a></div>
+Specifies  how long Heyu will wait for a module to reply to a status command before timing out.  The default is 2 seconds.  Some modules, SwitchLinc dimmers in particular, may require increasing this to 3.  The allowed limits for this directive are 1-5 seconds.  (Don't use a value any higher than the minimum needed for satisfactory status reporting.)  Example: STATUS_TIMEOUT  2<br>
+
+<a name="spftimeout"></a><h1>SPF TIMEOUT directive</h1><div id="top"><a href="#start">Top ^</a></div>
+Specifies  how  long  Heyu  will wait for a module to reply to a "SPecial Function" status command before timing out.  The default is 3 seconds.  To date, there is only one special function in Heyu, the display of the temperature as encoded in a preset command returned from a  two-way  thermostat or remote thermometer. (See below.)<br>
+
+<a name="rcsdecode"></a><h1>RCS DECODE directive</h1><div id="top"><a href="#start">Top ^</a></div>
+This  is  the same directive - use either but not both.  The name has been changed since Heyu now supports decoding other RCS status reports such as fan status on/off in addition to temperature. This directive instructs the Heyu monitor to decode and display the status reports encoded in a Preset command transmitted from a two-way thermostat or remote thermometer employing the algorithm used by the RCS TX15-B and TXB16 thermostats (shown as a table in the thermostat user´s guide). The Smarthome TempLinc Model 1625 remote thermometer uses the same algorithm for the temperature report, which is:<br>
+<br>
+temperature = -60 + 32*(unit - 11) + (preset_level - 1)<br>
+<br>
+*** WARNING - WARNING - WARNING ***<br>
+The  use  of Heyu or any other power-line protocol software to control a heater lacking a built-in failsafe mechanism is not only unwise, it is hazardous to life and downright foolhardy.  DON´T DO IT!<br>
+<br>
+This directive may have the values: OFF for no decoding; a list if housecodes enclosed in square [] brackets for which decoding is to be  performed; or ALL to decode any housecode.  The default is OFF. Examples: <br>
+<br>
+RCS_DECODE  OFF        (no decoding)<br>
+RCS_DECODE  [CFH]      (decode on housecodes C, F, and H)<br>
+RCS_DECODE  ALL        (decode on any housecode)<br>
+<br>
+Note: This directive need not be used in order to query the thermostat with the ´heyu rcs_req ...´ or ´heyu temp_req ...´ commands - it only enables the temperature or other status to be displayed in Heyu´s monitor, regardless of whether or not the thermostat´s transmission was initiated by these commands. (The TempLinc Model 1625 remote thermometer can be programmed to transmit a temperature report any time the temperature changes.)<br>
+
+<a name="ackhails"></a><h1>ACK HAILS directive</h1><div id="top"><a href="#start">Top ^</a></div>
+Setting  this  directive  to  YES  will instruct the Heyu state engine daemon (if running) to send a hail_ack with the default housecode whenever it receives a hail signal over the power line.  The hail_ack is sent as if from a launched script.  The choices are YES or NO, with the  default  being NO. Example: ACK_HAILS  NO<br>
+
+<a name="autofetch"></a><h1>AUTOFETCH directive</h1><div id="top"><a href="#start">Top ^</a></div>
+When  a  state  command which returns the addressed state of a module is executed at the command line, Heyu by default (AUTOFETCH YES) instructs the state engine to first update the state file, since Heyu only automatically updates this file following an X10 function. Setting  the  value  of  the directive  to  NO  disables this action for (only) those specific state commands.  Most users will want to accept the default value of YES.  See the description of the 'fetchstate' command in man page heyu(1) for a more detailed discussion of this issue.<br>
+
+</div>
+</body>
+
+</html>
