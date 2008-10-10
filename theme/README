@@ -1,0 +1,17 @@
+/*----------------------------------------------------------------------------+
+ |                                                                            |
+ |                             THEMES README                                  |
+ |                                                                            |
+ +----------------------------------------------------------------------------*/
+
+ Directory stucture
+
+ -> themes
+	|
+	------> theme_name (ie: default)
+			|
+			----------> theme_name.css (ie: default.css)
+			|
+			----------> images
+
+	Note: theme_name (Directory) and theme_name.css must be identical.
