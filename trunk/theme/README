@@ -4,14 +4,20 @@
  |                                                                            |
  +----------------------------------------------------------------------------*/
 
- Directory stucture
+ Directory structure
 
- -> themes
+ -> theme
 	|
-	------> theme_name (ie: default)
+	------> theme_name
 			|
-			----------> theme_name.css (ie: default.css)
+			----------> theme_name.css
 			|
-			----------> images
+			----------> images\
+			|
+			----------> tpl\
 
-	Note: theme_name (Directory) and theme_name.css must be identical.
+	Notes: 
+	
+	* theme_name (Directory) and theme_name.css must be identical.
+	* images directory contains all the images
+	* tpl directory contains template files
