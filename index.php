@@ -23,7 +23,7 @@ $heyuconf = new HeyuConf($config['heyuconf']);
 if ($config['seclevel'] == "2") 
 {
 	if (!isset($_COOKIE["dluloged"]))
-		header("Location: admin/login.php?from=index");
+		header("Location: login.php?from=index");
 }
 
 // start/stop controls for heyu
@@ -60,6 +60,7 @@ if (heyu_running())
 		{
 			case "info":
 				$info = & new Template(TPL_FILE_LOCATION.'info.tpl');
+				$info->set('title', $lang['info']);
 				$info->set('lang', $lang);
 				$info->set('lines', heyu_info($config['heyuexec']));
 				$html = $info->fetch(TPL_FILE_LOCATION.'info.tpl');

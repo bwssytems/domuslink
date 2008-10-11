@@ -15,13 +15,6 @@ require_once('..'.DIRECTORY_SEPARATOR.'include.php');
 require_once(CLASS_FILE_LOCATION.'heyuconf.class.php');
 require_once(CLASS_FILE_LOCATION.'heyusched.class.php');
 
-## Instantiate HeyuConf class and get schedule file with absolute path
-$heyuconf = new HeyuConf($config['heyuconf']);
-$schedfile = $config['heyu_base'].$heyuconf->getSchedFile();
-
-## Instantiate HeyuSched class
-$heyusched = new HeyuSched($schedfile);
-
 ## Security validation's
 if ($config['seclevel'] != "0") 
 {
@@ -29,10 +22,22 @@ if ($config['seclevel'] != "0")
 		header("Location: ../login.php?from=events/timmers");
 }
 
+## Instantiate HeyuConf class and get schedule file with absolute path
+$heyuconf = new HeyuConf($config['heyuconf']);
+$schedfile = $config['heyu_base'].$heyuconf->getSchedFile();
+
+## Instantiate HeyuSched class
+$heyusched = new HeyuSched($schedfile);
+$timmers = $heyusched->getTimers();
+
 ## Set template parameters
 $tpl->set('title', $lang['timmers']);
 
-$tpl_body = "timmers go here. sched file is:".$schedfile.".";
+$tpl_body = & new Template(TPL_FILE_LOCATION.'timmers_view.tpl');
+$tpl_body->set('lang', $lang);
+$tpl_body->set('timmers', $timmers);
+$tpl_body->set('config', $config);
+#$tpl_body->set('size', count($aliases));
 
 ## Display the page
 $tpl->set('content', $tpl_body);

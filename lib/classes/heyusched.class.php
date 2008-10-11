@@ -50,14 +50,17 @@ class heyuSched {
 	 *
 	 * @param $number boolean, if true add line number of original file
 	 */
-	function getMacros($number, $i = 0)
+	//function getMacros($number, $i = 0)
+	function getMacros($i = 0)
 	{
 		foreach ($this->heyusched as $num => $line)
 		{
-			if (substr($line, 0, 5) == "macro")
+			if (trim(substr($line, 0, 12) == "## TIMMERS ##")) break; // stop parsing when timmers are reached
+			if (substr($line, 0, 5) == "macro" || substr($line, 0, 6) == "#macro")
 			{
 				//if $number = true, store alias in new array along with line numb of original file
-				$macros[$i] = ($number) ? $macros[$i] = $line."@".$num : $macros[$i] = $line;
+				//$macros[$i] = ($number) ? $macros[$i] = $line."@".$num : $macros[$i] = $line;
+				$macros[$i] = $macros[$i] = $line."@".$num;
 				$i++;
 			}
 		}
@@ -70,14 +73,17 @@ class heyuSched {
 	 *
 	 * @param $number boolean, if true add line number of original file
 	 */
-	function getTimers($number, $i = 0)
+	//function getTimers($number, $i = 0)
+	function getTimers($i = 0)
 	{
 		foreach ($this->heyusched as $num => $line)
 		{
-			if (substr($line, 0, 5) == "timer")
+			if (trim(substr($line, 0, 13) == "## TRIGGERS ##")) break; // stop parsing when triggers are reached
+			if (substr($line, 0, 5) == "timer" || substr($line, 0, 6) == "#timer")
 			{
 				//if $number = true, store alias in new array along with line numb of original file
-				$timers[$i] = ($number) ? $timers[$i] = $line."@".$num : $timers[$i] = $line;
+				//$timers[$i] = ($number) ? $timers[$i] = $line."@".$num : $timers[$i] = $line;
+				$timers[$i] = $timers[$i] = $line."@".$num;
 				$i++;
 			}
 		}
