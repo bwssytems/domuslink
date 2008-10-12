@@ -74,7 +74,7 @@ class heyuConf {
 			if (substr($line, 0, 5) == "ALIAS")
 			{
 				//if $number = true, store alias in new array along with line numb of original file
-				$aliases[$i] = ($number) ? $aliases[$i] = $line."@".$num : $aliases[$i] = $line;
+				$aliases[$i] = ($number) ? $line."@".$num : $line;
 				$i++;
 			}
 		}
