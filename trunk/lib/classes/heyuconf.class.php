@@ -126,6 +126,22 @@ class heyuConf {
 		
 		if (!empty($request)) return $request;
 	}
+	
+	/**
+	 * 
+	 * @param $aliases array
+	 */
+	function getCodesAndLabels($aliases, $i = 0)
+	{
+		foreach ($aliases as $line)
+		{
+			list($temp, $label, $code, $module_type_loc) = split(" ", $line, 4);
+			$cl[$i]	= $code."@".$label;
+			$i++;
+		}
+		
+		return $cl;
+	}
 }
 
 ?>

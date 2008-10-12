@@ -82,6 +82,7 @@ $lang["events"] = "Events";
 $lang["timmers"] = "Timmers";
 $lang["triggers"] = "Triggers";
 $lang["upload"] = "Upload";
+$lang["addtimmer"] = "Add Timmer";
 
 $lang["weekdays"] = "Week Days";
 $lang["on"] = "On";
