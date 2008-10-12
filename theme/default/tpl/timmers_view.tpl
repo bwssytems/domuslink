@@ -39,7 +39,7 @@ line num: <?php echo $line_num; ?> - wkdays: <?php echo $weekdays; ?> - dateonof
  
  <tr <?php if (!$enabled) echo "style='color: #cccccc'"; ?> ">
   <td><?php echo $code; ?></td>
-  <td align="center"><?php echo parse_weekdays2($weekdays, $lang); ?></td>
+  <td align="center"><?php echo weekdays($weekdays, $lang); ?></td>
   <td align="center"><?php echo $dateon; ?></td>
   <td align="center"><?php echo $dateoff; ?></td>
   <td>&nbsp;</td>
@@ -52,27 +52,6 @@ line num: <?php echo $line_num; ?> - wkdays: <?php echo $weekdays; ?> - dateonof
 
 </td></tr>
 </table>
-
-
-
-<form action="<?php $_SERVER['PHP_SELF']; ?>" method="get">
-<?php 
-$months = array (1 => $lang["jan"], $lang["feb"], $lang["mar"], $lang["apr"], $lang["may"], $lang["jun"], $lang["jul"], $lang["aug"], $lang["sep"], $lang["oct"], $lang["nov"], $lang["dec"]);
-$days = range (1, 31); ?>
-
-Day: <select name='day'>
-<?php foreach ($days as $value) { ?>
-	echo '<option value="<?php echo $value; ?>"><?php echo $value; ?></option>\n';
-<?php } ?>
-</select><br />
-
-Month: <select name='month'>
-<?php foreach ($months as $value) { ?>
-	<option value="<?php echo $value; ?>"><?php echo $value; ?></option>
-<?php } ?>
-</select><br />
-
-</select><input type="submit" /></form>
 
 <?php 
 if (!empty($form)):

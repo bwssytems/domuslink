@@ -26,10 +26,14 @@ if ($config['seclevel'] != "0")
 $heyuconf = new HeyuConf($config['heyuconf']);
 $schedfile = $config['heyu_base'].$heyuconf->getSchedFile();
 $aliases = $heyuconf->getAliases(false);
+$codelabels = $heyuconf->getCodesAndLabels($aliases);
 
 ## Instantiate HeyuSched class
 $heyusched = new HeyuSched($schedfile);
 $timmers = $heyusched->getTimers();
+
+$months = array (1 => $lang["jan"], $lang["feb"], $lang["mar"], $lang["apr"], $lang["may"], $lang["jun"], $lang["jul"], $lang["aug"], $lang["sep"], $lang["oct"], $lang["nov"], $lang["dec"]);
+$days = range (1, 31);
 
 ## Set template parameters
 $tpl->set('title', $lang['timmers']);
@@ -39,8 +43,66 @@ $tpl_body->set('lang', $lang);
 $tpl_body->set('timmers', $timmers);
 $tpl_body->set('config', $config);
 $tpl_body->set('aliases', $aliases);
-//$tpl_body->set('size', count($aliases));
 
+if (!isset($_GET["action"]))
+{
+	$tpl_add = & new Template(TPL_FILE_LOCATION.'timmer_add.tpl');
+	$tpl_add->set('lang', $lang);
+	$tpl_add->set('codelabels', $codelabels);
+	$tpl_add->set('months', $months);
+	$tpl_add->set('days', $days);
+	$tpl_body->set('form', $tpl_add);
+}
+/*
+else
+{
+	## Get heyu (x10.conf) file contents
+	$settings = $heyuconf->get();
+	
+	switch ($_GET["action"])
+	{
+		case "edit":
+			list($temp, $label, $code, $module_type_loc) = split(" ", $settings[$_GET['line']], 4);
+			list($module, $type_loc) = split(" # ", $module_type_loc, 2);
+			list($type, $loc) = split(",", $type_loc, 2);
+			
+			$tpl_edit = & new Template(TPL_FILE_LOCATION.'aliases_edit.tpl');
+			$tpl_edit->set('lang', $lang);		
+			$tpl_edit->set('label', $label);
+			$tpl_edit->set('code', $code);
+			$tpl_edit->set('module', $module);
+			$tpl_edit->set('modtypes', $modtypes);
+			$tpl_edit->set('type', $type);
+			$tpl_edit->set('loc', $loc);
+			$tpl_edit->set('linenum', $_GET['line']); // sets number of line being edited
+			$tpl_body->set('form', $tpl_edit);
+			break;
+		
+		case "add":
+			if (preg_match($chars, $_POST["label"]))
+				header("Location: ".check_url()."/error.php?msg=".$lang['error_special_chars']);
+			else
+				add_line($settings, $config['heyuconf'], 'alias');
+			break;
+		
+		case "save":
+			if (preg_match($chars, $_POST["label"]))
+				header("Location: ".check_url()."/error.php?msg=".$lang['error_special_chars']);
+			else
+				edit_line($settings, $config['heyuconf'], 'alias');
+			break;
+		
+		case "del":
+			delete_line($settings, $config['heyuconf'], $_GET["line"]);
+			break;
+		
+		case "move":
+			if ($_GET["dir"] == "up") reorder_array($settings, $_GET['line'], $_GET['line']-1, $config['heyuconf']);
+			if ($_GET["dir"] == "down") reorder_array($settings, $_GET['line'], $_GET['line']+1, $config['heyuconf']);
+			break;	
+	}
+}
+*/
 ## Display the page
 $tpl->set('content', $tpl_body);
 
@@ -48,61 +110,29 @@ echo $tpl->fetch(TPL_FILE_LOCATION.'layout.tpl');
 
 
 /**
+ * Weekdays
  * 
- */
-function parse_weekdays($weekdays)
-{
-	$weekday = array('S','M','T','W','T','F','S');
-	//$weekday = array('Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday');
-	
-	$j = mb_strlen($weekdays);
-	
-	for ($k = 0; $k < $j; $k++)
-	{
-		$char = mb_substr($weekdays, $k, 1);
-		// do stuff with $char
-		if ($char == ".") $html .= "<input type='checkbox' name='weekdays' value='.$weekday[$k].' disabled />";
-		else $html .= "<input type='checkbox' name='weekdays' value='.$weekday[$k].' checked='yes' disabled />";
-	}
-	
-	return $html;	
-}
-
-/**
+ * Description: This function generated the weekday's table. It can
+ * be used for viewing existing timmers and adding new timmers
  * 
+ * @param $string if received will contain string such as: 'sm.w.fs' from schedule file
+ * @param $lang contains all the language strings to be used
  */
-function parse_weekdays2($weekdays, $lang)
+function weekdays($string, $lang)
 {
-	$weekday = array(substr($lang['sun'], 0, 1),
-							substr($lang['mon'], 0, 1),
-							substr($lang['tue'], 0, 1),
-							substr($lang['wed'], 0, 1),
-							substr($lang['thu'], 0, 1),
-							substr($lang['fri'], 0, 1),
-							substr($lang['sat'], 0, 1));
+	$week = array(substr($lang['sun'], 0, 1),
+					substr($lang['mon'], 0, 1),
+					substr($lang['tue'], 0, 1),
+					substr($lang['wed'], 0, 1),
+					substr($lang['thu'], 0, 1),
+					substr($lang['fri'], 0, 1),
+					substr($lang['sat'], 0, 1));
 	
-	$html .= "<table cellspacing='0' cellpadding='0' border='0'><tr>";
-	$html .= "<td align=center>$weekday[0]</td>";
-	$html .= "<td align=center>$weekday[1]</td>";
-	$html .= "<td align=center>$weekday[2]</td>";
-	$html .= "<td align=center>$weekday[3]</td>";
-	$html .= "<td align=center>$weekday[4]</td>";
-	$html .= "<td align=center>$weekday[5]</td>";
-	$html .= "<td align=center>$weekday[6]</td>";
-	$html .= "</tr><tr>";
+	$week_tpl = & new Template(TPL_FILE_LOCATION.'weekdays.tpl');
+	$week_tpl->set('week', $week);
+	$week_tpl->set('weekdays', $string);
 	
-	$j = mb_strlen($weekdays);
-	
-	for ($k = 0; $k < $j; $k++)
-	{
-		$char = mb_substr($weekdays, $k, 1);
-		if ($char == ".") $html .= "<td><input type='checkbox' name='weekdays' value='.$weekday[$k].' disabled /></td>";
-		else $html .= "<td><input type='checkbox' name='weekdays' value='.$weekday[$k].' checked='yes' disabled /></td>";
-	}
-	
-	$html .= "</tr></table>";
-	
-	return $html;	
+	return $week_tpl->fetch(TPL_FILE_LOCATION.'weekdays.tpl');
 }
 
 /**
