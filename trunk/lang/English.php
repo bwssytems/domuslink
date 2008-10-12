@@ -101,4 +101,12 @@ $lang["oct"] = "October";
 $lang["nov"] = "November";
 $lang["dec"] = "December";
 
+$lang["sun"] = "Sunday";
+$lang["mon"] = "Monday";
+$lang["tue"] = "Tuesday";
+$lang["wed"] = "Wednesday";
+$lang["thu"] = "Thursday";
+$lang["fri"] = "Friday";
+$lang["sat"] = "Saturday";
+
 ?>
