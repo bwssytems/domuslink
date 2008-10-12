@@ -44,4 +44,26 @@ $tpl->set('content', $tpl_body);
 
 echo $tpl->fetch(TPL_FILE_LOCATION.'layout.tpl');
 
+
+/**
+ * 
+ */
+function parse_weekdays($weekdays)
+{
+	$weekday = array('S','M','T','W','T','F','S');
+	//$weekday = array('Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday');
+	
+	$j = mb_strlen($weekdays);
+	
+	for ($k = 0; $k < $j; $k++)
+	{
+		$char = mb_substr($weekdays, $k, 1);
+		// do stuff with $char
+		if ($char == ".") $html .= "<input type='checkbox' name='weekdays' value='.$weekday[$k].' disabled />";
+		else $html .= "<input type='checkbox' name='weekdays' value='.$weekday[$k].' checked='yes' disabled />";
+	}
+	
+	return $html;	
+}
+
 ?>

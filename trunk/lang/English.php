@@ -60,7 +60,7 @@ $lang["enter_password"] = "Please enter your password to access the administrati
 
 /* help texts */
 $lang["heyuexec_txt"] = "This setting specifies the location of the Heyu exectuable file. Typically this will be in /usr/local/bin/";
-$lang["password_txt"] = "Define a password to access the selected areas.";
+$lang["password_txt"] = "Enter a password to access the selected areas.";
 $lang["theme_txt"] = "Select a theme for the GUI.";
 $lang["imgs_txt"] = "Select whether or not you would like to use images instead of text on the menu bar.";
 $lang["heyubaseloc_txt"] = "Heyu base directory - This directory is where Heyu searches for it's configuration files, and stores state information.";
@@ -82,5 +82,23 @@ $lang["events"] = "Events";
 $lang["timmers"] = "Timmers";
 $lang["triggers"] = "Triggers";
 $lang["upload"] = "Upload";
+
+$lang["weekdays"] = "Week Days";
+$lang["on"] = "On";
+$lang["end"] = "End";
+$lang["off"] = "Off";
+
+$lang["jan"] = "January";
+$lang["feb"] = "February";
+$lang["mar"] = "March";
+$lang["apr"] = "April";
+$lang["may"] = "May";
+$lang["jun"] = "June";
+$lang["jul"] = "July";
+$lang["aug"] = "August";
+$lang["sep"] = "September";
+$lang["oct"] = "October";
+$lang["nov"] = "November";
+$lang["dec"] = "December";
 
 ?>
