@@ -24,14 +24,18 @@ if ($config['seclevel'] != "0")
 
 ## Instantiate HeyuConf class and get schedule file with absolute path
 $heyuconf = new HeyuConf($config['heyuconf']);
-$schedfile = $config['heyu_base'].$heyuconf->getSchedFile();
+$schedfileloc = $config['heyu_base'].$heyuconf->getSchedFile();
+
+## Load aliases and parse so that only code and labels remain
 $aliases = $heyuconf->getAliases(false);
 $codelabels = $heyuconf->getCodesAndLabels($aliases);
 
-## Instantiate HeyuSched class
-$heyusched = new HeyuSched($schedfile);
-$timmers = $heyusched->getTimers();
+## Instantiate HeyuSched class, get contents and parse timmers
+$heyusched = new HeyuSched($schedfileloc);
+$schedfile = $heyusched->get();
+$timmers = $heyusched->getTimers($schedfile);
 
+## Set-up arrays
 $months = array (1 => $lang["jan"], $lang["feb"], $lang["mar"], $lang["apr"], $lang["may"], $lang["jun"], $lang["jul"], $lang["aug"], $lang["sep"], $lang["oct"], $lang["nov"], $lang["dec"]);
 $days = range (1, 31);
 
@@ -53,14 +57,17 @@ if (!isset($_GET["action"]))
 	$tpl_add->set('days', $days);
 	$tpl_body->set('form', $tpl_add);
 }
-/*
 else
 {
-	## Get heyu (x10.conf) file contents
-	$settings = $heyuconf->get();
-	
 	switch ($_GET["action"])
 	{
+		case "enable":
+			replace_line($schedfileloc, $schedfile, substr($schedfile[$_GET['line']], 1), $_GET['line']);
+			break;
+		case "disable":
+			replace_line($schedfileloc, $schedfile, "#".$schedfile[$_GET['line']], $_GET['line']);
+			break;
+		/*
 		case "edit":
 			list($temp, $label, $code, $module_type_loc) = split(" ", $settings[$_GET['line']], 4);
 			list($module, $type_loc) = split(" # ", $module_type_loc, 2);
@@ -99,10 +106,11 @@ else
 		case "move":
 			if ($_GET["dir"] == "up") reorder_array($settings, $_GET['line'], $_GET['line']-1, $config['heyuconf']);
 			if ($_GET["dir"] == "down") reorder_array($settings, $_GET['line'], $_GET['line']+1, $config['heyuconf']);
-			break;	
+			break;
+		*/	
 	}
 }
-*/
+
 ## Display the page
 $tpl->set('content', $tpl_body);
 

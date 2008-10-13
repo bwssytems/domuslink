@@ -95,6 +95,15 @@ function build_new_line($type)
 }
 
 /**
+ * 
+ */
+function replace_line($file, $filecontent, $linecontent, $linenumber)
+{
+	$filecontent[$linenumber] = $linecontent;
+	save_file($filecontent, $file);
+}
+
+/**
  * Delete line from file
  *
  * @param $content file contents

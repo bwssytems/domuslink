@@ -71,12 +71,13 @@ class heyuSched {
 	/**
 	 * Get Timers
 	 *
+	 * @param $schedfile represents entire contents of schedule file
 	 * @param $number boolean, if true add line number of original file
 	 */
 	//function getTimers($number, $i = 0)
-	function getTimers($i = 0)
+	function getTimers($schedfile, $i = 0)
 	{
-		foreach ($this->heyusched as $num => $line)
+		foreach ($schedfile as $num => $line)
 		{
 			if (trim(substr($line, 0, 13) == "## TRIGGERS ##")) break; // stop parsing when triggers are reached
 			if (substr($line, 0, 5) == "timer" || substr($line, 0, 6) == "#timer")

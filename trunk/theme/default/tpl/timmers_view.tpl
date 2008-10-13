@@ -8,13 +8,15 @@
 <tr>
   <td></td>
   <td></td>
-  <td colspan="2" align="center" style="border-bottom: 1px dotted #e5e5e5;"><h6>Date Range</h6> (dd/mm)</td>
   <td></td>
-  <td colspan="2" align="center" style="border-bottom: 1px dotted #e5e5e5;"><h6>Time</h6> (24hrs)</td>
+  <td colspan="2" align="center" style="border-bottom: 1px dotted #e5e5e5;"><h6>Date Range *</h6> (dd/mm)</td>
+  <td></td>
+  <td colspan="2" align="center" style="border-bottom: 1px dotted #e5e5e5;"><h6>Time *</h6> (24hrs)</td>
   <td></td>
 </tr>
 <tr>
-  <td width="120"><h6>Timmer</h6></td>
+  <td width="60"><h6><?php echo ($lang['status']);?></h6></td>
+  <td width="120"><h6><?php echo ($lang['timmer']);?></h6></td>
   <td width="100" align="center"><h6><?php echo ($lang['weekdays']);?></h6></td>
   <td width="80" align="center"><h6><?php echo ucwords($lang['start']);?></h6></td>
   <td width="80" align="center"><h6><?php echo ($lang['end']);?></h6></td>
@@ -31,13 +33,14 @@ foreach ($timmers  as $timmerline):
 	$enabled = (substr($lbl, 0, 1) == "#") ? false : true;
 	$code = parse_macro($onmacro, $aliases);
 ?>
-<!--
-line num: <?php echo $line_num; ?> - wkdays: <?php echo $weekdays; ?> - dateonoff: <?php echo $dateonoff; ?>
- - ontime: <?php echo $ontime; ?> - offtime: <?php echo $offtime; ?> - on: <?php echo $onmacro; ?> - 
- off: <?php echo $offmacro; ?> - enabled: <?php echo $enabled; ?><br />
- -->
  
  <tr <?php if (!$enabled) echo "style='color: #cccccc'"; ?> ">
+  <td>
+  <?php if ($enabled): ?>
+  	<a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=disable&line=<?php echo $line_num;?>"><?php echo ($lang['disable']);?></a></td>
+  <?php else: ?>
+  	<a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=enable&line=<?php echo $line_num;?>"><?php echo ($lang['enable']);?></a></td>
+  <?php endif; ?>
   <td><?php echo $code; ?></td>
   <td align="center"><?php echo weekdays($weekdays, $lang); ?></td>
   <td align="center"><?php echo $dateon; ?></td>
