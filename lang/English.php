@@ -78,8 +78,10 @@ $lang["error_wrong_pass"] = "<b>Error</b>. Your password is incorrect.";
 $lang["error_loc_in_use"] = "The location you are attempting to remove is currently in use. <br />First remove all usages from <a href=admin/aliases.php>aliases</a> then delete the location.<br />";
 
 /* new */
+$lang["status"] = "Status";
 $lang["events"] = "Events";
 $lang["timmers"] = "Timmers";
+$lang["timmer"] = "Timmer";
 $lang["triggers"] = "Triggers";
 $lang["upload"] = "Upload";
 $lang["addtimmer"] = "Add Timmer";
@@ -88,6 +90,8 @@ $lang["weekdays"] = "Week Days";
 $lang["on"] = "On";
 $lang["end"] = "End";
 $lang["off"] = "Off";
+$lang["enable"] = "Enable";
+$lang["disable"] = "Disable";
 
 $lang["jan"] = "January";
 $lang["feb"] = "February";
