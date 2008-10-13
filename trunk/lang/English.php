@@ -80,13 +80,15 @@ $lang["error_loc_in_use"] = "The location you are attempting to remove is curren
 /* new */
 $lang["status"] = "Status";
 $lang["events"] = "Events";
-$lang["timmers"] = "Timmers";
-$lang["timmer"] = "Timmer";
+$lang["timmers"] = "Timers";
+$lang["timmer"] = "Timer";
 $lang["triggers"] = "Triggers";
 $lang["upload"] = "Upload";
-$lang["addtimmer"] = "Add Timmer";
+$lang["addtimmer"] = "Add Timer";
 
 $lang["weekdays"] = "Week Days";
+$lang["daterange"] = "Date Range";
+$lang["time"] = "Time";
 $lang["on"] = "On";
 $lang["end"] = "End";
 $lang["off"] = "Off";
