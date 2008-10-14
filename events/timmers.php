@@ -37,7 +37,9 @@ $timmers = $heyusched->getTimers($schedfile);
 
 ## Set-up arrays
 $months = array (1 => $lang["jan"], $lang["feb"], $lang["mar"], $lang["apr"], $lang["may"], $lang["jun"], $lang["jul"], $lang["aug"], $lang["sep"], $lang["oct"], $lang["nov"], $lang["dec"]);
-$days = range (1, 31);
+$days = range(1,31);
+$mins = range(0,59);
+$hours = range(00,23);
 
 ## Set template parameters
 $tpl->set('title', $lang['timmers']);
@@ -55,6 +57,8 @@ if (!isset($_GET["action"]))
 	$tpl_add->set('codelabels', $codelabels);
 	$tpl_add->set('months', $months);
 	$tpl_add->set('days', $days);
+	$tpl_add->set('hours', $hours);
+	$tpl_add->set('mins', $mins);
 	$tpl_body->set('form', $tpl_add);
 }
 else
