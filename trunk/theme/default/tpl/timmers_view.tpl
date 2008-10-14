@@ -23,6 +23,7 @@
   <td width="20"></td>
   <td width="80" align="center"><h6><?php echo ($lang['on']);?></h6></td>
   <td width="80" align="center"><h6><?php echo ($lang['off']);?></h6></td>
+  <td colspan="2" width="100px" align="center"><h6><?php echo ($lang['actions']);?></h6></td>
 </tr>
 
 <?php
@@ -34,7 +35,7 @@ foreach ($timmers  as $timmerline):
 	$code = parse_macro($onmacro, $aliases);
 ?>
  
- <tr <?php if (!$enabled) echo "style='color: #cccccc'"; ?> ">
+ <tr <?php if (!$enabled) echo "style='color: #cccccc'"; ?> class="row">
   <td>
   <?php if ($enabled): ?>
   	<a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=disable&line=<?php echo $line_num;?>"><?php echo ($lang['disable']);?></a></td>
@@ -48,6 +49,8 @@ foreach ($timmers  as $timmerline):
   <td>&nbsp;</td>
   <td align="center"><?php echo $ontime; ?></td>
   <td align="center"><?php echo $offtime; ?></td>
+  <td align="center" width="20px"><a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=edit&line=<?php echo $line_num;?>"><?php echo ($lang['edit']);?></a></td>
+  <td align="center" width="20px"><a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=del&line=<?php echo $line_num;?>" onclick="return confirm('<?php echo ($lang['deleteconfirm']);?>')"><?php echo ($lang['delete']);?></a></td>
 </tr>
  
 <?php endforeach; ?>

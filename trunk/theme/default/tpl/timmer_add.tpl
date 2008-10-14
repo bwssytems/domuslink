@@ -1,24 +1,4 @@
-<script language="JavaScript" type="text/javascript">
-<!--
-function validateForm(form)
-{
-	if (form.code.value == "") {
-		alert( "The code field is empty, please try again." );
-		form.code.focus();
-		return false ;
-	}
-	
-	if (form.label.value == "") {
-		alert( "The label field is empty, please try again." );
-		form.label.focus();
-		return false ;
-	}
-
-  return true ;
-}
-//-->
-</script>
-<form action="<?php echo($_SERVER['PHP_SELF']); ?>?action=add" method="post" onsubmit="return validateForm(this);">
+<form action="<?php echo($_SERVER['PHP_SELF']); ?>?action=add" method="post">
 
 <table cellspacing="0" cellpadding="0" border="0" class="content">
 <tr><th><?php echo ($lang['addtimmer']); ?></th></tr>
@@ -55,7 +35,7 @@ function validateForm(form)
   <tr>
     <td width="80px"><h6>Date Start:</h6></td>
     <td width="150px">
-		<select name='day'>
+		<select name='day' style="width:35px;">
 		<?php foreach ($days as $value): ?>
 			<option value="<?php echo $value; ?>"><?php echo $value; ?></option>
 		<?php endforeach; ?>
@@ -74,13 +54,14 @@ function validateForm(form)
   <tr>
     <td width="80px"><h6>Date End:</h6></td>
     <td width="150px">
-		<select name='day'>
-		<?php foreach ($days as $value): ?>
+
+		<select name='day' style="width:35px;">
+		<?php foreach (array_reverse($days) as $value): ?>
 			<option value="<?php echo $value; ?>"><?php echo $value; ?></option>
 		<?php endforeach; ?>
 		</select>
 		<select name='month'>
-		<?php foreach ($months as $value): ?>
+		<?php foreach (array_reverse($months) as $value): ?>
 			<option value="<?php echo $value; ?>"><?php echo $value; ?></option>
 		<?php endforeach; ?>
 		</select>
@@ -88,19 +69,45 @@ function validateForm(form)
   </tr>
 </table>
 
-<!-- Code -->
+<!-- Time On -->
 <table cellspacing="0" cellpadding="0" border="0" class="clear">
   <tr>
     <td width="80px"><h6>Time On:</h6></td>
-    <td width="150px"><input type="text" name="code" value="" size="10" /></td>
+    <td width="150px">
+    <select name='hour' style="width:35px;">
+	<?php foreach ($hours as $value): ?>
+		<?php if (strlen($value) == 1): $value = "0".$value; endif; ?>
+		<option value="<?php echo $value; ?>"><?php echo $value; ?></option>
+	<?php endforeach; ?>
+	</select>
+	<select name='min' style="width:35px;">
+	<?php foreach ($mins as $value): ?>
+		<?php if (strlen($value) == 1): $value = "0".$value; endif; ?>
+		<option value="<?php echo $value; ?>"><?php echo $value; ?></option>
+	<?php endforeach; ?>
+	</select>
+    </td>
   </tr>
 </table>
 
-<!-- Code -->
+<!-- Time Off -->
 <table cellspacing="0" cellpadding="0" border="0" class="clear">
   <tr>
     <td width="80px"><h6>Time Off:</h6></td>
-    <td width="150px"><input type="text" name="code" value="" size="10" /></td>
+    <td width="150px">
+    <select name='hour' style="width:35px;">
+	<?php foreach (array_reverse($hours) as $value): ?>
+		<?php if (strlen($value) == 1): $value = "0".$value; endif; ?>
+		<option value="<?php echo $value; ?>"><?php echo $value; ?></option>
+	<?php endforeach; ?>
+	</select>
+	<select name='min' style="width:35px;">
+	<?php foreach ($mins as $value): ?>
+		<?php if (strlen($value) == 1): $value = "0".$value; endif; ?>
+		<option value="<?php echo $value; ?>"><?php echo $value; ?></option>
+	<?php endforeach; ?>
+	</select>
+    </td>
   </tr>
 </table>
 
