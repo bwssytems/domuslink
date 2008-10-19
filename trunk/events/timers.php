@@ -44,7 +44,7 @@ $hours = range(00,23);
 ## Set template parameters
 $tpl->set('title', $lang['timmers']);
 
-$tpl_body = & new Template(TPL_FILE_LOCATION.'timmers_view.tpl');
+$tpl_body = & new Template(TPL_FILE_LOCATION.'timers_view.tpl');
 $tpl_body->set('lang', $lang);
 $tpl_body->set('timmers', $timmers);
 $tpl_body->set('config', $config);
@@ -52,7 +52,7 @@ $tpl_body->set('aliases', $aliases);
 
 if (!isset($_GET["action"]))
 {
-	$tpl_add = & new Template(TPL_FILE_LOCATION.'timmer_add.tpl');
+	$tpl_add = & new Template(TPL_FILE_LOCATION.'timer_add.tpl');
 	$tpl_add->set('lang', $lang);
 	$tpl_add->set('codelabels', $codelabels);
 	$tpl_add->set('months', $months);
