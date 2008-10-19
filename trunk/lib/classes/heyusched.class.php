@@ -48,6 +48,7 @@ class heyuSched {
 	/**
 	 * Get Macros
 	 *
+	 * @param $schedfile represents entire contents of schedule file
 	 * @param $number boolean, if true add line number of original file
 	 */
 	//function getMacros($number, $i = 0)
@@ -74,7 +75,6 @@ class heyuSched {
 	 * @param $schedfile represents entire contents of schedule file
 	 * @param $number boolean, if true add line number of original file
 	 */
-	//function getTimers($number, $i = 0)
 	function getTimers($schedfile, $i = 0)
 	{
 		foreach ($schedfile as $num => $line)

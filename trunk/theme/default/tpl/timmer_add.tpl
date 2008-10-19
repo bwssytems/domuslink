@@ -5,6 +5,19 @@
 
 <tr><td>
 
+<!-- status -->
+<table cellspacing="0" cellpadding="0" border="0" class="clear">
+  <tr>
+    <td width="80px"><h6><?php echo ($lang['status']);?>:</h6></td>
+    <td width="150px">
+    <select name="module">
+ 		<option value="enabled" selected><?php echo ($lang['enabled']);?></option>
+ 		<option value="disabled"><?php echo ($lang['disabled']);?></option>
+	</select>
+    </td>
+  </tr>
+</table>
+
 <!-- labels -->
 <table cellspacing="0" cellpadding="0" border="0" class="clear">
   <tr>
@@ -25,7 +38,7 @@
   <tr>
     <td width="80px"><h6>Weekdays:</h6></td>
     <td width="150px">
-    	<?php echo weekdays(null, $lang); ?>
+    	<?php echo weekdays(null, $lang, false, true); ?>
     </td>
   </tr>
 </table>

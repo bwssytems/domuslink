@@ -68,15 +68,17 @@ else
 		case "enable":
 			replace_line($schedfileloc, $schedfile, substr($schedfile[$_GET['line']], 1), $_GET['line']);
 			break;
+			
 		case "disable":
 			replace_line($schedfileloc, $schedfile, "#".$schedfile[$_GET['line']], $_GET['line']);
 			break;
-		/*
+		
 		case "edit":
-			list($temp, $label, $code, $module_type_loc) = split(" ", $settings[$_GET['line']], 4);
-			list($module, $type_loc) = split(" # ", $module_type_loc, 2);
-			list($type, $loc) = split(",", $type_loc, 2);
+			list($lbl, $weekdays, $dateonoff, $ontime, $offtime, $onmacro, $offmacro) = split(" ", $schedfile[$_GET['line']], 7); 
+			list($dateon, $dateoff) = split("-", $dateonoff, 2);
+			$enabled = (substr($lbl, 0, 1) == "#") ? false : true;
 			
+			/*
 			$tpl_edit = & new Template(TPL_FILE_LOCATION.'aliases_edit.tpl');
 			$tpl_edit->set('lang', $lang);		
 			$tpl_edit->set('label', $label);
@@ -87,8 +89,9 @@ else
 			$tpl_edit->set('loc', $loc);
 			$tpl_edit->set('linenum', $_GET['line']); // sets number of line being edited
 			$tpl_body->set('form', $tpl_edit);
+			*/
 			break;
-		
+		/*
 		case "add":
 			if (preg_match($chars, $_POST["label"]))
 				header("Location: ".check_url()."/error.php?msg=".$lang['error_special_chars']);
@@ -124,13 +127,15 @@ echo $tpl->fetch(TPL_FILE_LOCATION.'layout.tpl');
 /**
  * Weekdays
  * 
- * Description: This function generated the weekday's table. It can
- * be used for viewing existing timmers and adding new timmers
+ * Description: This function generates the weekday's table. It can
+ * be used for viewing existing timmers, adding new timmers and editing
  * 
  * @param $string if received will contain string such as: 'sm.w.fs' from schedule file
  * @param $lang contains all the language strings to be used
+ * @param $list boolean if true weekday's belong to timmer listing
+ * @param $enabled represent boolean for status of timmer
  */
-function weekdays($string, $lang)
+function weekdays($string, $lang, $list, $enabled)
 {
 	$week = array(substr($lang['sun'], 0, 1),
 					substr($lang['mon'], 0, 1),
@@ -143,6 +148,8 @@ function weekdays($string, $lang)
 	$week_tpl = & new Template(TPL_FILE_LOCATION.'weekdays.tpl');
 	$week_tpl->set('week', $week);
 	$week_tpl->set('weekdays', $string);
+	$week_tpl->set('enabled', $enabled);
+	$week_tpl->set('list', $list);
 	
 	return $week_tpl->fetch(TPL_FILE_LOCATION.'weekdays.tpl');
 }
