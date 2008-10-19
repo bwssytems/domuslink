@@ -76,20 +76,38 @@ else
 		case "edit":
 			list($lbl, $weekdays, $dateonoff, $ontime, $offtime, $onmacro, $offmacro) = split(" ", $schedfile[$_GET['line']], 7); 
 			list($dateon, $dateoff) = split("-", $dateonoff, 2);
+			list($onmonth, $onday) = split("/", $dateon, 2);
+			list($offmonth, $offday) = split("/", $dateoff, 2);
+			list($onhour, $onmin) = split(":", $ontime, 2);
+			list($offhour, $offmin) = split(":", $offtime, 2);
 			$enabled = (substr($lbl, 0, 1) == "#") ? false : true;
 			
-			/*
-			$tpl_edit = & new Template(TPL_FILE_LOCATION.'aliases_edit.tpl');
-			$tpl_edit->set('lang', $lang);		
-			$tpl_edit->set('label', $label);
-			$tpl_edit->set('code', $code);
-			$tpl_edit->set('module', $module);
-			$tpl_edit->set('modtypes', $modtypes);
-			$tpl_edit->set('type', $type);
-			$tpl_edit->set('loc', $loc);
+			$tpl_edit = & new Template(TPL_FILE_LOCATION.'timer_edit.tpl');
+			$tpl_edit->set('lang', $lang);
+			$tpl_edit->set('enabled', $enabled);
+			
+			$tpl_edit->set('codelabels', $codelabels);
+			$tpl_edit->set('selcode', strip_code($onmacro));
+			
+			$tpl_edit->set('weekdays', $weekdays);
+			
+			$tpl_edit->set('months', $months);
+			$tpl_edit->set('days', $days);
+			$tpl_edit->set('hours', $hours);
+			$tpl_edit->set('mins', $mins);
+			
+			$tpl_edit->set('onday', $onday);
+			$tpl_edit->set('onmonth', $onmonth);
+			$tpl_edit->set('offday', $offday);
+			$tpl_edit->set('offmonth', $offmonth);
+			
+			$tpl_edit->set('onhour', $onhour);
+			$tpl_edit->set('onmin', $onmin);
+			$tpl_edit->set('offhour', $offhour);
+			$tpl_edit->set('offmin', $offmin);
+			
 			$tpl_edit->set('linenum', $_GET['line']); // sets number of line being edited
 			$tpl_body->set('form', $tpl_edit);
-			*/
 			break;
 		/*
 		case "add":
@@ -155,12 +173,34 @@ function weekdays($string, $lang, $list, $enabled)
 }
 
 /**
+ * Strip code
  * 
+ * Description: Receives macro name in format 'a2on' or 'b12off',
+ * strips and returns house and unit code
+ * 
+ * @param $macro represents complete macro name
+ */
+ function strip_code($macro)
+ {
+ 	//1. lower case $macro
+ 	//2. find position of first "o"
+ 	//3. get substr from pos 0 to position returned from #2
+ 	//4. place all in uppercase
+	return strtoupper(substr($macro, 0, strpos(strtolower($macro), "o")));
+ }
+
+/**
+ * Parse Macro
+ * 
+ * Description: Receives macro name such as 'a11on' extracts
+ * house and unit code and finds description/label in aliases
+ * 
+ * @param $macro represents the macro name itself
+ * @param $aliases is array of all the aliases
  */
 function parse_macro($macro, $aliases)
 {
-	$pos = strpos($macro, "o");
-	$code = strtoupper(substr($macro, 0, $pos));
+	$code = strip_code($macro);
 	
 	foreach ($aliases as $alias)
 	{

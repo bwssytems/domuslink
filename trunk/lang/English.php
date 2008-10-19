@@ -55,7 +55,6 @@ $lang["location"] = "Location";
 $lang["addlocation"] = "Add Location";
 $lang["editlocation"] = "Edit Location";
 $lang["heyustatus"] = "Heyu status";
-$lang["deleteconfirm"] = "Are you sure you want to delete this module?";
 $lang["enter_password"] = "Please enter your password to access the administration area.";
 
 /* help texts */
@@ -78,7 +77,7 @@ $lang["error_wrong_pass"] = "<b>Error</b>. Your password is incorrect.";
 $lang["error_loc_in_use"] = "The location you are attempting to remove is currently in use. <br />First remove all usages from <a href=admin/aliases.php>aliases</a> then delete the location.<br />";
 
 /* changed */
-
+$lang["deleteconfirm"] = "Are you sure you want to delete this entry?";
 
 /* new */
 $lang["status"] = "Status";
@@ -88,8 +87,13 @@ $lang["timmer"] = "Timer";
 $lang["triggers"] = "Triggers";
 $lang["upload"] = "Upload";
 $lang["addtimmer"] = "Add Timer";
+$lang["edittimmer"] = "Edit Timer";
+$lang["startdate"] = "Start Date";
+$lang["enddate"] = "End Date";
+$lang["ontime"] = "On Time";
+$lang["offtime"] = "Off Time";
 
-$lang["weekdays"] = "Week Days";
+$lang["weekdays"] = "Weekdays";
 $lang["daterange"] = "Date Range";
 $lang["time"] = "Time";
 $lang["on"] = "On";

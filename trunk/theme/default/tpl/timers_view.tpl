@@ -9,7 +9,7 @@
   <td></td>
   <td></td>
   <td></td>
-  <td colspan="2" align="center" style="border-bottom: 1px dotted #e5e5e5;"><h6><?php echo ($lang['daterange']);?></h6> (dd/mm)</td>
+  <td colspan="2" align="center" style="border-bottom: 1px dotted #e5e5e5;"><h6><?php echo ($lang['daterange']);?></h6> (mm/dd)</td>
   <td></td>
   <td colspan="2" align="center" style="border-bottom: 1px dotted #e5e5e5;"><h6><?php echo ($lang['time']);?></h6> (24hrs)</td>
   <td></td>
