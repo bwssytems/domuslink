@@ -36,7 +36,7 @@
 <!-- weekdays -->
 <table cellspacing="0" cellpadding="0" border="0" class="clear">
   <tr>
-    <td width="80px"><h6>Weekdays:</h6></td>
+    <td width="80px"><h6><?php echo $lang['weekdays']; ?>:</h6></td>
     <td width="150px">
     	<?php echo weekdays(null, $lang, false, true); ?>
     </td>
@@ -46,14 +46,14 @@
 <!-- date start -->
 <table cellspacing="0" cellpadding="0" border="0" class="clear">
   <tr>
-    <td width="80px"><h6>Date Start:</h6></td>
+    <td width="80px"><h6><?php echo $lang['startdate']; ?>:</h6></td>
     <td width="150px">
-		<select name='day' style="width:35px;">
+		<select name='onday' style="width:35px;">
 		<?php foreach ($days as $value): ?>
 			<option value="<?php echo $value; ?>"><?php echo $value; ?></option>
 		<?php endforeach; ?>
 		</select>
-		<select name='month'>
+		<select name='onmonth'>
 		<?php foreach ($months as $value): ?>
 			<option value="<?php echo $value; ?>"><?php echo $value; ?></option>
 		<?php endforeach; ?>
@@ -65,15 +65,15 @@
 <!-- date end -->
 <table cellspacing="0" cellpadding="0" border="0" class="clear">
   <tr>
-    <td width="80px"><h6>Date End:</h6></td>
+    <td width="80px"><h6><?php echo $lang['enddate']; ?>:</h6></td>
     <td width="150px">
 
-		<select name='day' style="width:35px;">
+		<select name='offday' style="width:35px;">
 		<?php foreach (array_reverse($days) as $value): ?>
 			<option value="<?php echo $value; ?>"><?php echo $value; ?></option>
 		<?php endforeach; ?>
 		</select>
-		<select name='month'>
+		<select name='offmonth'>
 		<?php foreach (array_reverse($months) as $value): ?>
 			<option value="<?php echo $value; ?>"><?php echo $value; ?></option>
 		<?php endforeach; ?>
@@ -85,15 +85,15 @@
 <!-- Time On -->
 <table cellspacing="0" cellpadding="0" border="0" class="clear">
   <tr>
-    <td width="80px"><h6>Time On:</h6></td>
+    <td width="80px"><h6><?php echo $lang['ontime']; ?>:</h6></td>
     <td width="150px">
-    <select name='hour' style="width:35px;">
+    <select name='onhour' style="width:35px;">
 	<?php foreach ($hours as $value): ?>
 		<?php if (strlen($value) == 1): $value = "0".$value; endif; ?>
 		<option value="<?php echo $value; ?>"><?php echo $value; ?></option>
 	<?php endforeach; ?>
 	</select>
-	<select name='min' style="width:35px;">
+	<select name='onmin' style="width:35px;">
 	<?php foreach ($mins as $value): ?>
 		<?php if (strlen($value) == 1): $value = "0".$value; endif; ?>
 		<option value="<?php echo $value; ?>"><?php echo $value; ?></option>
@@ -106,15 +106,15 @@
 <!-- Time Off -->
 <table cellspacing="0" cellpadding="0" border="0" class="clear">
   <tr>
-    <td width="80px"><h6>Time Off:</h6></td>
+    <td width="80px"><h6><?php echo $lang['offtime']; ?>:</h6></td>
     <td width="150px">
-    <select name='hour' style="width:35px;">
+    <select name='offhour' style="width:35px;">
 	<?php foreach (array_reverse($hours) as $value): ?>
 		<?php if (strlen($value) == 1): $value = "0".$value; endif; ?>
 		<option value="<?php echo $value; ?>"><?php echo $value; ?></option>
 	<?php endforeach; ?>
 	</select>
-	<select name='min' style="width:35px;">
+	<select name='offmin' style="width:35px;">
 	<?php foreach ($mins as $value): ?>
 		<?php if (strlen($value) == 1): $value = "0".$value; endif; ?>
 		<option value="<?php echo $value; ?>"><?php echo $value; ?></option>
