@@ -97,6 +97,8 @@ $lang["end"] = "End";
 $lang["off"] = "Off";
 $lang["enable"] = "Enable";
 $lang["disable"] = "Disable";
+$lang["enabled"] = "Enabled";
+$lang["disabled"] = "Disabled";
 
 $lang["jan"] = "January";
 $lang["feb"] = "February";

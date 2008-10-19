@@ -43,7 +43,7 @@ foreach ($timmers  as $timmerline):
   	<a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=enable&line=<?php echo $line_num;?>"><?php echo ($lang['enable']);?></a></td>
   <?php endif; ?>
   <td><?php echo $code; ?></td>
-  <td align="center"><?php echo weekdays($weekdays, $lang); ?></td>
+  <td align="center"><?php echo weekdays($weekdays, $lang, true, $enabled); ?></td>
   <td align="center"><?php echo $dateon; ?></td>
   <td align="center"><?php echo $dateoff; ?></td>
   <td>&nbsp;</td>
