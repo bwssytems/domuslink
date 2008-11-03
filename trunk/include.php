@@ -23,17 +23,16 @@ $config =& parse_config($frontObj->GetConfig());
 require_once(FUNC_FILE_LOCATION.'lang.func.php');
 $lang =& $frontObj->GetLanguageFile();
 
-# Make new template object
-require_once(CLASS_FILE_LOCATION.'tpl.class.php');
-$tpl = & new Template(TPL_FILE_LOCATION.'layout.tpl');
-$tpl->set('config', $config);
-$tpl->set('lang', $lang);
-$tpl->set('ver', $FRONTEND_VERSION);
-
 ## Define templates location acording to theme and user agent for auto detection
 if (strpos(strtolower($_SERVER['HTTP_USER_AGENT']),'iphone'))
 	define("TPL_FILE_LOCATION", dirname(__FILE__) . DIRECTORY_SEPARATOR . 'theme' . DIRECTORY_SEPARATOR . 'iPhone' . DIRECTORY_SEPARATOR . 'tpl' . DIRECTORY_SEPARATOR);
 else
 	define("TPL_FILE_LOCATION", dirname(__FILE__) . DIRECTORY_SEPARATOR . 'theme' . DIRECTORY_SEPARATOR . $config['theme'] . DIRECTORY_SEPARATOR . 'tpl' . DIRECTORY_SEPARATOR);
 
+# Make new template object
+require_once(CLASS_FILE_LOCATION.'tpl.class.php');
+$tpl = & new Template(TPL_FILE_LOCATION.'layout.tpl');
+$tpl->set('config', $config);
+$tpl->set('lang', $lang);
+$tpl->set('ver', $FRONTEND_VERSION);
 ?>
