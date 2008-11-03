@@ -105,7 +105,11 @@ if (heyu_running())
 						if (count($typed_aliases) > 0) 
 							$html .= build_location_tb($location, $typed_aliases, $modtypes, $config);
 						break;
-						
+					
+					case "about":
+						$html .= $tpl->fetch(TPL_FILE_LOCATION.'about.tpl');
+						break;
+
 				} // end switch
 			} // end if count > 0
 		} // end foreach
