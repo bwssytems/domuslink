@@ -96,7 +96,7 @@ class heyuConf {
 			list($module, $type_loc) = split(" # ", $module_type_loc, 2);
 			list($type, $orgloc) = split(",", $type_loc, 2);
 			
-			if ($orgloc == $loc) 
+			if (trim($orgloc) == trim($loc))  
 			{
 				$request[$i] = $label." ".$code." ".$type; // $type is kept to use in getAliasesByType
 				$i++;
@@ -118,7 +118,7 @@ class heyuConf {
 		{
 			list($label, $code, $orgtype) = split (" ", $alias, 3);
 			
-			if ($orgtype == $type)
+			if (trim($orgtype) == trim($type))
 			{
 				$request[$i] = $label." ".$code." ".$type;
 				$i++;
