@@ -40,9 +40,16 @@ window.iui =
                 currentPage = page;
 
                 if (fromPage)
-                    setTimeout(slidePages, 0, fromPage, page, backwards);
+				{
+                    if(slideSpeed==100)
+						slidePages(fromPage, page, backwards);
+					else
+						setTimeout(slidePages, 0, fromPage, page, backwards);
+				}
                 else
+				{
                     updatePage(page, fromPage);
+				}
             }
         }
     },
@@ -286,9 +293,9 @@ function slidePages(fromPage, toPage, backwards)
     clearInterval(checkTimer);
     
     var percent = 100;
-    slide();
-    var timer = setInterval(slide, slideInterval);
-
+	slide();
+    if(slideSpeed<100)
+	    var timer = setInterval(slide, slideInterval);
     function slide()
     {
         percent -= slideSpeed;
@@ -297,7 +304,8 @@ function slidePages(fromPage, toPage, backwards)
             percent = 0;
             if (!hasClass(toPage, "dialog"))
                 fromPage.removeAttribute("selected");
-            clearInterval(timer);
+		    if(slideSpeed<100)
+            	clearInterval(timer);
             checkTimer = setInterval(checkOrientAndLocation, 300);
             setTimeout(updatePage, 0, toPage, fromPage);
         }
