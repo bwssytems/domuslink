@@ -52,17 +52,17 @@ else
     <?php
     	if (!isset($_COOKIE["dluloged"])): 
      		?>
-            <li><a href="<?php echo ($config['url_path']); ?>/admin/login.php?page=login&from=aliases"><img src="<?php echo ($config['url_path']);?>/theme/iPhone/images/menu_setup_on.png"><?php echo ($lang['login']); ?></a></li>
+            <li><a href="<?php echo ($config['url_path']); ?>/admin/login.php?page=login&from=aliases"><img src="<?php echo ($config['url_path']);?>/theme/iPhone/images/menu_setup_on.png">&nbsp;&nbsp;<?php echo ($lang['login']); ?></a></li>
         	<?php
         else:
         	?>
-            <li><a href="#setupmenu"><img src="<?php echo ($config['url_path']);?>/theme/iPhone/images/menu_setup_on.png"><?php echo ($lang['setup']); ?></a></li>
+            <li><a href="#setupmenu"><img src="<?php echo ($config['url_path']);?>/theme/iPhone/images/menu_setup_on.png">&nbsp;&nbsp;<?php echo ($lang['setup']); ?></a></li>
         	<?php
         endif;
     ?>
     
 	<li><a href="#status"><img src="<?php echo ($config['url_path']);?>/theme/iPhone/images/menu_home_on.png">&nbsp;&nbsp;<?php echo ($lang['heyustatus']);?></a></li>
-    <li><a href="<?php echo ($config['url_path']); ?>/index.php?page=about"><img src="<?php echo ($config['url_path']);?>/theme/iPhone/images/apple-touch-icon.png">&nbsp;&nbsp;About</a></li>
+    <li><a href="<?php echo ($config['url_path']); ?>/index.php?page=about"><img src="<?php echo ($config['url_path']);?>/theme/iPhone/images/menu_about_on.png">&nbsp;&nbsp;About</a></li>
 </ul>
 
 <!-- SETUP SECTION -->
