@@ -107,7 +107,7 @@ if (heyu_running())
 						break;
 					
 					case "about":
-						$html .= $tpl->fetch(TPL_FILE_LOCATION.'about.tpl');
+						$html = $tpl->fetch(TPL_FILE_LOCATION.'about.tpl');
 						break;
 
 				} // end switch
