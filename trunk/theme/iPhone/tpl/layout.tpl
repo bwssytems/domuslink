@@ -1,3 +1,17 @@
+<html>
+<head>
+<title><?php echo $_GET['page'];?>- Home</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" href="<?php echo ($config['url_path']);?>/theme/iPhone/images/favicon.ico" type="image/x-icon" />
+<link rel="apple-touch-icon" href="<?php echo ($config['url_path']);?>/theme/iPhone/images/apple-touch-icon.png"/> 
+<meta content="minimum-scale=1.0, width=device-width, maximum-scale=0.6667, user-scalable=no" name="viewport" />
+<script type="application/x-javascript" src="<?php echo ($config['url_path']);?>/theme/iPhone/iui/iui.js"></script>
+<style type="text/css" media="screen">
+@import "<?php echo ($config['url_path']);?>/theme/iPhone/iui/iui.css";
+@import "<?php echo ($config['url_path']);?>/theme/iPhone/iPhone.css";
+</style>
+</head>
+<body>
 <?php 
 if ($_GET['page']=='home')
 { 
@@ -29,42 +43,26 @@ else
     $selectedContent="selected='true'";
 }
 ?>
-<html>
-<head>
-<title><?php echo $_GET['page'];?>- Home</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link rel="shortcut icon" href="<?php echo ($config['url_path']);?>/theme/iPhone/images/favicon.ico" type="image/x-icon" />
-<link rel="apple-touch-icon" href="<?php echo ($config['url_path']);?>/theme/iPhone/images/apple-touch-icon.png"/> 
-<meta name="viewport" content="width=320; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;"/>
-<style type="text/css" media="screen">
-@import "<?php echo ($config['url_path']);?>/theme/iPhone/iui/iui.css";
-@import "<?php echo ($config['url_path']);?>/theme/iPhone/iPhone.css";
-</style>
-<script type="application/x-javascript" src="<?php echo ($config['url_path']);?>/theme/iPhone/iui/iui.js"></script>
-</head>
-<body>
-
 <!-- HOME SECTION -->
 <ul id="home" title="<?php echo ($lang['home']); ?>" <?php echo $selectedHome;?>>
-	<li><a href="<?php echo ($config['url_path']); ?>/index.php?page=lights"><?php echo ($lang['lights']); ?></a></li>
-	<li><a href="<?php echo ($config['url_path']); ?>/index.php?page=appliances"><?php echo ($lang['appliances']); ?></a></li>
-	<li><a href="<?php echo ($config['url_path']); ?>/index.php?page=irrigation"><?php echo ($lang['irrigation']); ?></a></li>
-    <!--
-    Setup is not yet working correctly
+	<li><a href="<?php echo ($config['url_path']); ?>/index.php?page=lights"><img src="<?php echo ($config['url_path']);?>/theme/iPhone/images/menu_lights_on.png">&nbsp;&nbsp;<?php echo ($lang['lights']); ?></a></li>
+	<li><a href="<?php echo ($config['url_path']); ?>/index.php?page=appliances"><img src="<?php echo ($config['url_path']);?>/theme/iPhone/images/menu_appliances_on.png">&nbsp;&nbsp;<?php echo ($lang['appliances']); ?></a></li>
+	<li><a href="<?php echo ($config['url_path']); ?>/index.php?page=irrigation"><img src="<?php echo ($config['url_path']);?>/theme/iPhone/images/menu_irrigation_on.png">&nbsp;&nbsp;<?php echo ($lang['irrigation']); ?></a></li>
+    <!--Setup is not yet working correctly-->
     <?php
     	if (!isset($_COOKIE["dluloged"])): 
      		?>
-            <li><a href="<?php echo ($config['url_path']); ?>/admin/login.php?page=login&from=aliases"><?php echo ($lang['login']); ?></a></li>
+            <li><a href="<?php echo ($config['url_path']); ?>/admin/login.php?page=login&from=aliases"><img src="<?php echo ($config['url_path']);?>/theme/iPhone/images/menu_setup_on.png"><?php echo ($lang['login']); ?></a></li>
         	<?php
         else:
         	?>
-            <li><a href="#setupmenu"><?php echo ($lang['setup']); ?></a></li>
+            <li><a href="#setupmenu"><img src="<?php echo ($config['url_path']);?>/theme/iPhone/images/menu_setup_on.png"><?php echo ($lang['setup']); ?></a></li>
         	<?php
         endif;
     ?>
-    -->
-	<li><a href="#status"><?php echo ($lang['heyustatus']);?></a></li>
-    <li><a href="<?php echo ($config['url_path']); ?>/index.php?page=about">About</a></li>
+    
+	<li><a href="#status"><img src="<?php echo ($config['url_path']);?>/theme/iPhone/images/menu_home_on.png">&nbsp;&nbsp;<?php echo ($lang['heyustatus']);?></a></li>
+    <li><a href="<?php echo ($config['url_path']); ?>/index.php?page=about"><img src="<?php echo ($config['url_path']);?>/theme/iPhone/images/apple-touch-icon.png">&nbsp;&nbsp;About</a></li>
 </ul>
 
 <!-- SETUP SECTION -->
@@ -74,11 +72,6 @@ else
 	<li><a href="<?php echo ($config['url_path']); ?>/admin/frontend.php"><?php echo ($lang['frontend']); ?></a></li>
 	<li><a href="<?php echo ($config['url_path']); ?>/admin/heyu.php?action=edit"><?php echo ($lang['heyusetup']); ?></a></li>
 </ul>
-
-<!-- ABOUT SECTION -->
-<div id="about" class="panel" title="About" style="left: 0%;">
-	<?php include(TPL_FILE_LOCATION.'about.tpl');?>
-</div>
 
 <!-- STATUS SECTION -->
 <div id="status" title="<?php echo ($lang['status']); ?>" class="panel">
