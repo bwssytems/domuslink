@@ -16,6 +16,10 @@ $dirname = dirname(__FILE__);
 require_once($dirname.DIRECTORY_SEPARATOR.'include.php');
 require_once(CLASS_FILE_LOCATION.'heyuconf.class.php');
 
+## Instantiate some vars:
+$html = '';
+$page = '';
+
 ## Instantiate HeyuConf class
 $heyuconf = new HeyuConf($config['heyuconf']);
 
@@ -43,9 +47,16 @@ if (isset($_GET["daemon"]))
 	}
 }
 
+
 // get which page is open
-if (isset($_GET['page'])) $page = $_GET['page'];
-else header("Location: ".$_SERVER['PHP_SELF']."?page=home");
+if (isset($_GET['page']))
+{
+	$page = $_GET['page'];
+}
+else
+{
+	header("Location: ".$_SERVER['PHP_SELF']."?page=home");
+}
 
 // set page title
 $tpl->set('title', ucwords($page));
