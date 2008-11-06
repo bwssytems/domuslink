@@ -19,6 +19,7 @@
  */
 function heyu_ctrl($heyuexec, $action)
 {
+	global $config;
 	switch ($action)
 	{
 		case "start":
@@ -34,14 +35,21 @@ function heyu_ctrl($heyuexec, $action)
 
 	$rs = execute_cmd($cmd);
 
-	if (count($rs)>0)
+	if ($config['theme']!='iPhone')
 	{
-		if ($rs[0] == "starting heyu_relay" || $rs[0] == "")
+		if (count($rs)>0)
+		{
+			if ($rs[0] == "starting heyu_relay" || $rs[0] == "")
+				header("Location: ".$_SERVER['PHP_SELF']);
+			else
+				header("Location: ".check_url()."/error.php?msg=".$rs[0]);
+		}
+		else // rs empty when stopping
+		{
 			header("Location: ".$_SERVER['PHP_SELF']);
-		else
-			header("Location: ".check_url()."/error.php?msg=".$rs[0]);
+		}
 	}
-	else // rs empty when stopping
+	else
 	{
 		header("Location: ".$_SERVER['PHP_SELF']);
 	}
