@@ -18,7 +18,7 @@ require_once(CLASS_FILE_LOCATION.'heyuconf.class.php');
 
 ## Instantiate some vars:
 $html = '';
-$page = '';
+$page = 'home';
 
 ## Instantiate HeyuConf class
 $heyuconf = new HeyuConf($config['heyuconf']);
@@ -47,7 +47,6 @@ if (isset($_GET["daemon"]))
 	}
 }
 
-
 // get which page is open
 if (isset($_GET['page']))
 {
@@ -60,6 +59,7 @@ else
 
 // set page title
 $tpl->set('title', ucwords($page));
+$tpl->set('page', $page);
 
 // check if heyu is running, if true display modules
 if (heyu_running())

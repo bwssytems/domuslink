@@ -13,6 +13,7 @@ $frontObj =& new frontObject();
 require_once(FUNC_FILE_LOCATION.'file.func.php');
 require_once(FUNC_FILE_LOCATION.'misc.func.php');
 require_once(FUNC_FILE_LOCATION.'cmd.func.php');
+require_once(FUNC_FILE_LOCATION.'debug.func.php');
 
 #Load config file functions and grab settings
 require($dirname.DIRECTORY_SEPARATOR.'version.php');
@@ -25,9 +26,12 @@ $lang =& $frontObj->GetLanguageFile();
 
 ## Define templates location acording to theme and user agent for auto detection
 if (strpos(strtolower($_SERVER['HTTP_USER_AGENT']),'iphone'))
-	define("TPL_FILE_LOCATION", dirname(__FILE__) . DIRECTORY_SEPARATOR . 'theme' . DIRECTORY_SEPARATOR . 'iPhone' . DIRECTORY_SEPARATOR . 'tpl' . DIRECTORY_SEPARATOR);
-else
-	define("TPL_FILE_LOCATION", dirname(__FILE__) . DIRECTORY_SEPARATOR . 'theme' . DIRECTORY_SEPARATOR . $config['theme'] . DIRECTORY_SEPARATOR . 'tpl' . DIRECTORY_SEPARATOR);
+{
+	# Theme - GUI's Theme
+	$config['theme'] = 'iPhone';	
+}
+
+define("TPL_FILE_LOCATION", dirname(__FILE__) . DIRECTORY_SEPARATOR . 'theme' . DIRECTORY_SEPARATOR . $config['theme'] . DIRECTORY_SEPARATOR . 'tpl' . DIRECTORY_SEPARATOR);
 
 # Make new template object
 require_once(CLASS_FILE_LOCATION.'tpl.class.php');
