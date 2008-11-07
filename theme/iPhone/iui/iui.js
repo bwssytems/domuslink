@@ -1,6 +1,6 @@
 /*
- 	 Copyright (c) 2007, iUI Project Members
-	 See LICENSE.txt for licensing terms
+   Copyright (c) 2007-8, iUI Project Members
+   See LICENSE.txt for licensing terms
  */
 
 
@@ -17,6 +17,7 @@ var hashPrefix = "#_";
 var pageHistory = [];
 var newPageCount = 0;
 var checkTimer;
+var hasOrientationEvent = false;
 
 // *************************************************************************************************
 
@@ -40,16 +41,9 @@ window.iui =
                 currentPage = page;
 
                 if (fromPage)
-				{
-                    if(slideSpeed==100)
-						slidePages(fromPage, page, backwards);
-					else
-						setTimeout(slidePages, 0, fromPage, page, backwards);
-				}
+                    setTimeout(slidePages, 0, fromPage, page, backwards);
                 else
-				{
                     updatePage(page, fromPage);
-				}
             }
         }
     },
@@ -143,7 +137,22 @@ window.iui =
             if (child.nodeType == 1 && child.getAttribute("selected") == "true")
                 return child;
         }    
-    }    
+    },
+    isNativeUrl: function(href)
+    {
+        for(var i = 0; i < iui.nativeUrlPatterns.length; i++)
+        {
+            if(href.match(iui.nativeUrlPatterns[i])) return true;
+        }
+        return false;
+    },
+    nativeUrlPatterns: [
+        new RegExp("^http:\/\/maps.google.com\/maps\?"),
+        new RegExp("^mailto:"),
+        new RegExp("^tel:"),
+        new RegExp("^http:\/\/www.youtube.com\/watch\\?v="),
+        new RegExp("^http:\/\/www.youtube.com\/v\/")
+    ]
 };
 
 // *************************************************************************************************
@@ -157,6 +166,11 @@ addEventListener("load", function(event)
     setTimeout(preloadImages, 0);
     setTimeout(checkOrientAndLocation, 0);
     checkTimer = setInterval(checkOrientAndLocation, 300);
+}, false);
+
+addEventListener("unload", function(event)
+{
+	return;
 }, false);
     
 addEventListener("click", function(event)
@@ -183,6 +197,10 @@ addEventListener("click", function(event)
             link.setAttribute("selected", "progress");
             iui.showPageByHref(link.href, null, null, link, unselect);
         }
+        else if (iui.isNativeUrl(link.href))
+        {
+            return;
+        }
         else if (!link.target)
         {
             link.setAttribute("selected", "progress");
@@ -205,21 +223,52 @@ addEventListener("click", function(event)
     }
 }, true);
 
+function orientChangeHandler()
+{
+  var orientation=window.orientation;
+  switch(orientation)
+  {
+    case 0:
+        setOrientation("portrait");
+        break;  
+        
+    case 90:
+    case -90: 
+        setOrientation("landscape");
+        break;
+  }
+}
+
+if (typeof window.onorientationchange == "object")
+{
+    window.onorientationchange=orientChangeHandler;
+    hasOrientationEvent = true;
+    setTimeout(orientChangeHandler, 0);
+}
+
 function checkOrientAndLocation()
 {
-    if (window.innerWidth != currentWidth)
-    {   
-        currentWidth = window.innerWidth;
-        var orient = currentWidth == 320 ? "profile" : "landscape";
-        document.body.setAttribute("orient", orient);
-        setTimeout(scrollTo, 100, 0, 1);
+    if (!hasOrientationEvent)
+    {
+      if (window.innerWidth != currentWidth)
+      {   
+          currentWidth = window.innerWidth;
+          var orient = currentWidth == 320 ? "portrait" : "landscape";
+          setOrientation(orient);
+      }
     }
 
     if (location.hash != currentHash)
     {
-        var pageId = location.hash.substr(hashPrefix.length)
+        var pageId = location.hash.substr(hashPrefix.length);
         iui.showPageById(pageId);
     }
+}
+
+function setOrientation(orient)
+{
+    document.body.setAttribute("orient", orient);
+    setTimeout(scrollTo, 100, 0, 1);
 }
 
 function showDialog(page)
@@ -293,9 +342,9 @@ function slidePages(fromPage, toPage, backwards)
     clearInterval(checkTimer);
     
     var percent = 100;
-	slide();
-    if(slideSpeed<100)
-	    var timer = setInterval(slide, slideInterval);
+    slide();
+    var timer = setInterval(slide, slideInterval);
+
     function slide()
     {
         percent -= slideSpeed;
@@ -304,8 +353,7 @@ function slidePages(fromPage, toPage, backwards)
             percent = 0;
             if (!hasClass(toPage, "dialog"))
                 fromPage.removeAttribute("selected");
-		    if(slideSpeed<100)
-            	clearInterval(timer);
+            clearInterval(timer);
             checkTimer = setInterval(checkOrientAndLocation, 300);
             setTimeout(updatePage, 0, toPage, fromPage);
         }
@@ -349,6 +397,7 @@ function encodeForm(form)
 
     var args = [];
     encode(form.getElementsByTagName("input"));
+    encode(form.getElementsByTagName("textarea"));
     encode(form.getElementsByTagName("select"));
     return args;    
 }

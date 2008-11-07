@@ -1,3 +1,4 @@
+<div id="about" class="panel" selected='true'>
 	<div align="center"><img src="<?php echo ($config['url_path']);?>/theme/iPhone/images/header_logo.gif" /> </div>
 	<p class="progInfoTitle"> </p>
 	<h2>Description</h2>
@@ -60,3 +61,4 @@
 		</p>
 	</div>
 	</fieldset>
+</div>

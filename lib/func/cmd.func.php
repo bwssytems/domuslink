@@ -35,21 +35,14 @@ function heyu_ctrl($heyuexec, $action)
 
 	$rs = execute_cmd($cmd);
 
-	if ($config['theme']!='iPhone')
+	if (count($rs)>0)
 	{
-		if (count($rs)>0)
-		{
-			if ($rs[0] == "starting heyu_relay" || $rs[0] == "")
-				header("Location: ".$_SERVER['PHP_SELF']);
-			else
-				header("Location: ".check_url()."/error.php?msg=".$rs[0]);
-		}
-		else // rs empty when stopping
-		{
+		if ($rs[0] == "starting heyu_relay" || $rs[0] == "")
 			header("Location: ".$_SERVER['PHP_SELF']);
-		}
+		else
+			header("Location: ".check_url()."/error.php?msg=".$rs[0]);
 	}
-	else
+	else // rs empty when stopping
 	{
 		header("Location: ".$_SERVER['PHP_SELF']);
 	}
