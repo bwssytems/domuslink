@@ -96,8 +96,13 @@ if (heyu_running())
 				switch($page)
 				{
 					case "home":
-						$html .= build_location_tb($location, $localized_aliases, $modtypes, $config);
-						break;
+						//if theme is iPhone, we want to show a menu instead the location_tb
+						if ($config['theme'] == 'iPhone') {
+							$html = $tpl->fetch(TPL_FILE_LOCATION.'home.tpl');
+						} else {
+							$html .= build_location_tb($location, $localized_aliases, $modtypes, $config);						
+						}
+					break;
 					
 					case "lights":
 						$typed_aliases = $heyuconf->getAliasesByType($localized_aliases, $modtypes['light']);
@@ -117,8 +122,28 @@ if (heyu_running())
 							$html .= build_location_tb($location, $typed_aliases, $modtypes, $config);
 						break;
 					
+					//[FS: Added about page for the about section]
 					case "about":
 						$html = $tpl->fetch(TPL_FILE_LOCATION.'about.tpl');
+						break;
+
+					//[FS: Added status page for the status section]						
+					case "status":
+						$html = $tpl->fetch(TPL_FILE_LOCATION.'status.tpl');
+						break;
+						
+					//[FS: Added setup page for the submenu of the setup section]
+					case "setup":
+						$html = $tpl->fetch(TPL_FILE_LOCATION.'setup.tpl');
+						break;	
+						
+					//[FS: Added page info because iPhone theme doesn't have the status in a footer]
+					case "info":
+						$info = & new Template(TPL_FILE_LOCATION.'info.tpl');
+						$info->set('title', $lang['info']);
+						$info->set('lang', $lang);
+						$info->set('lines', heyu_info($config['heyuexec']));
+						$html = $info->fetch(TPL_FILE_LOCATION.'info.tpl');											
 						break;
 
 				} // end switch
@@ -132,13 +157,20 @@ if (heyu_running())
 } // end if heyu running
 else
 {
-	$tpl->set('content', $lang['error_not_running']);
+	//if theme is iPhone, we want to show the status page instead of the error
+	if ($config['theme'] == 'iPhone')
+	{
+		$tpl->set('content', $tpl->fetch(TPL_FILE_LOCATION.'status.tpl'));
+	}
+	else
+	{
+		$tpl->set('content', $lang['error_not_running']);				
+	}
+	
 }
 
 // display the page
 echo $tpl->fetch(TPL_FILE_LOCATION.'layout.tpl');
-
-
 
 /**
  * Build Location Table
@@ -204,6 +236,10 @@ function build_module_tb($alias, $modtypes, $config)
 	$mod->set('config', $config);
 	$mod->set('label', label_parse($label, false));
 	$mod->set('code', $code);
+	if (empty($_GET['page']))
+	{
+		$_GET['page']='home';
+	}
 	$mod->set('page', $_GET['page']);
 	
 	if (!$multi_alias)
