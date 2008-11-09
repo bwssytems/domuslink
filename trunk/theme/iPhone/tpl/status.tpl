@@ -1,4 +1,4 @@
-<div id="status" title="<?php echo ($lang['status']); ?>" class="panel" selected='true'>
+<div id="status" title="<?php echo ($lang['status']); ?>" class="panel">
 	<h2><?php echo ($lang['heyustatus']);?>: 
 	<?php if (heyu_running()): ?>
 		<?php echo $lang['running']; ?>
