@@ -10,11 +10,6 @@
 @import "<?php echo ($config['url_path']);?>/theme/iPhone/iui/iui.css";
 @import "<?php echo ($config['url_path']);?>/theme/iPhone/iPhone.css";
 </style>
-<script>
-if (document.getElementById('toolbar')) {
-	alert('We hebben al een toolbar');
-}
-</script>
 </head>
 <body>
 <div id="toolbar" class="toolbar">
@@ -44,15 +39,33 @@ if (document.getElementById('toolbar')) {
 		}
 	?>            
 </div>
-<?php 
-	if (!empty($content))
-	{
-		echo($content);
-	}
-	else
-	{
-		echo "no content";
-	}
+
+<?php
+if ($page == "lights")
+{
+    ?>
+    <div id='generated_content_for_lights' class="panel" selected='true'>
+        <?php echo($content); ?>
+    </div>
+    <?php
+}
+else
+{
+	?>
+    <span id='generated_content_for_<?php echo $page;?>' selected='true'>
+    <?php 
+        if (!empty($content))
+        {
+            echo($content);
+        }
+        else
+        {
+            echo "no content";
+        }
+    ?>
+    </span>
+	<?php
+}
 ?>
 <!-- end content -->
 </body>
