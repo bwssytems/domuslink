@@ -1,4 +1,4 @@
-<div id="about" class="panel" selected='true'>
+<div id="about" class="panel">
 	<div align="center"><img src="<?php echo ($config['url_path']);?>/theme/iPhone/images/header_logo.gif" /> </div>
 	<p class="progInfoTitle"> </p>
 	<h2>Description</h2>
