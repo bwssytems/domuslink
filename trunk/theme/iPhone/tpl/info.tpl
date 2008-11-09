@@ -1,4 +1,4 @@
-<div id="info" title="<?php echo ($lang['info']); ?>" class="panel" selected='true'>
+<div id="info" title="<?php echo ($lang['info']); ?>" class="panel">
 	<h2><?php echo ($lang['info']); ?></h2>
 	<fieldset>
 		<h5>
