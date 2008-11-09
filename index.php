@@ -89,7 +89,6 @@ if (heyu_running())
 		{
 			// get all aliases specific to location
 			$localized_aliases = $heyuconf->getAliasesByLocation($location);
-			
 			// if location contains aliases/modules then display them
 			if (count($localized_aliases) > 0)
 			{
@@ -150,7 +149,7 @@ if (heyu_running())
 			} // end if count > 0
 		} // end foreach
 	}
-	
+
 	// add complete template to content area in layout
 	$tpl->set('content', $html);
 	
@@ -184,9 +183,15 @@ echo $tpl->fetch(TPL_FILE_LOCATION.'layout.tpl');
  */
 function build_location_tb($loc, $aliases, $modtypes, $config)
 {
+	global $page;
 	$html = null;
 	$zone_tpl = & new Template(TPL_FILE_LOCATION.'floorplan_table.tpl');
 	$zone_tpl->set('header', $loc);
+	if (empty($_GET['page']))
+	{
+		$_GET['page']='home';
+	}
+	$zone_tpl->set('page', $_GET['page']);
 	
 	// iterate array specific to a house zone
 	foreach ($aliases as $alias) 
