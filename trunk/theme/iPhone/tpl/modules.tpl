@@ -1,8 +1,14 @@
-		<li>
-			<table>
-				<tr>
-					<td style='width:66%'><?php echo $label; ?></td>
-					<td><a href='javascript:void(0);' name='<?php echo $code;?>' onclick='showUser(this.name)'><img src="<?php echo $config['url_path']; ?>/theme/<?php echo $config['theme']; ?>/images/module_appliance_<?php echo $state; ?>.png" /></a></td>
-				</tr>
-			</table>
-		</li>
+			<?php 
+			if ($state == 'on')
+			{
+				$toggeled = 'true';
+			}
+			else
+			{
+				$toggeled = '';
+			}
+			?>
+			<div class="row">
+				<label><?php echo str_replace(" ","&nbsp;",$label); ?></label>
+				<div class="toggle" onclick="<?php echo $_SERVER['PHP_SELF']; ?>?action=<?php echo $action; ?>&code=<?php echo $code; ?>&page=<?php echo $page; ?>" name="<?php echo $code;?>" toggled="<?php echo $toggeled;?>" selected=''><span class="thumb"></span><span class="toggleOn">ON</span><span class="toggleOff">OFF</span></div>
+			</div>
