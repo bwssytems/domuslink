@@ -76,8 +76,13 @@ window.iui =
             if (req.readyState == 4)
             {
                 if (replace)
-                    replaceElementWithSource(replace, req.responseText);
-                else
+				{
+					if (replace!='skip')
+					{
+                    	replaceElementWithSource(replace, req.responseText);
+					}
+				}
+				else
                 {
                     var frag = document.createElement("div");
                     frag.innerHTML = req.responseText;
@@ -216,11 +221,31 @@ addEventListener("click", function(event)
 addEventListener("click", function(event)
 {
     var div = findParent(event.target, "div");
-    if (div && hasClass(div, "toggle"))
-    {
-        div.setAttribute("toggled", div.getAttribute("toggled") != "true");
-        event.preventDefault();        
-    }
+	if (div)
+	{
+		function unselect()
+		{ 
+			var newLink = div.getAttribute("onclick");
+			var pos = newLink.indexOf("action=off");
+			if (pos>=0)	
+			{
+				var finalLink = div.getAttribute("onclick").replace("action=off","action=on");
+			}
+			else
+			{
+				var finalLink = div.getAttribute("onclick").replace("action=on","action=off");
+			}
+			div.setAttribute("onclick", finalLink);	
+		}
+		
+		if (div && hasClass(div, "toggle"))
+		{
+			div.setAttribute("toggled", div.getAttribute("toggled") != "true");
+			div.setAttribute("selected", "progress");
+			iui.showPageByHref(div.getAttribute("onclick"), null, null, 'skip', unselect);
+			event.preventDefault();        
+		}
+	}
 }, true);
 
 function orientChangeHandler()
