@@ -179,6 +179,46 @@ body > ul > li > a {
     background: url(/domus.Link/theme/iPhone/iui/listArrow.png) no-repeat right center;
 }
 
+/************************************************************************************************/
+
+body > span > ul > li {
+    position: relative;
+    margin: 0;
+    border-bottom: 1px solid #E0E0E0;
+    padding: 8px 0 8px 10px;
+    font-size: 20px;
+    font-weight: bold;
+    list-style: none;
+}
+
+body > span > ul > li.group {
+    position: relative;
+    top: -1px;
+    margin-bottom: -2px;
+    border-top: 1px solid #7d7d7d;
+    border-bottom: 1px solid #999999;
+    padding: 1px 10px;
+    background: url(/domus.Link/theme/iPhone/iui/listGroup.png) repeat-x;
+    font-size: 17px;
+    font-weight: bold;
+    text-shadow: rgba(0, 0, 0, 0.4) 0 1px 0;
+    color: #FFFFFF;
+}
+
+body > span > ul > li.group:first-child {
+    top: 0;
+    border-top: none;
+}
+
+body > span > ul > li > a {
+    display: block;
+    margin: -8px 0 -8px -10px;
+    padding: 8px 32px 8px 10px;
+    text-decoration: none;
+    color: inherit;
+    background: url(/domus.Link/theme/iPhone/iui/listArrow.png) no-repeat right center;
+}
+
 a[target="_replace"] {
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
@@ -193,6 +233,16 @@ a[target="_replace"] {
 /************************************************************************************************/
     
 body > .dialog {
+    top: 0;
+    width: 100%;
+    min-height: 417px;
+    z-index: 2;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 0;
+    text-align: right;
+}
+    
+body > span > .dialog {
     top: 0;
     width: 100%;
     min-height: 417px;
@@ -243,6 +293,13 @@ input {
 /************************************************************************************************/
 
 body > .panel {
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    padding: 10px;
+    background: #c8c8c8 url(/domus.Link/theme/iPhone/iui/pinstripes.png);
+}
+
+body > span > .panel {
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
     padding: 10px;
