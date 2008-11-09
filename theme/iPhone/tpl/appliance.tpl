@@ -1,9 +1,14 @@
-<div id="module">
-<table cellspacing="0" cellpadding="0" border="0" class="module" height="37px">
-<tr>
-<td width="17" valign="top"><img src="<?php echo $config['url_path']; ?>theme/iPhone/images/module_appliance_<?php echo $state; ?>.png" /></td>
-<td width="110px"><input type="text" value="<?php echo $label; ?>" class="module"  /></td>
-<td><a href="<?php echo $_SERVER['PHP_SELF']; ?>?action=<?php echo $action; ?>&code=<?php echo $code; ?>&page=<?php echo $page; ?>"><img src="<?php echo $config['url_path']; ?>theme/iPhone/images/switch_<?php echo $state; ?>.gif" border="0" /></a></td>
-</tr>
-</table>
-</div>
+			<?php 
+			if ($state == 'on')
+			{
+				$toggeled = 'true';
+			}
+			else
+			{
+				$toggeled = '';
+			}
+			?>
+			<div class="row">
+				<label><?php echo str_replace(" ","&nbsp;",$label); ?></label>
+				<div class="toggle" onclick="<?php echo $_SERVER['PHP_SELF']; ?>?action=<?php echo $action; ?>&code=<?php echo $code; ?>&page=<?php echo $page; ?>" name="<?php echo $code;?>" toggled="<?php echo $toggeled;?>" selected=''><span class="thumb"></span><span class="toggleOn">ON</span><span class="toggleOff">OFF</span></div>
+			</div>	
