@@ -1,11 +1,4 @@
-<?php
-if ($page=='home') {
-	$selected = 'selected=true';
-} else {
-	$selected = '';
-}
-?>
-<ul id="home" title="<?php echo ($lang['home']); ?>" <?php echo $selected;?>>
+<ul id="home" title="<?php echo ($lang['home']); ?>">
 	<li><a id='menu_lights' href="<?php echo ($config['url_path']); ?>/index.php?page=lights"><img src="<?php echo ($config['url_path']);?>/theme/iPhone/images/menu_lights_on.png">&nbsp;&nbsp;<?php echo ($lang['lights']); ?></a></li>
 	<li><a id='menu_appliances' href="<?php echo ($config['url_path']); ?>/index.php?page=appliances"><img src="<?php echo ($config['url_path']);?>/theme/iPhone/images/menu_appliances_on.png">&nbsp;&nbsp;<?php echo ($lang['appliances']); ?></a></li>
 	<li><a id='menu_irrigation' href="<?php echo ($config['url_path']); ?>/index.php?page=irrigation"><img src="<?php echo ($config['url_path']);?>/theme/iPhone/images/menu_irrigation_on.png">&nbsp;&nbsp;<?php echo ($lang['irrigation']); ?></a></li>
