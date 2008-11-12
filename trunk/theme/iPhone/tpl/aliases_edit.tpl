@@ -1,5 +1,5 @@
 <?php $label; $code; $module; $type; $loc; ?>
-<a name="edit"><h2><?php echo ($lang['editalias']);?></h2></a>
+<h2><?php echo ($lang['editalias']);?>: HIERO</h2>
 <div class="white">
     <form action="<?php echo($_SERVER['PHP_SELF']); ?>?action=save" class="panel" method="post">
     <input type="hidden" name="line" value="<?php echo $linenum; ?>" / >
