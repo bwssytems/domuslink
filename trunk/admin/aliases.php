@@ -29,16 +29,6 @@ if ($config['seclevel'] != "0")
 		header("Location: ../login.php?from=admin/aliases");
 }
 
-// get which page is open
-if (isset($_GET['page']))
-{
-	$page = $_GET['page'];
-}
-else
-{
-	header("Location: ".$_SERVER['PHP_SELF']."?page=home");
-}
-
 ## Set template parameters
 $tpl->set('title', $lang['aliases']);
 $tpl->set('page', $page);
