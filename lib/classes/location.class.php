@@ -11,7 +11,7 @@
  *
  */
 
-class location extends heyuconf {
+class location {
 
 	var $heyuconf;
 
