@@ -184,6 +184,30 @@
   </tr>
 </table>
 <br />
+<!-- Codes -->
+<table cellspacing="0" cellpadding="0" border="0" class="clear">
+  <tr>
+    <td colspan="2" style="border-bottom:1px dotted #ccc;"><h6><?php echo ($lang['codes']); ?></h6></td>
+  </tr>
+  <tr>
+    <td valign="top" width="150px">
+    <!-- Codes dropdown -->
+    <select name="codes">
+    <?php $options = array('ON', 'OFF'); ?>
+    <?php foreach ($options as $key=>$opt): ?>
+     <?php if ($opt == $config['codes']): ?>
+       <option selected value="<?php echo $opt; ?>"><?php echo $opt; ?></option>
+     <?php else: ?>
+       <option value="<?php echo $opt; ?>"><?php echo $opt; ?></option>
+     <?php endif; ?>
+    <?php endforeach; ?>
+    </select>
+    <!-- End Codes dropdown -->
+    </td>
+    <td width="350px"><?php echo ($lang['codes_txt']); ?></td>
+  </tr>
+</table>
+<br />
 <!-- Refresh -->
 <table cellspacing="0" cellpadding="0" border="0" class="clear">
   <tr>
