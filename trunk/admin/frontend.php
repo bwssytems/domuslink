@@ -41,6 +41,7 @@ elseif ($_GET["action"] == "save")
 	$newconfig['url_path'] = $_POST["url_path"];
 	$newconfig['theme'] = $_POST["theme"];
 	$newconfig['imgs'] = $_POST["imgs"];
+	$newconfig['codes'] = $_POST["codes"];
 	$newconfig['refresh'] = $_POST["refresh"];
 
 	if ((file_exists(CONFIG_FILE_LOCATION) && is_writable(CONFIG_FILE_LOCATION)) || !file_exists(CONFIG_FILE_LOCATION))

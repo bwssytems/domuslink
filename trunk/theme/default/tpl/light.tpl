@@ -1,15 +1,16 @@
 <div id="module">
 <table cellspacing="0" cellpadding="0" border="0" class="module" height="37px">
 <tr>
-<td width="17" valign="top" rowspan="2"><img src="<?php echo $config['url_path']; ?>/theme/<?php echo $config['theme']; ?>/images/module_light_<?php echo $state; ?>.png" vspace="2" />
-<?php if ($config['codes'] == "ON"): ?>
-<p><strong><?php echo $code; ?></strong></p>
-<?php endif; ?>
+<td width="17" valign="top"><img src="<?php echo $config['url_path']; ?>/theme/<?php echo $config['theme']; ?>/images/module_light_<?php echo $state; ?>.png" vspace="2" />
+
 </td>
 <td width="110px" valign="bottom" height="22"><input type="text" value="<?php echo $label; ?>" class="module"  /></td>
 <td rowspan="2"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?action=<?php echo $action; ?>&code=<?php echo $code; ?>&page=<?php echo $page; ?>"><img src="<?php echo $config['url_path']; ?>/theme/<?php echo $config['theme']; ?>/images/switch_<?php echo $state; ?>.gif" border="0" /></a></td>
 </tr>
 <tr>
+<td><?php if ($config['codes'] == "ON"): ?>
+<p><strong><?php echo $code; ?></strong></p>
+<?php endif; ?></td>
 <td valign="bottom" align="center">
 
 <!-- dimmer table start -->
