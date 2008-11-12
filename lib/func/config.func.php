@@ -28,8 +28,8 @@ function config_load()
 	$config["url_path"] = "/";
 	$config["theme"] = "default";
 	$config["imgs"] = "ON";
-	$config["refresh"] = "0";
 	$config["codes"] = "ON";
+	$config["refresh"] = "0";
 
 	if (file_exists(CONFIG_FILE_LOCATION))
 	{
