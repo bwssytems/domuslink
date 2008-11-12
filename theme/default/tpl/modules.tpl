@@ -2,7 +2,7 @@
 <table cellspacing="0" cellpadding="0" border="0" class="module" height="37px">
 <tr>
 <td width="17" valign="top">
-<img src="<?php echo $config['url_path']; ?>/theme/<?php echo $config['theme']; ?>/images/module_multi.png" /> vspace="2" />
+<img src="<?php echo $config['url_path']; ?>/theme/<?php echo $config['theme']; ?>/images/module_multi.png" vspace="2" />
 <?php if ($config['codes'] == "ON"): ?>
 <p><strong><?php echo $code; ?></strong></p>
 <?php endif; ?>
