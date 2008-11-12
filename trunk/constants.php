@@ -1,7 +1,7 @@
 <?php
 
-$modtypes['light'] = 'Light';
-$modtypes['appliance'] = 'Appliance';
+$modtypes['lights'] = 'Light';
+$modtypes['appliances'] = 'Appliance';
 $modtypes['irrigation'] = 'Irrigation';
 
 ?>
