@@ -38,6 +38,7 @@ $lang["heyuexec"]="Uitvoerbaar Heyu Bestand";
 $lang["password"]="Wachtwoord Configuratiescherm";
 $lang["language"]="Taal gebruikersinterface";
 $lang["imgs"]="Menu Plaatjes";
+$lang["codes"] = "Units codes";
 $lang["urlpath"]="URL Pad";
 $lang["theme"]="Thema gebruikersinterface";
 $lang["heyubaseloc"]="Heyu Bestandslocatie";
@@ -54,6 +55,7 @@ $lang["heyuexec_txt"]="Deze optie geeft aan waar het uitvoerbare bestand van Hey
 $lang["password_txt"]="Geef hier het wachtwoord voor het configuratiescherm op. Laat deze optie <span class='code'>leeg</span> om geen wachtwoord te gebruiken.";
 $lang["theme_txt"]="Selecteer een thema voor de gebruikersinterface.";
 $lang["imgs_txt"]="Kies of je plaatjes in het menu wilt gebruiken.";
+$lang["codes_txt"]="Kies of je de unit codes in de buttons wilt gebruiken.";
 $lang["heyubaseloc_txt"]="Heyu Bestandslocatie - In deze map zoekt Heyu voor de configuratie bestanden en slaat de status informatie op";
 $lang["language_txt"]="Geef hier de taal van de frontend op. Je kunt ook kiezen voor de optie 'auto'. Deze optie gebruikt dan de voorkeurstaal van de browser. Indien de taal niet bestaatdan zal de Engelse taal worden gebruikt.";
 $lang["heyuconfile_txt"]="Het configuratie bestand bevat enkele kritische stukken informatie die het Heyu programma nodig heeft om te functioneren, aangevuld met een aantal gebruikersopties. Dit bestand is normaal gesproken x10.conf genaamden is terug te vinden in /etc/heyu om systeem breed te worden gebruikt.";

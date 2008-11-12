@@ -29,6 +29,7 @@ function config_load()
 	$config["theme"] = "default";
 	$config["imgs"] = "ON";
 	$config["refresh"] = "0";
+	$config["codes"] = "ON";
 
 	if (file_exists(CONFIG_FILE_LOCATION))
 	{
@@ -111,6 +112,10 @@ function config_text($config)
 # Images - Select ON or OFF if you want images to be displayed
 # in the menu bar instead of text.
 \$config['imgs'] = '{$config['imgs']}';
+
+# Codes - Select ON or OFF if you want codes to be displayed
+# in the buttons.
+\$config['codes'] = '{$config['codes']}';
 
 # Refresh - This setting defines the amount of time between page
 # refreshes. The page being refreshed is the main page where modules
