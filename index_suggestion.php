@@ -99,37 +99,25 @@ if (heyu_running())
 		break;
 		
 		case "lights":
-			$typed_aliases = $heyuconf->getAliasesByType($localized_aliases, $modtypes['light']);
-			$html = $locations->build_locations($modtypes[$page],$modtypes,$config,'typed');
-			break;		
 		case "appliances":
-			$typed_aliases = $heyuconf->getAliasesByType($localized_aliases, $modtypes['appliance']);
-			$html = $locations->build_locations($modtypes[$page],$modtypes,$config,'typed');
-			break;
 		case "irrigation":
-			$typed_aliases = $heyuconf->getAliasesByType($localized_aliases, $modtypes['irrigation']);
+			$typed_aliases = $heyuconf->getAliasesByType($localized_aliases, $modtypes[$page]);
 			$html = $locations->build_locations($modtypes[$page],$modtypes,$config,'typed');
-			break;
+		break;
 		
 		//[FS: Added about page for the about section]
 		case "about":
-			$html = $tpl->fetch(TPL_FILE_LOCATION.'about.tpl');
-			break;
-
 		//[FS: Added status page for the status section]						
-		case "status":
-			$html = $tpl->fetch(TPL_FILE_LOCATION.'status.tpl');
-			break;
-			
+		case "status":			
 		//[FS: Added setup page for the submenu of the setup section]
 		case "setup":
-			$html = $tpl->fetch(TPL_FILE_LOCATION.'setup.tpl');
-			break;	
+			$html = $tpl->fetch(TPL_FILE_LOCATION.$page.'.tpl');
+		break;	
 			
 		//[FS: Added page info because iPhone theme doesn't have the status in a footer]
 		case "info":
 			$html = $result_from_heyu_info;											
-			break;
+		break;
 
 	} // end switch
 
