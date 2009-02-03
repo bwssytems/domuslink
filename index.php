@@ -35,31 +35,11 @@ if ($config['seclevel'] == "2")
 }
 
 // start/stop controls for heyu
-if (isset($_GET["daemon"])) 
-{
-	switch ($_GET["daemon"])
-	{
-		case "start":
-			heyu_ctrl($config['heyuexec'], 'start', $_GET['retURL']);
-			break;
-		case "stop":
-			heyu_ctrl($config['heyuexec'], 'stop', $_GET['retURL']);
-			break;
-		case "restart":
-			heyu_ctrl($config['heyuexec'], 'restart',$_GET['retURL']);
-			break;
-	}
-}
+if (isset($_GET["daemon"])) heyu_ctrl($config['heyuexec'], $_GET["daemon"], $_GET['retURL']);
 
 // get which page is open
-if (isset($_GET['page']))
-{
-	$page = $_GET['page'];
-}
-else
-{
-	header("Location: ".$_SERVER['PHP_SELF']."?page=home");
-}
+if (isset($_GET['page'])) $page = $_GET['page'];
+else $page = "home";
 
 // set page title
 $tpl->set('title', ucwords($page));
@@ -134,7 +114,7 @@ else
 	}
 	else
 	{
-		$tpl->set('content', $lang['error_not_running']);				
+		$tpl->set('content', $lang['error_not_running']);			
 	}
 	
 }
