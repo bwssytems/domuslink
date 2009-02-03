@@ -127,12 +127,12 @@ else
 		case "del":
 			delete_line($settings, $config['heyuconf'], $_GET["line"]);
 			break;
-		
+		*/
 		case "move":
-			if ($_GET["dir"] == "up") reorder_array($settings, $_GET['line'], $_GET['line']-1, $config['heyuconf']);
-			if ($_GET["dir"] == "down") reorder_array($settings, $_GET['line'], $_GET['line']+1, $config['heyuconf']);
+			if ($_GET["dir"] == "up") reorder_array($schedfile, $_GET['line'], $_GET['line']-1, $schedfileloc);
+			if ($_GET["dir"] == "down") reorder_array($schedfile, $_GET['line'], $_GET['line']+1, $schedfileloc);
 			break;
-		*/	
+			
 	}
 }
 
