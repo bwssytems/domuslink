@@ -10,11 +10,11 @@
 		<p align="center">
 			<?php if (heyu_running()): ?>
 				<img alt="<?php echo $lang['running']; ?>" src="<?php echo ($config['url_path']);?>/theme/iPhone/images/icontexto-webdev-ok-128x128.png"><BR>
-				<a href="<?php echo ($config['url_path']);?>/index.php?page=status&action=info"><img alt="<?php echo $lang['running']; ?>" src="<?php echo ($config['url_path']);?>/theme/iPhone/images/icontexto-webdev-info-032x032.png"></a> | 
+				<a href="<?php echo ($config['url_path']);?>/index.php?page=info"><img alt="<?php echo $lang['running']; ?>" src="<?php echo ($config['url_path']);?>/theme/iPhone/images/icontexto-webdev-info-032x032.png"></a> | 
 				<a href="<?php echo ($config['url_path']);?>/index.php?page=status&daemon=restart" target="_self"><img alt="<?php echo $lang['running']; ?>" src="<?php echo ($config['url_path']);?>/theme/iPhone/images/icontexto-webdev-reload-032x032.png"></a> | 
 				<a href="<?php echo ($config['url_path']);?>/index.php?page=status&daemon=stop" target="_self"><img alt="<?php echo $lang['running']; ?>" src="<?php echo ($config['url_path']);?>/theme/iPhone/images/icontexto-webdev-cancel-032x032.png"></a>
 				<BR>
-				<span style="width:32px"><a href="<?php echo ($config['url_path']);?>/index.php?page=status&action=info"><?php echo ($lang['info']);?></a></span> | 
+				<span style="width:32px"><a href="<?php echo ($config['url_path']);?>/index.php?page=info"><?php echo ($lang['info']);?></a></span> | 
 				<span style="width:32px"><a href="<?php echo ($config['url_path']);?>/index.php?page=status&daemon=restart" target="_self"><?php echo ($lang['reload']);?></a></span> |
 				<span style="width:32px"><a href="<?php echo ($config['url_path']);?>/index.php?page=status&daemon=stop" target="_self"><?php echo ($lang['stop']);?></a></span> |
 			<?php else:  ?>
