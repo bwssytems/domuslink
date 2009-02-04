@@ -55,7 +55,7 @@ $lang["refresh"] = "Page Refresh Timer";
 $lang["location"] = "Location";
 $lang["addlocation"] = "Add Location";
 $lang["editlocation"] = "Edit Location";
-$lang["heyustatus"] = "Heyu status";
+
 $lang["enter_password"] = "Please enter your password to access the administration area.";
 
 /* help texts */
@@ -80,6 +80,7 @@ $lang["error_loc_in_use"] = "The location you are attempting to remove is curren
 
 /* changed */
 $lang["deleteconfirm"] = "Are you sure you want to delete this entry?";
+$lang["heyustatus"] = "Heyu status";
 
 /* new */
 $lang["status"] = "Status";
