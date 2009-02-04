@@ -68,7 +68,7 @@ if (heyu_running())
 			
 		case "about":				
 		case "status":			
-		case "setup":
+		case "setup": //for iphone
 			$html = $tpl->fetch(TPL_FILE_LOCATION.$page.'.tpl');
 			break;	
 			
@@ -86,9 +86,23 @@ if (heyu_running())
 	$tpl->set('content', $html);
 	
 }
-else // if heyu not running show status page
+else // if heyu not running show status or about page
 {
-	$tpl->set('content', $tpl->fetch(TPL_FILE_LOCATION.'status.tpl'));
+	switch($page)
+	{	
+		case "about":
+		case "setup": //for iphone
+			if ($page == "setup" && $config['theme'] != "iPhone") $page="status";
+			$html = $tpl->fetch(TPL_FILE_LOCATION.$page.'.tpl');
+			break;
+			
+		default:
+			$html = $tpl->fetch(TPL_FILE_LOCATION.'status.tpl');
+			break;
+
+	} // end switch
+	
+	$tpl->set('content', $html);
 }
 
 // display the page
