@@ -63,7 +63,7 @@
 <table cellspacing="0" cellpadding="0" border="0" width="100%">
   <tr>
    <td><img src="<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/header_left.gif" border="0" /></td>
-   <td width="100%" align="left"><img src="<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/1px.gif" width="30px" border="0" /><img src="<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/header_logo.gif" border="0" /></td>
+   <td width="100%" align="left"><a href="<?php echo ($config['url_path']); ?>/index.php?page=about"><img src="<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/1px.gif" width="30px" border="0" /><img src="<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/header_logo.gif" border="0" /></a></td>
    <td><img src="<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/header_right.gif" border="0" /></td>
 </tr>
 </table>
@@ -135,7 +135,7 @@
   <td>
 <?php echo ($lang['heyustatus']);?>:
 <?php if (heyu_running()): ?>
-<?php echo $lang['running']; ?> (<a href="<?php echo ($config['url_path']);?>/index.php?page=<?php echo $_GET['page']; ?>&action=info"><?php echo strtolower($lang['info']);?></a>|<a href="<?php echo ($config['url_path']);?>/?daemon=restart"><?php echo ($lang['reload']);?></a>|<a href="<?php echo ($config['url_path']);?>/?daemon=stop"><?php echo ($lang['stop']); ?></a>)
+<?php echo $lang['running']; ?> (<a href="<?php echo ($config['url_path']);?>/index.php?page=info"><?php echo strtolower($lang['info']);?></a>|<a href="<?php echo ($config['url_path']);?>/?daemon=restart"><?php echo ($lang['reload']);?></a>|<a href="<?php echo ($config['url_path']);?>/?daemon=stop"><?php echo ($lang['stop']); ?></a>)
 <?php else:  ?>
 <?php echo $lang['down']; ?> (<a href="<?php echo ($config['url_path']);?>/?daemon=start"><?php echo ($lang['start']);?></a>)
 <?php endif; ?>
