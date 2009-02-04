@@ -43,9 +43,9 @@ foreach ($timmers  as $timmerline):
  <tr <?php if (!$enabled) echo "style='color: #cccccc'"; ?> class="row">
   <td>
   <?php if ($enabled): ?>
-  	<a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=disable&line=<?php echo $line_num;?>"><?php echo ($lang['disable']);?></a></td>
+  	<a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=disable&line=<?php echo $line_num;?>&onm=<?php echo $onmacro;?>&ofm=<?php echo $offmacro;?>"><?php echo ($lang['disable']);?></a></td>
   <?php else: ?>
-  	<a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=enable&line=<?php echo $line_num;?>"><?php echo ($lang['enable']);?></a></td>
+  	<a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=enable&line=<?php echo $line_num;?>&onm=<?php echo $onmacro;?>&ofm=<?php echo $offmacro;?>"><?php echo ($lang['enable']);?></a></td>
   <?php endif; ?>
   <td><?php echo $code; ?></td>
   <td align="center">

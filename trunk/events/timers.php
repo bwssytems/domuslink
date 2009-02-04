@@ -34,6 +34,7 @@ $codelabels = $heyuconf->getCodesAndLabels($aliases);
 $heyusched = new HeyuSched($schedfileloc);
 $schedfile = $heyusched->get();
 $timmers = $heyusched->getTimers($schedfile);
+$macros = $heyusched->getMacros($schedfile);
 
 ## Set-up arrays
 $months = array (1 => $lang["jan"], $lang["feb"], $lang["mar"], $lang["apr"], $lang["may"], $lang["jun"], $lang["jul"], $lang["aug"], $lang["sep"], $lang["oct"], $lang["nov"], $lang["dec"]);
@@ -66,10 +67,21 @@ else
 	switch ($_GET["action"])
 	{
 		case "enable":
+			$line = $_GET['line'];
+			$onmacro = $_GET['onm'];
+			$offmacro = $_GET['ofm'];
 			replace_line($schedfileloc, $schedfile, substr($schedfile[$_GET['line']], 1), $_GET['line']);
 			break;
 			
 		case "disable":
+			$line = $_GET['line'];
+			$onmacro = $_GET['onm'];
+			$offmacro = $_GET['ofm'];
+			//verify if any timmer are using macros
+			//  if no timmers with same macros DISABLE ALL MACROS
+			//  if timmers exist CHECK TIMMER
+			//     if enabled LEAVE MACROS ENABLED
+			//     if disabled DISABLE MACROS
 			replace_line($schedfileloc, $schedfile, "#".$schedfile[$_GET['line']], $_GET['line']);
 			break;
 		

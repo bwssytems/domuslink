@@ -39,7 +39,6 @@ if (isset($_GET["daemon"])) heyu_ctrl($config['heyuexec'], $_GET["daemon"], $_GE
 
 // get which page is open
 if (isset($_GET['page'])) $page = $_GET['page'];
-else $page = "home";
 
 // set page title
 $tpl->set('title', ucwords($page));
@@ -48,75 +47,48 @@ $tpl->set('page', $page);
 // check if heyu is running, if true display modules
 if (heyu_running())
 {
-
 	// if any action set, act on it
-	if (isset($_GET['action']))
-	{
-		switch ($_GET['action'])
-		{
-			case "info":
-				$info = & new Template(TPL_FILE_LOCATION.'info.tpl');
-				$info->set('title', $lang['info']);
-				$info->set('lang', $lang);
-				$info->set('lines', heyu_info($config['heyuexec']));
-				$result_from_heyu_info = $info->fetch(TPL_FILE_LOCATION.'info.tpl');
-				break;
-			default:
-				$result_from_heyu_action = heyu_action($config);
-				break;
-		}
-	}
-	// else display modules
+	if (isset($_GET['action'])) heyu_action($config);
+
+	// load page acordingly
 	switch($page)
 	{
 		case "home":
-			//if theme is iPhone, we want to show a menu instead the location_tb
-			if ($config['theme'] == 'iPhone') {
-				$html = $tpl->fetch(TPL_FILE_LOCATION.'home.tpl');
-			} else {
-				$html = $locations->build_locations('',$modtypes,$config,'localized');
-			}
-		break;
+			//if theme is iPhone, we want to show a menu instead of the location_tb
+			if ($config['theme'] == 'iPhone') $html = $tpl->fetch(TPL_FILE_LOCATION.'home.tpl');
+			else $html = $locations->build_locations('',$modtypes,$config,'localized');
+			break;
 		
 		case "lights":
 		case "appliances":
 		case "irrigation":
 			$typed_aliases = $heyuconf->getAliasesByType($localized_aliases, $modtypes[$page]);
 			$html = $locations->build_locations($modtypes[$page],$modtypes,$config,'typed');
-		break;
-		
-		//[FS: Added about page for the about section]
-		//[FS: Added status page for the status section]		
-		//[FS: Added setup page for the submenu of the setup section]		
+			break;
+			
 		case "about":				
 		case "status":			
 		case "setup":
 			$html = $tpl->fetch(TPL_FILE_LOCATION.$page.'.tpl');
-		break;	
+			break;	
 			
-		//[FS: Added page info because iPhone theme doesn't have the status in a footer]
 		case "info":
-			$html = $result_from_heyu_info;											
-		break;
+			$info = & new Template(TPL_FILE_LOCATION.'info.tpl');
+			$info->set('title', $lang['info']);
+			$info->set('lang', $lang);
+			$info->set('lines', heyu_info($config['heyuexec']));
+			$html = $info->fetch(TPL_FILE_LOCATION.'info.tpl');								
+			break;
 
 	} // end switch
 
 	// add complete template to content area in layout
 	$tpl->set('content', $html);
 	
-} // end if heyu running
-else
+}
+else // if heyu not running show status page
 {
-	//if theme is iPhone, we want to show the status page instead of the error
-	if ($config['theme'] == 'iPhone')
-	{
-		$tpl->set('content', $tpl->fetch(TPL_FILE_LOCATION.'status.tpl'));
-	}
-	else
-	{
-		$tpl->set('content', $lang['error_not_running']);			
-	}
-	
+	$tpl->set('content', $tpl->fetch(TPL_FILE_LOCATION.'status.tpl'));
 }
 
 // display the page
