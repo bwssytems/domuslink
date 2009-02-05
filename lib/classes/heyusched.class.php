@@ -52,9 +52,9 @@ class heyuSched {
 	 * @param $number boolean, if true add line number of original file
 	 */
 	//function getMacros($number, $i = 0)
-	function getMacros($i = 0)
+	function getMacros($schedfile, $i = 0)
 	{
-		foreach ($this->heyusched as $num => $line)
+		foreach ($schedfile as $num => $line)
 		{
 			if (trim(substr($line, 0, 12) == "## TIMMERS ##")) break; // stop parsing when timmers are reached
 			if (substr($line, 0, 5) == "macro" || substr($line, 0, 6) == "#macro")

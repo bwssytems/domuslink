@@ -33,7 +33,7 @@ $codelabels = $heyuconf->getCodesAndLabels($aliases);
 ## Instantiate HeyuSched class, get contents and parse timmers
 $heyusched = new HeyuSched($schedfileloc);
 $schedfile = $heyusched->get();
-$timmers = $heyusched->getTimers($schedfile);
+$timers = $heyusched->getTimers($schedfile);
 $macros = $heyusched->getMacros($schedfile);
 
 ## Set-up arrays
@@ -47,7 +47,7 @@ $tpl->set('title', $lang['timmers']);
 
 $tpl_body = & new Template(TPL_FILE_LOCATION.'timers_view.tpl');
 $tpl_body->set('lang', $lang);
-$tpl_body->set('timmers', $timmers);
+$tpl_body->set('timers', $timers);
 $tpl_body->set('config', $config);
 $tpl_body->set('aliases', $aliases);
 
@@ -70,19 +70,25 @@ else
 			$line = $_GET['line'];
 			$onmacro = $_GET['onm'];
 			$offmacro = $_GET['ofm'];
-			replace_line($schedfileloc, $schedfile, substr($schedfile[$_GET['line']], 1), $_GET['line']);
+			
+			$sm = get_specific_macros($macros, $onmacro, $offmacro); 
+			$new = change_macro_states($sm, "enable", $schedfile);
+			replace_line($schedfileloc, $new, substr($schedfile[$_GET['line']], 1), $_GET['line']);
 			break;
 			
 		case "disable":
 			$line = $_GET['line'];
 			$onmacro = $_GET['onm'];
 			$offmacro = $_GET['ofm'];
-			//verify if any timmer are using macros
-			//  if no timmers with same macros DISABLE ALL MACROS
-			//  if timmers exist CHECK TIMMER
-			//     if enabled LEAVE MACROS ENABLED
-			//     if disabled DISABLE MACROS
-			replace_line($schedfileloc, $schedfile, "#".$schedfile[$_GET['line']], $_GET['line']);
+
+			if (macro_multiple_use($timers, $onmacro, $offmacro, $line))
+			{
+				$sm = get_specific_macros($macros, $onmacro, $offmacro); 
+				$new = change_macro_states($sm, "disable", $schedfile);
+				replace_line($schedfileloc, $new, "#".$schedfile[$_GET['line']], $_GET['line']);
+			}
+			else
+				replace_line($schedfileloc, $schedfile, "#".$schedfile[$_GET['line']], $_GET['line']);
 			break;
 		
 		case "edit":
@@ -225,4 +231,77 @@ function parse_macro($macro, $aliases)
 	return "";
 }
 
+/**
+ * Description: Receives array of all macros along with
+ * on and off macro. It will then search same array a return
+ * another array with results.
+ * 
+ * @param $macros array
+ * @param $onmacro
+ * @param $offmacro
+ */
+function get_specific_macros($macros, $onmacro, $offmacro)
+{
+	$fmacros = array(); 
+	
+	foreach ($macros as $macro)
+	{
+		//$macro format [MACROLINE]@[LINENUM]
+		if (stripos($macro, $onmacro) || stripos($macro, $offmacro)) 
+			array_push($fmacros, $macro);
+	}
+	
+	return $fmacros;
+}
+
+/**
+ * Description: Checks against active timers is macro is used by
+ * any other timer
+ */
+function macro_multiple_use($timers, $onmacro, $offmacro, $line)
+{
+	foreach ($timers as $timer)
+	{
+		//split line into timer and line number then
+		list($t, $l) = split("@", $timer, 2);
+		//echo "timer: $t  -- line: $l<br />";
+		if ($line == $l) continue; //ignore originating timer
+		else
+		{
+			//if first char is not # and on or off macros in string return false
+			//meaning a timmer has been found that is active and uses same macros
+			if (substr($t, 0, 1) != "#" && (stripos($t, $onmacro) || stripos($t, $offmacro)))
+				return false;
+		}
+	}
+	
+	return true;
+}
+
+/**
+ * @param $macros array of macros that matched in get_specific_macros
+ * @param $estate end state (enable/disable)
+ * @param $file contents such as schedule file
+ */
+function change_macro_states($macros, $estate, $file)
+{
+	foreach ($macros as $macro)
+	{
+		//split line into macro and line number then
+		list($m, $l) = split("@", $macro, 2);
+		
+		//if first char is # (disabled) and estate is enabled
+		//replace line in $file with the #
+		if (substr($macro, 0, 1) == "#" && $estate == "enable")
+		{
+			$file[$l] = substr($m, 1); //enable
+		}
+		elseif (substr($macro, 0, 1) != "#" && $estate == "disable")
+		{
+			$file[$l] = "#".$m; //disable
+		}
+	}
+	
+	return $file;
+}
 ?>
