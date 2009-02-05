@@ -69,6 +69,7 @@ if (heyu_running())
 		case "about":				
 		case "status":			
 		case "setup": //for iphone
+			if ($page == "setup" && $config['theme'] != "iPhone") $page="status";
 			$html = $tpl->fetch(TPL_FILE_LOCATION.$page.'.tpl');
 			break;	
 			

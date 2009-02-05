@@ -32,9 +32,9 @@
 </tr>
 
 <?php
-foreach ($timmers  as $timmerline):
-	list($timmer, $line_num) = split("@", $timmerline, 2);
-	list($lbl, $weekdays, $dateonoff, $ontime, $offtime, $onmacro, $offmacro) = split(" ", $timmer, 7); 
+foreach ($timers  as $timerline):
+	list($timer, $line_num) = split("@", $timerline, 2);
+	list($lbl, $weekdays, $dateonoff, $ontime, $offtime, $onmacro, $offmacro) = split(" ", $timer, 7); 
 	list($dateon, $dateoff) = split("-", $dateonoff, 2);
 	$enabled = (substr($lbl, 0, 1) == "#") ? false : true;
 	$code = parse_macro($onmacro, $aliases);

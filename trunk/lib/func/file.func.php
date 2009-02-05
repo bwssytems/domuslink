@@ -100,6 +100,7 @@ function build_new_line($type)
 function replace_line($file, $filecontent, $linecontent, $linenumber)
 {
 	$filecontent[$linenumber] = $linecontent;
+	//foreach ($filecontent as $l) echo $l."<br />";
 	save_file($filecontent, $file);
 }
 
