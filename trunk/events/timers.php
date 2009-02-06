@@ -73,14 +73,18 @@ else
 			break;
 			
 		case "disable":
-			if (macro_multiple_use($timers, $_GET['onm'], $_GET['ofm'], $_GET['line']))
+			//if no active/deactive timers exists that uses macro
+			if (!multiple_timer_macro_use($timers, $_GET['onm'], $_GET['ofm'], $_GET['line']))
 			{
+				//get individual macros (get_specific_macros)
+				//then change their states (change_macro_states) outputing complete file to $newschedfile
+				//finally disable timer sending as input new schedfile
 				$sm = get_specific_macros($macros, $_GET['onm'], $_GET['ofm']); 
 				$newschedfile = change_macro_states($sm, "disable", $schedfile);
 				replace_line($schedfileloc, $newschedfile, "#".$schedfile[$_GET['line']], $_GET['line']);
 			}
 			else
-				replace_line($schedfileloc, $schedfile, "#".$schedfile[$_GET['line']], $_GET['line']);
+				replace_line($schedfileloc, $schedfile, "#".$schedfile[$_GET['line']], $_GET['line']); //disable timer
 			break;
 		
 		case "edit":
@@ -133,11 +137,30 @@ else
 			else
 				edit_line($settings, $config['heyuconf'], 'alias');
 			break;
-		
-		case "del":
-			delete_line($settings, $config['heyuconf'], $_GET["line"]);
-			break;
 		*/
+		case "del":
+			//method:
+			//check if any other timer (enabled or disabled) is using macros
+			//	if no  - delete timer and assiociated macros
+			//	if yes - only delete timer
+			if (!multiple_timer_macro_use($timers, $_GET['onm'], $_GET['ofm'], $_GET['line']))
+			{
+				//delete timer and associated macros
+				$sm = get_specific_macros($macros, $_GET['onm'], $_GET['ofm']); 
+				foreach ($fm as $f)
+				{
+						list($m, $l) = split("@", $f, 2);
+						array_splice($schedfile, $l, 1); //deletes macros
+				}
+				delete_line($schedfile, $schedfileloc, $_GET["line"]); //deletes timer
+			}
+			else
+			{
+				//only delete timer since other timer(s) are using macros
+				delete_line($schedfile, $schedfileloc, $_GET["line"]); //deletes timer
+			}
+			break;
+		
 		case "move":
 			if ($_GET["dir"] == "up") reorder_array($schedfile, $_GET['line'], $_GET['line']-1, $schedfileloc);
 			if ($_GET["dir"] == "down") reorder_array($schedfile, $_GET['line'], $_GET['line']+1, $schedfileloc);
@@ -225,12 +248,12 @@ function parse_macro($macro, $aliases)
 
 /**
  * Description: Receives array of all macros along with
- * on and off macro. It will then search same array a return
- * another array with results.
+ * on and off macro. It will then search same array and return
+ * another array with matching on/off macros.
  * 
- * @param $macros array
- * @param $onmacro
- * @param $offmacro
+ * @param $macros complete array of macros
+ * @param $onmacro the on macro name
+ * @param $offmacro the off macro name
  */
 function get_specific_macros($macros, $onmacro, $offmacro)
 {
@@ -247,10 +270,15 @@ function get_specific_macros($macros, $onmacro, $offmacro)
 }
 
 /**
- * Description: Checks against active timers if macro is used by
- * any other timer
+ * Description: Checks against active timers if macros are
+ * used by any other timer.
+ * 
+ * @param $timers the timer array
+ * @param $onmacro the onmacro name
+ * @param $offmacro the offmacro name
+ * @param $line the command originating line number
  */
-function macro_multiple_use($timers, $onmacro, $offmacro, $line)
+function multiple_timer_macro_use($timers, $onmacro, $offmacro, $line)
 {
 	foreach ($timers as $timer)
 	{
@@ -260,17 +288,28 @@ function macro_multiple_use($timers, $onmacro, $offmacro, $line)
 		if ($line == $l) continue; //ignore originating timer
 		else
 		{
-			//if first char is not # and on or off macros in string return false
-			//meaning a timer has been found that is active and uses same macros
-			if (substr($t, 0, 1) != "#" && (stripos($t, $onmacro) || stripos($t, $offmacro)))
-				return false;
+			if (stripos($t, $onmacro) || stripos($t, $offmacro))
+			{
+				//timer found that use on/off macro
+				if (substr($t, 0, 1) != "#") 
+					return 2; //active timer exists
+				else 
+					return 1; //disabled timer exists
+			}
 		}
 	}
 	
-	return true;
+	return 0;
+	
+	//return values
+	//0 - no timer in use that uses on/off macros
+	//1 - disabled timer exists that uses on/off macro
+	//2 - active timer exists that uses on/off macro
 }
 
 /**
+ * Description: Function to enable or disable macros
+ * 
  * @param $macros array of macros that matched in get_specific_macros
  * @param $estate end state (enable/disable)
  * @param $file contents such as schedule file
