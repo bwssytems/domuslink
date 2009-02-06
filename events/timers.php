@@ -67,25 +67,17 @@ else
 	switch ($_GET["action"])
 	{
 		case "enable":
-			$line = $_GET['line'];
-			$onmacro = $_GET['onm'];
-			$offmacro = $_GET['ofm'];
-			
-			$sm = get_specific_macros($macros, $onmacro, $offmacro); 
-			$new = change_macro_states($sm, "enable", $schedfile);
-			replace_line($schedfileloc, $new, substr($schedfile[$_GET['line']], 1), $_GET['line']);
+			$sm = get_specific_macros($macros, $_GET['onm'], $_GET['ofm']); 
+			$newschedfile = change_macro_states($sm, "enable", $schedfile);
+			replace_line($schedfileloc, $newschedfile, substr($schedfile[$_GET['line']], 1), $_GET['line']);
 			break;
 			
 		case "disable":
-			$line = $_GET['line'];
-			$onmacro = $_GET['onm'];
-			$offmacro = $_GET['ofm'];
-
-			if (macro_multiple_use($timers, $onmacro, $offmacro, $line))
+			if (macro_multiple_use($timers, $_GET['onm'], $_GET['ofm'], $_GET['line']))
 			{
-				$sm = get_specific_macros($macros, $onmacro, $offmacro); 
-				$new = change_macro_states($sm, "disable", $schedfile);
-				replace_line($schedfileloc, $new, "#".$schedfile[$_GET['line']], $_GET['line']);
+				$sm = get_specific_macros($macros, $_GET['onm'], $_GET['ofm']); 
+				$newschedfile = change_macro_states($sm, "disable", $schedfile);
+				replace_line($schedfileloc, $newschedfile, "#".$schedfile[$_GET['line']], $_GET['line']);
 			}
 			else
 				replace_line($schedfileloc, $schedfile, "#".$schedfile[$_GET['line']], $_GET['line']);
@@ -255,7 +247,7 @@ function get_specific_macros($macros, $onmacro, $offmacro)
 }
 
 /**
- * Description: Checks against active timers is macro is used by
+ * Description: Checks against active timers if macro is used by
  * any other timer
  */
 function macro_multiple_use($timers, $onmacro, $offmacro, $line)
@@ -264,12 +256,12 @@ function macro_multiple_use($timers, $onmacro, $offmacro, $line)
 	{
 		//split line into timer and line number then
 		list($t, $l) = split("@", $timer, 2);
-		//echo "timer: $t  -- line: $l<br />";
+		
 		if ($line == $l) continue; //ignore originating timer
 		else
 		{
 			//if first char is not # and on or off macros in string return false
-			//meaning a timmer has been found that is active and uses same macros
+			//meaning a timer has been found that is active and uses same macros
 			if (substr($t, 0, 1) != "#" && (stripos($t, $onmacro) || stripos($t, $offmacro)))
 				return false;
 		}
