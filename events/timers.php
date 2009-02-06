@@ -73,8 +73,10 @@ else
 			break;
 			
 		case "disable":
-			//if no active/deactive timers exists that uses macro
-			if (!multiple_timer_macro_use($timers, $_GET['onm'], $_GET['ofm'], $_GET['line']))
+			//if no timer in use that uses on/off macros OR
+			//disabled timer exists that uses on/off macro
+			$mtim = multiple_timer_macro_use($timers, $_GET['onm'], $_GET['ofm'], $_GET['line']);
+			if ($mtim == 0 || $mtim == 1)
 			{
 				//get individual macros (get_specific_macros)
 				//then change their states (change_macro_states) outputing complete file to $newschedfile
@@ -139,20 +141,20 @@ else
 			break;
 		*/
 		case "del":
-			//method:
 			//check if any other timer (enabled or disabled) is using macros
 			//	if no  - delete timer and assiociated macros
 			//	if yes - only delete timer
 			if (!multiple_timer_macro_use($timers, $_GET['onm'], $_GET['ofm'], $_GET['line']))
 			{
 				//delete timer and associated macros
-				$sm = get_specific_macros($macros, $_GET['onm'], $_GET['ofm']); 
-				foreach ($fm as $f)
+				$smas = get_specific_macros($macros, $_GET['onm'], $_GET['ofm']);
+				$size = count($smas);
+				foreach ($smas as $num => $ml)
 				{
-						list($m, $l) = split("@", $f, 2);
-						array_splice($schedfile, $l, 1); //deletes macros
+						list($m, $l) = split("@", $ml, 2);
+						array_splice($schedfile, $l-$num, 1); //deletes macros
 				}
-				delete_line($schedfile, $schedfileloc, $_GET["line"]); //deletes timer
+				delete_line($schedfile, $schedfileloc, $_GET["line"]-$size); //deletes timer
 			}
 			else
 			{
