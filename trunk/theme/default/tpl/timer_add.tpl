@@ -1,8 +1,12 @@
 <form action="<?php echo($_SERVER['PHP_SELF']); ?>?action=add" method="post">
 
 <table cellspacing="0" cellpadding="0" border="0" class="content">
-<tr><th><?php echo ($lang['addtimmer']); ?></th></tr>
+<tr><th colspan="2"><?php echo ($lang['addtimmer']); ?></th></tr>
 
+<tr><td>
+
+<!-- center table start -->
+<table cellspacing="0" cellpadding="0" border="0" class="clear">
 <tr><td>
 
 <!-- status -->
@@ -17,22 +21,6 @@
     </td>
   </tr>
 </table>
-
-<!-- labels -->
-<table cellspacing="0" cellpadding="0" border="0" class="clear">
-  <tr>
-    <td width="80px"><h6><?php echo ($lang['module']);?>:</h6></td>
-    <td width="150px">
-    <select name="module">
-	<?php foreach ($codelabels as $codelabel): ?>
-		<?php list($code, $label) = split("@", $codelabel, 2); ?>
- 		<option value="<?php echo $code;?>"><?php echo label_parse($label, false);?></option>
-	<?php endforeach; ?>
-	</select>
-    </td>
-  </tr>
-</table>
-
 <!-- weekdays -->
 <table cellspacing="0" cellpadding="0" border="0" class="clear">
   <tr>
@@ -124,13 +112,30 @@
   </tr>
 </table>
 
+</td>
+<td>
+<!-- labels -->
+<table cellspacing="0" cellpadding="0" border="0" class="clear">
+  <tr>
+    <td width="100px">
+    <select name="module" size="9">
+	<?php foreach ($codelabels as $codelabel): ?>
+		<?php list($code, $label) = split("@", $codelabel, 2); ?>
+ 		<option value="<?php echo $code;?>"><?php echo label_parse($label, false);?></option>
+	<?php endforeach; ?>
+	</select>
+    </td>
+  </tr>
+</table>
+
+</td></tr>
+</table>
+<!-- center table end -->
+
 </td></tr>
 
-<tr>
-<td align="center">
-<input type="submit" value="<?php echo ($lang['add']);?>" />
-</td>
-</tr>
+<tr><td align="center"><input type="submit" value="<?php echo ($lang['add']);?>" /></td></tr>
+
 </table>
 
 </form>

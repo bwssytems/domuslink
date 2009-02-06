@@ -6,6 +6,10 @@
 
 <tr><td colspan="2">
 
+<!-- center table start -->
+<table cellspacing="0" cellpadding="0" border="0" class="clear">
+<tr><td>
+
 <!-- status -->
 <table cellspacing="0" cellpadding="0" border="0" class="clear">
   <tr>
@@ -14,21 +18,6 @@
     <select name="module">
  		<option value="enabled" <?php if ($enabled) echo "selected"; ?>><?php echo ($lang['enabled']);?></option>
  		<option value="disabled" <?php if (!$enabled) echo "selected"; ?>><?php echo ($lang['disabled']);?></option>
-	</select>
-    </td>
-  </tr>
-</table>
-
-<!-- labels -->
-<table cellspacing="0" cellpadding="0" border="0" class="clear">
-  <tr>
-    <td width="80px"><h6><?php echo ($lang['module']);?>:</h6></td>
-    <td width="150px">
-    <select name="module">
-	<?php foreach ($codelabels as $codelabel): ?>
-		<?php list($code, $label) = split("@", $codelabel, 2); ?>
- 		<option value="<?php echo $code;?>" <?php if ($selcode == $code) echo "selected"; ?>><?php echo label_parse($label, false);?></option>
-	<?php endforeach; ?>
 	</select>
     </td>
   </tr>
@@ -122,6 +111,25 @@
 	</select>
     </td>
   </tr>
+</table>
+
+</td><td>
+
+<!-- labels -->
+<table cellspacing="0" cellpadding="0" border="0" class="clear">
+  <tr>
+    <td width="100px">
+    <select name="module" size="9">
+	<?php foreach ($codelabels as $codelabel): ?>
+		<?php list($code, $label) = split("@", $codelabel, 2); ?>
+ 		<option value="<?php echo $code;?>" <?php if ($selcode == $code) echo "selected"; ?>><?php echo label_parse($label, false);?></option>
+	<?php endforeach; ?>
+	</select>
+    </td>
+  </tr>
+</table>
+
+</td></tr>
 </table>
 
 </td></tr>
