@@ -65,10 +65,9 @@ class heyuConf {
 	/**
 	 * Get Aliases
 	 *
-	 * @param $confile contains entire x10.conf file contents
 	 * @param $number boolean, if true add line number of original file
 	 */
-	function getAliases($confile, $number = false, $i = 0)
+	function getAliases($number = false, $i = 0)
 	{
 		foreach ($this->heyuconf as $num => $line)
 		{

@@ -134,7 +134,7 @@ function validateForm(form)
   <tr>
     <td width="100px">
     <select name="module" size="9">
-	<?php foreach ($codelabels as $codelabel): ?>
+	<?php sort($codelabels); foreach ($codelabels as $codelabel): ?>
 		<?php list($code, $label) = split("@", $codelabel, 2); ?>
  		<option value="<?php echo $code;?>"><?php echo label_parse($label, false);?></option>
 	<?php endforeach; ?>

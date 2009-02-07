@@ -18,19 +18,20 @@ class location {
 	/**
 	 * Constructor
 	 *
-	 * @param $filename represents name and location
+	 * @param $heyuconf represents name and location
 	 */
 	function location($heyuconf)
 	{
-		$this->heyuconf =$heyuconf;
+		$this->heyuconf = $heyuconf;
 	}
 
-	function build_locations($type_filter,$modtypes,$config,$type='localized') {
+	function buildLocations($type_filter,$modtypes,$config,$type='localized') {
 		// loop through each location in floorplan file
 		foreach (load_file(FPLAN_FILE_LOCATION) as $loc => $location)
 		{
 			// get all aliases specific to location
 			$localized_aliases = $this->heyuconf->getAliasesByLocation($location);
+			
 			// if location contains aliases/modules then display them
 			if (count($localized_aliases) > 0)
 			{
@@ -40,15 +41,16 @@ class location {
 					$typed_aliases = $this->heyuconf->getAliasesByType($localized_aliases, $type_filter);
 					if (count($typed_aliases) > 0)
 					{
-						$html .= $this->build_location_tb($location, $typed_aliases, $modtypes, $config);	
+						$html .= $this->buildLocationTable($location, $typed_aliases, $modtypes, $config);	
 					}		
 				}
 				else
 				{
-					$html .= $this->build_location_tb($location, $localized_aliases, $modtypes, $config);
+					$html .= $this->buildLocationTable($location, $localized_aliases, $modtypes, $config);
 				}
 			}
 		}
+		
 		return $html;		
 	}
 	/**
@@ -61,7 +63,7 @@ class location {
 	 * @param $modtypes
 	 * @param $config
 	 */
-	function build_location_tb($loc, $aliases, $modtypes, $config)
+	function buildLocationTable($loc, $aliases, $modtypes, $config)
 	{
 		global $page;
 		$html = null;
@@ -76,7 +78,7 @@ class location {
 		// iterate array specific to a house zone
 		foreach ($aliases as $alias) 
 		{
-			$html .= $this->build_module_tb($alias, $modtypes, $config);
+			$html .= $this->buildModuleTable($alias, $modtypes, $config);
 		}
 		
 		$zone_tpl->set('modules',$html);
@@ -93,7 +95,7 @@ class location {
 	 * @param $modtypes
 	 * @param $config
 	 */
-	function build_module_tb($alias, $modtypes, $config)
+	function buildModuleTable($alias, $modtypes, $config)
 	{
 		list($label, $code, $type) = split(" ", $alias, 3);
 		$multi_alias = is_multi_alias($code); // check if A1,2 or just A1
@@ -121,11 +123,13 @@ class location {
 		$mod->set('config', $config);
 		$mod->set('label', label_parse($label, false));
 		$mod->set('code', $code);
-		if (empty($_GET['page']))
+		
+		if (!isset($_GET['page']))
 		{
 			$_GET['page']='home';
 		}
-		$mod->set('page', $_GET['page']);
+		else 
+			$mod->set('page', $_GET['page']);
 		
 		if (!$multi_alias)
 		{
@@ -133,9 +137,10 @@ class location {
 			$mod->set('state', $state);	
 		}
 		
-		if ($type == $modtypes['light']) 
+		if ($type == $modtypes['lights']) 
 		{
-			$mod->set('level', $this->level_calc(curr_dim_level($code, $config['heyuexec'])));	
+			$mod->set('level', $this->level_calc(curr_dim_level($code, $config['heyuexec'])));
+			//$mod->set('test', "testWEE");
 		}
 		
 		// return as html

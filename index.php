@@ -56,14 +56,14 @@ if (heyu_running())
 		case "home":
 			//if theme is iPhone, we want to show a menu instead of the location_tb
 			if ($config['theme'] == 'iPhone') $html = $tpl->fetch(TPL_FILE_LOCATION.'home.tpl');
-			else $html = $locations->build_locations('',$modtypes,$config,'localized');
+			else $html = $locations->buildLocations('',$modtypes,$config,'localized');
 			break;
 		
 		case "lights":
 		case "appliances":
 		case "irrigation":
-			$typed_aliases = $heyuconf->getAliasesByType($localized_aliases, $modtypes[$page]);
-			$html = $locations->build_locations($modtypes[$page],$modtypes,$config,'typed');
+			//$typed_aliases = $heyuconf->getAliasesByType($localized_aliases, $modtypes[$page]);
+			$html = $locations->buildLocations($modtypes[$page],$modtypes,$config,'typed');
 			break;
 			
 		case "about":				
@@ -82,10 +82,6 @@ if (heyu_running())
 			break;
 
 	} // end switch
-
-	// add complete template to content area in layout
-	$tpl->set('content', $html);
-	
 }
 else // if heyu not running show status or about page
 {
@@ -102,9 +98,10 @@ else // if heyu not running show status or about page
 			break;
 
 	} // end switch
-	
-	$tpl->set('content', $html);
 }
+
+// add complete template to content area in layout
+$tpl->set('content', $html);
 
 // display the page
 echo $tpl->fetch(TPL_FILE_LOCATION.'layout.tpl');
