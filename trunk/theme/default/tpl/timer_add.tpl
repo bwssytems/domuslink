@@ -14,9 +14,9 @@
   <tr>
     <td width="80px"><h6><?php echo ($lang['status']);?>:</h6></td>
     <td width="150px">
-    <select name="module">
- 		<option value="enabled" selected><?php echo ($lang['enabled']);?></option>
- 		<option value="disabled"><?php echo ($lang['disabled']);?></option>
+    <select name="status">
+ 		<option value="" selected><?php echo ($lang['enabled']);?></option>
+ 		<option value="#"><?php echo ($lang['disabled']);?></option>
 	</select>
     </td>
   </tr>
@@ -26,7 +26,7 @@
   <tr>
     <td width="80px"><h6><?php echo $lang['weekdays']; ?>:</h6></td>
     <td width="150px">
-    	<?php echo weekdays(null, $lang, false, true); ?>
+    	<?php echo weekdays(null, $lang, false, true, $wdayo); ?>
     </td>
   </tr>
 </table>
@@ -42,8 +42,8 @@
 		<?php endforeach; ?>
 		</select>
 		<select name='onmonth'>
-		<?php foreach ($months as $value): ?>
-			<option value="<?php echo $value; ?>"><?php echo $value; ?></option>
+		<?php foreach ($months as $num => $value): ?>
+			<option value="<?php echo $num; ?>"><?php echo $value; ?></option>
 		<?php endforeach; ?>
 		</select>
     </td>
@@ -62,8 +62,8 @@
 		<?php endforeach; ?>
 		</select>
 		<select name='offmonth'>
-		<?php foreach (array_reverse($months) as $value): ?>
-			<option value="<?php echo $value; ?>"><?php echo $value; ?></option>
+		<?php foreach (array_reverse($months) as $num => $value): ?>
+			<option value="<?php echo 12-$num; ?>"><?php echo $value; ?></option>
 		<?php endforeach; ?>
 		</select>
     </td>

@@ -33,11 +33,12 @@ $codelabels = $heyuconf->getCodesAndLabels($aliases);
 ## Instantiate HeyuSched class, get contents and parse timmers
 $heyusched = new HeyuSched($schedfileloc);
 $schedfile = $heyusched->get();
-$timers = $heyusched->getTimers($schedfile);
-$macros = $heyusched->getMacros($schedfile);
+$timers = $heyusched->getTimers();
+$macros = $heyusched->getMacros();
 
 ## Set-up arrays
 $months = array (1 => $lang["jan"], $lang["feb"], $lang["mar"], $lang["apr"], $lang["may"], $lang["jun"], $lang["jul"], $lang["aug"], $lang["sep"], $lang["oct"], $lang["nov"], $lang["dec"]);
+$wdayo = array("s","m","t","w","t","f","s");
 $days = range(1,31);
 $mins = range(0,59);
 $hours = range(00,23);
@@ -50,6 +51,7 @@ $tpl_body->set('lang', $lang);
 $tpl_body->set('timers', $timers);
 $tpl_body->set('config', $config);
 $tpl_body->set('aliases', $aliases);
+$tpl_body->set('wdayo', $wdayo);
 
 if (!isset($_GET["action"]))
 {
@@ -58,6 +60,7 @@ if (!isset($_GET["action"]))
 	$tpl_add->set('codelabels', $codelabels);
 	$tpl_add->set('months', $months);
 	$tpl_add->set('days', $days);
+	$tpl_add->set('wdayo', $wdayo);
 	$tpl_add->set('hours', $hours);
 	$tpl_add->set('mins', $mins);
 	$tpl_body->set('form', $tpl_add);
@@ -108,6 +111,7 @@ else
 			$tpl_edit->set('weekdays', $weekdays);
 			
 			$tpl_edit->set('months', $months);
+			$tpl_edit->set('wdayo', $wdayo);
 			$tpl_edit->set('days', $days);
 			$tpl_edit->set('hours', $hours);
 			$tpl_edit->set('mins', $mins);
@@ -125,14 +129,64 @@ else
 			$tpl_edit->set('linenum', $_GET['line']); // sets number of line being edited
 			$tpl_body->set('form', $tpl_edit);
 			break;
-		/*
-		case "add":
-			if (preg_match($chars, $_POST["label"]))
-				header("Location: ".check_url()."/error.php?msg=".$lang['error_special_chars']);
-			else
-				add_line($settings, $config['heyuconf'], 'alias');
-			break;
 		
+		case "add":
+			//after submit:
+			// 1. generate on/off macros (ie: a11on and a11off)
+			// 2. check if any macros with same names exist
+			//     - if none exist THEN add new macros
+			//     - if macros exist
+			//             - enable or disable
+			// 3. add timer (enabled or disabled)
+			
+			//build weekday string
+			foreach ($wdayo as $num => $day)
+			{
+				if (isset($_POST[$num.$day])) 
+					$wdaystr .= $_POST[$num.$day]; 
+				else 
+					$wdaystr .= ".";
+			}
+			
+			$onmonth = (strlen($_POST["onmonth"]) == 1) ? "0".$_POST["onmonth"] : $_POST["onmonth"];
+			$onday = (strlen($_POST["onday"]) == 1) ? "0".$_POST["onday"] : $_POST["onday"];
+			$offmonth = (strlen($_POST["offmonth"]) == 1) ? "0".$_POST["offmonth"] : $_POST["offmonth"];
+			$offday = (strlen($_POST["offday"]) == 1) ? "0".$_POST["offday"] : $_POST["offday"];
+			
+			$ondate = "$onmonth/$onday";
+			$offdate = "$offmonth/$offday";
+			$ontime = $_POST["onhour"].":".$_POST["onmin"];
+			$offtime = $_POST["offhour"].":".$_POST["offmin"];
+			
+			$onmacro = strtolower($_POST["module"])."on";
+			$offmacro = strtolower($_POST["module"])."off";
+			
+			//ie: timer smtwt.. 01/01-12/31 11:00 11:15 a3on a3off
+			$tline = $_POST["status"]."timer $wdaystr $ondate-$offdate $ontime $offtime $onmacro $offmacro\n";
+			
+			// if on/off macros exist then make sure they are enabled and add new timer
+			// else create macro lines, add them to file and finally add new timer
+			$sm = get_specific_macros($macros, $onmacro, $offmacro);
+			if ($sm) 
+			{
+				$schedfile = change_macro_states($sm, "enable", $schedfile);
+				array_splice($schedfile,$heyusched->getTimerEndLine(),0,$tline);
+				foreach ($schedfile as $line) echo "$line <br />";
+			}
+			else 
+			{
+				$onml = "macro $onmacro 0 on ".strtolower($_POST["module"])."\n";
+				$offml = "macro $onmacro 0 on ".strtolower($_POST["module"])."\n";
+				$mendli = $heyusched->getMacroEndLine();
+				array_splice($schedfile,$mendli,0,$onml);
+				array_splice($schedfile,$mendli,0,$offml);
+				array_splice($schedfile,$heyusched->getTimerEndLine()+2,0,$tline);
+				//foreach ($schedfile as $line) echo "$line <br />";
+			}
+			
+			save_file($schedfile, $schedfileloc);
+			break;
+		/*
 		case "save":
 			if (preg_match($chars, $_POST["label"]))
 				header("Location: ".check_url()."/error.php?msg=".$lang['error_special_chars']);
@@ -148,13 +202,12 @@ else
 			{
 				//delete timer and associated macros
 				$smas = get_specific_macros($macros, $_GET['onm'], $_GET['ofm']);
-				$size = count($smas);
 				foreach ($smas as $num => $ml)
 				{
 						list($m, $l) = split("@", $ml, 2);
 						array_splice($schedfile, $l-$num, 1); //deletes macros
 				}
-				delete_line($schedfile, $schedfileloc, $_GET["line"]-$size); //deletes timer
+				delete_line($schedfile, $schedfileloc, $_GET["line"]-count($smas)); //deletes timer
 			}
 			else
 			{
@@ -187,10 +240,11 @@ echo $tpl->fetch(TPL_FILE_LOCATION.'layout.tpl');
  * @param $lang contains all the language strings to be used
  * @param $list boolean if true weekday's belong to timmer listing
  * @param $enabled represent boolean for status of timmer
+ * @param $wdayo original chars representing each week day
  */
-function weekdays($string, $lang, $list, $enabled)
+function weekdays($string, $lang, $list, $enabled, $wdayo)
 {
-	$week = array(substr($lang['sun'], 0, 1),
+	$wdayt = array(substr($lang['sun'], 0, 1),
 					substr($lang['mon'], 0, 1),
 					substr($lang['tue'], 0, 1),
 					substr($lang['wed'], 0, 1),
@@ -199,7 +253,8 @@ function weekdays($string, $lang, $list, $enabled)
 					substr($lang['sat'], 0, 1));
 	
 	$week_tpl = & new Template(TPL_FILE_LOCATION.'weekdays.tpl');
-	$week_tpl->set('week', $week);
+	$week_tpl->set('wdayt', $wdayt);
+	$week_tpl->set('wdayo', $wdayo);
 	$week_tpl->set('weekdays', $string);
 	$week_tpl->set('enabled', $enabled);
 	$week_tpl->set('list', $list);
