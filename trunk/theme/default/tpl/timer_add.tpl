@@ -1,4 +1,18 @@
-<form action="<?php echo($_SERVER['PHP_SELF']); ?>?action=add" method="post">
+<script language="JavaScript" type="text/javascript">
+<!--
+function validateForm(form)
+{
+	if (form.module.value == "") {
+		alert( "No module has been selected, please try again." );
+		form.module.focus();
+		return false ;
+	}
+
+  return true ;
+}
+//-->
+</script>
+<form action="<?php echo($_SERVER['PHP_SELF']); ?>?action=add" method="post" onsubmit="return validateForm(this);">
 
 <table cellspacing="0" cellpadding="0" border="0" class="content">
 <tr><th colspan="2"><?php echo ($lang['addtimmer']); ?></th></tr>
@@ -21,6 +35,7 @@
     </td>
   </tr>
 </table>
+
 <!-- weekdays -->
 <table cellspacing="0" cellpadding="0" border="0" class="clear">
   <tr>

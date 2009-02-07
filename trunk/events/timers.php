@@ -171,7 +171,6 @@ else
 			{
 				$schedfile = change_macro_states($sm, "enable", $schedfile);
 				array_splice($schedfile,$heyusched->getTimerEndLine(),0,$tline);
-				foreach ($schedfile as $line) echo "$line <br />";
 			}
 			else 
 			{
@@ -181,7 +180,6 @@ else
 				array_splice($schedfile,$mendli,0,$onml);
 				array_splice($schedfile,$mendli,0,$offml);
 				array_splice($schedfile,$heyusched->getTimerEndLine()+2,0,$tline);
-				//foreach ($schedfile as $line) echo "$line <br />";
 			}
 			
 			save_file($schedfile, $schedfileloc);
