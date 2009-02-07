@@ -74,8 +74,9 @@ function edit_line($content, $file, $editing)
  * Build line to add or alter in a file
  * 
  * @param $type represents type of line being created
+ * @param $wdayo orginal weekday names
  */
-function build_new_line($type)
+function build_new_line($type, $wdayo)
 {
 	switch ($type)
 	{
@@ -90,7 +91,32 @@ function build_new_line($type)
 			break;
 		case "type":
 			return $_POST["type"]."\n";
-			break;	
+			break;
+		case "timer":
+			//build weekday string
+			foreach ($wdayo as $num => $day)
+			{
+				if (isset($_POST[$num.$day])) 
+					$wdaystr .= $_POST[$num.$day]; 
+				else 
+					$wdaystr .= ".";
+			}
+			$onmonth = (strlen($_POST["onmonth"]) == 1) ? "0".$_POST["onmonth"] : $_POST["onmonth"];
+			$onday = (strlen($_POST["onday"]) == 1) ? "0".$_POST["onday"] : $_POST["onday"];
+			$offmonth = (strlen($_POST["offmonth"]) == 1) ? "0".$_POST["offmonth"] : $_POST["offmonth"];
+			$offday = (strlen($_POST["offday"]) == 1) ? "0".$_POST["offday"] : $_POST["offday"];
+			
+			$ondate = "$onmonth/$onday";
+			$offdate = "$offmonth/$offday";
+			$ontime = $_POST["onhour"].":".$_POST["onmin"];
+			$offtime = $_POST["offhour"].":".$_POST["offmin"];
+			
+			$onmacro = replace_macro(strtolower($_POST["module"]))."on";
+			$offmacro = replace_macro(strtolower($_POST["module"]))."off";
+			$tline = $_POST["status"]."timer $wdaystr $ondate-$offdate $ontime $offtime $onmacro $offmacro\n";
+			
+			return array($tline,$onmacro,$offmacro);
+			break;
 	}
 }
 

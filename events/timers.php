@@ -131,38 +131,11 @@ else
 			break;
 		
 		case "add":
-			//after submit:
-			// 1. generate on/off macros (ie: a11on and a11off)
-			// 2. check if any macros with same names exist
-			//     - if none exist THEN add new macros
-			//     - if macros exist
-			//             - enable or disable
-			// 3. add timer (enabled or disabled)
-			
-			//build weekday string
-			foreach ($wdayo as $num => $day)
-			{
-				if (isset($_POST[$num.$day])) 
-					$wdaystr .= $_POST[$num.$day]; 
-				else 
-					$wdaystr .= ".";
-			}
-			
-			$onmonth = (strlen($_POST["onmonth"]) == 1) ? "0".$_POST["onmonth"] : $_POST["onmonth"];
-			$onday = (strlen($_POST["onday"]) == 1) ? "0".$_POST["onday"] : $_POST["onday"];
-			$offmonth = (strlen($_POST["offmonth"]) == 1) ? "0".$_POST["offmonth"] : $_POST["offmonth"];
-			$offday = (strlen($_POST["offday"]) == 1) ? "0".$_POST["offday"] : $_POST["offday"];
-			
-			$ondate = "$onmonth/$onday";
-			$offdate = "$offmonth/$offday";
-			$ontime = $_POST["onhour"].":".$_POST["onmin"];
-			$offtime = $_POST["offhour"].":".$_POST["offmin"];
-			
-			$onmacro = replace_macro(strtolower($_POST["module"]))."on";
-			$offmacro = replace_macro(strtolower($_POST["module"]))."off";
-			
-			//ie: timer smtwt.. 01/01-12/31 11:00 11:15 a3on a3off
-			$tline = $_POST["status"]."timer $wdaystr $ondate-$offdate $ontime $offtime $onmacro $offmacro\n";
+			//build timer line with POST results	
+			$res = build_new_line("timer", $wdayo);
+			$tline = $res[0];
+			$onmacro = $res[1];
+			$offmacro = $res[2];
 			
 			// if on/off macros exist then make sure they are enabled and add new timer
 			// else create macro lines, add them to file and finally add new timer
@@ -184,14 +157,27 @@ else
 			
 			save_file($schedfile, $schedfileloc);
 			break;
-		/*
 		case "save":
-			if (preg_match($chars, $_POST["label"]))
-				header("Location: ".check_url()."/error.php?msg=".$lang['error_special_chars']);
-			else
-				edit_line($settings, $config['heyuconf'], 'alias');
+			//build timer line with POST results	
+			$line = $_POST["line"]; // line being edited
+			$res = build_new_line("timer", $wdayo);
+			$tline = $res[0];
+			$onmacro = $res[1];
+			$offmacro = $res[2];
+			
+			if ($line == 0 || (count($schedfile) - 1) == $line) // first or last line editing
+			{
+				array_splice($schedfile, $line, 1, $tline);
+			}
+			else // when editing line in middle
+			{
+				$end = array_splice($schedfile, $line+1);
+				array_splice($schedfile, $line, 1, $tline);
+				$schedfile = array_merge($schedfile, $end);
+			}
+			
+			save_file($schedfile, $schedfileloc);
 			break;
-		*/
 		case "del":
 			//check if any other timer (enabled or disabled) is using macros
 			//	if no  - delete timer and assiociated macros
@@ -227,6 +213,13 @@ $tpl->set('content', $tpl_body);
 
 echo $tpl->fetch(TPL_FILE_LOCATION.'layout.tpl');
 
+/**
+ * 
+ */
+function get_posts()
+{
+	
+}
 
 /**
  * Weekdays
