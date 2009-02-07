@@ -106,7 +106,7 @@ else
 			$tpl_edit->set('enabled', $enabled);
 			
 			$tpl_edit->set('codelabels', $codelabels);
-			$tpl_edit->set('selcode', strip_code($onmacro));
+			$tpl_edit->set('selcode', strip_code(replace_macro($onmacro)));
 			
 			$tpl_edit->set('weekdays', $weekdays);
 			
@@ -158,8 +158,8 @@ else
 			$ontime = $_POST["onhour"].":".$_POST["onmin"];
 			$offtime = $_POST["offhour"].":".$_POST["offmin"];
 			
-			$onmacro = strtolower($_POST["module"])."on";
-			$offmacro = strtolower($_POST["module"])."off";
+			$onmacro = replace_macro(strtolower($_POST["module"]))."on";
+			$offmacro = replace_macro(strtolower($_POST["module"]))."off";
 			
 			//ie: timer smtwt.. 01/01-12/31 11:00 11:15 a3on a3off
 			$tline = $_POST["status"]."timer $wdaystr $ondate-$offdate $ontime $offtime $onmacro $offmacro\n";
@@ -261,6 +261,20 @@ function weekdays($string, $lang, $list, $enabled, $wdayo)
 }
 
 /**
+ * Description: Replaces "," with "_" and vice-versa
+ * from received macro string
+ * 
+ * @param $macro name
+ */
+function replace_macro($macro)
+{
+	if (strpos($macro, ","))
+		return str_replace(",","_",$macro);
+	else 
+		return str_replace("_",",",$macro);
+}
+
+/**
  * Strip code
  * 
  * Description: Receives macro name in format 'a2on' or 'b12off',
@@ -271,10 +285,16 @@ function weekdays($string, $lang, $list, $enabled, $wdayo)
  function strip_code($macro)
  {
  	//1. lower case $macro
- 	//2. find position of first "o"
- 	//3. get substr from pos 0 to position returned from #2
+ 	//2. find position of first "on" or "off"
+	$onp = strpos(strtolower($macro), "on");
+	$offp = strpos(strtolower($macro), "off");
+	
+	//3. get substr from pos 0 to position returned from $onp or $offp
  	//4. place all in uppercase
-	return strtoupper(substr($macro, 0, strpos(strtolower($macro), "o")));
+	if ($onp)
+		return strtoupper(substr($macro, 0, $onp));
+	else
+		return strtoupper(substr($macro, 0, $offp));
  }
 
 /**

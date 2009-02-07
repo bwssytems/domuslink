@@ -37,7 +37,7 @@ foreach ($timers  as $timerline):
 	list($lbl, $weekdays, $dateonoff, $ontime, $offtime, $onmacro, $offmacro) = split(" ", $timer, 7); 
 	list($dateon, $dateoff) = split("-", $dateonoff, 2);
 	$enabled = (substr($lbl, 0, 1) == "#") ? false : true;
-	$code = parse_macro($onmacro, $aliases);
+	$code = parse_macro(replace_macro($onmacro), $aliases);
 ?>
  
  <tr <?php if (!$enabled) echo "style='color: #cccccc'"; ?> class="row">
