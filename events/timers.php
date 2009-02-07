@@ -175,7 +175,7 @@ else
 			else 
 			{
 				$onml = "macro $onmacro 0 on ".strtolower($_POST["module"])."\n";
-				$offml = "macro $onmacro 0 on ".strtolower($_POST["module"])."\n";
+				$offml = "macro $offmacro 0 off ".strtolower($_POST["module"])."\n";
 				$mendli = $heyusched->getMacroEndLine();
 				array_splice($schedfile,$mendli,0,$onml);
 				array_splice($schedfile,$mendli,0,$offml);
