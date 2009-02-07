@@ -140,7 +140,6 @@ class location {
 		if ($type == $modtypes['lights']) 
 		{
 			$mod->set('level', $this->level_calc(curr_dim_level($code, $config['heyuexec'])));
-			//$mod->set('test', "testWEE");
 		}
 		
 		// return as html

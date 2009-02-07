@@ -23,7 +23,7 @@
       <td style="border: 0; width: 5px;"><img src="<?php echo $config['url_path']; ?>/theme/<?php echo $config['theme']; ?>/images/1px.gif" border="0" height="1px" width="1px" /></td>
     <?php endif; ?>
   <?php else: ?>
-    <td class="dimleveloff"><?php echo $test;?><a href="<?php echo $_SERVER['PHP_SELF']; ?>?action=db&state=<?php echo $state; ?>&code=<?php echo $code; ?>&req=<?php echo $i; ?>&curr=<?php echo $level; ?>&page=<?php echo $page; ?>"><img src="<?php echo $config['url_path']; ?>/theme/<?php echo $config['theme']; ?>/images/1px.gif" border="0" height="1px" width="1px" /></a></td>
+    <td class="dimleveloff"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?action=db&state=<?php echo $state; ?>&code=<?php echo $code; ?>&req=<?php echo $i; ?>&curr=<?php echo $level; ?>&page=<?php echo $page; ?>"><img src="<?php echo $config['url_path']; ?>/theme/<?php echo $config['theme']; ?>/images/1px.gif" border="0" height="1px" width="1px" /></a></td>
     <?php if ($i != 5): // dont display if last level ?>
       <td style="border: 0; width: 5px;"><img src="<?php echo $config['url_path']; ?>/theme/<?php echo $config['theme']; ?>/images/1px.gif" border="0" height="1px" width="1px" /></td>
     <?php endif; ?>
