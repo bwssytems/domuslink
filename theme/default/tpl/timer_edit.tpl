@@ -15,9 +15,9 @@
   <tr>
     <td width="80px"><h6><?php echo ($lang['status']);?>:</h6></td>
     <td width="150px">
-    <select name="module">
- 		<option value="enabled" <?php if ($enabled) echo "selected"; ?>><?php echo ($lang['enabled']);?></option>
- 		<option value="disabled" <?php if (!$enabled) echo "selected"; ?>><?php echo ($lang['disabled']);?></option>
+    <select name="status">
+ 		<option value="" <?php if ($enabled) echo "selected"; ?>><?php echo ($lang['enabled']);?></option>
+ 		<option value="#" <?php if (!$enabled) echo "selected"; ?>><?php echo ($lang['disabled']);?></option>
 	</select>
     </td>
   </tr>
@@ -28,7 +28,7 @@
   <tr>
     <td width="80px"><h6><?php echo $lang['weekdays']; ?>:</h6></td>
     <td width="150px">
-    	<?php echo weekdays($weekdays, $lang, false, true); ?>
+    	<?php echo weekdays($weekdays, $lang, false, true, $wdayo); ?>
     </td>
   </tr>
 </table>
@@ -119,7 +119,7 @@
 <table cellspacing="0" cellpadding="0" border="0" class="clear">
   <tr>
     <td width="100px">
-    <select name="module" size="9">
+    <select name="module" size="9" disabled>
 	<?php foreach ($codelabels as $codelabel): ?>
 		<?php list($code, $label) = split("@", $codelabel, 2); ?>
  		<option value="<?php echo $code;?>" <?php if ($selcode == $code) echo "selected"; ?>><?php echo label_parse($label, false);?></option>

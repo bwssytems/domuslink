@@ -23,8 +23,10 @@ class heyuSched {
 	 */
 	function heyuSched($filename)
 	{
-		$this->heyusched = '';
 		$this->filename = $filename;
+		$this->heyusched = '';
+		$this->macroend = '';
+		$this->timerend = '';
 
 		$this->load();
 	}
@@ -48,21 +50,21 @@ class heyuSched {
 	/**
 	 * Get Macros
 	 *
-	 * @param $schedfile represents entire contents of schedule file
-	 * @param $number boolean, if true add line number of original file
+	 * Description:
 	 */
-	//function getMacros($number, $i = 0)
-	function getMacros($schedfile, $i = 0)
+	function getMacros($i = 0)
 	{
-		foreach ($schedfile as $num => $line)
+		foreach ($this->heyusched as $num => $line)
 		{
-			if (trim(substr($line, 0, 12) == "## TIMMERS ##")) break; // stop parsing when timmers are reached
 			if (substr($line, 0, 5) == "macro" || substr($line, 0, 6) == "#macro")
 			{
-				//if $number = true, store alias in new array along with line numb of original file
-				//$macros[$i] = ($number) ? $macros[$i] = $line."@".$num : $macros[$i] = $line;
 				$macros[$i] = $macros[$i] = $line."@".$num;
 				$i++;
+			}
+			elseif (trim($line) == "## TIMMERS ##") 
+			{
+				$this->macroend = $num;
+				break;
 			}
 		}
 		
@@ -70,28 +72,51 @@ class heyuSched {
 	}
 	
 	/**
-	 * Get Timers
-	 *
-	 * @param $schedfile represents entire contents of schedule file
-	 * @param $number boolean, if true add line number of original file
+	 * Get Macro End Line
+	 * 
+	 * Description: Returns the line number at which macros
+	 * finish and timers start.
 	 */
-	function getTimers($schedfile, $i = 0)
+	function getMacroEndLine()
 	{
-		foreach ($schedfile as $num => $line)
+		return $this->macroend;
+	}
+	
+	/**
+	 * Get Timers
+	 * 
+	 * Description:
+	 */
+	function getTimers($i = 0)
+	{
+		foreach ($this->heyusched as $num => $line)
 		{
-			if (trim(substr($line, 0, 13) == "## TRIGGERS ##")) break; // stop parsing when triggers are reached
+			if (substr($line, 0, 5) == "macro") continue;
 			if (substr($line, 0, 5) == "timer" || substr($line, 0, 6) == "#timer")
 			{
-				//if $number = true, store alias in new array along with line numb of original file
-				//$timers[$i] = ($number) ? $timers[$i] = $line."@".$num : $timers[$i] = $line;
 				$timers[$i] = $timers[$i] = $line."@".$num;
 				$i++;
+			}
+			elseif (trim($line) == "## TRIGGERS ##") 
+			{
+				$this->timerend = $num;
+				break;
 			}
 		}
 		
 		return $timers;
 	}
 	
+	/**
+	 * Get Timer End Line
+	 * 
+	 * Description: Returns the line number at which timer
+	 * finish and triggers start.
+	 */
+	function getTimerEndLine()
+	{
+		return $this->timerend;
+	}
 }
 
 ?>
