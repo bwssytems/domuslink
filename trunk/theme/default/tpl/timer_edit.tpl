@@ -1,5 +1,6 @@
 <form action="<?php echo($_SERVER['PHP_SELF']); ?>?action=save" method="post">
 <input type="hidden" name="line" value="<?php echo $linenum; ?>" / >
+<input type="hidden" name="module" value="<?php echo $selcode;?>" / >
 
 <table cellspacing="0" cellpadding="0" border="0" class="content">
 <tr><th colspan="2"><?php echo ($lang['edittimmer']); ?></th></tr>
@@ -119,7 +120,7 @@
 <table cellspacing="0" cellpadding="0" border="0" class="clear">
   <tr>
     <td width="100px">
-    <select name="module" size="9" disabled>
+    <select name="modules" size="9" disabled>
 	<?php foreach ($codelabels as $codelabel): ?>
 		<?php list($code, $label) = split("@", $codelabel, 2); ?>
  		<option value="<?php echo $code;?>" <?php if ($selcode == $code) echo "selected"; ?>><?php echo label_parse($label, false);?></option>
