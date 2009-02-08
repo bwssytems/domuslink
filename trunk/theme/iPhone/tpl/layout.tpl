@@ -16,30 +16,38 @@
 	<h1 id="pageTitle"></h1>
 	<a id="backButton" class="button" href="/domus.Link/#">Home</a>
 	<?php
-		if ($config['seclevel'] == "2") 
-		{
-			if (isset($_COOKIE["dluloged"])) 
-			{
-				?>
-			    <a id='setup_menu' class="button" href="<?php echo ($config['url_path']); ?>/index.php?page=setup"><?php echo ($lang['setup']); ?></a>
-				<?php
-			}
-			else
-			{
-				?>
-				<a id='login_menu' class="button" href="<?php echo ($config['url_path']); ?>/admin/login.php?page=login&from=<?php echo $page; ?>"><?php echo ($lang['login']); ?></a>
-				<?php
-			}
-		}
-		else
-		{
-				?>
-			    <a id='menu_info' class="button" href="<?php echo ($config['url_path']); ?>/index.php?page=<?php echo $page;?>&action=info"><?php echo ($lang['info']); ?></a>
-				<?php
+    	if ($back_button)
+        {
+            ?>
+            <a id='<?php echo ($back_button['name']); ?>_menu' class="button" href="<?php echo ($config['url_path']); ?><?php echo ($back_button['link']); ?>"><?php echo ($back_button['text']); ?></a>
+            <?php
+        }
+        else
+        {
+            if ($config['seclevel'] == "2") 
+            {
+                if (isset($_COOKIE["dluloged"])) 
+                {
+                    ?>
+                    <a id='setup_menu' class="button" href="<?php echo ($config['url_path']); ?>/index.php?page=setup"><?php echo ($lang['setup']); ?></a>
+                    <?php
+                }
+                else
+                {
+                    ?>
+                    <a id='login_menu' class="button" href="<?php echo ($config['url_path']); ?>/admin/login.php?page=login&from=<?php echo $page; ?>"><?php echo ($lang['login']); ?></a>
+                    <?php
+                }
+            }
+            else
+            {
+                    ?>
+                    <a id='menu_info' class="button" href="<?php echo ($config['url_path']); ?>/index.php?page=<?php echo $page;?>&action=info"><?php echo ($lang['info']); ?></a>
+                    <?php
+            }
 		}
 	?>            
 </div>
-
 <?php
 if ($page == "lights")
 {

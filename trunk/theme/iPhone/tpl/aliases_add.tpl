@@ -21,7 +21,7 @@ function validateForm(form)
 <BR />
 <?php $label; $code; $module; $type; $loc; ?>
 <h2><?php echo ($lang['addalias']);?></h2>
-<div class="white">
+<div class="white" id="addform">
     <form action="<?php echo($_SERVER['PHP_SELF']); ?>?action=save" class="panel" method="post"  onsubmit="return validateForm(this);">
         <fieldset>
             <div class="row">
