@@ -58,7 +58,10 @@ if (heyu_running())
 			if ($config['theme'] == 'iPhone') $html = $tpl->fetch(TPL_FILE_LOCATION.'home.tpl');
 			else $html = $locations->buildLocations('',$modtypes,$config,'localized');
 			break;
-		
+		case "all":
+			//if theme is iPhone, we want to show a the location_tb
+			$html = $locations->buildLocations('',$modtypes,$config,'localized');
+			break;
 		case "lights":
 		case "appliances":
 		case "irrigation":
