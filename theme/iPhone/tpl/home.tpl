@@ -2,8 +2,10 @@
 	<li><a id='menu_lights' href="<?php echo ($config['url_path']); ?>/index.php?page=lights"><img src="<?php echo ($config['url_path']);?>/theme/iPhone/images/menu_lights_on.png">&nbsp;&nbsp;<?php echo ($lang['lights']); ?></a></li>
 	<li><a id='menu_appliances' href="<?php echo ($config['url_path']); ?>/index.php?page=appliances"><img src="<?php echo ($config['url_path']);?>/theme/iPhone/images/menu_appliances_on.png">&nbsp;&nbsp;<?php echo ($lang['appliances']); ?></a></li>
 	<li><a id='menu_irrigation' href="<?php echo ($config['url_path']); ?>/index.php?page=irrigation"><img src="<?php echo ($config['url_path']);?>/theme/iPhone/images/menu_irrigation_on.png">&nbsp;&nbsp;<?php echo ($lang['irrigation']); ?></a></li>
+	<li><a id='menu_all' href="<?php echo ($config['url_path']); ?>/index.php?page=all"><img src="<?php echo ($config['url_path']);?>/theme/iPhone/images/menu_home_on.png">&nbsp;&nbsp;<?php echo ($lang['floorplan']); ?></a></li>    
 	<!--Setup is not yet working correctly-->
-	<?php
+	<!--
+    <?php
 		if ($config['seclevel'] == "2") 
 		{
 			if (!isset($_COOKIE["dluloged"])) 
@@ -26,7 +28,7 @@
 			<?php
 		}
 	?>
-	
-	<li><a id='menu_status' href="<?php echo ($config['url_path']); ?>/index.php?page=status"><img src="<?php echo ($config['url_path']);?>/theme/iPhone/images/menu_home_on.png">&nbsp;&nbsp;<?php echo ($lang['heyustatus']);?></a></li>
+	-->
+	<li><a id='menu_status' href="<?php echo ($config['url_path']); ?>/index.php?page=status"><img src="<?php echo ($config['url_path']);?>/theme/iPhone/images/menu_status_on.gif">&nbsp;&nbsp;<?php echo ($lang['heyustatus']);?></a></li>
 	<li><a id='menu_about' href="<?php echo ($config['url_path']); ?>/index.php?page=about"><img src="<?php echo ($config['url_path']);?>/theme/iPhone/images/menu_about_on.png">&nbsp;&nbsp;About</a></li>
 </ul>

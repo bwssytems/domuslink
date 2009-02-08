@@ -1,5 +1,5 @@
 <?php
-if ($page=='lights')
+if ( ($page=='lights') || ($page=='all') )
 {
 ?>
 	<h2><?php echo ($header); ?></h2>
