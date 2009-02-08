@@ -3,7 +3,7 @@
 <input type="hidden" name="module" value="<?php echo $selcode;?>" / >
 
 <table cellspacing="0" cellpadding="0" border="0" class="content">
-<tr><th colspan="2"><?php echo ($lang['edittimmer']); ?></th></tr>
+<tr><th colspan="2"><?php echo ($lang['edittimer']); ?></th></tr>
 
 <tr><td colspan="2">
 

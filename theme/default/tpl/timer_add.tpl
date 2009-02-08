@@ -15,7 +15,7 @@ function validateForm(form)
 <form action="<?php echo($_SERVER['PHP_SELF']); ?>?action=add" method="post" onsubmit="return validateForm(this);">
 
 <table cellspacing="0" cellpadding="0" border="0" class="content">
-<tr><th colspan="2"><?php echo ($lang['addtimmer']); ?></th></tr>
+<tr><th colspan="2"><?php echo ($lang['addtimer']); ?></th></tr>
 
 <tr><td>
 

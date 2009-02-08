@@ -64,6 +64,10 @@ $config['theme'] = 'default';
 # in the menu bar instead of text.
 $config['imgs'] = 'ON';
 
+# Codes - Select ON or OFF if you want codes to be displayed
+# in the buttons.
+$config['codes'] = '';
+
 # Refresh - This setting defines the amount of time between page
 # refreshes. The page being refreshed is the main page where modules
 # are displayed. Leave empty to disable this feature.

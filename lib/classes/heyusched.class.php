@@ -61,7 +61,7 @@ class heyuSched {
 				$macros[$i] = $macros[$i] = $line."@".$num;
 				$i++;
 			}
-			elseif (trim($line) == "## TIMMERS ##") 
+			elseif (trim($line) == "## TIMERS ##") 
 			{
 				$this->macroend = $num;
 				break;
