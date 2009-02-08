@@ -1,4 +1,3 @@
-	<h2><?php echo ($lang['aliases']); ?> voor <?php echo $page;?></h2>
 	<div class="white">
 		<ul class="shortbutul">		
         <?php
@@ -14,7 +13,7 @@
 			<table>
 				<tr>
 					<td style='width:66%'><?php echo $code;?></td>
-					<td><a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=edit&line=<?php echo $line_num;?>&page=<?php echo $page;?>" target="_replace"><img width=20 height=20 src="<?php echo ($config['url_path']);?>/theme/iPhone/images/icontexto-webdev-config-024x024.png" /></a></td>
+					<td><a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=showeditform&line=<?php echo $line_num;?>&page=<?php echo $page;?>"><img width=20 height=20 src="<?php echo ($config['url_path']);?>/theme/iPhone/images/icontexto-webdev-config-024x024.png" /></a></td>
 					<td><a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=del&line=<?php echo $line_num;?>" onclick="return confirm('<?php echo ($lang['deleteconfirm']);?>')"><img width=20 height=20 src="<?php echo ($config['url_path']);?>/theme/iPhone/images/icontexto-webdev-remove-024x024.png" /></a></td>
 					<td>
                     <?php if ($line_num != $first_line): ?>
