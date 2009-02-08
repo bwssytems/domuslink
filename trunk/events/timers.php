@@ -19,7 +19,7 @@ require_once(CLASS_FILE_LOCATION.'heyusched.class.php');
 if ($config['seclevel'] != "0") 
 {
 	if (!isset($_COOKIE["dluloged"]))
-		header("Location: ../login.php?from=events/timmers");
+		header("Location: ../login.php?from=events/timers");
 }
 
 ## Instantiate HeyuConf class and get schedule file with absolute path
@@ -30,7 +30,7 @@ $schedfileloc = $config['heyu_base'].$heyuconf->getSchedFile();
 $aliases = $heyuconf->getAliases(false);
 $codelabels = $heyuconf->getCodesAndLabels($aliases);
 
-## Instantiate HeyuSched class, get contents and parse timmers
+## Instantiate HeyuSched class, get contents and parse timers
 $heyusched = new HeyuSched($schedfileloc);
 $schedfile = $heyusched->get();
 $timers = $heyusched->getTimers();
@@ -44,7 +44,7 @@ $mins = range(0,59);
 $hours = range(00,23);
 
 ## Set template parameters
-$tpl->set('title', $lang['timmers']);
+$tpl->set('title', $lang['timers']);
 
 $tpl_body = & new Template(TPL_FILE_LOCATION.'timers_view.tpl');
 $tpl_body->set('lang', $lang);
@@ -225,12 +225,12 @@ function get_posts()
  * Weekdays
  * 
  * Description: This function generates the weekday's table. It can
- * be used for viewing existing timmers, adding new timmers and editing
+ * be used for viewing existing timers, adding new timers and editing
  * 
  * @param $string if received will contain string such as: 'sm.w.fs' from schedule file
  * @param $lang contains all the language strings to be used
- * @param $list boolean if true weekday's belong to timmer listing
- * @param $enabled represent boolean for status of timmer
+ * @param $list boolean if true weekday's belong to timer listing
+ * @param $enabled represent boolean for status of timer
  * @param $wdayo original chars representing each week day
  */
 function weekdays($string, $lang, $list, $enabled, $wdayo)

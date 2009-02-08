@@ -201,4 +201,19 @@ function curr_dim_level($unit, $heyuexec)
 	return $rs[0];
 }
 
+function heyu_upload($heyuexec)
+{
+	execute_cmd("echo -n \"\" > /tmp/heyu_upload.out");
+	$rs = execute_cmd($heyuexec." upload &> /tmp/heyu_upload.out");
+	
+	header("Location: ".$_SERVER['PHP_SELF']."?state=completed");
+	
+	//foreach ($rs as $r) echo "$r<br />";
+	/*
+	if ($rs[7] == "Setting interface clock to current Standard Time.\n")
+		header("Location: ".$_SERVER['PHP_SELF']."?state=completed");
+	else
+		header("Location: ".$_SERVER['PHP_SELF']."?state=error");*/
+}
+
 ?>

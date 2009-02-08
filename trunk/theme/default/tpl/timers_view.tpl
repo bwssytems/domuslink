@@ -1,5 +1,5 @@
 <table cellspacing="0" cellpadding="0" border="0" align="middle" class="content">
-<tr><th><?php echo ($lang['timmers']); ?></th></tr>
+<tr><th><?php echo ($lang['timers']); ?></th></tr>
 
 <tr><td>
 
@@ -18,7 +18,7 @@
 </tr>
 <tr>
   <td width="50"><h6><?php echo ($lang['status']);?></h6></td>
-  <td width="120"><h6><?php echo ($lang['timmer']);?></h6></td>
+  <td width="120"><h6><?php echo ($lang['timer']);?></h6></td>
   <td align="center"><h6><?php echo ($lang['weekdays']);?></h6></td>
   <td width="10"></td>
   <td width="50" align="center"><h6><?php echo ucwords($lang['start']);?></h6></td>

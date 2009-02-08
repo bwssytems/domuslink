@@ -22,11 +22,11 @@ $heyuconf = new HeyuConf($config['heyuconf']);
 if ($config['seclevel'] != "0") 
 {
 	if (!isset($_COOKIE["dluloged"]))
-		header("Location: ../login.php?from=events/timmers");
+		header("Location: ../login.php?from=events/timers");
 }
 
 ## Set template parameters
-$tpl->set('title', $lang['timmers']);
+$tpl->set('title', $lang['timers']);
 
 $tpl_body = "triggers go here";
 
