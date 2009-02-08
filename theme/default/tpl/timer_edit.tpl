@@ -16,7 +16,7 @@
   <tr>
     <td width="80px"><h6><?php echo ($lang['status']);?>:</h6></td>
     <td width="150px">
-    <select name="status">
+    <select name="status" disabled>
  		<option value="" <?php if ($enabled) echo "selected"; ?>><?php echo ($lang['enabled']);?></option>
  		<option value="#" <?php if (!$enabled) echo "selected"; ?>><?php echo ($lang['disabled']);?></option>
 	</select>
