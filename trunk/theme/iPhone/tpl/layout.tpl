@@ -24,6 +24,10 @@
         }
         else
         {
+            ?>
+            <a id='menu_info' class="button" href="<?php echo ($config['url_path']); ?>/index.php?page=info"><?php echo ($lang['info']); ?></a>
+            <?php        
+            /*
             if ($config['seclevel'] == "2") 
             {
                 if (isset($_COOKIE["dluloged"])) 
@@ -42,9 +46,10 @@
             else
             {
                     ?>
-                    <a id='menu_info' class="button" href="<?php echo ($config['url_path']); ?>/index.php?page=<?php echo $page;?>&action=info"><?php echo ($lang['info']); ?></a>
+                    <a id='menu_info' class="button" href="<?php echo ($config['url_path']); ?>/index.php?page=info"><?php echo ($lang['info']); ?></a>
                     <?php
             }
+            */
 		}
 	?>            
 </div>
