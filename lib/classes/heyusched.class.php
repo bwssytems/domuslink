@@ -21,8 +21,7 @@ class heyuSched {
 	 *
 	 * @param $filename represents name and location
 	 */
-	function heyuSched($filename)
-	{
+	function heyuSched($filename) {
 		$this->filename = $filename;
 		$this->heyusched = '';
 		$this->macroend = '';
@@ -34,16 +33,14 @@ class heyuSched {
 	/**
 	 * Load heyu settings from defined file in config.php
 	 */
-	function load()
-	{
+	function load() {
 		$this->heyusched = load_file($this->filename);
 	}
 
 	/**
 	 * Return heyu settings from defined file in config.php
 	 */
-	function get()
-	{
+	function get() {
 		return $this->heyusched;
 	}
 
@@ -52,17 +49,13 @@ class heyuSched {
 	 *
 	 * Description:
 	 */
-	function getMacros($i = 0)
-	{
-		foreach ($this->heyusched as $num => $line)
-		{
-			if (substr($line, 0, 5) == "macro" || substr($line, 0, 6) == "#macro")
-			{
+	function getMacros($i = 0) {
+		foreach ($this->heyusched as $num => $line) {
+			if (substr($line, 0, 5) == "macro" || substr($line, 0, 6) == "#macro") {
 				$macros[$i] = $macros[$i] = $line."@".$num;
 				$i++;
 			}
-			elseif (trim($line) == "## TIMERS ##") 
-			{
+			elseif (trim($line) == "## TIMERS ##") {
 				$this->macroend = $num;
 				break;
 			}
@@ -77,8 +70,7 @@ class heyuSched {
 	 * Description: Returns the line number at which macros
 	 * finish and timers start.
 	 */
-	function getMacroEndLine()
-	{
+	function getMacroEndLine() {
 		return $this->macroend;
 	}
 	
@@ -87,18 +79,13 @@ class heyuSched {
 	 * 
 	 * Description:
 	 */
-	function getTimers($i = 0)
-	{
-		foreach ($this->heyusched as $num => $line)
-		{
-			if (substr($line, 0, 5) == "macro") continue;
-			if (substr($line, 0, 5) == "timer" || substr($line, 0, 6) == "#timer")
-			{
+	function getTimers($i = 0) {
+		foreach ($this->heyusched as $num => $line) {
+			if (substr($line, 0, 5) == "timer" || substr($line, 0, 6) == "#timer") {
 				$timers[$i] = $timers[$i] = $line."@".$num;
 				$i++;
 			}
-			elseif (trim($line) == "## TRIGGERS ##") 
-			{
+			elseif (trim($line) == "## TRIGGERS ##") {
 				$this->timerend = $num;
 				break;
 			}
@@ -113,9 +100,23 @@ class heyuSched {
 	 * Description: Returns the line number at which timer
 	 * finish and triggers start.
 	 */
-	function getTimerEndLine()
-	{
+	function getTimerEndLine() {
 		return $this->timerend;
+	}
+	
+	/** Get Triggers
+	 * 
+	 * Description:
+	 */
+	function getTriggers($i = 0) {
+		foreach ($this->heyusched as $num => $line) {
+			if (substr($line, 0, 7) == "trigger" || substr($line, 0, 8) == "#trigger") {
+				$timers[$i] = $timers[$i] = $line."@".$num;
+				$i++;
+			}
+		}
+		
+		return $timers;
 	}
 }
 

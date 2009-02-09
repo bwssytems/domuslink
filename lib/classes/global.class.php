@@ -17,10 +17,8 @@ class frontObject {
 	var $config;
 	var $lang;
 
-	function & getConfig()
-	{
-		if (!isset($this->config))
-		{
+	function & getConfig() {
+		if (!isset($this->config)) {
 			$configinstance = config_load();
 			$this->config = &$configinstance;
 		}
@@ -28,10 +26,8 @@ class frontObject {
 		return $this->config;
 	}
 
-	function & getLanguageFile()
-	{
-		if (!isset($this->lang))
-		{
+	function & getLanguageFile() {
+		if (!isset($this->lang)) {
 			$langinstance = lang_load($this->config['lang']);
 			$this->lang = &$langinstance;
 		}

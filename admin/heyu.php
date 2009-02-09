@@ -18,7 +18,6 @@ require_once(CLASS_FILE_LOCATION.'heyuconf.class.php');
 
 ## Security validation's
 if ($config['seclevel'] != "0") {
-	
 	if (!isset($_COOKIE["dluloged"]))
 		header("Location: ../login.php?from=admin/heyu");
 }
@@ -32,33 +31,27 @@ $settings = $heyuconf->get();
 $tpl->set('title', 'Heyu Setup');
 
 if (!isset($_GET["action"])) {
-	
 	$tpl_body = & new Template(TPL_FILE_LOCATION.'heyuconf_view.tpl');
 	$tpl_body->set('config', $config);
 	$tpl_body->set('lang', $lang);
 	$tpl_body->set('settings', $settings);
 }
 else {
-	
 	if ($_GET["action"] == "edit") {
-		
 		$tpl_body = & new Template(TPL_FILE_LOCATION.'heyuconf_edit.tpl');
 		$tpl_body->set('config', $config);
 		$tpl_body->set('lang', $lang);
 		$tpl_body->set('settings', $settings);
 	}
 	elseif ($_GET["action"] == "save") {
-		
 		$i = 0;
 		
 		// $_POST contains all lines in heyu conf file.
 		// $key represents each directive, alias (with #, so ALIAS1,ALIAS2,etc), etc
 		// $value represents directive value or full string of ALIAS,SCENE,etc
 		foreach ($_POST as $key => $value) {
-			
 			$primary = substr($key, 0, 5);
-			switch ($primary)
-			{
+			switch ($primary) {
 				case "ALIAS":
 					$newcontent[$i] = $primary." ".$value."\n";
 					break;
@@ -79,23 +72,18 @@ else {
 }
 
 function yesnoopt($value) {
-	
 	if ($value == "YES") {
-		
 		return "<option selected value='YES'>YES</option>\n" .
 				"<option value='NO'>NO</option>\n";
 	} 
 	else {
-		
 		return "<option value='YES'>YES</option>\n" .
 				"<option selected value='NO'>NO</option>\n";
 	}
 }
 
 function dawnduskopt($value) {
-	
 	if ($value == "FIRST") {
-		
 		return "<option selected value='FIRST'>FIRST</option>\n" .
 				"<option value='EARLIEST'>EARLIEST</option>\n" .
 				"<option value='LATEST'>LATEST</option>\n" .
@@ -103,7 +91,6 @@ function dawnduskopt($value) {
 				"<option value='MEDIAN'>MEDIAN</option>\n";
 	}
 	elseif ($value == "EARLIEST") {
-		
 		return "<option value='FIRST'>FIRST</option>\n" .
 				"<option selected value='EARLIEST'>EARLIEST</option>\n" .
 				"<option value='LATEST'>LATEST</option>\n" .
@@ -111,7 +98,6 @@ function dawnduskopt($value) {
 				"<option value='MEDIAN'>MEDIAN</option>\n";
 	}
 	elseif ($value == "LATEST") {
-		
 		return "<option value='FIRST'>FIRST</option>\n" .
 				"<option value='EARLIEST'>EARLIEST</option>\n" .
 				"<option selected value='LATEST'>LATEST</option>\n" .
@@ -119,7 +105,6 @@ function dawnduskopt($value) {
 				"<option value='MEDIAN'>MEDIAN</option>\n";
 	}
 	elseif ($value == "AVERAGE") {
-		
 		return "<option value='FIRST'>FIRST</option>\n" .
 				"<option value='EARLIEST'>EARLIEST</option>\n" .
 				"<option value='LATEST'>LATEST</option>\n" .
@@ -127,7 +112,6 @@ function dawnduskopt($value) {
 				"<option value='MEDIAN'>MEDIAN</option>\n";
 	}
 	elseif ($value == "MEDIAN") {
-		
 		return "<option value='FIRST'>FIRST</option>\n" .
 				"<option value='EARLIEST'>EARLIEST</option>\n" .
 				"<option value=LATEST>LATEST</option>\n" .

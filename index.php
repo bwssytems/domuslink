@@ -28,8 +28,7 @@ require_once(CLASS_FILE_LOCATION.'location.class.php');
 $locations = new location($heyuconf);
 
 // Security validation's
-if ($config['seclevel'] == "2") 
-{
+if ($config['seclevel'] == "2") {
 	if (!isset($_COOKIE["dluloged"]))
 		header("Location: login.php?from=index");
 }
@@ -45,14 +44,12 @@ $tpl->set('title', ucwords($page));
 $tpl->set('page', $page);
 
 // check if heyu is running, if true display modules
-if (heyu_running())
-{
+if (heyu_running()) {
 	// if any action set, act on it
 	if (isset($_GET['action'])) heyu_action();
 
 	// load page acordingly
-	switch($page)
-	{
+	switch($page) {
 		case "home":
 			//if theme is iPhone, we want to show a menu instead of the location_tb
 			if ($config['theme'] == 'iPhone') $html = $tpl->fetch(TPL_FILE_LOCATION.'home.tpl');
@@ -83,10 +80,9 @@ if (heyu_running())
 
 	} // end switch
 }
-else // if heyu not running show status or about page
-{
-	switch($page)
-	{	
+else {
+	// if heyu not running show status or about page
+	switch($page) {	
 		case "about":
 		case "setup": //for iphone
 			if ($page == "setup" && $config['theme'] != "iPhone") $page="status";

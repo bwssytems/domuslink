@@ -19,8 +19,7 @@ $heyuconf = new heyuConf($config['heyuconf']);
 $schedfileloc = $config['heyu_base'].$heyuconf->getSchedFile();
 
 ## Security validation's
-if ($config['seclevel'] != "0") 
-{
+if ($config['seclevel'] != "0")  {
 	if (!isset($_COOKIE["dluloged"]))
 		header("Location: ../login.php?from=events/timers");
 }
@@ -28,15 +27,13 @@ if ($config['seclevel'] != "0")
 ## Set template parameters
 $tpl->set('title', $lang['timers']);
 
-if (!isset($_GET["action"]))
-{
+if (!isset($_GET["action"])) {
 	$tpl_body = & new Template(TPL_FILE_LOCATION.'upload.tpl');
 	$tpl_body->set('lang', $lang);
 	$tpl_body->set('config', $config);
 	$tpl_body->set('schedfile', $schedfileloc);
 }
-else
-{
+else {
 	$rs = heyu_upload();
 	$tpl_body = & new Template(TPL_FILE_LOCATION.'upload_res.tpl');
 	$tpl_body->set('uptitle', $lang["uploadsuccess"]);

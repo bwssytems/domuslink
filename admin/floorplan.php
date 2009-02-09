@@ -23,7 +23,6 @@ $locsize = count($locations);
 
 ## Security validation's
 if ($config['seclevel'] != "0") {
-	
 	if (!isset($_COOKIE["dluloged"]))
 		header("Location: ../login.php?from=admin/floorplan");
 }
@@ -38,15 +37,12 @@ $tpl_body->set('locations', $locations);
 $tpl_body->set('locsize', $locsize);
 
 if (!isset($_GET["action"])) {
-	
 	$tpl_add = & new Template(TPL_FILE_LOCATION.'location_add.tpl');
 	$tpl_add->set('lang', $lang);
 	$tpl_body->set('form', $tpl_add);
 }
 else {
-	
-	switch ($_GET["action"])
-	{
+	switch ($_GET["action"]) {
 		// edit location
 		case "edit":
 			$tpl_edit = & new Template(TPL_FILE_LOCATION.'location_edit.tpl');
@@ -69,16 +65,13 @@ else {
 			
 			// check if original location name is in use
 			foreach($heyuconf->get() as $line) {
-				
 				if (substr($line, 0, 5) == "ALIAS") {
-					
 					list($temp, $label, $code, $module_type_loc) = split(" ", $line, 4);
 					list($module, $type_loc) = split(" # ", $module_type_loc, 2);
 					list($type, $orgloc2) = split(",", $type_loc, 2);
 		
 					// if and ALIAS and location in use, then substitute with new name and add to array
 					if ($orgloc1 == $orgloc2) {
-						
 						$array[$i] = $temp." ".$label." ".$code." ".$module." # ".$type.",".$newloc."\n";
 						$changed = true;	
 					}
@@ -102,7 +95,6 @@ else {
 			
 			// check if location is in use
 			foreach($heyuconf->getAliases() as $alias_num) {
-				
 				list($alias, $temp) = split("@", $alias_num, 2);
 				list($temp, $temp, $temp, $module_type) = split(" ", $alias, 4);
 				list($temp, $typenloc) = split(" # ", $module_type, 2);
