@@ -4,9 +4,19 @@
  |                                                                            |
  +----------------------------------------------------------------------------*/
  
- v1.0 (major release) - 
+ v1.0 (major release) - /Feb/2009
  ------
-    * 
+    * Inteligent timer administration
+    * Trigger administration
+    * Timer/macro uploading
+    * iPhone theme by Frank van der Stad
+    * Heyu restart and timer uploading progress bar
+    * Display module code in module display admin option
+    * Error detection redesign
+    * Fixed IE 7 CSS bugs
+    * Code clean-up and improvements
+      Thanks to Frank van der Stad for help and sugestions
+    * Added about and status pages
  
  v0.9.1 (minor release) - 04/Oct/2008
  ------
@@ -69,7 +79,7 @@
  	* Disabled 'short_open_tag' for security reason's
  	  Thanks to Julien Touche for pointing this out
  	* Added Dutch translation
- 	  Thanks to Frank
+ 	  Thanks to Frank van der Stad
  	* Added French translation
  	  Thanks to 'Child from Korn' and Thierry Moutet
  	* Fixed various PHP warning messages.
