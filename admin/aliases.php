@@ -23,8 +23,8 @@ $aliases = $heyuconf->getAliases(true);
 $chars = '/ã|é|à|ç|õ|ñ|è|ñ|ª|º|~|è|!|"|\#|\$|\^|%|\&|\?|\«|\»/';
 
 ## Security validation's
-if ($config['seclevel'] != "0") 
-{
+if ($config['seclevel'] != "0") {
+	
 	if (!isset($_COOKIE["dluloged"]))
 		header("Location: ../login.php?from=admin/aliases");
 }
@@ -39,15 +39,15 @@ $tpl_body->set('aliases', $aliases);
 $tpl_body->set('config', $config);
 $tpl_body->set('size', count($aliases));
 
-if (!isset($_GET["action"]))
-{
+if (!isset($_GET["action"])) {
+	
 	$tpl_add = & new Template(TPL_FILE_LOCATION.'aliases_add.tpl');
 	$tpl_add->set('lang', $lang);
 	$tpl_add->set('modtypes', $modtypes);
 	$tpl_body->set('form', $tpl_add);
 }
-else
-{
+else {
+	
 	switch ($_GET["action"])
 	{
 		case "edit":

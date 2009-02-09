@@ -25,9 +25,6 @@ function execute_cmd($cmd, $noerror) {
 	
 	if ($retval != 0 && !$noerror) {
 		$_SESSION['errors'] = array_reverse($rs);
-		//$file = "/tmp/dl_heyu.out";
-		//exec ("echo -n \"\" > ".$file, &$rs, &$retval);
-		//save_file(array_reverse($rs), $file);
 		header("Location: ".check_url()."/error.php");
 	}
 	else
