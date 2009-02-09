@@ -166,7 +166,7 @@ function dim_bright($state, $currlevel, $reqlevel, $code) {
 function on_state($code) {
 	
 	global $config;
-	$rs = execute_cmd($config['heyuexec']." onstate 2>&1".$code, true);
+	$rs = execute_cmd($config['heyuexec']." onstate ".$code." 2>&1", true);
 
 	if ($rs[0] == "1" || $rs[0] == "0") {
 		if ($rs[0] == "1") return true;
