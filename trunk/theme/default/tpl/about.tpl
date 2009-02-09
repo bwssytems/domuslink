@@ -20,7 +20,7 @@ domus.Link is a web-based frontend for Heyu. The design focuses on separating co
 </tr>
 <tr>
 <td valign="top"><b>Themes:</b></td>
-<td>Main: Istvan Hubay Cebrian<br />IPhone: Frank van der Stad</td>
+<td>Main: Istvan Hubay Cebrian<br />iPhone: Frank van der Stad</td>
 </tr>
 
 <tr>
