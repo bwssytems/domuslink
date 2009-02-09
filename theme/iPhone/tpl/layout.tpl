@@ -83,30 +83,30 @@ if ($page == "lights")
 }
 else
 {
-	?>
-    <span id='generated_content_for_<?php echo $page;?>' class="panel" selected='true'>
-    <?php 
-        if (!empty($content))
-        {
-            echo($content);
-        }
-        else
-        {
-         ?>
-         <div id="error" title="<?php echo ($lang['error']); ?>" class="white">
-         	<div align="center">
-                <h2><?php echo ($lang['error']); ?></h2>
-                <h5>
-                    <p align="center" style="padding-left:10px; text-align:center"><?php echo $lang['error_no_modules']; ?></p>
-                </h5>
+    if (!empty($content))
+    {
+        ?>
+        <span id='generated_content_for_<?php echo $page;?>' selected='true'>
+            <?php echo($content); ?>
+        </span>
+        <?php
+    }
+    else
+    {
+        ?>
+        <span id='generated_content_for_<?php echo $page;?>' class="panel" selected='true'>    
+            <div id="error" title="<?php echo ($lang['error']); ?>" class="white">
+                <div align="center">
+                    <h2><?php echo ($lang['error']); ?></h2>
+                    <h5>
+                        <p align="center" style="padding-left:10px; text-align:center"><?php echo $lang['error_no_modules']; ?></p>
+                    </h5>
+                </div>
             </div>
-        </div>
-        <br>
-         <?
-        }
-    ?>
-    </span>
-	<?php
+            <br>
+        </span>
+        <?
+    }
 }
 ?>
 <!-- end content -->
