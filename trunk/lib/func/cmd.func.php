@@ -21,7 +21,6 @@
  */
 function execute_cmd($cmd, $noerror) {
 	
-	
 	exec ($cmd, &$rs, &$retval);
 	
 	if ($retval != 0 && !$noerror) {
@@ -200,20 +199,7 @@ function get_dim_level($unit) {
 function heyu_upload() {
 	
 	global $config;
-	//execute_cmd("echo -n \"\" > /tmp/heyu_upload.out");
-	execute_cmd($config['heyuexec']." upload 2>&1");
-	//return $rs;
-	
-	//$rs = execute_cmd($heyuexec." upload &> /tmp/heyu_upload.out");
-	
-	//header("Location: ".$_SERVER['PHP_SELF']."?state=completed");
-	
-	//foreach ($rs as $r) echo "$r<br />";
-	/*
-	if ($rs[7] == "Setting interface clock to current Standard Time.\n")
-		header("Location: ".$_SERVER['PHP_SELF']."?state=completed");
-	else
-		header("Location: ".$_SERVER['PHP_SELF']."?state=error");*/
+	return (execute_cmd($config['heyuexec']." upload 2>&1"));
 }
 
 ?>
