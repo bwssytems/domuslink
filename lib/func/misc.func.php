@@ -18,8 +18,8 @@
  *
  * @param $dir to get listing from
  */
-function list_dir_content($dir)
-{
+function list_dir_content($dir) {
+	
 	$dn = opendir($dir);
 	$exclude = array("README", ".", "..", ".svn");
 
@@ -43,8 +43,8 @@ function list_dir_content($dir)
  * @param $str represent string to parse
  * @param $add boolean if true add "_" and change case to lower case, if false remove "_" and capitalize first letter of each word)
  */
-function label_parse($str, $add)
-{
+function label_parse($str, $add) {
+	
 	if ($add) {
 		$strf1 = str_replace(" ", "_", $str);
 		$strf2 = strtolower($strf1);
@@ -83,8 +83,8 @@ function check_url() {
  * @param $alias represents alias received
  * 
  */
-function is_multi_alias($alias)
-{
+function is_multi_alias($alias) {
+	
 	return strpos($alias, ",");
 }
 
@@ -94,8 +94,8 @@ function is_multi_alias($alias)
  * Description: Return the result for the uptime command
  * 
  */
-function uptime()
-{
+function uptime() {
+	
 	$rs = execute_cmd("uptime 2>&1");
 	return $rs[0];
 }

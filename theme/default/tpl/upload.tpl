@@ -130,7 +130,7 @@ Your schedule file is defined in x10.conf as <?php echo $schedfile; ?>.<br />
 Please note that upload takes aproximately 7 seconds. Do not navigate away from this page<br />
 until process has completed.<br />
 <br />
-<form name="upload" method="post" action="<?php echo($_SERVER['PHP_SELF']); ?>?state=uploading">
+<form name="upload" method="post" action="<?php echo($_SERVER['PHP_SELF']); ?>?action=upload">
 <center>
 <input type="submit" value="<?php echo($lang['upload']); ?>" onclick="CallJS('Demo()')" />
 </center>

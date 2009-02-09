@@ -85,9 +85,7 @@ $lang["error_not_running"] = "<h1>Heyu is not running!</h1><br />Please start he
 $lang["error"] = "Error";
 $lang["upload"] = "Upload";
 $lang["uploadsuccess"] = "Upload Successful";
-$lang["uploaderror"] = "Upload Error";
 $lang["uploadsuccess_txt"] = "Upload complete! Click <a href='#' onclick='divShowHide(uplog);'>here</a> to view output.";
-$lang["uploaderror_txt"] = "Upload error! Click <a href='#' onclick='divShowHide(uplog);'>here</a> to view log.";
 
 $lang["error_filerw"] = "not found or not writable!";
 $lang["error_filer"] = "not found or not readable!";

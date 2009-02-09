@@ -28,7 +28,7 @@ if ($config['seclevel'] != "0")
 ## Set template parameters
 $tpl->set('title', $lang['timers']);
 
-if (!isset($_GET["state"]))
+if (!isset($_GET["action"]))
 {
 	$tpl_body = & new Template(TPL_FILE_LOCATION.'upload.tpl');
 	$tpl_body->set('lang', $lang);
@@ -37,30 +37,12 @@ if (!isset($_GET["state"]))
 }
 else
 {
-	switch ($_GET["state"])
-	{ 
-		case "uploading":
-			heyu_upload();
-			//$tpl_body->set('uptitle', $lang["uploadsuccess"]);
-			//$tpl_body->set('msg', $lang["uploaderror_txt"]);
-			//$tpl_body->set('divstate', "display:none");
-			//$tpl_body->set('out', $rs);
-			break;
-		case "error":
-			$tpl_body = & new Template(TPL_FILE_LOCATION.'upload_res.tpl');
-			$tpl_body->set('uptitle', $lang["uploaderror"]);
-			$tpl_body->set('msg', $lang["uploaderror_txt"]);
-			$tpl_body->set('divstate', "");
-			$tpl_body->set('out', load_file("/tmp/heyu_upload.out"));
-			break;
-		case "completed":
-			$tpl_body = & new Template(TPL_FILE_LOCATION.'upload_res.tpl');
-			$tpl_body->set('uptitle', $lang["uploadsuccess"]);
-			$tpl_body->set('msg', $lang["uploaderror_txt"]);
-			$tpl_body->set('divstate', "display:none");
-			$tpl_body->set('out', load_file("/tmp/heyu_upload.out"));
-			break;
-	}
+	$rs = heyu_upload();
+	$tpl_body = & new Template(TPL_FILE_LOCATION.'upload_res.tpl');
+	$tpl_body->set('uptitle', $lang["uploadsuccess"]);
+	$tpl_body->set('msg', $lang["uploadsuccess_txt"]);
+	$tpl_body->set('divstate', "display:none");
+	$tpl_body->set('out', $rs);
 }
 
 ## Display the page
