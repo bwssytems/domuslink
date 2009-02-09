@@ -14,7 +14,7 @@
 <body>
 <div id="toolbar" class="toolbar">
 	<h1 id="pageTitle"></h1>
-	<a id="backButton" class="button" href="/domus.Link/#">Home</a>
+	<a id="backButton" class="button" href="/domus.Link/#"><?php echo ($lang['home']); ?></a>
 	<?php
     	if ($back_button)
         {
@@ -58,14 +58,6 @@ if ($page == "lights")
 {
     ?>
     <div id='generated_content_for_lights' class="panel" selected='true'>
-        <?php echo($content); ?>
-    </div>
-    <?php
-}
-else
-{
-	?>
-    <span id='generated_content_for_<?php echo $page;?>' selected='true'>
     <?php 
         if (!empty($content))
         {
@@ -73,7 +65,44 @@ else
         }
         else
         {
-            echo "no content";
+         ?>
+         <div id="error" title="<?php echo ($lang['error']); ?>" class="white">
+         	<div align="center">
+                <h2><?php echo ($lang['error']); ?></h2>
+                <h5>
+                    <p align="center" style="padding-left:10px; text-align:center"><?php echo $lang['error_no_modules']; ?></p>
+                </h5>
+            </div>
+        </div>
+        <br>
+         <?
+        }
+    ?>
+    </div>
+    <?php
+}
+else
+{
+	?>
+    <span id='generated_content_for_<?php echo $page;?>' class="panel" selected='true'>
+    <?php 
+        if (!empty($content))
+        {
+            echo($content);
+        }
+        else
+        {
+         ?>
+         <div id="error" title="<?php echo ($lang['error']); ?>" class="white">
+         	<div align="center">
+                <h2><?php echo ($lang['error']); ?></h2>
+                <h5>
+                    <p align="center" style="padding-left:10px; text-align:center"><?php echo $lang['error_no_modules']; ?></p>
+                </h5>
+            </div>
+        </div>
+        <br>
+         <?
         }
     ?>
     </span>

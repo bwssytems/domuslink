@@ -30,5 +30,5 @@
 	?>
 	-->
 	<li><a id='menu_status' href="<?php echo ($config['url_path']); ?>/index.php?page=status"><img src="<?php echo ($config['url_path']);?>/theme/iPhone/images/menu_status_on.gif">&nbsp;&nbsp;<?php echo ($lang['heyustatus']);?></a></li>
-	<li><a id='menu_about' href="<?php echo ($config['url_path']); ?>/index.php?page=about"><img src="<?php echo ($config['url_path']);?>/theme/iPhone/images/menu_about_on.png">&nbsp;&nbsp;About</a></li>
+	<li><a id='menu_about' href="<?php echo ($config['url_path']); ?>/index.php?page=about"><img src="<?php echo ($config['url_path']);?>/theme/iPhone/images/menu_about_on.png">&nbsp;&nbsp;<?php echo ($lang['about']);?></a></li>
 </ul>
