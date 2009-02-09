@@ -11,20 +11,21 @@
  *
  */
 
+#Instantiate classes
 $dirname = dirname(__FILE__);
 require_once($dirname.DIRECTORY_SEPARATOR.'include.php');
-
-if (!isset($_GET["msg"])) header("Location: index.php");
-
+require_once(CLASS_FILE_LOCATION.'error.class.php');
+if (!isset($_GET['msg']))
+	$error = new error($_SESSION['errors']);
+	//$error = new error(load_file("/tmp/dl_heyu.out"));
+else
+	$error = new error(array($_GET['msg']));
+	
 ## Set template parameters
-$tpl->set('title', 'Error');
-
-$tpl_body = & new Template(TPL_FILE_LOCATION.'error.tpl');
-$tpl_body->set('errormsg', stripslashes($_GET["msg"]));
+$tpl->set('title', $lang['error']);
+$tpl->set('content', $error->getPage());
 
 ## Display the page
-$tpl->set('content', $tpl_body);
-
 echo $tpl->fetch(TPL_FILE_LOCATION.'layout.tpl');
 
 ?>

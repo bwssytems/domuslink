@@ -20,32 +20,26 @@ class location {
 	 *
 	 * @param $heyuconf represents name and location
 	 */
-	function location($heyuconf)
-	{
+	function location($heyuconf) {
 		$this->heyuconf = $heyuconf;
 	}
 
 	function buildLocations($type_filter,$modtypes,$config,$type='localized') {
 		// loop through each location in floorplan file
-		foreach (load_file(FPLAN_FILE_LOCATION) as $loc => $location)
-		{
+		foreach (load_file(FPLAN_FILE_LOCATION) as $loc => $location) {
 			// get all aliases specific to location
 			$localized_aliases = $this->heyuconf->getAliasesByLocation($location);
 			
 			// if location contains aliases/modules then display them
-			if (count($localized_aliases) > 0)
-			{
+			if (count($localized_aliases) > 0) {
 				
-				if ($type=='typed')
-				{
+				if ($type=='typed') {
 					$typed_aliases = $this->heyuconf->getAliasesByType($localized_aliases, $type_filter);
-					if (count($typed_aliases) > 0)
-					{
+					if (count($typed_aliases) > 0) {
 						$html .= $this->buildLocationTable($location, $typed_aliases, $modtypes, $config);	
 					}		
 				}
-				else
-				{
+				else {
 					$html .= $this->buildLocationTable($location, $localized_aliases, $modtypes, $config);
 				}
 			}
@@ -63,21 +57,20 @@ class location {
 	 * @param $modtypes
 	 * @param $config
 	 */
-	function buildLocationTable($loc, $aliases, $modtypes, $config)
-	{
+	function buildLocationTable($loc, $aliases, $modtypes, $config) {
 		global $page;
 		$html = null;
 		$zone_tpl = & new Template(TPL_FILE_LOCATION.'floorplan_table.tpl');
 		$zone_tpl->set('header', $loc);
-		if (empty($_GET['page']))
-		{
+		
+		if (empty($_GET['page'])) {
 			$_GET['page']='home';
 		}
+		
 		$zone_tpl->set('page', $_GET['page']);
 		
 		// iterate array specific to a house zone
-		foreach ($aliases as $alias) 
-		{
+		foreach ($aliases as $alias) {
 			$html .= $this->buildModuleTable($alias, $modtypes, $config);
 		}
 		
@@ -95,16 +88,13 @@ class location {
 	 * @param $modtypes
 	 * @param $config
 	 */
-	function buildModuleTable($alias, $modtypes, $config)
-	{
+	function buildModuleTable($alias, $modtypes, $config) {
 		list($label, $code, $type) = split(" ", $alias, 3);
 		$multi_alias = is_multi_alias($code); // check if A1,2 or just A1
 		
 		// if alias is a multi alias, module state is not checked
-		if (!$multi_alias) 
-		{
-			if (on_state($code, $config['heyuexec'])) 
-			{
+		if (!$multi_alias) {
+			if (on_state($code, $config['heyuexec'])) {
 				$state = 'on';
 				$action = $config['cmd_off']; 
 			}
@@ -124,22 +114,19 @@ class location {
 		$mod->set('label', label_parse($label, false));
 		$mod->set('code', $code);
 		
-		if (!isset($_GET['page']))
-		{
+		if (!isset($_GET['page'])) {
 			$_GET['page']='home';
 		}
 		else 
 			$mod->set('page', $_GET['page']);
 		
-		if (!$multi_alias)
-		{
+		if (!$multi_alias) {
 			$mod->set('action', $action);
 			$mod->set('state', $state);	
 		}
 		
-		if ($type == $modtypes['lights']) 
-		{
-			$mod->set('level', $this->level_calc(curr_dim_level($code, $config['heyuexec'])));
+		if ($type == $modtypes['lights']) {
+			$mod->set('level', $this->level_calc(get_dim_level($code)));
 		}
 		
 		// return as html
@@ -154,8 +141,7 @@ class location {
 	 * 
 	 * @param $dimpercent represents current dim level of specific module
 	 */
-	function level_calc($dimpercent) 
-	{
+	function level_calc($dimpercent) {
 		if ($dimpercent == "0") return 0;
 		elseif ($dimpercent > "82" && $dimpercent <= "100") return 5;
 		elseif ($dimpercent > "60" && $dimpercent <= "82") return 4;

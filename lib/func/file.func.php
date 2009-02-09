@@ -18,17 +18,17 @@
  *
  * @param $file represent's file to load
  */
-function load_file($file)
-{
-	if (is_readable($file) == true)
-	{
+function load_file($file) {
+	
+	global $lang;
+	if (is_readable($file) == true) {
 		$content = file($file);
 	}
-	else
-	{
-		header("Location: ".check_url()."/error.php?msg=".$file." not found or not readable!");
+	else {
+		header("Location: ".check_url()."/error.php?msg=".$file." ".$lang['error_filer']);
 		die();
 	}
+	
 	return $content;
 }
 
@@ -39,8 +39,8 @@ function load_file($file)
  * @param $file complete file location
  * @param $editing represents what type is being edited (alias, location, etc)
  */
-function add_line($content, $file, $editing)
-{
+function add_line($content, $file, $editing) {
+	
 	array_push($content, build_new_line($editing));
 	save_file($content, $file);
 }
@@ -52,16 +52,16 @@ function add_line($content, $file, $editing)
  * @param $file being edited
  * @param $editing represents what type is being edited (alias, location, etc)
  */
-function edit_line($content, $file, $editing)
-{
+function edit_line($content, $file, $editing) {
+	
 	$line = $_POST["line"]; // line being edited
 
-	if ($line == 0 || (count($content) - 1) == $line) // first or last line editing
-	{
+	if ($line == 0 || (count($content) - 1) == $line) {
+		// first or last line editing
 		array_splice($content, $line, 1, build_new_line($editing));
 	}
-	else // when editing line in middle
-	{
+	else {
+		// when editing line in middle
 		$end = array_splice($content, $line+1);
 		array_splice($content, $line, 1, build_new_line($editing));
 		$content = array_merge($content, $end);
@@ -74,10 +74,11 @@ function edit_line($content, $file, $editing)
  * Build line to add or alter in a file
  * 
  * @param $type represents type of line being created
- * @param $wdayo orginal weekday names
  */
-function build_new_line($type, $wdayo)
-{
+function build_new_line($type) {
+	
+	global $wdayo;
+	
 	switch ($type)
 	{
 		case "alias":
@@ -94,13 +95,13 @@ function build_new_line($type, $wdayo)
 			break;
 		case "timer":
 			//build weekday string
-			foreach ($wdayo as $num => $day)
-			{
+			foreach ($wdayo as $num => $day) {
 				if (isset($_POST[$num.$day])) 
 					$wdaystr .= $_POST[$num.$day]; 
 				else 
 					$wdaystr .= ".";
 			}
+			
 			$onmonth = (strlen($_POST["onmonth"]) == 1) ? "0".$_POST["onmonth"] : $_POST["onmonth"];
 			$onday = (strlen($_POST["onday"]) == 1) ? "0".$_POST["onday"] : $_POST["onday"];
 			$offmonth = (strlen($_POST["offmonth"]) == 1) ? "0".$_POST["offmonth"] : $_POST["offmonth"];
@@ -123,10 +124,9 @@ function build_new_line($type, $wdayo)
 /**
  * 
  */
-function replace_line($file, $filecontent, $linecontent, $linenumber)
-{
+function replace_line($file, $filecontent, $linecontent, $linenumber) {
+	
 	$filecontent[$linenumber] = $linecontent;
-	//foreach ($filecontent as $l) echo $l."<br />";
 	save_file($filecontent, $file);
 }
 
@@ -137,8 +137,8 @@ function replace_line($file, $filecontent, $linecontent, $linenumber)
  * @param $file being edited
  * @param $line to be deleted
  */
-function delete_line($content, $file, $line)
-{
+function delete_line($content, $file, $line) {
+	
 	array_splice($content, $line, 1);
 	save_file($content, $file);
 }
@@ -151,8 +151,8 @@ function delete_line($content, $file, $line)
  * @param $final_pos final position of line
  * @param $file in which array contents are located
  */
-function reorder_array($array, $org_pos, $final_pos, $file) 
-{
+function reorder_array($array, $org_pos, $final_pos, $file) {
+	
 	$tmp = $array[$org_pos];
 	$array[$org_pos] = $array[$final_pos];
 	$array[$final_pos] = $tmp;
@@ -166,15 +166,16 @@ function reorder_array($array, $org_pos, $final_pos, $file)
  * Description: This function saves a file to the specified filename
  *
  * @param $content new content to be saved
- * @param $filename of file to save to
+ * @param $file nome of file to save to
  * @param $isheyuconf boolean that represent's if changes being saved
  *         are from the heyu settings. If true then force a reload
  */
-function save_file($content, $filename, $isheyuconf)
-{
-	$fp = fopen($filename,'w');
+function save_file($content, $file, $isheyuconf) {
+	
+	global $lang;
+	$fp = fopen($file,'w');
 
-	if (is_writable($filename) == true)
+	if (is_writable($file) == true)
 	{
 		foreach ($content as $line)
 		{
@@ -188,7 +189,7 @@ function save_file($content, $filename, $isheyuconf)
 	}
 	else
 	{
-		header("Location: ".check_url()."/error.php?msg=".$filename." not found or not writable!");
+		header("Location: ".check_url()."/error.php?msg=".$file." ".$lang['error_filerw']);
 		die();
 	}
 	fclose($fp);

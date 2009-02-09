@@ -45,16 +45,15 @@ function list_dir_content($dir)
  */
 function label_parse($str, $add)
 {
-	if ($add)
-	{
+	if ($add) {
 		$strf1 = str_replace(" ", "_", $str);
 		$strf2 = strtolower($strf1);
 	}
-	else
-	{
+	else {
 		$strf1 = str_replace("_", " ", $str);
 		$strf2 = ucwords($strf1);
 	}
+	
 	return $strf2;
 }
 
@@ -65,8 +64,8 @@ function label_parse($str, $add)
  * the root or from the admin section a way is needed to detect where and only return the url path if any.
  * 
  */
-function check_url()
-{
+function check_url() {
+	
 	if (strpos($_SERVER['PHP_SELF'], '/admin') > 0)
 		return substr($_SERVER['PHP_SELF'], 0, strpos($_SERVER['PHP_SELF'], '/admin'));
 	elseif (strpos($_SERVER['PHP_SELF'], '/events') > 0)
@@ -87,22 +86,6 @@ function check_url()
 function is_multi_alias($alias)
 {
 	return strpos($alias, ",");
-	
-	/*
-	$housecode = substr($alias, 0, 1);
-	$tok = strtok($alias, ",");
-	$i = 0;
-
-	while ($tok !== false) {
-    	if ($i==0) $array[$i] = $tok;
-    	else $array[$i] = $housecode.$tok;
-    	$tok = strtok(",");
-	    $i++;
-	}
-
-	if (sizeof($array) > 1) return $array;
-	else return false;
-	*/
 }
 
 /**
@@ -115,18 +98,6 @@ function uptime()
 {
 	$rs = execute_cmd("uptime 2>&1");
 	return $rs[0];
-}
-
-/**
- * Execute Command
- * 
- * Description: Common function to execute commands
- * 
- */
-function execute_cmd($cmd, $rs = array(), $retval = null)
-{
-	exec ($cmd, $rs, $retval);
-	return $rs;
 }
 
 ?>

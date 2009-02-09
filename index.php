@@ -35,7 +35,7 @@ if ($config['seclevel'] == "2")
 }
 
 // start/stop controls for heyu
-if (isset($_GET["daemon"])) heyu_ctrl($config['heyuexec'], $_GET["daemon"], $_GET['retURL']);
+if (isset($_GET["daemon"])) heyu_ctrl($_GET["daemon"]);
 
 // get which page is open
 if (isset($_GET['page'])) $page = $_GET['page'];
@@ -48,7 +48,7 @@ $tpl->set('page', $page);
 if (heyu_running())
 {
 	// if any action set, act on it
-	if (isset($_GET['action'])) heyu_action($config);
+	if (isset($_GET['action'])) heyu_action();
 
 	// load page acordingly
 	switch($page)
@@ -65,7 +65,6 @@ if (heyu_running())
 		case "lights":
 		case "appliances":
 		case "irrigation":
-			//$typed_aliases = $heyuconf->getAliasesByType($localized_aliases, $modtypes[$page]);
 			$html = $locations->buildLocations($modtypes[$page],$modtypes,$config,'typed');
 			break;
 			
@@ -78,9 +77,7 @@ if (heyu_running())
 			
 		case "info":
 			$info = & new Template(TPL_FILE_LOCATION.'info.tpl');
-			$info->set('title', $lang['info']);
-			$info->set('lang', $lang);
-			$info->set('lines', heyu_info($config['heyuexec']));
+			$info->set('lines', heyu_info());
 			$html = $info->fetch(TPL_FILE_LOCATION.'info.tpl');								
 			break;
 

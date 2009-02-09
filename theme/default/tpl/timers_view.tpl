@@ -49,7 +49,7 @@ foreach ($timers  as $timerline):
   <?php endif; ?>
   <td><?php echo $code; ?></td>
   <td align="center">
-  <?php echo weekdays($weekdays, $lang, true, $enabled, $wdayo); ?>
+  <?php echo weekdays($weekdays, $lang, true, $enabled); ?>
   </td>
   <td>&nbsp;</td>
   <td align="center"><?php echo $dateon; ?></td>
