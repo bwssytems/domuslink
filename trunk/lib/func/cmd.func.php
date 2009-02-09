@@ -12,115 +12,117 @@
  */
 
 /**
- * Heyu Control
- *
- * @param $heyuexec full path and location of heyu executable
- * @param $action to undertake (start, stop, reload)
+ * Execute Command
+ * 
+ * Description: Common function to execute commands
+ * 
+ * @param $cmd complete command to execute
+ * @param $noerror represents a boolean if true errors are ignored 
  */
-function heyu_ctrl($heyuexec, $action)
-{
-	global $config;
-	switch ($action)
-	{
-		case "start":
-			$cmd = $heyuexec." start 2>&1";
-			break;
-		case "stop":
-			$cmd = $heyuexec." stop 2>&1";
-			break;
-		case "restart":
-			$cmd = $heyuexec." restart 2>&1";
-			break;
+function execute_cmd($cmd, $noerror) {
+	
+	
+	exec ($cmd, &$rs, &$retval);
+	
+	if ($retval != 0 && !$noerror) {
+		$_SESSION['errors'] = array_reverse($rs);
+		//$file = "/tmp/dl_heyu.out";
+		//exec ("echo -n \"\" > ".$file, &$rs, &$retval);
+		//save_file(array_reverse($rs), $file);
+		header("Location: ".check_url()."/error.php");
 	}
-
-	$rs = execute_cmd($cmd);
-
-	if (count($rs)>0)
-	{
-		if ($rs[0] == "starting heyu_relay" || $rs[0] == "")
-			header("Location: ".$_SERVER['PHP_SELF']);
-		else
-			header("Location: ".check_url()."/error.php?msg=".$rs[0]);
-	}
-	else // rs empty when stopping
-	{
-		header("Location: ".$_SERVER['PHP_SELF']);
-	}
-
+	else
+		return $rs;
 }
 
 /**
  * Heyu Status Check
  *
  */
-function heyu_running()
-{
-	$rs = execute_cmd("ps ax");
-
-	if (count(preg_grep('/[h]eyu/', $rs)) >= 2) return true;
+function heyu_running() {
+	
+	$rs = execute_cmd("ps ax 2>&1");
+	if (count(preg_grep('/[h]eyu/', $rs)) >= 2) 
+		return true;
 }
 
 /**
  * Heyu Info
- * 
- * @param $heyuexec holds complete path and executable for heyu
+ *
  */
-function heyu_info($heyuexec)
-{
-	return execute_cmd($heyuexec." info 2>&1");
+function heyu_info() {
+	
+	global $config;
+	$rs = execute_cmd($config['heyuexec']." info 2>&1");
+	return $rs;
+}
+
+/**
+ * Heyu Control
+ *
+ * @param $action to undertake (start, stop, reload)
+ */
+function heyu_ctrl($action) {
+	
+	global $config;
+	switch ($action) 
+	{
+		case "start":
+			$cmd = $config['heyuexec']." start";
+			break;
+		case "stop":
+			$cmd = $config['heyuexec']." stop";
+			break;
+		case "restart":
+			$cmd = $config['heyuexec']." restart";
+			break;
+	}
+
+	execute_cmd($cmd." 2>&1");
 }
 
 /**
  * Heyu Action
  *
- * @param $heyuexec full path and location of heyu executable
  */
-function heyu_action($config)
-{
-	switch ($_GET["action"])
-	{
+function heyu_action() {
+	
+	global $config;
+	switch ($_GET["action"]) {
 		case "on":
 		case "off":
 		case "fon":
 		case "foff":
-			$cmd = $config['heyuexec']." ".$_GET["action"]." ".$_GET["code"]." 2>&1";
+			$cmd = $config['heyuexec']." ".$_GET["action"]." ".$_GET["code"];
 			break;
 		case "db":
-			$cmd = dim_bright($_GET["state"], $_GET["curr"], $_GET["req"], $_GET["code"], $config);
+			$cmd = dim_bright($_GET["state"], $_GET["curr"], $_GET["req"], $_GET["code"]);
 			break;
 	}
 	
-	if ($cmd) $rs = execute_cmd($cmd);
+	execute_cmd($cmd." 2>&1");
 
-	if ($rs[0] == "")
-	{
-		if (isset($_GET['page']))
-			header("Location: ".$_SERVER['PHP_SELF']."?page=". $_GET['page']);
-		else
-			header("Location: ".$_SERVER['PHP_SELF']);
-	}
+	if (isset($_GET['page']))
+		header("Location: ".$_SERVER['PHP_SELF']."?page=". $_GET['page']);
 	else
-	{
-		header("Location: ".check_url()."/error.php?msg=".$rs[0]);
-	}
+		header("Location: ".$_SERVER['PHP_SELF']);
 }
 
 /**
  * Dim Bright Lights
  * 
+ * @param $state 
  * @param $currlevel current intensity level at which the module is
  * @param $reqlevel intensity level requested
  * @param $code modules unitcode
- * @param $config file
  * 
  */
-function dim_bright($state, $currlevel, $reqlevel, $code, $config) 
-{	
+function dim_bright($state, $currlevel, $reqlevel, $code) {	
 	
+	global $config;
 	if ($currlevel == $reqlevel) return false;
 	
-	if ($currlevel < $reqlevel) 
-	{
+	if ($currlevel < $reqlevel) {
 		if ($state == "off")
 			$cmd = $config['cmd_dimb']." ".$code;
 		else
@@ -128,16 +130,13 @@ function dim_bright($state, $currlevel, $reqlevel, $code, $config)
 			
 		$incdec = $reqlevel - $currlevel;
 	}
-	elseif ($currlevel > $reqlevel) 
-	{
-		//if (on_state($code, $config['heyuexec']))
+	elseif ($currlevel > $reqlevel) {
 		$cmd = $config['cmd_dim']." ".$code;
 		$incdec = $currlevel - $reqlevel;
 	}
 	
 	// select how much to increase or decrease level by.
-	switch ($incdec)
-	{
+	switch ($incdec) {
 		case 1:
 			if ($state == "on") $cmd .= " 4";
 			else $cmd .= " 22";
@@ -159,33 +158,27 @@ function dim_bright($state, $currlevel, $reqlevel, $code, $config)
 			break;
 	}
 	
-	return $config['heyuexec']." ".$cmd;
+	return $config['heyuexec']." ".$cmd." 2>&1";
 }
 
 /**
  * On State
  *
  * @param $code code of module to check
- * @param $heyuexec full path and location of heyu executable
  */
 
-function on_state($code, $heyuexec)
-{
-	$rs = execute_cmd($heyuexec." onstate ".$code." 2>&1");
+function on_state($code) {
+	
+	global $config;
+	$rs = execute_cmd($config['heyuexec']." onstate 2>&1".$code, true);
 
-	if ($rs[0] == "1" || $rs[0] == "0")
-	{
+	if ($rs[0] == "1" || $rs[0] == "0") {
 		if ($rs[0] == "1") return true;
 	}
-	else
-	{
-		if ($rs[0] = 'Unable to read state file.')
-		{
-			$cmd = $heyuexec." fetchstate";
-			$rs = execute_cmd($cmd);
+	else {
+		if ($rs[0] = 'Unable to read state file.') { 
+			execute_cmd($config['heyuexec']." fetchstate 2>&1");
 		}
-		else
-			header("Location: ".check_url()."/error.php?msg=".$rs[0]);
 	}
 }
 
@@ -193,20 +186,27 @@ function on_state($code, $heyuexec)
  * Dim Level
  *
  * @param $unit code of module to check
- * @param $heyuexec full path and location of heyu executable
  */
-function curr_dim_level($unit, $heyuexec)
-{
-	$rs = execute_cmd($heyuexec." dimlevel ".$unit." 2>&1");
+function get_dim_level($unit) {
+	
+	global $config;
+	$rs = execute_cmd($config['heyuexec']." dimlevel ".$unit." 2>&1");
 	return $rs[0];
 }
 
-function heyu_upload($heyuexec)
-{
-	execute_cmd("echo -n \"\" > /tmp/heyu_upload.out");
-	$rs = execute_cmd($heyuexec." upload &> /tmp/heyu_upload.out");
+/**
+ * 
+ */
+function heyu_upload() {
 	
-	header("Location: ".$_SERVER['PHP_SELF']."?state=completed");
+	global $config;
+	//execute_cmd("echo -n \"\" > /tmp/heyu_upload.out");
+	execute_cmd($config['heyuexec']." upload 2>&1");
+	//return $rs;
+	
+	//$rs = execute_cmd($heyuexec." upload &> /tmp/heyu_upload.out");
+	
+	//header("Location: ".$_SERVER['PHP_SELF']."?state=completed");
 	
 	//foreach ($rs as $r) echo "$r<br />";
 	/*

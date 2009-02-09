@@ -15,7 +15,7 @@ require_once('..'.DIRECTORY_SEPARATOR.'include.php');
 require_once(CLASS_FILE_LOCATION.'heyuconf.class.php');
 
 ## Instantiate HeyuConf class
-$heyuconf = new HeyuConf($config['heyuconf']);
+$heyuconf = new heyuConf($config['heyuconf']);
 
 ## Get locations
 $locations = load_file(FPLAN_FILE_LOCATION);

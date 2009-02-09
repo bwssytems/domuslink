@@ -1,4 +1,11 @@
-<h1>Error</h1>
+<table cellspacing="0" cellpadding="0" border="0" width="600px" align="middle" class="content">
+<tr><th><?php echo ($lang['error']); ?></th></tr>
 
-<br>
-<?php echo $errormsg; ?>
+<tr><td>
+
+<?php foreach ($errormsgs as $msg): ?>
+<?php echo $msg; ?><br />
+<?php endforeach; ?>
+
+</td></tr>
+</table>

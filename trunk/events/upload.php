@@ -15,7 +15,7 @@ require_once('..'.DIRECTORY_SEPARATOR.'include.php');
 require_once(CLASS_FILE_LOCATION.'heyuconf.class.php');
 
 ## Instantiate HeyuConf class
-$heyuconf = new HeyuConf($config['heyuconf']);
+$heyuconf = new heyuConf($config['heyuconf']);
 $schedfileloc = $config['heyu_base'].$heyuconf->getSchedFile();
 
 ## Security validation's
@@ -40,7 +40,11 @@ else
 	switch ($_GET["state"])
 	{ 
 		case "uploading":
-			heyu_upload($config['heyuexec']);
+			heyu_upload();
+			//$tpl_body->set('uptitle', $lang["uploadsuccess"]);
+			//$tpl_body->set('msg', $lang["uploaderror_txt"]);
+			//$tpl_body->set('divstate', "display:none");
+			//$tpl_body->set('out', $rs);
 			break;
 		case "error":
 			$tpl_body = & new Template(TPL_FILE_LOCATION.'upload_res.tpl');

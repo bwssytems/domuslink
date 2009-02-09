@@ -82,11 +82,15 @@ $lang["deleteconfirm"] = "Are you sure you want to delete this entry?";
 $lang["error_not_running"] = "<h1>Heyu is not running!</h1><br />Please start heyu by clicking on the start link.<br />You may however, need to change permissions to your tty/serial port. <br />Also make sure heyu is not already running. To do so run 'heyu stop' as root.";
 
 /* new */
+$lang["error"] = "Error";
 $lang["upload"] = "Upload";
 $lang["uploadsuccess"] = "Upload Successful";
 $lang["uploaderror"] = "Upload Error";
 $lang["uploadsuccess_txt"] = "Upload complete! Click <a href='#' onclick='divShowHide(uplog);'>here</a> to view output.";
 $lang["uploaderror_txt"] = "Upload error! Click <a href='#' onclick='divShowHide(uplog);'>here</a> to view log.";
+
+$lang["error_filerw"] = "not found or not writable!";
+$lang["error_filer"] = "not found or not readable!";
 
 $lang["about"] = "About";
 $lang["status"] = "Status";

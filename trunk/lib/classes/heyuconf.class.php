@@ -21,8 +21,7 @@ class heyuConf {
 	 *
 	 * @param $filename represents name and location
 	 */
-	function heyuConf($filename)
-	{
+	function heyuConf($filename) {
 		$this->heyuconf = '';
 		$this->filename = $filename;
 
@@ -32,28 +31,23 @@ class heyuConf {
 	/**
 	 * Load heyu settings from defined file in config.php
 	 */
-	function load()
-	{
+	function load() {
 		$this->heyuconf = load_file($this->filename);
 	}
 
 	/**
 	 * Return heyu settings from defined file in config.php
 	 */
-	function get()
-	{
+	function get() {
 		return $this->heyuconf;
 	}
 	
 	/**
 	 * Get defined schedule file from heyu configuration file
 	 */
-	function getSchedFile()
-	{
-		foreach ($this->heyuconf as $num => $line)
-		{
-			if (substr($line, 0, 13) == "SCHEDULE_FILE")
-			{
+	function getSchedFile() {
+		foreach ($this->heyuconf as $num => $line) {
+			if (substr($line, 0, 13) == "SCHEDULE_FILE") {
 				$schedfile = trim(substr($line, 14));
 				break;
 			}			
@@ -67,12 +61,9 @@ class heyuConf {
 	 *
 	 * @param $number boolean, if true add line number of original file
 	 */
-	function getAliases($number = false, $i = 0)
-	{
-		foreach ($this->heyuconf as $num => $line)
-		{
-			if (substr($line, 0, 5) == "ALIAS")
-			{
+	function getAliases($number = false, $i = 0) {
+		foreach ($this->heyuconf as $num => $line) {
+			if (substr($line, 0, 5) == "ALIAS") {
 				//if $number = true, store alias in new array along with line numb of original file
 				$aliases[$i] = ($number) ? $line."@".$num : $line;
 				$i++;
@@ -87,16 +78,13 @@ class heyuConf {
 	 * 
 	 * @param $loc represents the wanted location
 	 */
-	function getAliasesByLocation($loc, $i = 0)
-	{
-		foreach ($this->getAliases(false) as $line)
-		{
+	function getAliasesByLocation($loc, $i = 0) {
+		foreach ($this->getAliases(false) as $line) {
 			list($temp, $label, $code, $module_type_loc) = split(" ", $line, 4);
 			list($module, $type_loc) = split(" # ", $module_type_loc, 2);
 			list($type, $orgloc) = split(",", $type_loc, 2);
 			
-			if (trim($orgloc) == trim($loc))  
-			{
+			if (trim($orgloc) == trim($loc)) {
 				$request[$i] = $label." ".$code." ".$type; // $type is kept to use in getAliasesByType
 				$i++;
 			}
@@ -111,14 +99,11 @@ class heyuConf {
 	 * @param $aliases represents an array of aliases built by getAliasesByLocation
 	 * @param $type represents the type os module (light, appliance, etc)
 	 */
-	function getAliasesByType($aliases, $type, $i = 0)
-	{
-		foreach ($aliases as $alias)
-		{
+	function getAliasesByType($aliases, $type, $i = 0) {
+		foreach ($aliases as $alias) {
 			list($label, $code, $orgtype) = split (" ", $alias, 3);
 			
-			if (trim($orgtype) == trim($type))
-			{
+			if (trim($orgtype) == trim($type)){
 				$request[$i] = $label." ".$code." ".$type;
 				$i++;
 			}
@@ -131,10 +116,8 @@ class heyuConf {
 	 * 
 	 * @param $aliases array
 	 */
-	function getCodesAndLabels($aliases, $i = 0)
-	{
-		foreach ($aliases as $line)
-		{
+	function getCodesAndLabels($aliases, $i = 0) {
+		foreach ($aliases as $line) {
 			list($temp, $label, $code, $module_type_loc) = split(" ", $line, 4);
 			$cl[$i]	= $code."@".$label;
 			$i++;

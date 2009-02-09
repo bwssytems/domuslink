@@ -1,4 +1,6 @@
 <?php 
+# Start session for error messages
+session_start();
 
 # Load definitions
 $dirname = dirname(__FILE__);
@@ -18,11 +20,11 @@ require_once(FUNC_FILE_LOCATION.'debug.func.php');
 #Load config file functions and grab settings
 require($dirname.DIRECTORY_SEPARATOR.'version.php');
 require(FUNC_FILE_LOCATION.'config.func.php');
-$config =& parse_config($frontObj->GetConfig());
+$config =& parse_config($frontObj->getConfig());
 
 #Load language file
 require_once(FUNC_FILE_LOCATION.'lang.func.php');
-$lang =& $frontObj->GetLanguageFile();
+$lang =& $frontObj->getLanguageFile();
 
 ## Define templates location acording to theme and user agent for auto detection
 if (strpos(strtolower($_SERVER['HTTP_USER_AGENT']),'iphone'))
@@ -39,4 +41,5 @@ $tpl = & new Template(TPL_FILE_LOCATION.'layout.tpl');
 $tpl->set('config', $config);
 $tpl->set('lang', $lang);
 $tpl->set('ver', $FRONTEND_VERSION);
+
 ?>

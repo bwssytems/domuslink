@@ -23,7 +23,7 @@ if ($config['seclevel'] != "0")
 }
 
 ## Instantiate HeyuConf class and get schedule file with absolute path
-$heyuconf = new HeyuConf($config['heyuconf']);
+$heyuconf = new heyuConf($config['heyuconf']);
 $schedfileloc = $config['heyu_base'].$heyuconf->getSchedFile();
 
 ## Load aliases and parse so that only code and labels remain
@@ -51,7 +51,6 @@ $tpl_body->set('lang', $lang);
 $tpl_body->set('timers', $timers);
 $tpl_body->set('config', $config);
 $tpl_body->set('aliases', $aliases);
-$tpl_body->set('wdayo', $wdayo);
 
 if (!isset($_GET["action"]))
 {
@@ -60,7 +59,6 @@ if (!isset($_GET["action"]))
 	$tpl_add->set('codelabels', $codelabels);
 	$tpl_add->set('months', $months);
 	$tpl_add->set('days', $days);
-	$tpl_add->set('wdayo', $wdayo);
 	$tpl_add->set('hours', $hours);
 	$tpl_add->set('mins', $mins);
 	$tpl_body->set('form', $tpl_add);
@@ -111,7 +109,6 @@ else
 			$tpl_edit->set('weekdays', $weekdays);
 			
 			$tpl_edit->set('months', $months);
-			$tpl_edit->set('wdayo', $wdayo);
 			$tpl_edit->set('days', $days);
 			$tpl_edit->set('hours', $hours);
 			$tpl_edit->set('mins', $mins);
@@ -132,7 +129,7 @@ else
 		
 		case "add":
 			//build timer line with POST results	
-			$res = build_new_line("timer", $wdayo);
+			$res = build_new_line("timer");
 			$tline = $res[0];
 			$onmacro = $res[1];
 			$offmacro = $res[2];
@@ -160,7 +157,7 @@ else
 		case "save":
 			//build timer line with POST results	
 			$line = $_POST["line"]; // line being edited
-			$res = build_new_line("timer", $wdayo);
+			$res = build_new_line("timer");
 			$tline = $res[0];
 			$onmacro = $res[1];
 			$offmacro = $res[2];
@@ -214,14 +211,6 @@ $tpl->set('content', $tpl_body);
 echo $tpl->fetch(TPL_FILE_LOCATION.'layout.tpl');
 
 /**
- * 
- */
-function get_posts()
-{
-	
-}
-
-/**
  * Weekdays
  * 
  * Description: This function generates the weekday's table. It can
@@ -231,10 +220,10 @@ function get_posts()
  * @param $lang contains all the language strings to be used
  * @param $list boolean if true weekday's belong to timer listing
  * @param $enabled represent boolean for status of timer
- * @param $wdayo original chars representing each week day
  */
-function weekdays($string, $lang, $list, $enabled, $wdayo)
+function weekdays($string, $lang, $list, $enabled)
 {
+	global $wdayo;
 	$wdayt = array(substr($lang['sun'], 0, 1),
 					substr($lang['mon'], 0, 1),
 					substr($lang['tue'], 0, 1),

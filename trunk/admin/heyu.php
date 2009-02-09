@@ -24,7 +24,7 @@ if ($config['seclevel'] != "0")
 }
 
 ## Instantiate HeyuConf class
-$heyuconf = new HeyuConf($config['heyuconf']);
+$heyuconf = new heyuConf($config['heyuconf']);
 ## Get heyu (x10.conf) file contents/settings
 $settings = $heyuconf->get();
 
