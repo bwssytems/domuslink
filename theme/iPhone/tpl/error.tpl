@@ -6,5 +6,4 @@
 			</h5>
       </fieldset>
 </div>
-<a href="javascript:history.back();"><< BACK</a>
 <br>

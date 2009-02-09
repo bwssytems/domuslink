@@ -3,7 +3,7 @@
 	<p class="progInfoTitle"> </p>
 	<h2>Description</h2>
 	<div class="progDesc">
-		<p class="progInfoDesc"> domus.Link is a web-based frontend for Heyu. The design focuses on separating configuration from actual controls thus giving the user a simple and user friendly GUI.<br>
+		<p class="progInfoDesc">domus.Link is a web-based frontend for Heyu. The design focuses on separating configuration from actual controls thus giving the user a simple and user friendly GUI.<br>
 		</p>
 	</div>
 	<h2>Details</h2>
@@ -24,6 +24,7 @@
 			Contributors:<BR>
 			- Cedric Aveline<BR>
 			- Jeroen<BR>
+            - Frank van der Stad<BR>
 		</p>
 	</div>
 	<div class="row">
@@ -31,14 +32,14 @@
 		<p> Main:<br>
 			- Istvan Hubay Cebrian<BR>
 			<br>
-			Iphone:<br>
+			iPhone:<br>
 			- Frank van der Stad<BR>
 		</p>
 	</div>	
 	<div class="row">
 		<label>Translators</label>
 		<p> Dutch:<br>
-			- Frank<BR>
+			- Frank van der Stad<BR>
 			<BR>
 			English:<br>
 			- Istvan Hubay Cebrian<BR>
@@ -58,6 +59,9 @@
 			Swedish:<br>
 			- Tobias Axelsson<br>
 			<BR>
+			Spanish:<br>
+			- Israel Santana Alemán<br>
+			<BR>            
 		</p>
 	</div>
 	</fieldset>
