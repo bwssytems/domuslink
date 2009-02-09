@@ -15,7 +15,6 @@ require_once('..'.DIRECTORY_SEPARATOR.'include.php');
 
 ## Security validation's
 if ($config['seclevel'] != "0") {
-	
 	if (!isset($_COOKIE["dluloged"]))
 		header("Location: ../login.php?from=admin/frontend");
 }
@@ -24,13 +23,11 @@ if ($config['seclevel'] != "0") {
 $tpl->set('title', $lang['frontendadmin']);
 
 if (!isset($_GET["action"])) {
-	
 	$tpl_body = & new Template(TPL_FILE_LOCATION.'frontend.tpl');
 	$tpl_body->set('config', $config);
 	$tpl_body->set('lang', $lang);
 }
 elseif ($_GET["action"] == "save") {
-	
 	$newconfig['pc_interface'] = $_POST["pc_interface"];
 	$newconfig['heyu_base'] = $_POST["heyu_base"];
 	$newconfig['heyuconf'] = $_POST["heyuconf"];
@@ -45,12 +42,10 @@ elseif ($_GET["action"] == "save") {
 	$newconfig['refresh'] = $_POST["refresh"];
 
 	if ((file_exists(CONFIG_FILE_LOCATION) && is_writable(CONFIG_FILE_LOCATION)) || !file_exists(CONFIG_FILE_LOCATION)) {
-		
 		config_save($newconfig);
 		header("Location: ".$_SERVER['PHP_SELF']);
 	}
 	else {
-		
 		header("Location: ".check_url()."/error.php?msg=".CONFIG_FILE_LOCATION." not writable!");
     }
 }

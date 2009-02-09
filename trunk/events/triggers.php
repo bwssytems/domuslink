@@ -16,11 +16,14 @@ require_once(CLASS_FILE_LOCATION.'heyuconf.class.php');
 
 ## Instantiate HeyuConf class
 $heyuconf = new heyuConf($config['heyuconf']);
+$schedfileloc = $config['heyu_base'].$heyuconf->getSchedFile();
 
+## Instantiate HeyuSched class, get contents and parse timers
+$heyusched = new HeyuSched($schedfileloc);
+$triggers = $heyusched->getTriggers();
 
 ## Security validation's
-if ($config['seclevel'] != "0") 
-{
+if ($config['seclevel'] != "0") {
 	if (!isset($_COOKIE["dluloged"]))
 		header("Location: ../login.php?from=events/timers");
 }

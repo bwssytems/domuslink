@@ -16,8 +16,7 @@ require_once(CLASS_FILE_LOCATION.'heyuconf.class.php');
 require_once(CLASS_FILE_LOCATION.'heyusched.class.php');
 
 ## Security validation's
-if ($config['seclevel'] != "0") 
-{
+if ($config['seclevel'] != "0") {
 	if (!isset($_COOKIE["dluloged"]))
 		header("Location: ../login.php?from=events/timers");
 }
@@ -32,7 +31,7 @@ $codelabels = $heyuconf->getCodesAndLabels($aliases);
 
 ## Instantiate HeyuSched class, get contents and parse timers
 $heyusched = new HeyuSched($schedfileloc);
-$schedfile = $heyusched->get();
+//$schedfile = $heyusched->get();
 $timers = $heyusched->getTimers();
 $macros = $heyusched->getMacros();
 
@@ -52,8 +51,7 @@ $tpl_body->set('timers', $timers);
 $tpl_body->set('config', $config);
 $tpl_body->set('aliases', $aliases);
 
-if (!isset($_GET["action"]))
-{
+if (!isset($_GET["action"])) {
 	$tpl_add = & new Template(TPL_FILE_LOCATION.'timer_add.tpl');
 	$tpl_add->set('lang', $lang);
 	$tpl_add->set('codelabels', $codelabels);
@@ -63,10 +61,8 @@ if (!isset($_GET["action"]))
 	$tpl_add->set('mins', $mins);
 	$tpl_body->set('form', $tpl_add);
 }
-else
-{
-	switch ($_GET["action"])
-	{
+else {
+	switch ($_GET["action"]) {
 		case "enable":
 			$sm = get_specific_macros($macros, $_GET['onm'], $_GET['ofm']); 
 			$newschedfile = change_macro_states($sm, "enable", $schedfile);
@@ -77,8 +73,7 @@ else
 			//if no timer in use that uses on/off macros OR
 			//disabled timer exists that uses on/off macro
 			$mtim = multiple_timer_macro_use($timers, $_GET['onm'], $_GET['ofm'], $_GET['line']);
-			if ($mtim == 0 || $mtim == 1)
-			{
+			if ($mtim == 0 || $mtim == 1) {
 				//get individual macros (get_specific_macros)
 				//then change their states (change_macro_states) outputing complete file to $newschedfile
 				//finally disable timer sending as input new schedfile
@@ -137,13 +132,11 @@ else
 			// if on/off macros exist then make sure they are enabled and add new timer
 			// else create macro lines, add them to file and finally add new timer
 			$sm = get_specific_macros($macros, $onmacro, $offmacro);
-			if ($sm) 
-			{
+			if ($sm) {
 				$schedfile = change_macro_states($sm, "enable", $schedfile);
 				array_splice($schedfile,$heyusched->getTimerEndLine(),0,$tline);
 			}
-			else 
-			{
+			else {
 				$onml = "macro $onmacro 0 on ".strtolower($_POST["module"])."\n";
 				$offml = "macro $offmacro 0 off ".strtolower($_POST["module"])."\n";
 				$mendli = $heyusched->getMacroEndLine();
@@ -162,12 +155,12 @@ else
 			$onmacro = $res[1];
 			$offmacro = $res[2];
 			
-			if ($line == 0 || (count($schedfile) - 1) == $line) // first or last line editing
-			{
+			if ($line == 0 || (count($schedfile) - 1) == $line) {
+				// first or last line editing
 				array_splice($schedfile, $line, 1, $tline);
 			}
-			else // when editing line in middle
-			{
+			else {
+				// when editing line in middle
 				$end = array_splice($schedfile, $line+1);
 				array_splice($schedfile, $line, 1, $tline);
 				$schedfile = array_merge($schedfile, $end);
@@ -179,19 +172,16 @@ else
 			//check if any other timer (enabled or disabled) is using macros
 			//	if no  - delete timer and assiociated macros
 			//	if yes - only delete timer
-			if (!multiple_timer_macro_use($timers, $_GET['onm'], $_GET['ofm'], $_GET['line']))
-			{
+			if (!multiple_timer_macro_use($timers, $_GET['onm'], $_GET['ofm'], $_GET['line'])) {
 				//delete timer and associated macros
 				$smas = get_specific_macros($macros, $_GET['onm'], $_GET['ofm']);
-				foreach ($smas as $num => $ml)
-				{
+				foreach ($smas as $num => $ml) {
 						list($m, $l) = split("@", $ml, 2);
 						array_splice($schedfile, $l-$num, 1); //deletes macros
 				}
 				delete_line($schedfile, $schedfileloc, $_GET["line"]-count($smas)); //deletes timer
 			}
-			else
-			{
+			else {
 				//only delete timer since other timer(s) are using macros
 				delete_line($schedfile, $schedfileloc, $_GET["line"]); //deletes timer
 			}
@@ -221,8 +211,7 @@ echo $tpl->fetch(TPL_FILE_LOCATION.'layout.tpl');
  * @param $list boolean if true weekday's belong to timer listing
  * @param $enabled represent boolean for status of timer
  */
-function weekdays($string, $lang, $list, $enabled)
-{
+function weekdays($string, $lang, $list, $enabled) {
 	global $wdayo;
 	$wdayt = array(substr($lang['sun'], 0, 1),
 					substr($lang['mon'], 0, 1),
@@ -248,8 +237,7 @@ function weekdays($string, $lang, $list, $enabled)
  * 
  * @param $macro name
  */
-function replace_macro($macro)
-{
+function replace_macro($macro) {
 	if (strpos($macro, ","))
 		return str_replace(",","_",$macro);
 	else 
@@ -264,8 +252,7 @@ function replace_macro($macro)
  * 
  * @param $macro represents complete macro name
  */
- function strip_code($macro)
- {
+ function strip_code($macro) {
  	//1. lower case $macro
  	//2. find position of first "on" or "off"
 	$onp = strpos(strtolower($macro), "on");
@@ -277,7 +264,7 @@ function replace_macro($macro)
 		return strtoupper(substr($macro, 0, $onp));
 	else
 		return strtoupper(substr($macro, 0, $offp));
- }
+}
 
 /**
  * Parse Macro
@@ -288,12 +275,10 @@ function replace_macro($macro)
  * @param $macro represents the macro name itself
  * @param $aliases is array of all the aliases
  */
-function parse_macro($macro, $aliases)
-{
+function parse_macro($macro, $aliases) {
 	$code = strip_code($macro);
 	
-	foreach ($aliases as $alias)
-	{
+	foreach ($aliases as $alias) {
 		list($temp, $label, $retcode, $module_type_loc) = split(" ", $alias, 4);
 		
 		if (strtoupper($retcode) == $code)
@@ -312,12 +297,10 @@ function parse_macro($macro, $aliases)
  * @param $onmacro the on macro name
  * @param $offmacro the off macro name
  */
-function get_specific_macros($macros, $onmacro, $offmacro)
-{
+function get_specific_macros($macros, $onmacro, $offmacro) {
 	$fmacros = array(); 
 	
-	foreach ($macros as $macro)
-	{
+	foreach ($macros as $macro) {
 		//$macro format [MACROLINE]@[LINENUM]
 		if (stripos($macro, $onmacro) || stripos($macro, $offmacro)) 
 			array_push($fmacros, $macro);
@@ -335,18 +318,14 @@ function get_specific_macros($macros, $onmacro, $offmacro)
  * @param $offmacro the offmacro name
  * @param $line the command originating line number
  */
-function multiple_timer_macro_use($timers, $onmacro, $offmacro, $line)
-{
-	foreach ($timers as $timer)
-	{
+function multiple_timer_macro_use($timers, $onmacro, $offmacro, $line) {
+	foreach ($timers as $timer) {
 		//split line into timer and line number then
 		list($t, $l) = split("@", $timer, 2);
 		
 		if ($line == $l) continue; //ignore originating timer
-		else
-		{
-			if (stripos($t, $onmacro) || stripos($t, $offmacro))
-			{
+		else {
+			if (stripos($t, $onmacro) || stripos($t, $offmacro)) {
 				//timer found that use on/off macro
 				if (substr($t, 0, 1) != "#") 
 					return 2; //active timer exists
@@ -371,21 +350,17 @@ function multiple_timer_macro_use($timers, $onmacro, $offmacro, $line)
  * @param $estate end state (enable/disable)
  * @param $file contents such as schedule file
  */
-function change_macro_states($macros, $estate, $file)
-{
-	foreach ($macros as $macro)
-	{
+function change_macro_states($macros, $estate, $file) {
+	foreach ($macros as $macro) {
 		//split line into macro and line number then
 		list($m, $l) = split("@", $macro, 2);
 		
 		//if first char is # (disabled) and estate is enabled
 		//replace line in $file with the #
-		if (substr($macro, 0, 1) == "#" && $estate == "enable")
-		{
+		if (substr($macro, 0, 1) == "#" && $estate == "enable") {
 			$file[$l] = substr($m, 1); //enable
 		}
-		elseif (substr($macro, 0, 1) != "#" && $estate == "disable")
-		{
+		elseif (substr($macro, 0, 1) != "#" && $estate == "disable") {
 			$file[$l] = "#".$m; //disable
 		}
 	}

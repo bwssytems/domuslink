@@ -32,7 +32,6 @@ class location {
 			
 			// if location contains aliases/modules then display them
 			if (count($localized_aliases) > 0) {
-				
 				if ($type=='typed') {
 					$typed_aliases = $this->heyuconf->getAliasesByType($localized_aliases, $type_filter);
 					if (count($typed_aliases) > 0) {
@@ -98,8 +97,7 @@ class location {
 				$state = 'on';
 				$action = $config['cmd_off']; 
 			}
-			else 
-			{ 
+			else { 
 				$state = 'off';
 				$action = $config['cmd_on']; 
 			}	
@@ -117,8 +115,9 @@ class location {
 		if (!isset($_GET['page'])) {
 			$_GET['page']='home';
 		}
-		else 
+		else {
 			$mod->set('page', $_GET['page']);
+		}
 		
 		if (!$multi_alias) {
 			$mod->set('action', $action);
@@ -142,12 +141,18 @@ class location {
 	 * @param $dimpercent represents current dim level of specific module
 	 */
 	function level_calc($dimpercent) {
-		if ($dimpercent == "0") return 0;
-		elseif ($dimpercent > "82" && $dimpercent <= "100") return 5;
-		elseif ($dimpercent > "60" && $dimpercent <= "82") return 4;
-		elseif ($dimpercent > "40" && $dimpercent <= "60") return 3;
-		elseif ($dimpercent > "20" && $dimpercent <= "40") return 2;
-		elseif ($dimpercent > "0" && $dimpercent <= "20") return 1;
+		if ($dimpercent == "0") 
+			return 0;
+		elseif ($dimpercent > "82" && $dimpercent <= "100") 
+			return 5;
+		elseif ($dimpercent > "60" && $dimpercent <= "82") 
+			return 4;
+		elseif ($dimpercent > "40" && $dimpercent <= "60") 
+			return 3;
+		elseif ($dimpercent > "20" && $dimpercent <= "40") 
+			return 2;
+		elseif ($dimpercent > "0" && $dimpercent <= "20") 
+			return 1;
 	}
 
 }

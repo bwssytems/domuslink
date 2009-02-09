@@ -20,12 +20,10 @@ $tpl->set('lang', $lang);
 
 $authenticated = false;
 
-if ($_POST) 
-{
+if ($_POST) {
 	$origin = $_POST['from'];
 	
-	if ($_POST['password'] == $config['password'])
-	{
+	if ($_POST['password'] == $config['password']) {
 		setcookie("dluloged", "admin", 0, $config['url_path']);
 		
 		if ($origin == "index")
@@ -42,8 +40,7 @@ $tpl_body = & new Template(TPL_FILE_LOCATION.'login.tpl');
 $tpl_body->set('lang', $lang);
 
 ## Display the page
-if (!empty($tpl_body))
-{
+if (!empty($tpl_body)) {
 	$tpl->set('content', $tpl_body);
 }
 
