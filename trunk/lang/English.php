@@ -86,6 +86,7 @@ $lang["error"] = "Error";
 $lang["upload"] = "Upload";
 $lang["uploadsuccess"] = "Upload Successful";
 $lang["uploadsuccess_txt"] = "Upload complete! Click <a href='#' onclick='divShowHide(uplog);'>here</a> to view output.";
+$lang["error_no_modules"] = "<h1>No modules available!</h1><br />I don't have any modules to show.";
 
 $lang["error_filerw"] = "not found or not writable!";
 $lang["error_filer"] = "not found or not readable!";
