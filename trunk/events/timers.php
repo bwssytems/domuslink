@@ -48,7 +48,6 @@ $tpl_body = & new Template(TPL_FILE_LOCATION.'timers_view.tpl');
 $tpl_body->set('lang', $lang);
 $tpl_body->set('timers', $timers);
 $tpl_body->set('config', $config);
-$tpl_body->set('aliases', $aliases);
 $tpl_body->set('first_line', $heyusched->getMacroEndLine()+1);
 $tpl_body->set('last_line', $heyusched->getTimerEndLine()-1);
 
@@ -100,7 +99,7 @@ else {
 			$tpl_edit->set('enabled', $enabled);
 			
 			$tpl_edit->set('codelabels', $codelabels);
-			$tpl_edit->set('selcode', strip_code(replace_macro($onmacro)));
+			$tpl_edit->set('selcode', strip_code($onmacro));
 			
 			$tpl_edit->set('weekdays', $weekdays);
 			
@@ -233,38 +232,25 @@ function weekdays($string, $lang, $list, $enabled) {
 }
 
 /**
- * Description: Replaces "," with "_" and vice-versa
- * from received macro string
- * 
- * @param $macro name
- */
-function replace_macro($macro) {
-	if (strpos($macro, ","))
-		return str_replace(",","_",$macro);
-	else 
-		return str_replace("_",",",$macro);
-}
-
-/**
  * Strip code
  * 
- * Description: Receives macro name in format 'a2on' or 'b12off',
- * strips and returns house and unit code
+ * Description: Receives macro name in format 'tv_on' or 'tv_off',
+ * strips and returns only alias name
  * 
  * @param $macro represents complete macro name
  */
  function strip_code($macro) {
  	//1. lower case $macro
- 	//2. find position of first "on" or "off"
-	$onp = strpos(strtolower($macro), "on");
-	$offp = strpos(strtolower($macro), "off");
+ 	//2. find position of first "_on" or "_off"
+	$onp = strpos(strtolower($macro), "_on");
+	$offp = strpos(strtolower($macro), "_off");
 	
 	//3. get substr from pos 0 to position returned from $onp or $offp
  	//4. place all in uppercase
 	if ($onp)
-		return strtoupper(substr($macro, 0, $onp));
+		return strtolower(substr($macro, 0, $onp));
 	else
-		return strtoupper(substr($macro, 0, $offp));
+		return strtolower(substr($macro, 0, $offp));
 }
 
 /**
@@ -274,19 +260,18 @@ function replace_macro($macro) {
  * house and unit code and finds description/label in aliases
  * 
  * @param $macro represents the macro name itself
- * @param $aliases is array of all the aliases
  */
-function parse_macro($macro, $aliases) {
-	$code = strip_code($macro);
+function parse_macro($macro) {
+	global $aliases;
 	
 	foreach ($aliases as $alias) {
 		list($temp, $label, $retcode, $module_type_loc) = split(" ", $alias, 4);
 		
-		if (strtoupper($retcode) == $code)
+		if (strtolower($label) == strtolower(strip_code($macro)))
 			return label_parse($label, false);
 	}
 	
-	return "";
+	return "N/A";
 }
 
 /**

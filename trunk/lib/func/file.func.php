@@ -112,8 +112,8 @@ function build_new_line($type) {
 			$ontime = $_POST["onhour"].":".$_POST["onmin"];
 			$offtime = $_POST["offhour"].":".$_POST["offmin"];
 			
-			$onmacro = replace_macro(strtolower($_POST["module"]))."on";
-			$offmacro = replace_macro(strtolower($_POST["module"]))."off";
+			$onmacro = strtolower($_POST["module"])."_on";
+			$offmacro = strtolower($_POST["module"])."_off";
 			$tline = $_POST["status"]."timer $wdaystr $ondate-$offdate $ontime $offtime $onmacro $offmacro\n";
 			
 			return array($tline,$onmacro,$offmacro);
