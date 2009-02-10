@@ -17,7 +17,7 @@ require_once(CLASS_FILE_LOCATION.'heyuconf.class.php');
 require_once(CLASS_FILE_LOCATION.'heyusched.class.php');
 
 ## Security validation's
-if ($config['seclevel'] != "2" && !$authenticated) 
+if ($config['seclevel'] != "0" && !$authenticated) 
 		header("Location: ../login.php?from=events/timers");
 
 ## Instantiate HeyuConf class and get schedule file with absolute path
