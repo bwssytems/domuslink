@@ -54,7 +54,7 @@
 	?>            
 </div>
 <?php
-if ($page == "lights")
+if ( ($page == "lights") || ($page == "all") )
 {
     ?>
     <div id='generated_content_for_lights' class="panel" selected='true'>
