@@ -123,7 +123,7 @@
     <select name="modules" size="9" disabled>
 	<?php foreach ($codelabels as $codelabel): ?>
 		<?php list($code, $label) = split("@", $codelabel, 2); ?>
- 		<option value="<?php echo $code;?>" <?php if ($selcode == $code) echo "selected"; ?>><?php echo label_parse($label, false);?></option>
+ 		<option value="<?php echo $label;?>" <?php if ($selcode == $label) echo "selected"; ?>><?php echo label_parse($label, false);?></option>
 	<?php endforeach; ?>
 	</select>
     </td>
