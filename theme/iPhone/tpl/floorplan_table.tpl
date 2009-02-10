@@ -9,7 +9,7 @@ if ( ($page=='lights') || ($page=='all') )
 		</ul>
 	</div>
 	<br />
-<?
+<?php
 }
 else
 {
