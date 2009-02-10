@@ -41,7 +41,7 @@ function validateForm(form)
   <tr>
     <td width="80px"><h6><?php echo $lang['weekdays']; ?>:</h6></td>
     <td width="150px">
-    	<?php echo weekdays(null, $lang, false, true, $wdayo); ?>
+    	<?php echo weekdays(null, $lang, false, true); ?>
     </td>
   </tr>
 </table>

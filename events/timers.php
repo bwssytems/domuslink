@@ -14,10 +14,12 @@
 require_once('..'.DIRECTORY_SEPARATOR.'include.php');
 require_once(CLASS_FILE_LOCATION.'heyuconf.class.php');
 require_once(CLASS_FILE_LOCATION.'heyusched.class.php');
+require_once(CLASS_FILE_LOCATION.'login.class.php');
 
 ## Security validation's
 if ($config['seclevel'] != "0") {
-	if (!isset($_COOKIE["dluloged"]))
+	$check = new login();
+	if (!$check->login())
 		header("Location: ../login.php?from=events/timers");
 }
 
@@ -50,6 +52,8 @@ $tpl_body->set('lang', $lang);
 $tpl_body->set('timers', $timers);
 $tpl_body->set('config', $config);
 $tpl_body->set('aliases', $aliases);
+$tpl_body->set('first_line', $heyusched->getMacroEndLine()+1);
+$tpl_body->set('last_line', $heyusched->getTimerEndLine()-1);
 
 if (!isset($_GET["action"])) {
 	$tpl_add = & new Template(TPL_FILE_LOCATION.'timer_add.tpl');

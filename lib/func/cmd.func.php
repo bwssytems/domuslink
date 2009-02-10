@@ -1,7 +1,7 @@
 <?php
 /*
  * domus.Link :: Web-based frontend for Heyu
- * Copyright 2007, Istvan Hubay Cebrian
+ * Copyright 2007-09, Istvan Hubay Cebrian
  * All Rights Reserved
  * http://domus.link.co.pt
  *
@@ -19,9 +19,8 @@
  * @param $cmd complete command to execute
  * @param $noerror represents a boolean if true errors are ignored 
  */
-function execute_cmd($cmd, $noerror) {
-	
-	exec ($cmd, &$rs, &$retval);
+function execute_cmd($cmd, $noerror = false) {
+	exec ($cmd, $rs, $retval);
 	
 	if ($retval != 0 && !$noerror) {
 		$_SESSION['errors'] = array_reverse($rs);
@@ -36,7 +35,6 @@ function execute_cmd($cmd, $noerror) {
  *
  */
 function heyu_running() {
-	
 	$rs = execute_cmd("ps ax 2>&1");
 	if (count(preg_grep('/[h]eyu/', $rs)) >= 2) 
 		return true;
@@ -47,7 +45,6 @@ function heyu_running() {
  *
  */
 function heyu_info() {
-	
 	global $config;
 	$rs = execute_cmd($config['heyuexec']." info 2>&1");
 	return $rs;
@@ -59,7 +56,6 @@ function heyu_info() {
  * @param $action to undertake (start, stop, reload)
  */
 function heyu_ctrl($action) {
-	
 	global $config;
 	switch ($action) 
 	{
@@ -82,7 +78,6 @@ function heyu_ctrl($action) {
  *
  */
 function heyu_action() {
-	
 	global $config;
 	switch ($_GET["action"]) {
 		case "on":
@@ -114,7 +109,6 @@ function heyu_action() {
  * 
  */
 function dim_bright($state, $currlevel, $reqlevel, $code) {	
-	
 	global $config;
 	if ($currlevel == $reqlevel) return false;
 	
@@ -164,7 +158,6 @@ function dim_bright($state, $currlevel, $reqlevel, $code) {
  */
 
 function on_state($code) {
-	
 	global $config;
 	$rs = execute_cmd($config['heyuexec']." onstate ".$code." 2>&1", true);
 
@@ -184,7 +177,6 @@ function on_state($code) {
  * @param $unit code of module to check
  */
 function get_dim_level($unit) {
-	
 	global $config;
 	$rs = execute_cmd($config['heyuexec']." dimlevel ".$unit." 2>&1");
 	return $rs[0];

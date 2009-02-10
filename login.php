@@ -13,27 +13,25 @@
 
 $dirname = dirname(__FILE__);
 require_once($dirname.DIRECTORY_SEPARATOR.'include.php');
+require_once(CLASS_FILE_LOCATION.'login.class.php');
+
+## Instantiate login class
+$login = new login();
 
 ## Set template parameters
 $tpl->set('title', $lang['login']);
 $tpl->set('lang', $lang);
 
-$authenticated = false;
+if (isset($_GET["action"]))
+	if ($_GET["action"] == "logout") $login->logout();
 
-if ($_POST) {
-	$origin = $_POST['from'];
-	
-	if ($_POST['password'] == $config['password']) {
-		setcookie("dluloged", "admin", 0, $config['url_path']);
-		
-		if ($origin == "index")
+if (isset($_POST['password'])) {
+	if ($login->checkLogin($_POST['password'])) {
 			header("Location: ".$config['url_path']."/".$_POST['from'].".php");
-		else
-			header("Location: ".$_POST['from'].".php");
 	}
-	else
-		header("Location: login.php?from=".$_POST['from']."&failed=true");
-	
+	else {
+		header("Location: login.php?from=".$origin."&failed=true");
+	}
 }
 
 $tpl_body = & new Template(TPL_FILE_LOCATION.'login.tpl');

@@ -32,7 +32,7 @@
 </tr>
 
 <?php
-foreach ($timers  as $timerline):
+foreach ($timers as $timerline):
 	list($timer, $line_num) = split("@", $timerline, 2);
 	list($lbl, $weekdays, $dateonoff, $ontime, $offtime, $onmacro, $offmacro) = split(" ", $timer, 7); 
 	list($dateon, $dateoff) = split("-", $dateonoff, 2);
