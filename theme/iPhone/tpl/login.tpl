@@ -12,4 +12,14 @@
             </div>
 		</fieldset>
 		<input type="submit" name="Submit" value="<?php echo($lang['login']);?>" />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
     </form>
