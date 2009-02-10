@@ -28,7 +28,7 @@ require_once(CLASS_FILE_LOCATION.'location.class.php');
 $locations = new location($heyuconf);
 
 ## Security validation's
-if ($config['seclevel'] != "0") {
+if ($config['seclevel'] == "2") {
 	require_once(CLASS_FILE_LOCATION.'login.class.php');
 	$autentication = new login();
 	if (!$autentication->login())
