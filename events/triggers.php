@@ -14,7 +14,6 @@
 require_once('..'.DIRECTORY_SEPARATOR.'include.php');
 require_once(CLASS_FILE_LOCATION.'heyuconf.class.php');
 require_once(CLASS_FILE_LOCATION.'heyusched.class.php');
-require_once(CLASS_FILE_LOCATION.'login.class.php');
 
 ## Instantiate HeyuConf class
 $heyuconf = new heyuConf($config['heyuconf']);
@@ -26,8 +25,9 @@ $heyusched = new heyuSched($schedfileloc);
 
 ## Security validation's
 if ($config['seclevel'] != "0") {
-	$check = new login();
-	if (!$check->login())
+	require_once(CLASS_FILE_LOCATION.'login.class.php');
+	$autentication = new login();
+	if (!$autentication->login())
 		header("Location: ../login.php?from=events/timers");
 }
 
