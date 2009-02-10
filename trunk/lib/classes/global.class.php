@@ -1,7 +1,7 @@
 <?php 
 /*
  * domus.Link :: Web-based frontend for Heyu
- * Copyright 2007, Istvan Hubay Cebrian
+ * Copyright 2007-09, Istvan Hubay Cebrian
  * All Rights Reserved
  * http://domus.link.co.pt
  *

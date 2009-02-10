@@ -1,14 +1,28 @@
 <?php
-
+/*
+ * domus.Link :: Web-based frontend for Heyu
+ * Copyright 2007-09, Istvan Hubay Cebrian
+ * All Rights Reserved
+ * http://domus.link.co.pt
+ *
+ * This software is licensed free of charge for non-commercial distribution
+ * and for personal and internal business use only.  Inclusion of this
+ * software or any part thereof in a commercial product is prohibited.
+ *
+ */
+ 
 class login {
 	
-	var $user_id;
+	var $uid;
 	var $ok;
 	var $salt = "kjsdr23a21dcf";
 	var $id = 'domuslogin';
 
+	/**
+	 * 
+	 */
 	function login() {
-		$this->user_id = 0;
+		$this->uid = 0;
 		$this->ok = false;
 		
 		if(!$this->checkSession()) $this->checkCookie();
@@ -16,6 +30,9 @@ class login {
 		return $this->ok;
 	}
 	
+	/**
+	 * 
+	 */
 	function checkSession() {
 		if(!empty($_SESSION[$this->id]))
 			return $this->check($_SESSION[$this->id]);
@@ -23,6 +40,9 @@ class login {
 			return false;
 	}
 
+	/**
+	 * 
+	 */
 	function checkCookie() {
 		if(!empty($_COOKIE[$this->id]))
 			return $this->check($_COOKIE[$this->id]);
@@ -30,6 +50,9 @@ class login {
 			return false;
 	}
 	
+	/**
+	 * 
+	 */
 	function checkLogin($password) {
 		global $config;
 		if ($config['password'] == $password) {
@@ -42,10 +65,13 @@ class login {
 		return false;
 	}		
 
+	/**
+	 * 
+	 */
 	function check($password) {
 		global $config;
 		if(md5($config['password'] . $this->salt) == $password) {
-			$this->user_id = session_id();
+			$this->uid = session_id();
 			$this->ok = true;
 			return true;
 		}
@@ -53,6 +79,9 @@ class login {
 		return false;
 	}
 	
+	/**
+	 * 
+	 */
 	function logout() {
 		$this->user_id = 0;
 		$this->ok = false;
