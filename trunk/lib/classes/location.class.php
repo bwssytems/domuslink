@@ -89,6 +89,7 @@ class location {
 	 * @param $config
 	 */
 	function buildModuleTable($alias, $modtypes, $config) {
+		global $lang;
 		list($label, $code, $type) = split(" ", $alias, 3);
 		$multi_alias = is_multi_alias($code); // check if A1,2 or just A1
 		
@@ -112,6 +113,7 @@ class location {
 		$mod->set('config', $config);
 		$mod->set('label', label_parse($label, false));
 		$mod->set('code', $code);
+		$mod->set('lang', $lang);
 		
 		if (!isset($_GET['page'])) {
 			$_GET['page']='home';
