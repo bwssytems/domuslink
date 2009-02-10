@@ -13,6 +13,7 @@
 
 require_once('..'.DIRECTORY_SEPARATOR.'include.php');
 require_once(CLASS_FILE_LOCATION.'heyuconf.class.php');
+require_once(CLASS_FILE_LOCATION.'heyusched.class.php');
 require_once(CLASS_FILE_LOCATION.'login.class.php');
 
 ## Instantiate HeyuConf class
@@ -20,8 +21,8 @@ $heyuconf = new heyuConf($config['heyuconf']);
 $schedfileloc = $config['heyu_base'].$heyuconf->getSchedFile();
 
 ## Instantiate HeyuSched class, get contents and parse timers
-$heyusched = new HeyuSched($schedfileloc);
-$triggers = $heyusched->getTriggers();
+$heyusched = new heyuSched($schedfileloc);
+//$triggers = $heyusched->getTriggers();
 
 ## Security validation's
 if ($config['seclevel'] != "0") {
