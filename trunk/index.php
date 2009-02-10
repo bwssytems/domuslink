@@ -27,9 +27,11 @@ $heyuconf = new HeyuConf($config['heyuconf']);
 require_once(CLASS_FILE_LOCATION.'location.class.php');
 $locations = new location($heyuconf);
 
-// Security validation's
-if ($config['seclevel'] == "2") {
-	if (!isset($_COOKIE["dluloged"]))
+## Security validation's
+if ($config['seclevel'] != "0") {
+	require_once(CLASS_FILE_LOCATION.'login.class.php');
+	$autentication = new login();
+	if (!$autentication->login())
 		header("Location: login.php?from=index");
 }
 
