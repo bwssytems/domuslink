@@ -1,7 +1,7 @@
 <?php
 /*
  * domus.Link :: Web-based frontend for Heyu
- * Copyright 2007, Istvan Hubay Cebrian
+ * Copyright 2007-09, Istvan Hubay Cebrian
  * All Rights Reserved
  * http://domus.link.co.pt
  *
@@ -11,6 +11,7 @@
  *
  */
 
+## Includes
 $dirname = dirname(__FILE__);
 require_once($dirname.DIRECTORY_SEPARATOR.'include.php');
 require_once(CLASS_FILE_LOCATION.'login.class.php');
@@ -22,15 +23,19 @@ $login = new login();
 $tpl->set('title', $lang['login']);
 $tpl->set('lang', $lang);
 
-if (isset($_GET["action"]))
-	if ($_GET["action"] == "logout") $login->logout();
+if (isset($_GET["action"])) {
+	if ($_GET["action"] == "logout") {
+		$login->logout();
+		header("Location: login.php?from=index");
+	}
+}
 
 if (isset($_POST['password'])) {
-	if ($login->checkLogin($_POST['password'])) {
+	if ($login->checkLogin($_POST['password'],$_POST['remember'])) {
 			header("Location: ".$config['url_path']."/".$_POST['from'].".php");
 	}
 	else {
-		header("Location: login.php?from=".$origin."&failed=true");
+		header("Location: login.php?from=".$_POST['from']."&failed=true");
 	}
 }
 

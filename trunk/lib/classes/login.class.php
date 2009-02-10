@@ -53,12 +53,12 @@ class login {
 	/**
 	 * 
 	 */
-	function checkLogin($password) {
+	function checkLogin($password,$remember) {
 		global $config;
 		if ($config['password'] == $password) {
 			$this->ok = true;
 			$_SESSION[$this->id] = md5($password . $this->salt);
-			setcookie($this->id, $_SESSION[$this->id], time()+60*60*24*30, "/");
+			if ($remember) setcookie($this->id, $_SESSION[$this->id], time()+60*60*24*30, "/");
 			return true;
 		}
 		

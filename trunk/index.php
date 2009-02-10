@@ -15,6 +15,10 @@
 $dirname = dirname(__FILE__);
 require_once($dirname.DIRECTORY_SEPARATOR.'include.php');
 
+## Security validation's
+if ($config['seclevel'] == "2" && !$authenticated) 
+	header("Location: login.php?from=index");
+
 ## Instantiate some vars:
 $html = '';
 $page = 'home';
@@ -26,14 +30,6 @@ $heyuconf = new HeyuConf($config['heyuconf']);
 ## Instantiate Location class
 require_once(CLASS_FILE_LOCATION.'location.class.php');
 $locations = new location($heyuconf);
-
-## Security validation's
-if ($config['seclevel'] == "2") {
-	require_once(CLASS_FILE_LOCATION.'login.class.php');
-	$autentication = new login();
-	if (!$autentication->login())
-		header("Location: login.php?from=index");
-}
 
 // start/stop controls for heyu
 if (isset($_GET["daemon"])) heyu_ctrl($_GET["daemon"]);

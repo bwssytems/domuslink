@@ -11,8 +11,13 @@
  *
  */
 
+## Includes
 require_once('..'.DIRECTORY_SEPARATOR.'include.php');
 require_once(CLASS_FILE_LOCATION.'heyuconf.class.php');
+
+## Security validation's
+if ($config['seclevel'] != "0" && !$authenticated) 
+	header("Location: ../login.php?from=admin/aliases");
 
 ## Instantiate HeyuConf class
 $heyuconf = new heyuConf($config['heyuconf']);
@@ -21,14 +26,6 @@ $settings = $heyuconf->get();
 $aliases = $heyuconf->getAliases(true);
 ## Disallowed characters for alias label (separator |)
 $chars = '/ã|é|à|ç|õ|ñ|è|ñ|ª|º|~|è|!|"|\#|\$|\^|%|\&|\?|\«|\»/';
-
-## Security validation's
-if ($config['seclevel'] != "0") {
-	require_once(CLASS_FILE_LOCATION.'login.class.php');
-	$autentication = new login();
-	if (!$autentication->login())
-		header("Location: ../login.php?from=admin/aliases");
-}
 
 ## Set template parameters
 $tpl->set('title', $lang['aliases']);

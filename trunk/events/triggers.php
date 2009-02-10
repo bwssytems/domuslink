@@ -11,9 +11,14 @@
  *
  */
 
+## Includes
 require_once('..'.DIRECTORY_SEPARATOR.'include.php');
 require_once(CLASS_FILE_LOCATION.'heyuconf.class.php');
 require_once(CLASS_FILE_LOCATION.'heyusched.class.php');
+
+## Security validation's
+if ($config['seclevel'] != "0" && !$authenticated) 
+	header("Location: ../login.php?from=events/triggers");
 
 ## Instantiate HeyuConf class
 $heyuconf = new heyuConf($config['heyuconf']);
@@ -22,14 +27,6 @@ $schedfileloc = $config['heyu_base'].$heyuconf->getSchedFile();
 ## Instantiate HeyuSched class, get contents and parse timers
 $heyusched = new heyuSched($schedfileloc);
 //$triggers = $heyusched->getTriggers();
-
-## Security validation's
-if ($config['seclevel'] != "0") {
-	require_once(CLASS_FILE_LOCATION.'login.class.php');
-	$autentication = new login();
-	if (!$autentication->login())
-		header("Location: ../login.php?from=events/timers");
-}
 
 ## Set template parameters
 $tpl->set('title', $lang['timers']);
