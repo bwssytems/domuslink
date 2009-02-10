@@ -11,8 +11,7 @@
 </tr>
 
 <?php
-foreach($locations as $line_num => $loc):
-  $locf = rtrim($locnf); ?>
+foreach($locations as $line_num => $loc): ?>
 <tr class="row">
   <td><?php echo $loc;?></td>
   <td align="center" width="20px"><a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=edit&line=<?php echo $line_num;?>"><?php echo ($lang['edit']);?></a></td>

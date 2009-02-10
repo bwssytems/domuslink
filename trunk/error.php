@@ -15,9 +15,9 @@
 $dirname = dirname(__FILE__);
 require_once($dirname.DIRECTORY_SEPARATOR.'include.php');
 require_once(CLASS_FILE_LOCATION.'error.class.php');
+
 if (!isset($_GET['msg']))
 	$error = new error($_SESSION['errors']);
-	//$error = new error(load_file("/tmp/dl_heyu.out"));
 else
 	$error = new error(array($_GET['msg']));
 	

@@ -13,6 +13,7 @@
 
 require_once('..'.DIRECTORY_SEPARATOR.'include.php');
 require_once(CLASS_FILE_LOCATION.'heyuconf.class.php');
+require_once(CLASS_FILE_LOCATION.'login.class.php');
 
 ## Instantiate HeyuConf class
 $heyuconf = new heyuConf($config['heyuconf']);
@@ -23,7 +24,8 @@ $locsize = count($locations);
 
 ## Security validation's
 if ($config['seclevel'] != "0") {
-	if (!isset($_COOKIE["dluloged"]))
+	$check = new login();
+	if (!$check->login())
 		header("Location: ../login.php?from=admin/floorplan");
 }
 

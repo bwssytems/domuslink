@@ -12,10 +12,12 @@
  */
 
 require_once('..'.DIRECTORY_SEPARATOR.'include.php');
+require_once(CLASS_FILE_LOCATION.'login.class.php');
 
 ## Security validation's
 if ($config['seclevel'] != "0") {
-	if (!isset($_COOKIE["dluloged"]))
+	$check = new login();
+	if (!$check->login())
 		header("Location: ../login.php?from=admin/frontend");
 }
 

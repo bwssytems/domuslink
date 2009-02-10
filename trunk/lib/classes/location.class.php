@@ -25,6 +25,7 @@ class location {
 	}
 
 	function buildLocations($type_filter,$modtypes,$config,$type='localized') {
+		$html = null;
 		// loop through each location in floorplan file
 		foreach (load_file(FPLAN_FILE_LOCATION) as $loc => $location) {
 			// get all aliases specific to location
