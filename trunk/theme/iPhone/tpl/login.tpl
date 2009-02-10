@@ -11,6 +11,14 @@
 				<input type="password" name="password" />
             </div>
 		</fieldset>
+         <div id="error" title="<?php echo ($lang['error']); ?>" class="white">
+            <br />
+            <label><?php echo($lang['keep_login']);?> </label>
+            &nbsp;&nbsp;&nbsp;<input type="checkbox" name="remember" value="true" width="5" style="width:5px" />             
+            <br />
+            <br />
+		</div>        
+        <br /><br />
 		<input type="submit" name="Submit" value="<?php echo($lang['login']);?>" />
         <br />
         <br />
