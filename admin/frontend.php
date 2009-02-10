@@ -11,15 +11,12 @@
  *
  */
 
+## Includes
 require_once('..'.DIRECTORY_SEPARATOR.'include.php');
 
 ## Security validation's
-if ($config['seclevel'] != "0") {
-	require_once(CLASS_FILE_LOCATION.'login.class.php');
-	$autentication = new login();
-	if (!$autentication->login())
-		header("Location: ../login.php?from=admin/frontend");
-}
+if ($config['seclevel'] != "0" && !$authenticated) 
+	header("Location: ../login.php?from=admin/frontend");
 
 ## Set template parameters
 $tpl->set('title', $lang['frontendadmin']);

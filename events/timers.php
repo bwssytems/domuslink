@@ -11,17 +11,14 @@
  *
  */
 
+## Includes
 require_once('..'.DIRECTORY_SEPARATOR.'include.php');
 require_once(CLASS_FILE_LOCATION.'heyuconf.class.php');
 require_once(CLASS_FILE_LOCATION.'heyusched.class.php');
 
 ## Security validation's
-if ($config['seclevel'] != "0") {
-	require_once(CLASS_FILE_LOCATION.'login.class.php');
-	$autentication = new login();
-	if (!$autentication->login())
+if ($config['seclevel'] != "2" && !$authenticated) 
 		header("Location: ../login.php?from=events/timers");
-}
 
 ## Instantiate HeyuConf class and get schedule file with absolute path
 $heyuconf = new heyuConf($config['heyuconf']);
@@ -32,8 +29,8 @@ $aliases = $heyuconf->getAliases(false);
 $codelabels = $heyuconf->getCodesAndLabels($aliases);
 
 ## Instantiate HeyuSched class, get contents and parse timers
-$heyusched = new HeyuSched($schedfileloc);
-//$schedfile = $heyusched->get();
+$heyusched = new heyuSched($schedfileloc);
+$schedfile = $heyusched->get();
 $timers = $heyusched->getTimers();
 $macros = $heyusched->getMacros();
 

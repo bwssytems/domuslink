@@ -42,4 +42,13 @@ $tpl->set('config', $config);
 $tpl->set('lang', $lang);
 $tpl->set('ver', $FRONTEND_VERSION);
 
+## Security validation's
+$authenticated = false;
+if ($config['seclevel'] != "0") {
+	require_once(CLASS_FILE_LOCATION.'login.class.php');
+	$authentication = new login();
+	if ($authentication->login()) $authenticated = true;
+}
+
+$tpl->set('authenticated', $authenticated);
 ?>

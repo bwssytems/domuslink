@@ -11,23 +11,19 @@
  *
  */
 
+## Includes
 require_once('..'.DIRECTORY_SEPARATOR.'include.php');
 require_once(CLASS_FILE_LOCATION.'heyuconf.class.php');
 
+## Security validation's
+if ($config['seclevel'] != "0" && !$authenticated) 
+	header("Location: ../login.php?from=admin/floorplan");
+
 ## Instantiate HeyuConf class
 $heyuconf = new heyuConf($config['heyuconf']);
-
 ## Get locations
 $locations = load_file(FPLAN_FILE_LOCATION);
 $locsize = count($locations);
-
-## Security validation's
-if ($config['seclevel'] != "0") {
-	require_once(CLASS_FILE_LOCATION.'login.class.php');
-	$autentication = new login();
-	if (!$autentication->login())
-		header("Location: ../login.php?from=admin/floorplan");
-}
 
 ## Set template parameters
 $tpl->set('title', $lang['floorplan']);
