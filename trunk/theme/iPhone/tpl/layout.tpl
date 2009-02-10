@@ -75,7 +75,7 @@ if ( ($page == "lights") || ($page == "all") )
             </div>
         </div>
         <br>
-         <?
+         <?php
         }
     ?>
     </div>
@@ -105,7 +105,7 @@ else
             </div>
             <br>
         </span>
-        <?
+        <?php
     }
 }
 ?>
