@@ -16,7 +16,7 @@
 	<h1 id="pageTitle"></h1>
 	<a id="backButton" class="button" href="/domus.Link/#"><?php echo ($lang['home']); ?></a>
 	<?php
-    	if ($back_button)
+    	if (isset($back_button))
         {
             ?>
             <a id='<?php echo ($back_button['name']); ?>_menu' class="button" href="<?php echo ($config['url_path']); ?><?php echo ($back_button['link']); ?>"><?php echo ($back_button['text']); ?></a>
