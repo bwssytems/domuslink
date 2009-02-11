@@ -4,7 +4,7 @@
 <tr><td>
 
 
-<table cellspacing="0" cellpadding="0" border="1" class="clear" align="middle">
+<table cellspacing="0" cellpadding="0" border="0" class="clear" align="middle">
 <tr>
   <td></td>
   <td></td>
@@ -13,6 +13,9 @@
   <td colspan="2" align="center" style="border-bottom: 1px dotted #e5e5e5;"><h6><?php echo ($lang['daterange']);?></h6> (mm/dd)</td>
   <td></td>
   <td colspan="2" align="center" style="border-bottom: 1px dotted #e5e5e5;"><h6><?php echo ($lang['time']);?></h6> (24hrs)</td>
+  <td></td>
+  <td></td>
+  <td></td>
   <td></td>
   <td></td>
 </tr>
@@ -43,10 +46,11 @@ foreach ($timers as $timerline):
  <tr <?php if (!$enabled) echo "style='color: #cccccc'"; ?> class="row">
   <td>
   <?php if ($enabled): ?>
-  	<a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=disable&line=<?php echo $line_num;?>&onm=<?php echo $onmacro;?>&ofm=<?php echo $offmacro;?>"><?php echo ($lang['disable']);?></a></td>
+  	<a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=disable&line=<?php echo $line_num;?>&onm=<?php echo $onmacro;?>&ofm=<?php echo $offmacro;?>"><?php echo ($lang['disable']);?></a>
   <?php else: ?>
-  	<a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=enable&line=<?php echo $line_num;?>&onm=<?php echo $onmacro;?>&ofm=<?php echo $offmacro;?>"><?php echo ($lang['enable']);?></a></td>
+  	<a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=enable&line=<?php echo $line_num;?>&onm=<?php echo $onmacro;?>&ofm=<?php echo $offmacro;?>"><?php echo ($lang['enable']);?></a>
   <?php endif; ?>
+  </td>
   <td><?php echo $code; ?></td>
   <td align="center">
   <?php echo weekdays($weekdays, $lang, true, $enabled); ?>

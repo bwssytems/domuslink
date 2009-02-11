@@ -26,12 +26,18 @@ $schedfileloc = $config['heyu_base'].$heyuconf->getSchedFile();
 
 ## Instantiate HeyuSched class, get contents and parse timers
 $heyusched = new heyuSched($schedfileloc);
-//$triggers = $heyusched->getTriggers();
+$triggers = $heyusched->getTriggers();
+$firstline = $heyusched->getTimerEndLine();
 
 ## Set template parameters
 $tpl->set('title', $lang['timers']);
 
-$tpl_body = "triggers go here";
+$tpl_body = & new Template(TPL_FILE_LOCATION.'trigger_view.tpl');
+$tpl_body->set('lang', $lang);
+$tpl_body->set('triggers', $triggers);
+$tpl_body->set('config', $config);
+$tpl_body->set('first_line', $firstline+1);
+$tpl_body->set('last_line', $firstline+count($triggers));
 
 ## Display the page
 $tpl->set('content', $tpl_body);

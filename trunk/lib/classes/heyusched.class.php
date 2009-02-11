@@ -101,6 +101,9 @@ class heyuSched {
 	 * finish and triggers start.
 	 */
 	function getTimerEndLine() {
+		if (!$this->timerend)
+			$this->getTimers();
+			
 		return $this->timerend;
 	}
 	
