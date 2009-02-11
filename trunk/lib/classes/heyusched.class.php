@@ -47,7 +47,8 @@ class heyuSched {
 	/**
 	 * Get Macros
 	 *
-	 * Description:
+	 * Description: Returns an array containing all the macros along
+	 * with their respective line numbers in the schedule file.
 	 */
 	function getMacros($i = 0) {
 		foreach ($this->heyusched as $num => $line) {
@@ -77,7 +78,8 @@ class heyuSched {
 	/**
 	 * Get Timers
 	 * 
-	 * Description:
+	 * Description: Returns an array containing all timers along
+	 * with their respective line numbers in the schedule file
 	 */
 	function getTimers($i = 0) {
 		foreach ($this->heyusched as $num => $line) {
@@ -97,7 +99,7 @@ class heyuSched {
 	/**
 	 * Get Timer End Line
 	 * 
-	 * Description: Returns the line number at which timer
+	 * Description: Returns the line number at which timers
 	 * finish and triggers start.
 	 */
 	function getTimerEndLine() {
@@ -109,17 +111,18 @@ class heyuSched {
 	
 	/** Get Triggers
 	 * 
-	 * Description:
+	 * Description: Returns an array containing all the triggers along
+	 * with their respective line numbers in the schedule file.
 	 */
 	function getTriggers($i = 0) {
 		foreach ($this->heyusched as $num => $line) {
 			if (substr($line, 0, 7) == "trigger" || substr($line, 0, 8) == "#trigger") {
-				$timers[$i] = $timers[$i] = $line."@".$num;
+				$triggers[$i] = $triggers[$i] = $line."@".$num;
 				$i++;
 			}
 		}
 		
-		return $timers;
+		return $triggers;
 	}
 }
 
