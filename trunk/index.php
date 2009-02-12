@@ -51,16 +51,16 @@ if (heyu_running()) {
 		case "home":
 			//if theme is iPhone, we want to show a menu instead of the location_tb
 			if ($config['theme'] == 'iPhone') $html = $tpl->fetch(TPL_FILE_LOCATION.'home.tpl');
-			else $html = $locations->buildLocations('',$modtypes,$config,'localized');
+			else $html = $locations->buildLocations('','localized');
 			break;
 		case "all":
 			//if theme is iPhone, we want to show a the location_tb
-			$html = $locations->buildLocations('',$modtypes,$config,'localized');
+			$html = $locations->buildLocations('','localized');
 			break;
 		case "lights":
 		case "appliances":
 		case "irrigation":
-			$html = $locations->buildLocations($modtypes[$page],$modtypes,$config,'typed');
+			$html = $locations->buildLocations($modtypes[$page],'typed');
 			break;
 			
 		case "about":				
