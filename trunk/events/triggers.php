@@ -48,7 +48,7 @@ if (!isset($_GET["action"])) {
 	$tpl_add = & new Template(TPL_FILE_LOCATION.'trigger_add.tpl');
 	$tpl_add->set('lang', $lang);
 	$tpl_add->set('codelabels', $codelabels);
-	//send macros preferably translated
+	$tpl_add->set('macros', clean_and_translate_macros($macros));
 	$tpl_body->set('form', $tpl_add);
 }
 else {
@@ -89,7 +89,7 @@ function clean_and_translate_macros($macros, $i = 0) {
 		if ($onp)
 			$mc[$i] = "$onp@$code@".$lang["on"];
 		else
-			$mc[$i] = "$onp@$code@".$lang["on"];
+			$mc[$i] = "$offp@$code@".$lang["off"];
 	}
 	
 	return $mc;
