@@ -20,15 +20,19 @@ require_once(CLASS_FILE_LOCATION.'heyusched.class.php');
 if ($config['seclevel'] != "0" && !$authenticated) 
 	header("Location: ../login.php?from=events/triggers");
 
-## Instantiate heyuConf class
+## Instantiate heyuConf class and get schedule file with absolute path
 $heyuconf = new heyuConf($config['heyuconf']);
-$codelabels = $heyuconf->getCodesAndLabels($aliases);
 $schedfileloc = $config['heyu_base'].$heyuconf->getSchedFile();
+
+## Load aliases and parse so that only code and labels remain
+$aliases = $heyuconf->getAliases();
+$codelabels = $heyuconf->getCodesAndLabels($aliases);
 
 ## Instantiate heyuSched class, get contents and parse timers
 $heyusched = new heyuSched($schedfileloc);
+$schedfile = $heyusched->get();
+$macros = $heyusched->getMacros();
 $triggers = $heyusched->getTriggers();
-//$firstline = $heyusched->getTimerEndLine();
 
 ## Set template parameters
 $tpl->set('title', $lang['timers']);
@@ -43,7 +47,8 @@ $tpl_body->set('last_line', $heyusched->getTimerEndLine()+count($triggers));
 if (!isset($_GET["action"])) {
 	$tpl_add = & new Template(TPL_FILE_LOCATION.'trigger_add.tpl');
 	$tpl_add->set('lang', $lang);
-	//$tpl_add->set('codelabels', $codelabels);
+	$tpl_add->set('codelabels', $codelabels);
+	//send macros preferably translated
 	$tpl_body->set('form', $tpl_add);
 }
 else {
@@ -69,5 +74,25 @@ else {
 $tpl->set('content', $tpl_body);
 
 echo $tpl->fetch(TPL_FILE_LOCATION.'layout.tpl');
+
+function clean_and_translate_macros($macros, $i = 0) {
+	global $lang;
+	foreach ($macros as $macro) {
+		//macro [label] [optional_delay] [command]+[code] 
+		//macro tv_set_on 0 on a1
+		list($tmp, $label, $delay, $command, $code) = split(" ", $macro, 5);
+		//array = [label]@[code]@[on/off translated]
+		
+		$onp = strpos(strtolower($macro), "_on");
+		$offp = strpos(strtolower($macro), "_off");
+		
+		if ($onp)
+			$mc[$i] = "$onp@$code@".$lang["on"];
+		else
+			$mc[$i] = "$onp@$code@".$lang["on"];
+	}
+	
+	return $mc;
+}
 
 ?>
