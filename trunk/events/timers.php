@@ -18,21 +18,21 @@ require_once(CLASS_FILE_LOCATION.'heyusched.class.php');
 
 ## Security validation's
 if ($config['seclevel'] != "0" && !$authenticated) 
-		header("Location: ../login.php?from=events/timers");
+	header("Location: ../login.php?from=events/timers");
 
-## Instantiate HeyuConf class and get schedule file with absolute path
+## Instantiate heyuConf class and get schedule file with absolute path
 $heyuconf = new heyuConf($config['heyuconf']);
 $schedfileloc = $config['heyu_base'].$heyuconf->getSchedFile();
 
 ## Load aliases and parse so that only code and labels remain
-$aliases = $heyuconf->getAliases(false);
+$aliases = $heyuconf->getAliases();
 $codelabels = $heyuconf->getCodesAndLabels($aliases);
 
-## Instantiate HeyuSched class, get contents and parse timers
+## Instantiate heyuSched class, get contents and parse timers
 $heyusched = new heyuSched($schedfileloc);
 $schedfile = $heyusched->get();
-$timers = $heyusched->getTimers();
 $macros = $heyusched->getMacros();
+$timers = $heyusched->getTimers();
 
 ## Set-up arrays
 $months = array (1 => $lang["jan"], $lang["feb"], $lang["mar"], $lang["apr"], $lang["may"], $lang["jun"], $lang["jul"], $lang["aug"], $lang["sep"], $lang["oct"], $lang["nov"], $lang["dec"]);
@@ -139,9 +139,8 @@ else {
 			else {
 				$onml = "macro $onmacro 0 on ".strtolower($_POST["module"])."\n";
 				$offml = "macro $offmacro 0 off ".strtolower($_POST["module"])."\n";
-				$mendli = $heyusched->getMacroEndLine();
-				array_splice($schedfile,$mendli,0,$onml);
-				array_splice($schedfile,$mendli,0,$offml);
+				array_splice($schedfile,$heyusched->getMacroEndLine(),0,$onml);
+				array_splice($schedfile,$heyusched->getMacroEndLine(),0,$offml);
 				array_splice($schedfile,$heyusched->getTimerEndLine()+2,0,$tline);
 			}
 			
@@ -256,11 +255,12 @@ function weekdays($string, $lang, $list, $enabled) {
 /**
  * Parse Macro
  * 
- * Description: Receives macro name such as 'a11on' extracts
- * house and unit code and finds description/label in aliases
+ * Description: Receives macro name such as 'tv_set_on' extracts
+ * label and finds description/label in aliases
  * 
  * @param $macro represents the macro name itself
  */
+ /*
 function parse_macro($macro) {
 	global $aliases;
 	
@@ -273,6 +273,7 @@ function parse_macro($macro) {
 	
 	return "N/A";
 }
+*/
 
 /**
  * Description: Receives array of all macros along with
