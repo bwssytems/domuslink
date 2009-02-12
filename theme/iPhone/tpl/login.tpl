@@ -1,7 +1,14 @@
 	<form name="form" method="post" class="panel" action="<?php echo($_SERVER['PHP_SELF']); ?>">
         <h2><?php echo ($lang['login']); ?></h2>
 		<p>
-		<?php if ($_GET['failed'] == "true"): ?><font color="#CB7B7A"><?php echo ($lang['error_wrong_pass']); ?></font><br><?php endif; ?>
+		<?php 
+        if ( (isset($_GET['failed']) && $_GET['failed'] == "true") )
+        {
+        	?>
+            <font color="#CB7B7A"><?php echo ($lang['error_wrong_pass']); ?></font><br>
+            <?php 
+        }
+        ?>
 		<?php if (!isset($_POST['password'])): ?><?php echo ($lang['enter_password']); ?><?php endif; ?>
 		</p>
         <fieldset>
