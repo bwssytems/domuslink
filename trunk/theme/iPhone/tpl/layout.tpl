@@ -1,6 +1,11 @@
 <html>
 <head>
-<title><?php echo $page;?>- Home</title>
+<title>
+<?php 
+if (isset($page)) {
+	echo $page . " - ";
+}
+?>Home</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="shortcut icon" href="<?php echo ($config['url_path']);?>/theme/iPhone/images/favicon.ico" type="image/x-icon" />
 <link rel="apple-touch-icon" href="<?php echo ($config['url_path']);?>/theme/iPhone/images/apple-touch-icon.png"/> 
@@ -54,6 +59,11 @@
 	?>            
 </div>
 <?php
+if (!isset($page)) 
+{
+	$page='home';
+}
+
 if ( ($page == "lights") || ($page == "all") )
 {
     ?>
