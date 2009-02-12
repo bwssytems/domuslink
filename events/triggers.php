@@ -20,14 +20,15 @@ require_once(CLASS_FILE_LOCATION.'heyusched.class.php');
 if ($config['seclevel'] != "0" && !$authenticated) 
 	header("Location: ../login.php?from=events/triggers");
 
-## Instantiate HeyuConf class
+## Instantiate heyuConf class
 $heyuconf = new heyuConf($config['heyuconf']);
+$codelabels = $heyuconf->getCodesAndLabels($aliases);
 $schedfileloc = $config['heyu_base'].$heyuconf->getSchedFile();
 
-## Instantiate HeyuSched class, get contents and parse timers
+## Instantiate heyuSched class, get contents and parse timers
 $heyusched = new heyuSched($schedfileloc);
 $triggers = $heyusched->getTriggers();
-$firstline = $heyusched->getTimerEndLine();
+//$firstline = $heyusched->getTimerEndLine();
 
 ## Set template parameters
 $tpl->set('title', $lang['timers']);
@@ -36,8 +37,33 @@ $tpl_body = & new Template(TPL_FILE_LOCATION.'trigger_view.tpl');
 $tpl_body->set('lang', $lang);
 $tpl_body->set('triggers', $triggers);
 $tpl_body->set('config', $config);
-$tpl_body->set('first_line', $firstline+1);
-$tpl_body->set('last_line', $firstline+count($triggers));
+$tpl_body->set('first_line', $heyusched->getTimerEndLine()+1);
+$tpl_body->set('last_line', $heyusched->getTimerEndLine()+count($triggers));
+
+if (!isset($_GET["action"])) {
+	$tpl_add = & new Template(TPL_FILE_LOCATION.'trigger_add.tpl');
+	$tpl_add->set('lang', $lang);
+	//$tpl_add->set('codelabels', $codelabels);
+	$tpl_body->set('form', $tpl_add);
+}
+else {
+	switch ($_GET["action"]) {
+		case "enable":
+			break;
+			
+		case "disable":
+			break;
+			
+		case "edit":
+			break;
+			
+		case "add":
+			break;
+			
+		case "save":
+			break;
+	}
+}
 
 ## Display the page
 $tpl->set('content', $tpl_body);
