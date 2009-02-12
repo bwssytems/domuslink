@@ -24,10 +24,12 @@ class location {
 		$this->heyuconf = $heyuconf;
 	}
 
-	function buildLocations($type_filter,$modtypes,$config,$type='localized') {
-		$html = null;
+	function buildLocations($type_filter, $type='localized', $html = null) {
+		global $config; 
+		global $modtypes;
+		
 		// loop through each location in floorplan file
-		foreach (load_file(FPLAN_FILE_LOCATION) as $loc => $location) {
+		foreach (load_file(FPLAN_FILE_LOCATION) as $location) {
 			// get all aliases specific to location
 			$localized_aliases = $this->heyuconf->getAliasesByLocation($location);
 			
@@ -36,11 +38,11 @@ class location {
 				if ($type=='typed') {
 					$typed_aliases = $this->heyuconf->getAliasesByType($localized_aliases, $type_filter);
 					if (count($typed_aliases) > 0) {
-						$html .= $this->buildLocationTable($location, $typed_aliases, $modtypes, $config);	
+						$html .= $this->buildLocationTable($location, $typed_aliases);	
 					}		
 				}
 				else {
-					$html .= $this->buildLocationTable($location, $localized_aliases, $modtypes, $config);
+					$html .= $this->buildLocationTable($location, $localized_aliases);
 				}
 			}
 		}
@@ -57,9 +59,10 @@ class location {
 	 * @param $modtypes
 	 * @param $config
 	 */
-	function buildLocationTable($loc, $aliases, $modtypes, $config) {
-		global $page;
-		$html = null;
+	function buildLocationTable($loc, $aliases, $html = null) {
+		global $config;
+		global $modtypes;
+		
 		$zone_tpl = & new Template(TPL_FILE_LOCATION.'floorplan_table.tpl');
 		$zone_tpl->set('header', $loc);
 		
@@ -71,7 +74,7 @@ class location {
 		
 		// iterate array specific to a house zone
 		foreach ($aliases as $alias) {
-			$html .= $this->buildModuleTable($alias, $modtypes, $config);
+			$html .= $this->buildModuleTable($alias);
 		}
 		
 		$zone_tpl->set('modules',$html);
@@ -85,11 +88,12 @@ class location {
 	 * Description:
 	 * 
 	 * @param $alias
-	 * @param $modtypes
-	 * @param $config
 	 */
-	function buildModuleTable($alias, $modtypes, $config) {
+	function buildModuleTable($alias) {
 		global $lang;
+		global $config;
+		global $modtypes;
+		
 		list($label, $code, $type) = split(" ", $alias, 3);
 		$multi_alias = is_multi_alias($code); // check if A1,2 or just A1
 		
