@@ -7,9 +7,9 @@
 <table cellspacing="0" cellpadding="0" border="1" class="clear" align="middle">
 <tr>
   <td></td>
-  <td colspan="2" align="center" style="border-bottom: 1px dotted #e5e5e5;"><h6>Trigger</h6></td>
+  <td colspan="2" align="center" style="border-bottom: 1px dotted #e5e5e5;"><h6><?php echo ($lang['trigger']); ?><</h6></td>
   <td></td>
-  <td colspan="2" align="center" style="border-bottom: 1px dotted #e5e5e5;"><h6>Execute</h6></td>
+  <td colspan="2" align="center" style="border-bottom: 1px dotted #e5e5e5;"><h6><?php echo ($lang['execute']); ?></h6></td>
   <td></td>
   <td></td>
   <td></td>
