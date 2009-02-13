@@ -53,7 +53,7 @@ class heyuSched {
 	function getMacros($i = 0) {
 		foreach ($this->heyusched as $num => $line) {
 			if (substr($line, 0, 5) == "macro" || substr($line, 0, 6) == "#macro") {
-				$macros[$i] = $macros[$i] = $line."@".$num;
+				$macros[$i] = $line."@".$num;
 				$i++;
 			}
 			elseif (trim($line) == "## TIMERS ##") {
@@ -62,7 +62,8 @@ class heyuSched {
 			}
 		}
 		
-		return $macros;
+		if (!empty($macros)) return $macros;
+		else return $macros = array();
 	}
 	
 	/**
@@ -84,7 +85,7 @@ class heyuSched {
 	function getTimers($i = 0) {
 		foreach ($this->heyusched as $num => $line) {
 			if (substr($line, 0, 5) == "timer" || substr($line, 0, 6) == "#timer") {
-				$timers[$i] = $timers[$i] = $line."@".$num;
+				$timers[$i] = $line."@".$num;
 				$i++;
 			}
 			elseif (trim($line) == "## TRIGGERS ##") {
@@ -93,7 +94,8 @@ class heyuSched {
 			}
 		}
 		
-		return $timers;
+		if (!empty($timers)) return $timers;
+		else return $timers = array();
 	}
 	
 	/**
@@ -117,7 +119,7 @@ class heyuSched {
 	function getTriggers($i = 0) {
 		foreach ($this->heyusched as $num => $line) {
 			if (substr($line, 0, 7) == "trigger" || substr($line, 0, 8) == "#trigger") {
-				$triggers[$i] = $triggers[$i] = $line."@".$num;
+				$triggers[$i] = $line."@".$num;
 				$i++;
 			}
 		}

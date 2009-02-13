@@ -5,7 +5,7 @@ session_start();
 # Load definitions
 $dirname = dirname(__FILE__);
 require_once($dirname.DIRECTORY_SEPARATOR.'fileloc.php');
-require_once($dirname.DIRECTORY_SEPARATOR.'constants.php');
+//require_once($dirname.DIRECTORY_SEPARATOR.'constants.php');
 
 # Make new frontend object
 require_once(CLASS_FILE_LOCATION.'global.class.php');
@@ -51,4 +51,10 @@ if ($config['seclevel'] != "0") {
 }
 
 $tpl->set('authenticated', $authenticated);
+
+# Constants
+$modtypes['lights'] = 'Light';
+$modtypes['appliances'] = 'Appliance';
+$modtypes['irrigation'] = 'Irrigation';
+
 ?>

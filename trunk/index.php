@@ -19,23 +19,17 @@ require_once($dirname.DIRECTORY_SEPARATOR.'include.php');
 if ($config['seclevel'] == "2" && !$authenticated) 
 	header("Location: login.php?from=index");
 
-## Instantiate some vars:
-$html = '';
-$page = 'home';
-
-## Instantiate HeyuConf class
+## Instantiate heyuConf & location class
 require_once(CLASS_FILE_LOCATION.'heyuconf.class.php');
-$heyuconf = new HeyuConf($config['heyuconf']);
-
-## Instantiate Location class
 require_once(CLASS_FILE_LOCATION.'location.class.php');
+$heyuconf = new heyuConf($config['heyuconf']);
 $locations = new location($heyuconf);
 
 // start/stop controls for heyu
 if (isset($_GET["daemon"])) heyu_ctrl($_GET["daemon"]);
 
 // get which page is open
-if (isset($_GET['page'])) $page = $_GET['page'];
+$page = (isset($_GET['page'])) ? $_GET['page'] : "home";
 
 // set page title
 $tpl->set('title', ucwords($page));

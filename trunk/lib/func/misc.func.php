@@ -84,8 +84,8 @@ function check_url() {
  * 
  */
 function is_multi_alias($alias) {
-	
-	return strpos($alias, ",");
+	if (strpos($alias, ",") || strpos($alias, "-"))
+		return true;
 }
 
 /**

@@ -48,7 +48,7 @@ if (!isset($_GET["action"])) {
 	$tpl_add = & new Template(TPL_FILE_LOCATION.'trigger_add.tpl');
 	$tpl_add->set('lang', $lang);
 	$tpl_add->set('codelabels', $codelabels);
-	$tpl_add->set('macros', clean_and_translate_macros($macros));
+	$tpl_add->set('cmacs', clean_and_translate_macros($macros));
 	$tpl_body->set('form', $tpl_add);
 }
 else {
@@ -77,22 +77,25 @@ echo $tpl->fetch(TPL_FILE_LOCATION.'layout.tpl');
 
 function clean_and_translate_macros($macros, $i = 0) {
 	global $lang;
-	foreach ($macros as $macro) {
+	foreach ($macros as $macro_line) {
 		//macro [label] [optional_delay] [command]+[code] 
-		//macro tv_set_on 0 on a1
-		list($tmp, $label, $delay, $command, $code) = split(" ", $macro, 5);
+		//macro tv_set_on 0 on tv_set
+		list($macro, $line) = split("@", $macro_line, 2);
+		list($tmp, $macron, $delay, $command, $alias) = split(" ", $macro, 5);
 		//array = [label]@[code]@[on/off translated]
 		
-		$onp = strpos(strtolower($macro), "_on");
-		$offp = strpos(strtolower($macro), "_off");
+		//$onp = strpos(strtolower($macron), "_on");
+		//$offp = strpos(strtolower($macron), "_off");
 		
-		if ($onp)
-			$mc[$i] = "$onp@$code@".$lang["on"];
+		if (strpos(strtolower($macron), "_on"))
+			$mc[$i] = trim($alias)."@".$command."@".$lang["on"];
 		else
-			$mc[$i] = "$offp@$code@".$lang["off"];
+			$mc[$i] = trim($alias)."@".$command."@".$lang["off"];
+			
+		$i++;
 	}
 	
-	return $mc;
+	if (!empty($mc)) return $mc;
 }
 
 ?>
