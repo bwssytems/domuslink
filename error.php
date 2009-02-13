@@ -25,6 +25,9 @@ else
 $tpl->set('title', $lang['error']);
 $tpl->set('content', $error->getPage());
 
+## Clean-up
+$_SESSION['errors'] = '';
+
 ## Display the page
 echo $tpl->fetch(TPL_FILE_LOCATION.'layout.tpl');
 
