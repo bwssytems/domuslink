@@ -89,14 +89,9 @@ $lang["upload"] = "Upload";
 $lang["erase"] = "Erase";
 $lang["uploadsuccess"] = "Upload Successful";
 $lang["uploadsuccess_txt"] = "Upload complete! Click <a href='#' onclick='divShowHide(uplog);'>here</a> to view output.";
-
-$lang["upload_txt"] = "To upload the schedule file defined in the <a href=/admin/heyuconf.php>heyu configuration</a> file
-and configured in the timer administration section, click the button bellow. Please note that uploading
-takes aproximately 7 seconds. Do not navigate away from this page until process has completed.";
-
-$lang["erase_txt"] = "If on the other hand you would like to erase the entire contents of your computer interface, 
-click the button bellow. Complete erasure takes aproximately 7 seconds. Do not navigate away from this
-page until process has completed.";
+$lang["upload_txt"] = "To upload the schedule file defined in the <a href=../admin/heyu.php>heyu configuration</a> file and configured in the <a href=../events/timers.php>timer administration</a> section, click the button bellow.";
+$lang["erase_txt"] = "If you would like to erase the entire contents of your computer interface, click the button bellow.";
+$lang["upload_erase_txt"] = "Please note that uploading/erasing takes aproximately 8 seconds. <br />Do not navigate away from this page until process has completed.";
 
 $lang["error_no_modules"] = "<h1>No modules available!</h1><br />I don't have any modules to show.";
 $lang["error_filerw"] = "not found or not writable!";
