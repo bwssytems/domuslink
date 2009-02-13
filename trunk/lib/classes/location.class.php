@@ -92,22 +92,9 @@ class location {
 		global $modtypes;
 		
 		list($label, $code, $type) = split(" ", $alias, 3);
-		$multi_alias = "";
 		$multi_alias = is_multi_alias($code); // check if A1,2 or just A1
 		
-		// if alias is a multi alias, module state is not checked
-		if (!$multi_alias) {
-			if (on_state($code, $config['heyuexec'])) {
-				$state = 'on';
-				$action = $config['cmd_off']; 
-			}
-			else { 
-				$state = 'off';
-				$action = $config['cmd_on']; 
-			}	
-		}
-		
-		// check if is a multi alias, if true, use modules.tpl, if not use template acording to type
+		// check if is a multi alias, if true, use modules.tpl, if not use template acording to $type
 		$tpl = ($multi_alias) ? "modules.tpl" : strtolower($type).".tpl";
 		
 		// create new template
@@ -124,7 +111,17 @@ class location {
 			$mod->set('page', $_GET['page']);
 		}
 		
+		// if alias is a multi alias, module state & dimlevel are not checked
 		if (!$multi_alias) {
+			if (on_state($code, $config['heyuexec'])) {
+				$state = 'on';
+				$action = $config['cmd_off']; 
+			}
+			else { 
+				$state = 'off';
+				$action = $config['cmd_on']; 
+			}
+			
 			$mod->set('action', $action);
 			$mod->set('state', $state);
 				
