@@ -11,15 +11,13 @@
  *
  */
 
-#Instantiate classes
+## Includes
 $dirname = dirname(__FILE__);
 require_once($dirname.DIRECTORY_SEPARATOR.'include.php');
 require_once(CLASS_FILE_LOCATION.'error.class.php');
 
-if (!isset($_GET['msg']))
-	$error = new error($_SESSION['errors']);
-else
-	$error = new error(array($_GET['msg']));
+## Instantiate class
+$error = new error($_SESSION['errors']);
 	
 ## Set template parameters
 $tpl->set('title', $lang['error']);

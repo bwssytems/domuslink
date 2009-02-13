@@ -45,7 +45,7 @@ elseif ($_GET["action"] == "save") {
 		header("Location: ".$_SERVER['PHP_SELF']);
 	}
 	else {
-		header("Location: ".check_url()."/error.php?msg=".CONFIG_FILE_LOCATION." not writable!");
+		gen_error(null, CONFIG_FILE_LOCATION.$lang['error_filerw']);
     }
 }
 

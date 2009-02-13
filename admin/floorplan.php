@@ -103,7 +103,7 @@ else {
 		
 			// if location was found do not allow removal
 			if (!$found) delete_line($locations, FPLAN_FILE_LOCATION, $_GET["line"]);
-			else header("Location: ".check_url()."/error.php?msg=".$lang['error_loc_in_use']);
+			else gen_error(null, $lang['error_loc_in_use']);
 			break;
 		
 		// move up/down location

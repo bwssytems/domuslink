@@ -64,14 +64,14 @@ else {
 		
 		case "add":
 			if (preg_match($chars, $_POST["label"]))
-				header("Location: ".check_url()."/error.php?msg=".$lang['error_special_chars']);
+				gen_error(null, $lang['error_special_chars']);
 			else
 				add_line($settings, $config['heyuconf'], 'alias');
 			break;
 		
 		case "save":
 			if (preg_match($chars, $_POST["label"]))
-				header("Location: ".check_url()."/error.php?msg=".$lang['error_special_chars']);
+				gen_error(null, $lang['error_special_chars']);
 			else
 				edit_line($settings, $config['heyuconf'], 'alias');
 			break;

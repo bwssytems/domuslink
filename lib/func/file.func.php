@@ -25,8 +25,7 @@ function load_file($file) {
 		$content = file($file);
 	}
 	else {
-		header("Location: ".check_url()."/error.php?msg=".$file." ".$lang['error_filer']);
-		die();
+		gen_error(null, $file." ".$lang['error_filer']);
 	}
 	
 	return $content;
@@ -94,7 +93,7 @@ function build_new_line($type) {
 			return $_POST["type"]."\n";
 			break;
 		case "timer":
-			//build weekday string
+			//build weekday string (ie: s.tw...)
 			foreach ($wdayo as $num => $day) {
 				if (isset($_POST[$num.$day])) 
 					$wdaystr .= $_POST[$num.$day]; 
@@ -189,8 +188,7 @@ function save_file($content, $file, $isheyuconf) {
 	}
 	else
 	{
-		header("Location: ".check_url()."/error.php?msg=".$file." ".$lang['error_filerw']);
-		die();
+		gen_error(null, $file." ".$lang['error_filerw']);
 	}
 	fclose($fp);
 }
