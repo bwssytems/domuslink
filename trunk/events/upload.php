@@ -33,12 +33,26 @@ if (!isset($_GET["action"])) {
 	$tpl_body->set('schedfile', $schedfileloc);
 }
 else {
-	$rs = heyu_upload();
-	$tpl_body = & new Template(TPL_FILE_LOCATION.'upload_res.tpl');
-	$tpl_body->set('uptitle', $lang["uploadsuccess"]);
-	$tpl_body->set('msg', $lang["uploadsuccess_txt"]);
-	$tpl_body->set('divstate', "display:none");
-	$tpl_body->set('out', $rs);
+	switch ($_GET["action"]) {
+		case "upload":
+			$rs = heyu_upload();
+			$tpl_body = & new Template(TPL_FILE_LOCATION.'upload_res.tpl');
+			$tpl_body->set('uptitle', $lang["uploadsuccess"]);
+			$tpl_body->set('msg', $lang["uploadsuccess_txt"]);
+			$tpl_body->set('divstate', "display:none");
+			$tpl_body->set('out', $rs);
+			break;
+		case "erase":
+			/*
+			$rs = heyu_erase();
+			$tpl_body = & new Template(TPL_FILE_LOCATION.'upload_res.tpl');
+			$tpl_body->set('uptitle', $lang["uploadsuccess"]);
+			$tpl_body->set('msg', $lang["uploadsuccess_txt"]);
+			$tpl_body->set('divstate', "display:none");
+			$tpl_body->set('out', $rs);
+			*/
+			break;
+	}
 }
 
 ## Display the page

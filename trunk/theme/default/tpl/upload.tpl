@@ -125,6 +125,29 @@ ProgressDestroy();	// Hides
 
 <tr><td>
 
+
+<!-- center table -->
+<table cellspacing="0" cellpadding="0" border="0">
+<tr>
+<td><?php echo($lang['upload_txt']); ?></td>
+<td><?php echo($lang['erase_txt']); ?></td>
+</tr>
+<tr>
+<td align="center">
+<form name="upload" method="post" action="<?php echo($_SERVER['PHP_SELF']); ?>?action=upload">
+<input type="submit" value="<?php echo($lang['upload']); ?>" onclick="CallJS('Demo()')" />
+</form>
+</td>
+<td>
+<form name="erase" method="post" action="<?php echo($_SERVER['PHP_SELF']); ?>?action=erase">
+<input type="submit" value="<?php echo($lang['erase']); ?>" onclick="CallJS('Demo()')" />
+</form>
+</td>
+</tr>
+</table>
+<!-- center table end -->
+
+<!--
 From this page you will be able to upload your schedule file to your CM interface.<br />
 Your schedule file is defined in x10.conf as <?php echo $schedfile; ?>.<br />
 Please note that upload takes aproximately 7 seconds. Do not navigate away from this page<br />
@@ -135,6 +158,7 @@ until process has completed.<br />
 <input type="submit" value="<?php echo($lang['upload']); ?>" onclick="CallJS('Demo()')" />
 </center>
 </form>
+-->
 
 </td></tr>
 </table>

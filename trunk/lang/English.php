@@ -82,14 +82,23 @@ $lang["deleteconfirm"] = "Are you sure you want to delete this entry?";
 $lang["error_not_running"] = "<h1>Heyu is not running!</h1><br />Please start heyu by clicking on the start link.<br />You may however, need to change permissions to your tty/serial port. <br />Also make sure heyu is not already running. To do so run 'heyu stop' as root.";
 
 /* new */
+$lang["error"] = "Error";
 $lang["logout"] = "Logout";
 $lang["keep_login"] = "Keep me logged in";
-$lang["error"] = "Error";
 $lang["upload"] = "Upload";
+$lang["erase"] = "Erase";
 $lang["uploadsuccess"] = "Upload Successful";
 $lang["uploadsuccess_txt"] = "Upload complete! Click <a href='#' onclick='divShowHide(uplog);'>here</a> to view output.";
-$lang["error_no_modules"] = "<h1>No modules available!</h1><br />I don't have any modules to show.";
 
+$lang["upload_txt"] = "To upload the schedule file defined in the <a href=/admin/heyuconf.php>heyu configuration</a> file
+and configured in the timer administration section, click the button bellow. Please note that uploading
+takes aproximately 7 seconds. Do not navigate away from this page until process has completed.";
+
+$lang["erase_txt"] = "If on the other hand you would like to erase the entire contents of your computer interface, 
+click the button bellow. Complete erasure takes aproximately 7 seconds. Do not navigate away from this
+page until process has completed.";
+
+$lang["error_no_modules"] = "<h1>No modules available!</h1><br />I don't have any modules to show.";
 $lang["error_filerw"] = "not found or not writable!";
 $lang["error_filer"] = "not found or not readable!";
 
@@ -99,6 +108,7 @@ $lang["events"] = "Events";
 $lang["timers"] = "Timers";
 $lang["timer"] = "Timer";
 $lang["triggers"] = "Triggers";
+$lang["trigger"] = "Trigger";
 $lang["addtimer"] = "Add Timer";
 $lang["edittimer"] = "Edit Timer";
 $lang["startdate"] = "Start Date";
@@ -116,6 +126,7 @@ $lang["enable"] = "Enable";
 $lang["disable"] = "Disable";
 $lang["enabled"] = "Enabled";
 $lang["disabled"] = "Disabled";
+$lang["execute"] = "Execute";
 
 $lang["jan"] = "January";
 $lang["feb"] = "February";
