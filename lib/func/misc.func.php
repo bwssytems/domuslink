@@ -100,4 +100,16 @@ function uptime() {
 	return $rs[0];
 }
 
+/**
+ * Description: Generate error page.
+ * 
+ * @param $cmd represent command being executed (if any)
+ * @param $rs represents an array with error messages
+ */
+function gen_error($cmd, $rs) {
+	if ($cmd) array_push($rs, "Exec: ".$cmd);
+	$_SESSION['errors'] = array_reverse($rs);
+	header("Location: ".check_url()."/error.php");
+}
+
 ?>
