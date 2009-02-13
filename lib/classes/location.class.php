@@ -24,10 +24,7 @@ class location {
 		$this->heyuconf = $heyuconf;
 	}
 
-	function buildLocations($type_filter, $type='localized', $html = null) {
-		global $config; 
-		global $modtypes;
-		
+	function buildLocations($type_filter, $type = 'localized', $html = null) {
 		// loop through each location in floorplan file
 		foreach (load_file(FPLAN_FILE_LOCATION) as $location) {
 			// get all aliases specific to location
@@ -35,10 +32,10 @@ class location {
 			
 			// if location contains aliases/modules then display them
 			if (count($localized_aliases) > 0) {
-				if ($type=='typed') {
+				if ($type == 'typed') {
 					$typed_aliases = $this->heyuconf->getAliasesByType($localized_aliases, $type_filter);
 					if (count($typed_aliases) > 0) {
-						$html .= $this->buildLocationTable($location, $typed_aliases);	
+						$html .= $this->buildLocationTable($location, $typed_aliases);
 					}		
 				}
 				else {
@@ -59,12 +56,12 @@ class location {
 	 * @param $modtypes
 	 * @param $config
 	 */
-	function buildLocationTable($loc, $aliases, $html = null) {
-		global $config;
-		global $modtypes;
+	function buildLocationTable($location, $aliases, $html = null) {
+		//global $config;
+		//global $modtypes;
 		
 		$zone_tpl = & new Template(TPL_FILE_LOCATION.'floorplan_table.tpl');
-		$zone_tpl->set('header', $loc);
+		$zone_tpl->set('header', $location);
 		
 		if (empty($_GET['page'])) {
 			$_GET['page']='home';
@@ -95,6 +92,7 @@ class location {
 		global $modtypes;
 		
 		list($label, $code, $type) = split(" ", $alias, 3);
+		$multi_alias = "";
 		$multi_alias = is_multi_alias($code); // check if A1,2 or just A1
 		
 		// if alias is a multi alias, module state is not checked
@@ -128,11 +126,11 @@ class location {
 		
 		if (!$multi_alias) {
 			$mod->set('action', $action);
-			$mod->set('state', $state);	
-		}
-		
-		if ($type == $modtypes['lights']) {
-			$mod->set('level', $this->level_calc(get_dim_level($code)));
+			$mod->set('state', $state);
+				
+			if ($type == $modtypes['lights']) {
+				$mod->set('level', $this->level_calc(get_dim_level($code)));
+			}
 		}
 		
 		// return as html

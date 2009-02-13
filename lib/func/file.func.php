@@ -82,7 +82,7 @@ function build_new_line($type) {
 	switch ($type)
 	{
 		case "alias":
-			return "ALIAS ".label_parse($_POST["label"], true)." ".$_POST["code"]." ".$_POST["module"]." # ".$_POST["type"].",".$_POST["loc"]."\n";
+			return "ALIAS ".label_parse($_POST["label"], true)." ".strtoupper($_POST["code"])." ".$_POST["module"]." # ".$_POST["type"].",".$_POST["loc"]."\n";
 			break;
 		case "floorplan":
 			return $_POST["location"]."\n";

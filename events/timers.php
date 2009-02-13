@@ -34,6 +34,8 @@ $schedfile = $heyusched->get();
 $macros = $heyusched->getMacros();
 $timers = $heyusched->getTimers();
 
+//if (empty($timers)) $timers = array();
+
 ## Set-up arrays
 $months = array (1 => $lang["jan"], $lang["feb"], $lang["mar"], $lang["apr"], $lang["may"], $lang["jun"], $lang["jul"], $lang["aug"], $lang["sep"], $lang["oct"], $lang["nov"], $lang["dec"]);
 $wdayo = array("s","m","t","w","t","f","s");
