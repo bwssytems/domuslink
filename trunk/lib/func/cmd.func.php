@@ -23,9 +23,7 @@ function execute_cmd($cmd, $noerror = false) {
 	exec ($cmd, $rs, $retval);
 	
 	if ($retval != 0 && !$noerror) {
-		array_push($rs, "Exec: ".$cmd);
-		$_SESSION['errors'] = array_reverse($rs);
-		header("Location: ".check_url()."/error.php");
+		gen_error($cmd,$rs);
 	}
 	else
 		return $rs;
@@ -167,12 +165,12 @@ function on_state($code) {
 		else return false;
 	}
 	else {
+		$cmd = $config['heyuexec']." fetchstate 2>&1";
 		if ($rs[0] = 'Unable to read state file.') { 
-			execute_cmd($config['heyuexec']." fetchstate 2>&1");
+			execute_cmd($cmd);
 		}
 		else {
-			$_SESSION['errors'] = array_reverse($rs);
-			header("Location: ".check_url()."/error.php");
+			gen_error($cmd, $rs);
 		}
 	}
 }
