@@ -18,13 +18,20 @@ class location {
 	/**
 	 * Constructor
 	 *
-	 * @param $heyuconf represents name and location
+	 * @param $heyuconf represents heyuconf object
 	 */
 	function location($heyuconf) {
 		$this->heyuconf = $heyuconf;
 	}
 
-	function buildLocations($type_filter, $type = 'localized', $html = null) {
+	/**
+	 * Description:
+	 * 
+	 * @param $type_filter
+	 * @param $type
+	 */
+	function buildLocations($type_filter, $type = 'localized') {
+		$html = null;
 		// loop through each location in floorplan file
 		foreach (load_file(FPLAN_FILE_LOCATION) as $location) {
 			// get all aliases specific to location
@@ -51,10 +58,9 @@ class location {
 	 * 
 	 * Description:
 	 * 
-	 * @param $loc
+	 * @param $location
 	 * @param $aliases
 	 * @param $modtypes
-	 * @param $config
 	 */
 	function buildLocationTable($location, $aliases, $html = null) {
 		//global $config;

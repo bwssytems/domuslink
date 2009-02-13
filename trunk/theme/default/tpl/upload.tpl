@@ -120,45 +120,29 @@ ProgressDestroy();	// Hides
 
 </script>
 
-<table cellspacing="0" cellpadding="0" border="0" align="middle" class="content">
-<tr><th><?php echo ($lang['upload']); ?></th></tr>
-
-<tr><td>
-
-
-<!-- center table -->
-<table cellspacing="0" cellpadding="0" border="0">
+<table cellspacing="0" cellpadding="0" border="0" align="middle" class="content" width="550px">
 <tr>
-<td><?php echo($lang['upload_txt']); ?></td>
-<td><?php echo($lang['erase_txt']); ?></td>
+<th width="275px"><?php echo ($lang['upload']); ?></th>
+<th width="275px"><?php echo ($lang['erase']); ?></th>
 </tr>
+
 <tr>
-<td align="center">
+<td valign="top" style="padding: 4px;"><?php echo($lang['upload_txt']); ?><br /><br /></td>
+<td style="border-left:none; padding: 4px;" valign="top"><?php echo($lang['erase_txt']); ?><br /><br /></td>
+</tr>
+
+<tr>
+<td align="center" style="padding: 4px;">
 <form name="upload" method="post" action="<?php echo($_SERVER['PHP_SELF']); ?>?action=upload">
 <input type="submit" value="<?php echo($lang['upload']); ?>" onclick="CallJS('Demo()')" />
 </form>
 </td>
-<td>
+<td align="center" style="border-left:none; padding: 4px;">
 <form name="erase" method="post" action="<?php echo($_SERVER['PHP_SELF']); ?>?action=erase">
 <input type="submit" value="<?php echo($lang['erase']); ?>" onclick="CallJS('Demo()')" />
 </form>
 </td>
 </tr>
-</table>
-<!-- center table end -->
 
-<!--
-From this page you will be able to upload your schedule file to your CM interface.<br />
-Your schedule file is defined in x10.conf as <?php echo $schedfile; ?>.<br />
-Please note that upload takes aproximately 7 seconds. Do not navigate away from this page<br />
-until process has completed.<br />
-<br />
-<form name="upload" method="post" action="<?php echo($_SERVER['PHP_SELF']); ?>?action=upload">
-<center>
-<input type="submit" value="<?php echo($lang['upload']); ?>" onclick="CallJS('Demo()')" />
-</center>
-</form>
--->
-
-</td></tr>
+<tr><td align="center" colspan="2" style="font-size: 9px; font-style: italic;"><?php echo($lang['upload_erase_txt']); ?></td></tr>
 </table>
