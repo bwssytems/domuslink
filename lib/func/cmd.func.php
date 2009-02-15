@@ -20,7 +20,7 @@
  * @param $noerror represents a boolean if true errors are ignored 
  */
 function execute_cmd($cmd, $noerror = false) {
-	exec ($cmd, $rs, $retval);
+	exec ($cmd." 2>&1", $rs, $retval);
 	
 	if ($retval != 0 && !$noerror) {
 		gen_error($cmd,$rs);
@@ -34,7 +34,7 @@ function execute_cmd($cmd, $noerror = false) {
  *
  */
 function heyu_running() {
-	$rs = execute_cmd("ps ax 2>&1");
+	$rs = execute_cmd("ps ax");
 	if (count(preg_grep('/[h]eyu/', $rs)) >= 2) 
 		return true;
 }
@@ -45,7 +45,7 @@ function heyu_running() {
  */
 function heyu_info() {
 	global $config;
-	$rs = execute_cmd($config['heyuexec']." info 2>&1");
+	$rs = execute_cmd($config['heyuexec']." info");
 	return $rs;
 }
 
@@ -69,7 +69,7 @@ function heyu_ctrl($action) {
 			break;
 	}
 
-	execute_cmd($cmd." 2>&1");
+	execute_cmd($cmd);
 }
 
 /**
@@ -90,7 +90,7 @@ function heyu_action() {
 			break;
 	}
 	
-	execute_cmd($cmd." 2>&1");
+	execute_cmd($cmd);
 
 	if (isset($_GET['page']))
 		header("Location: ".$_SERVER['PHP_SELF']."?page=". $_GET['page']);
@@ -147,7 +147,7 @@ function dim_bright($state, $currlevel, $reqlevel, $code) {
 			break;
 	}
 	
-	return $config['heyuexec']." ".$cmd." 2>&1";
+	return $config['heyuexec']." ".$cmd;
 }
 
 /**
@@ -158,14 +158,14 @@ function dim_bright($state, $currlevel, $reqlevel, $code) {
 
 function on_state($code) {
 	global $config;
-	$rs = execute_cmd($config['heyuexec']." onstate ".$code." 2>&1", true);
+	$rs = execute_cmd($config['heyuexec']." onstate ".$code, true);
 
 	if ($rs[0] == "1" || $rs[0] == "0") {
 		if ($rs[0] == "1") return true;
 		else return false;
 	}
 	else {
-		$cmd = $config['heyuexec']." fetchstate 2>&1";
+		$cmd = $config['heyuexec']." fetchstate";
 		if ($rs[0] = 'Unable to read state file.') { 
 			execute_cmd($cmd);
 		}
@@ -180,9 +180,9 @@ function on_state($code) {
  *
  * @param $unit code of module to check
  */
-function get_dim_level($unit) {
+function dim_level($unit) {
 	global $config;
-	$rs = execute_cmd($config['heyuexec']." dimlevel ".$unit." 2>&1");
+	$rs = execute_cmd($config['heyuexec']." dimlevel ".$unit);
 	return $rs[0];
 }
 
@@ -192,7 +192,15 @@ function get_dim_level($unit) {
  */
 function heyu_upload() {	
 	global $config;
-	return (execute_cmd($config['heyuexec']." upload 2>&1"));
+	return (execute_cmd($config['heyuexec']." upload"));
+}
+
+/**
+ * Description: Erase computer interface
+ */
+function heyu_erase() {	
+	global $config;
+	return (execute_cmd($config['heyuexec']." erase"));
 }
 
 ?>

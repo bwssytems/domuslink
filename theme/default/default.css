@@ -141,7 +141,6 @@ div#content {
 	padding-left: 15px;
 	padding-right: 15px;
 	padding-bottom: 15px;
-	
 	/*
 	width: auto;
 	height: auto;
@@ -175,7 +174,7 @@ table.content th {
 	color: #000;
 	font-size: 14px;
 	font-weight: bold;
-	border-bottom: 2px solid #c5d0d3;
+	border-bottom: 3px solid #c5d0d3;
 	padding-top: 20px;
 	padding-bottom: 5px;
 }
