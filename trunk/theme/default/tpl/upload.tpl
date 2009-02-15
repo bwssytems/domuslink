@@ -37,8 +37,8 @@ function ProgressCreate(end) {
 		document.progress.top = pageYOffset+(window.innerHeight/2) - 40+"px";
 	} else if (document.getElementById) {	// Netscape 6+
 		document.getElementById("progress").className = 'show';
-		document.getElementById("progress").style.left = (window.innerWidth/2)- 100+"px";
-		document.getElementById("progress").style.top = pageYOffset+(window.innerHeight/2) - 40+"px";
+		document.getElementById("progress").style.left = (window.innerWidth/2)- 90+"px";
+		document.getElementById("progress").style.top = 200+"px";
 	}
 
 	ProgressUpdate();	// Initialize bar

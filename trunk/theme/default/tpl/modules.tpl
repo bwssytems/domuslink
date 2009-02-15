@@ -18,7 +18,7 @@
 </tr>
 
 <tr>
-<?php if ($config['codes'] == "ON"): ?><td colspan="2" align="left"><strong><?php echo $code; ?></strong></td>
+<?php if ($config['codes'] == "ON"): ?><td colspan="2" align="left"><span class="code"><?php echo $code; ?></span></td>
 <?php else: ?>
 <td align="left"></td>
 <td></td>
