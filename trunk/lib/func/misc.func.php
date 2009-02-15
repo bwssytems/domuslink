@@ -107,6 +107,7 @@ function uptime() {
  * @param $rs represents an array with error messages
  */
 function gen_error($cmd, $rs) {
+	if (!is_array($rs)) $rs = array($rs);
 	if ($cmd) array_push($rs, "Exec: ".$cmd);
 	$_SESSION['errors'] = array_reverse($rs);
 	header("Location: ".check_url()."/error.php");
