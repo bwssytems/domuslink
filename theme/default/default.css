@@ -209,6 +209,11 @@ div#module {
 	margin: 8px;
 }
 
+.code {
+	font-weight: bold;
+	color: #a4a4a4;
+}
+
 table.module td {
 	border: 0;
 	padding: 0;
@@ -223,6 +228,26 @@ input.module {
 	width: 110px;
 	text-align: center;
 	color: #666;
+	font-weight: bold;
+}
+
+input.module_on {
+	border: 0;
+	padding: 0;
+	font-size: 11px;
+	width: 110px;
+	text-align: center;
+	color: #666;
+	font-weight: bold;
+}
+
+input.module_off {
+	border: 0;
+	padding: 0;
+	font-size: 11px;
+	width: 110px;
+	text-align: center;
+	color: #a4a4a4;
 	font-weight: bold;
 }
 

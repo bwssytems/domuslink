@@ -13,7 +13,6 @@
  
 class login {
 	
-	//var $uid;
 	var $ok;
 	var $salt = "kjsdr23a21dcf";
 	var $id = 'domuslogin';
@@ -22,7 +21,6 @@ class login {
 	 * 
 	 */
 	function login() {
-		//$this->uid = 0;
 		$this->ok = false;
 		
 		if(!$this->checkSession()) $this->checkCookie();
@@ -71,7 +69,6 @@ class login {
 	function check($password) {
 		global $config;
 		if(md5($config['password'] . $this->salt) == $password) {
-			//$this->uid = session_id();
 			$this->ok = true;
 			return true;
 		}
@@ -83,7 +80,6 @@ class login {
 	 * 
 	 */
 	function logout() {
-		//$this->uid = 0;
 		$this->ok = false;
 		
 		$_SESSION[$this->id] = "";
