@@ -83,6 +83,7 @@ $lang["error_not_running"] = "<h1>Heyu is not running!</h1><br />Please start he
 
 /* new */
 $lang["log"] = "Log";
+$lang["progress"] = "Progress";
 $lang["error"] = "Error";
 $lang["logout"] = "Logout";
 $lang["keep_login"] = "Keep me logged in";
