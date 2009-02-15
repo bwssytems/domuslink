@@ -96,7 +96,7 @@ function is_multi_alias($alias) {
  */
 function uptime() {
 	
-	$rs = execute_cmd("uptime 2>&1");
+	$rs = execute_cmd("uptime");
 	return $rs[0];
 }
 

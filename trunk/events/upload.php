@@ -26,14 +26,11 @@ $schedfileloc = $config['heyu_base'].$heyuconf->getSchedFile();
 ## Set template parameters
 $tpl->set('title', $lang['timers']);
 
-if (!isset($_GET["action"])) {
-	$tpl_body = & new Template(TPL_FILE_LOCATION.'upload.tpl');
-	$tpl_body->set('lang', $lang);
-	$tpl_body->set('config', $config);
-	$tpl_body->set('schedfile', $schedfileloc);
-}
-else {
-	$tpl_body = & new Template(TPL_FILE_LOCATION.'upload_res.tpl');
+$tpl_body = & new Template(TPL_FILE_LOCATION.'upload.tpl');
+$tpl_body->set('lang', $lang);
+$tpl_body->set('config', $config);
+
+if (isset($_GET["action"])) {
 	switch ($_GET["action"]) {
 		case "upload":
 			$rs = heyu_upload();
@@ -45,6 +42,9 @@ else {
 			break;
 	}
 	$tpl_body->set('out', $rs);
+}
+else {
+	$tpl_body->set('type', 'none');
 }
 
 ## Display the page

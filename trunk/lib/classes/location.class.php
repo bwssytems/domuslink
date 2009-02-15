@@ -53,6 +53,7 @@ class location {
 		
 		return $html;		
 	}
+	
 	/**
 	 * Build Location Table
 	 * 
@@ -132,7 +133,7 @@ class location {
 			$mod->set('state', $state);
 				
 			if ($type == $modtypes['lights']) {
-				$mod->set('level', $this->level_calc(get_dim_level($code)));
+				$mod->set('level', $this->level_calc(dim_level($code)));
 			}
 		}
 		
