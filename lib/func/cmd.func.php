@@ -187,10 +187,10 @@ function get_dim_level($unit) {
 }
 
 /**
- * 
+ * Description: Upload schedule file defined in
+ * heyu configuratin file.
  */
-function heyu_upload() {
-	
+function heyu_upload() {	
 	global $config;
 	return (execute_cmd($config['heyuexec']." upload 2>&1"));
 }

@@ -19,7 +19,7 @@ require_once(CLASS_FILE_LOCATION.'heyuconf.class.php');
 if ($config['seclevel'] != "0" && !$authenticated) 
 	header("Location: ../login.php?from=events/upload");
 
-## Instantiate HeyuConf class
+## Instantiate heyuConf class
 $heyuconf = new heyuConf($config['heyuconf']);
 $schedfileloc = $config['heyu_base'].$heyuconf->getSchedFile();
 
@@ -33,26 +33,18 @@ if (!isset($_GET["action"])) {
 	$tpl_body->set('schedfile', $schedfileloc);
 }
 else {
+	$tpl_body = & new Template(TPL_FILE_LOCATION.'upload_res.tpl');
 	switch ($_GET["action"]) {
 		case "upload":
 			$rs = heyu_upload();
-			$tpl_body = & new Template(TPL_FILE_LOCATION.'upload_res.tpl');
-			$tpl_body->set('uptitle', $lang["uploadsuccess"]);
-			$tpl_body->set('msg', $lang["uploadsuccess_txt"]);
-			$tpl_body->set('divstate', "display:none");
-			$tpl_body->set('out', $rs);
+			$tpl_body->set('type', 'upload');
 			break;
 		case "erase":
-			/*
 			$rs = heyu_erase();
-			$tpl_body = & new Template(TPL_FILE_LOCATION.'upload_res.tpl');
-			$tpl_body->set('uptitle', $lang["uploadsuccess"]);
-			$tpl_body->set('msg', $lang["uploadsuccess_txt"]);
-			$tpl_body->set('divstate', "display:none");
-			$tpl_body->set('out', $rs);
-			*/
+			$tpl_body->set('type', 'erase');
 			break;
 	}
+	$tpl_body->set('out', $rs);
 }
 
 ## Display the page
