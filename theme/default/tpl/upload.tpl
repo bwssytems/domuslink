@@ -106,7 +106,7 @@ document.write("<span id=\"progress\" class=\"hide\">");
 	document.write("<FORM name=dialog id=dialog>");
 	document.write("<TABLE border=2  bgcolor=\"#FFFFCC\">");
 	document.write("<TR><TD ALIGN=\"center\">");
-	document.write("Uploading<BR>");
+	document.write("<?php echo $lang['progress']; ?><BR>");
 	document.write("<input type=text name=\"bar\" id=\"bar\" size=\"" + _progressWidth/2 + "\"");
 	if(document.all||document.getElementById) 	// Microsoft, NS6
 		document.write(" bar.style=\"color:navy;\">");
