@@ -82,6 +82,8 @@ $lang["deleteconfirm"] = "Are you sure you want to delete this entry?";
 $lang["error_not_running"] = "<h1>Heyu is not running!</h1><br />Please start heyu by clicking on the start link.<br />You may however, need to change permissions to your tty/serial port. <br />Also make sure heyu is not already running. To do so run 'heyu stop' as root.";
 
 /* new */
+$lang["unit"] = "Unit";
+$lang["command"] = "Command";
 $lang["log"] = "Log";
 $lang["progress"] = "Progress";
 $lang["error"] = "Error";
@@ -107,6 +109,10 @@ $lang["timers"] = "Timers";
 $lang["timer"] = "Timer";
 $lang["triggers"] = "Triggers";
 $lang["trigger"] = "Trigger";
+$lang["addtrigger"] = "Add Trigger";
+$lang["edittrigger"] = "Edit Trigger";
+$lang["trig_cmd"] = "Trigger Command";
+$lang["trig_unit"] = "Trigger Unit";
 $lang["addtimer"] = "Add Timer";
 $lang["edittimer"] = "Edit Timer";
 $lang["startdate"] = "Start Date";

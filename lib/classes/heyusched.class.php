@@ -124,7 +124,8 @@ class heyuSched {
 			}
 		}
 		
-		return $triggers;
+		if (!empty($triggers)) return $triggers;
+		else return $triggers = array();
 	}
 }
 
