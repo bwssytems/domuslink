@@ -350,7 +350,10 @@ function updatePage(page, fromPage)
             backButton.innerHTML = prevPage.title ? prevPage.title : "Back";
         }
         else
-            backButton.style.display = "none";
+	{
+            backButton.style.display = "inline";
+            backButton.innerHTML = prevPage.title ? prevPage.title : "Home";
+	}
     }    
 }
 
