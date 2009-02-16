@@ -45,7 +45,6 @@ $lang["heyuexec"] = "Heyu Executable";
 $lang["password"] = "Password";
 $lang["language"] = "Frontend Language";
 $lang["imgs"] = "Menu Images";
-$lang["codes"] = "Units codes";
 $lang["urlpath"] = "URL Path";
 $lang["theme"] = "Frontend Theme";
 $lang["heyubaseloc"] = "Heyu File Location";
@@ -63,7 +62,6 @@ $lang["heyuexec_txt"] = "This setting specifies the location of the Heyu exectua
 $lang["password_txt"] = "Enter a password to access the selected areas.";
 $lang["theme_txt"] = "Select a theme for the GUI.";
 $lang["imgs_txt"] = "Select whether or not you would like to use images instead of text on the menu bar.";
-$lang["codes_txt"] = "Select whether or not you would like to show the unit codes in the buttons.";
 $lang["heyubaseloc_txt"] = "Heyu base directory - This directory is where Heyu searches for it's configuration files, and stores state information.";
 $lang["language_txt"] = "Define the language for the frontend here. You can also select auto, which will use the browsers preferred language.";
 $lang["heyuconfile_txt"] = "This file is typically named x10.conf and usually located in /etc/heyu/ for system wide use.";
@@ -82,6 +80,8 @@ $lang["deleteconfirm"] = "Are you sure you want to delete this entry?";
 $lang["error_not_running"] = "<h1>Heyu is not running!</h1><br />Please start heyu by clicking on the start link.<br />You may however, need to change permissions to your tty/serial port. <br />Also make sure heyu is not already running. To do so run 'heyu stop' as root.";
 
 /* new */
+$lang["codes_txt"] = "Select whether or not you would like to show the unit codes in the buttons.";
+$lang["codes"] = "Unit codes";
 $lang["unit"] = "Unit";
 $lang["command"] = "Command";
 $lang["log"] = "Log";
