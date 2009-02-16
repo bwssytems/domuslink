@@ -7,7 +7,7 @@
 <table cellspacing="0" cellpadding="0" border="1" class="clear" align="middle">
 <tr>
   <td></td>
-  <td colspan="2" align="center" style="border-bottom: 1px dotted #e5e5e5;"><h6><?php echo ($lang['trigger']); ?><</h6></td>
+  <td colspan="2" align="center" style="border-bottom: 1px dotted #e5e5e5;"><h6><?php echo ($lang['trigger']); ?></h6></td>
   <td></td>
   <td colspan="2" align="center" style="border-bottom: 1px dotted #e5e5e5;"><h6><?php echo ($lang['execute']); ?></h6></td>
   <td></td>
@@ -20,11 +20,11 @@
 </tr>
 <tr>
   <td width="50"><h6><?php echo ($lang['status']);?></h6></td>
-  <td width="120"><h6>Unit</h6></td>
-  <td width="40"><h6>Command</h6></td>
+  <td width="120"><h6><?php echo ($lang['unit']);?></h6></td>
+  <td width="40"><h6><?php echo ($lang['command']);?></h6></td>
   <td width="10"></td>
-  <td width="120"><h6>Unit</h6></td>
-  <td width="40"><h6>Command</h6></td>
+  <td width="120"><h6><?php echo ($lang['unit']);?></h6></td>
+  <td width="40"><h6><?php echo ($lang['command']);?></h6></td>
   <td width="10"></td>
   <td colspan="2" width="100px" align="center"><h6><?php echo ($lang['actions']);?></h6></td>
   <td colspan="2" align="center"><h6><?php echo ($lang['move']);?></h6></td>
@@ -35,7 +35,9 @@ foreach ($triggers as $triggerline):
 	list($trigger, $line_num) = split("@", $triggerline, 2);
 	list($lbl, $tunit, $command, $macro) = split(" ", $trigger, 4); 
 	$enabled = (substr($lbl, 0, 1) == "#") ? false : true;
-	//$code = parse_macro($onmacro);
+	$last = strrpos($macro, "_");
+	$label = substr($macro, 0, $last);
+	$cmd = strtoupper(substr($macro, $last+1));
 ?>
  
  <tr <?php if (!$enabled) echo "style='color: #cccccc'"; ?> class="row">
@@ -46,14 +48,14 @@ foreach ($triggers as $triggerline):
   	<a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=enable&line=<?php echo $line_num;?>"><?php echo ($lang['enable']);?></a>
   <?php endif; ?>
   </td>
-  <td><?php echo $tunit; ?></td>
-  <td><?php echo $command; ?></td>
+  <td><?php echo label_parse($tunit, false); ?></td>
+  <td><?php echo strtoupper($command); ?></td>
   <td>&nbsp;</td>
-  <td><?php echo $macro; ?></td>
-  <td><?php echo $macro; ?></td>
+  <td><?php echo label_parse($label, false); ?></td>
+  <td><?php echo $cmd; ?></td>
   <td>&nbsp;</td>
   <td align="center" width="20px"><a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=edit&line=<?php echo $line_num;?>"><?php echo ($lang['edit']);?></a></td>
-  <td align="center" width="20px"><a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=del&line=<?php echo $line_num;?>&onm=<?php echo $onmacro;?>&ofm=<?php echo $offmacro;?>" onclick="return confirm('<?php echo ($lang['deleteconfirm']);?>')"><?php echo ($lang['delete']);?></a></td>
+  <td align="center" width="20px"><a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=del&line=<?php echo $line_num;?>" onclick="return confirm('<?php echo ($lang['deleteconfirm']);?>')"><?php echo ($lang['delete']);?></a></td>
   <td width="18px"><?php if ($line_num != $first_line): ?><a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=move&dir=up&line=<?php echo $line_num;?>"><img src="<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/arrow-u.gif" border="0" /></a><?php endif; ?></td>
   <td width="18px"><?php if ($line_num != $last_line): ?><a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=move&dir=down&line=<?php echo $line_num;?>"><img src="<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/arrow-d.gif" border="0" /></a><?php endif; ?></td>
 </tr>

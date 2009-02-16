@@ -92,6 +92,11 @@ function build_new_line($type) {
 		case "type":
 			return $_POST["type"]."\n";
 			break;
+		case "trigger":
+			$str = "trigger ".$_POST["unit"]." ".$_POST["command"]." ".$_POST["macro"]."\n";
+			if ($_POST["status"] == "#") return "#$str";
+			else return $str;
+			break;
 		case "timer":
 			//build weekday string (ie: s.tw...)
 			foreach ($wdayo as $num => $day) {

@@ -146,6 +146,7 @@ else {
 			
 			save_file($schedfile, $schedfileloc);
 			break;
+			
 		case "save":
 			//build timer line with POST results	
 			$line = $_POST["line"]; // line being edited
@@ -239,17 +240,12 @@ function weekdays($string, $lang, $list, $enabled) {
  * @param $macro represents complete macro name
  */
  function strip_code($macro) {
+ 	return strtolower(substr($macro, 0, strrpos($macro, "_")));
+ 	
  	//1. lower case $macro
- 	//2. find position of first "_on" or "_off"
-	$onp = strpos(strtolower($macro), "_on");
-	$offp = strpos(strtolower($macro), "_off");
-	
-	//3. get substr from pos 0 to position returned from $onp or $offp
- 	//4. place all in uppercase
-	if ($onp)
-		return strtolower(substr($macro, 0, $onp));
-	else
-		return strtolower(substr($macro, 0, $offp));
+ 	//2. find position of last occurrence of "_"
+	//3. get substr from pos 0 to position returned from 2
+ 	//4. place all in lowercase
 }
 
 /**
