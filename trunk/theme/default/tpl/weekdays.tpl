@@ -12,4 +12,4 @@
 <?php endfor; ?>
 </tr>
 
-<`/table>	
+</table>	
