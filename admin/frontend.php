@@ -45,7 +45,7 @@ elseif ($_GET["action"] == "save") {
 		header("Location: ".$_SERVER['PHP_SELF']);
 	}
 	else {
-		gen_error(null, CONFIG_FILE_LOCATION.$lang['error_filerw']);
+		gen_error(null, CONFIG_FILE_LOCATION." ".$lang['error_filerw']);
     }
 }
 
