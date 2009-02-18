@@ -172,12 +172,14 @@ ProgressDestroy();	// Hides
 <tr><td>
 
 <?php 
+if (isset($out) && is_array($out)):
 foreach ($out as $line): 
 if (substr($line, 0, 5) == "....."):
 $line = "################################################################";
 endif; ?>
 <?php echo trim($line); ?><br />
 <?php endforeach; ?>
+<?php endif; ?>
 
 </td></tr>
 </table>
