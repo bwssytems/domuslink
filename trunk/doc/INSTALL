@@ -63,7 +63,7 @@
     
     $ chmod o+rw /etc/heyu /var/www/domus.Link/db/floorplan /var/www/domus.Link/config.php
 
- 7) Setup apache acordingly, refer to http://httpd.apache.org if you don't
+ 7) Setup apache accordingly, refer to http://httpd.apache.org if you don't
     know how to do this.
     
  8) Finally, point your web browser to your webserver (ie: http://localhost/domus.Link)
