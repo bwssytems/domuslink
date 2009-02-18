@@ -7,9 +7,9 @@
 
 <tr>
 <?php for ($i = 0; $i < 7 ; $i++): ?>
-<?php if ($weekdays) $char = mb_substr($weekdays, $i, 1); ?>
+<?php if ($weekdays) $char = substr($weekdays, $i, 1); ?>
   <td><input type='checkbox' name='<?php echo $i.$wdayo[$i]; ?>' value='<?php echo $wdayo[$i]; ?>'<?php if ($weekdays && $char != ".") echo " checked='yes'"; ?> <?php if ($list) echo "disabled"; ?> /></td>
 <?php endfor; ?>
 </tr>
 
-</table>	
+<`/table>	
