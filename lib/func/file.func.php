@@ -99,6 +99,7 @@ function build_new_line($type) {
 			break;
 		case "timer":
 			//build weekday string (ie: s.tw...)
+			$wdaystr = "";
 			foreach ($wdayo as $num => $day) {
 				if (isset($_POST[$num.$day])) 
 					$wdaystr .= $_POST[$num.$day]; 
@@ -118,7 +119,15 @@ function build_new_line($type) {
 			
 			$onmacro = strtolower($_POST["module"])."_on";
 			$offmacro = strtolower($_POST["module"])."_off";
-			$tline = $_POST["status"]."timer $wdaystr $ondate-$offdate $ontime $offtime $onmacro $offmacro\n";
+			if (isset($_POST["status"]))
+			{
+				$tline = $_POST["status"]."timer $wdaystr $ondate-$offdate $ontime $offtime $onmacro $offmacro\n";
+			}
+			else
+			{
+				$tline = "timer $wdaystr $ondate-$offdate $ontime $offtime $onmacro $offmacro\n";
+
+			}
 			
 			return array($tline,$onmacro,$offmacro);
 			break;
@@ -174,7 +183,7 @@ function reorder_array($array, $org_pos, $final_pos, $file) {
  * @param $isheyuconf boolean that represent's if changes being saved
  *         are from the heyu settings. If true then force a reload
  */
-function save_file($content, $file, $isheyuconf) {
+function save_file($content, $file, $isheyuconf=false) {
 	
 	global $lang;
 	$fp = fopen($file,'w');
