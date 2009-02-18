@@ -113,4 +113,19 @@ function gen_error($cmd, $rs) {
 	header("Location: ".check_url()."/error.php");
 }
 
+
+/**
+ * Description: Checks if function mb_substr exists and if not create a mb_substr function
+ *
+ * @param $str The string being checked. 
+ * @param $start The first position used in str . 
+ * @param $length The maximum length of the returned string
+ * @param $enconding The encoding parameter is the character encoding. 
+ */
+if (!function_exists("mb_substr"))
+{
+	function mb_substr ($str,$start,$length='',$encoding='') {
+		return substr($str,$start,$length);
+	}
+}
 ?>
