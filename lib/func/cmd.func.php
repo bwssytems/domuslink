@@ -22,7 +22,7 @@
 function execute_cmd($cmd, $noerror = false) {
 	exec ($cmd." 2>&1", $rs, $retval);
 	
-	if ($retval != 0 && !$noerror) {
+	if ($retval > 0 && !$noerror) {
 		gen_error($cmd,$rs);
 	}
 	else
