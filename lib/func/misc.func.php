@@ -19,12 +19,10 @@
  * @param $dir to get listing from
  */
 function list_dir_content($dir) {
-	
 	$dn = opendir($dir);
 	$exclude = array("README", ".", "..", ".svn");
 
-	while($fn = readdir($dn))
-	{
+	while($fn = readdir($dn)) {
 		if ($fn == $exclude[0] || $fn == $exclude[1] || $fn == $exclude[2] || $fn == $exclude[3]) continue;
 		$files[] = $fn;
 	}
@@ -44,7 +42,6 @@ function list_dir_content($dir) {
  * @param $add boolean if true add "_" and change case to lower case, if false remove "_" and capitalize first letter of each word)
  */
 function label_parse($str, $add) {
-	
 	if ($add) {
 		$strf1 = str_replace(" ", "_", $str);
 		$strf2 = strtolower($strf1);
@@ -55,23 +52,6 @@ function label_parse($str, $add) {
 	}
 	
 	return $strf2;
-}
-
-/**
- * Check URL
- * 
- * Description: This function is used primarily due to error.php. Since error's could be thrown from either
- * the root or from the admin section a way is needed to detect where and only return the url path if any.
- * 
- */
-function check_url() {
-	
-	if (strpos($_SERVER['PHP_SELF'], '/admin') > 0)
-		return substr($_SERVER['PHP_SELF'], 0, strpos($_SERVER['PHP_SELF'], '/admin'));
-	elseif (strpos($_SERVER['PHP_SELF'], '/events') > 0)
-		return substr($_SERVER['PHP_SELF'], 0, strpos($_SERVER['PHP_SELF'], '/events'));
-	else 
-		return substr($_SERVER['PHP_SELF'], 0, strpos($_SERVER['PHP_SELF'], '/index.php'));
 }
 
 /**
@@ -95,7 +75,6 @@ function is_multi_alias($alias) {
  * 
  */
 function uptime() {
-	
 	$rs = execute_cmd("uptime");
 	return $rs[0];
 }
@@ -107,10 +86,11 @@ function uptime() {
  * @param $rs represents an array with error messages
  */
 function gen_error($cmd, $rs) {
+	global $config;
 	if (!is_array($rs)) $rs = array($rs);
 	if ($cmd) array_push($rs, "Exec: ".$cmd);
 	$_SESSION['errors'] = array_reverse($rs);
-	header("Location: ".check_url()."/error.php");
+	header("Location: ".$config['url_path']."/error.php");
 }
 
 
@@ -122,8 +102,7 @@ function gen_error($cmd, $rs) {
  * @param $length The maximum length of the returned string
  * @param $enconding The encoding parameter is the character encoding. 
  */
-if (!function_exists("mb_substr"))
-{
+if (!function_exists("mb_substr")) {
 	function mb_substr ($str,$start,$length='',$encoding='') {
 		return substr($str,$start,$length);
 	}

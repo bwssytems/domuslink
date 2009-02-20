@@ -20,14 +20,14 @@ require_once(FUNC_FILE_LOCATION.'debug.func.php');
 require($dirname.DIRECTORY_SEPARATOR.'version.php');
 require(FUNC_FILE_LOCATION.'config.func.php');
 $config =& parse_config($frontObj->getConfig());
+if ($config['url_path'] == '/') $config['url_path'] = '';
 
 #Load language file
 require_once(FUNC_FILE_LOCATION.'lang.func.php');
 $lang =& $frontObj->getLanguageFile();
 
 ## Define templates location acording to theme and user agent for auto detection
-if (strpos(strtolower($_SERVER['HTTP_USER_AGENT']),'iphone'))
-{
+if (strpos(strtolower($_SERVER['HTTP_USER_AGENT']),'iphone')) {
 	# Theme - GUI's Theme
 	$config['theme'] = 'iPhone';	
 }

@@ -19,7 +19,6 @@
  * @param $file represent's file to load
  */
 function load_file($file) {
-	
 	global $lang;
 	if (is_readable($file) == true) {
 		$content = file($file);
@@ -52,7 +51,6 @@ function add_line($content, $file, $editing) {
  * @param $editing represents what type is being edited (alias, location, etc)
  */
 function edit_line($content, $file, $editing) {
-	
 	$line = $_POST["line"]; // line being edited
 
 	if ($line == 0 || (count($content) - 1) == $line) {
@@ -75,7 +73,6 @@ function edit_line($content, $file, $editing) {
  * @param $type represents type of line being created
  */
 function build_new_line($type) {
-	
 	global $wdayo;
 	
 	switch ($type)
@@ -119,12 +116,10 @@ function build_new_line($type) {
 			
 			$onmacro = strtolower($_POST["module"])."_on";
 			$offmacro = strtolower($_POST["module"])."_off";
-			if (isset($_POST["status"]))
-			{
+			if (isset($_POST["status"])) {
 				$tline = $_POST["status"]."timer $wdaystr $ondate-$offdate $ontime $offtime $onmacro $offmacro\n";
 			}
-			else
-			{
+			else {
 				$tline = "timer $wdaystr $ondate-$offdate $ontime $offtime $onmacro $offmacro\n";
 
 			}
@@ -138,7 +133,6 @@ function build_new_line($type) {
  * 
  */
 function replace_line($file, $filecontent, $linecontent, $linenumber) {
-	
 	$filecontent[$linenumber] = $linecontent;
 	save_file($filecontent, $file);
 }
@@ -151,7 +145,6 @@ function replace_line($file, $filecontent, $linecontent, $linenumber) {
  * @param $line to be deleted
  */
 function delete_line($content, $file, $line) {
-	
 	array_splice($content, $line, 1);
 	save_file($content, $file);
 }
@@ -165,7 +158,6 @@ function delete_line($content, $file, $line) {
  * @param $file in which array contents are located
  */
 function reorder_array($array, $org_pos, $final_pos, $file) {
-	
 	$tmp = $array[$org_pos];
 	$array[$org_pos] = $array[$final_pos];
 	$array[$final_pos] = $tmp;
@@ -183,25 +175,22 @@ function reorder_array($array, $org_pos, $final_pos, $file) {
  * @param $isheyuconf boolean that represent's if changes being saved
  *         are from the heyu settings. If true then force a reload
  */
-function save_file($content, $file, $isheyuconf=false) {
-	
+function save_file($content, $file, $isheyuconf = false) {
+	global $config;
 	global $lang;
 	$fp = fopen($file,'w');
 
-	if (is_writable($file) == true)
-	{
-		foreach ($content as $line)
-		{
+	if (is_writable($file) == true) {
+		foreach ($content as $line) {
 			$write = fwrite($fp, $line);
 		}
 		if ($isheyuconf)
-			header("Location: ".check_url()."/admin/reload.php");
+			header("Location: ".$config['url_path']."/admin/reload.php");
 		else
 			header("Location: ".$_SERVER['PHP_SELF']);
 
 	}
-	else
-	{
+	else {
 		gen_error(null, $file." ".$lang['error_filerw']);
 	}
 	fclose($fp);
