@@ -20,7 +20,7 @@
 <table cellspacing="0" cellpadding="0" border="0" class="clear">
   <tr>
     <td valign="top" width="60px"><h6><?php echo ($lang['label']);?>:</h6></td>
-    <td valign="top" width="150px"><input type="text" name="label" value="<?php echo $label; ?>" size="20" /></td>
+    <td valign="top" width="150px"><input type="text" name="label" value="<?php echo label_parse($label); ?>" size="20" /></td>
   </tr>
 </table>
 
