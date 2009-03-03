@@ -192,7 +192,7 @@ function dim_level($unit) {
  */
 function heyu_upload() {	
 	global $config;
-	return (execute_cmd($config['heyuexec']." upload"));
+	return (execute_cmd("cd ".$config['heyu_base']."; ".$config['heyuexec']." upload"));
 }
 
 /**
