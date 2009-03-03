@@ -25,7 +25,7 @@ foreach($aliases as $alias_num):
 	list($type, $loc) = split(",", $typenloc, 2); ?>
 <tr class="row">
   <td><?php echo $code;?></td>
-  <td><?php echo $label;?></td>
+  <td><?php echo label_parse($label);?></td>
   <td><?php echo $module;?></td>
   <td><?php echo rtrim($type);?></td>
   <td><?php echo rtrim($loc);?></td>

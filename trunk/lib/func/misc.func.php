@@ -41,7 +41,7 @@ function list_dir_content($dir) {
  * @param $str represent string to parse
  * @param $add boolean if true add "_" and change case to lower case, if false remove "_" and capitalize first letter of each word)
  */
-function label_parse($str, $add) {
+function label_parse($str, $add = false) {
 	if ($add) {
 		$strf1 = str_replace(" ", "_", $str);
 		$strf2 = strtolower($strf1);
