@@ -1,0 +1,18 @@
+## MACROS ##
+macro tv_set_off 0 off tv_set
+macro tv_set_on 0 on tv_set
+macro coffee_machine_off 0 off coffee_machine
+macro coffee_machine_on 0 on coffee_machine
+macro ceiling_light_off 0 off ceiling_light
+macro ceiling_light_on 0 on ceiling_light
+macro desk_lamp_off 0 off desk_lamp
+macro desk_lamp_on 0 on desk_lamp
+## TIMERS ##
+timer smt.t.s 01/01-12/31 00:00 23:00 tv_set_on tv_set_off
+timer .mtwtf. 01/01-12/31 08:00 08:30 coffee_machine_on coffee_machine_off
+timer smtwtfs 01/01-12/31 20:00 23:00 ceiling_light_on ceiling_light_off
+timer ..t.t.s 01/01-12/31 00:00 23:00 desk_lamp_on desk_lamp_off
+## TRIGGERS ##
+trigger front_lawn on tv_set_off
+#trigger back_lawn off coffee_machine_on
+trigger hifi on ceiling_light_on
