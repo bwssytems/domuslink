@@ -17,8 +17,10 @@ require_once('..'.DIRECTORY_SEPARATOR.'include.php');
 require_once(CLASS_FILE_LOCATION.'heyuconf.class.php');
 
 ## Security validation's
-if ($config['seclevel'] != "0" && !$authenticated) 
+if ($config['seclevel'] != "0" && !$authenticated) { 
 	header("Location: ../login.php?from=admin/heyu");
+	exit();
+}
 
 ## Instantiate HeyuConf class
 $heyuconf = new heyuConf($config['heyuconf']);
