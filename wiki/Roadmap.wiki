@@ -7,7 +7,7 @@ This page will contain the domus.Link roadmap, agreed upon and developed by all 
 
 = Next Versions =
 == v1.0.2 ==
-  * 100% open source
+  * 100% open source ([NewPHPHeader new php header])
   * Utility to execute custom Heyu commands (By Brad)
 
 == v1.1 ==
