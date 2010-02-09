@@ -1,0 +1,35 @@
+#summary domus.Link Roadmap
+
+= Introduction =
+
+This page will contain the domus.Link roadmap, agreed upon and developed by all project developers/contributors.
+
+
+= Next Versions =
+== v1.1 ==
+  * 100% open source
+  * Multiple schedule files
+  * Null timer ability
+  * Dawn/dusk times in timers
+
+== v2.0 ==
+  * Code clean-up
+  * Complete OOP focus
+  * View by location/floorplan or types
+  * Improve x10.conf file parsing
+  * Use of aliases with same name
+
+= Future Features =
+  * Cron administration
+  * Script support
+  * SW10 module support
+  * Irrigation type will be know as Others
+  * Scene & Usersyn
+  * Log administration
+  * CM11 interface administration
+  * Interactive installation
+  * AJAX drag&drop sorting
+  * UI Enhancements
+  * Weather reporting and monitoring for irrigation control
+  * Screensaver
+  * Mobile/PDA/Touchscreen themes
