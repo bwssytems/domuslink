@@ -22,7 +22,7 @@ This page will contain the domus.Link roadmap, agreed upon and developed by all 
   * Improve x10.conf file parsing
   * Use of aliases with same name
 
-= Future Features =
+= Features Under Consideration =
   * Cron administration
   * Script support
   * SW10 module support
