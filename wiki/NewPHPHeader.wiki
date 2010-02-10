@@ -8,6 +8,7 @@ All header's in all PHP files (and any other's that contain old license) need to
  * domus.Link :: PHP Web-based frontend for Heyu (X10 Home Automation)
  * Copyright (c) 2007, Istvan Hubay Cebrian (istvan.cebrian@domus.link.co.pt)
  * Project's homepage: http://domus.link.co.pt
+ * Project's dev. homepage: http://domuslink.googlecode.com
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
