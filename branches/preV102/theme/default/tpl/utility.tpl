@@ -41,9 +41,11 @@
 </td>
 <td>
 
-<?php foreach ($out_lines as $out_line): ?>
-	<?php echo $out_line;?><br>
-<?php endforeach; ?>
+<?php
+foreach ($out_lines as $out_line) {
+	echo "$out_line<br>";
+	}
+?>
 
 </td></tr>
 <tr>
