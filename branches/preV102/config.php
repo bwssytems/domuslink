@@ -27,7 +27,7 @@ $config['heyuconf'] = $config['heyu_base'].'x10.conf';
 # heyuexec setting - This setting specifies the
 # location of the Heyu exectuable file. Typically
 # this will be in /usr/local/bin/
-$config['heyuexec'] = '/usr/bin/heyu';
+$config['heyuexec'] = '/usr/local/bin/heyu';
 
 # -----------------
 # Frontend Settings
