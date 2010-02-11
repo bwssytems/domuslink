@@ -33,13 +33,13 @@ $tpl->set('page', 'utility');
 
 
 $commands = array("help","version", "setclock", "readclock", "show", "reset", "catchup", "trigger", "macro", "logtail", "modlist", "enginestate", "allon", "alloff");
-
+$out_lines = array(" ", " ");
 $tpl_body = & new Template(TPL_FILE_LOCATION.'utility.tpl');
 $tpl_body->set('lang', $lang);
 $tpl_body->set('commands', $commands);
 
 if ($_GET["action"] != "execute") {
-	$tpl_body->set('out_lines', " ");
+	$tpl_body->set('out_lines', $out_lines);
 }
 else {
 		$tpl_body->set('out_lines', execute_cmd($config['heyuexec']." ".$_POST["command"]." ".$_POST["arguments"]));
