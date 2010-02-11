@@ -18,7 +18,7 @@ sub loadLanguageFile($) {
 		chomp; 
 		my $line = $_;
 		# check if line match $lang["token"] = "value";
-		if ($line =~ /\$lang\[\"(.*)\"\]\s*\=\s*\"(.*)\"/) {
+		if ($line =~ /^\s*\$lang\[\"(.*)\"\]\s*\=\s*\"(.*)\"/) {
 			$dictionary{$1}=$2; 
 		}
 	}
@@ -45,7 +45,7 @@ sub verify($$) {
 		my $line = $_;
 
 		# check if line match $lang["token"] = "value";
-		if ($line =~ /\$lang\[\"(.*)\"\]\s*\=\s*\"(.*)\"/) {
+		if ($line =~ /^\s*\$lang\[\"(.*)\"\]\s*\=\s*\"(.*)\"/) {
 			
 			my ($key,$message)=($1,$2);
 			my $messageInCurrentLanguage = $currentDictonary{$key};
