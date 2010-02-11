@@ -1,3 +1,4 @@
+<?php
 /*
  * domus.Link :: PHP Web-based frontend for Heyu (X10 Home Automation)
  * Copyright (c) 2007, Istvan Hubay Cebrian (istvan.cebrian@domus.link.co.pt)
@@ -17,8 +18,6 @@
  * this program; if not, write to the Free Software Foundation, 
  * Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-<?php
-
 ## Includes
 require_once('..'.DIRECTORY_SEPARATOR.'include.php');
 
@@ -32,6 +31,7 @@ if ($config['seclevel'] != "0" && !$authenticated) {
 $tpl->set('title', $lang['utility']);
 $tpl->set('page', 'utility');
 
+
 $commands = array("help","version", "setclock", "readclock", "show", "reset", "catchup", "trigger", "macro", "logtail", "modlist", "enginestate", "allon", "alloff");
 
 $tpl_body = & new Template(TPL_FILE_LOCATION.'utility.tpl');
@@ -39,10 +39,10 @@ $tpl_body->set('lang', $lang);
 $tpl_body->set('commands', $commands);
 
 if ($_GET["action"] != "execute") {
-	$tpl_body->set('lines', " ");
+	$tpl_body->set('out_lines', " ");
 }
 else {
-		$tpl_body->set('lines', execute_cmd($config['heyuexec']." ".$_POST["command"]." ".$_POST["arguments"]));
+		$tpl_body->set('out_lines', execute_cmd($config['heyuexec']." ".$_POST["command"]." ".$_POST["arguments"]));
 }
 
 ## Display the page
