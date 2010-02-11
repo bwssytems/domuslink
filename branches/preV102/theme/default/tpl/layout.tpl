@@ -1,3 +1,4 @@
+<!--
 /*
  * domus.Link :: PHP Web-based frontend for Heyu (X10 Home Automation)
  * Copyright (c) 2007, Istvan Hubay Cebrian (istvan.cebrian@domus.link.co.pt)
@@ -17,6 +18,7 @@
  * this program; if not, write to the Free Software Foundation, 
  * Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
+ -->
 <html>
 
 <head>
@@ -172,4 +174,3 @@
 <br>Copyright <SCRIPT LANGUAGE="JavaScript">copyrightDate();</SCRIPT><br><a href="http://icebrian.net" target="_blank">Istvan Hubay Cebrian</a></div>
 </body>
 </html>
-<!-- domus.Link - Copyright (c) 2007-2009 - Istvan Hubay Cebrian - http://domus.link.co.pt -->
