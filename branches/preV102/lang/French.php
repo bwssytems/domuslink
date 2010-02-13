@@ -19,8 +19,6 @@
  * Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-/* English Language File */
-
  $lang["dlurl"]="http://domus.link.co.pt"; 
  $lang["title"]="domus.Link"; 
 
