@@ -15,7 +15,7 @@ function validateForm(form)
 <form action="<?php echo($_SERVER['PHP_SELF']); ?>?action=add" method="post" onsubmit="return validateForm(this);">
 
 <table cellspacing="0" cellpadding="0" border="0" class="content">
-<tr><th colspan="2"><?php echo ($lang['addtimer']); ?></th></tr>
+<tr><th colspan="2"><?php echo ($lang['addmacrotimer']); ?></th></tr>
 
 <tr><td>
 
@@ -129,21 +129,36 @@ function validateForm(form)
 
 </td>
 <td>
-<!-- labels -->
+<!-- on Macro -->
 <table cellspacing="0" cellpadding="0" border="0" class="clear">
-  <tr><td><h6><?php echo $lang["unit"]; ?>:</h6></td></tr>
+  <tr><td><h6><?php echo $lang["macro_on"]; ?>:</h6></td></tr>
   <tr>
     <td width="100px">
-    <select name="module" size="9">
-	<?php foreach ($codelabels as $codelabel): ?>
-		<?php list($code, $label) = split("@", $codelabel, 2); ?>
- 		<option value="<?php echo $label;?>"><?php echo label_parse($label, false);?></option>
+    <select name="macro_on" size="9">
+	<?php foreach ($macros as $macro_on): ?>
+		<?php list($macro_on_const, $label_on, $code_on) = explode(" ", $macro_on, 3); ?>
+ 		<option value="<?php echo $label_on;?>"><?php echo label_parse($label_on, false);?></option>
 	<?php endforeach; ?>
 	</select>
     </td>
   </tr>
 </table>
-
+</td>
+<td>
+<!-- off Macro -->
+<table cellspacing="0" cellpadding="0" border="0" class="clear">
+  <tr><td><h6><?php echo $lang["macro_off"]; ?>:</h6></td></tr>
+  <tr>
+    <td width="100px">
+    <select name="macro_off" size="9">
+	<?php foreach ($macros as $macro_off): ?>
+		<?php list($macro_off_const, $label_off, $code_off) = explode(" ", $macro_off, 3); ?>
+ 		<option value="<?php echo $label_off;?>"><?php echo label_parse($label_off, false);?></option>
+	<?php endforeach; ?>
+	</select>
+    </td>
+  </tr>
+</table>
 </td></tr>
 </table>
 <!-- center table end -->

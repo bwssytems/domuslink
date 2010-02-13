@@ -98,6 +98,8 @@
   <div id="eventsmenuitem"><a href="<?php echo ($config['url_path']);?>/events/upload.php"><?php echo ($lang['upload']); ?></a></div>
   <div id="eventsmenuitem"><a href="<?php echo ($config['url_path']);?>/events/triggers.php"><?php echo ($lang['triggers']); ?></a></div>
   <div id="eventsmenuitem"><a href="<?php echo ($config['url_path']);?>/events/timers.php"><?php echo ($lang['timers']); ?></a></div>
+  <div id="eventsmenuitem"><a href="<?php echo ($config['url_path']);?>/events/timers_macro.php"><?php echo ($lang['timers_macro']); ?></a></div>
+  <div id="eventsmenuitem"><a href="<?php echo ($config['url_path']);?>/events/macros.php"><?php echo ($lang['macros']); ?></a></div>
 </div>
 <?php if (substr(strstr($_SERVER['REQUEST_URI'], "events"), 0, 6) == "events"): ?>
 <SCRIPT LANGUAGE="JavaScript">divShowHide(eventsmenu, 'visible');</SCRIPT>
@@ -111,6 +113,7 @@
   <div id="setupmenuitem"><a href="<?php echo ($config['url_path']);?>/admin/frontend.php"><?php echo ($lang['frontend']); ?></a></div>
   <div id="setupmenuitem"><a href="<?php echo ($config['url_path']);?>/admin/floorplan.php"><?php echo ($lang['floorplan']); ?></a></div>
   <div id="setupmenuitem"><a href="<?php echo ($config['url_path']);?>/admin/aliases.php"><?php echo ($lang['aliases']); ?></a></div>
+  <div id="setupmenuitem"><a href="<?php echo ($config['url_path']);?>/admin/utility.php"><?php echo ($lang['utility']); ?></a></div>
 </div>
 <?php if (substr(strstr($_SERVER['REQUEST_URI'], "admin"), 0, 5) == "admin"): ?>
 <SCRIPT LANGUAGE="JavaScript">divShowHide(setupmenu, 'visible');</SCRIPT>

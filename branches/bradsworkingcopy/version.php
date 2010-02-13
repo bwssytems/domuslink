@@ -1,5 +1,5 @@
 <?php
 
-$FRONTEND_VERSION = "1.0.1";
+$FRONTEND_VERSION = "1.0.1.2";
 
 ?>

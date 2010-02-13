@@ -57,6 +57,7 @@
     		<option value="<?php echo $typef; ?>"><?php echo $typef; ?></option>
     	<?php endif; ?>
     <?php endforeach; ?>
+    </select>
     </td>
   </tr>
 </table>
@@ -83,7 +84,7 @@
 </td></tr>
 
 <tr>
-<td style="border-right: none;" align="right"><input type="submit" value="<?php echo ($lang['save']); ?>" /></form></td>
-<td style="border-left: none;"><form action="<?php echo($_SERVER['PHP_SELF']); ?>" method="post"><input type="submit" value="<?php echo ($lang['cancel']); ?>" /></form></td>
+<td style="border-right: none;" align="center"><input type="submit" value="<?php echo ($lang['save']); ?>" /></td>
 </tr>
 </table>
+</form>

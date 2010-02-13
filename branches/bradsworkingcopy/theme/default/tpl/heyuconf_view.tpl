@@ -1,4 +1,4 @@
-<table cellspacing="0" cellpadding="0" border="0" width="400px" align="middle" class="content">
+<table cellspacing="0" cellpadding="0" border="0" width="400px" align="center" class="content">
 <tr><th colspan="2"><?php echo($lang['heyuconf']); ?></th></tr>
 
 <tr>
@@ -21,7 +21,7 @@
 </tr>
 
 <tr>
-  <td style="border-right:none;" align="left"><a href="#" onclick="javascript:window.open('../doc/heyuconf.htm','','scrollbars=yes,menubar=no,width=700,height=500,resizable=yes,toolbar=no,location=no,status=no');">Help</a></div></td>
+  <td style="border-right:none;" align="left"><a href="#" onclick="javascript:window.open('../doc/heyuconf.htm','','scrollbars=yes,menubar=no,width=700,height=500,resizable=yes,toolbar=no,location=no,status=no');">Help</a></td>
   <td style="border-left:none;">
     <form action="<?php echo($_SERVER['PHP_SELF']); ?>?action=edit" method="post">
     <input type="submit" value="<?php echo ($lang['edit']);?>" /></form>

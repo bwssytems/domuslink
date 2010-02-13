@@ -1,7 +1,7 @@
 <h2><?php echo ($lang['frontendadmin']); ?></h2>
 <div class="white">
   <form action="<?php echo ($_SERVER['PHP_SELF']); ?>?action=save" method="post">
-    <table cellspacing="0" cellpadding="0" border="0" width="99%" align="middle" class="content">
+    <table cellspacing="0" cellpadding="0" border="0" width="99%" align="center" class="content">
       <tr>
         <td align="center"><!-- Interface -->
           <table cellspacing="0" cellpadding="0" border="0" class="clear">

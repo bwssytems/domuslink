@@ -1,4 +1,4 @@
-<table cellspacing="0" cellpadding="0" border="0" width="640px" align="middle" class="content">
+<table cellspacing="0" cellpadding="0" border="0" width="640px" align="center" class="content">
 <tr><th><?php echo ($lang['aliases']); ?></th></tr>
 
 <tr><td>

@@ -68,7 +68,7 @@ else {
 			if (preg_match($chars, $_POST["label"]))
 				gen_error(null, $lang['error_special_chars']);
 			else
-				add_line($settings, $config['heyuconf'], 'alias');
+				add_line_end($settings, $config['heyuconf'], 'alias');
 			break;
 		
 		case "save":

@@ -11,7 +11,7 @@
 </tr>
 
 <tr>
-<td><?php if ($config['codes'] == "ON"): ?><span class="code"><?php echo $code; ?></spans><?php endif; ?></td>
+<td><?php if ($config['codes'] == "ON"): ?><span class="code"><?php echo $code; ?></span><?php endif; ?></td>
 </tr>
 
 </table>

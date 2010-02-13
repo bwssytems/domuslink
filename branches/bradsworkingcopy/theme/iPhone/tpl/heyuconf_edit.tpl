@@ -1,5 +1,5 @@
 <form action="<?php echo($_SERVER['PHP_SELF']); ?>?action=save" method="post">
-    <table cellspacing="0" cellpadding="0" border="0" width="100%" align="middle" class="content">
+    <table cellspacing="0" cellpadding="0" border="0" width="100%" align="center" class="content">
         <tr>
             <th colspan="2"><?php echo($lang['heyuconf']); ?></th>
         </tr>
@@ -83,4 +83,4 @@
     <input type="submit" value="<?php echo($lang['save']); ?>" />
 </form>
             
-<a href="#" onclick="javascript:window.open('../doc/heyuconf.htm','','scrollbars=yes,menubar=no,width=700,height=500,resizable=yes,toolbar=no,location=no,status=no');">Help</a></div>
+<a href="#" onclick="javascript:window.open('../doc/heyuconf.htm','','scrollbars=yes,menubar=no,width=700,height=500,resizable=yes,toolbar=no,location=no,status=no');">Help</a>

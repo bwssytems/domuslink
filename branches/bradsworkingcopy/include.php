@@ -18,6 +18,8 @@ require_once(FUNC_FILE_LOCATION.'file.func.php');
 require_once(FUNC_FILE_LOCATION.'misc.func.php');
 require_once(FUNC_FILE_LOCATION.'cmd.func.php');
 require_once(FUNC_FILE_LOCATION.'debug.func.php');
+require_once(FUNC_FILE_LOCATION.'macro.func.php');
+require_once(FUNC_FILE_LOCATION.'timer.func.php');
 
 ## Load config file functions and grab settings
 require($dirname.DIRECTORY_SEPARATOR.'version.php');

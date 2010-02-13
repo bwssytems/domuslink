@@ -122,7 +122,7 @@ ProgressDestroy();	// Hides
 
 <form action="<?php echo($_SERVER['PHP_SELF']); ?>?action=save" method="post">
 
-<table cellspacing="0" cellpadding="0" border="0" width="400px" align="middle" class="content">
+<table cellspacing="0" cellpadding="0" border="0" width="400px" align="center" class="content">
 <tr><th colspan="3"><?php echo ($lang['heyuconf']);?></th></tr>
 
 <tr>
@@ -131,6 +131,8 @@ ProgressDestroy();	// Hides
 <!-- start -->
 
 <table border="0" cellspacing="0" cellpadding="0" class="clear">
+<tr>
+<td>
 <?php $act = 0; $sct = 0; $usct = 0; // alias, scene and usersyn counts for posts ?>
 <?php foreach($settings as $setting):
   list($directivenf, $valuenf) = split(" ", $setting, 2);
@@ -147,6 +149,8 @@ ProgressDestroy();	// Hides
     <input type="hidden" name="<?php echo $directivenf; echo $act; ?>" value="<?php echo $value; ?>" />
     <?php $usct++; ?>
   <?php else: // if not alias, scene or usersyn ?>
+  </td>
+</tr>
     <tr>
       <td width="200">
         <h6><?php echo $directive; ?>:&nbsp;</h6>
@@ -205,8 +209,7 @@ ProgressDestroy();	// Hides
 </tr>
 
 <tr>
-  	<td style="border-right:none;" align="left" width="20px"><a href="#" onclick="javascript:window.open('../doc/heyuconf.htm','','scrollbars=yes,menubar=no,width=700,height=500,resizable=yes,toolbar=no,location=no,status=no');">Help</a></div></td>
-    <td style="border-left:none;border-right:none;" align="right"><input type="submit" value="<?php echo($lang['save']); ?>" onclick="CallJS('Demo()')" /></form></td>
-    <td style="border-left:none;"><form action="<?php echo($_SERVER['PHP_SELF']); ?>" method="post"><input type="submit" value="<?php echo($lang['cancel']); ?>"  /></form></td>
-</tr>
+  	<td style="border-right:none;" align="left" width="20px"><a href="#" onclick="javascript:window.open('../doc/heyuconf.htm','','scrollbars=yes,menubar=no,width=700,height=500,resizable=yes,toolbar=no,location=no,status=no');">Help</a></td>
+    <td style="border-left:none;border-right:none;" align="right"><input type="submit" value="<?php echo($lang['save']); ?>" onclick="CallJS('Demo()')" /></td>
 </table>
+</form>

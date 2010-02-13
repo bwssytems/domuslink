@@ -18,7 +18,7 @@ require_once(CLASS_FILE_LOCATION.'heyusched.class.php');
 
 ## Security validation's
 if ($config['seclevel'] != "0" && !$authenticated) {
-	header("Location: ../login.php?from=events/triggers");
+	header("Location: ../login.php?from=events/macros");
 	exit();
 }
 
@@ -30,27 +30,23 @@ $schedfileloc = $config['heyu_base'].$heyuconf->getSchedFile();
 $aliases = $heyuconf->getAliases();
 $codelabels = $heyuconf->getCodesAndLabels($aliases);
 
-## Instantiate heyuSched class, get contents and parse timers
+## Instantiate heyuSched class, get contents and parse macros
 $heyusched = new heyuSched($schedfileloc);
 $schedfile = $heyusched->get();
 $macros = $heyusched->getMacros();
-$triggers = $heyusched->getTriggers();
 
 ## Set template parameters
-$tpl->set('title', $lang['triggers']);
+$tpl->set('title', $lang['macros']);
 
-$tpl_body = & new Template(TPL_FILE_LOCATION.'trigger_view.tpl');
+$tpl_body = & new Template(TPL_FILE_LOCATION.'macro_view.tpl');
 $tpl_body->set('lang', $lang);
-$tpl_body->set('triggers', $triggers);
+$tpl_body->set('macros', $macros);
 $tpl_body->set('config', $config);
-print("start initialize line");
-$tpl_body->set('first_line', $heyusched->getTriggerBeginLine());
-print("got begin");
-$tpl_body->set('last_line', $heyusched->getTriggerEndLine());
-print("initialized");
+$tpl_body->set('first_line', $heyusched->getMacroBeginLine());
+$tpl_body->set('last_line', $heyusched->getMacroEndLine());
 
 if (!isset($_GET["action"])) {
-	$tpl_add = & new Template(TPL_FILE_LOCATION.'trigger_add.tpl');
+	$tpl_add = & new Template(TPL_FILE_LOCATION.'macro_add.tpl');
 	$tpl_add->set('lang', $lang);
 	$tpl_add->set('codelabels', $codelabels);
 	$tpl_add->set('cmacs', clean_and_translate_macros($macros));
@@ -67,29 +63,35 @@ else {
 			break;
 			
 		case "edit":
-			list($lbl, $tunit, $command, $macro) = split(" ", $schedfile[$_GET['line']], 4);
-			$tpl_edit = & new Template(TPL_FILE_LOCATION.'trigger_edit.tpl');
+			list($lbl, $named_macro, $delay, $execute_command) = explode(" ", $schedfile[$_GET['line']], 4);
+			$tpl_edit = & new Template(TPL_FILE_LOCATION.'macro_edit.tpl');
 			$tpl_edit->set('lang', $lang);
 			$tpl_edit->set('enabled', (substr($lbl, 0, 1) == "#") ? false : true);
-			$tpl_edit->set('tcommand', strtolower($command));
-			$tpl_edit->set('codelabels', $codelabels);
-			$tpl_edit->set('unit', $tunit);
-			$tpl_edit->set('cmacs', clean_and_translate_macros($macros));
-			$tpl_edit->set('selmacro', $macro);
+			$tpl_edit->set('macro_command', $execute_command);
+			$tpl_edit->set('macro_name', $named_macro);
 			$tpl_edit->set('linenum', $_GET['line']); // sets number of line being edited
 			$tpl_body->set('form', $tpl_edit);
 			break;
 			
 		case "add":
-			add_line($schedfile, $schedfileloc, $heyusched->getTriggerEndLine()+1, 'trigger');
+			// if macro exist then don't add the macro else create macro lines,
+			// add them to file
+			$sm = get_specific_macro($macros, strtolower($_POST["macro_name"]));
+			if (!$sm) {
+				add_line($schedfile, $schedfileloc,$heyusched->getMacroEndLine()+1, "macro" );
+			}
 			break;
 			
 		case "save":
-			edit_line($schedfile, $schedfileloc, 'trigger');
+			//build macro line with POST results	
+			edit_line($schedfile, $schedfileloc, "macro");
 			break;
 			
 		case "del":
 			delete_line($schedfile, $schedfileloc, $_GET["line"]);
+			break;
+		
+		case "cancel":
 			break;
 		
 		case "move":
