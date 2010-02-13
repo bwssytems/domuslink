@@ -20,6 +20,7 @@
  
  - Heyu is NOT running ($ heyu stop )
  - Heyu configuration files are located in /etc/heyu
+ - Heyu binary is located in /usr/local/bin
  - Websever root folder is /var/www
  - And domus.Link is being installed in /var/www/domus.Link
  
@@ -29,18 +30,23 @@
 
  1) Download latest version from http://domus.link.co.pt/download
 
- 2) Un-tar to a location within the webserver root or a specific directory.
+ 2) If upgrading from a previous version of domus.Link, backup existing domus.Link files (VERY IMPORTANT)
+
+    $ cp [your web path]/domus.Link/config.php [backup location]/config.php.backup
+    $ cp -r [your web path]/domus.Link/db [backup location]/dbbackup
+
+ 3) Un-tar to a location within the webserver root or a specific directory.
  
     $ mv domuslink-XXX.tar.gz /var/www
     $ cd /var/www
     $ tar xfvz domuslink-XXX.tar.gz
 
- 3) Backup existing x10.conf & x10.sched files (VERY IMPORTANT)
+ 4) Backup existing x10.conf & x10.sched files (VERY IMPORTANT if new installation)
 
     $ cp /etc/heyu/x10.conf /etc/heyu/x10.conf.backup
     $ cp /etc/heyu/x10.sched /etc/heyu/x10.sched.backup
 
- 4) Copy supplied x10.conf & x10.sched file to heyu conf. directory (VERY IMPORTANT)
+ 5) Copy supplied x10.conf & x10.sched file to heyu conf. directory (VERY IMPORTANT if new installation)
     
     $ cp /var/www/domus.Link/doc/x10.conf /etc/heyu/x10.conf
     $ cp /var/www/domus.Link/doc/x10.sched /etc/heyu/x10.sched
@@ -49,24 +55,26 @@
     frontend and therefore must be used. Both the x10.conf & x10.sched files
     supplied with Heyu will not work with domus.Link.
 
- 5) Edit x10.conf file and change TTY directive to suit your system.
+ 6) Edit x10.conf file and change TTY directive to suit your system.
     - Do not add tabs, or extra spaces between options and directives.
     - Do not add comments, or any other text.
     - Leave everything else as is.
     
     $ vi /etc/heyu/x10.conf
 
- 6) Change file permission's so that webserver can read/write to the following files/dirs:
+ 7) Change file permission's so that webserver can read/write to the following files/dirs:
     - /etc/heyu
     - /var/www/domus.Link/db/floorplan 
     - /var/www/domus.Link/config.php
     
     $ chmod o+rw /etc/heyu /var/www/domus.Link/db/floorplan /var/www/domus.Link/config.php
 
- 7) Setup apache accordingly, refer to http://httpd.apache.org if you don't
+ 8) If upgrading from previous version, copy back backed up config.php and db directory. 
+
+ 9) Setup apache accordingly, refer to http://httpd.apache.org if you don't
     know how to do this.
     
- 8) Finally, point your web browser to your webserver (ie: http://localhost/domus.Link)
+ 10) Finally, point your web browser to your webserver (ie: http://localhost/domus.Link)
     and start heyu using the 'START' link located on the footer.
 
 
