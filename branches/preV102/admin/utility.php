@@ -31,9 +31,11 @@ if ($config['seclevel'] != "0" && !$authenticated) {
 $tpl->set('title', $lang['utility']);
 $tpl->set('page', 'utility');
 
-
-$commands = array("help","version", "setclock", "readclock", "show", "reset", "catchup", "trigger", "macro", "logtail", "modlist", "enginestate", "allon", "alloff");
-$out_lines = array(" ", " ");
+// List of commands in helper select list
+$commands = array("help","version", "setclock", "readclock", "show", "reset", "catchup", "trigger", "macro", "modlist", "enginestate", "allon", "alloff");
+// Commands that cannot be handled properly with executing hey from php in domus.Link
+// i.e. The monitor command is an open ended command that holds the terminal while executing.
+$restricted_cmds = array("monitor", "logtail", "port_line_test");
 $tpl_body = & new Template(TPL_FILE_LOCATION.'utility.tpl');
 $tpl_body->set('lang', $lang);
 $tpl_body->set('commands', $commands);
@@ -42,7 +44,35 @@ if ($_GET["action"] != "execute") {
 	$tpl_body->set('out_lines', $out_lines);
 }
 else {
+	$bad_cmd = false;
+	$requested_cmd = " ".$_POST["command"]; // add a space to get a non-zero value when checking
+	$requested_args = " ".$_POST["arguments"]; // add a space to get a non-zero value when checking
+
+	// check command and arguments for any restricted commands
+	foreach ($restricted_cmds as $restricted_cmd) {
+		$cmd_pos = strpos(strtolower($requested_cmd), $restricted_cmd);
+		if($cmd_pos == false)
+		{
+			$cmd_pos = strpos(strtolower($requested_args), $restricted_cmd);
+			if($cmd_pos != false)
+			{
+				$bad_cmd = true;
+			}
+		}
+		else
+		{
+			$bad_cmd = true;
+		}
+	}
+
+	if($bad_cmd == true) {
+		$err_lines = array("domus.Link Utility restricted command cannot be executed: <b>".$_POST["command"]." ".$_POST["arguments"]."</b>", " ");
+		$tpl_body->set('out_lines', $err_lines);
+	}
+	else {
+		// execute the heyu command and return output
 		$tpl_body->set('out_lines', execute_cmd($config['heyuexec']." ".$_POST["command"]." ".$_POST["arguments"]));
+	}
 }
 
 ## Display the page

@@ -42,6 +42,7 @@
 <td>
 
 <?php
+if (!is_array($out_lines)) $out_lines = array($out_lines);
 foreach ($out_lines as $out_line) {
 	echo "$out_line<br>";
 	}
