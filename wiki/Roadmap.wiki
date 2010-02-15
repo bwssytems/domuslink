@@ -11,9 +11,10 @@ This page will contain the domus.Link roadmap, agreed upon and developed by all 
   * Utility to execute custom Heyu commands (By Brad)
 
 == v1.1 ==
-  * Multiple schedule files
   * Null timer ability
   * Dawn/dusk times in timers
+  * Irrigation type will be know as Others
+  * Shutter support (is it the SW10?)
 
 == v2.0 ==
   * Code clean-up
@@ -23,10 +24,10 @@ This page will contain the domus.Link roadmap, agreed upon and developed by all 
   * Use of aliases with same name
 
 = Features Under Consideration =
+  * Multiple schedule files
   * Cron administration
   * Script support
-  * SW10 module support
-  * Irrigation type will be know as Others
+  * SW10 module support (in v1.1 !?!)
   * Scene & Usersyn
   * Log administration
   * CM11 interface administration
