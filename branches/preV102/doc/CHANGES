@@ -9,6 +9,8 @@
     * Added new Utility interface to execute heyu commands directly from
       domus.Link in the admin menu. The arguments line can take any heyu command
       as well if none is highlighted in the command select list.
+    * Updated French language files
+    * Order language files
      
     Note: When upgrading remember to backup the following files
           - config.php

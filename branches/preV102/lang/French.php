@@ -43,9 +43,9 @@
  $lang["module"]="Module"; 
  $lang["type"]="Type"; 
  $lang["actions"]="Actions"; 
- $lang["start"]="DEMARRER"; 
- $lang["reload"]="RECHARGER"; 
- $lang["stop"]="ARRETER"; 
+ $lang["start"]="démarrer"; 
+ $lang["reload"]="recharger"; 
+ $lang["stop"]="arréter"; 
  $lang["login"]="Identification"; 
  $lang["move"]="Déplacer"; 
  $lang["info"]="Info"; 
@@ -70,7 +70,7 @@
  $lang["addlocation"]="Ajouter un lieu"; 
  $lang["editlocation"]="Modifier un lieu"; 
  $lang["heyustatus"]="Etat de Heyu"; 
- $lang["enter_password"]="S'il vous plait, entrer votre mot de passe pour accéder à la zone d'administration."; 
+ $lang["enter_password"]="S'il vous plait, entrez votre mot de passe pour accéder à la zone d'administration."; 
 
 /* help texts */
  $lang["heyuexec_txt"]="Ce paramètre spécifie l'endroit où se trouve le fichier exécutable Heyu. Typiquement, il se trouve dans /usr/local/bin/"; 
@@ -95,14 +95,14 @@
  $lang["error_not_running"]="<h1>HEYU EST ARRETE !</h1>S'il vous plaît, démarrez heyu!<br />Vous pouvez avoir à changer les permissions du port tty."; 
 
 /* new */
- $lang["codes_txt"]="Select whether or not you would like to show the unit codes in the buttons."; 
- $lang["codes"]="Unit codes"; 
- $lang["unit"]="Unit"; 
+ $lang["codes_txt"]="Choisissez si vous souhaitez afficher ou non le code unité dans les boutons."; 
+ $lang["codes"]="Codes unité"; 
+ $lang["unit"]="Unité"; 
  $lang["command"]="Commande"; 
  $lang["log"]="Log"; 
  $lang["progress"]="Progression"; 
  $lang["error"]="Erreur"; 
- $lang["logout"]="Logout"; 
+ $lang["logout"]="Déconnection"; 
  $lang["keep_login"]="Laissez moi loggué"; 
  $lang["upload"]="Télécharger"; 
  $lang["erase"]="Effacement"; 
@@ -111,35 +111,35 @@
  $lang["upload_erase_log_txt"]="Cliquer <a href='#' onclick='divShowHide(log);'>ICI</a> pour voir le journal."; 
  $lang["upload_txt"]="To upload the schedule file defined in the <a href=../admin/heyu.php>heyu configuration</a> file and configured in the <a href=../events/timers.php>timer administration</a> section, click the button bellow."; 
  $lang["erase_txt"]="If you would like to erase the entire contents of your computer interface, click the button bellow."; 
- $lang["upload_erase_txt"]="Please note that uploading/erasing takes aproximately 8 seconds. <br />Do not navigate away from this page until process has completed."; 
+ $lang["upload_erase_txt"]="Attention le téléchargement/effacement dure approximativement 8 secondes. <br />Ne quittez pas la page tant afin la fin du traitement."; 
 
- $lang["error_no_modules"]="<h1>No modules available!</h1><br />I don't have any modules to show."; 
- $lang["error_filerw"]="not found or not writable!"; 
- $lang["error_filer"]="not found or not readable!"; 
+ $lang["error_no_modules"]="<h1>Aucun module disponible!</h1><br />Aucun module à afficher."; 
+ $lang["error_filerw"]="non trouvé où ne peut-être écrit!"; 
+ $lang["error_filer"]="non trouvé ou ne peut être lu!"; 
 
  $lang["about"]="A propos"; 
  $lang["status"]="Statut"; 
  $lang["events"]="Evenements"; 
- $lang["timers"]="Timers"; 
- $lang["timer"]="Timer"; 
- $lang["triggers"]="Triggers"; 
- $lang["trigger"]="Trigger"; 
- $lang["addtrigger"]="Add Trigger"; 
- $lang["edittrigger"]="Edit Trigger"; 
- $lang["trig_cmd"]="Trigger Command"; 
- $lang["trig_unit"]="Trigger Unit"; 
- $lang["addtimer"]="Ajout Timer"; 
- $lang["edittimer"]="Editer Timer"; 
+ $lang["timers"]="Minuteries (timers)"; 
+ $lang["timer"]="Minuterie"; 
+ $lang["triggers"]="Déclencheurs (triggers)"; 
+ $lang["trigger"]="Déclencheur"; 
+ $lang["addtrigger"]="Ajout Déclencheur"; 
+ $lang["edittrigger"]="Editer Déclencheur"; 
+ $lang["trig_cmd"]="Déclencheur Command"; 
+ $lang["trig_unit"]="Déclencheur Unit"; 
+ $lang["addtimer"]="Ajout Minuterie"; 
+ $lang["edittimer"]="Editer Minuterie"; 
  $lang["startdate"]="Date début"; 
  $lang["enddate"]="Date fin"; 
  $lang["ontime"]="Heure ON"; 
  $lang["offtime"]="Heure OFF"; 
 
- $lang["weekdays"]="Weekdays"; 
+ $lang["weekdays"]="semaine"; 
  $lang["daterange"]="Période DATE"; 
  $lang["time"]="Heure"; 
  $lang["on"]="On"; 
- $lang["end"]="End"; 
+ $lang["end"]="Fin"; 
  $lang["off"]="Off"; 
  $lang["enable"]="Activer"; 
  $lang["disable"]="Désactiver"; 

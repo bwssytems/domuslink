@@ -7,6 +7,8 @@ use strict;
 
 
 my @LANGS = qw[Dutch.php French.php German.php Italian.php Portuguese.php Spanish.php Swedish.php];
+my %ignore = ( "dlurl" => 1, "title" => 1);
+
 my $REF_LANGUAGE = "English.php";
 
 # load a languageFile return hashtable with found language
@@ -34,14 +36,18 @@ sub loadLanguageFile($) {
 #  generate a new file (same order than reference file)
 sub verify($$) {
 	my ($filename,$rh_reference) = @_; 
-	print "Verifying: $filename\n";
+	print "\n\n= VERIFIYING : $filename =\n";
 	my %currentDictonary = loadLanguageFile($filename);
 
 	# parsing reference file
 	my $newFileContent = "" ;
 	open REFFILE,"$REF_LANGUAGE" or die("unable to open '$$REF_LANGUAGE'");
+	my @toTranslate;
+	my @toVerify;
+	
 	while (<REFFILE>) {
-		chomp; 
+		s/\n//g; # Remove line feeds
+		s/\r//g; # Remove carriage returns 
 		my $line = $_;
 
 		# check if line match $lang["token"] = "value";
@@ -49,18 +55,28 @@ sub verify($$) {
 			
 			my ($key,$message)=($1,$2);
 			my $messageInCurrentLanguage = $currentDictonary{$key};
+			my $messageInEnglish         = $$rh_reference{$key};
 			
 			unless ( defined $messageInCurrentLanguage ) {
-				$line = "# PLEASE TRANSLATE $line";
-				print "$line\n";
+				$line = "$line // PLEASE TRANSLATE";
+				push @toTranslate, $line;
 			} else {
 				# add entry with good translation
+				if ($messageInCurrentLanguage eq $messageInEnglish) {
+					if (!defined($ignore{$key} )) {
+						push @toVerify, $line;
+					}
+				}
 				$line = qq{ \$lang[\"$key\"]="$messageInCurrentLanguage"; };
 			}	
 		}
 		 
 		$newFileContent .= "$line\n";
 	}
+	
+	printArray(\@toTranslate,"to translate");
+	printArray(\@toVerify,"to verify");
+	
 	close REFFILE; 
 	
 	# write reorder and updated language file...
@@ -74,6 +90,16 @@ sub verify($$) {
 	
 }
 
+
+sub printArray($$) {
+	my ($rArray,$title) = @_;
+	my $count = @$rArray;
+	print "\n $title / $count message(s)\n";
+	foreach (@$rArray) {
+		print "  $_\n";
+	}	
+}
+
 # load reference file
 my %referenceLanguage = loadLanguageFile($REF_LANGUAGE);
 
@@ -81,5 +107,3 @@ my %referenceLanguage = loadLanguageFile($REF_LANGUAGE);
 foreach my $lang (@LANGS) {
 	verify($lang, \%referenceLanguage);
 }
-
-

@@ -130,7 +130,7 @@
  $lang["trig_unit"]="Unidade de Gatilho"; 
  $lang["addtimer"]="Adicionar Evento"; 
  $lang["edittimer"]="Editar Evento"; 
- $lang["startdate"]="Data Ínicio"; 
+ $lang["startdate"]="Data �?nicio"; 
  $lang["enddate"]="Data Fim"; 
  $lang["ontime"]="Hora Início"; 
  $lang["offtime"]="Hora Fim"; 
@@ -169,9 +169,9 @@
  $lang["sat"]="Sabado"; 
 
 /* Utility Text */
-# PLEASE TRANSLATE $lang["utility"] = "Utility";
-# PLEASE TRANSLATE $lang["utilitytool"] = "Utility - Excecute heyu Command";
-# PLEASE TRANSLATE $lang["arguments"] = "Arguments";
-# PLEASE TRANSLATE $lang["output"] = "Output";
+$lang["utility"] = "Utility"; // PLEASE TRANSLATE
+$lang["utilitytool"] = "Utility - Excecute heyu Command"; // PLEASE TRANSLATE
+$lang["arguments"] = "Arguments"; // PLEASE TRANSLATE
+$lang["output"] = "Output"; // PLEASE TRANSLATE
 
 ?>

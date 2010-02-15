@@ -169,9 +169,9 @@
  $lang["sat"]="Samstag"; 
 
 /* Utility Text */
-# PLEASE TRANSLATE $lang["utility"] = "Utility";
-# PLEASE TRANSLATE $lang["utilitytool"] = "Utility - Excecute heyu Command";
-# PLEASE TRANSLATE $lang["arguments"] = "Arguments";
-# PLEASE TRANSLATE $lang["output"] = "Output";
+$lang["utility"] = "Utility"; // PLEASE TRANSLATE
+$lang["utilitytool"] = "Utility - Excecute heyu Command"; // PLEASE TRANSLATE
+$lang["arguments"] = "Arguments"; // PLEASE TRANSLATE
+$lang["output"] = "Output"; // PLEASE TRANSLATE
 
 ?>
