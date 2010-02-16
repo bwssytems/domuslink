@@ -104,9 +104,9 @@
  $lang["error"]="Erreur"; 
  $lang["logout"]="Déconnection"; 
  $lang["keep_login"]="Laissez moi loggué"; 
- $lang["upload"]="Télécharger"; 
+ $lang["upload"]="Charger"; 
  $lang["erase"]="Effacement"; 
- $lang["uploadsuccess"]="Téléchargement Réussi"; 
+ $lang["uploadsuccess"]="Chargement Réussi"; 
  $lang["erasesuccess"]="Effacement Réussi"; 
  $lang["upload_erase_log_txt"]="Cliquer <a href='#' onclick='divShowHide(log);'>ICI</a> pour voir le journal."; 
  $lang["upload_txt"]="To upload the schedule file defined in the <a href=../admin/heyu.php>heyu configuration</a> file and configured in the <a href=../events/timers.php>timer administration</a> section, click the button bellow."; 
@@ -117,26 +117,26 @@
  $lang["error_filerw"]="non trouvé où ne peut-être écrit!"; 
  $lang["error_filer"]="non trouvé ou ne peut être lu!"; 
 
- $lang["about"]="A propos"; 
- $lang["status"]="Statut"; 
+ $lang["about"]="A propos de ..."; 
+ $lang["status"]="Statut "; 
  $lang["events"]="Evenements"; 
- $lang["timers"]="Minuteries (timers)"; 
- $lang["timer"]="Minuterie"; 
- $lang["triggers"]="Déclencheurs (triggers)"; 
+ $lang["timers"]="Programmateurs"; 
+ $lang["timer"]="Programmateur"; 
+ $lang["triggers"]="Déclencheurs"; 
  $lang["trigger"]="Déclencheur"; 
- $lang["addtrigger"]="Ajout Déclencheur"; 
- $lang["edittrigger"]="Editer Déclencheur"; 
+ $lang["addtrigger"]="Ajouter un déclencheur"; 
+ $lang["edittrigger"]="un Editer Déclencheur"; 
  $lang["trig_cmd"]="Déclencheur Command"; 
  $lang["trig_unit"]="Déclencheur Unit"; 
  $lang["addtimer"]="Ajout Minuterie"; 
  $lang["edittimer"]="Editer Minuterie"; 
- $lang["startdate"]="Date début"; 
- $lang["enddate"]="Date fin"; 
- $lang["ontime"]="Heure ON"; 
- $lang["offtime"]="Heure OFF"; 
+ $lang["startdate"]="Date début "; 
+ $lang["enddate"]="Date fin "; 
+ $lang["ontime"]="Heure On "; 
+ $lang["offtime"]="Heure Off "; 
 
- $lang["weekdays"]="semaine"; 
- $lang["daterange"]="Période DATE"; 
+ $lang["weekdays"]="Jours "; 
+ $lang["daterange"]="Période "; 
  $lang["time"]="Heure"; 
  $lang["on"]="On"; 
  $lang["end"]="Fin"; 
@@ -145,7 +145,7 @@
  $lang["disable"]="Désactiver"; 
  $lang["enabled"]="Activé"; 
  $lang["disabled"]="Désactivé"; 
- $lang["execute"]="Executer"; 
+ $lang["execute"]="Lancer"; 
 
  $lang["jan"]="Janvier"; 
  $lang["feb"]="Février"; 
