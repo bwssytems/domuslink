@@ -27,6 +27,9 @@
  
  Installation:
  --------------
+ 
+ Note: Some commands that are shown may require root priveleges. Either become root on your system
+ or pre-pend the command with sudo.
 
  1) Download latest version from http://domus.link.co.pt/download
 

@@ -3,12 +3,14 @@
  |                               CHANGES                                      |
  |                                                                            |
  +----------------------------------------------------------------------------*/
-  v1.0.2 (GPL Release) - 20/Feb/2010
+  v1.0.2 (GPL Release) - 21/Feb/2010
  ------
     * Added new domus.Link GPL header to domus.Link created files
     * Added new Utility interface to execute heyu commands directly from
       domus.Link in the admin menu. The arguments line can take any heyu command
-      as well if none is highlighted in the command select list.
+      as well if none is highlighted in the command select list. It also restricts
+      commands that require terminal control such as "monitor".
+    * Updated document files for INSTALL and LICENSE.
     * Updated French language files
     * Order language files
      
