@@ -1,3 +1,24 @@
+<!--
+/*
+ * domus.Link :: PHP Web-based frontend for Heyu (X10 Home Automation)
+ * Copyright (c) 2007, Istvan Hubay Cebrian (istvan.cebrian@domus.link.co.pt)
+ * Project's homepage: http://domus.link.co.pt
+ * Project's dev. homepage: http://domuslink.googlecode.com
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope's that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details. You should have 
+ * received a copy of the GNU General Public License along with
+ * this program; if not, write to the Free Software Foundation, 
+ * Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+ -->
 <html>
 
 <head>
@@ -111,6 +132,7 @@
   <div id="setupmenuitem"><a href="<?php echo ($config['url_path']);?>/admin/frontend.php"><?php echo ($lang['frontend']); ?></a></div>
   <div id="setupmenuitem"><a href="<?php echo ($config['url_path']);?>/admin/floorplan.php"><?php echo ($lang['floorplan']); ?></a></div>
   <div id="setupmenuitem"><a href="<?php echo ($config['url_path']);?>/admin/aliases.php"><?php echo ($lang['aliases']); ?></a></div>
+  <div id="setupmenuitem"><a href="<?php echo ($config['url_path']);?>/admin/utility.php"><?php echo ($lang['utility']); ?></a></div>
 </div>
 <?php if (substr(strstr($_SERVER['REQUEST_URI'], "admin"), 0, 5) == "admin"): ?>
 <SCRIPT LANGUAGE="JavaScript">divShowHide(setupmenu, 'visible');</SCRIPT>
@@ -152,4 +174,3 @@
 <br>Copyright <SCRIPT LANGUAGE="JavaScript">copyrightDate();</SCRIPT><br><a href="http://icebrian.net" target="_blank">Istvan Hubay Cebrian</a></div>
 </body>
 </html>
-<!-- domus.Link - Copyright (c) 2007-2009 - Istvan Hubay Cebrian - http://domus.link.co.pt -->
