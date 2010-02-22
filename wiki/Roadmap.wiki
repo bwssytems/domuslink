@@ -18,6 +18,7 @@ This page will contain the domus.Link roadmap, agreed upon and developed by all 
   * View by location/floorplan or types
   * Improve x10.conf file parsing
   * Use of aliases with same name
+  * AJAX implementation (drag&drop sorting, etc)
 
 = Features Under Consideration =
   * Multiple schedule files
@@ -28,7 +29,6 @@ This page will contain the domus.Link roadmap, agreed upon and developed by all 
   * Log administration
   * CM11 interface administration
   * Interactive installation
-  * AJAX drag&drop sorting
   * UI Enhancements
   * Weather reporting and monitoring for irrigation control
   * Screensaver
