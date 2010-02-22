@@ -11,6 +11,7 @@ This page will contain the domus.Link roadmap, agreed upon and developed by all 
   * Dawn/dusk times in timers
   * Irrigation type will be know as Others
   * Shutter support (is it the SW10?)
+  * Resolve issue 1
 
 == v2.0 ==
   * Code clean-up
