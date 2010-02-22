@@ -12,25 +12,25 @@ This page will contain the domus.Link roadmap, agreed upon and developed by all 
   * Irrigation type will be know as Others
   * Shutter support
   * Resolve issue 1
+  * Multiple schedule files
 
 == v2.0 ==
   * Code clean-up
   * Complete OOP focus
   * View by location/floorplan or types
   * Improve x10.conf file parsing (webhook !?!)
-  * Use of aliases with same name
   * AJAX implementation (drag&drop sorting, etc)
 
+== v2.1 ==
+  * Use of aliases with same name
+  * Scene & Usersyn
+
 = Features Under Consideration =
-  * Multiple schedule files
   * Cron administration
   * Script support
-  * SW10 module support (in v1.1 !?!)
-  * Scene & Usersyn
   * Log administration
   * CM11 interface administration
   * Interactive installation
-  * UI Enhancements
   * Weather reporting and monitoring for irrigation control
   * Screensaver
   * Mobile/PDA/Touchscreen themes
