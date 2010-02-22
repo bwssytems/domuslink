@@ -21,11 +21,9 @@ This page will contain the domus.Link roadmap, agreed upon and developed by all 
   * Improve x10.conf file parsing (webhook !?!)
   * AJAX implementation (drag&drop sorting, etc)
 
-== v2.1 ==
+= Features Under Consideration =
   * Use of aliases with same name
   * Scene & Usersyn
-
-= Features Under Consideration =
   * Cron administration
   * Script support
   * Log administration
