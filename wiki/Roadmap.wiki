@@ -10,14 +10,14 @@ This page will contain the domus.Link roadmap, agreed upon and developed by all 
   * Null timer ability
   * Dawn/dusk times in timers
   * Irrigation type will be know as Others
-  * Shutter support (is it the SW10?)
+  * Shutter support
   * Resolve issue 1
 
 == v2.0 ==
   * Code clean-up
   * Complete OOP focus
   * View by location/floorplan or types
-  * Improve x10.conf file parsing
+  * Improve x10.conf file parsing (webhook !?!)
   * Use of aliases with same name
   * AJAX implementation (drag&drop sorting, etc)
 
