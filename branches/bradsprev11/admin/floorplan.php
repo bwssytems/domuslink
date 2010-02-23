@@ -62,7 +62,7 @@ else {
 		
 		// add location	
 		case "add":
-			add_line($locations, FPLAN_FILE_LOCATION, 'floorplan');
+			add_line_end($locations, FPLAN_FILE_LOCATION, 'floorplan');
 			break;
 		
 		// save location (called from edits)

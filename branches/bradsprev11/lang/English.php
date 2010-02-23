@@ -174,4 +174,20 @@ $lang["utilitytool"] = "Utility - Excecute heyu Command";
 $lang["arguments"] = "Arguments";
 $lang["output"] = "Output";
 
+/* bws added 12/16/09 */
+$lang["macro"] = "Macro";
+$lang["macros"] = "Macros";
+$lang["delay"] = "Delay";
+$lang["addmacro"] = "Add Macro";
+$lang["editmacro"] = "Edit Macro";
+$lang["macro_unit"] = "Macro Unit";
+$lang["macro_cmd"] = "Macro Command";
+$lang["obdim"] = "On-Bright-Dim";
+$lang["brightb"] = "Brighten";
+$lang["timeraddadv"] = "Timer Add Advanced";
+$lang["macro_on"] = "Macro On";
+$lang["macro_off"] = "Macro Off";
+$lang["timers_macro"] = "Timers by Macro";
+$lang["addmacrotimer"] = "Add Timer by Macro";
+$lang["editmacrotimer"] = "Edit Timer by Macro";
 ?>

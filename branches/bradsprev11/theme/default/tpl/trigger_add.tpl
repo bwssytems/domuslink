@@ -44,14 +44,14 @@ function validateForm(form)
 </tr>
 <tr>
 <td align="center"><h6><?php echo ($lang['trig_unit']);?>:</h6></td>
-<td align="center"><h6><?php echo ($lang['execute']);?>:</h6></td>
+<td align="center"><h6><?php echo ($lang['macro']);?>:</h6></td>
 </tr>
 <tr>
 <td align="center">
 <!-- trigger unit -->
 <select name="unit" size="9">
 <?php foreach ($codelabels as $codelabel): ?>
-	<?php list($code, $label) = split("@", $codelabel, 2); ?>
+	<?php list($code, $label) = explode("@", $codelabel, 2); ?>
 	<?php if (!is_multi_alias($code)): ?>
 		<option value="<?php echo $label;?>"><?php echo label_parse($label, false);?></option>
 	<?php endif; ?>
@@ -63,8 +63,8 @@ function validateForm(form)
 <!-- execute macro -->
 <select name="macro" size="9">
 <?php foreach ($cmacs as $cmac): ?>
-	<?php list($alias, $code, $trans) = split("@", $cmac, 3); ?>
-	<option value="<?php echo $alias;?>_<?php echo $code;?>"><?php echo label_parse($alias, false);?> <?php echo strtoupper($trans);?></option>
+	<?php list($macro_name, $commands, $trans) = explode("@", $cmac, 3); ?>
+	<option value="<?php echo $macro_name;?>"><?php echo label_parse($macro_name, false);?> - <?php echo $commands;?></option>
 <?php endforeach; ?>
 </select>
 <!-- end execute macro -->

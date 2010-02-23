@@ -1,5 +1,5 @@
 <table cellspacing="0" cellpadding="0" border="0" align="center" class="content">
-<tr><th><?php echo ($lang['timers']); ?></th></tr>
+<tr><th><?php echo ($lang['timers_macro']); ?></th></tr>
 
 <tr><td>
 
@@ -40,8 +40,7 @@ foreach ($timers as $timerline):
 	list($lbl, $weekdays, $dateonoff, $ontime, $offtime, $onmacro, $offmacro) = split(" ", $timer, 7); 
 	list($dateon, $dateoff) = split("-", $dateonoff, 2);
 	$enabled = (substr($lbl, 0, 1) == "#") ? false : true;
-	//$code = parse_macro($onmacro);
-	$code = label_parse(strip_code($onmacro),false);
+	$code = label_parse($onmacro,false)."-".label_parse($offmacro,false);
 ?>
  
  <tr <?php if (!$enabled) echo "style='color: #cccccc'"; ?> class="row">

@@ -26,7 +26,7 @@ require_once(CLASS_FILE_LOCATION.'heyusched.class.php');
 
 ## Security validation's
 if ($config['seclevel'] != "0" && !$authenticated) {
-	header("Location: ../login.php?from=events/timers");
+	header("Location: ../login.php?from=events/timers_macro");
 	exit();
 }
 
@@ -34,16 +34,11 @@ if ($config['seclevel'] != "0" && !$authenticated) {
 $heyuconf = new heyuConf($config['heyuconf']);
 $schedfileloc = $config['heyu_base'].$heyuconf->getSchedFile();
 
-## Load aliases and parse so that only code and labels remain
-$aliases = $heyuconf->getAliases();
-$codelabels = $heyuconf->getCodesAndLabels($aliases);
-
 ## Instantiate heyuSched class, get contents and parse timers
 $heyusched = new heyuSched($schedfileloc);
 $schedfile = $heyusched->get();
 $macros = $heyusched->getMacros();
 $timers = $heyusched->getTimers();
-$triggers = $heyusched->getTriggers();
 
 ## Set-up arrays
 $months = array (1 => $lang["jan"], $lang["feb"], $lang["mar"], $lang["apr"], $lang["may"], $lang["jun"], $lang["jul"], $lang["aug"], $lang["sep"], $lang["oct"], $lang["nov"], $lang["dec"]);
@@ -53,19 +48,19 @@ $mins = range(0,59);
 $hours = range(00,23);
 
 ## Set template parameters
-$tpl->set('title', $lang['timers']);
+$tpl->set('title', $lang['timers_macro']);
 
-$tpl_body = & new Template(TPL_FILE_LOCATION.'timers_view.tpl');
+$tpl_body = & new Template(TPL_FILE_LOCATION.'timer_macro_view.tpl');
 $tpl_body->set('lang', $lang);
 $tpl_body->set('timers', $timers);
 $tpl_body->set('config', $config);
 $tpl_body->set('first_line', $heyusched->getTimerBeginLine());
 $tpl_body->set('last_line', $heyusched->getTimerEndLine());
-
+print($heyusched->getTimerBeginLine()."-".$heyusched->getTimerEndLine());
 if (!isset($_GET["action"])) {
-	$tpl_add = & new Template(TPL_FILE_LOCATION.'timer_add.tpl');
+	$tpl_add = & new Template(TPL_FILE_LOCATION.'timer_macro_add.tpl');
 	$tpl_add->set('lang', $lang);
-	$tpl_add->set('codelabels', $codelabels);
+	$tpl_add->set('macros', $macros);
 	$tpl_add->set('months', $months);
 	$tpl_add->set('days', $days);
 	$tpl_add->set('hours', $hours);
@@ -75,27 +70,11 @@ if (!isset($_GET["action"])) {
 else {
 	switch ($_GET["action"]) {
 		case "enable":
-			$sm = get_specific_macros($macros, $_GET['onm'], $_GET['ofm']); 
-			$newschedfile = change_macro_states($sm, "enable", $schedfile);
 			direct_replace_line($newschedfile, $schedfileloc, substr($schedfile[$_GET['line']], 1), $_GET['line']);
 			break;
 			
 		case "disable":
-			//if no timer or trigger in use that uses on/off macros OR
-			//disabled timer or trigger exists that uses on/off macro
-			$mtim = multiple_timer_macro_use($timers, $_GET['onm'], $_GET['ofm'], $_GET['line']);
-			$mtrigon = multiple_trigger_macro_use($triggers, $_GET['onm'], $_GET['line']);
-			$mtrigoff = multiple_trigger_macro_use($triggers, $_GET['ofm'], $_GET['line']);
-			if ($mtim <= 1 && $mtrigon == 0 && $mtrigoff == 0) {
-				//get individual macros (get_specific_macros)
-				//then change their states (change_macro_states) outputing complete file to $newschedfile
-				//finally disable timer sending as input new schedfile
-				$sm = get_specific_macros($macros, $_GET['onm'], $_GET['ofm']); 
-				$newschedfile = change_macro_states($sm, "disable", $schedfile);
-				direct_replace_line($newschedfile, $schedfileloc, "#".$schedfile[$_GET['line']], $_GET['line']);
-			}
-			else
-				direct_replace_line($schedfile, $schedfileloc, "#".$schedfile[$_GET['line']], $_GET['line']); //disable timer
+			direct_replace_line($schedfile, $schedfileloc, "#".$schedfile[$_GET['line']], $_GET['line']); //disable timer
 			break;
 		
 		case "edit":
@@ -107,12 +86,13 @@ else {
 			list($offhour, $offmin) = split(":", $offtime, 2);
 			$enabled = (substr($lbl, 0, 1) == "#") ? false : true;
 			
-			$tpl_edit = & new Template(TPL_FILE_LOCATION.'timer_edit.tpl');
+			$tpl_edit = & new Template(TPL_FILE_LOCATION.'timer_macro_edit.tpl');
 			$tpl_edit->set('lang', $lang);
 			$tpl_edit->set('enabled', $enabled);
 			
-			$tpl_edit->set('codelabels', $codelabels);
-			$tpl_edit->set('selcode', strip_code($onmacro));
+			$tpl_edit->set('macros', $macros);
+			$tpl_edit->set('selcode_on', $onmacro);
+			$tpl_edit->set('selcode_off', $offmacro);
 			
 			$tpl_edit->set('weekdays', $weekdays);
 			
@@ -137,31 +117,15 @@ else {
 		
 		case "add":
 			//build timer line with POST results
-			add_quick_timer_line($schedfile, $schedfileloc, $heyusched->getMacroEndLine(), $heyusched->getTimerEndLine());	
+			add_line($schedfile, $schedfileloc, $heyusched->getTimerEndLine() + 1, "timermacro");
 			break;
 			
 		case "save":
-			//build timer line with POST results	
-			edit_quick_timer_line($schedfile, $schedfileloc);
+			//build timer line with POST results
+			edit_line($schedfile, $schedfileloc, "timermacro");		
 			break;
-
 		case "del":
-			//check if any other timer or trigger (enabled or disabled) is using macros
-			//	if no  - delete timer and assiociated macros
-			//	if yes - only delete timer
-			if (!multiple_timer_macro_use($timers, $_GET['onm'], $_GET['ofm'], $_GET['line']) || !multiple_trigger_macro_use($triggers, $_GET['ofm'], $_GET['line']) || !multiple_trigger_macro_use($triggers, $_GET['onm'], $_GET['line'])) {
-				//delete timer and associated macros
-				$smas = get_specific_macros($macros, $_GET['onm'], $_GET['ofm']);
-				foreach ($smas as $num => $ml) {
-						list($m, $l) = split("@", $ml, 2);
-						array_splice($schedfile, $l-$num, 1); //deletes macros
-				}
-				delete_line($schedfile, $schedfileloc, $_GET["line"]-count($smas)); //deletes timer
-			}
-			else {
-				//only delete timer since other timer(s) are using macros
-				delete_line($schedfile, $schedfileloc, $_GET["line"]); //deletes timer
-			}
+			delete_line($schedfile, $schedfileloc, $_GET["line"]);
 			break;
 		
 		case "move":

@@ -1,5 +1,5 @@
-<font size="5">
-<table cellspacing="0" cellpadding="0" border="0" width="500px" align="middle" class="content">
+<table cellspacing="0" cellpadding="0" border="0" width="500px" align="center" class="content">
+
 <tr><th><?php echo ($lang['about']); ?></th></tr>
 
 <tr><td>
@@ -38,5 +38,5 @@ Swedish: Tobias Axelsson<br />
 </table>
 
 </td></tr>
+
 </table>
-</font>

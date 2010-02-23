@@ -120,7 +120,7 @@ ProgressDestroy();	// Hides
 
 </script>
 
-<table cellspacing="0" cellpadding="0" border="0" align="middle" class="content" width="550px">
+<table cellspacing="0" cellpadding="0" border="0" align="center" class="content" width="550px">
 <tr>
 <th width="275px"><?php echo ($lang['upload']); ?></th>
 <th width="275px"><?php echo ($lang['erase']); ?></th>
@@ -166,7 +166,7 @@ ProgressDestroy();	// Hides
 </table>
 
 <div id="log" style="display:none">
-<table cellspacing="0" cellpadding="0" border="0" align="middle" class="content">
+<table cellspacing="0" cellpadding="0" border="0" align="center" class="content">
 <tr><th><?php echo ($lang['log']); ?></th></tr>
 
 <tr><td>
