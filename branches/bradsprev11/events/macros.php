@@ -50,8 +50,6 @@ $tpl_body = & new Template(TPL_FILE_LOCATION.'macro_view.tpl');
 $tpl_body->set('lang', $lang);
 $tpl_body->set('macros', $macros);
 $tpl_body->set('config', $config);
-$tpl_body->set('first_line', $heyusched->getMacroBeginLine());
-$tpl_body->set('last_line', $heyusched->getMacroEndLine());
 
 if (!isset($_GET["action"])) {
 	$tpl_add = & new Template(TPL_FILE_LOCATION.'macro_add.tpl');
@@ -67,7 +65,7 @@ else {
 			break;
 			
 		case "disable":
-			direct_replace_line($schedfile, $schedfileloc, "#".$schedfile[$_GET['line']], $_GET['line']);
+			direct_replace_line($schedfile, $schedfileloc, COMMENT_SIGN_D.$schedfile[$_GET['line']], $_GET['line']);
 			break;
 			
 		case "edit":
@@ -86,13 +84,13 @@ else {
 			// add them to file
 			$sm = get_specific_macro($macros, strtolower($_POST["macro_name"]));
 			if (!$sm) {
-				add_line($schedfile, $schedfileloc,$heyusched->getMacroEndLine()+1, "macro" );
+				add_line($schedfile, $schedfileloc,$heyusched->getLine(MACRO_D, END_D)+1, MACRO_D);
 			}
 			break;
 			
 		case "save":
 			//build macro line with POST results	
-			edit_line($schedfile, $schedfileloc, "macro");
+			edit_line($schedfile, $schedfileloc, MACRO_D);
 			break;
 			
 		case "del":

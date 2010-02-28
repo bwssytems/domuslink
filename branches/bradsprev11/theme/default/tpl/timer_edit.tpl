@@ -1,3 +1,6 @@
+<?php
+$buttonaction = $_POST["buttonaction"];
+?>
 <form action="<?php echo($_SERVER['PHP_SELF']); ?>?action=save" method="post">
 <input type="hidden" name="line" value="<?php echo $linenum; ?>" / >
 <input type="hidden" name="module" value="<?php echo $selcode;?>" / >
@@ -39,7 +42,7 @@
   <tr>
     <td width="80px"><h6><?php echo $lang['startdate']; ?>:</h6></td>
     <td width="150px">
-		<select name='onday' style="width:35px;">
+		<select name='onday' style="width:45px;">
 		<?php foreach ($days as $value): ?>
 			<option value="<?php echo $value; ?>" <?php if ($onday == $value) echo "selected"; ?>><?php echo $value; ?></option>
 		<?php endforeach; ?>
@@ -58,7 +61,7 @@
   <tr>
     <td width="80px"><h6><?php echo $lang['enddate']; ?>:</h6></td>
     <td width="150px">
-		<select name='offday' style="width:35px;">
+		<select name='offday' style="width:45px;">
 		<?php foreach ($days as $value): ?>
 			<option value="<?php echo $value; ?>" <?php if ($offday == $value) echo "selected"; ?>><?php echo $value; ?></option>
 		<?php endforeach; ?>
@@ -77,13 +80,13 @@
   <tr>
     <td width="80px"><h6><?php echo $lang['ontime']; ?>:</h6></td>
     <td width="150px">
-    <select name='onhour' style="width:35px;">
+    <select name='onhour' style="width:45px;">
 	<?php foreach ($hours as $value): ?>
 		<?php if (strlen($value) == 1): $value = "0".$value; endif; ?>
 		<option value="<?php echo $value; ?>" <?php if ($onhour == $value) echo "selected"; ?>><?php echo $value; ?></option>
 	<?php endforeach; ?>
 	</select>
-	<select name='onmin' style="width:35px;">
+	<select name='onmin' style="width:45px;">
 	<?php foreach ($mins as $value): ?>
 		<?php if (strlen($value) == 1): $value = "0".$value; endif; ?>
 		<option value="<?php echo $value; ?>" <?php if ($onmin == $value) echo "selected"; ?>><?php echo $value; ?></option>
@@ -98,13 +101,13 @@
   <tr>
     <td width="80px"><h6><?php echo $lang['offtime']; ?>:</h6></td>
     <td width="150px">
-    <select name='offhour' style="width:35px;">
+    <select name='offhour' style="width:45px;">
 	<?php foreach (array_reverse($hours) as $value): ?>
 		<?php if (strlen($value) == 1): $value = "0".$value; endif; ?>
 		<option value="<?php echo $value; ?>" <?php if ($offhour == $value) echo "selected"; ?>><?php echo $value; ?></option>
 	<?php endforeach; ?>
 	</select>
-	<select name='offmin' style="width:35px;">
+	<select name='offmin' style="width:45px;">
 	<?php foreach ($mins as $value): ?>
 		<?php if (strlen($value) == 1): $value = "0".$value; endif; ?>
 		<option value="<?php echo $value; ?>" <?php if ($offmin == $value) echo "selected"; ?>><?php echo $value; ?></option>
@@ -137,7 +140,10 @@
 </td></tr>
 
 <tr>
-<td style="border-right: none;" align="center"><input type="submit" value="<?php echo ($lang['save']); ?>" /></td>
+<td style="border-right: none;" align="center">
+<input type="submit" value="<?php echo ($lang['save']); ?>" />
+<input type="button" onClick="window.location='<?php echo ($_SERVER['PHP_SELF']); ?>'" value="<?php echo ($lang['cancel']); ?>" />
+</td>
 </tr>
 </table>
 </form>

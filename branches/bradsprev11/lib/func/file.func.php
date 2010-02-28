@@ -57,7 +57,7 @@ function add_line($content, $fileloc, $linenum, $editing) {
  * @param $content file contents being received
  * @param $fileloc complete file location
  */
-function add_quick_timer_line($content, $fileloc, $macro_end_line, $timer_end_line) {
+function add_quick_timer_line($content, $fileloc, $macros, $macro_end_line, $timer_end_line) {
 	$res = build_new_line("timer");
 	$tline = $res[0];
 	$onmacro = $res[1];

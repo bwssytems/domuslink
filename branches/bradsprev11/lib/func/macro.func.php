@@ -37,29 +37,6 @@
 }
 
 /**
- * Parse Macro
- * 
- * Description: Receives macro name such as 'tv_set_on' extracts
- * label and finds description/label in aliases
- * 
- * @param $macro represents the macro name itself
- */
- /*
-function parse_macro($macro) {
-	global $aliases;
-	
-	foreach ($aliases as $alias) {
-		list($temp, $label, $retcode, $module_type_loc) = split(" ", $alias, 4);
-		
-		if (strtolower($label) == strtolower(strip_code($macro)))
-			return label_parse($label, false);
-	}
-	
-	return "N/A";
-}
-*/
-
-/**
  * Description: Receives array of all macros along with
  * on and off macro. It will then search same array and return
  * another array with matching on/off macros.
@@ -112,6 +89,39 @@ function multiple_timer_macro_use($timers, $onmacro, $offmacro, $line) {
 	//0 - no timer in use that uses on/off macros
 	//1 - disabled timer exists that uses on/off macro
 	//2 - active timer exists that uses on/off macro
+}
+
+/**
+ * Description: Checks against active triggers if macros are
+ * used by any other timer.
+ * 
+ * @param $triggers the trigger array
+ * @param $amacro the macro name
+ * @param $line the command originating line number
+ */
+function multiple_trigger_macro_use($triggers, $amacro, $line) {
+	foreach ($triggers as $trigger) {
+		//split line into trigger and line number then
+		list($t, $l) = split(ARRAY_DELIMITER_D, $trigger, 2);
+		
+		if ($line == $l) continue; //ignore originating timer
+		else {
+			if (stripos($t, $amacro)) {
+				//trigger found that use on/off macro
+				if (substr($t, 0, 1) != COMMENT_SIGN_D) 
+					return 2; //active trigger exists
+				else 
+					return 1; //disabled trigger exists
+			}
+		}
+	}
+	
+	return 0;
+	
+	//return values
+	//0 - no trigger in use that uses on/off macros
+	//1 - disabled trigger exists that uses on/off macro
+	//2 - active trigger exists that uses on/off macro
 }
 
 /**

@@ -59,8 +59,6 @@ $tpl_body = & new Template(TPL_FILE_LOCATION.'timers_view.tpl');
 $tpl_body->set('lang', $lang);
 $tpl_body->set('timers', $timers);
 $tpl_body->set('config', $config);
-$tpl_body->set('first_line', $heyusched->getTimerBeginLine());
-$tpl_body->set('last_line', $heyusched->getTimerEndLine());
 
 if (!isset($_GET["action"])) {
 	$tpl_add = & new Template(TPL_FILE_LOCATION.'timer_add.tpl');
@@ -92,10 +90,10 @@ else {
 				//finally disable timer sending as input new schedfile
 				$sm = get_specific_macros($macros, $_GET['onm'], $_GET['ofm']); 
 				$newschedfile = change_macro_states($sm, "disable", $schedfile);
-				direct_replace_line($newschedfile, $schedfileloc, "#".$schedfile[$_GET['line']], $_GET['line']);
+				direct_replace_line($newschedfile, $schedfileloc, COMMENT_SIGN_D.$schedfile[$_GET['line']], $_GET['line']);
 			}
 			else
-				direct_replace_line($schedfile, $schedfileloc, "#".$schedfile[$_GET['line']], $_GET['line']); //disable timer
+				direct_replace_line($schedfile, $schedfileloc, COMMENT_SIGN_D.$schedfile[$_GET['line']], $_GET['line']); //disable timer
 			break;
 		
 		case "edit":
@@ -137,7 +135,7 @@ else {
 		
 		case "add":
 			//build timer line with POST results
-			add_quick_timer_line($schedfile, $schedfileloc, $heyusched->getMacroEndLine(), $heyusched->getTimerEndLine());	
+			add_quick_timer_line($schedfile, $schedfileloc, $macros, $heyusched->getLine(MACRO_D, END_D), $heyusched->getLine(TIMER_D, END_D));	
 			break;
 			
 		case "save":
@@ -153,7 +151,7 @@ else {
 				//delete timer and associated macros
 				$smas = get_specific_macros($macros, $_GET['onm'], $_GET['ofm']);
 				foreach ($smas as $num => $ml) {
-						list($m, $l) = split("@", $ml, 2);
+						list($m, $l) = split(ARRAY_DELIMETER_D, $ml, 2);
 						array_splice($schedfile, $l-$num, 1); //deletes macros
 				}
 				delete_line($schedfile, $schedfileloc, $_GET["line"]-count($smas)); //deletes timer

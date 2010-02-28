@@ -54,9 +54,6 @@ $tpl_body = & new Template(TPL_FILE_LOCATION.'timer_macro_view.tpl');
 $tpl_body->set('lang', $lang);
 $tpl_body->set('timers', $timers);
 $tpl_body->set('config', $config);
-$tpl_body->set('first_line', $heyusched->getTimerBeginLine());
-$tpl_body->set('last_line', $heyusched->getTimerEndLine());
-print($heyusched->getTimerBeginLine()."-".$heyusched->getTimerEndLine());
 if (!isset($_GET["action"])) {
 	$tpl_add = & new Template(TPL_FILE_LOCATION.'timer_macro_add.tpl');
 	$tpl_add->set('lang', $lang);
@@ -74,7 +71,7 @@ else {
 			break;
 			
 		case "disable":
-			direct_replace_line($schedfile, $schedfileloc, "#".$schedfile[$_GET['line']], $_GET['line']); //disable timer
+			direct_replace_line($schedfile, $schedfileloc, COMMENT_SIGN_D.$schedfile[$_GET['line']], $_GET['line']); //disable timer
 			break;
 		
 		case "edit":
@@ -117,12 +114,12 @@ else {
 		
 		case "add":
 			//build timer line with POST results
-			add_line($schedfile, $schedfileloc, $heyusched->getTimerEndLine() + 1, "timermacro");
+			add_line($schedfile, $schedfileloc, $heyusched->getLine(TIMER_D, END_D) + 1, TIMER_D.MACRO_D);
 			break;
 			
 		case "save":
 			//build timer line with POST results
-			edit_line($schedfile, $schedfileloc, "timermacro");		
+			edit_line($schedfile, $schedfileloc, TIMER_D.MACRO_D);		
 			break;
 		case "del":
 			delete_line($schedfile, $schedfileloc, $_GET["line"]);

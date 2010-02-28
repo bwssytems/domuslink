@@ -210,6 +210,9 @@ ProgressDestroy();	// Hides
 
 <tr>
   	<td style="border-right:none;" align="left" width="20px"><a href="#" onclick="javascript:window.open('../doc/heyuconf.htm','','scrollbars=yes,menubar=no,width=700,height=500,resizable=yes,toolbar=no,location=no,status=no');">Help</a></td>
-    <td style="border-left:none;border-right:none;" align="right"><input type="submit" value="<?php echo($lang['save']); ?>" onclick="CallJS('Demo()')" /></td>
+    <td style="border-left:none;border-right:none;" align="right">
+    <input type="submit" value="<?php echo($lang['save']); ?>" onclick="CallJS('Demo()')" />
+    <input type="button" onClick="window.location='<?php echo ($_SERVER['PHP_SELF']); ?>'" value="<?php echo ($lang['cancel']); ?>" />
+    </td>
 </table>
 </form>

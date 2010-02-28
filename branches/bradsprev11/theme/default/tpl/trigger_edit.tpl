@@ -76,7 +76,10 @@ function validateForm(form)
 
 </td></tr>
 <tr>
-<td style="border-right: none;" align="center"><input type="submit" value="<?php echo ($lang['save']);?>" /></td>
+<td style="border-right: none;" align="center">
+<input type="submit" value="<?php echo ($lang['save']);?>" />
+<input type="button" onClick="window.location='<?php echo ($_SERVER['PHP_SELF']); ?>'" value="<?php echo ($lang['cancel']); ?>" />
+</td>
 </tr>
 </table>
 </form>

@@ -51,11 +51,6 @@ $tpl_body = & new Template(TPL_FILE_LOCATION.'trigger_view.tpl');
 $tpl_body->set('lang', $lang);
 $tpl_body->set('triggers', $triggers);
 $tpl_body->set('config', $config);
-print("start initialize line");
-$tpl_body->set('first_line', $heyusched->getTriggerBeginLine());
-print("got begin");
-$tpl_body->set('last_line', $heyusched->getTriggerEndLine());
-print("initialized");
 
 if (!isset($_GET["action"])) {
 	$tpl_add = & new Template(TPL_FILE_LOCATION.'trigger_add.tpl');
@@ -71,7 +66,7 @@ else {
 			break;
 			
 		case "disable":
-			direct_replace_line($schedfile, $schedfileloc, "#".$schedfile[$_GET['line']], $_GET['line']);
+			direct_replace_line($schedfile, $schedfileloc, COMMENT_SIGN_D.$schedfile[$_GET['line']], $_GET['line']);
 			break;
 			
 		case "edit":
@@ -89,11 +84,11 @@ else {
 			break;
 			
 		case "add":
-			add_line($schedfile, $schedfileloc, $heyusched->getTriggerEndLine()+1, 'trigger');
+			add_line($schedfile, $schedfileloc, $heyusched->getLine(TRIGGER_D, END_D)+1, TRIGGER_D);
 			break;
 			
 		case "save":
-			edit_line($schedfile, $schedfileloc, 'trigger');
+			edit_line($schedfile, $schedfileloc, TRIGGER_D);
 			break;
 			
 		case "del":
