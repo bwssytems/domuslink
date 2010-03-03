@@ -1,4 +1,4 @@
-= current development status = 
+= V1.1 current development status = 
 
 || *Functionality || *Who* || *Status* ||
 || Null timer ability || Brad || 90% ||
