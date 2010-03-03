@@ -1,13 +1,13 @@
 = current development status = 
 
 || *Functionality || *Who* || *Status* ||
-|| Null timer ability || ? || ||
+|| Null timer ability || Brad || 90% ||
 || Dawn/dusk times in timers  || ||  ||
 || Irrigation type will be know as Others || philippe c || starting || 
 || Shutter support (SW10) ||philippe c || 5 % || 
 || Multiple schedule files || ? || ||
-|| Direct macro creation ||Brad || || 
-|| management of timers by individual  macro || Brad ||
-|| optimizations for triggers being able to see the complete macro || || ||
+|| Direct macro creation ||Brad || 100% || 
+|| management of timers by individual  macro || Brad || 100% ||
+|| optimizations for triggers being able to see the complete macro || Brad || 100% ||
 
 = Details =
