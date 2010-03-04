@@ -14,9 +14,34 @@
 
 == Shutter support & irrigation will be known as others == 
 
+=== modules types ===
+List of modules is defined in a configuration file db/modules
 
-Mods types: 
+ 
+|| *Module || *Description || *type ||
+|| StdLM  || standard X10 lamp module || lights || 
+|| LM14A  || X-10 2-way lamp module (Extended codes) ||lights ||
+|| LM15A  || X-10 Socket Rocket screw-in non-dimming lamp module. ||lights ||
+|| PLM21  ||  X-10 2-way lamp module (Extended codes) ||lights ||
+|| StdAM ||standard X10 appliance module ||appliance ||
+|| SW10 || Shutter and shade controller ||shutter ||
+|| RR501  ||X10 RF Transceiver || ? ||
+|| StdWS  || (StdWS WS467) - Standard X-10 wall switch || ? ||
+|| SL2380W  ||  SwitchLinc 2-way dimmer (Preset codes). || ? ||
+|| LL2000STW || LampLinc 2-way dimmer (Preset codes) ||lights ? ||
+|| RAIN8 || Rain || rain ||
+|| XM10A || Camera power || ? ||
+|| XM13A || Camera power || ? ||
+
+module type information is not 
+
+
+=== module ===
+
+Mods types (domus) : 
  * lights 
  * appliance
  * irrigation
  * shutters (new)
+
+
