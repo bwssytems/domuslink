@@ -15,7 +15,7 @@
 == Shutter support & irrigation will be known as others == 
 
 === modules types ===
-List of modules is defined in a configuration file db/modules
+List of existings modules is defined in a configuration file db/modules
 
  
 || *Module || *Description || *type ||
@@ -33,15 +33,15 @@ List of modules is defined in a configuration file db/modules
 || XM10A || Camera power || ? ||
 || XM13A || Camera power || ? ||
 
-module type information is not 
+module type information is not used by domus
 
 
 === module ===
 
 Mods types (domus) : 
- * lights 
- * appliance
- * irrigation
- * shutters (new)
-
+ * lights : display a template with switch and dimmer
+dimmer is displayed even if you select a stdlm module 
+ * appliance : on / off
+ * irrigation : switch
+ * shutters (new) : up / down
 
