@@ -45,3 +45,9 @@ dimmer is displayed even if you select a stdlm module
  * irrigation : switch
  * shutters (new) : up / down
 
+=== feature / todo ===
+ 
+ * create a new module type 'shutter'
+ * create a new template shutter  (standard and iphone theme)
+ * add a new button shutter on homepage (hidden if category is empty)
+ * 
