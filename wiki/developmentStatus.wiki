@@ -40,7 +40,7 @@ module type information is not used by domus
 
 Mods types (domus) : 
  * lights : display a template with switch and dimmer
-dimmer is displayed even if you select a stdlm module 
+ dimmer is displayed even if you select a stdlm module 
  * appliance : on / off
  * irrigation : switch
  * shutters (new) : up / down
