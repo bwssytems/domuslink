@@ -1,7 +1,7 @@
 = V1.1 current development status = 
 
 || *Functionality || *Who* || *Status* ||
-|| Null timer ability || Brad || 90% ||
+|| Null timer ability || Brad || 100% ||
 || Dawn/dusk times in timers  || ||  ||
 || Irrigation type will be known as Others || philippe c || / || 
 || Shutter support (SW10) ||philippe c || study || 
