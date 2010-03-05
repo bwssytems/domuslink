@@ -70,11 +70,18 @@ function add_quick_timer_line($content, $fileloc, $macros, $macro_end_line, $tim
 		array_splice($content,$timer_end_line+1,0,$tline);
 	}
 	else {
-		$onml = "macro $onmacro 0 on ".strtolower($_POST["module"])."\n";
-		$offml = "macro $offmacro 0 off ".strtolower($_POST["module"])."\n";
-		array_splice($content,$macro_end_line+1,0,$onml);
-		array_splice($content,$macro_end_line+1,0,$offml);
-		array_splice($content,$timer_end_line+3,0,$tline);
+		$i = 0;
+		if( $onmacro != "null") {
+			$onml = "macro $onmacro 0 on ".strtolower($_POST["module"])."\n";
+			array_splice($content,$macro_end_line+1,0,$onml);
+			$i++;
+		}
+		if( $offmacro != "null") {
+			$offml = "macro $offmacro 0 off ".strtolower($_POST["module"])."\n";
+			array_splice($content,$macro_end_line+1,0,$offml);
+			$i++;
+		}
+		array_splice($content,$timer_end_line+$i+1,0,$tline);
 	}
 	save_file($content, $fileloc);
 }
@@ -171,8 +178,14 @@ function build_new_line($type) {
 			$ontime = $_POST["onhour"].":".$_POST["onmin"];
 			$offtime = $_POST["offhour"].":".$_POST["offmin"];
 			
-			$onmacro = strtolower($_POST["module"])."_on";
-			$offmacro = strtolower($_POST["module"])."_off";
+			if(isset($_POST["null_macro_on"]))
+				$onmacro = "null";
+			else
+				$onmacro = strtolower($_POST["module"])."_on";
+			if(isset($_POST["null_macro_off"]))
+				$offmacro = "null";
+			else
+				$offmacro = strtolower($_POST["module"])."_off";
 			if (isset($_POST["status"])) {
 				$tline = $_POST["status"]."timer $wdaystr $ondate-$offdate $ontime $offtime $onmacro $offmacro\n";
 			}
@@ -203,8 +216,14 @@ function build_new_line($type) {
 			$offdate = "$offmonth/$offday";
 			$ontime = $_POST["onhour"].":".$_POST["onmin"];
 			$offtime = $_POST["offhour"].":".$_POST["offmin"];
-			$onmacro = $_POST["macro_on"];
-			$offmacro = trim($_POST["macro_off"]);
+			if($_POST["null_macro_on"] == "yes")
+				$onmacro = "null";
+			else
+				$onmacro = $_POST["macro_on"];
+			if($_POST["null_macro_off"] == "yes")
+				$offmacro = "null";
+			else
+				$offmacro = trim($_POST["macro_off"]);
 			
 			if (isset($_POST["status"])) {
 				$tline = $_POST["status"]."timer $wdaystr $ondate-$offdate $ontime $offtime $onmacro $offmacro\n";

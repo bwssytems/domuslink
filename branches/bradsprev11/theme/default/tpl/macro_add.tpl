@@ -28,7 +28,7 @@ function validateForm(form)
 <tr>
 <td align="center">
 <!-- status -->
-<select name="status">
+<select name="status" style="width:75px;">
 	<option value="" selected><?php echo ($lang['enabled']);?></option>
 	<option value="#"><?php echo ($lang['disabled']);?></option>
 </select>

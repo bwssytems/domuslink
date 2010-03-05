@@ -19,7 +19,7 @@ $buttonaction = $_POST["buttonaction"];
   <tr>
     <td width="80px"><h6><?php echo ($lang['status']);?>:</h6></td>
     <td width="150px">
-    <select name="status" disabled>
+    <select name="status"  style="width:75px;" disabled>
  		<option value="" <?php if ($enabled) echo "selected"; ?>><?php echo ($lang['enabled']);?></option>
  		<option value="#" <?php if (!$enabled) echo "selected"; ?>><?php echo ($lang['disabled']);?></option>
 	</select>
@@ -47,7 +47,7 @@ $buttonaction = $_POST["buttonaction"];
 			<option value="<?php echo $value; ?>" <?php if ($onday == $value) echo "selected"; ?>><?php echo $value; ?></option>
 		<?php endforeach; ?>
 		</select>
-		<select name='onmonth'>
+		<select name='onmonth' style="width:85px;">
 		<?php foreach ($months as $num => $value): ?>
 			<option value="<?php echo $num; ?>" <?php if ($onmonth == $num) echo "selected"; ?>><?php echo $value; ?></option>
 		<?php endforeach; ?>
@@ -66,7 +66,7 @@ $buttonaction = $_POST["buttonaction"];
 			<option value="<?php echo $value; ?>" <?php if ($offday == $value) echo "selected"; ?>><?php echo $value; ?></option>
 		<?php endforeach; ?>
 		</select>
-		<select name='offmonth'>
+		<select name='offmonth' style="width:85px;">
 		<?php foreach ($months as $num => $value): ?>
 			<option value="<?php echo $num; ?>" <?php if ($offmonth == $num) echo "selected"; ?>><?php echo $value; ?></option>
 		<?php endforeach; ?>
@@ -123,8 +123,11 @@ $buttonaction = $_POST["buttonaction"];
 <table cellspacing="0" cellpadding="0" border="0" class="clear">
   <tr><td><h6><?php echo $lang["unit"]; ?>:</h6></td></tr>
   <tr>
+  	<td><?php echo $lang["null"]; ?>: <?php echo $lang["on"]; ?> <input type="checkbox" name="null_macro_on" <?php if ($selcode_on == "null") echo " checked='yes'"; ?>/> <?php echo $lang["off"]; ?> <input type="checkbox" name="null_macro_off" <?php if (rtrim($selcode_off) == "null") echo " checked='yes'"; ?>/></td>
+  </tr>
+  <tr>
     <td width="100px">
-    <select name="modules" size="9" disabled>
+    <select name="module" size="9" disabled>
 	<?php foreach ($codelabels as $codelabel): ?>
 		<?php list($code, $label) = split("@", $codelabel, 2); ?>
  		<option value="<?php echo $label;?>" <?php if ($selcode == $label) echo "selected"; ?>><?php echo label_parse($label, false);?></option>

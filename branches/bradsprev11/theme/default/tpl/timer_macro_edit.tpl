@@ -17,7 +17,7 @@
   <tr>
     <td width="80px"><h6><?php echo ($lang['status']);?>:</h6></td>
     <td width="150px">
-    <select name="status" disabled>
+    <select name="status"  style="width:75px;" disabled>
  		<option value="" <?php if ($enabled) echo "selected"; ?>><?php echo ($lang['enabled']);?></option>
  		<option value="#" <?php if (!$enabled) echo "selected"; ?>><?php echo ($lang['disabled']);?></option>
 	</select>
@@ -40,12 +40,12 @@
   <tr>
     <td width="80px"><h6><?php echo $lang['startdate']; ?>:</h6></td>
     <td width="150px">
-		<select name='onday' style="width:35px;">
+		<select name='onday' style="width:45px;">
 		<?php foreach ($days as $value): ?>
 			<option value="<?php echo $value; ?>" <?php if ($onday == $value) echo "selected"; ?>><?php echo $value; ?></option>
 		<?php endforeach; ?>
 		</select>
-		<select name='onmonth'>
+		<select name='onmonth' style="width:85px;">
 		<?php foreach ($months as $num => $value): ?>
 			<option value="<?php echo $num; ?>" <?php if ($onmonth == $num) echo "selected"; ?>><?php echo $value; ?></option>
 		<?php endforeach; ?>
@@ -59,12 +59,12 @@
   <tr>
     <td width="80px"><h6><?php echo $lang['enddate']; ?>:</h6></td>
     <td width="150px">
-		<select name='offday' style="width:35px;">
+		<select name='offday' style="width:45px;">
 		<?php foreach ($days as $value): ?>
 			<option value="<?php echo $value; ?>" <?php if ($offday == $value) echo "selected"; ?>><?php echo $value; ?></option>
 		<?php endforeach; ?>
 		</select>
-		<select name='offmonth'>
+		<select name='offmonth' style="width:85px;">
 		<?php foreach ($months as $num => $value): ?>
 			<option value="<?php echo $num; ?>" <?php if ($offmonth == $num) echo "selected"; ?>><?php echo $value; ?></option>
 		<?php endforeach; ?>
@@ -78,13 +78,13 @@
   <tr>
     <td width="80px"><h6><?php echo $lang['ontime']; ?>:</h6></td>
     <td width="150px">
-    <select name='onhour' style="width:35px;">
+    <select name='onhour' style="width:45px;">
 	<?php foreach ($hours as $value): ?>
 		<?php if (strlen($value) == 1): $value = "0".$value; endif; ?>
 		<option value="<?php echo $value; ?>" <?php if ($onhour == $value) echo "selected"; ?>><?php echo $value; ?></option>
 	<?php endforeach; ?>
 	</select>
-	<select name='onmin' style="width:35px;">
+	<select name='onmin' style="width:45px;">
 	<?php foreach ($mins as $value): ?>
 		<?php if (strlen($value) == 1): $value = "0".$value; endif; ?>
 		<option value="<?php echo $value; ?>" <?php if ($onmin == $value) echo "selected"; ?>><?php echo $value; ?></option>
@@ -99,13 +99,13 @@
   <tr>
     <td width="80px"><h6><?php echo $lang['offtime']; ?>:</h6></td>
     <td width="150px">
-    <select name='offhour' style="width:35px;">
+    <select name='offhour' style="width:45px;">
 	<?php foreach (array_reverse($hours) as $value): ?>
 		<?php if (strlen($value) == 1): $value = "0".$value; endif; ?>
 		<option value="<?php echo $value; ?>" <?php if ($offhour == $value) echo "selected"; ?>><?php echo $value; ?></option>
 	<?php endforeach; ?>
 	</select>
-	<select name='offmin' style="width:35px;">
+	<select name='offmin' style="width:45px;">
 	<?php foreach ($mins as $value): ?>
 		<?php if (strlen($value) == 1): $value = "0".$value; endif; ?>
 		<option value="<?php echo $value; ?>" <?php if ($offmin == $value) echo "selected"; ?>><?php echo $value; ?></option>
@@ -121,6 +121,9 @@
 <table cellspacing="0" cellpadding="0" border="0" class="clear">
   <tr>
     <td width="80px"><h6><?php echo $lang['macro_on']; ?>:</h6></td>
+  </tr>
+  <tr>
+    <td width="80px"><input disabled type="checkbox" <?php if ($selcode_on == "null") echo "checked"; ?> /> <?php echo $lang['null']; ?></td>
   </tr>
   <tr>
     <td width="100px">
@@ -140,6 +143,9 @@
 <table cellspacing="0" cellpadding="0" border="0" class="clear">
   <tr>
     <td width="80px"><h6><?php echo $lang['macro_off']; ?>:</h6></td>
+  </tr>
+   <tr>
+    <td width="80px"><input disabled type="checkbox" <?php if (rtrim($selcode_off) == "null") echo "checked"; ?> /> <?php echo $lang['null']; ?></td>
   </tr>
   <tr>
     <td width="100px">

@@ -27,7 +27,7 @@ function validateForm(form)
 <tr>
 <td align="center">
 <!-- trigger command -->
-<select name="command">
+<select name="command" style="width:50px;">
 	<option value="on" selected><?php echo ($lang['on']);?></option>
 	<option value="off"><?php echo ($lang['off']);?></option>
 </select>
@@ -35,7 +35,7 @@ function validateForm(form)
 </td>
 <td align="center">
 <!-- status -->
-<select name="status">
+<select name="status" style="width:75px;">
 	<option value="" selected><?php echo ($lang['enabled']);?></option>
 	<option value="#"><?php echo ($lang['disabled']);?></option>
 </select>

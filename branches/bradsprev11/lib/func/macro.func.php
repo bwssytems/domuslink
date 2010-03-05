@@ -28,7 +28,11 @@
  * @param $macro represents complete macro name
  */
  function strip_code($macro) {
- 	return strtolower(substr($macro, 0, strrpos($macro, "_")));
+ 	$thePos = strrpos($macro, "_");
+ 	if ($thePos)
+ 		return strtolower(substr($macro, 0, $thePos));
+ 	else
+ 		return strtolower($macro);
  	
  	//1. lower case $macro
  	//2. find position of last occurrence of "_"

@@ -28,7 +28,7 @@ function validateForm(form)
   <tr>
     <td width="80px"><h6><?php echo ($lang['status']);?>:</h6></td>
     <td width="150px">
-    <select name="status">
+    <select name="status" style="width:75px;">
  		<option value="" selected><?php echo ($lang['enabled']);?></option>
  		<option value="#"><?php echo ($lang['disabled']);?></option>
 	</select>
@@ -51,12 +51,12 @@ function validateForm(form)
   <tr>
     <td width="80px"><h6><?php echo $lang['startdate']; ?>:</h6></td>
     <td width="150px">
-		<select name='onday' style="width:35px;">
+		<select name='onday' style="width:45px;">
 		<?php foreach ($days as $value): ?>
 			<option value="<?php echo $value; ?>"><?php echo $value; ?></option>
 		<?php endforeach; ?>
 		</select>
-		<select name='onmonth'>
+		<select name='onmonth' style="width:85px;">
 		<?php foreach ($months as $num => $value): ?>
 			<option value="<?php echo $num; ?>"><?php echo $value; ?></option>
 		<?php endforeach; ?>
@@ -71,12 +71,12 @@ function validateForm(form)
     <td width="80px"><h6><?php echo $lang['enddate']; ?>:</h6></td>
     <td width="150px">
 
-		<select name='offday' style="width:35px;">
+		<select name='offday' style="width:45px;">
 		<?php foreach (array_reverse($days) as $value): ?>
 			<option value="<?php echo $value; ?>"><?php echo $value; ?></option>
 		<?php endforeach; ?>
 		</select>
-		<select name='offmonth'>
+		<select name='offmonth' style="width:85px;">
 		<?php foreach (array_reverse($months) as $num => $value): ?>
 			<option value="<?php echo 12-$num; ?>"><?php echo $value; ?></option>
 		<?php endforeach; ?>
@@ -90,13 +90,13 @@ function validateForm(form)
   <tr>
     <td width="80px"><h6><?php echo $lang['ontime']; ?>:</h6></td>
     <td width="150px">
-    <select name='onhour' style="width:35px;">
+    <select name='onhour' style="width:45px;">
 	<?php foreach ($hours as $value): ?>
 		<?php if (strlen($value) == 1): $value = "0".$value; endif; ?>
 		<option value="<?php echo $value; ?>"><?php echo $value; ?></option>
 	<?php endforeach; ?>
 	</select>
-	<select name='onmin' style="width:35px;">
+	<select name='onmin' style="width:45px;">
 	<?php foreach ($mins as $value): ?>
 		<?php if (strlen($value) == 1): $value = "0".$value; endif; ?>
 		<option value="<?php echo $value; ?>"><?php echo $value; ?></option>
@@ -111,13 +111,13 @@ function validateForm(form)
   <tr>
     <td width="80px"><h6><?php echo $lang['offtime']; ?>:</h6></td>
     <td width="150px">
-    <select name='offhour' style="width:35px;">
+    <select name='offhour' style="width:45px;">
 	<?php foreach (array_reverse($hours) as $value): ?>
 		<?php if (strlen($value) == 1): $value = "0".$value; endif; ?>
 		<option value="<?php echo $value; ?>"><?php echo $value; ?></option>
 	<?php endforeach; ?>
 	</select>
-	<select name='offmin' style="width:35px;">
+	<select name='offmin' style="width:45px;">
 	<?php foreach ($mins as $value): ?>
 		<?php if (strlen($value) == 1): $value = "0".$value; endif; ?>
 		<option value="<?php echo $value; ?>"><?php echo $value; ?></option>
@@ -132,6 +132,9 @@ function validateForm(form)
 <!-- labels -->
 <table cellspacing="0" cellpadding="0" border="0" class="clear">
   <tr><td><h6><?php echo $lang["unit"]; ?>:</h6></td></tr>
+  <tr>
+  	<td><?php echo $lang["null"]; ?>: <?php echo $lang["on"]; ?> <input type="checkbox" name="null_macro_on" value=true/> <?php echo $lang["off"]; ?> <input type="checkbox" name="null_macro_off" value=true/></td>
+  </tr>
   <tr>
     <td width="100px">
     <select name="module" size="9">

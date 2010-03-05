@@ -110,7 +110,12 @@ else {
 			$tpl_edit->set('enabled', $enabled);
 			
 			$tpl_edit->set('codelabels', $codelabels);
-			$tpl_edit->set('selcode', strip_code($onmacro));
+			if($onmacro != "null")
+				$tpl_edit->set('selcode', strip_code($onmacro));
+			elseif($offmacro != "null")
+				$tpl_edit->set('selcode', strip_code($offmacro));
+			$tpl_edit->set('selcode_on', $onmacro);
+			$tpl_edit->set('selcode_off', $offmacro);
 			
 			$tpl_edit->set('weekdays', $weekdays);
 			
@@ -139,7 +144,7 @@ else {
 			break;
 			
 		case "save":
-			//build timer line with POST results	
+			//build timer line with POST results
 			edit_quick_timer_line($schedfile, $schedfileloc);
 			break;
 
