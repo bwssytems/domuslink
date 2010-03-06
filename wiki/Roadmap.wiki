@@ -10,9 +10,16 @@ This page will contain the domus.Link roadmap, agreed upon and developed by all 
   * Null timer ability
   * Dawn/dusk times in timers
   * Irrigation type will be know as Others
-  * Shutter support
-  * Resolve issue 1
+  * Shutter support - issue 6
   * Multiple schedule files
+  * Add macro edit page
+  * Add Timer by Macro page
+  * Optimize Trigger page to show full macro
+  * Move enable/disable to actions column - issue 3
+  * Resolve issue 1
+  * Resolve issue 4
+  * Resolve issue 5
+
 
 == v2.0 ==
   * Code clean-up
