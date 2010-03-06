@@ -8,7 +8,7 @@ This page will contain the domus.Link roadmap, agreed upon and developed by all 
 = Next Versions =
 == v1.1 ==
   * Null timer ability - issue 9
-  * Dawn/dusk times in timers
+  * Dawn/dusk times in timers - issue 11
   * Irrigation type will be know as Others
   * Shutter support - issue 6
   * Multiple schedule files
