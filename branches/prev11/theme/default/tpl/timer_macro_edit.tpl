@@ -1,12 +1,10 @@
-<?php
-$buttonaction = $_POST["buttonaction"];
-?>
 <form action="<?php echo($_SERVER['PHP_SELF']); ?>?action=save" method="post">
 <input type="hidden" name="line" value="<?php echo $linenum; ?>" / >
-<input type="hidden" name="module" value="<?php echo $selcode;?>" / >
+<input type="hidden" name="macro_on" value="<?php echo $selcode_on;?>" / >
+<input type="hidden" name="macro_off" value="<?php echo $selcode_off;?>" / >
 
 <table cellspacing="0" cellpadding="0" border="0" class="content">
-<tr><th colspan="2"><?php echo ($lang['edittimer']); ?></th></tr>
+<tr><th colspan="2"><?php echo ($lang['editmacrotimer']); ?></th></tr>
 
 <tr><td colspan="2">
 
@@ -119,24 +117,47 @@ $buttonaction = $_POST["buttonaction"];
 
 </td><td>
 
-<!-- labels -->
+<!-- on Macros -->
 <table cellspacing="0" cellpadding="0" border="0" class="clear">
-  <tr><td><h6><?php echo $lang["unit"]; ?>:</h6></td></tr>
   <tr>
-  	<td><?php echo $lang["null"]; ?>: <?php echo $lang["on"]; ?> <input type="checkbox" name="null_macro_on" <?php if ($selcode_on == "null") echo " checked='yes'"; ?>/> <?php echo $lang["off"]; ?> <input type="checkbox" name="null_macro_off" <?php if (rtrim($selcode_off) == "null") echo " checked='yes'"; ?>/></td>
+    <td width="80px"><h6><?php echo $lang['macro_on']; ?>:</h6></td>
+  </tr>
+  <tr>
+    <td width="80px"><input disabled type="checkbox" <?php if ($selcode_on == "null") echo "checked"; ?> /> <?php echo $lang['null']; ?></td>
   </tr>
   <tr>
     <td width="100px">
-    <select name="module" size="9" disabled>
-	<?php foreach ($codelabels as $codelabel): ?>
-		<?php list($code, $label) = split("@", $codelabel, 2); ?>
- 		<option value="<?php echo $label;?>" <?php if ($selcode == $label) echo "selected"; ?>><?php echo label_parse($label, false);?></option>
+    <select name="macro_on" size="9" disabled>
+	<?php foreach ($macros as $macro_on_line): ?>
+		<?php list($macro_on_const, $label_on, $code_on) = explode(" ", $macro_on_line, 3); ?>
+ 		<option value="<?php echo trim($label_on);?>" <?php if (trim($selcode_on) == $label_on) echo "selected"; ?>><?php echo label_parse($label_on, false);?></option>
 	<?php endforeach; ?>
 	</select>
     </td>
   </tr>
 </table>
+</td>
 
+<td>
+<!-- off Macros -->
+<table cellspacing="0" cellpadding="0" border="0" class="clear">
+  <tr>
+    <td width="80px"><h6><?php echo $lang['macro_off']; ?>:</h6></td>
+  </tr>
+   <tr>
+    <td width="80px"><input disabled type="checkbox" <?php if (rtrim($selcode_off) == "null") echo "checked"; ?> /> <?php echo $lang['null']; ?></td>
+  </tr>
+  <tr>
+    <td width="100px">
+    <select name="macro_off" size="9" disabled>
+	<?php foreach ($macros as $macro_off_line): ?>
+		<?php list($macro_off_const, $label_off, $code_off) = explode(" ", $macro_off_line, 3); ?>
+ 		<option value="<?php echo trim($label_off);?>" <?php if (trim($selcode_off) == $label_off) echo "selected"; ?>><?php echo label_parse($label_off, false);?></option>
+	<?php endforeach; ?>
+	</select>
+    </td>
+  </tr>
+</table>
 </td></tr>
 </table>
 

@@ -18,6 +18,14 @@
  * this program; if not, write to the Free Software Foundation, 
  * Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-$FRONTEND_VERSION = "pre1.1";
-
+define("BEGIN_D", "begin");
+define("END_D", "end");
+define("MACRO_D", "macro");
+define("TIMER_D", "timer");
+define("TRIGGER_D", "trigger");
+define("CONFIG_D", "config");
+define("COMMENT_D", "comment");
+define("COMMENT_SIGN_D", "#");
+define("SECTION_D", "section");
+define("ARRAY_DELIMETER_D", "@");
 ?>

@@ -46,7 +46,6 @@ $lang["actions"] = "Actions";
 $lang["start"] = "start";
 $lang["reload"] = "reload";
 $lang["stop"] = "stop";
-$lang["login"] = "Login";
 $lang["move"] = "Move";
 $lang["info"] = "Info";
 $lang["running"] = "Running";
@@ -174,4 +173,22 @@ $lang["utilitytool"] = "Utility - Excecute heyu Command";
 $lang["arguments"] = "Arguments";
 $lang["output"] = "Output";
 
+/* Macro Text */
+$lang["macro"] = "Macro";
+$lang["macros"] = "Macros";
+$lang["delay"] = "Delay";
+$lang["addmacro"] = "Add Macro";
+$lang["editmacro"] = "Edit Macro";
+$lang["macro_unit"] = "Macro Unit";
+$lang["macro_cmd"] = "Macro Command";
+$lang["obdim"] = "On-Bright-Dim";
+$lang["brightb"] = "Brighten";
+$lang["timeraddadv"] = "Timer Add Advanced";
+$lang["macro_on"] = "Macro On";
+$lang["macro_off"] = "Macro Off";
+$lang["timers_macro"] = "Timers by Macro";
+$lang["addmacrotimer"] = "Add Timer by Macro";
+$lang["editmacrotimer"] = "Edit Timer by Macro";
+
+$lang["null"] = "Null";
 ?>

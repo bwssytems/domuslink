@@ -1,4 +1,4 @@
-<table cellspacing="0" cellpadding="0" border="0" width="600px" align="middle" class="content">
+<table cellspacing="0" cellpadding="0" border="0" width="600px" align="center" class="content">
 <tr><th><?php echo ($lang['heyustatus']);?>: <?php if (heyu_running()): ?><?php echo $lang['running']; ?><?php else:  ?><?php echo $lang['down']; ?><?php endif; ?></th></tr>
 
 <tr><td align="center">

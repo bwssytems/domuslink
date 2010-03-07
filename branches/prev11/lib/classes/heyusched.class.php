@@ -18,6 +18,7 @@
  * this program; if not, write to the Free Software Foundation, 
  * Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
+require_once(CLASS_FILE_LOCATION.'heyusched.const.php');
 
 class heyuSched {
 
@@ -32,9 +33,7 @@ class heyuSched {
 	function heyuSched($filename) {
 		$this->filename = $filename;
 		$this->heyusched = '';
-		$this->macroend = '';
-		$this->timerend = '';
-
+		$this->lineStore = array(END_D => array(), BEGIN_D => array());
 		$this->load();
 	}
 
@@ -53,70 +52,70 @@ class heyuSched {
 	}
 
 	/**
+	 * Get Sched File Objects
+	 *
+	 * Description: Returns an array containing all the objects specified along
+	 * with their respective line numbers in the schedule file.
+	 */
+	function getSchedObjects($objectType, $i = 0) {
+		$objectArray = array();
+		$beginLine = 0;
+		$endLine = 0;
+		$commentedType = COMMENT_SIGN_D.$objectType;
+		$sectionType = SECTION_D." ".$objectType."s";
+		foreach ($this->heyusched as $num => $line) {
+			list($section, $label) = explode(" ", $line, 2);
+			$checkStr = strtolower($section." ".$label);
+//			pr("getSchedObjects - foreach - section - label - check str - linenum: ".$section." - ".$label." - ".$checkStr." - ".$num." - ".strcmp(trim($checkStr), $sectionType));
+			if (strtolower(substr($line, 0, strlen($objectType))) == $objectType || strtolower(substr($checkStr, 0, strlen($commentedType))) == $commentedType) {
+				$objectArray[$i] = $line.ARRAY_DELIMETER_D.$num.ARRAY_DELIMETER_D.$i;
+				$i++;
+			}
+			elseif (!strcmp(trim($checkStr), $sectionType)) {
+				$this->setLine($objectType, ($num + 1), BEGIN_D);
+				$beginLine = $num + 1;
+			}
+			elseif (!strcmp(strtolower(trim($section)), SECTION_D) && $beginLine && !$endLine) {
+				$this->setLine($objectType, ($num - 1), END_D);
+				$endLine = $num - 1;
+			}
+//			pr("Begin - End: ".$beginLine." - ".$endLine);
+		}
+		
+		if(!$endLine) {
+			$this->setLine($objectType, $num, END_D);
+		} 
+//		pr($this->lineStore);
+		return $objectArray;
+	}
+
+	function setLine($theObjType, $theLine, $theLocation) {
+		$this->lineStore[$theLocation] = array_merge($this->lineStore[$theLocation], array($theObjType => $theLine));
+	}
+
+	function getLine($theObjType, $theLocation) {
+		$theLineLocation = $this->lineStore[$theLocation];
+		return $theLineLocation[$theObjType];
+	}
+
+	/**
 	 * Get Macros
 	 *
 	 * Description: Returns an array containing all the macros along
 	 * with their respective line numbers in the schedule file.
 	 */
-	function getMacros($i = 0) {
-		foreach ($this->heyusched as $num => $line) {
-			if (substr($line, 0, 5) == "macro" || substr($line, 0, 6) == "#macro") {
-				$macros[$i] = $line."@".$num;
-				$i++;
-			}
-			elseif (trim($line) == "## TIMERS ##") {
-				$this->macroend = $num;
-				break;
-			}
-		}
-		
-		if (!empty($macros)) return $macros;
-		else return $macros = array();
+	function getMacros() {
+		return $this->getSchedObjects(MACRO_D);
 	}
-	
-	/**
-	 * Get Macro End Line
-	 * 
-	 * Description: Returns the line number at which macros
-	 * finish and timers start.
-	 */
-	function getMacroEndLine() {
-		return $this->macroend;
-	}
-	
+
 	/**
 	 * Get Timers
 	 * 
 	 * Description: Returns an array containing all timers along
 	 * with their respective line numbers in the schedule file
 	 */
-	function getTimers($i = 0) {
-		foreach ($this->heyusched as $num => $line) {
-			if (substr($line, 0, 5) == "timer" || substr($line, 0, 6) == "#timer") {
-				$timers[$i] = $line."@".$num;
-				$i++;
-			}
-			elseif (trim($line) == "## TRIGGERS ##") {
-				$this->timerend = $num;
-				break;
-			}
-		}
-		
-		if (!empty($timers)) return $timers;
-		else return $timers = array();
-	}
-	
-	/**
-	 * Get Timer End Line
-	 * 
-	 * Description: Returns the line number at which timers
-	 * finish and triggers start.
-	 */
-	function getTimerEndLine() {
-		if (!$this->timerend)
-			$this->getTimers();
-			
-		return $this->timerend;
+	function getTimers() {
+		return $this->getSchedObjects(TIMER_D);
 	}
 	
 	/** Get Triggers
@@ -124,17 +123,17 @@ class heyuSched {
 	 * Description: Returns an array containing all the triggers along
 	 * with their respective line numbers in the schedule file.
 	 */
-	function getTriggers($i = 0) {
-		foreach ($this->heyusched as $num => $line) {
-			if (substr($line, 0, 7) == "trigger" || substr($line, 0, 8) == "#trigger") {
-				$triggers[$i] = $line."@".$num;
-				$i++;
-			}
-		}
-		
-		if (!empty($triggers)) return $triggers;
-		else return $triggers = array();
+	function getTriggers() {
+		return $this->getSchedObjects(TRIGGER_D);
+	}
+
+	/** Get Sched Config Overrides
+	 * 
+	 * Description: Returns an array containing all the config items along
+	 * with their respective line numbers in the schedule file.
+	 */
+	function getSchedConfig() {
+		return $this->getSchedObjects(CONFIG_D);
 	}
 }
-
 ?>
