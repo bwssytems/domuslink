@@ -1,0 +1,23 @@
+/*----------------------------------------------------------------------------+
+ |                                                                            |
+ |                             THEMES README                                  |
+ |                                                                            |
+ +----------------------------------------------------------------------------*/
+
+ Directory structure
+
+ -> theme
+	|
+	------> theme_name
+			|
+			----------> theme_name.css
+			|
+			----------> images\
+			|
+			----------> tpl\
+
+	Notes: 
+	
+	* theme_name (Directory) and theme_name.css must be identical.
+	* images directory contains all the images
+	* tpl directory contains template files
