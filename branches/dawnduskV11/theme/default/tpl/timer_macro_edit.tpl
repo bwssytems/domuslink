@@ -1,7 +1,7 @@
 <form action="<?php echo($_SERVER['PHP_SELF']); ?>?action=save" method="post">
-<input type="hidden" name="line" value="<?php echo $linenum; ?>" / >
-<input type="hidden" name="macro_on" value="<?php echo $selcode_on;?>" / >
-<input type="hidden" name="macro_off" value="<?php echo $selcode_off;?>" / >
+<input type="hidden" name="line" value="<?php echo $theTimer->getLineNum(); ?>" / >
+<input type="hidden" name="macro_on" value="<?php echo $theTimer->getStartMacro();?>" / >
+<input type="hidden" name="macro_off" value="<?php echo $theTimer->getStopMacro();?>" / >
 
 <table cellspacing="0" cellpadding="0" border="0" class="content">
 <tr><th colspan="2"><?php echo ($lang['editmacrotimer']); ?></th></tr>
@@ -18,8 +18,8 @@
     <td width="80px"><h6><?php echo ($lang['status']);?>:</h6></td>
     <td width="150px">
     <select name="status"  style="width:75px;" disabled>
- 		<option value="" <?php if ($enabled) echo "selected"; ?>><?php echo ($lang['enabled']);?></option>
- 		<option value="#" <?php if (!$enabled) echo "selected"; ?>><?php echo ($lang['disabled']);?></option>
+ 		<option value="" <?php if ($theTimer->isEnabled()) echo "selected"; ?>><?php echo ($lang['enabled']);?></option>
+ 		<option value="#" <?php if (!$theTimer->isEnabled()) echo "selected"; ?>><?php echo ($lang['disabled']);?></option>
 	</select>
     </td>
   </tr>
@@ -30,7 +30,7 @@
   <tr>
     <td width="80px"><h6><?php echo $lang['weekdays']; ?>:</h6></td>
     <td width="150px">
-    	<?php echo weekdays($weekdays, $lang, false, true); ?>
+    	<?php echo weekdays($theTimer->getDaysOfWeek(), $lang, false, true); ?>
     </td>
   </tr>
 </table>
@@ -42,12 +42,12 @@
     <td width="150px">
 		<select name='onday' style="width:45px;">
 		<?php foreach ($days as $value): ?>
-			<option value="<?php echo $value; ?>" <?php if ($onday == $value) echo "selected"; ?>><?php echo $value; ?></option>
+			<option value="<?php echo $value; ?>" <?php if ($theTimer->getStartDate()->getDay() == $value) echo "selected"; ?>><?php echo $value; ?></option>
 		<?php endforeach; ?>
 		</select>
 		<select name='onmonth' style="width:85px;">
 		<?php foreach ($months as $num => $value): ?>
-			<option value="<?php echo $num; ?>" <?php if ($onmonth == $num) echo "selected"; ?>><?php echo $value; ?></option>
+			<option value="<?php echo $num; ?>" <?php if ($theTimer->getStartDate()->getMonth() == $num) echo "selected"; ?>><?php echo $value; ?></option>
 		<?php endforeach; ?>
 		</select>
     </td>
@@ -61,12 +61,12 @@
     <td width="150px">
 		<select name='offday' style="width:45px;">
 		<?php foreach ($days as $value): ?>
-			<option value="<?php echo $value; ?>" <?php if ($offday == $value) echo "selected"; ?>><?php echo $value; ?></option>
+			<option value="<?php echo $value; ?>" <?php if ($theTimer->getStopDate()->getDay() == $value) echo "selected"; ?>><?php echo $value; ?></option>
 		<?php endforeach; ?>
 		</select>
 		<select name='offmonth' style="width:85px;">
 		<?php foreach ($months as $num => $value): ?>
-			<option value="<?php echo $num; ?>" <?php if ($offmonth == $num) echo "selected"; ?>><?php echo $value; ?></option>
+			<option value="<?php echo $num; ?>" <?php if ($theTimer->getStopDate()->getMonth() == $num) echo "selected"; ?>><?php echo $value; ?></option>
 		<?php endforeach; ?>
 		</select>
     </td>
@@ -81,13 +81,13 @@
     <select name='onhour' style="width:45px;">
 	<?php foreach ($hours as $value): ?>
 		<?php if (strlen($value) == 1): $value = "0".$value; endif; ?>
-		<option value="<?php echo $value; ?>" <?php if ($onhour == $value) echo "selected"; ?>><?php echo $value; ?></option>
+		<option value="<?php echo $value; ?>" <?php if ($theTimer->getStartTime()->getHours() == $value) echo "selected"; ?>><?php echo $value; ?></option>
 	<?php endforeach; ?>
 	</select>
 	<select name='onmin' style="width:45px;">
 	<?php foreach ($mins as $value): ?>
 		<?php if (strlen($value) == 1): $value = "0".$value; endif; ?>
-		<option value="<?php echo $value; ?>" <?php if ($onmin == $value) echo "selected"; ?>><?php echo $value; ?></option>
+		<option value="<?php echo $value; ?>" <?php if ($theTimer->getStartTime()->getMins() == $value) echo "selected"; ?>><?php echo $value; ?></option>
 	<?php endforeach; ?>
 	</select>
     </td>
@@ -102,13 +102,13 @@
     <select name='offhour' style="width:45px;">
 	<?php foreach (array_reverse($hours) as $value): ?>
 		<?php if (strlen($value) == 1): $value = "0".$value; endif; ?>
-		<option value="<?php echo $value; ?>" <?php if ($offhour == $value) echo "selected"; ?>><?php echo $value; ?></option>
+		<option value="<?php echo $value; ?>" <?php if ($theTimer->getStopTime()->getHours() == $value) echo "selected"; ?>><?php echo $value; ?></option>
 	<?php endforeach; ?>
 	</select>
 	<select name='offmin' style="width:45px;">
 	<?php foreach ($mins as $value): ?>
 		<?php if (strlen($value) == 1): $value = "0".$value; endif; ?>
-		<option value="<?php echo $value; ?>" <?php if ($offmin == $value) echo "selected"; ?>><?php echo $value; ?></option>
+		<option value="<?php echo $value; ?>" <?php if ($theTimer->getStopTime()->getMins() == $value) echo "selected"; ?>><?php echo $value; ?></option>
 	<?php endforeach; ?>
 	</select>
     </td>
@@ -123,14 +123,14 @@
     <td width="80px"><h6><?php echo $lang['macro_on']; ?>:</h6></td>
   </tr>
   <tr>
-    <td width="80px"><input disabled type="checkbox" <?php if ($selcode_on == "null") echo "checked"; ?> /> <?php echo $lang['null']; ?></td>
+    <td width="80px"><input disabled type="checkbox" <?php if ($theTimer->getStartMacro() == "null") echo "checked"; ?> /> <?php echo $lang['null']; ?></td>
   </tr>
   <tr>
     <td width="100px">
     <select name="macro_on" size="9" disabled>
 	<?php foreach ($macros as $macro_on_line): ?>
 		<?php list($macro_on_const, $label_on, $code_on) = explode(" ", $macro_on_line, 3); ?>
- 		<option value="<?php echo trim($label_on);?>" <?php if (trim($selcode_on) == $label_on) echo "selected"; ?>><?php echo label_parse($label_on, false);?></option>
+ 		<option value="<?php echo trim($label_on);?>" <?php if (trim($theTimer->getStartMacro()) == $label_on) echo "selected"; ?>><?php echo label_parse($label_on, false);?></option>
 	<?php endforeach; ?>
 	</select>
     </td>
@@ -145,14 +145,14 @@
     <td width="80px"><h6><?php echo $lang['macro_off']; ?>:</h6></td>
   </tr>
    <tr>
-    <td width="80px"><input disabled type="checkbox" <?php if (rtrim($selcode_off) == "null") echo "checked"; ?> /> <?php echo $lang['null']; ?></td>
+    <td width="80px"><input disabled type="checkbox" <?php if (rtrim($theTimer->getStopMacro()) == "null") echo "checked"; ?> /> <?php echo $lang['null']; ?></td>
   </tr>
   <tr>
     <td width="100px">
     <select name="macro_off" size="9" disabled>
 	<?php foreach ($macros as $macro_off_line): ?>
 		<?php list($macro_off_const, $label_off, $code_off) = explode(" ", $macro_off_line, 3); ?>
- 		<option value="<?php echo trim($label_off);?>" <?php if (trim($selcode_off) == $label_off) echo "selected"; ?>><?php echo label_parse($label_off, false);?></option>
+ 		<option value="<?php echo trim($label_off);?>" <?php if (trim($theTimer->getStopMacro()) == $label_off) echo "selected"; ?>><?php echo label_parse($label_off, false);?></option>
 	<?php endforeach; ?>
 	</select>
     </td>

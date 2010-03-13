@@ -23,6 +23,7 @@
 require_once('..'.DIRECTORY_SEPARATOR.'include.php');
 require_once(CLASS_FILE_LOCATION.'heyuconf.class.php');
 require_once(CLASS_FILE_LOCATION.'heyusched.class.php');
+require_once(CLASS_FILE_LOCATION.'timer.class.php');
 
 ## Security validation's
 if ($config['seclevel'] != "0" && !$authenticated) {
@@ -75,40 +76,19 @@ else {
 			break;
 		
 		case "edit":
-			list($lbl, $weekdays, $dateonoff, $ontime, $offtime, $onmacro, $offmacro) = split(" ", $schedfile[$_GET['line']], 7); 
-			list($dateon, $dateoff) = split("-", $dateonoff, 2);
-			list($onmonth, $onday) = split("/", $dateon, 2);
-			list($offmonth, $offday) = split("/", $dateoff, 2);
-			list($onhour, $onmin) = split(":", $ontime, 2);
-			list($offhour, $offmin) = split(":", $offtime, 2);
-			$enabled = (substr($lbl, 0, 1) == "#") ? false : true;
-			
+			$timerObj = new Timer($schedfile[$_GET['line']]);
+			$timerObj->setLineNum($_GET['line']);
+
 			$tpl_edit = & new Template(TPL_FILE_LOCATION.'timer_macro_edit.tpl');
-			$tpl_edit->set('lang', $lang);
-			$tpl_edit->set('enabled', $enabled);
-			
+			$tpl_edit->set('lang', $lang);		
 			$tpl_edit->set('macros', $macros);
-			$tpl_edit->set('selcode_on', $onmacro);
-			$tpl_edit->set('selcode_off', $offmacro);
-			
-			$tpl_edit->set('weekdays', $weekdays);
-			
 			$tpl_edit->set('months', $months);
 			$tpl_edit->set('days', $days);
 			$tpl_edit->set('hours', $hours);
 			$tpl_edit->set('mins', $mins);
 			
-			$tpl_edit->set('onday', $onday);
-			$tpl_edit->set('onmonth', $onmonth);
-			$tpl_edit->set('offday', $offday);
-			$tpl_edit->set('offmonth', $offmonth);
-			
-			$tpl_edit->set('onhour', $onhour);
-			$tpl_edit->set('onmin', $onmin);
-			$tpl_edit->set('offhour', $offhour);
-			$tpl_edit->set('offmin', $offmin);
-			
-			$tpl_edit->set('linenum', $_GET['line']); // sets number of line being edited
+			$tpl_edit->set('theTimer', $timerObj);
+
 			$tpl_body->set('form', $tpl_edit);
 			break;
 		

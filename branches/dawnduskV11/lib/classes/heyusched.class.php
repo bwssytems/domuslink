@@ -19,22 +19,29 @@
  * Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 require_once(CLASS_FILE_LOCATION.'heyusched.const.php');
+require_once(CLASS_FILE_LOCATION.'scheduleelementfactory.class.php');
 
 class heyuSched {
 
 	var $heyusched;
 	var $filename;
+	var $lineStore;
+	private $heyuSchedObjects;
 
 	/**
 	 * Constructor
 	 *
-	 * @param $filename represents name and location
+	 * @args[0] $filename represents name and location
 	 */
-	function heyuSched($filename) {
-		$this->filename = $filename;
-		$this->heyusched = '';
-		$this->lineStore = array(END_D => array(), BEGIN_D => array());
-		$this->load();
+	function __construct() {
+    	$args = func_get_args();
+        if(!empty($args))
+        {
+			$this->filename = $args[0];
+			$this->heyusched = '';
+			$this->lineStore = array(END_D => array(), BEGIN_D => array());
+			$this->load();
+        }
 	}
 
 	/**
@@ -42,6 +49,18 @@ class heyuSched {
 	 */
 	function load() {
 		$this->heyusched = load_file($this->filename);
+
+		$i = 0;
+		foreach ($this->heyusched as $num => $line) {
+			try {
+				$this->heyuSchedObjects[$i] = ScheduleElementFactory::createElement($line);
+				$this->heyuSchedObjects[$i]->setLineNum($num);
+				$i++;
+			}
+			catch(Exception $e ) {
+				gen_error("load schedule file - line ".$num, $e->getMessage());
+			}
+		}
 	}
 
 	/**
@@ -57,33 +76,30 @@ class heyuSched {
 	 * Description: Returns an array containing all the objects specified along
 	 * with their respective line numbers in the schedule file.
 	 */
-	function getSchedObjects($objectType, $i = 0) {
+	function getSchedObjects($objectType) {
+		$i = 0;
 		$objectArray = array();
 		$beginLine = 0;
 		$endLine = 0;
-		$commentedType = COMMENT_SIGN_D.$objectType;
-		$sectionType = SECTION_D." ".$objectType."s";
-		foreach ($this->heyusched as $num => $line) {
-			list($section, $label) = explode(" ", $line, 2);
-			$checkStr = strtolower($section." ".$label);
-//			pr("getSchedObjects - foreach - section - label - check str - linenum: ".$section." - ".$label." - ".$checkStr." - ".$num." - ".strcmp(trim($checkStr), $sectionType));
-			if (strtolower(substr($line, 0, strlen($objectType))) == $objectType || strtolower(substr($checkStr, 0, strlen($commentedType))) == $commentedType) {
-				$objectArray[$i] = $line.ARRAY_DELIMETER_D.$num.ARRAY_DELIMETER_D.$i;
+		foreach($this->heyuSchedObjects as $schedElement) {
+			if ($schedElement->getType() == $objectType) {
+				$comment = $schedElement->isEnabled()?"":COMMENT_SIGN_D;
+				$objectArray[$i] = $comment.$schedElement->getElementLine().ARRAY_DELIMETER_D.$schedElement->getLineNum().ARRAY_DELIMETER_D.$i;
 				$i++;
-			}
-			elseif (!strcmp(trim($checkStr), $sectionType)) {
-				$this->setLine($objectType, ($num + 1), BEGIN_D);
-				$beginLine = $num + 1;
-			}
-			elseif (!strcmp(strtolower(trim($section)), SECTION_D) && $beginLine && !$endLine) {
-				$this->setLine($objectType, ($num - 1), END_D);
-				$endLine = $num - 1;
+				if (!$beginLine) {
+					$this->setLine($objectType, $schedElement->getLineNum(), BEGIN_D);
+					$beginLine = $schedElement->getLineNum();
+				}
+				elseif ($beginLine) {
+					$this->setLine($objectType, $schedElement->getLineNum(), END_D);
+					$endLine = $schedElement->getLineNum();
+				}
 			}
 //			pr("Begin - End: ".$beginLine." - ".$endLine);
 		}
 		
 		if(!$endLine) {
-			$this->setLine($objectType, $num, END_D);
+			$this->setLine($objectType, $schedElement->getLineNum(), END_D);
 		} 
 //		pr($this->lineStore);
 		return $objectArray;
