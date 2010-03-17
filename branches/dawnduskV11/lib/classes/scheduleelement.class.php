@@ -60,7 +60,8 @@ class ScheduleElement {
 			throw new Exception("Invalid schedule type: ".print_r($elements, true));
 		else {
 			$this->setType(COMMENT_D);
-			$this->elementLine = $elementLine;
+			$this->setEnabled(true);
+			$this->setElementLine($elementLine);
 		}
 	}
 
@@ -93,13 +94,16 @@ class ScheduleElement {
 		return $this->elementLine;
     }
 
-    function setElementLine($lineElements) {
-    	$newLine = '';
-    	foreach($lineElements as $anElement) {
-			$newLine = $newLine.rtrim(ltrim($anElement))." ";
+    public function setElementLine($lineElements) {
+    	if(is_array($lineElements)) {
+    		foreach($lineElements as $anElement) {
+				$newLine = $newLine.rtrim(ltrim($anElement))." ";
 
+    		}
+    		$this->elementLine = rtrim($newLine);
     	}
-    	$this->elementLine = rtrim($newLine);
+    	else
+    		$this->elementLine = $newLine.ltrim(rtrim($lineElements));
     }
     
     function setType($aType) {
@@ -130,8 +134,15 @@ class ScheduleElement {
 		return $this->arrayNum;
 	}
 	
+	/*
+	 * Fetch function is to support the tpl.class.php object fetch call
+	 */
 	function fetch() {
 		return $this;
+	}
+	
+	function __toString() {
+		return ($this->isEnabled() ? "" : "#").$this->elementLine."\n";
 	}
 }
 ?>

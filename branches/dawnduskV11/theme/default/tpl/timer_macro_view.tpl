@@ -35,11 +35,7 @@
 
 <?php
 $arrayEnd = count($timers) - 1;
-foreach ($timers as $timerline):
-	list($timer, $line_num, $arrayNum) = split(ARRAY_DELIMETER_D, $timerline, 3);
-	$timerObj = new Timer($timer);
-	$timerObj->setLineNum($line_num);
-	$timerObj->setArrayNum($arrayNum);
+foreach ($timers as $timerObj):
 
 ?>
  
@@ -73,6 +69,8 @@ foreach ($timers as $timerline):
 
 </td></tr>
 </table>
+<br>
+<div id="timers"><u><h6><a href="<?php echo ($config['url_path']);?>/events/timers.php"><?php echo ($lang['simple_timers']); ?></a></h6></u></div>
 
 <?php 
 if (!empty($form)):

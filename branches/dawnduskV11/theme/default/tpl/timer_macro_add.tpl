@@ -2,13 +2,22 @@
 <!--
 function validateForm(form)
 {
-	if (form.module.value == "") {
-		alert( "No module has been selected, please try again." );
-		form.module.focus();
-		return false ;
+	if (form.macro_on.value == "") {
+		if (!(form.null_macro_on.checked)) {
+			alert( "No ON macro has been selected, please try again." );
+			form.macro_on.focus();
+			return false ;
+		}
 	}
 
-  return true ;
+	if (form.macro_off.value == "") {
+		if(!(form.null_macro_off.checked)) {
+			alert( "No OFF macro has been selected, please try again." );
+			form.macro_off.focus();
+			return false ;
+		}
+	}
+    return true ;
 }
 //-->
 </script>

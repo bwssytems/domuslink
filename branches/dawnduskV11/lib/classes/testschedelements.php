@@ -1,10 +1,10 @@
 <?php
 define("CLASS_FILE_LOCATION", "/home/bsamuels/workspace/dawnduskV11/lib/classes/");
 define("FUNC_FILE_LOCATION", "/home/bsamuels/workspace/dawnduskV11/lib/func/");
-require_once("/home/bsamuels/workspace/dawnduskV11/lib/func/debug.func.php");
+require_once(FUNC_FILE_LOCATION."debug.func.php");
 require_once(CLASS_FILE_LOCATION."scheduleelement.class.php");
 require_once(CLASS_FILE_LOCATION."timer.class.php");
-$testLine = "# timer s.....s 1:2-12.31 6:02 22:30  office_flrlamp_on	 office_flrlamp_off Dusklt 21:04	# this is a test Dusklt 21:00 #\n";
+$testLine = "# timer s.....s expire-23 6:02 22:30  office_flrlamp_on	 office_flrlamp_off Dusklt 21:04	# this is a test Dusklt 21:00 #\n";
 //$testLine = "macro halltbllamp_on 0 on upstairs_hall_table";
 //$testLine = "trigger button_o1 on familytbl_on";
 //$testLine = "comment test this";

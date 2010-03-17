@@ -41,10 +41,10 @@ $codelabels = $heyuconf->getCodesAndLabels($aliases);
 
 ## Instantiate heyuSched class, get contents and parse timers
 $heyusched = new heyuSched($schedfileloc);
-$schedfile = $heyusched->get();
-$macros = $heyusched->getMacros();
-$timers = $heyusched->getTimers();
-$triggers = $heyusched->getTriggers();
+$schedObjs = $heyusched->getObjects();
+$macros = $heyusched->getMacroObjects();
+$timers = $heyusched->getTimerObjects();
+$triggers = $heyusched->getTriggerObjects();
 
 ## Set-up arrays
 $months = array (1 => $lang["jan"], $lang["feb"], $lang["mar"], $lang["apr"], $lang["may"], $lang["jun"], $lang["jul"], $lang["aug"], $lang["sep"], $lang["oct"], $lang["nov"], $lang["dec"]);
@@ -75,31 +75,29 @@ else {
 	switch ($_GET["action"]) {
 		case "enable":
 			$sm = get_specific_macros($macros, $_GET['onm'], $_GET['ofm']); 
-			$newschedfile = change_macro_states($sm, "enable", $schedfile);
-			direct_replace_line($newschedfile, $schedfileloc, substr($schedfile[$_GET['line']], 1), $_GET['line']);
+			change_macro_states($sm, "enable");
+			$schedObjs[$_GET['line']]->setEnabled(true);
+			save_file($schedObjs, $schedfileloc);
 			break;
 			
 		case "disable":
 			//if no timer or trigger in use that uses on/off macros OR
 			//disabled timer or trigger exists that uses on/off macro
-			$mtim = multiple_timer_macro_use($timers, $_GET['onm'], $_GET['ofm'], $_GET['line']);
-			$mtrigon = multiple_trigger_macro_use($triggers, $_GET['onm'], $_GET['line']);
-			$mtrigoff = multiple_trigger_macro_use($triggers, $_GET['ofm'], $_GET['line']);
-			if ($mtim <= 1 && $mtrigon == 0 && $mtrigoff == 0) {
+			$mtim = multiple_macro_use($schedObjs, $_GET['onm'], $_GET['ofm'], $_GET['line']);
+			if ($mtim == 0) {
 				//get individual macros (get_specific_macros)
 				//then change their states (change_macro_states) outputing complete file to $newschedfile
 				//finally disable timer sending as input new schedfile
-				$sm = get_specific_macros($macros, $_GET['onm'], $_GET['ofm']); 
-				$newschedfile = change_macro_states($sm, "disable", $schedfile);
-				direct_replace_line($newschedfile, $schedfileloc, COMMENT_SIGN_D.$schedfile[$_GET['line']], $_GET['line']);
+				$sm = get_specific_macros($macros, $_GET['onm'], $_GET['ofm']);
+				change_macro_states($sm, "disable");				
 			}
-			else
-				direct_replace_line($schedfile, $schedfileloc, COMMENT_SIGN_D.$schedfile[$_GET['line']], $_GET['line']); //disable timer
+
+			$schedObjs[$_GET['line']]->setEnabled(false);
+			save_file($schedObjs, $schedfileloc);
 			break;
 		
 		case "edit":
-			$timerObj = new Timer($schedfile[$_GET['line']]);
-			$timerObj->setLineNum($_GET['line']);
+			$timerObj = $schedObjs[$_GET['line']];
 			
 			$tpl_edit = & new Template(TPL_FILE_LOCATION.'timer_edit.tpl');
 			$tpl_edit->set('lang', $lang);
@@ -121,36 +119,77 @@ else {
 		
 		case "add":
 			//build timer line with POST results
-			add_quick_timer_line($schedfile, $schedfileloc, $macros, $heyusched->getLine(MACRO_D, END_D), $heyusched->getLine(TIMER_D, END_D));	
+			$aTimer = new Timer();
+			post_data_to_timer($aTimer);
+
+			// new timer objects already set macros to default of null
+			// only need to set macros if they are specific
+			if(!isset($_POST["null_macro_on"]))
+				$aTimer->setStartMacro(strtolower($_POST["module"])."_on");
+			if(!isset($_POST["null_macro_off"]))
+				$aTimer->setStopMacro(strtolower($_POST["module"])."_off");
+
+			if($_POST["status"] == "#")
+				$aTimer->setEnabled(false);
+
+			$aTimer->rebuildElementLine();
+
+			// if on/off macros exist then make sure they are enabled and add new timer
+			// else create macro lines, add them to file and finally add new timer
+			$i = 1;
+			$sm = get_specific_macros($macros, $aTimer->getStartMacro(), $aTimer->getStopMacro());
+			if ($sm) {
+				change_macro_states($sm, "enable");
+			}
+			else {
+				if( $aTimer->getStartMacro() != "null") {
+					$onMacroObj = new ScheduleElement("macro ".$aTimer->getStartMacro()." 0 on ".strtolower($_POST["module"]));
+					array_splice($schedObjs,$heyusched->getLine(MACRO_D, END_D) + 1, 0, array($onMacroObj));
+					$heyusched->setLine(MACRO_D, $heyusched->getLine(MACRO_D, END_D) + 1, END_D);
+					$i++;
+				}
+				if( $aTimer->getStopMacro() != "null") {
+					$offMacroObj = new ScheduleElement("macro ".$aTimer->getStopMacro()." 0 off ".strtolower($_POST["module"]));
+					array_splice($schedObjs,$heyusched->getLine(MACRO_D, END_D) + 1, 0, array($offMacroObj));
+					$heyusched->setLine(MACRO_D, $heyusched->getLine(MACRO_D, END_D) + 1, END_D);
+					$i++;
+				}
+			}
+
+			array_splice($schedObjs,$heyusched->getLine(TIMER_D, END_D)+ $i, 0, array($aTimer));
+			$heyusched->setLine(TIMER_D, $heyusched->getLine(TIMER_D, END_D) + $i, END_D);
+
+			save_file($schedObjs, $schedfileloc);
 			break;
 			
 		case "save":
 			//build timer line with POST results
-			edit_quick_timer_line($schedfile, $schedfileloc);
+			post_data_to_timer($schedObjs[$_POST["line"]]);
+			$schedObjs[$_POST["line"]]->rebuildElementLine();
+			save_file($schedObjs, $schedfileloc);
 			break;
 
 		case "del":
 			//check if any other timer or trigger (enabled or disabled) is using macros
 			//	if no  - delete timer and assiociated macros
 			//	if yes - only delete timer
-			if (!multiple_timer_macro_use($timers, $_GET['onm'], $_GET['ofm'], $_GET['line']) || !multiple_trigger_macro_use($triggers, $_GET['ofm'], $_GET['line']) || !multiple_trigger_macro_use($triggers, $_GET['onm'], $_GET['line'])) {
+			if (!multiple_macro_use($schedObjs, $_GET['onm'], $_GET['ofm'], $_GET['line'])) {
 				//delete timer and associated macros
 				$smas = get_specific_macros($macros, $_GET['onm'], $_GET['ofm']);
-				foreach ($smas as $num => $ml) {
-						list($m, $l) = split(ARRAY_DELIMETER_D, $ml, 2);
-						array_splice($schedfile, $l-$num, 1); //deletes macros
+				foreach ($smas as $num => $macroObj) {
+						array_splice($schedObjs, $macroObj->getLineNum()-$num, 1); //deletes macros
 				}
-				delete_line($schedfile, $schedfileloc, $_GET["line"]-count($smas)); //deletes timer
+				delete_line($schedObjs, $schedfileloc, $_GET["line"]-count($smas)); //deletes timer
 			}
 			else {
 				//only delete timer since other timer(s) are using macros
-				delete_line($schedfile, $schedfileloc, $_GET["line"]); //deletes timer
+				delete_line($schedObjs, $schedfileloc, $_GET["line"]); //deletes timer
 			}
 			break;
 		
 		case "move":
-			if ($_GET["dir"] == "up") reorder_array($schedfile, $_GET['line'], $_GET['line']-1, $schedfileloc);
-			if ($_GET["dir"] == "down") reorder_array($schedfile, $_GET['line'], $_GET['line']+1, $schedfileloc);
+			if ($_GET["dir"] == "up") reorder_array($schedObjs, $_GET['line'], $_GET['line']-1, $schedfileloc);
+			if ($_GET["dir"] == "down") reorder_array($schedObjs, $_GET['line'], $_GET['line']+1, $schedfileloc);
 			break;
 			
 	}

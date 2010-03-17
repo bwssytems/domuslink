@@ -2,9 +2,15 @@
 <!--
 function validateForm(form)
 {
-	if (form.module.value == "") {
-		alert( "No module has been selected, please try again." );
-		form.module.focus();
+	if (form.macro_name.value == "") {
+		alert( "No Macro Name has been selected, please try again." );
+		form.macro_name.focus();
+		return false ;
+	}
+
+	if (form.macro_command.value == "") {
+		alert( "No Macro Command has been selected, please try again." );
+		form.macro_command.focus();
 		return false ;
 	}
 
@@ -12,7 +18,7 @@ function validateForm(form)
 }
 //-->
 </script>
-<form action="<?php echo($_SERVER['PHP_SELF']); ?>?action=add" method="post">
+<form action="<?php echo($_SERVER['PHP_SELF']); ?>?action=add" method="post" onsubmit="return validateForm(this);">
 
 <table cellspacing="0" cellpadding="0" border="0" class="content">
 <tr><th><?php echo ($lang['addmacro']); ?></th></tr>

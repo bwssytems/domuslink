@@ -64,16 +64,16 @@ class heyuSched {
 	}
 
 	/**
-	 * Return heyu settings from defined file in config.php
+	 * Return heyu objects from defined file in config.php
 	 */
-	function get() {
-		return $this->heyusched;
+	function getObjects() {
+		return $this->heyuSchedObjects;
 	}
-
+	
 	/**
 	 * Get Sched File Objects
 	 *
-	 * Description: Returns an array containing all the objects specified along
+	 * Description: Returns an array containing the Objects of the specified types along
 	 * with their respective line numbers in the schedule file.
 	 */
 	function getSchedObjects($objectType) {
@@ -83,8 +83,8 @@ class heyuSched {
 		$endLine = 0;
 		foreach($this->heyuSchedObjects as $schedElement) {
 			if ($schedElement->getType() == $objectType) {
-				$comment = $schedElement->isEnabled()?"":COMMENT_SIGN_D;
-				$objectArray[$i] = $comment.$schedElement->getElementLine().ARRAY_DELIMETER_D.$schedElement->getLineNum().ARRAY_DELIMETER_D.$i;
+				$objectArray[$i] = $schedElement;
+				$objectArray[$i]->setArrayNum($i);
 				$i++;
 				if (!$beginLine) {
 					$this->setLine($objectType, $schedElement->getLineNum(), BEGIN_D);
@@ -95,16 +95,14 @@ class heyuSched {
 					$endLine = $schedElement->getLineNum();
 				}
 			}
-//			pr("Begin - End: ".$beginLine." - ".$endLine);
 		}
 		
 		if(!$endLine) {
 			$this->setLine($objectType, $schedElement->getLineNum(), END_D);
 		} 
-//		pr($this->lineStore);
 		return $objectArray;
 	}
-
+	
 	function setLine($theObjType, $theLine, $theLocation) {
 		$this->lineStore[$theLocation] = array_merge($this->lineStore[$theLocation], array($theObjType => $theLine));
 	}
@@ -115,40 +113,42 @@ class heyuSched {
 	}
 
 	/**
-	 * Get Macros
-	 *
-	 * Description: Returns an array containing all the macros along
-	 * with their respective line numbers in the schedule file.
+	 * Get Macro Objects
+	 * 
+	 * Description: Returns an array containing all macro Objects
+	 * 
 	 */
-	function getMacros() {
+	function getMacroObjects() {
 		return $this->getSchedObjects(MACRO_D);
 	}
-
+	
 	/**
-	 * Get Timers
+	 * Get Timer Objects
 	 * 
-	 * Description: Returns an array containing all timers along
-	 * with their respective line numbers in the schedule file
+	 * Description: Returns an array containing all timer Objects
+	 * 
 	 */
-	function getTimers() {
+	function getTimerObjects() {
 		return $this->getSchedObjects(TIMER_D);
 	}
 	
-	/** Get Triggers
+	/**
+	 * Get Trigger Objects
 	 * 
-	 * Description: Returns an array containing all the triggers along
-	 * with their respective line numbers in the schedule file.
+	 * Description: Returns an array containing all trigger Objects
+	 * 
 	 */
-	function getTriggers() {
+	function getTriggerObjects() {
 		return $this->getSchedObjects(TRIGGER_D);
 	}
-
-	/** Get Sched Config Overrides
+	
+	/**
+	 * Get Config Objects
 	 * 
-	 * Description: Returns an array containing all the config items along
-	 * with their respective line numbers in the schedule file.
+	 * Description: Returns an array containing all config Objects
+	 * 
 	 */
-	function getSchedConfig() {
+	function getConfigObjects() {
 		return $this->getSchedObjects(CONFIG_D);
 	}
 }

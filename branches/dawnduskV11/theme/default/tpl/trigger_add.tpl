@@ -2,9 +2,15 @@
 <!--
 function validateForm(form)
 {
-	if (form.module.value == "") {
-		alert( "No module has been selected, please try again." );
-		form.module.focus();
+	if (form.unit.value == "") {
+		alert( "No unit has been selected, please try again." );
+		form.unit.focus();
+		return false ;
+	}
+
+	if (form.macro.value == "") {
+		alert( "No macro has been selected, please try again." );
+		form.macro.focus();
 		return false ;
 	}
 
@@ -12,7 +18,7 @@ function validateForm(form)
 }
 //-->
 </script>
-<form action="<?php echo($_SERVER['PHP_SELF']); ?>?action=add" method="post">
+<form action="<?php echo($_SERVER['PHP_SELF']); ?>?action=add" method="post" onsubmit="return validateForm(this);">
 
 <table cellspacing="0" cellpadding="0" border="0" class="content">
 <tr><th><?php echo ($lang['addtrigger']); ?></th></tr>
@@ -63,7 +69,7 @@ function validateForm(form)
 <!-- execute macro -->
 <select name="macro" size="9">
 <?php foreach ($cmacs as $cmac): ?>
-	<?php list($macro_name, $commands, $trans) = explode("@", $cmac, 3); ?>
+	<?php list($macro_label, $macro_name, $delay, $commands) = explode(" ", $cmac, 4); ?>
 	<option value="<?php echo $macro_name;?>"><?php echo label_parse($macro_name, false);?> - <?php echo $commands;?></option>
 <?php endforeach; ?>
 </select>

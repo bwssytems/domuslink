@@ -40,8 +40,7 @@ class Timer extends ScheduleElement {
 	
 	function __construct() {
     	$args = func_get_args();
-        if(!empty($args))
-        {
+        if(!empty($args)) {
 			parent::__construct($args[0]);
 			if($this->getType() == TIMER_D) {
 				$this->parseTimerLine($this->getElementLine());
@@ -115,18 +114,12 @@ class Timer extends ScheduleElement {
 			
 		$dates = preg_split('/:|-|\/|\./', $dateRange);
 		if(count($dates) == 2) {
-			$this->startDate = new Date();
-			$this->startDate->setExpire("expire");
-			$this->stopDate = new Date();
-			$this->stopDate->setExpire($dates[1]);
+			$this->startDate = new Date($dates[0]);
+			$this->stopDate = new Date($dates[1]);
 		}
 		else {
-			$this->startDate = new Date();
-			$this->startDate->setMonth($dates[0]);
-			$this->startDate->setDay($dates[1]);
-			$this->stopDate = new Date();
-			$this->stopDate->setMonth($dates[2]);
-			$this->stopDate->setDay($dates[3]);
+			$this->startDate = new Date($dates[0], $dates[1]);
+			$this->stopDate = new Date($dates[2], $dates[3]);
 		}
 	}
 	
@@ -201,9 +194,22 @@ class Date {
 	private $expire;
 
 	function __construct() {
-		$this->month = 1;
-		$this->day = 1;
-		$this->expire = 0;
+		$args = func_get_args();
+		if(!empty($args)) {
+			if(count($args) == 1) {
+				$this->setExpire($args[0]);
+			}
+			else {
+				$this->month = intval($args[0]);
+				$this->day = intval($args[1]);
+				$this->expire = 0;
+			}
+		}
+		else {
+			$this->month = 1;
+			$this->day = 1;
+			$this->expire = 0;
+		}
 	}
 	
 	function setMonth($theMonth) {
@@ -270,7 +276,6 @@ class Time {
 			
 			// Validate time to rules of heyu
 			$theMatchValue = preg_match('/(^(dawn|dusk)[\+-](\d{1,2})[s]?$)|(^(dawn|dusk)s$)|(^(dawn|dusk)$)|(^now[\+]\d{1,2}$)|(^now$)|(^\d{1,2}:\d{1,2}[s]?$)/', $checkTime, $matches);
-//			print_r($matches);
 			if($theMatchValue) {
 				// match found for correct formats with restrictions
 				if(substr($checkTime, 0, 4) == "dawn" || substr($checkTime, 0, 4) == "dusk") {
@@ -308,8 +313,6 @@ class Time {
 			else
 				throw new Exception("Time string is not valid: ".$theTime."\n");
 		}
-	
-//		return $this;
 	}
 	
 	function setDawnDusk($type) {
@@ -412,6 +415,30 @@ class TimerOption {
 			throw new Exception("Timer option does not have correct modifier: ".$theType);
 	}
 
+	function setOptionType($theType) {
+		$this->optionType = $theType;
+	}
+	
+	function setOptionHour($theHour) {
+		$this->optionHour = intval($theHour);
+	}
+
+	function setOptionMin($theMin) {
+		$this->optionMin = intval($theMin);
+	}
+	
+	function getOptionType() {
+		return $this->optionType;
+	}
+	
+	function getOptionHour() {
+		return $this->optionHour;
+	}
+
+	function getOptionMin() {
+		return $this->optionMin;
+	}
+	
 	function __toString() {
 		return $this->optionType." ".($this->optionHour<10?"0".$this->optionHour:$this->optionHour).":".($this->optionMin<10?"0".$this->optionMin:$this->optionMin);
 	}

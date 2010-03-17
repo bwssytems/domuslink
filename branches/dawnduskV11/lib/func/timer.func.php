@@ -50,4 +50,24 @@ function weekdays($string, $lang, $list, $enabled) {
 	return $week_tpl->fetch(TPL_FILE_LOCATION.'weekdays.tpl');
 }
 
+function post_data_to_timer($aTimer) {
+	global $wdayo;
+	$wdaystr = "";
+	foreach ($wdayo as $num => $day) {
+		if (isset($_POST[$num.$day])) 
+			$wdaystr .= $_POST[$num.$day]; 
+		else 
+			$wdaystr .= ".";
+	}
+	
+	$aTimer->setDaysOfWeek($wdaystr);
+	$aTimer->getStartDate()->setMonth($_POST["onmonth"]);
+	$aTimer->getStartDate()->setDay($_POST["onday"]);
+	$aTimer->getStopDate()->setMonth($_POST["offmonth"]);
+	$aTimer->getStopDate()->setDay($_POST["offday"]);
+	$aTimer->getStartTime()->setHours($_POST["onhour"]);
+	$aTimer->getStartTime()->setMins($_POST["onmin"]);
+	$aTimer->getStopTime()->setHours($_POST["offhour"]);
+	$aTimer->getStopTime()->setMins($_POST["offmin"]);
+}
 ?>
