@@ -42,6 +42,7 @@ class Timer extends ScheduleElement {
     	$args = func_get_args();
         if(!empty($args)) {
 			parent::__construct($args[0]);
+			$this->timerOptions = array();
 			if($this->getType() == TIMER_D) {
 				$this->parseTimerLine($this->getElementLine());
 				$this->rebuildElementLine();
@@ -59,6 +60,7 @@ class Timer extends ScheduleElement {
         	$this->parseStopTime("23:59");
         	$this->setStartMacro("null");
         	$this->setStopMacro("null");
+        	$this->timerOptions = array();
         	$this->rebuildElementLine();
         }
 	}
@@ -67,7 +69,7 @@ class Timer extends ScheduleElement {
 		$anArray = array($this->getType(),$this->getDaysOfWeek(),$this->getStartDate()."-".$this->getStopDate(),$this->getStartTime(),$this->getStopTime(),$this->getStartMacro(),$this->getStopMacro());
 		if(count($this->timerOptions)) {
 			foreach($this->timerOptions as $timerOption )
-				array_push($anArray, $timerOption);
+				array_push($anArray, "".$timerOption);
 		}
 		$this->setElementLine($anArray);
 	}
@@ -148,7 +150,6 @@ class Timer extends ScheduleElement {
 			if(strlen($theElements[$i])) {
 				$anOption = new TimerOption($theElements[$i], $theElements[$i + 1]);
 				if(!count($this->timerOptions)) {
-					$this->timerOptions = array();
 					$this->timerOptions[$x] = $anOption;
 					$x++;
 				}
@@ -182,6 +183,32 @@ class Timer extends ScheduleElement {
 	
 	function getStopMacro() {
 		return $this->stopMacro;
+	}
+	
+	function getTimerOptions() {
+		return $this->timerOptions;
+	}
+	
+	function getTimerOption($aType) {
+		if(count($this->timerOptions)) {
+			foreach($this->timerOptions as $aTimerOption) {
+				if($aTimerOption->getOptionType() == $aType)
+					return $aTimerOption;
+			}
+		}
+	}
+	
+	function removeTimerOption($aType) {
+		if($aType && count($this->timerOptions) > 0) {
+			for($i = 0; $i < count($this->timerOptions); $i++) {
+				if($aType == $this->timerOptions[$i]->getOptionType())
+					array_splice($this->timerOptions, $i, 1);
+			}
+		}
+	}
+	
+	function addTimerOption($aTimerOption) {
+		array_splice($this->timerOptions, -1, 0, array($aTimerOption));
 	}
 }
 
@@ -275,7 +302,7 @@ class Time {
 			$checkTime = rtrim(ltrim(strtolower($args[0])));
 			
 			// Validate time to rules of heyu
-			$theMatchValue = preg_match('/(^(dawn|dusk)[\+-](\d{1,2})[s]?$)|(^(dawn|dusk)s$)|(^(dawn|dusk)$)|(^now[\+]\d{1,2}$)|(^now$)|(^\d{1,2}:\d{1,2}[s]?$)/', $checkTime, $matches);
+			$theMatchValue = preg_match('/(^(dawn|dusk)[\+-](\d{1,4})[s]?$)|(^(dawn|dusk)s$)|(^(dawn|dusk)$)|(^now[\+]\d{1,2}$)|(^now$)|(^\d{1,2}:\d{1,2}[s]?$)/', $checkTime, $matches);
 			if($theMatchValue) {
 				// match found for correct formats with restrictions
 				if(substr($checkTime, 0, 4) == "dawn" || substr($checkTime, 0, 4) == "dusk") {
@@ -317,6 +344,9 @@ class Time {
 	
 	function setDawnDusk($type) {
 		$this->dawnDusk = $type;
+		$this->now = "";
+		$this->hour = 0;
+		$this->min = 0;
 	}
 
 	function setSecurity($flag) {
@@ -333,10 +363,17 @@ class Time {
 	
 	function setNow() {
 		$this->now = "now";
+		$this->hour = 0;
+		$this->min = 0;
+		$this->dawnDusk = "";
 	}
 	
 	function setHours($hours) {
 		$this->hour = intval($hours);
+		$this->now = "";
+		$this->dawnDusk = "";
+		$this->offsetMin = 0;
+		$this->plusMinus = "";
 	}
 	
 	function setMins($mins) {
@@ -356,6 +393,13 @@ class Time {
 		return $this->dawnDusk;
 	}
 
+	function isDawnDusk() {
+		if(substr($this->dawnDusk,0,1) == "d")
+			return true;
+		else
+			return false;
+	}
+	
 	function getSecurity() {
 		return $this->security;
 	}
@@ -372,6 +416,13 @@ class Time {
 		return $this->now;
 	}
 	
+	function isNow() {
+		if($this->now == "now")
+			return true;
+		else
+			return false;
+	}
+
 	function getHours() {
 		return $this->hour;
 	}

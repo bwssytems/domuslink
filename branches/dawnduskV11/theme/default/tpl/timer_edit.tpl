@@ -79,6 +79,15 @@ $buttonaction = $_POST["buttonaction"];
 <table cellspacing="0" cellpadding="0" border="0" class="clear">
   <tr>
     <td width="80px"><h6><?php echo $lang['ontime']; ?>:</h6></td>
+  	<td>
+  		<input type="radio" name='starttimetype' value="time" <?php if(!$theTimer->getStartTime()->isNow() && !$theTimer->getStartTime()->isDawnDusk()) echo "checked"; ?> /> <?php echo ($lang['time']);?>
+  		<input type="radio" name='starttimetype' value="dawn" <?php if($theTimer->getStartTime()->getDawnDusk() == "dawn") echo "checked"; ?> /> Dawn
+  		<input type="radio" name='starttimetype' value="dusk" <?php if($theTimer->getStartTime()->getDawnDusk() == "dusk") echo "checked"; ?> /> Dusk
+  	</td>
+  </tr>
+  <tr>
+    <td width="80px">
+    </td>
     <td width="150px">
     <select name='onhour' style="width:45px;">
 	<?php foreach ($hours as $value): ?>
@@ -100,6 +109,15 @@ $buttonaction = $_POST["buttonaction"];
 <table cellspacing="0" cellpadding="0" border="0" class="clear">
   <tr>
     <td width="80px"><h6><?php echo $lang['offtime']; ?>:</h6></td>
+  	<td>
+  		<input type="radio" name='stoptimetype' value="time" <?php if(!$theTimer->getStopTime()->isNow() && !$theTimer->getStopTime()->isDawnDusk()) echo "checked"; ?> /> <?php echo ($lang['time']);?>
+  		<input type="radio" name='stoptimetype' value="dawn" <?php if($theTimer->getStopTime()->getDawnDusk() == "dawn") echo "checked"; ?> /> Dawn
+  		<input type="radio" name='stoptimetype' value="dusk" <?php if($theTimer->getStopTime()->getDawnDusk() == "dusk") echo "checked"; ?> /> Dusk
+  	</td>
+  </tr>
+  <tr>
+    <td width="80px">
+    </td>
     <td width="150px">
     <select name='offhour' style="width:45px;">
 	<?php foreach (array_reverse($hours) as $value): ?>
@@ -123,7 +141,7 @@ $buttonaction = $_POST["buttonaction"];
 <table cellspacing="0" cellpadding="0" border="0" class="clear">
   <tr><td><h6><?php echo $lang["unit"]; ?>:</h6></td></tr>
   <tr>
-  	<td><?php echo $lang["null"]; ?>: <?php echo $lang["on"]; ?> <input type="checkbox" name="null_macro_on" <?php if ($theTimer->getStartMacro() == "null") echo " checked='yes'"; ?>/> <?php echo $lang["off"]; ?> <input type="checkbox" name="null_macro_off" <?php if (rtrim($theTimer->getStopMacro()) == "null") echo " checked='yes'"; ?>/></td>
+  	<td><?php echo $lang["null"]; ?>: <?php echo $lang["on"]; ?> <input disabled type="checkbox" name="null_macro_on" <?php if ($theTimer->getStartMacro() == "null") echo "checked"; ?>/> <?php echo $lang["off"]; ?> <input disabled type="checkbox" name="null_macro_off" <?php if (rtrim($theTimer->getStopMacro()) == "null") echo "checked"; ?>/></td>
   </tr>
   <tr>
     <td width="100px">

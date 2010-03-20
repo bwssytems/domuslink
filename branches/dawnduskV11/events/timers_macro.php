@@ -55,6 +55,7 @@ $tpl_body = & new Template(TPL_FILE_LOCATION.'timer_macro_view.tpl');
 $tpl_body->set('lang', $lang);
 $tpl_body->set('timers', $timers);
 $tpl_body->set('config', $config);
+$tpl_body->set('themeloc', TPL_FILE_LOCATION);
 if (!isset($_GET["action"])) {
 	$tpl_add = & new Template(TPL_FILE_LOCATION.'timer_macro_add.tpl');
 	$tpl_add->set('lang', $lang);
@@ -97,11 +98,11 @@ else {
 			//build timer line with POST results
 			$aTimer = new Timer();
 			post_data_to_timer($aTimer);
-			if($_POST["null_macro_on"] == "yes")
+			if(isset($_POST["null_macro_on"]))
 				$aTimer->setStartMacro("null");
 			else
 				$aTimer->setStartMacro($_POST["macro_on"]);
-			if($_POST["null_macro_off"] == "yes")
+			if(isset($_POST["null_macro_off"]))
 				$aTimer->setStopMacro("null");
 			else
 				$aTimer->setStopMacro(trim($_POST["macro_off"]));
@@ -118,6 +119,14 @@ else {
 		case "save":
 			//build timer line with POST results
 			post_data_to_timer($schedObjs[$_POST["line"]]);
+			if(isset($_POST["null_macro_on"]))
+				$schedObjs[$_POST["line"]]->setStartMacro("null");
+			else
+				$schedObjs[$_POST["line"]]->setStartMacro($_POST["macro_on"]);
+			if(isset($_POST["null_macro_off"]))
+				$schedObjs[$_POST["line"]]->setStopMacro("null");
+			else
+				$schedObjs[$_POST["line"]]->setStopMacro(trim($_POST["macro_off"]));
 			$schedObjs[$_POST["line"]]->rebuildElementLine();
 			save_file($schedObjs, $schedfileloc);
 			break;

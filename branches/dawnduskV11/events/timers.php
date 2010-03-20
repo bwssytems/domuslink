@@ -173,7 +173,7 @@ else {
 			//check if any other timer or trigger (enabled or disabled) is using macros
 			//	if no  - delete timer and assiociated macros
 			//	if yes - only delete timer
-			if (!multiple_macro_use($schedObjs, $_GET['onm'], $_GET['ofm'], $_GET['line'])) {
+			if (multiple_macro_use($schedObjs, $_GET['onm'], $_GET['ofm'], $_GET['line']) == 0) {
 				//delete timer and associated macros
 				$smas = get_specific_macros($macros, $_GET['onm'], $_GET['ofm']);
 				foreach ($smas as $num => $macroObj) {

@@ -29,6 +29,8 @@
   <?php if (strpos($_SERVER['PHP_SELF'], "index.php") != false && $config['refresh'] != ""): ?>
   <META HTTP-EQUIV=Refresh CONTENT="<?php echo ($config['refresh']); ?>">
   <?php endif; ?>
+  <script type="application/x-javascript" src="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/javascript/browser_detect.js"></script>
+  <script type="application/x-javascript" src="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/javascript/popup.js"></script>
 
   <SCRIPT LANGUAGE="JavaScript">
   <!--

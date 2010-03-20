@@ -192,4 +192,18 @@ $lang["editmacrotimer"] = "Edit Advanced Timer";
 $lang["simple_timers"] = "Simple Timers";
 
 $lang["null"] = "Null";
+
+/* Advanced Timer Text */
+$lang["dawn"] = "Dawn";
+$lang["dusk"] = "Dusk";
+$lang["reminder"] = "Reminder";
+$lang["dawnlt"] = "DanwLT";
+$lang["dawngt"] = "DawnGT";
+$lang["dusklt"] = "DuskLT";
+$lang["duskgt"] = "DuskGT";
+$lang["security"] = "Security";
+$lang["now"] = "Now";
+$lang["timeroptions"] = "Timer Options";
+$lang["option"] = "Option";
+$lang["expire"] = "Expire";
 ?>

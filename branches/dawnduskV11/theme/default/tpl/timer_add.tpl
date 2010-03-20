@@ -2,13 +2,19 @@
 <!--
 function validateForm(form)
 {
+	if(form.null_macro_on.checked && form.null_macro_off.checked) {
+		alert("Only one null macro selection can be used. Please uncheck one.");
+		form.null_macro_on.focus();
+		return false;
+	}
+
 	if (form.module.value == "") {
 		alert( "No module has been selected, please try again." );
 		form.module.focus();
 		return false ;
 	}
 
-  return true ;
+	return true ;
 }
 //-->
 </script>
@@ -89,6 +95,15 @@ function validateForm(form)
 <table cellspacing="0" cellpadding="0" border="0" class="clear">
   <tr>
     <td width="80px"><h6><?php echo $lang['ontime']; ?>:</h6></td>
+  	<td>
+  		<input type="radio" name='starttimetype' value="time"/> <?php echo ($lang['time']);?>
+  		<input type="radio" name='starttimetype' value="dawn"/> <?php echo ($lang['dawn']);?>
+  		<input type="radio" name='starttimetype' value="dusk"/> <?php echo ($lang['dusk']);?>
+  	</td>
+  </tr>
+  <tr>
+    <td width="80px">
+    </td>
     <td width="150px">
     <select name='onhour' style="width:45px;">
 	<?php foreach ($hours as $value): ?>
@@ -110,6 +125,15 @@ function validateForm(form)
 <table cellspacing="0" cellpadding="0" border="0" class="clear">
   <tr>
     <td width="80px"><h6><?php echo $lang['offtime']; ?>:</h6></td>
+  	<td>
+  		<input type="radio" name='stoptimetype' value="time"/> <?php echo ($lang['time']);?>
+  		<input type="radio" name='stoptimetype' value="dawn"/> <?php echo ($lang['dawn']);?>
+  		<input type="radio" name='stoptimetype' value="dusk"/> <?php echo ($lang['dusk']);?>
+  	</td>
+  </tr>
+  <tr>
+    <td width="80px">
+    </td>
     <td width="150px">
     <select name='offhour' style="width:45px;">
 	<?php foreach (array_reverse($hours) as $value): ?>

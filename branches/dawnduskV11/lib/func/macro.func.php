@@ -74,7 +74,14 @@ function multiple_macro_use($scheds, $onmacro, $offmacro, $line) {
 		if ($sched->getLineNum() == $line) continue; //ignore originating item
 		elseif($sched->getType() == TRIGGER_D || $sched->getType() == TIMER_D) {
 			$checkLine = $sched->getElementLine();
-			if (stripos($checkLine, $onmacro ) || stripos($checkLine, $offmacro)) {
+			if (stripos($checkLine, $onmacro ) && $onmacro != "null") {
+				//item found that use on/off macro
+				if ($sched->isEnabled()) 
+					return 2; //active item exists
+				else 
+					return 1; //disabled item exists
+			}
+			elseif (stripos($checkLine, $offmacro ) && $offmacro != "null") {
 				//item found that use on/off macro
 				if ($sched->isEnabled()) 
 					return 2; //active item exists

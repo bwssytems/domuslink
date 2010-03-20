@@ -18,6 +18,8 @@
   <td></td>
   <td></td>
   <td></td>
+  <td></td>
+  <td></td>
 </tr>
 <tr>
   <td width="120"><h6><?php echo ($lang['timer']);?></h6></td>
@@ -29,6 +31,8 @@
   <td width="50" align="center"><h6><?php echo ($lang['on']);?></h6></td>
   <td width="50" align="center"><h6><?php echo ($lang['off']);?></h6></td>
   <td width="10"></td>
+  <td width="10" align="center"><h6><?php echo ($lang['option']);?></h6></td>
+  <td width="10"></td>
   <td colspan="3" width="100px" align="center"><h6><?php echo ($lang['actions']);?></h6></td>
   <td colspan="2" align="center"><h6><?php echo ($lang['move']);?></h6></td>
 </tr>
@@ -39,7 +43,7 @@ foreach ($timers as $timerObj):
 ?>
  
  <tr <?php if (!$timerObj->isEnabled()) echo "style='color: #cccccc'"; ?> class="row">
-  <td><?php echo label_parse(strip_code($timerObj->getStartMacro()),false); ?></td>
+  <td><?php echo label_parse(strip_code(($timerObj->getStartMacro()=="null"?$timerObj->getStopMacro():$timerObj->getStartMacro())),false); ?></td>
   <td align="center">
   <?php echo weekdays($timerObj->getDaysOfWeek(), $lang, true, $timerObj->isEnabled()); ?>
   </td>
@@ -49,6 +53,8 @@ foreach ($timers as $timerObj):
   <td>&nbsp;</td>
   <td align="center"><?php echo $timerObj->getStartTime(); ?></td>
   <td align="center"><?php echo $timerObj->getStopTime(); ?></td>
+  <td>&nbsp;</td>
+  <td align="center"><a onmouseover="popup('<?php foreach($timerObj->getTimerOptions() as $aTimerOption) $aPupStr = $aPupStr.$aTimerOption." "; echo $aPupStr; ?>')" onmouseout="kill()" title="" onfocus="this.blur()" href=""><?php if(count($timerObj->getTimerOptions()) == 0) echo ""; else echo "+"; ?></a></td>
   <td>&nbsp;</td>
   <td align="center" width="20px"><a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=edit&line=<?php echo $timerObj->getLineNum();?>"><?php echo ($lang['edit']);?></a></td>
   <td align="center" width="20px"><a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=del&line=<?php echo $timerObj->getLineNum();?>&onm=<?php echo $timerObj->getStartMacro();?>&ofm=<?php echo $timerObj->getStopMacro();?>" onclick="return confirm('<?php echo ($lang['deleteconfirm']);?>')"><?php echo ($lang['delete']);?></a></td>

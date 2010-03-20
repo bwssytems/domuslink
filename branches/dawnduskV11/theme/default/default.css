@@ -298,3 +298,19 @@ h6 {
 	font-size: 11px;
 	font-weight: bold;
 }
+
+/************** POPUP **************/
+
+#pup {
+  position:absolute;
+  z-index:200; /* aaaalways on top*/
+  padding: 3px;
+  margin-left: 10px;
+  margin-top: 5px;
+  width: 250px;
+  border: 1px solid black;
+  color: inherit;
+  background-color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+}
