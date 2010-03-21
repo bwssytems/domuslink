@@ -20,6 +20,7 @@ This page will contain the domus.Link roadmap, agreed upon and developed by all 
   * Resolve issue 4
   * Resolve issue 5
   * Resolve issue 10
+  * Resolve issue 23
 
 == v2.0 ==
   * Code clean-up
