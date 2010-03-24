@@ -24,6 +24,8 @@
 
  $lang["home"]="Accueil"; 
  $lang["lights"]="Lumières"; 
+ $lang["shutters"]="Volets roulants";
+ 
  $lang["appliances"]="Appareils"; 
  $lang["irrigation"]="Arrosage"; 
  $lang["login"]="Identification"; 

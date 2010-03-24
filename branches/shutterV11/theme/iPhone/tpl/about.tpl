@@ -25,6 +25,7 @@
 			- Cedric Aveline<BR>
 			- Jeroen<BR>
             - Frank van der Stad<BR>
+            - Philippe Carlier<BR>
 		</p>
 	</div>
 	<div class="row">

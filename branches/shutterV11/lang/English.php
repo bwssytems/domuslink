@@ -25,6 +25,7 @@ $lang["title"] = "domus.Link";
 $lang["home"] = "Home";
 $lang["lights"] = "Lights";
 $lang["appliances"] = "Appliances";
+$lang["shutters"]="Shutters";
 $lang["irrigation"] = "Irrigation";
 $lang["login"] = "Login";
 $lang["setup"] = "Setup";
