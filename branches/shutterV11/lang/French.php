@@ -24,11 +24,8 @@
 
  $lang["home"]="Accueil"; 
  $lang["lights"]="Lumières"; 
- $lang["shutters"]="Volets roulants";
- 
  $lang["appliances"]="Appareils"; 
  $lang["irrigation"]="Arrosage"; 
- $lang["login"]="Identification"; 
  $lang["setup"]="Installation"; 
  $lang["aliases"]="Noms des modules"; 
  $lang["floorplan"]="Plan"; 
@@ -47,12 +44,12 @@
  $lang["actions"]="Actions"; 
  $lang["start"]="démarrer"; 
  $lang["reload"]="recharger"; 
- $lang["stop"]="arréter"; 
+ $lang["stop"]="arrêter"; 
  $lang["login"]="Identification"; 
  $lang["move"]="Déplacer"; 
  $lang["info"]="Info"; 
- $lang["running"]="Exécution"; 
- $lang["down"]="Descendre"; 
+ $lang["running"]="En marche"; 
+ $lang["down"]="Arrêté"; 
  $lang["addalias"]="Ajouter un module"; 
  $lang["editalias"]="Modifier un module"; 
  $lang["frontendadmin"]="Configuration de l'interface publique"; 
@@ -61,7 +58,7 @@
  $lang["heyuexec"]="Exécutable Heyu"; 
  $lang["password"]="Mot de passe de la zone de paramétrage"; 
  $lang["language"]="Langage de l'interface publique"; 
- $lang["imgs"]="Menu Images"; 
+ $lang["imgs"]="Menu en Images"; 
  $lang["urlpath"]="Chemin de l'URL"; 
  $lang["theme"]="Thème de l'interface publique"; 
  $lang["heyubaseloc"]="Localisation du fichier Heyu"; 
@@ -71,7 +68,7 @@
  $lang["location"]="Lieu"; 
  $lang["addlocation"]="Ajouter un lieu"; 
  $lang["editlocation"]="Modifier un lieu"; 
- $lang["heyustatus"]="Etat de Heyu"; 
+ $lang["heyustatus"]="État de Heyu "; 
  $lang["enter_password"]="S'il vous plait, entrez votre mot de passe pour accéder à la zone d'administration."; 
 
 /* help texts */
@@ -82,7 +79,7 @@
  $lang["heyubaseloc_txt"]="Répertoire de base de Heyu - Ce répertoire indique où Heyu va chercher ses fichiers de configuration, et où il stocke ses informations d'état"; 
  $lang["language_txt"]="Définissez le langage de l'interface utilisateur ici. Vous pouvez aussi sélectionner auto, pour utiliser le langage préféré du navigateur. Dans le cas où le langage n'est pas trouvé, English sera sélectionné par défaut"; 
  $lang["heyuconfile_txt"]="Le fichier de configuration contient plusieurs informations critiques dont le programme heyu a besoin pour fonctionner correctement, ainsi que des options utilisateur. Ce fichier s'appelle typiquement x10.conf et il est généralement situé dans /etc/heyu pour les utilisations classiques du système."; 
- $lang["urlpath_txt"]="Ce paramètre définit le chemin de l'URL de l'interface publique. Par exemple, si vous exécutez domus.Link dans un sous répertoire, indiquez http://your-host/domuslink, ensuite vous devez définir le chemin de l'url comme /domuslink. Laissez vide si vous exécutez domus.Link à la racine c-a-d http://your-host/"; 
+ $lang["urlpath_txt"]="Ce paramètre définit le chemin de l'URL de l'interface publique. Par exemple, si vous exécutez domus.Link dans un sous répertoire, indiquez http://votre-domaine/domuslink, ensuite vous devez définir le chemin de l'url comme /domuslink. Laissez vide si vous exécutez domus.Link à la racine c-a-d http://votre-domaine/"; 
  $lang["seclevel_txt"]="Les valeurs possibles sont : 0 - Rien; 1 - Administration seulement; 2 - Interface publique complète"; 
  $lang["pcinterface_txt"]="L'interface informatique peut être soit la CM11A ou la CM17A. La CM11A est la plus courant et ainsi sélectionnée par défaut."; 
  $lang["refresh_txt"]="En remplissant ce champ, la page principale dans laquelle apparaissent les modules sera rafraichie toutes les X secondes. Pour désactiver cette fonction, laisser ce champs vide."; 
@@ -94,7 +91,7 @@
 
 /* changed */
  $lang["deleteconfirm"]="Cliquer sur OK pour confirmer la suppression."; 
- $lang["error_not_running"]="<h1>HEYU EST ARRETE !</h1>S'il vous plaît, démarrez heyu!<br />Vous pouvez avoir à changer les permissions du port tty."; 
+ $lang["error_not_running"]="<h1>HEYU EST ARRÊTÉ !</h1>S'il vous plaît, démarrez heyu !<br />Vous pouvez avoir à changer les permissions du port tty."; 
 
 /* new */
  $lang["codes_txt"]="Choisissez si vous souhaitez afficher ou non le code unité dans les boutons."; 
@@ -104,34 +101,34 @@
  $lang["log"]="Log"; 
  $lang["progress"]="Progression"; 
  $lang["error"]="Erreur"; 
- $lang["logout"]="Déconnection"; 
- $lang["keep_login"]="Laissez moi loggué"; 
+ $lang["logout"]="Déconnexion"; 
+ $lang["keep_login"]="Rester connecté "; 
  $lang["upload"]="Charger"; 
- $lang["erase"]="Effacement"; 
+ $lang["erase"]="Effacer"; 
  $lang["uploadsuccess"]="Chargement Réussi"; 
  $lang["erasesuccess"]="Effacement Réussi"; 
  $lang["upload_erase_log_txt"]="Cliquer <a href='#' onclick='divShowHide(log);'>ICI</a> pour voir le journal."; 
- $lang["upload_txt"]="To upload the schedule file defined in the <a href=../admin/heyu.php>heyu configuration</a> file and configured in the <a href=../events/timers.php>timer administration</a> section, click the button bellow."; 
- $lang["erase_txt"]="If you would like to erase the entire contents of your computer interface, click the button bellow."; 
- $lang["upload_erase_txt"]="Attention le téléchargement/effacement dure approximativement 8 secondes. <br />Ne quittez pas la page tant afin la fin du traitement."; 
+ $lang["upload_txt"]="Pour charger le fichier d'agenda (SCHEDULE FILE) défini dans le fichier de <a href=../admin/heyu.php>configuration de heyu</a> et configuré dans la section <a href=../events/timers.php>timer administration</a>, cliquer sur le bouton ci-dessous."; 
+ $lang["erase_txt"]="Si vous souhaitez effacer tout le contenu de l'interface informatique (CM11A ou CM17A), cliquer sur le bouton ci-dessous."; 
+ $lang["upload_erase_txt"]="Attention le téléchargement/effacement dure approximativement 8 secondes. <br />Ne quittez pas la page avant la fin du traitement."; 
 
- $lang["error_no_modules"]="<h1>Aucun module disponible!</h1><br />Aucun module à afficher."; 
- $lang["error_filerw"]="non trouvé où ne peut-être écrit!"; 
- $lang["error_filer"]="non trouvé ou ne peut être lu!"; 
+ $lang["error_no_modules"]="<h1>Aucun module disponible !</h1><br />Aucun module à afficher."; 
+ $lang["error_filerw"]="non trouvé ou pas les droits d'écriture !"; 
+ $lang["error_filer"]="non trouvé ou pas les droits de lecture !"; 
 
  $lang["about"]="A propos de ..."; 
  $lang["status"]="Statut "; 
- $lang["events"]="Evenements"; 
+ $lang["events"]="Évènements"; 
  $lang["timers"]="Programmateurs"; 
  $lang["timer"]="Programmateur"; 
  $lang["triggers"]="Déclencheurs"; 
  $lang["trigger"]="Déclencheur"; 
  $lang["addtrigger"]="Ajouter un déclencheur"; 
- $lang["edittrigger"]="un Editer Déclencheur"; 
- $lang["trig_cmd"]="Déclencheur Command"; 
- $lang["trig_unit"]="Déclencheur Unit"; 
- $lang["addtimer"]="Ajout Minuterie"; 
- $lang["edittimer"]="Editer Minuterie"; 
+ $lang["edittrigger"]="Modifier un déclencheur"; 
+ $lang["trig_cmd"]="Commande déclencheur "; 
+ $lang["trig_unit"]="Unité déclencheur "; 
+ $lang["addtimer"]="Ajouter un programmateur"; 
+ $lang["edittimer"]="Modifier un programmateur"; 
  $lang["startdate"]="Date début "; 
  $lang["enddate"]="Date fin "; 
  $lang["ontime"]="Heure On "; 
@@ -156,7 +153,7 @@
  $lang["may"]="Mai"; 
  $lang["jun"]="Juin"; 
  $lang["jul"]="Juillet"; 
- $lang["aug"]="Aout"; 
+ $lang["aug"]="Août"; 
  $lang["sep"]="Septembre"; 
  $lang["oct"]="Octobre"; 
  $lang["nov"]="Novembre"; 
@@ -171,9 +168,8 @@
  $lang["sat"]="Samedi"; 
 
 /* Utility Text */
- $lang["utility"]="Utiliaires"; 
- $lang["utilitytool"]="Utilitaire - Excecute une commande heyu"; 
- $lang["arguments"]="Argument"; 
+ $lang["utility"]="Utilitaires"; 
+ $lang["utilitytool"]="Utilitaire - Lance une commande heyu"; 
+ $lang["arguments"]="Arguments"; 
  $lang["output"]="Sortie"; 
-
 ?>
