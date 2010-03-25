@@ -84,5 +84,6 @@ $tpl->set('authenticated', $authenticated);
 $modtypes['lights'] = 'Light';
 $modtypes['appliances'] = 'Appliance';
 $modtypes['irrigation'] = 'Irrigation';
+$modtypes['shutters'] = 'Shutter';
 
 ?>
