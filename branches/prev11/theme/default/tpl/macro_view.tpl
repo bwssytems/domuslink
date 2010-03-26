@@ -30,9 +30,10 @@
 <?php
 $arrayEnd = count($macros) - 1;
 foreach ($macros as $macroline):
-	list($macro, $line_num, $arrayNum) = explode(ARRAY_DELIMETER_D, $macroline, 3);
-	list($macro_const, $label, $delay, $command) = explode(" ", $macro, 4);
-	$enabled = (substr($macro_const, 0, strlen(COMMENT_SIGN_D)) == COMMENT_SIGN_D) ? false : true; 
+	$line_num = $macroline->getLineNum();
+	$arrayNum = $macroline->getArrayNum();
+	$enabled = $macroline->isEnabled();
+	list($macro_const, $label, $delay, $command) = explode(" ", $macroline->getElementLine(), 4); 
 ?>
  
  <tr <?php if (!$enabled) echo "style='color: #cccccc'"; ?> class="row">

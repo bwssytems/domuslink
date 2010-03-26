@@ -40,8 +40,8 @@ $codelabels = $heyuconf->getCodesAndLabels($aliases);
 
 ## Instantiate heyuSched class, get contents and parse macros
 $heyusched = new heyuSched($schedfileloc);
-$schedfile = $heyusched->get();
-$macros = $heyusched->getMacros();
+$schedObjs = $heyusched->getObjects();
+$macros = $heyusched->getMacroObjects();
 
 ## Set template parameters
 $tpl->set('title', $lang['macros']);
@@ -54,22 +54,22 @@ $tpl_body->set('config', $config);
 if (!isset($_GET["action"])) {
 	$tpl_add = & new Template(TPL_FILE_LOCATION.'macro_add.tpl');
 	$tpl_add->set('lang', $lang);
-	$tpl_add->set('codelabels', $codelabels);
-	$tpl_add->set('cmacs', clean_and_translate_macros($macros));
 	$tpl_body->set('form', $tpl_add);
 }
 else {
 	switch ($_GET["action"]) {
 		case "enable":
-			direct_replace_line($schedfile, $schedfileloc, substr($schedfile[$_GET['line']], 1), $_GET['line']);
+			$schedObjs[$_GET['line']]->setEnabled(true);
+			save_file($schedObjs, $schedfileloc);
 			break;
 			
 		case "disable":
-			direct_replace_line($schedfile, $schedfileloc, COMMENT_SIGN_D.$schedfile[$_GET['line']], $_GET['line']);
+			$schedObjs[$_GET['line']]->setEnabled(false);
+			save_file($schedObjs, $schedfileloc);
 			break;
 			
 		case "edit":
-			list($lbl, $named_macro, $delay, $execute_command) = explode(" ", $schedfile[$_GET['line']], 4);
+			list($lbl, $named_macro, $delay, $execute_command) = explode(" ", $schedObjs[$_GET['line']]->getElementLine(), 4);
 			$tpl_edit = & new Template(TPL_FILE_LOCATION.'macro_edit.tpl');
 			$tpl_edit->set('lang', $lang);
 			$tpl_edit->set('enabled', (substr($lbl, 0, 1) == "#") ? false : true);
@@ -84,25 +84,40 @@ else {
 			// add them to file
 			$sm = get_specific_macro($macros, strtolower($_POST["macro_name"]));
 			if (!$sm) {
-				add_line($schedfile, $schedfileloc,$heyusched->getLine(MACRO_D, END_D)+1, MACRO_D);
+				$aMacro = new ScheduleElement(MACRO_D." ".$_POST["macro_name"]." 0 ".$_POST["macro_command"]);
+				if ($_POST["status"] == COMMENT_SIGN_D)
+					$aMacro->setEnabled(false);
+				else
+					$aMacro->setEnabled(true);
+
+				array_splice($schedObjs,$heyusched->getLine(MACRO_D, END_D)+ 1, 0, array($aMacro));
+				$heyusched->setLine(MACRO_D, $heyusched->getLine(MACRO_D, END_D) + 1, END_D);
+
+				save_file($schedObjs, $schedfileloc);
 			}
 			break;
 			
 		case "save":
 			//build macro line with POST results	
-			edit_line($schedfile, $schedfileloc, MACRO_D);
+			$schedObjs[$_POST["line"]]->setElementLine(MACRO_D." ".$_POST["macro_name"]." 0 ".$_POST["macro_command"]);
+			if ($_POST["status"] == COMMENT_SIGN_D)
+				$schedObjs[$_POST["line"]]->setEnabled(false);
+			else
+				$schedObjs[$_POST["line"]]->setEnabled(true);
+
+			save_file($schedObjs, $schedfileloc);
 			break;
 			
 		case "del":
-			delete_line($schedfile, $schedfileloc, $_GET["line"]);
+			delete_line($schedObjs, $schedfileloc, $_GET["line"]);
 			break;
 		
 		case "cancel":
 			break;
 		
 		case "move":
-			if ($_GET["dir"] == "up") reorder_array($schedfile, $_GET['line'], $_GET['line']-1, $schedfileloc);
-			if ($_GET["dir"] == "down") reorder_array($schedfile, $_GET['line'], $_GET['line']+1, $schedfileloc);
+			if ($_GET["dir"] == "up") reorder_array($schedObjs, $_GET['line'], $_GET['line']-1, $schedfileloc);
+			if ($_GET["dir"] == "down") reorder_array($schedObjs, $_GET['line'], $_GET['line']+1, $schedfileloc);
 			break;
 	}
 }

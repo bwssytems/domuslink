@@ -30,9 +30,10 @@
 <?php
 $arrayEnd = count($triggers) - 1;
 foreach ($triggers as $triggerline):
-	list($trigger, $line_num, $arrayNum) = explode(ARRAY_DELIMETER_D, $triggerline, 3);
-	list($lbl, $tunit, $command, $macro) = explode(" ", $trigger, 4); 
-	$enabled = (substr($lbl, 0, strlen(COMMENT_SIGN_D)) == COMMENT_SIGN_D) ? false : true;
+	$line_num = $triggerline->getLineNum();
+	$arrayNum = $triggerline->getArrayNum();
+	$enabled = $triggerline->isEnabled();
+	list($lbl, $tunit, $command, $macro) = explode(" ", $triggerline->getElementLine(), 4); 
 ?>
  
  <tr <?php if (!$enabled) echo "style='color: #cccccc'"; ?> class="row">

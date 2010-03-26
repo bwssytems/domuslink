@@ -1,17 +1,3 @@
-<script language="JavaScript" type="text/javascript">
-<!--
-function validateForm(form)
-{
-	if (form.module.value == "") {
-		alert( "No module has been selected, please try again." );
-		form.module.focus();
-		return false ;
-	}
-
-  return true ;
-}
-//-->
-</script>
 <form action="<?php echo($_SERVER['PHP_SELF']); ?>?action=save" method="post">
 <input type="hidden" name="line" value="<?php echo $linenum; ?>" / >
 
@@ -64,7 +50,7 @@ function validateForm(form)
 <!-- execute macro -->
 <select name="macro" size="9">
 <?php foreach ($cmacs as $cmac): ?>
-	<?php list($macro_name, $commands, $trans) = explode("@", $cmac, 3); ?>
+	<?php list($macro_label, $macro_name, $delay, $commands) = explode(" ", $cmac, 4); ?>
 	<option value="<?php echo $macro_name;?>" <?php if (trim($selmacro) == $macro_name) echo "selected"; ?>><?php echo label_parse($macro_name, false);?> - <?php echo $commands;?></option>
 <?php endforeach; ?>
 </select>

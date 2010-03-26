@@ -29,6 +29,8 @@
   <?php if (strpos($_SERVER['PHP_SELF'], "index.php") != false && $config['refresh'] != ""): ?>
   <META HTTP-EQUIV=Refresh CONTENT="<?php echo ($config['refresh']); ?>">
   <?php endif; ?>
+  <script type="application/x-javascript" src="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/javascript/browser_detect.js"></script>
+  <script type="application/x-javascript" src="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/javascript/popup.js"></script>
 
   <SCRIPT LANGUAGE="JavaScript">
   <!--
@@ -121,7 +123,6 @@
   <div id="eventsmenuitem"><a href="<?php echo ($config['url_path']);?>/events/upload.php"><?php echo ($lang['upload']); ?></a></div>
   <div id="eventsmenuitem"><a href="<?php echo ($config['url_path']);?>/events/triggers.php"><?php echo ($lang['triggers']); ?></a></div>
   <div id="eventsmenuitem"><a href="<?php echo ($config['url_path']);?>/events/timers.php"><?php echo ($lang['timers']); ?></a></div>
-  <div id="eventsmenuitem"><a href="<?php echo ($config['url_path']);?>/events/timers_macro.php"><?php echo ($lang['timers_macro']); ?></a></div>
   <div id="eventsmenuitem"><a href="<?php echo ($config['url_path']);?>/events/macros.php"><?php echo ($lang['macros']); ?></a></div>
 </div>
 <?php if (substr(strstr($_SERVER['REQUEST_URI'], "events"), 0, 6) == "events"): ?>

@@ -2,13 +2,28 @@
 <!--
 function validateForm(form)
 {
-	if (form.module.value == "") {
-		alert( "No module has been selected, please try again." );
-		form.module.focus();
-		return false ;
+	if(form.null_macro_on.checked && form.null_macro_off.checked) {
+		alert("Only one null macro selection can be used. Please uncheck one.");
+		form.null_macro_on.focus();
+		return false;
 	}
 
-  return true ;
+	if (form.macro_on.value == "") {
+		if (!(form.null_macro_on.checked)) {
+			alert( "No ON macro has been selected, please try again." );
+			form.macro_on.focus();
+			return false ;
+		}
+	}
+
+	if (form.macro_off.value == "") {
+		if(!(form.null_macro_off.checked)) {
+			alert( "No OFF macro has been selected, please try again." );
+			form.macro_off.focus();
+			return false ;
+		}
+	}
+    return true ;
 }
 //-->
 </script>
@@ -85,11 +100,48 @@ function validateForm(form)
   </tr>
 </table>
 
+<!-- reminder expire date -->
+<table cellspacing="0" cellpadding="0" border="0" class="clear">
+  <tr>
+    <td width="80px"><h6><?php echo $lang['reminder']; ?>:</h6>
+    </td>
+  	<td>
+  		<input type="checkbox" name='expiredatetype' value="expire"/> <?php echo $lang['expire'];?>
+  		</td>
+  		<td>
+		<select name='expiredays' style="width:45px;">
+		<?php foreach ($days as $value): ?>
+			<option value="<?php echo $value; ?>"><?php echo $value; ?></option>
+		<?php endforeach; ?>
+		</select>
+		</td>
+  	</td>
+  </tr>
+</table>
+
 <!-- Time On -->
 <table cellspacing="0" cellpadding="0" border="0" class="clear">
   <tr>
     <td width="80px"><h6><?php echo $lang['ontime']; ?>:</h6></td>
-    <td width="150px">
+  	<td>
+  		<input type="radio" name='starttimetype' value="time"/> <?php echo ($lang['time']);?>
+  		<input type="radio" name='starttimetype' value="now"/> <?php echo ($lang['now']);?> + 
+    	<select name='startnowmins' style="width:45px;">
+			<?php foreach ($mins as $value): ?>
+				<?php if (strlen($value) == 1): $value = "0".$value; endif; ?>
+				<option value="<?php echo $value; ?>"><?php echo $value; ?></option>
+			<?php endforeach; ?>
+    	</select>
+  	</td>
+  	<td>
+  		<input type="radio" name='starttimetype' value="dawn"/> <?php echo ($lang['dawn']);?>
+  		<input type="radio" name='starttimetype' value="dusk"/> <?php echo ($lang['dusk']);?>
+  	</td>
+  </tr>
+  <tr>
+    <td width="80px">
+    </td>
+    <td width="165px">
     <select name='onhour' style="width:45px;">
 	<?php foreach ($hours as $value): ?>
 		<?php if (strlen($value) == 1): $value = "0".$value; endif; ?>
@@ -102,6 +154,22 @@ function validateForm(form)
 		<option value="<?php echo $value; ?>"><?php echo $value; ?></option>
 	<?php endforeach; ?>
 	</select>
+    	<?php echo ($lang['security']);?>: <input type="checkbox" name='startsecurity' value="security"/>
+    </td>
+    <td>
+    	<select name='startdawnduskplus' style="width:45px;">
+    		<option value=""> </option>
+    		<option value="+">+</option>
+    		<option value="-">-</option>
+    	</select>
+    	<select name='startdawnduskmins' style="width:45px;">
+			<?php foreach ($mins as $value): ?>
+				<?php if($value != 0): ?>
+					<?php if (strlen($value) == 1): $value = "0".$value; endif; ?>
+					<option value="<?php echo $value; ?>"><?php echo $value; ?></option>
+				<?php endif; ?>
+			<?php endforeach; ?>
+    	</select>
     </td>
   </tr>
 </table>
@@ -110,9 +178,27 @@ function validateForm(form)
 <table cellspacing="0" cellpadding="0" border="0" class="clear">
   <tr>
     <td width="80px"><h6><?php echo $lang['offtime']; ?>:</h6></td>
-    <td width="150px">
+  	<td>
+  		<input type="radio" name='stoptimetype' value="time"/> <?php echo ($lang['time']);?>
+  		<input type="radio" name='stoptimetype' value="now"/> <?php echo ($lang['now']);?> + 
+    	<select name='stopnowmins' style="width:45px;">
+			<?php foreach ($mins as $value): ?>
+				<?php if (strlen($value) == 1): $value = "0".$value; endif; ?>
+				<option value="<?php echo $value; ?>"><?php echo $value; ?></option>
+			<?php endforeach; ?>
+    	</select>
+  	</td>
+  	<td>
+  		<input type="radio" name='stoptimetype' value="dawn"/> <?php echo ($lang['dawn']);?>
+  		<input type="radio" name='stoptimetype' value="dusk"/> <?php echo ($lang['dusk']);?>
+  	</td>
+  </tr>
+  <tr>
+    <td width="80px">
+    </td>
+    <td width="165px">
     <select name='offhour' style="width:45px;">
-	<?php foreach (array_reverse($hours) as $value): ?>
+	<?php foreach ($hours as $value): ?>
 		<?php if (strlen($value) == 1): $value = "0".$value; endif; ?>
 		<option value="<?php echo $value; ?>"><?php echo $value; ?></option>
 	<?php endforeach; ?>
@@ -123,12 +209,29 @@ function validateForm(form)
 		<option value="<?php echo $value; ?>"><?php echo $value; ?></option>
 	<?php endforeach; ?>
 	</select>
+    <?php echo ($lang['security']);?>: <input type="checkbox" name='stopsecurity' value="security"/>
+    </td>
+    <td>
+    	<select name='stopdawnduskplus' style="width:45px;">
+    		<option value=""> </option>
+    		<option value="+">+</option>
+    		<option value="-">-</option>
+    	</select>
+    	<select name='stopdawnduskmins' style="width:45px;">
+			<?php foreach ($mins as $value): ?>
+				<?php if($value != 0): ?>
+					<?php if (strlen($value) == 1): $value = "0".$value; endif; ?>
+					<option value="<?php echo $value; ?>"><?php echo $value; ?></option>
+				<?php endif; ?>
+			<?php endforeach; ?>
+    	</select>
     </td>
   </tr>
 </table>
 
 </td>
 <td>
+
 <!-- on Macro -->
 <table cellspacing="0" cellpadding="0" border="0" class="clear">
   <tr><td><h6><?php echo $lang["macro_on"]; ?>:</h6></td></tr>
@@ -148,6 +251,7 @@ function validateForm(form)
 </table>
 </td>
 <td>
+
 <!-- off Macro -->
 <table cellspacing="0" cellpadding="0" border="0" class="clear">
   <tr><td><h6><?php echo $lang["macro_off"]; ?>:</h6></td></tr>
@@ -166,6 +270,89 @@ function validateForm(form)
   </tr>
 </table>
 </td></tr>
+<tr>
+<td colspan=4>
+<table cellspacing="0" cellpadding="0" border="0" class="clear">
+<tr>
+<td>
+<h6><?php echo $lang['timeroptions'];?>:</h6>
+</td>
+</tr>
+<tr>
+<td style="width: 145px">
+<input type=checkbox name="timeroptionsdawnlt" value="dawnlt"/> <?php echo $lang['dawnlt'];?>
+</td>
+<td style="width: 145px">
+<input type=checkbox name="timeroptionsdawngt" value="dawngt"/> <?php echo $lang['dawngt'];?>
+</td>
+<td style="width: 145px">
+<input type=checkbox name="timeroptionsdusklt" value="dusklt"/> <?php echo $lang['dusklt'];?>
+</td>
+<td style="width: 145px">
+<input type=checkbox name="timeroptionsduskgt" value="duskgt"/> <?php echo $lang['duskgt'];?>
+</td>
+</tr>
+<tr>
+<td style="width: 145px">
+    <select name='dawnlthour' style="width:45px;">
+	<?php foreach (array_reverse($hours) as $value): ?>
+		<?php if (strlen($value) == 1): $value = "0".$value; endif; ?>
+		<option value="<?php echo $value; ?>"><?php echo $value; ?></option>
+	<?php endforeach; ?>
+	</select>
+	<select name='dawnltmin' style="width:45px;">
+	<?php foreach ($mins as $value): ?>
+		<?php if (strlen($value) == 1): $value = "0".$value; endif; ?>
+		<option value="<?php echo $value; ?>"><?php echo $value; ?></option>
+	<?php endforeach; ?>
+	</select>
+</td>
+<td style="width: 145px">
+    <select name='dawngthour' style="width:45px;">
+	<?php foreach (array_reverse($hours) as $value): ?>
+		<?php if (strlen($value) == 1): $value = "0".$value; endif; ?>
+		<option value="<?php echo $value; ?>"><?php echo $value; ?></option>
+	<?php endforeach; ?>
+	</select>
+	<select name='dawngtmin' style="width:45px;">
+	<?php foreach ($mins as $value): ?>
+		<?php if (strlen($value) == 1): $value = "0".$value; endif; ?>
+		<option value="<?php echo $value; ?>"><?php echo $value; ?></option>
+	<?php endforeach; ?>
+	</select>
+</td>
+<td style="width: 145px">
+    <select name='dusklthour' style="width:45px;">
+	<?php foreach (array_reverse($hours) as $value): ?>
+		<?php if (strlen($value) == 1): $value = "0".$value; endif; ?>
+		<option value="<?php echo $value; ?>"><?php echo $value; ?></option>
+	<?php endforeach; ?>
+	</select>
+	<select name='duskltmin' style="width:45px;">
+	<?php foreach ($mins as $value): ?>
+		<?php if (strlen($value) == 1): $value = "0".$value; endif; ?>
+		<option value="<?php echo $value; ?>"><?php echo $value; ?></option>
+	<?php endforeach; ?>
+	</select>
+</td>
+<td style="width: 145px">
+    <select name='duskgthour' style="width:45px;">
+	<?php foreach (array_reverse($hours) as $value): ?>
+		<?php if (strlen($value) == 1): $value = "0".$value; endif; ?>
+		<option value="<?php echo $value; ?>"><?php echo $value; ?></option>
+	<?php endforeach; ?>
+	</select>
+	<select name='duskgtmin' style="width:45px;">
+	<?php foreach ($mins as $value): ?>
+		<?php if (strlen($value) == 1): $value = "0".$value; endif; ?>
+		<option value="<?php echo $value; ?>"><?php echo $value; ?></option>
+	<?php endforeach; ?>
+	</select>
+</td>
+</tr>
+</table>
+</td>
+</tr>
 </table>
 <!-- center table end -->
 

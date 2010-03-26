@@ -53,7 +53,6 @@ function get_specific_macros($macros, $onmacro, $offmacro) {
 	$fmacros = array(); 
 	
 	foreach ($macros as $macro) {
-		//$macro format [MACROLINE]@[LINENUM]
 		if (stripos($macro, $onmacro) || stripos($macro, $offmacro)) 
 			array_push($fmacros, $macro);
 	}
@@ -62,27 +61,32 @@ function get_specific_macros($macros, $onmacro, $offmacro) {
 }
 
 /**
- * Description: Checks against active timers if macros are
- * used by any other timer.
+ * Description: Checks against triggers and timers if macros are
+ * used by any other timer or trigger.
  * 
- * @param $timers the timer array
+ * @param $scheds the schedule Obkect array
  * @param $onmacro the onmacro name
  * @param $offmacro the offmacro name
  * @param $line the command originating line number
  */
-function multiple_timer_macro_use($timers, $onmacro, $offmacro, $line) {
-	foreach ($timers as $timer) {
-		//split line into timer and line number then
-		list($t, $l) = split("@", $timer, 2);
-		
-		if ($line == $l) continue; //ignore originating timer
-		else {
-			if (stripos($t, $onmacro) || stripos($t, $offmacro)) {
-				//timer found that use on/off macro
-				if (substr($t, 0, 1) != "#") 
-					return 2; //active timer exists
+function multiple_macro_use($scheds, $onmacro, $offmacro, $line) {
+	foreach ($scheds as $sched) {
+		if ($sched->getLineNum() == $line) continue; //ignore originating item
+		elseif($sched->getType() == TRIGGER_D || $sched->getType() == TIMER_D) {
+			$checkLine = $sched->getElementLine();
+			if (stripos($checkLine, $onmacro ) && $onmacro != "null") {
+				//item found that use on/off macro
+				if ($sched->isEnabled()) 
+					return 2; //active item exists
 				else 
-					return 1; //disabled timer exists
+					return 1; //disabled item exists
+			}
+			elseif (stripos($checkLine, $offmacro ) && $offmacro != "null") {
+				//item found that use on/off macro
+				if ($sched->isEnabled()) 
+					return 2; //active item exists
+				else 
+					return 1; //disabled item exists
 			}
 		}
 	}
@@ -90,42 +94,9 @@ function multiple_timer_macro_use($timers, $onmacro, $offmacro, $line) {
 	return 0;
 	
 	//return values
-	//0 - no timer in use that uses on/off macros
-	//1 - disabled timer exists that uses on/off macro
-	//2 - active timer exists that uses on/off macro
-}
-
-/**
- * Description: Checks against active triggers if macros are
- * used by any other timer.
- * 
- * @param $triggers the trigger array
- * @param $amacro the macro name
- * @param $line the command originating line number
- */
-function multiple_trigger_macro_use($triggers, $amacro, $line) {
-	foreach ($triggers as $trigger) {
-		//split line into trigger and line number then
-		list($t, $l) = split(ARRAY_DELIMITER_D, $trigger, 2);
-		
-		if ($line == $l) continue; //ignore originating timer
-		else {
-			if (stripos($t, $amacro)) {
-				//trigger found that use on/off macro
-				if (substr($t, 0, 1) != COMMENT_SIGN_D) 
-					return 2; //active trigger exists
-				else 
-					return 1; //disabled trigger exists
-			}
-		}
-	}
-	
-	return 0;
-	
-	//return values
-	//0 - no trigger in use that uses on/off macros
-	//1 - disabled trigger exists that uses on/off macro
-	//2 - active trigger exists that uses on/off macro
+	//0 - no item in use that uses on/off macros
+	//1 - disabled item exists that uses on/off macro
+	//2 - active item exists that uses on/off macro
 }
 
 /**
@@ -135,48 +106,15 @@ function multiple_trigger_macro_use($triggers, $amacro, $line) {
  * @param $estate end state (enable/disable)
  * @param $file contents such as schedule file
  */
-function change_macro_states($macros, $estate, $file) {
+function change_macro_states($macros, $estate) {
 	foreach ($macros as $macro) {
-		//split line into macro and line number then
-		list($m, $l) = split("@", $macro, 2);
-		
-		//if first char is # (disabled) and estate is enabled
-		//replace line in $file with the #
-		if (substr($macro, 0, 1) == "#" && $estate == "enable") {
-			$file[$l] = substr($m, 1); //enable
+		if($estate == "enable") {
+			$macro->setEnabled(true);
 		}
-		elseif (substr($macro, 0, 1) != "#" && $estate == "disable") {
-			$file[$l] = "#".$m; //disable
+		elseif($estate == "disable") {
+			$macro->setEnabled(false);
 		}
 	}
-	
-	return $file;
-}
-
-/**
- * 
- */
-function clean_and_translate_macros($macros, $i = 0) {
-	global $lang;
-	foreach ($macros as $macro_line) {
-		//macro [label] [optional_delay] [[command]+[code]...] 
-		//macro tv_set_on 0 on tv_set
-		list($macro, $line) = explode("@", $macro_line, 2);
-		list($tmp, $macro_name, $delay, $commands) = explode(" ", $macro, 4);
-		//array = [label]@[code]@[on/off translated]
-		
-		//$onp = strpos(strtolower($macron), "_on");
-		//$offp = strpos(strtolower($macron), "_off");
-		
-		if (strpos(strtolower($macro_name), "_on"))
-			$mc[$i] = trim($macro_name)."@".$commands."@".$lang["on"];
-		else
-			$mc[$i] = trim($macro_name)."@".$commands."@".$lang["off"];
-			
-		$i++;
-	}
-	
-	if (!empty($mc)) return $mc;
 }
 
 /**
@@ -191,12 +129,10 @@ function get_specific_macro($macros, $amacro) {
 	$fmacros = array(); 
 	
 	foreach ($macros as $macro) {
-		//$macro format [MACROLINE]@[LINENUM]
 		if (stripos($macro, $amacro)) 
 			array_push($fmacros, $macro);
 	}
 	
 	return $fmacros;
 }
-
 ?>

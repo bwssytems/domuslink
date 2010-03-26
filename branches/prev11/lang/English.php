@@ -187,9 +187,24 @@ $lang["brightb"] = "Brighten";
 $lang["timeraddadv"] = "Timer Add Advanced";
 $lang["macro_on"] = "Macro On";
 $lang["macro_off"] = "Macro Off";
-$lang["timers_macro"] = "Timers by Macro";
-$lang["addmacrotimer"] = "Add Timer by Macro";
-$lang["editmacrotimer"] = "Edit Timer by Macro";
+$lang["timers_macro"] = "Advanced Timers";
+$lang["addmacrotimer"] = "Add Advanced Timer";
+$lang["editmacrotimer"] = "Edit Advanced Timer";
+$lang["simple_timers"] = "Simple Timers";
 
 $lang["null"] = "Null";
+
+/* Advanced Timer Text */
+$lang["dawn"] = "Dawn";
+$lang["dusk"] = "Dusk";
+$lang["reminder"] = "Reminder";
+$lang["dawnlt"] = "DanwLT";
+$lang["dawngt"] = "DawnGT";
+$lang["dusklt"] = "DuskLT";
+$lang["duskgt"] = "DuskGT";
+$lang["security"] = "Security";
+$lang["now"] = "Now";
+$lang["timeroptions"] = "Timer Options";
+$lang["option"] = "Option";
+$lang["expire"] = "Expire";
 ?>

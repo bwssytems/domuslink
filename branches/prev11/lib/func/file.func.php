@@ -52,41 +52,6 @@ function add_line($content, $fileloc, $linenum, $editing) {
 }
 
 /**
- * Add quick timer line (and maybe macros) to file
- *
- * @param $content file contents being received
- * @param $fileloc complete file location
- */
-function add_quick_timer_line($content, $fileloc, $macros, $macro_end_line, $timer_end_line) {
-	$res = build_new_line("timer");
-	$tline = $res[0];
-	$onmacro = $res[1];
-	$offmacro = $res[2];
-	// if on/off macros exist then make sure they are enabled and add new timer
-	// else create macro lines, add them to file and finally add new timer
-	$sm = get_specific_macros($macros, $onmacro, $offmacro);
-	if ($sm) {
-		$content = change_macro_states($sm, "enable", $content);
-		array_splice($content,$timer_end_line+1,0,$tline);
-	}
-	else {
-		$i = 0;
-		if( $onmacro != "null") {
-			$onml = "macro $onmacro 0 on ".strtolower($_POST["module"])."\n";
-			array_splice($content,$macro_end_line+1,0,$onml);
-			$i++;
-		}
-		if( $offmacro != "null") {
-			$offml = "macro $offmacro 0 off ".strtolower($_POST["module"])."\n";
-			array_splice($content,$macro_end_line+1,0,$offml);
-			$i++;
-		}
-		array_splice($content,$timer_end_line+$i+1,0,$tline);
-	}
-	save_file($content, $fileloc);
-}
-
-/**
  * Add line to end of file
  *
  * @param $content file contents being received
@@ -112,27 +77,11 @@ function edit_line($content, $fileloc, $editing) {
 }
 
 /**
- * Edit quick timer line in file
- *
- * @param $content file contents
- * @param $fileloc being edited
- */
-function edit_quick_timer_line($content, $fileloc) {
-	$line = $_POST["line"]; // line being edited
-	$res = build_new_line("timer");
-	$tline = $res[0];
-	$onmacro = $res[1];
-	$offmacro = $res[2];
-	direct_replace_line($content, $fileloc, $tline, $line);
-}
-
-/**
  * Build line to add or alter in a file
  * 
  * @param $type represents type of line being created
  */
 function build_new_line($type) {
-	global $wdayo;
 	
 	switch ($type)
 	{
@@ -148,93 +97,6 @@ function build_new_line($type) {
 		case "type":
 			return $_POST["type"]."\n";
 			break;
-		case "trigger":
-			$str = "trigger ".$_POST["unit"]." ".$_POST["command"]." ".$_POST["macro"]."\n";
-			if ($_POST["status"] == "#") return "#$str";
-			else return $str;
-			break;
-		case "macro":
-			$str = "macro ".$_POST["macro_name"]." 0 ".$_POST["macro_command"]."\n";
-			if ($_POST["status"] == "#") return "#$str";
-			else return $str;
-			break;
-		case "timer":
-			//build weekday string (ie: s.tw...)
-			$wdaystr = "";
-			foreach ($wdayo as $num => $day) {
-				if (isset($_POST[$num.$day])) 
-					$wdaystr .= $_POST[$num.$day]; 
-				else 
-					$wdaystr .= ".";
-			}
-			
-			$onmonth = (strlen($_POST["onmonth"]) == 1) ? "0".$_POST["onmonth"] : $_POST["onmonth"];
-			$onday = (strlen($_POST["onday"]) == 1) ? "0".$_POST["onday"] : $_POST["onday"];
-			$offmonth = (strlen($_POST["offmonth"]) == 1) ? "0".$_POST["offmonth"] : $_POST["offmonth"];
-			$offday = (strlen($_POST["offday"]) == 1) ? "0".$_POST["offday"] : $_POST["offday"];
-			
-			$ondate = "$onmonth/$onday";
-			$offdate = "$offmonth/$offday";
-			$ontime = $_POST["onhour"].":".$_POST["onmin"];
-			$offtime = $_POST["offhour"].":".$_POST["offmin"];
-			
-			if(isset($_POST["null_macro_on"]))
-				$onmacro = "null";
-			else
-				$onmacro = strtolower($_POST["module"])."_on";
-			if(isset($_POST["null_macro_off"]))
-				$offmacro = "null";
-			else
-				$offmacro = strtolower($_POST["module"])."_off";
-			if (isset($_POST["status"])) {
-				$tline = $_POST["status"]."timer $wdaystr $ondate-$offdate $ontime $offtime $onmacro $offmacro\n";
-			}
-			else {
-				$tline = "timer $wdaystr $ondate-$offdate $ontime $offtime $onmacro $offmacro\n";
-
-			}
-			
-			return array($tline,$onmacro,$offmacro);
-			break;
-
-		case "timermacro":
-			//build weekday string (ie: s.tw...)
-			$wdaystr = "";
-			foreach ($wdayo as $num => $day) {
-				if (isset($_POST[$num.$day])) 
-					$wdaystr .= $_POST[$num.$day]; 
-				else 
-					$wdaystr .= ".";
-			}
-			
-			$onmonth = (strlen($_POST["onmonth"]) == 1) ? "0".$_POST["onmonth"] : $_POST["onmonth"];
-			$onday = (strlen($_POST["onday"]) == 1) ? "0".$_POST["onday"] : $_POST["onday"];
-			$offmonth = (strlen($_POST["offmonth"]) == 1) ? "0".$_POST["offmonth"] : $_POST["offmonth"];
-			$offday = (strlen($_POST["offday"]) == 1) ? "0".$_POST["offday"] : $_POST["offday"];
-			
-			$ondate = "$onmonth/$onday";
-			$offdate = "$offmonth/$offday";
-			$ontime = $_POST["onhour"].":".$_POST["onmin"];
-			$offtime = $_POST["offhour"].":".$_POST["offmin"];
-			if($_POST["null_macro_on"] == "yes")
-				$onmacro = "null";
-			else
-				$onmacro = $_POST["macro_on"];
-			if($_POST["null_macro_off"] == "yes")
-				$offmacro = "null";
-			else
-				$offmacro = trim($_POST["macro_off"]);
-			
-			if (isset($_POST["status"])) {
-				$tline = $_POST["status"]."timer $wdaystr $ondate-$offdate $ontime $offtime $onmacro $offmacro\n";
-			}
-			else {
-				$tline = "timer $wdaystr $ondate-$offdate $ontime $offtime $onmacro $offmacro\n";
-
-			}
-			
-			return $tline;
-			break;
 	}
 }
 
@@ -243,6 +105,19 @@ function build_new_line($type) {
  */
 function direct_replace_line($content, $fileloc, $linecontent, $linenumber) {
 	$content[$linenumber] = $linecontent;
+	save_file($content, $fileloc);
+}
+
+/**
+ * Direct Add line to file
+ *
+ * @param $content file contents being received
+ * @param $fileloc complete file location
+ * @param $linenum line to add after
+ * @param $editing represents what type is being edited (alias, location, etc)
+ */
+function direct_add_line($content, $fileloc, $linecontent, $linenum) {
+	array_splice($content, $linenum, 0, $linecontent);
 	save_file($content, $fileloc);
 }
 

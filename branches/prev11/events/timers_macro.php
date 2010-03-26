@@ -23,6 +23,7 @@
 require_once('..'.DIRECTORY_SEPARATOR.'include.php');
 require_once(CLASS_FILE_LOCATION.'heyuconf.class.php');
 require_once(CLASS_FILE_LOCATION.'heyusched.class.php');
+require_once(CLASS_FILE_LOCATION.'timer.class.php');
 
 ## Security validation's
 if ($config['seclevel'] != "0" && !$authenticated) {
@@ -36,9 +37,9 @@ $schedfileloc = $config['heyu_base'].$heyuconf->getSchedFile();
 
 ## Instantiate heyuSched class, get contents and parse timers
 $heyusched = new heyuSched($schedfileloc);
-$schedfile = $heyusched->get();
-$macros = $heyusched->getMacros();
-$timers = $heyusched->getTimers();
+$schedObjs = $heyusched->getObjects();
+$macros = $heyusched->getMacroObjects();
+$timers = $heyusched->getTimerObjects();
 
 ## Set-up arrays
 $months = array (1 => $lang["jan"], $lang["feb"], $lang["mar"], $lang["apr"], $lang["may"], $lang["jun"], $lang["jul"], $lang["aug"], $lang["sep"], $lang["oct"], $lang["nov"], $lang["dec"]);
@@ -54,6 +55,7 @@ $tpl_body = & new Template(TPL_FILE_LOCATION.'timer_macro_view.tpl');
 $tpl_body->set('lang', $lang);
 $tpl_body->set('timers', $timers);
 $tpl_body->set('config', $config);
+$tpl_body->set('themeloc', TPL_FILE_LOCATION);
 if (!isset($_GET["action"])) {
 	$tpl_add = & new Template(TPL_FILE_LOCATION.'timer_macro_add.tpl');
 	$tpl_add->set('lang', $lang);
@@ -67,67 +69,75 @@ if (!isset($_GET["action"])) {
 else {
 	switch ($_GET["action"]) {
 		case "enable":
-			direct_replace_line($newschedfile, $schedfileloc, substr($schedfile[$_GET['line']], 1), $_GET['line']);
+			$schedObjs[$_GET['line']]->setEnabled(true);
+			save_file($schedObjs, $schedfileloc);
 			break;
 			
 		case "disable":
-			direct_replace_line($schedfile, $schedfileloc, COMMENT_SIGN_D.$schedfile[$_GET['line']], $_GET['line']); //disable timer
+			$schedObjs[$_GET['line']]->setEnabled(false);
+			save_file($schedObjs, $schedfileloc);
 			break;
 		
 		case "edit":
-			list($lbl, $weekdays, $dateonoff, $ontime, $offtime, $onmacro, $offmacro) = split(" ", $schedfile[$_GET['line']], 7); 
-			list($dateon, $dateoff) = split("-", $dateonoff, 2);
-			list($onmonth, $onday) = split("/", $dateon, 2);
-			list($offmonth, $offday) = split("/", $dateoff, 2);
-			list($onhour, $onmin) = split(":", $ontime, 2);
-			list($offhour, $offmin) = split(":", $offtime, 2);
-			$enabled = (substr($lbl, 0, 1) == "#") ? false : true;
-			
+			$timerObj = $schedObjs[$_GET['line']];
+
 			$tpl_edit = & new Template(TPL_FILE_LOCATION.'timer_macro_edit.tpl');
-			$tpl_edit->set('lang', $lang);
-			$tpl_edit->set('enabled', $enabled);
-			
+			$tpl_edit->set('lang', $lang);		
 			$tpl_edit->set('macros', $macros);
-			$tpl_edit->set('selcode_on', $onmacro);
-			$tpl_edit->set('selcode_off', $offmacro);
-			
-			$tpl_edit->set('weekdays', $weekdays);
-			
 			$tpl_edit->set('months', $months);
 			$tpl_edit->set('days', $days);
 			$tpl_edit->set('hours', $hours);
 			$tpl_edit->set('mins', $mins);
 			
-			$tpl_edit->set('onday', $onday);
-			$tpl_edit->set('onmonth', $onmonth);
-			$tpl_edit->set('offday', $offday);
-			$tpl_edit->set('offmonth', $offmonth);
-			
-			$tpl_edit->set('onhour', $onhour);
-			$tpl_edit->set('onmin', $onmin);
-			$tpl_edit->set('offhour', $offhour);
-			$tpl_edit->set('offmin', $offmin);
-			
-			$tpl_edit->set('linenum', $_GET['line']); // sets number of line being edited
+			$tpl_edit->set('theTimer', $timerObj);
+
 			$tpl_body->set('form', $tpl_edit);
 			break;
 		
 		case "add":
 			//build timer line with POST results
-			add_line($schedfile, $schedfileloc, $heyusched->getLine(TIMER_D, END_D) + 1, TIMER_D.MACRO_D);
+			$aTimer = new Timer();
+			post_data_to_timer($aTimer);
+			if(isset($_POST["null_macro_on"]))
+				$aTimer->setStartMacro("null");
+			else
+				$aTimer->setStartMacro($_POST["macro_on"]);
+			if(isset($_POST["null_macro_off"]))
+				$aTimer->setStopMacro("null");
+			else
+				$aTimer->setStopMacro(trim($_POST["macro_off"]));
+			if($_POST["status"] == "#")
+				$aTimer->setEnabled(false);
+
+			$aTimer->rebuildElementLine();
+			array_splice($schedObjs,$heyusched->getLine(TIMER_D, END_D)+ 1, 0, array($aTimer));
+			$heyusched->setLine(TIMER_D, $heyusched->getLine(TIMER_D, END_D) + 1, END_D);
+
+			save_file($schedObjs, $schedfileloc);
 			break;
 			
 		case "save":
 			//build timer line with POST results
-			edit_line($schedfile, $schedfileloc, TIMER_D.MACRO_D);		
+			post_data_to_timer($schedObjs[$_POST["line"]]);
+			if(isset($_POST["null_macro_on"]))
+				$schedObjs[$_POST["line"]]->setStartMacro("null");
+			else
+				$schedObjs[$_POST["line"]]->setStartMacro($_POST["macro_on"]);
+			if(isset($_POST["null_macro_off"]))
+				$schedObjs[$_POST["line"]]->setStopMacro("null");
+			else
+				$schedObjs[$_POST["line"]]->setStopMacro(trim($_POST["macro_off"]));
+			$schedObjs[$_POST["line"]]->rebuildElementLine();
+			save_file($schedObjs, $schedfileloc);
 			break;
+
 		case "del":
-			delete_line($schedfile, $schedfileloc, $_GET["line"]);
+			delete_line($schedObjs, $schedfileloc, $_GET["line"]);
 			break;
 		
 		case "move":
-			if ($_GET["dir"] == "up") reorder_array($schedfile, $_GET['line'], $_GET['line']-1, $schedfileloc);
-			if ($_GET["dir"] == "down") reorder_array($schedfile, $_GET['line'], $_GET['line']+1, $schedfileloc);
+			if ($_GET["dir"] == "up") reorder_array($schedObjs, $_GET['line'], $_GET['line']-1, $schedfileloc);
+			if ($_GET["dir"] == "down") reorder_array($schedObjs, $_GET['line'], $_GET['line']+1, $schedfileloc);
 			break;
 			
 	}
