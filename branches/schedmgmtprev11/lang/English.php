@@ -207,4 +207,10 @@ $lang["now"] = "Now";
 $lang["timeroptions"] = "Timer Options";
 $lang["option"] = "Option";
 $lang["expire"] = "Expire";
+
+/* Heyu Config Management Text */
+$lang["heyumgmt"] = "Heyu Config Select";
+$lang["heyumgmtadmin"] = "Heyu Configuration Management";
+$lang["heyumgmt_txt"] = "This controls which configuration heyu will use. This is based on heyu's capability to select multiple configurations that inlcudes the config for heyu and schedule files.";
+$lang["heyucurrentconfig"] = "Current heyu configuration is";
 ?>

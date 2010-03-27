@@ -53,7 +53,7 @@ function heyu_running() {
  */
 function heyu_info() {
 	global $config;
-	$rs = execute_cmd($config['heyuexec']." info");
+	$rs = execute_cmd($config['heyuexecreal']." info");
 	return $rs;
 }
 
@@ -67,13 +67,13 @@ function heyu_ctrl($action) {
 	switch ($action) 
 	{
 		case "start":
-			$cmd = $config['heyuexec']." start";
+			$cmd = $config['heyuexecreal']." start";
 			break;
 		case "stop":
-			$cmd = $config['heyuexec']." stop";
+			$cmd = $config['heyuexecreal']." stop";
 			break;
 		case "restart":
-			$cmd = $config['heyuexec']." restart";
+			$cmd = $config['heyuexecreal']." restart";
 			break;
 	}
 
@@ -91,7 +91,7 @@ function heyu_action() {
 		case "off":
 		case "fon":
 		case "foff":
-			$cmd = $config['heyuexec']." ".$_GET["action"]." ".$_GET["code"];
+			$cmd = $config['heyuexecreal']." ".$_GET["action"]." ".$_GET["code"];
 			break;
 		case "db":
 			$cmd = dim_bright($_GET["state"], $_GET["curr"], $_GET["req"], $_GET["code"]);
@@ -155,7 +155,7 @@ function dim_bright($state, $currlevel, $reqlevel, $code) {
 			break;
 	}
 	
-	return $config['heyuexec']." ".$cmd;
+	return $config['heyuexecreal']." ".$cmd;
 }
 
 /**
@@ -166,14 +166,14 @@ function dim_bright($state, $currlevel, $reqlevel, $code) {
 
 function on_state($code) {
 	global $config;
-	$rs = execute_cmd($config['heyuexec']." onstate ".$code, true);
+	$rs = execute_cmd($config['heyuexecreal']." onstate ".$code, true);
 
 	if ($rs[0] == "1" || $rs[0] == "0") {
 		if ($rs[0] == "1") return true;
 		else return false;
 	}
 	else {
-		$cmd = $config['heyuexec']." fetchstate";
+		$cmd = $config['heyuexecreal']." fetchstate";
 		if ($rs[0] = 'Unable to read state file.') { 
 			execute_cmd($cmd);
 		}
@@ -190,7 +190,7 @@ function on_state($code) {
  */
 function dim_level($unit) {
 	global $config;
-	$rs = execute_cmd($config['heyuexec']." dimlevel ".$unit);
+	$rs = execute_cmd($config['heyuexecreal']." dimlevel ".$unit);
 	return $rs[0];
 }
 
@@ -200,7 +200,7 @@ function dim_level($unit) {
  */
 function heyu_upload() {	
 	global $config;
-	return (execute_cmd("cd ".$config['heyu_base']."; ".$config['heyuexec']." upload"));
+	return (execute_cmd("cd ".$config['heyu_base']."; ".$config['heyuexecreal']." upload"));
 }
 
 /**
@@ -208,7 +208,7 @@ function heyu_upload() {
  */
 function heyu_erase() {	
 	global $config;
-	return (execute_cmd($config['heyuexec']." erase"));
+	return (execute_cmd($config['heyuexecreal']." erase"));
 }
 
 ?>

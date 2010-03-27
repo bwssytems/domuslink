@@ -51,7 +51,7 @@ class heyuConf {
 	}
 	
 	/**
-	 * Get defined schedule file from heyu configuration file
+	 * Get defined schedule file from heyu configuration file for current configured directory
 	 */
 	function getSchedFile() {
 		foreach ($this->heyuconf as $num => $line) {
@@ -61,9 +61,23 @@ class heyuConf {
 			}			
 		}
 		
-		return $schedfile;
+		return getHeyuConfDirModifier().$schedfile;
 	}
 
+	/**
+	 * Get defined schedule file from heyu configuration file without directory modifier
+	 */
+	function getSchedFileValue() {
+		foreach ($this->heyuconf as $num => $line) {
+			if (substr($line, 0, 13) == "SCHEDULE_FILE") {
+				$schedfile = trim(substr($line, 14));
+				break;
+			}			
+		}
+		
+		return $schedfile;
+	}
+	
 	/**
 	 * Get Aliases
 	 *

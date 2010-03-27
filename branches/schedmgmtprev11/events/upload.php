@@ -30,7 +30,7 @@ if ($config['seclevel'] != "0" && !$authenticated) {
 }
 
 ## Instantiate heyuConf class
-$heyuconf = new heyuConf($config['heyuconf']);
+$heyuconf = new heyuConf($config['heyuconfloc']);
 $schedfileloc = $config['heyu_base'].$heyuconf->getSchedFile();
 
 ## Set template parameters

@@ -41,7 +41,7 @@ $config['heyu_base'] = '/etc/heyu/';
 # heyuconf file - This file is typically named
 # x10.conf and usually located in /etc/heyu for
 # system wide use
-$config['heyuconf'] = $config['heyu_base'].'x10.conf';
+$config['heyuconf'] = 'x10.conf';
 
 # heyuexec setting - This setting specifies the
 # location of the Heyu exectuable file. Typically

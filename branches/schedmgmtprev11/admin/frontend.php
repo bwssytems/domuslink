@@ -27,6 +27,7 @@ if ($config['seclevel'] != "0" && !$authenticated) {
 	header("Location: ../login.php?from=admin/frontend");
 	exit();
 }
+$subdirList = array("default", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9");
 
 ## Set template parameters
 $tpl->set('title', $lang['frontendadmin']);
@@ -34,11 +35,13 @@ $tpl->set('title', $lang['frontendadmin']);
 if (!isset($_GET["action"])) {
 	$tpl_body = & new Template(TPL_FILE_LOCATION.'frontend.tpl');
 	$tpl_body->set('config', $config);
+	$tpl_body->set('subdirlist', $subdirList);
 	$tpl_body->set('lang', $lang);
 }
 elseif ($_GET["action"] == "save") {
 	$newconfig['pc_interface'] = $_POST["pc_interface"];
 	$newconfig['heyu_base'] = $_POST["heyu_base"];
+	$newconfig['heyu_subdir'] = $_POST["heyu_subdir"];
 	$newconfig['heyuconf'] = $_POST["heyuconf"];
 	$newconfig['heyuexec'] = $_POST["heyuexec"];
 	$newconfig['seclevel'] = $_POST["seclevel"];
@@ -51,6 +54,7 @@ elseif ($_GET["action"] == "save") {
 	$newconfig['refresh'] = $_POST["refresh"];
 
 	if ((file_exists(CONFIG_FILE_LOCATION) && is_writable(CONFIG_FILE_LOCATION)) || !file_exists(CONFIG_FILE_LOCATION)) {
+		createHeyuSubdir($_POST["heyu_subdir"]);
 		config_save($newconfig);
 		header("Location: ".$_SERVER['PHP_SELF']);
 	}

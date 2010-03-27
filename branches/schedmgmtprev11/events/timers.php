@@ -32,7 +32,7 @@ if ($config['seclevel'] != "0" && !$authenticated) {
 }
 
 ## Instantiate heyuConf class and get schedule file with absolute path
-$heyuconf = new heyuConf($config['heyuconf']);
+$heyuconf = new heyuConf($config['heyuconfloc']);
 $schedfileloc = $config['heyu_base'].$heyuconf->getSchedFile();
 
 ## Load aliases and parse so that only code and labels remain

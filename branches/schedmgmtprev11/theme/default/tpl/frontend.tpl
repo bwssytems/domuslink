@@ -1,4 +1,14 @@
-<form action="<?php echo ($_SERVER['PHP_SELF']); ?>?action=save" method="post">
+<script language="JavaScript" type="text/javascript">
+<!--
+function validateForm(form)
+{
+	alert( "After changing Heyu Configuration Select, YOU MUST STOP AND START HEYU.");
+
+  return true ;
+}
+//-->
+</script>
+<form action="<?php echo ($_SERVER['PHP_SELF']); ?>?action=save" method="post" onsubmit="return validateForm(this);">
 
 <table cellspacing="0" cellpadding="0" border="0" width="550px" align="center" class="content">
 <tr><th colspan="2"><?php echo ($lang['frontendadmin']); ?></th></tr>
@@ -39,13 +49,33 @@
   </tr>
 </table>
 <br />
+<!-- Heyu Managment -->
+<table cellspacing="0" cellpadding="0" border="0" class="clear">
+  <tr>
+    <td colspan="2" style="border-bottom:1px dotted #ccc;"><h6><?php echo ($lang['heyumgmt']); ?></h6></td>
+  </tr>
+  <tr>
+    <td valign="top" width="150px">
+    <select name="heyu_subdir">
+		<?php foreach ($subdirlist as $asubdir): ?>
+			<?php if ($asubdir == $config['heyu_subdir']): ?>
+				<option selected value="<?php echo $asubdir; ?>"><?php echo $asubdir; ?></option>
+			<?php else: ?>
+				<option value="<?php echo $asubdir; ?>"><?php echo $asubdir; ?></option>
+			<?php endif; ?>
+		<?php endforeach; ?>
+    </select>
+    </td>
+    <td width="350px"><?php echo ($lang['heyumgmt_txt']); ?></td>
+  </tr>
+</table>
 <!-- HeyuConf -->
 <table cellspacing="0" cellpadding="0" border="0" class="clear">
   <tr>
     <td colspan="2" style="border-bottom:1px dotted #ccc;"><h6><?php echo ($lang['heyuconfile']); ?></h6></td>
   </tr>
   <tr>
-    <td valign="top" width="150px"><input type="text" name="heyuconf" value="<?php echo substr($config['heyuconf'], strlen($config['heyu_base'])); ?>" /></td>
+    <td valign="top" width="150px"><input type="text" name="heyuconf" value="<?php echo $config['heyuconf']; ?>" /></td>
     <td width="350px"><?php echo ($lang['heyuconfile_txt']); ?></td>
   </tr>
 </table>

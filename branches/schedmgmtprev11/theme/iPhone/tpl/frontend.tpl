@@ -45,7 +45,7 @@
               <td><?php echo ($lang['heyuconfile']); ?></td>
             </tr>
             <tr>
-              <td valign="top" width="150px"><input type="text" name="heyuconf" value="<?php echo substr($config['heyuconf'], strlen($config['heyu_base'])); ?>" /></td>
+              <td valign="top" width="150px"><input type="text" name="heyuconf" value="<?php echo $config['heyuconf']; ?>" /></td>
             </tr>
             <tr>
               <td width="95%"><h6><?php echo ($lang['heyuconfile_txt']); ?></h6></td>
