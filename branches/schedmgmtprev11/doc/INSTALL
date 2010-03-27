@@ -1,0 +1,100 @@
+/*----------------------------------------------------------------------------+
+ |                                                                            |
+ |                                INSTALL                                     |
+ |                                                                            |
+ +----------------------------------------------------------------------------*/
+
+
+ Requirements:
+ --------------
+ To run and use domus.Link you need the following:
+ 
+ - Heyu
+ - Apache or any other webserver
+ - PHP support
+ 
+ 
+ Assumptions:
+ --------------
+ The following install procedure assumes the following:
+ 
+ - Heyu is NOT running ($ heyu stop )
+ - Heyu configuration files are located in /etc/heyu
+ - Heyu binary is located in /usr/local/bin
+ - Websever root folder is /var/www
+ - And domus.Link is being installed in /var/www/domus.Link
+ 
+ 
+ Installation:
+ --------------
+ 
+ Note: Some commands that are shown may require root priveleges. Either become root on your system
+ or pre-pend the command with sudo.
+
+ 1) Download latest version from http://domus.link.co.pt/download
+
+ 2) If upgrading from a previous version of domus.Link, backup existing domus.Link files (VERY IMPORTANT)
+
+    $ cp [your web path]/domus.Link/config.php [backup location]/config.php.backup
+    $ cp -r [your web path]/domus.Link/db [backup location]/dbbackup
+
+ 3) Un-tar to a location within the webserver root or a specific directory.
+ 
+    $ mv domuslink-XXX.tar.gz /var/www
+    $ cd /var/www
+    $ tar xfvz domuslink-XXX.tar.gz
+
+ 4) Backup existing x10.conf & x10.sched files (VERY IMPORTANT if new installation)
+
+    $ cp /etc/heyu/x10.conf /etc/heyu/x10.conf.backup
+    $ cp /etc/heyu/x10.sched /etc/heyu/x10.sched.backup
+
+ 5) Copy supplied x10.conf & x10.sched file to heyu conf. directory (VERY IMPORTANT if new installation)
+    
+    $ cp /var/www/domus.Link/doc/x10.conf /etc/heyu/x10.conf
+    $ cp /var/www/domus.Link/doc/x10.sched /etc/heyu/x10.sched
+        
+    The supplied x10.conf and x10.sched file is prepared for use with the 
+    frontend and therefore must be used. Both the x10.conf & x10.sched files
+    supplied with Heyu will not work with domus.Link.
+
+ 6) Edit x10.conf file and change TTY directive to suit your system.
+    - Do not add tabs, or extra spaces between options and directives.
+    - Do not add comments, or any other text.
+    - Leave everything else as is.
+    
+    $ vi /etc/heyu/x10.conf
+
+ 7) Change file permission's so that webserver can read/write to the following files/dirs:
+    - /etc/heyu
+    - /var/www/domus.Link/db/floorplan 
+    - /var/www/domus.Link/config.php
+    
+    $ chmod o+rw /etc/heyu /var/www/domus.Link/db/floorplan /var/www/domus.Link/config.php
+
+ 8) If upgrading from previous version, copy back backed up config.php and db directory. 
+
+ 9) Setup apache accordingly, refer to http://httpd.apache.org if you don't
+    know how to do this.
+    
+ 10) Finally, point your web browser to your webserver (ie: http://localhost/domus.Link)
+    and start heyu using the 'START' link located on the footer.
+
+
+ ------------------------------------------------------------------------
+ The next step might not be required, however, if you keep getting a
+ "HEYU: Can't open TTY line. check permissions!" then please follow it.
+ ------------------------------------------------------------------------
+
+
+ X) Change permission on TTY port so that heyu can use it.
+    
+    The typically used port is /dev/ttyS0 which is usually a sym. link to
+    /dev/tts/0 so in this case use the following command:
+    
+    $ chmod o+rw /dev/tts/0
+    
+    To check where /dev/ttyS0 links to, issue the following command:
+    
+    $ ls -l /dev/ttyS0
+    
