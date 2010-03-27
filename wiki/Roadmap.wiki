@@ -16,6 +16,7 @@ This page will contain the domus.Link roadmap, agreed upon and developed by all 
   * Add Timer by Macro page - issue 14
   * Optimize Trigger page to show full macro - issue 15
   * Move enable/disable to actions column - issue 3
+  * Resolve issue 2
   * Resolve issue 4
   * Resolve issue 5
   * Resolve issue 10
