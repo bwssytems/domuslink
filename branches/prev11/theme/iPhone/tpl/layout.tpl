@@ -64,7 +64,7 @@ if (!isset($page))
 	$page='home';
 }
 
-if ( ($page == "lights") || ($page == "shutters") ||($page == "all") )
+if ( ($page == "lights") || ($page == "shutters") || ($page == "other") || ($page == "appliances") || ($page == "all") )
 {
     ?>
     <div id='generated_id_content_for_<?php echo $page;?>' class="panel" selected='true'>
