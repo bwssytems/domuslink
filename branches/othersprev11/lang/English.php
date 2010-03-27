@@ -207,4 +207,7 @@ $lang["now"] = "Now";
 $lang["timeroptions"] = "Timer Options";
 $lang["option"] = "Option";
 $lang["expire"] = "Expire";
+
+/* Other Text */
+$lang["other"] = "Other";
 ?>
