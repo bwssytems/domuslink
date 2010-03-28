@@ -33,7 +33,7 @@ if ($config['seclevel'] != "0" && !$authenticated) {
 
 ## Instantiate heyuConf class and get schedule file with absolute path
 $heyuconf = new heyuConf($config['heyuconfloc']);
-$schedfileloc = $config['heyu_base'].$heyuconf->getSchedFile();
+$schedfileloc = $config['heyu_base_real'].$heyuconf->getSchedFile();
 
 ## Instantiate heyuSched class, get contents and parse timers
 $heyusched = new heyuSched($schedfileloc);

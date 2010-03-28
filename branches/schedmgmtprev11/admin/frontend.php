@@ -40,6 +40,7 @@ if (!isset($_GET["action"])) {
 }
 elseif ($_GET["action"] == "save") {
 	$newconfig['pc_interface'] = $_POST["pc_interface"];
+	$newconfig['heyu_base_use'] = $_POST["heyu_base_use"];
 	$newconfig['heyu_base'] = $_POST["heyu_base"];
 	$newconfig['heyu_subdir'] = $_POST["heyu_subdir"];
 	$newconfig['heyuconf'] = $_POST["heyuconf"];

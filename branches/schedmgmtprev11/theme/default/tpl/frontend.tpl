@@ -38,6 +38,30 @@ function validateForm(form)
   </tr>
 </table>
 <br />
+<!-- HeyuBase Usage-->
+<table cellspacing="0" cellpadding="0" border="0" class="clear">
+  <tr>
+    <td colspan="2" style="border-bottom:1px dotted #ccc;"><h6><?php echo ($lang['heyubaseuse']); ?></h6></td>
+  </tr>
+  <tr>
+    <td valign="top" width="150px">
+    <!-- Heyu Base Usage dropdown -->
+    <select name="heyu_base_use">
+    <?php $options = array('NO', 'YES'); ?>
+    <?php foreach ($options as $key=>$opt): ?>
+     <?php if ($opt == $config['heyu_base_use']): ?>
+       <option selected value="<?php echo $opt; ?>"><?php echo $opt; ?></option>
+     <?php else: ?>
+       <option value="<?php echo $opt; ?>"><?php echo $opt; ?></option>
+     <?php endif; ?>
+    <?php endforeach; ?>
+    </select>
+    <!-- End dropdown -->
+    </td>
+    <td width="350px"><?php echo ($lang['heyubaseuse_txt']); ?></td>
+  </tr>
+</table>
+<br />
 <!-- HeyuBase -->
 <table cellspacing="0" cellpadding="0" border="0" class="clear">
   <tr>

@@ -25,22 +25,22 @@ function createHeyuSubdir($dirNum) {
 	
 	if($dirNum == "default")
 		return false;
-	if(!file_exists($config['heyu_base'].$dirNum)) {
-		mkdir($config['heyu_base']."/".$dirNum);
-		if(file_exists($config['heyu_base'].$config['heyuconf'])) {
-			copy($config['heyu_base'].$config['heyuconf'], $config['heyu_base'].$dirNum."/".$config['heyuconf']);
+	if(!file_exists($config['heyu_base_real'].$dirNum)) {
+		mkdir($config['heyu_base_real']."/".$dirNum);
+		if(file_exists($config['heyu_base_real'].$config['heyuconf'])) {
+			copy($config['heyu_base_real'].$config['heyuconf'], $config['heyu_base_real'].$dirNum."/".$config['heyuconf']);
 		}
 		else {
-			touch($config['heyu_base'].$dirNum."/".$config['heyuconf']);
+			touch($config['heyu_base_real'].$dirNum."/".$config['heyuconf']);
 		}
 		## Instantiate heyuConf class and get schedule file with absolute path
 		$heyuconf = new heyuConf($config['heyuconfloc']);
-		$schedfileloc = $config['heyu_base'].$heyuconf->getSchedFileValue();
+		$schedfileloc = $config['heyu_base_real'].$heyuconf->getSchedFileValue();
 		if(file_exists($schedfileloc)) {
-			copy($schedfileloc, $config['heyu_base'].$dirNum."/".$heyuconf->getSchedFileValue());
+			copy($schedfileloc, $config['heyu_base_real'].$dirNum."/".$heyuconf->getSchedFileValue());
 		}
 		else {
-			touch($config['heyu_base'].$dirNum."/".$heyuconf->getSchedFileValue());
+			touch($config['heyu_base_real'].$dirNum."/".$heyuconf->getSchedFileValue());
 		}
 		return true;
 	}

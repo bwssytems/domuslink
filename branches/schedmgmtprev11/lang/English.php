@@ -27,6 +27,7 @@ $lang["lights"] = "Lights";
 $lang["appliances"] = "Appliances";
 $lang["shutters"]="Shutters";
 $lang["irrigation"] = "Irrigation";
+$lang["other"] = "Other";
 $lang["login"] = "Login";
 $lang["setup"] = "Setup";
 $lang["aliases"] = "Aliases";
@@ -213,4 +214,7 @@ $lang["heyumgmt"] = "Heyu Config Select";
 $lang["heyumgmtadmin"] = "Heyu Configuration Management";
 $lang["heyumgmt_txt"] = "This controls which configuration heyu will use. This is based on heyu's capability to select multiple configurations that inlcudes the config for heyu and schedule files.";
 $lang["heyucurrentconfig"] = "Current heyu configuration is";
+$lang["heyubaseuse"] = "Heyu Base Dir Usage";
+$lang["heyubaseuse_txt"] = "This switch forces domus.Link to pass explicit path directive using -c to heyu on execution based on the heyu_base setting when set to YES. If set to NO, domus.Link will default its heyu_base path and x10config file settings to /etc/heyu and x10.conf respectively.";
+$lang['heyuindir'] = "in directory";
 ?>
