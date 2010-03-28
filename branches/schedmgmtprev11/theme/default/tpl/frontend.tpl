@@ -62,17 +62,6 @@ function validateForm(form)
   </tr>
 </table>
 <br />
-<!-- HeyuBase -->
-<table cellspacing="0" cellpadding="0" border="0" class="clear">
-  <tr>
-    <td colspan="2" style="border-bottom:1px dotted #ccc;"><h6><?php echo ($lang['heyubaseloc']); ?></h6></td>
-  </tr>
-  <tr>
-    <td valign="top" width="150px"><input type="text" name="heyu_base" value="<?php echo ($config['heyu_base']); ?>" /></td>
-    <td width="350px"><?php echo ($lang['heyubaseloc_txt']); ?></td>
-  </tr>
-</table>
-<br />
 <!-- Heyu Managment -->
 <table cellspacing="0" cellpadding="0" border="0" class="clear">
   <tr>
@@ -93,6 +82,17 @@ function validateForm(form)
     <td width="350px"><?php echo ($lang['heyumgmt_txt']); ?></td>
   </tr>
 </table>
+<!-- HeyuBase -->
+<table cellspacing="0" cellpadding="0" border="0" class="clear">
+  <tr>
+    <td colspan="2" style="border-bottom:1px dotted #ccc;"><h6><?php echo ($lang['heyubaseloc']); ?></h6></td>
+  </tr>
+  <tr>
+    <td valign="top" width="150px"><input type="text" name="heyu_base" value="<?php echo ($config['heyu_base']); ?>" /></td>
+    <td width="350px"><?php echo ($lang['heyubaseloc_txt']); ?></td>
+  </tr>
+</table>
+<br />
 <!-- HeyuConf -->
 <table cellspacing="0" cellpadding="0" border="0" class="clear">
   <tr>

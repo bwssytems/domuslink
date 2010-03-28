@@ -24,7 +24,7 @@ $config['heyu_base_use'] = 'NO';
 # Heyu base directory - This directory is where Heyu
 # searches for it's configuration files, and stores
 # state information
-$config['heyu_base'] = '/home/bsamuels/.heyu/';
+$config['heyu_base'] = '/etc/heyu/';
 
 # Heyu subdirectory configuration - This controls where
 # domus.Link uses the config and scehdule files for the controller
@@ -34,7 +34,7 @@ $config['heyu_subdir'] = '0';
 # heyuconf file - This file is typically named
 # x10.conf and usually located in /etc/heyu for
 # system wide use
-$config['heyuconf'] = 'x10config';
+$config['heyuconf'] = 'x10.conf';
 
 # heyuexec setting - This setting specifies the
 # location of the Heyu exectuable file. Typically
