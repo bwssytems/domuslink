@@ -23,7 +23,7 @@ function validateForm(form)
   </tr>
   <tr>
     <td valign="top" width="150px">
-    <select name="pc_interface">
+    <select name="pc_interface" style="width:100px;">
 		<?php $options = array('CM11A', 'CM17A'); ?>
 		<?php foreach ($options as $key=>$opt): ?>
 			<?php if ($opt == $config['pc_interface']): ?>
@@ -46,7 +46,7 @@ function validateForm(form)
   <tr>
     <td valign="top" width="150px">
     <!-- Heyu Base Usage dropdown -->
-    <select name="heyu_base_use">
+    <select name="heyu_base_use" style="width:50px;">
     <?php $options = array('NO', 'YES'); ?>
     <?php foreach ($options as $key=>$opt): ?>
      <?php if ($opt == $config['heyu_base_use']): ?>
@@ -69,7 +69,7 @@ function validateForm(form)
   </tr>
   <tr>
     <td valign="top" width="150px">
-    <select name="heyu_subdir">
+    <select name="heyu_subdir" style="width:75px;">
 		<?php foreach ($subdirlist as $asubdir): ?>
 			<?php if ($asubdir == $config['heyu_subdir']): ?>
 				<option selected value="<?php echo $asubdir; ?>"><?php echo $asubdir; ?></option>
@@ -122,7 +122,7 @@ function validateForm(form)
   </tr>
   <tr>
     <td valign="top" width="150px">
-    <select name="seclevel">
+    <select name="seclevel" style="width:45px;">
 		<?php $options = array('0', '1', '2'); ?>
 		<?php foreach ($options as $key=>$opt): ?>
 			<?php if ($opt == $config['seclevel']): ?>
@@ -157,7 +157,7 @@ function validateForm(form)
     <td valign="top" width="150px">
     <!-- Language dropdown -->
     <?php $files = list_dir_content(LANG_FILE_LOCATION); $found = false; ?>
-    <select name='lang'>
+    <select name='lang' style="width:100px;">
     <?php foreach ($files as $file): ?>
      <?php $name = substr($file, 0, -4);  // remove file extension ?>
 	 <?php if ($name == $config['lang']): ?>
@@ -199,7 +199,7 @@ function validateForm(form)
     <td valign="top" width="150px">
     <!-- Theme dropdown -->
     <?php $subdir = list_dir_content(FULL_THEME_FILE_LOCATION); ?>
-    <select name="theme">
+    <select name="theme" style="width:75px;">
     <?php foreach ($subdir as $dir): ?>
      <?php if ($dir == $config['theme']): ?>
        <option selected value="<?php echo $dir;?>"><?php echo $dir;?></option>
@@ -222,7 +222,7 @@ function validateForm(form)
   <tr>
     <td valign="top" width="150px">
     <!-- Images dropdown -->
-    <select name="imgs">
+    <select name="imgs" style="width:50px;">
     <?php $options = array('ON', 'OFF'); ?>
     <?php foreach ($options as $key=>$opt): ?>
      <?php if ($opt == $config['imgs']): ?>
@@ -246,7 +246,7 @@ function validateForm(form)
   <tr>
     <td valign="top" width="150px">
     <!-- Codes dropdown -->
-    <select name="codes">
+    <select name="codes" style="width:50px;">
     <?php $options = array('ON', 'OFF'); ?>
     <?php foreach ($options as $key=>$opt): ?>
      <?php if ($opt == $config['codes']): ?>
