@@ -27,11 +27,13 @@ function config_load()
 	$config = array();
 
 	$config["pc_interface"] = "CM11A";
+	$config["heyu_base_use"] = "NO";
 	$config["heyu_base"] = "/etc/heyu";
+	$config["heyu_subdir"] = "default";
 	$config["heyuconf"] = "x10.conf";
 	$config["heyuexec"] = "/usr/local/bin/heyu";
 	$config["seclevel"] = "1";
-	$config["password"] = "123";
+	$config["password"] = "1234";
 	$config["lang"] = "";
 	$config["url_path"] = "/";
 	$config["theme"] = "default";
@@ -71,15 +73,27 @@ function config_text($config)
 # File locations
 # --------------
 
+# Heyu base use - This switch forces domus.Link to pass explicit
+# path directive using -c to heyu on execution based on the heyu_base
+# setting when set to "YES". If set to "NO", domus.Link will default its
+# heyu_base path and x10config file settings to "/etc/heyu" and 
+# "x10.conf" respectively.
+\$config['heyu_base_use'] = '{$config['heyu_base_use']}';
+
 # Heyu base directory - This directory is where Heyu
 # searches for it's configuration files, and stores
 # state information
 \$config['heyu_base'] = '{$config['heyu_base']}';
 
+# Heyu subdirectory configuration - This controls where
+# domus.Link uses the config and scehdule files for the controller
+# or multiple configs
+\$config['heyu_subdir'] = '{$config['heyu_subdir']}';
+ 
 # heyuconf file - This file is typically named
 # x10.conf and usually located in /etc/heyu for
 # system wide use
-\$config['heyuconf'] = \$config['heyu_base'].'{$config['heyuconf']}';
+\$config['heyuconf'] = '{$config['heyuconf']}';
 
 # heyuexec setting - This setting specifies the
 # location of the Heyu exectuable file. Typically
@@ -183,6 +197,35 @@ function parse_config($config)
 		$config['cmd_brightb'] = 'fbright';
 		$config['cmd_dimb'] = 'fdim';
 	}
+	
+	if($config['heyu_base_use'] == "NO") {
+		$config['heyu_base_real'] = "/etc/heyu/";
+		$config['heyuconf_real'] = "x10.conf";
+	}
+	else {
+		$config['heyu_base_real'] = $config['heyu_base'];
+		$config['heyuconf_real'] = $config['heyuconf'];
+	}
+
+	if(!(strtolower($config['heyu_subdir']) == 'default') && $config['heyu_base_use'] == "NO") {
+		$config['heyuexecreal'] = $config['heyuexec']." -".$config['heyu_subdir'];
+		$config['heyuconfloc'] = $config['heyu_base_real'].$config['heyu_subdir']."/".$config['heyuconf_real'];
+	}
+	elseif(!(strtolower($config['heyu_subdir']) == 'default') && $config['heyu_base_use'] == "YES") {
+		$config['heyuconfloc'] = $config['heyu_base_real'].$config['heyu_subdir']."/".$config['heyuconf_real'];
+		$config['heyuexecreal'] = $config['heyuexec']." -c ".$config['heyuconfloc'];
+	}
+	elseif($config['heyu_base_use'] == "YES") {
+		$config['heyuconfloc'] = $config['heyu_base_real'].$config['heyuconf_real'];
+		$config['heyuexecreal'] = $config['heyuexec']." -c ".$config['heyuconfloc'];
+	}
+	else {
+		$config['heyuexecreal'] = $config['heyuexec'];
+		$config['heyuconfloc'] = $config['heyu_base_real'].$config['heyuconf_real'];
+	}
+
+	$heyuconf = new heyuConf($config['heyuconfloc']);
+	$config['heyu_config_name'] = $heyuconf->getFirstSection();
 	return $config;
 }
 

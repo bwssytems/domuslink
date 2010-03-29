@@ -27,6 +27,7 @@ $lang["lights"] = "Lights";
 $lang["appliances"] = "Appliances";
 $lang["shutters"]="Shutters";
 $lang["irrigation"] = "Irrigation";
+$lang["other"] = "Other";
 $lang["login"] = "Login";
 $lang["setup"] = "Setup";
 $lang["aliases"] = "Aliases";
@@ -77,9 +78,9 @@ $lang["heyuexec_txt"] = "This setting specifies the location of the Heyu exectua
 $lang["password_txt"] = "Enter a password to access the selected areas.";
 $lang["theme_txt"] = "Select a theme for the GUI.";
 $lang["imgs_txt"] = "Select whether or not you would like to use images instead of text on the menu bar.";
-$lang["heyubaseloc_txt"] = "Heyu base directory - This directory is where Heyu searches for it's configuration files, and stores state information.";
+$lang["heyubaseloc_txt"] = "Heyu base directory - This directory is where Heyu searches for it's configuration files, and stores state information. Only used if Heyu Base Dir Usage is set to YES.";
 $lang["language_txt"] = "Define the language for the frontend here. You can also select auto, which will use the browsers preferred language.";
-$lang["heyuconfile_txt"] = "This file is typically named x10.conf and usually located in /etc/heyu/ for system wide use.";
+$lang["heyuconfile_txt"] = "This file is typically named x10.conf and usually located in /etc/heyu/ for system wide use. Only used if Heyu Base Dir Usage is set to YES.";
 $lang["urlpath_txt"] = "If you are running domus.Link in a folder say http://your-host/domuslink, then define the url path as /domuslink. Leave blank if your are running domus.Link at the root ie http://your-host/";
 $lang["seclevel_txt"] = "Possible values are: 0 - None; 1 - Only setup area; 2 - Entire frontend.";
 $lang["pcinterface_txt"] = "The Computer Interface can either be the CM11A or the CM17A. The CM11A is the most common and therefore selected by default.";
@@ -208,6 +209,12 @@ $lang["timeroptions"] = "Timer Options";
 $lang["option"] = "Option";
 $lang["expire"] = "Expire";
 
-/* Other Text */
-$lang["other"] = "Other";
+/* Heyu Config Management Text */
+$lang["heyumgmt"] = "Heyu Config Select";
+$lang["heyumgmtadmin"] = "Heyu Configuration Management";
+$lang["heyumgmt_txt"] = "This controls which configuration heyu will use. This is based on heyu's capability to select multiple configurations that inlcudes the config for heyu and schedule files.";
+$lang["heyucurrentconfig"] = "Current heyu configuration is";
+$lang["heyubaseuse"] = "Heyu Base Dir Usage";
+$lang["heyubaseuse_txt"] = "This switch forces domus.Link to pass explicit path directive using -c to heyu on execution based on the heyu_base setting when set to YES. If set to NO, domus.Link will default its heyu_base path and x10config file settings to /etc/heyu and x10.conf respectively.";
+$lang['heyuindir'] = "in directory";
 ?>

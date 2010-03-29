@@ -14,15 +14,27 @@ $config['pc_interface'] = 'CM11A';
 # File locations
 # --------------
 
+# Heyu base use - This switch forces domus.Link to pass explicit
+# path directive using -c to heyu on execution based on the heyu_base
+# setting when set to "YES". If set to "NO", domus.Link will default its
+# heyu_base path and x10config file settings to "/etc/heyu" and 
+# "x10.conf" respectively.
+$config['heyu_base_use'] = '';
+
 # Heyu base directory - This directory is where Heyu
 # searches for it's configuration files, and stores
 # state information
 $config['heyu_base'] = '/etc/heyu/';
 
+# Heyu subdirectory configuration - This controls where
+# domus.Link uses the config and scehdule files for the controller
+# or multiple configs
+$config['heyu_subdir'] = '';
+ 
 # heyuconf file - This file is typically named
 # x10.conf and usually located in /etc/heyu for
 # system wide use
-$config['heyuconf'] = $config['heyu_base'].'x10.conf';
+$config['heyuconf'] = 'x10.conf';
 
 # heyuexec setting - This setting specifies the
 # location of the Heyu exectuable file. Typically

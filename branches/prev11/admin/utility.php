@@ -71,7 +71,7 @@ else {
 	}
 	else {
 		// execute the heyu command and return output
-		$tpl_body->set('out_lines', execute_cmd($config['heyuexec']." ".$_POST["command"]." ".$_POST["arguments"], true));
+		$tpl_body->set('out_lines', execute_cmd($config['heyuexecreal']." ".$_POST["command"]." ".$_POST["arguments"], true));
 	}
 }
 

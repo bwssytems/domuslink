@@ -1,4 +1,14 @@
-<form action="<?php echo ($_SERVER['PHP_SELF']); ?>?action=save" method="post">
+<script language="JavaScript" type="text/javascript">
+<!--
+function validateForm(form)
+{
+	alert( "After changing Heyu Configuration Select, YOU MUST STOP AND START HEYU.");
+
+  return true ;
+}
+//-->
+</script>
+<form action="<?php echo ($_SERVER['PHP_SELF']); ?>?action=save" method="post" onsubmit="return validateForm(this);">
 
 <table cellspacing="0" cellpadding="0" border="0" width="550px" align="center" class="content">
 <tr><th colspan="2"><?php echo ($lang['frontendadmin']); ?></th></tr>
@@ -13,7 +23,7 @@
   </tr>
   <tr>
     <td valign="top" width="150px">
-    <select name="pc_interface">
+    <select name="pc_interface" style="width:100px;">
 		<?php $options = array('CM11A', 'CM17A'); ?>
 		<?php foreach ($options as $key=>$opt): ?>
 			<?php if ($opt == $config['pc_interface']): ?>
@@ -28,6 +38,50 @@
   </tr>
 </table>
 <br />
+<!-- HeyuBase Usage-->
+<table cellspacing="0" cellpadding="0" border="0" class="clear">
+  <tr>
+    <td colspan="2" style="border-bottom:1px dotted #ccc;"><h6><?php echo ($lang['heyubaseuse']); ?></h6></td>
+  </tr>
+  <tr>
+    <td valign="top" width="150px">
+    <!-- Heyu Base Usage dropdown -->
+    <select name="heyu_base_use" style="width:50px;">
+    <?php $options = array('NO', 'YES'); ?>
+    <?php foreach ($options as $key=>$opt): ?>
+     <?php if ($opt == $config['heyu_base_use']): ?>
+       <option selected value="<?php echo $opt; ?>"><?php echo $opt; ?></option>
+     <?php else: ?>
+       <option value="<?php echo $opt; ?>"><?php echo $opt; ?></option>
+     <?php endif; ?>
+    <?php endforeach; ?>
+    </select>
+    <!-- End dropdown -->
+    </td>
+    <td width="350px"><?php echo ($lang['heyubaseuse_txt']); ?></td>
+  </tr>
+</table>
+<br />
+<!-- Heyu Managment -->
+<table cellspacing="0" cellpadding="0" border="0" class="clear">
+  <tr>
+    <td colspan="2" style="border-bottom:1px dotted #ccc;"><h6><?php echo ($lang['heyumgmt']); ?></h6></td>
+  </tr>
+  <tr>
+    <td valign="top" width="150px">
+    <select name="heyu_subdir" style="width:75px;">
+		<?php foreach ($subdirlist as $asubdir): ?>
+			<?php if ($asubdir == $config['heyu_subdir']): ?>
+				<option selected value="<?php echo $asubdir; ?>"><?php echo $asubdir; ?></option>
+			<?php else: ?>
+				<option value="<?php echo $asubdir; ?>"><?php echo $asubdir; ?></option>
+			<?php endif; ?>
+		<?php endforeach; ?>
+    </select>
+    </td>
+    <td width="350px"><?php echo ($lang['heyumgmt_txt']); ?></td>
+  </tr>
+</table>
 <!-- HeyuBase -->
 <table cellspacing="0" cellpadding="0" border="0" class="clear">
   <tr>
@@ -45,7 +99,7 @@
     <td colspan="2" style="border-bottom:1px dotted #ccc;"><h6><?php echo ($lang['heyuconfile']); ?></h6></td>
   </tr>
   <tr>
-    <td valign="top" width="150px"><input type="text" name="heyuconf" value="<?php echo substr($config['heyuconf'], strlen($config['heyu_base'])); ?>" /></td>
+    <td valign="top" width="150px"><input type="text" name="heyuconf" value="<?php echo $config['heyuconf']; ?>" /></td>
     <td width="350px"><?php echo ($lang['heyuconfile_txt']); ?></td>
   </tr>
 </table>
@@ -68,7 +122,7 @@
   </tr>
   <tr>
     <td valign="top" width="150px">
-    <select name="seclevel">
+    <select name="seclevel" style="width:45px;">
 		<?php $options = array('0', '1', '2'); ?>
 		<?php foreach ($options as $key=>$opt): ?>
 			<?php if ($opt == $config['seclevel']): ?>
@@ -103,7 +157,7 @@
     <td valign="top" width="150px">
     <!-- Language dropdown -->
     <?php $files = list_dir_content(LANG_FILE_LOCATION); $found = false; ?>
-    <select name='lang'>
+    <select name='lang' style="width:100px;">
     <?php foreach ($files as $file): ?>
      <?php $name = substr($file, 0, -4);  // remove file extension ?>
 	 <?php if ($name == $config['lang']): ?>
@@ -145,7 +199,7 @@
     <td valign="top" width="150px">
     <!-- Theme dropdown -->
     <?php $subdir = list_dir_content(FULL_THEME_FILE_LOCATION); ?>
-    <select name="theme">
+    <select name="theme" style="width:75px;">
     <?php foreach ($subdir as $dir): ?>
      <?php if ($dir == $config['theme']): ?>
        <option selected value="<?php echo $dir;?>"><?php echo $dir;?></option>
@@ -168,7 +222,7 @@
   <tr>
     <td valign="top" width="150px">
     <!-- Images dropdown -->
-    <select name="imgs">
+    <select name="imgs" style="width:50px;">
     <?php $options = array('ON', 'OFF'); ?>
     <?php foreach ($options as $key=>$opt): ?>
      <?php if ($opt == $config['imgs']): ?>
@@ -192,7 +246,7 @@
   <tr>
     <td valign="top" width="150px">
     <!-- Codes dropdown -->
-    <select name="codes">
+    <select name="codes" style="width:50px;">
     <?php $options = array('ON', 'OFF'); ?>
     <?php foreach ($options as $key=>$opt): ?>
      <?php if ($opt == $config['codes']): ?>

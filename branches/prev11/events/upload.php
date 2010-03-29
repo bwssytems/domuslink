@@ -30,8 +30,8 @@ if ($config['seclevel'] != "0" && !$authenticated) {
 }
 
 ## Instantiate heyuConf class
-$heyuconf = new heyuConf($config['heyuconf']);
-$schedfileloc = $config['heyu_base'].$heyuconf->getSchedFile();
+$heyuconf = new heyuConf($config['heyuconfloc']);
+$schedfileloc = $config['heyu_base_real'].$heyuconf->getSchedFile();
 
 ## Set template parameters
 $tpl->set('title', $lang['timers']);

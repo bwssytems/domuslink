@@ -32,7 +32,7 @@ if ($config['seclevel'] == "2" && !$authenticated) {
 ## Instantiate heyuConf & location class
 require_once(CLASS_FILE_LOCATION.'heyuconf.class.php');
 require_once(CLASS_FILE_LOCATION.'location.class.php');
-$heyuconf = new heyuConf($config['heyuconf']);
+$heyuconf = new heyuConf($config['heyuconfloc']);
 $locations = new location($heyuconf);
 
 // start/stop controls for heyu

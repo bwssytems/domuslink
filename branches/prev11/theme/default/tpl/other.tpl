@@ -6,17 +6,13 @@
 <img src="<?php echo $config['url_path'].'/theme/'.$config['theme'].'/images/module_other_'.$state.'.png'; ?>" vspace="2" />
 </td>
 
-<td width="110px"><input type="text" value="<?php echo $label; ?>" class="module"  /></td>
-<td rowspan="2">
-<table cellspacing="1" cellpadding="0" border="1" class="onofftb" width="32px">
-<tr>
-<td class="onoff" align="center"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?action=on&code=<?php echo $code; ?>&page=<?php echo $page; ?>">ON</a></td>
+<td width="110px" rowspan="2"><input type="text" value="<?php echo $label; ?>" class="module_<?php echo $state; ?>"  /></td>
+
+<td class="onoff" align="center"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?action=on&code=<?php echo $code; ?>&page=<?php echo $page; ?>"><img src="<?php echo $config['url_path']; ?>/theme/<?php echo $config['theme']; ?>/images/connect.png" border="0" /></a></td>
 </tr>
 <tr>
-<td class="onoff" align="center"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?action=off&code=<?php echo $code; ?>&page=<?php echo $page; ?>">OFF</a></td>
-</tr>
-</table>
-</td>
+<td rowspan="2"></td>
+<td class="onoff" align="center"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?action=off&code=<?php echo $code; ?>&page=<?php echo $page; ?>"><img src="<?php echo $config['url_path']; ?>/theme/<?php echo $config['theme']; ?>/images/disconnect.png" border="0" /></a></td>
 </tr>
 
 <tr>
