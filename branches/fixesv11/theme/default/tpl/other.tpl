@@ -11,12 +11,9 @@
 <td class="onoff" align="center"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?action=on&code=<?php echo $code; ?>&page=<?php echo $page; ?>"><img src="<?php echo $config['url_path']; ?>/theme/<?php echo $config['theme']; ?>/images/connect.png" border="0" /></a></td>
 </tr>
 <tr>
-<td rowspan="2"></td>
-<td class="onoff" align="center"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?action=off&code=<?php echo $code; ?>&page=<?php echo $page; ?>"><img src="<?php echo $config['url_path']; ?>/theme/<?php echo $config['theme']; ?>/images/disconnect.png" border="0" /></a></td>
-</tr>
-
-<tr>
 <td><?php if ($config['codes'] == "ON"): ?><span class="code"><?php echo $code; ?></span><?php endif; ?></td>
+<td></td>
+<td class="onoff" align="center"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?action=off&code=<?php echo $code; ?>&page=<?php echo $page; ?>"><img src="<?php echo $config['url_path']; ?>/theme/<?php echo $config['theme']; ?>/images/disconnect.png" border="0" /></a></td>
 </tr>
 
 </table>
