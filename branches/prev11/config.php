@@ -19,7 +19,7 @@ $config['pc_interface'] = 'CM11A';
 # setting when set to "YES". If set to "NO", domus.Link will default its
 # heyu_base path and x10config file settings to "/etc/heyu" and 
 # "x10.conf" respectively.
-$config['heyu_base_use'] = '';
+$config['heyu_base_use'] = 'NO';
 
 # Heyu base directory - This directory is where Heyu
 # searches for it's configuration files, and stores
@@ -29,7 +29,7 @@ $config['heyu_base'] = '/etc/heyu/';
 # Heyu subdirectory configuration - This controls where
 # domus.Link uses the config and scehdule files for the controller
 # or multiple configs
-$config['heyu_subdir'] = '';
+$config['heyu_subdir'] = 'default';
  
 # heyuconf file - This file is typically named
 # x10.conf and usually located in /etc/heyu for
@@ -78,7 +78,7 @@ $config['imgs'] = 'ON';
 
 # Codes - Select ON or OFF if you want codes to be displayed
 # in the buttons.
-$config['codes'] = '';
+$config['codes'] = 'ON';
 
 # Refresh - This setting defines the amount of time between page
 # refreshes. The page being refreshed is the main page where modules

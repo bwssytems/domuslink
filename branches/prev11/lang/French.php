@@ -25,7 +25,10 @@
  $lang["home"]="Accueil"; 
  $lang["lights"]="Lumières"; 
  $lang["appliances"]="Appareils"; 
+$lang["shutters"]="Shutters"; // PLEASE TRANSLATE
  $lang["irrigation"]="Arrosage"; 
+$lang["other"] = "Other"; // PLEASE TRANSLATE
+ $lang["login"]="Identification"; 
  $lang["setup"]="Installation"; 
  $lang["aliases"]="Noms des modules"; 
  $lang["floorplan"]="Plan"; 
@@ -45,7 +48,6 @@
  $lang["start"]="démarrer"; 
  $lang["reload"]="recharger"; 
  $lang["stop"]="arrêter"; 
- $lang["login"]="Identification"; 
  $lang["move"]="Déplacer"; 
  $lang["info"]="Info"; 
  $lang["running"]="En marche"; 
@@ -172,4 +174,47 @@
  $lang["utilitytool"]="Utilitaire - Lance une commande heyu"; 
  $lang["arguments"]="Arguments"; 
  $lang["output"]="Sortie"; 
+
+/* Macro Text */
+$lang["macro"] = "Macro"; // PLEASE TRANSLATE
+$lang["macros"] = "Macros"; // PLEASE TRANSLATE
+$lang["delay"] = "Delay"; // PLEASE TRANSLATE
+$lang["addmacro"] = "Add Macro"; // PLEASE TRANSLATE
+$lang["editmacro"] = "Edit Macro"; // PLEASE TRANSLATE
+$lang["macro_unit"] = "Macro Unit"; // PLEASE TRANSLATE
+$lang["macro_cmd"] = "Macro Command"; // PLEASE TRANSLATE
+$lang["obdim"] = "On-Bright-Dim"; // PLEASE TRANSLATE
+$lang["brightb"] = "Brighten"; // PLEASE TRANSLATE
+$lang["timeraddadv"] = "Timer Add Advanced"; // PLEASE TRANSLATE
+$lang["macro_on"] = "Macro On"; // PLEASE TRANSLATE
+$lang["macro_off"] = "Macro Off"; // PLEASE TRANSLATE
+$lang["timers_macro"] = "Advanced Timers"; // PLEASE TRANSLATE
+$lang["addmacrotimer"] = "Add Advanced Timer"; // PLEASE TRANSLATE
+$lang["editmacrotimer"] = "Edit Advanced Timer"; // PLEASE TRANSLATE
+$lang["simple_timers"] = "Simple Timers"; // PLEASE TRANSLATE
+
+$lang["null"] = "Null"; // PLEASE TRANSLATE
+
+/* Advanced Timer Text */
+$lang["dawn"] = "Dawn"; // PLEASE TRANSLATE
+$lang["dusk"] = "Dusk"; // PLEASE TRANSLATE
+$lang["reminder"] = "Reminder"; // PLEASE TRANSLATE
+$lang["dawnlt"] = "DanwLT"; // PLEASE TRANSLATE
+$lang["dawngt"] = "DawnGT"; // PLEASE TRANSLATE
+$lang["dusklt"] = "DuskLT"; // PLEASE TRANSLATE
+$lang["duskgt"] = "DuskGT"; // PLEASE TRANSLATE
+$lang["security"] = "Security"; // PLEASE TRANSLATE
+$lang["now"] = "Now"; // PLEASE TRANSLATE
+$lang["timeroptions"] = "Timer Options"; // PLEASE TRANSLATE
+$lang["option"] = "Option"; // PLEASE TRANSLATE
+$lang["expire"] = "Expire"; // PLEASE TRANSLATE
+
+/* Heyu Config Management Text */
+$lang["heyumgmt"] = "Heyu Config Select"; // PLEASE TRANSLATE
+$lang["heyumgmtadmin"] = "Heyu Configuration Management"; // PLEASE TRANSLATE
+$lang["heyumgmt_txt"] = "This controls which configuration heyu will use. This is based on heyu's capability to select multiple configurations that inlcudes the config for heyu and schedule files."; // PLEASE TRANSLATE
+$lang["heyucurrentconfig"] = "Current heyu configuration is"; // PLEASE TRANSLATE
+$lang["heyubaseuse"] = "Heyu Base Dir Usage"; // PLEASE TRANSLATE
+$lang["heyubaseuse_txt"] = "This switch forces domus.Link to pass explicit path directive using -c to heyu on execution based on the heyu_base setting when set to YES. If set to NO, domus.Link will default its heyu_base path and x10config file settings to /etc/heyu and x10.conf respectively."; // PLEASE TRANSLATE
+$lang['heyuindir'] = "in directory"; // PLEASE TRANSLATE
 ?>
