@@ -100,17 +100,17 @@
 <table cellspacing="0" cellpadding="0" border="0" class="clear">
   <tr>
     <td width="80px"><h6><?php echo $lang['ontime']; ?>:</h6></td>
-  	<td>
+  	<td width="180px">
   		<input type="radio" name='starttimetype' value="time" <?php if(!$theTimer->getStartTime()->isNow() && !$theTimer->getStartTime()->isDawnDusk()) echo "checked"; ?> /> <?php echo ($lang['time']);?>
   		<input type="radio" name='starttimetype' value="now" <?php if($theTimer->getStartTime()->isNow()) echo "checked"; ?> /> <?php echo $lang['now'];?> + 
-    	<select name='startnowmins' style="width:45px;">
-			<?php foreach ($mins as $value): ?>
+    	<select name='startnowmins' style="width:55px;">
+			<?php foreach ($offsetmins as $value): ?>
 				<?php if (strlen($value) == 1): $value = "0".$value; endif; ?>
 				<option value="<?php echo $value; ?>" <?php if ($theTimer->getStartTime()->getOffsetMin() == $value && $theTimer->getStartTime()->isNow()) echo "selected"; ?>><?php echo $value; ?></option>
 			<?php endforeach; ?>
     	</select>
   	</td>
-  	<td>
+  	<td width="180px">
   		<input type="radio" name='starttimetype' value="dawn" <?php if($theTimer->getStartTime()->getDawnDusk() == "dawn") echo "checked"; ?> /> <?php echo $lang['dawn'];?>
   		<input type="radio" name='starttimetype' value="dusk" <?php if($theTimer->getStartTime()->getDawnDusk() == "dusk") echo "checked"; ?> /> <?php echo $lang['dusk'];?>
   	</td>
@@ -118,7 +118,7 @@
   <tr>
     <td width="80px">
     </td>
-    <td width="165px">
+    <td width="180px">
     <select name='onhour' style="width:45px;">
 	<?php foreach ($hours as $value): ?>
 		<?php if (strlen($value) == 1): $value = "0".$value; endif; ?>
@@ -133,14 +133,14 @@
 	</select>
     	<?php echo $lang['security'];?>: <input type="checkbox" name='startsecurity' value="security" <?php if($theTimer->getStartTime()->getSecurity()) echo "checked"; ?> />
     </td>
-    <td>
+    <td width="180px">
     	<select name='startdawnduskplus' style="width:45px;">
     		<option value="" <?php if(!$theTimer->getStartTime()->isDawnDusk()) echo "selected"; ?>> </option>
     		<option value="+" <?php if($theTimer->getStartTime()->isDawnDusk() && $theTimer->getStartTime()->getPlusMinus()== "+") echo "selected"; ?>>+</option>
     		<option value="-" <?php if($theTimer->getStartTime()->isDawnDusk() && $theTimer->getStartTime()->getPlusMinus()== "-") echo "selected"; ?>>-</option>
     	</select>
-    	<select name='startdawnduskmins' style="width:45px;">
-			<?php foreach ($mins as $value): ?>
+    	<select name='startdawnduskmins' style="width:55px;">
+			<?php foreach ($offsetmins as $value): ?>
 				<?php if($value != 0): ?>
 					<?php if (strlen($value) == 1): $value = "0".$value; endif; ?>
 					<option value="<?php echo $value; ?>"  <?php if($theTimer->getStartTime()->isDawnDusk() && $theTimer->getStartTime()->getOffsetMin() == $value) echo "selected"; ?>><?php echo $value; ?></option>
@@ -155,17 +155,17 @@
 <table cellspacing="0" cellpadding="0" border="0" class="clear">
   <tr>
     <td width="80px"><h6><?php echo $lang['offtime']; ?>:</h6></td>
-  	<td>
+  	<td width="180px">
   		<input type="radio" name='stoptimetype' value="time" <?php if(!$theTimer->getStopTime()->isNow() && !$theTimer->getStopTime()->isDawnDusk()) echo "checked"; ?> /> <?php echo ($lang['time']);?>
   		<input type="radio" name='stoptimetype' value="now" <?php if($theTimer->getStopTime()->isNow()) echo "checked"; ?> /> <?php echo $lang['now'];?> + 
-    	<select name='stopnowmins' style="width:45px;">
-			<?php foreach ($mins as $value): ?>
+    	<select name='stopnowmins' style="width:55px;">
+			<?php foreach ($offsetmins as $value): ?>
 				<?php if (strlen($value) == 1): $value = "0".$value; endif; ?>
 				<option value="<?php echo $value; ?>" <?php if ($theTimer->getStopTime()->getOffsetMin() == $value && $theTimer->getStopTime()->isNow()) echo "selected"; ?>><?php echo $value; ?></option>
 			<?php endforeach; ?>
     	</select>
   	</td>
-  	<td>
+  	<td width="180px">
   		<input type="radio" name='stoptimetype' value="dawn" <?php if($theTimer->getStopTime()->getDawnDusk() == "dawn") echo "checked"; ?> /> <?php echo $lang['dawn'];?>
   		<input type="radio" name='stoptimetype' value="dusk" <?php if($theTimer->getStopTime()->getDawnDusk() == "dusk") echo "checked"; ?> /> <?php echo $lang['dusk'];?>
   	</td>
@@ -173,7 +173,7 @@
   <tr>
     <td width="80px">
     </td>
-    <td width="165px">
+    <td width="180px">
     <select name='offhour' style="width:45px;">
 	<?php foreach ($hours as $value): ?>
 		<?php if (strlen($value) == 1): $value = "0".$value; endif; ?>
@@ -188,14 +188,14 @@
 	</select>
     <?php echo $lang['security'];?>: <input type="checkbox" name='stopsecurity' value="security" <?php if($theTimer->getStopTime()->getSecurity()) echo "checked"; ?> />
     </td>
-    <td>
+    <td width="180px">
     	<select name='stopdawnduskplus' style="width:45px;">
     		<option value="" <?php if(!$theTimer->getStopTime()->isDawnDusk()) echo "selected"; ?>> </option>
     		<option value="+" <?php if($theTimer->getStopTime()->isDawnDusk() && $theTimer->getStopTime()->getPlusMinus()== "+") echo "selected"; ?>>+</option>
     		<option value="-" <?php if($theTimer->getStopTime()->isDawnDusk() && $theTimer->getStopTime()->getPlusMinus()== "-") echo "selected"; ?>>-</option>
     	</select>
-    	<select name='stopdawnduskmins' style="width:45px;">
-			<?php foreach ($mins as $value): ?>
+    	<select name='stopdawnduskmins' style="width:55px;">
+			<?php foreach ($offsetmins as $value): ?>
 				<?php if($value != 0): ?>
 					<?php if (strlen($value) == 1): $value = "0".$value; endif; ?>
 					<option value="<?php echo $value; ?>"  <?php if($theTimer->getStopTime()->isDawnDusk() && $theTimer->getStopTime()->getOffsetMin() == $value) echo "selected"; ?>><?php echo $value; ?></option>

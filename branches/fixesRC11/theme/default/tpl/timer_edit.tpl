@@ -18,7 +18,7 @@ $buttonaction = $_POST["buttonaction"];
 <table cellspacing="0" cellpadding="0" border="0" class="clear">
   <tr>
     <td width="80px"><h6><?php echo ($lang['status']);?>:</h6></td>
-    <td width="150px">
+    <td width="200px">
     <select name="status"  style="width:75px;" disabled>
  		<option value="" <?php if ($theTimer->isEnabled()) echo "selected"; ?>><?php echo ($lang['enabled']);?></option>
  		<option value="#" <?php if (!$theTimer->isEnabled()) echo "selected"; ?>><?php echo ($lang['disabled']);?></option>
@@ -31,7 +31,7 @@ $buttonaction = $_POST["buttonaction"];
 <table cellspacing="0" cellpadding="0" border="0" class="clear">
   <tr>
     <td width="80px"><h6><?php echo $lang['weekdays']; ?>:</h6></td>
-    <td width="150px">
+    <td width="200px">
     	<?php echo weekdays($theTimer->getDaysOfWeek(), $lang, false, true); ?>
     </td>
   </tr>
@@ -41,7 +41,7 @@ $buttonaction = $_POST["buttonaction"];
 <table cellspacing="0" cellpadding="0" border="0" class="clear">
   <tr>
     <td width="80px"><h6><?php echo $lang['startdate']; ?>:</h6></td>
-    <td width="150px">
+    <td width="200px">
 		<select name='onday' style="width:45px;">
 		<?php foreach ($days as $value): ?>
 			<option value="<?php echo $value; ?>" <?php if ($theTimer->getStartDate()->getDay() == $value) echo "selected"; ?>><?php echo $value; ?></option>
@@ -60,7 +60,7 @@ $buttonaction = $_POST["buttonaction"];
 <table cellspacing="0" cellpadding="0" border="0" class="clear">
   <tr>
     <td width="80px"><h6><?php echo $lang['enddate']; ?>:</h6></td>
-    <td width="150px">
+    <td width="200px">
 		<select name='offday' style="width:45px;">
 		<?php foreach ($days as $value): ?>
 			<option value="<?php echo $value; ?>" <?php if ($theTimer->getStopDate()->getDay() == $value) echo "selected"; ?>><?php echo $value; ?></option>
@@ -79,16 +79,16 @@ $buttonaction = $_POST["buttonaction"];
 <table cellspacing="0" cellpadding="0" border="0" class="clear">
   <tr>
     <td width="80px"><h6><?php echo $lang['ontime']; ?>:</h6></td>
-  	<td>
+  	<td width="200px">
   		<input type="radio" name='starttimetype' value="time" <?php if(!$theTimer->getStartTime()->isNow() && !$theTimer->getStartTime()->isDawnDusk()) echo "checked"; ?> /> <?php echo ($lang['time']);?>
-  		<input type="radio" name='starttimetype' value="dawn" <?php if($theTimer->getStartTime()->getDawnDusk() == "dawn") echo "checked"; ?> /> Dawn
-  		<input type="radio" name='starttimetype' value="dusk" <?php if($theTimer->getStartTime()->getDawnDusk() == "dusk") echo "checked"; ?> /> Dusk
+  		<input type="radio" name='starttimetype' value="dawn" <?php if($theTimer->getStartTime()->getDawnDusk() == "dawn") echo "checked"; ?> /> <?php echo ($lang['dawn']);?>
+  		<input type="radio" name='starttimetype' value="dusk" <?php if($theTimer->getStartTime()->getDawnDusk() == "dusk") echo "checked"; ?> /> <?php echo ($lang['dusk']);?>
   	</td>
   </tr>
   <tr>
     <td width="80px">
     </td>
-    <td width="150px">
+    <td width="200px">
     <select name='onhour' style="width:45px;">
 	<?php foreach ($hours as $value): ?>
 		<?php if (strlen($value) == 1): $value = "0".$value; endif; ?>
@@ -109,16 +109,16 @@ $buttonaction = $_POST["buttonaction"];
 <table cellspacing="0" cellpadding="0" border="0" class="clear">
   <tr>
     <td width="80px"><h6><?php echo $lang['offtime']; ?>:</h6></td>
-  	<td>
+  	<td width="200px">
   		<input type="radio" name='stoptimetype' value="time" <?php if(!$theTimer->getStopTime()->isNow() && !$theTimer->getStopTime()->isDawnDusk()) echo "checked"; ?> /> <?php echo ($lang['time']);?>
-  		<input type="radio" name='stoptimetype' value="dawn" <?php if($theTimer->getStopTime()->getDawnDusk() == "dawn") echo "checked"; ?> /> Dawn
-  		<input type="radio" name='stoptimetype' value="dusk" <?php if($theTimer->getStopTime()->getDawnDusk() == "dusk") echo "checked"; ?> /> Dusk
+  		<input type="radio" name='stoptimetype' value="dawn" <?php if($theTimer->getStopTime()->getDawnDusk() == "dawn") echo "checked"; ?> /> <?php echo ($lang['dawn']);?>
+  		<input type="radio" name='stoptimetype' value="dusk" <?php if($theTimer->getStopTime()->getDawnDusk() == "dusk") echo "checked"; ?> /> <?php echo ($lang['dusk']);?>
   	</td>
   </tr>
   <tr>
     <td width="80px">
     </td>
-    <td width="150px">
+    <td width="200px">
     <select name='offhour' style="width:45px;">
 	<?php foreach (array_reverse($hours) as $value): ?>
 		<?php if (strlen($value) == 1): $value = "0".$value; endif; ?>
