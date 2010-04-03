@@ -1,3 +1,4 @@
+# This file is not nneded if you have a current x10.sched file. It is only an example.
 section macros
 macro tv_set_off 0 off tv_set
 macro tv_set_on 0 on tv_set
