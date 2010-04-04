@@ -54,7 +54,7 @@ foreach ($timers as $timerObj):
   <td align="center"><?php echo $timerObj->getStartTime(); ?></td>
   <td align="center"><?php echo $timerObj->getStopTime(); ?></td>
   <td>&nbsp;</td>
-  <td align="center"><a onmouseover="popup('<?php foreach($timerObj->getTimerOptions() as $aTimerOption) $aPupStr = $aPupStr.$aTimerOption." "; echo $aPupStr; ?>')" onmouseout="kill()" title="" onfocus="this.blur()" href=""><?php if(count($timerObj->getTimerOptions()) == 0) echo ""; else echo "+"; ?></a></td>
+  <td align="center"><a onmouseover="popup('<?php foreach($timerObj->getTimerOptions() as $aTimerOption) $aPupStr = $aPupStr.$aTimerOption." "; echo $aPupStr; ?>')" onmouseout="kill()" title="" onfocus="this.blur()" href=""><?php if(count($timerObj->getTimerOptions()) == 0) echo ""; else echo "<img src=".($config['url_path'])."/theme/".($config['theme'])."/images/magnifier.png border=0 />"; ?></a></td>
   <td>&nbsp;</td>
   <td align="center" width="20px"><a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=edit&line=<?php echo $timerObj->getLineNum();?>"><?php echo ($lang['edit']);?></a></td>
   <td align="center" width="20px"><a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=del&line=<?php echo $timerObj->getLineNum();?>&onm=<?php echo $timerObj->getStartMacro();?>&ofm=<?php echo $timerObj->getStopMacro();?>" onclick="return confirm('<?php echo ($lang['deleteconfirm']);?>')"><?php echo ($lang['delete']);?></a></td>

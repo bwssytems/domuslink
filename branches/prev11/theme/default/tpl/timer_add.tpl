@@ -33,7 +33,7 @@ function validateForm(form)
 <table cellspacing="0" cellpadding="0" border="0" class="clear">
   <tr>
     <td width="80px"><h6><?php echo ($lang['status']);?>:</h6></td>
-    <td width="150px">
+    <td width="200px">
     <select name="status" style="width:75px;">
  		<option value="" selected><?php echo ($lang['enabled']);?></option>
  		<option value="#"><?php echo ($lang['disabled']);?></option>
@@ -46,7 +46,7 @@ function validateForm(form)
 <table cellspacing="0" cellpadding="0" border="0" class="clear">
   <tr>
     <td width="80px"><h6><?php echo $lang['weekdays']; ?>:</h6></td>
-    <td width="150px">
+    <td width="200px">
     	<?php echo weekdays(null, $lang, false, true); ?>
     </td>
   </tr>
@@ -56,7 +56,7 @@ function validateForm(form)
 <table cellspacing="0" cellpadding="0" border="0" class="clear">
   <tr>
     <td width="80px"><h6><?php echo $lang['startdate']; ?>:</h6></td>
-    <td width="150px">
+    <td width="200px">
 		<select name='onday' style="width:45px;">
 		<?php foreach ($days as $value): ?>
 			<option value="<?php echo $value; ?>"><?php echo $value; ?></option>
@@ -75,7 +75,7 @@ function validateForm(form)
 <table cellspacing="0" cellpadding="0" border="0" class="clear">
   <tr>
     <td width="80px"><h6><?php echo $lang['enddate']; ?>:</h6></td>
-    <td width="150px">
+    <td width="200px">
 
 		<select name='offday' style="width:45px;">
 		<?php foreach (array_reverse($days) as $value): ?>
@@ -95,7 +95,7 @@ function validateForm(form)
 <table cellspacing="0" cellpadding="0" border="0" class="clear">
   <tr>
     <td width="80px"><h6><?php echo $lang['ontime']; ?>:</h6></td>
-  	<td>
+  	<td width="200px">
   		<input type="radio" name='starttimetype' value="time"/> <?php echo ($lang['time']);?>
   		<input type="radio" name='starttimetype' value="dawn"/> <?php echo ($lang['dawn']);?>
   		<input type="radio" name='starttimetype' value="dusk"/> <?php echo ($lang['dusk']);?>
@@ -104,7 +104,7 @@ function validateForm(form)
   <tr>
     <td width="80px">
     </td>
-    <td width="150px">
+    <td width="200px">
     <select name='onhour' style="width:45px;">
 	<?php foreach ($hours as $value): ?>
 		<?php if (strlen($value) == 1): $value = "0".$value; endif; ?>
@@ -125,7 +125,7 @@ function validateForm(form)
 <table cellspacing="0" cellpadding="0" border="0" class="clear">
   <tr>
     <td width="80px"><h6><?php echo $lang['offtime']; ?>:</h6></td>
-  	<td>
+  	<td width="200px">
   		<input type="radio" name='stoptimetype' value="time"/> <?php echo ($lang['time']);?>
   		<input type="radio" name='stoptimetype' value="dawn"/> <?php echo ($lang['dawn']);?>
   		<input type="radio" name='stoptimetype' value="dusk"/> <?php echo ($lang['dusk']);?>
@@ -134,7 +134,7 @@ function validateForm(form)
   <tr>
     <td width="80px">
     </td>
-    <td width="150px">
+    <td width="200px">
     <select name='offhour' style="width:45px;">
 	<?php foreach (array_reverse($hours) as $value): ?>
 		<?php if (strlen($value) == 1): $value = "0".$value; endif; ?>

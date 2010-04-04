@@ -103,17 +103,16 @@ function validateForm(form)
 <!-- reminder expire date -->
 <table cellspacing="0" cellpadding="0" border="0" class="clear">
   <tr>
-    <td width="80px"><h6><?php echo $lang['reminder']; ?>:</h6>
-    </td>
+    <td width="80px"><h6><?php echo $lang['reminder']; ?>:</h6></td>
   	<td>
   		<input type="checkbox" name='expiredatetype' value="expire"/> <?php echo $lang['expire'];?>
   		</td>
   		<td>
-		<select name='expiredays' style="width:45px;">
-		<?php foreach ($days as $value): ?>
-			<option value="<?php echo $value; ?>"><?php echo $value; ?></option>
-		<?php endforeach; ?>
-		</select>
+			<select name='expiredays' style="width:45px;">
+				<?php foreach ($days as $value): ?>
+					<option value="<?php echo $value; ?>"><?php echo $value; ?></option>
+				<?php endforeach; ?>
+			</select>
 		</td>
   	</td>
   </tr>
@@ -123,17 +122,17 @@ function validateForm(form)
 <table cellspacing="0" cellpadding="0" border="0" class="clear">
   <tr>
     <td width="80px"><h6><?php echo $lang['ontime']; ?>:</h6></td>
-  	<td>
+  	<td width="180px">
   		<input type="radio" name='starttimetype' value="time"/> <?php echo ($lang['time']);?>
   		<input type="radio" name='starttimetype' value="now"/> <?php echo ($lang['now']);?> + 
-    	<select name='startnowmins' style="width:45px;">
-			<?php foreach ($mins as $value): ?>
+    	<select name='startnowmins' style="width:55px;">
+			<?php foreach ($offsetmins as $value): ?>
 				<?php if (strlen($value) == 1): $value = "0".$value; endif; ?>
 				<option value="<?php echo $value; ?>"><?php echo $value; ?></option>
 			<?php endforeach; ?>
     	</select>
   	</td>
-  	<td>
+  	<td width="180px">
   		<input type="radio" name='starttimetype' value="dawn"/> <?php echo ($lang['dawn']);?>
   		<input type="radio" name='starttimetype' value="dusk"/> <?php echo ($lang['dusk']);?>
   	</td>
@@ -141,7 +140,7 @@ function validateForm(form)
   <tr>
     <td width="80px">
     </td>
-    <td width="165px">
+    <td width="180px">
     <select name='onhour' style="width:45px;">
 	<?php foreach ($hours as $value): ?>
 		<?php if (strlen($value) == 1): $value = "0".$value; endif; ?>
@@ -156,14 +155,14 @@ function validateForm(form)
 	</select>
     	<?php echo ($lang['security']);?>: <input type="checkbox" name='startsecurity' value="security"/>
     </td>
-    <td>
+    <td width="180px">
     	<select name='startdawnduskplus' style="width:45px;">
     		<option value=""> </option>
     		<option value="+">+</option>
     		<option value="-">-</option>
     	</select>
-    	<select name='startdawnduskmins' style="width:45px;">
-			<?php foreach ($mins as $value): ?>
+    	<select name='startdawnduskmins' style="width:55px;">
+			<?php foreach ($offsetmins as $value): ?>
 				<?php if($value != 0): ?>
 					<?php if (strlen($value) == 1): $value = "0".$value; endif; ?>
 					<option value="<?php echo $value; ?>"><?php echo $value; ?></option>
@@ -178,17 +177,17 @@ function validateForm(form)
 <table cellspacing="0" cellpadding="0" border="0" class="clear">
   <tr>
     <td width="80px"><h6><?php echo $lang['offtime']; ?>:</h6></td>
-  	<td>
+  	<td width="180px">
   		<input type="radio" name='stoptimetype' value="time"/> <?php echo ($lang['time']);?>
   		<input type="radio" name='stoptimetype' value="now"/> <?php echo ($lang['now']);?> + 
-    	<select name='stopnowmins' style="width:45px;">
-			<?php foreach ($mins as $value): ?>
+    	<select name='stopnowmins' style="width:55px;">
+			<?php foreach ($offsetmins as $value): ?>
 				<?php if (strlen($value) == 1): $value = "0".$value; endif; ?>
 				<option value="<?php echo $value; ?>"><?php echo $value; ?></option>
 			<?php endforeach; ?>
     	</select>
   	</td>
-  	<td>
+  	<td width="180px">
   		<input type="radio" name='stoptimetype' value="dawn"/> <?php echo ($lang['dawn']);?>
   		<input type="radio" name='stoptimetype' value="dusk"/> <?php echo ($lang['dusk']);?>
   	</td>
@@ -196,7 +195,7 @@ function validateForm(form)
   <tr>
     <td width="80px">
     </td>
-    <td width="165px">
+    <td width="180px">
     <select name='offhour' style="width:45px;">
 	<?php foreach ($hours as $value): ?>
 		<?php if (strlen($value) == 1): $value = "0".$value; endif; ?>
@@ -209,16 +208,16 @@ function validateForm(form)
 		<option value="<?php echo $value; ?>"><?php echo $value; ?></option>
 	<?php endforeach; ?>
 	</select>
-    <?php echo ($lang['security']);?>: <input type="checkbox" name='stopsecurity' value="security"/>
+    	<?php echo ($lang['security']);?>: <input type="checkbox" name='stopsecurity' value="security"/>
     </td>
-    <td>
+    <td width="180px">
     	<select name='stopdawnduskplus' style="width:45px;">
     		<option value=""> </option>
     		<option value="+">+</option>
     		<option value="-">-</option>
     	</select>
-    	<select name='stopdawnduskmins' style="width:45px;">
-			<?php foreach ($mins as $value): ?>
+    	<select name='stopdawnduskmins' style="width:55px;">
+			<?php foreach ($offsetmins as $value): ?>
 				<?php if($value != 0): ?>
 					<?php if (strlen($value) == 1): $value = "0".$value; endif; ?>
 					<option value="<?php echo $value; ?>"><?php echo $value; ?></option>
