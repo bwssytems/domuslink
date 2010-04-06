@@ -25,12 +25,12 @@ This page will contain the domus.Link roadmap, agreed upon and developed by all 
 
 == v1.2 ==
   * Resolve issue 1
+  * Improve x10.conf file parsing (webhook !?!)
 
 == v2.0 ==
   * Code clean-up
   * Complete OOP focus
   * View by location/floorplan or types
-  * Improve x10.conf file parsing (webhook !?!)
   * AJAX implementation (drag&drop sorting, etc)
 
 = Features Under Consideration =
