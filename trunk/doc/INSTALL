@@ -4,7 +4,6 @@
  |                                                                            |
  +----------------------------------------------------------------------------*/
 
-
  Requirements:
  --------------
  To run and use domus.Link you need the following:
@@ -18,7 +17,7 @@
  --------------
  The following install procedure assumes the following:
  
- - Heyu is NOT running ($ heyu stop )
+ - Heyu is NOT running ($ [sudo] heyu stop )
  - Heyu configuration files are located in /etc/heyu
  - Heyu binary is located in /usr/local/bin
  - Websever root folder is /var/www
@@ -33,12 +32,17 @@
 
  1) Download latest version from http://domus.link.co.pt/download
 
- 2) If upgrading from a previous version of domus.Link, backup existing domus.Link files (VERY IMPORTANT)
+ 2) If upgrading from a previous version of domus.Link, backup existing domus.Link files for safety. (VERY IMPORTANT)
 
     $ cp [your web path]/domus.Link/config.php [backup location]/config.php.backup
+    
+    This step is optional. V1.1 will not overwrite your current floorplan file.
+    
     $ cp -r [your web path]/domus.Link/db [backup location]/dbbackup
 
  3) Un-tar to a location within the webserver root or a specific directory.
+ 
+ 	These instructions show that /var/www is the web path for your server.
  
     $ mv domuslink-XXX.tar.gz /var/www
     $ cd /var/www
@@ -49,14 +53,16 @@
     $ cp /etc/heyu/x10.conf /etc/heyu/x10.conf.backup
     $ cp /etc/heyu/x10.sched /etc/heyu/x10.sched.backup
 
- 5) Copy supplied x10.conf & x10.sched file to heyu conf. directory (VERY IMPORTANT if new installation)
+ 5) Copy supplied x10.conf file to heyu configuration directory (VERY IMPORTANT if new installation)
     
     $ cp /var/www/domus.Link/doc/x10.conf /etc/heyu/x10.conf
-    $ cp /var/www/domus.Link/doc/x10.sched /etc/heyu/x10.sched
-        
-    The supplied x10.conf and x10.sched file is prepared for use with the 
-    frontend and therefore must be used. Both the x10.conf & x10.sched files
-    supplied with Heyu will not work with domus.Link.
+
+    The supplied x10.conf file is prepared for use with the 
+    frontend and therefore must be used. The x10.conf file
+    supplied with Heyu will not work with domus.Link. This is due
+    to domus.Link requiring all directives to be uppercase.
+    
+    Since V1.1 the x10.scehd file parsing is now heyu compatible.
 
  6) Edit x10.conf file and change TTY directive to suit your system.
     - Do not add tabs, or extra spaces between options and directives.
@@ -72,7 +78,13 @@
     
     $ chmod o+rw /etc/heyu /var/www/domus.Link/db/floorplan /var/www/domus.Link/config.php
 
- 8) If upgrading from previous version, copy back backed up config.php and db directory. 
+ 8) If upgrading from previous version, copy back backed up config.php.
+ 
+ 	$ cp [your backup location]/config.php.backup [your web path]/domus.Link/config.php
+ 
+    Otherwise, if this is a new installation, copy the floorplan-dist file.
+    
+    $ cp [your web path]/domus.Link/db/floorplan-dist [your web path]/domus.Link/db/floorplan
 
  9) Setup apache accordingly, refer to http://httpd.apache.org if you don't
     know how to do this.

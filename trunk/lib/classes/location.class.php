@@ -128,7 +128,7 @@ class location {
 		
 		// if alias is a multi alias, module state & dimlevel are not checked
 		if (!$multi_alias) {
-			if (on_state($code, $config['heyuexec'])) {
+			if (on_state($code)) {
 				$state = 'on';
 				$action = $config['cmd_off']; 
 			}

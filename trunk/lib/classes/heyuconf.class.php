@@ -51,9 +51,9 @@ class heyuConf {
 	}
 	
 	/**
-	 * Get defined schedule file from heyu configuration file
+	 * Get defined schedule file from heyu configuration file without directory modifier
 	 */
-	function getSchedFile() {
+	function getSchedFileValue() {
 		foreach ($this->heyuconf as $num => $line) {
 			if (substr($line, 0, 13) == "SCHEDULE_FILE") {
 				$schedfile = trim(substr($line, 14));
@@ -63,7 +63,30 @@ class heyuConf {
 		
 		return $schedfile;
 	}
+	
+	/**
+	 * Get defined schedule file from heyu configuration file for current configured directory
+	 */
+	function getSchedFile() {
+		return getHeyuConfDirModifier().$this->getSchedFileValue();
+	}
 
+	/**
+	 * Get first section directive. This is used for naming config file for display. 
+	 *
+	 */
+	function getFirstSection() {
+		$firstSection = "";
+		foreach ($this->heyuconf as $num => $line) {
+			if (strtolower(substr($line, 0, 7)) == "section") {
+				$firstSection = trim(substr($line, 8));
+				break;
+			}			
+		}
+		
+		return $firstSection;		
+	}
+	
 	/**
 	 * Get Aliases
 	 *

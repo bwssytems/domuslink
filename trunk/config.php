@@ -1,23 +1,4 @@
 <?php 
-/*
- * domus.Link :: PHP Web-based frontend for Heyu (X10 Home Automation)
- * Copyright (c) 2007, Istvan Hubay Cebrian (istvan.cebrian@domus.link.co.pt)
- * Project's homepage: http://domus.link.co.pt
- * Project's dev. homepage: http://domuslink.googlecode.com
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope's that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details. You should have 
- * received a copy of the GNU General Public License along with
- * this program; if not, write to the Free Software Foundation, 
- * Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- */
 #
 # domus.Link (Heyu Frontend) Configuration File
 #
@@ -33,15 +14,27 @@ $config['pc_interface'] = 'CM11A';
 # File locations
 # --------------
 
+# Heyu base use - This switch forces domus.Link to pass explicit
+# path directive using -c to heyu on execution based on the heyu_base
+# setting when set to "YES". If set to "NO", domus.Link will default its
+# heyu_base path and x10config file settings to "/etc/heyu" and 
+# "x10.conf" respectively.
+$config['heyu_base_use'] = 'NO';
+
 # Heyu base directory - This directory is where Heyu
 # searches for it's configuration files, and stores
 # state information
 $config['heyu_base'] = '/etc/heyu/';
 
+# Heyu subdirectory configuration - This controls where
+# domus.Link uses the config and scehdule files for the controller
+# or multiple configs
+$config['heyu_subdir'] = 'default';
+ 
 # heyuconf file - This file is typically named
 # x10.conf and usually located in /etc/heyu for
 # system wide use
-$config['heyuconf'] = $config['heyu_base'].'x10.conf';
+$config['heyuconf'] = 'x10.conf';
 
 # heyuexec setting - This setting specifies the
 # location of the Heyu exectuable file. Typically

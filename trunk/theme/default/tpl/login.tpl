@@ -1,6 +1,6 @@
 <form name="form" method="post" action="<?php echo($_SERVER['PHP_SELF']); ?>">
 
-<table cellspacing="0" cellpadding="0" border="0" width="450px" align="middle" class="content">
+<table cellspacing="0" cellpadding="0" border="0" width="450px" align="center" class="content">
 <tr><th><?php echo ($lang['login']); ?></th></tr>
 
 <tr><td align="center">

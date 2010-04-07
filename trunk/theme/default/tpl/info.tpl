@@ -1,5 +1,5 @@
 <?php global $lang; ?>
-<table cellspacing="0" cellpadding="0" border="0" width="600px" align="middle" class="content">
+<table cellspacing="0" cellpadding="0" border="0" width="600px" align="center" class="content">
 <tr><th><?php echo ($lang['info']); ?></th></tr>
 
 <tr><td>

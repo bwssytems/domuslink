@@ -2,7 +2,9 @@
 	<li><a id='menu_all' href="<?php echo ($config['url_path']); ?>/index.php?page=all"><img src="<?php echo ($config['url_path']);?>/theme/iPhone/images/menu_home_on.png">&nbsp;&nbsp;<?php echo ($lang['floorplan']); ?></a></li>    
 	<li><a id='menu_lights' href="<?php echo ($config['url_path']); ?>/index.php?page=lights"><img src="<?php echo ($config['url_path']);?>/theme/iPhone/images/menu_lights_on.png">&nbsp;&nbsp;<?php echo ($lang['lights']); ?></a></li>
 	<li><a id='menu_appliances' href="<?php echo ($config['url_path']); ?>/index.php?page=appliances"><img src="<?php echo ($config['url_path']);?>/theme/iPhone/images/menu_appliances_on.png">&nbsp;&nbsp;<?php echo ($lang['appliances']); ?></a></li>
+	<li><a id='menu_shutters' href="<?php echo ($config['url_path']); ?>/index.php?page=shutters"><img src="<?php echo ($config['url_path']);?>/theme/iPhone/images/menu_shutters_on.png">&nbsp;&nbsp;<?php echo ($lang['shutters']); ?></a></li>
 	<li><a id='menu_irrigation' href="<?php echo ($config['url_path']); ?>/index.php?page=irrigation"><img src="<?php echo ($config['url_path']);?>/theme/iPhone/images/menu_irrigation_on.png">&nbsp;&nbsp;<?php echo ($lang['irrigation']); ?></a></li>
+	<li><a id='menu_others' href="<?php echo ($config['url_path']); ?>/index.php?page=other"><img src="<?php echo ($config['url_path']);?>/theme/iPhone/images/menu_other_on.png">&nbsp;&nbsp;<?php echo ($lang['other']); ?></a></li>
 	<!--Setup is not yet working correctly-->
 	<!--
     <?php

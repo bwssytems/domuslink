@@ -1,17 +1,3 @@
-<script language="JavaScript" type="text/javascript">
-<!--
-function validateForm(form)
-{
-	if (form.module.value == "") {
-		alert( "No module has been selected, please try again." );
-		form.module.focus();
-		return false ;
-	}
-
-  return true ;
-}
-//-->
-</script>
 <form action="<?php echo($_SERVER['PHP_SELF']); ?>?action=save" method="post">
 <input type="hidden" name="line" value="<?php echo $linenum; ?>" / >
 
@@ -22,21 +8,23 @@ function validateForm(form)
 <!-- start center table -->
 <table cellspacing="0" cellpadding="0" border="0" class="clear">
 <tr>
-<td width="180px" align="center"><h6><?php echo ($lang['trig_cmd']);?>:</h6></td>
-<td width="180px" align="center"><h6><?php echo ($lang['status']);?>:</h6></td>
+<td align="center"><h6><?php echo ($lang['trig_cmd']);?>:</h6></td>
+<td style="width:10px"></td>
+<td align="center"><h6><?php echo ($lang['status']);?>:</h6></td>
 </tr>
 <tr>
 <td align="center">
 <!-- trigger command -->
-<select name="command">
+<select name="command" style="width:50px;">
 	<option value="on" <?php if ($tcommand == "on") echo "selected"; ?>><?php echo ($lang['on']);?></option>
 	<option value="off" <?php if ($tcommand == "off") echo "selected"; ?>><?php echo ($lang['off']);?></option>
 </select>
 <!-- end trigger command -->
 </td>
+<td>&nbsp;</td>
 <td align="center">
 <!-- status -->
-<select name="status">
+<select name="status" style="width:75px;">
  	<option value="" <?php if ($enabled) echo "selected"; ?>><?php echo ($lang['enabled']);?></option>
  	<option value="#" <?php if (!$enabled) echo "selected"; ?>><?php echo ($lang['disabled']);?></option>
 </select>
@@ -45,6 +33,7 @@ function validateForm(form)
 </tr>
 <tr>
 <td align="center"><h6><?php echo ($lang['trig_unit']);?>:</h6></td>
+<td>&nbsp;</td>
 <td align="center"><h6><?php echo ($lang['execute']);?>:</h6></td>
 </tr>
 <tr>
@@ -52,7 +41,7 @@ function validateForm(form)
 <!-- trigger unit -->
 <select name="unit" size="9">
 <?php foreach ($codelabels as $codelabel): ?>
-	<?php list($code, $label) = split("@", $codelabel, 2); ?>
+	<?php list($code, $label) = explode("@", $codelabel, 2); ?>
 	<?php if (!is_multi_alias($code)): ?>
 		<option value="<?php echo $label;?>" <?php if ($unit == $label) echo "selected"; ?>><?php echo label_parse($label, false);?></option>
 	<?php endif; ?>
@@ -60,12 +49,13 @@ function validateForm(form)
 </select>
 <!-- end trigger unit -->
 </td>
-<td align="center">
+<td>&nbsp;</td>
+<td align="center" style="width:200px;">
 <!-- execute macro -->
 <select name="macro" size="9">
 <?php foreach ($cmacs as $cmac): ?>
-	<?php list($alias, $cmd, $trans) = split("@", $cmac, 3); ?>
-	<option value="<?php echo $alias;?>_<?php echo $cmd;?>" <?php if (trim($selmacro) == $alias."_".$cmd) echo "selected"; ?>><?php echo label_parse($alias, false);?> <?php echo strtoupper($trans);?></option>
+	<?php list($macro_label, $macro_name, $delay, $commands) = explode(" ", $cmac, 4); ?>
+	<option value="<?php echo $macro_name;?>" <?php if (trim($selmacro) == $macro_name) echo "selected"; ?>><?php echo label_parse($macro_name, false);?> - <?php echo $commands;?></option>
 <?php endforeach; ?>
 </select>
 <!-- end execute macro -->
@@ -76,7 +66,10 @@ function validateForm(form)
 
 </td></tr>
 <tr>
-<td style="border-right: none;" align="right"><input type="submit" value="<?php echo ($lang['save']);?>" /></form></td>
-<td style="border-left: none;"><form action="<?php echo($_SERVER['PHP_SELF']); ?>" method="post"><input type="submit" value="<?php echo ($lang['cancel']); ?>" /></form></td>
+<td align="center">
+<input type="submit" value="<?php echo ($lang['save']);?>" />
+<input type="button" onClick="window.location='<?php echo ($_SERVER['PHP_SELF']); ?>'" value="<?php echo ($lang['cancel']); ?>" />
+</td>
 </tr>
 </table>
+</form>

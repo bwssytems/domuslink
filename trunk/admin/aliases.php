@@ -30,7 +30,7 @@ if ($config['seclevel'] != "0" && !$authenticated) {
 }
 
 ## Instantiate HeyuConf class
-$heyuconf = new heyuConf($config['heyuconf']);
+$heyuconf = new heyuConf($config['heyuconfloc']);
 ## Get heyu conf & aliases
 $settings = $heyuconf->get();
 $aliases = $heyuconf->getAliases(true);
@@ -76,23 +76,23 @@ else {
 			if (preg_match($chars, $_POST["label"]))
 				gen_error(null, $lang['error_special_chars']);
 			else
-				add_line($settings, $config['heyuconf'], 'alias');
+				add_line_end($settings, $config['heyuconfloc'], 'alias');
 			break;
 		
 		case "save":
 			if (preg_match($chars, $_POST["label"]))
 				gen_error(null, $lang['error_special_chars']);
 			else
-				edit_line($settings, $config['heyuconf'], 'alias');
+				edit_line($settings, $config['heyuconfloc'], 'alias');
 			break;
 		
 		case "del":
-			delete_line($settings, $config['heyuconf'], $_GET["line"]);
+			delete_line($settings, $config['heyuconfloc'], $_GET["line"]);
 			break;
 		
 		case "move":
-			if ($_GET["dir"] == "up") reorder_array($settings, $_GET['line'], $_GET['line']-1, $config['heyuconf']);
-			if ($_GET["dir"] == "down") reorder_array($settings, $_GET['line'], $_GET['line']+1, $config['heyuconf']);
+			if ($_GET["dir"] == "up") reorder_array($settings, $_GET['line'], $_GET['line']-1, $config['heyuconfloc']);
+			if ($_GET["dir"] == "down") reorder_array($settings, $_GET['line'], $_GET['line']+1, $config['heyuconfloc']);
 			break;
 			
 		//I need the add form seperated from the list (otherwise the iPhone theme is to long (a lot of scrolling))

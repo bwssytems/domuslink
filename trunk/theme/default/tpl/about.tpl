@@ -1,5 +1,5 @@
-<font size="5">
-<table cellspacing="0" cellpadding="0" border="0" width="500px" align="middle" class="content">
+<table cellspacing="0" cellpadding="0" border="0" width="500px" align="center" class="content">
+
 <tr><th><?php echo ($lang['about']); ?></th></tr>
 
 <tr><td>
@@ -12,15 +12,15 @@ domus.Link is a web-based frontend for Heyu. The design focuses on separating co
 </tr>
 <tr>
 <td><b>Version:</b></td>
-<td>1.0</td>
+<td><?php echo $ver?></td>
 </tr>
 <tr>
 <td valign="top"><b>Contributors:</b></td>
-<td>Frank van der Stad<br />Cedric Aveline<br >Jeroen</td>
+<td>Frank van der Stad</br>Cedric Aveline</br>Jeroen</br>Philippe Carlier</br>Brad Samuels</td>
 </tr>
 <tr>
 <td valign="top"><b>Themes:</b></td>
-<td>Main: Istvan Hubay Cebrian<br />iPhone: Frank van der Stad</td>
+<td>Main: Istvan Hubay Cebrian</br>iPhone: Frank van der Stad</td>
 </tr>
 
 <tr>
@@ -38,5 +38,5 @@ Swedish: Tobias Axelsson<br />
 </table>
 
 </td></tr>
+
 </table>
-</font>
