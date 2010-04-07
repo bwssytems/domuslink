@@ -8,8 +8,9 @@
 <!-- start center table -->
 <table cellspacing="0" cellpadding="0" border="0" class="clear">
 <tr>
-<td width="180px" align="center"><h6><?php echo ($lang['trig_cmd']);?>:</h6></td>
-<td width="180px" align="center"><h6><?php echo ($lang['status']);?>:</h6></td>
+<td align="center"><h6><?php echo ($lang['trig_cmd']);?>:</h6></td>
+<td style="width:10px"></td>
+<td align="center"><h6><?php echo ($lang['status']);?>:</h6></td>
 </tr>
 <tr>
 <td align="center">
@@ -20,6 +21,7 @@
 </select>
 <!-- end trigger command -->
 </td>
+<td>&nbsp;</td>
 <td align="center">
 <!-- status -->
 <select name="status" style="width:75px;">
@@ -31,6 +33,7 @@
 </tr>
 <tr>
 <td align="center"><h6><?php echo ($lang['trig_unit']);?>:</h6></td>
+<td>&nbsp;</td>
 <td align="center"><h6><?php echo ($lang['execute']);?>:</h6></td>
 </tr>
 <tr>
@@ -46,7 +49,8 @@
 </select>
 <!-- end trigger unit -->
 </td>
-<td align="center">
+<td>&nbsp;</td>
+<td align="center" style="width:200px;">
 <!-- execute macro -->
 <select name="macro" size="9">
 <?php foreach ($cmacs as $cmac): ?>
@@ -62,7 +66,7 @@
 
 </td></tr>
 <tr>
-<td style="border-right: none;" align="center">
+<td align="center">
 <input type="submit" value="<?php echo ($lang['save']);?>" />
 <input type="button" onClick="window.location='<?php echo ($_SERVER['PHP_SELF']); ?>'" value="<?php echo ($lang['cancel']); ?>" />
 </td>

@@ -17,85 +17,85 @@ $buttonaction = $_POST["buttonaction"];
 <!-- status -->
 <table cellspacing="0" cellpadding="0" border="0" class="clear">
   <tr>
-    <td width="80px"><h6><?php echo ($lang['status']);?>:</h6></td>
-    <td width="200px">
-    <select name="status"  style="width:75px;" disabled>
+    <td><h6><?php echo ($lang['status']);?>:</h6></td>
+    <td>
+    <select name="status" disabled>
  		<option value="" <?php if ($theTimer->isEnabled()) echo "selected"; ?>><?php echo ($lang['enabled']);?></option>
  		<option value="#" <?php if (!$theTimer->isEnabled()) echo "selected"; ?>><?php echo ($lang['disabled']);?></option>
 	</select>
     </td>
   </tr>
-</table>
+
 
 <!-- weekdays -->
-<table cellspacing="0" cellpadding="0" border="0" class="clear">
+
   <tr>
-    <td width="80px"><h6><?php echo $lang['weekdays']; ?>:</h6></td>
-    <td width="200px">
+    <td><h6><?php echo $lang['weekdays']; ?>:</h6></td>
+    <td>
     	<?php echo weekdays($theTimer->getDaysOfWeek(), $lang, false, true); ?>
     </td>
   </tr>
-</table>
+
 
 <!-- date start -->
-<table cellspacing="0" cellpadding="0" border="0" class="clear">
+
   <tr>
-    <td width="80px"><h6><?php echo $lang['startdate']; ?>:</h6></td>
-    <td width="200px">
-		<select name='onday' style="width:45px;">
+    <td><h6><?php echo $lang['startdate']; ?>:</h6></td>
+    <td>
+		<select name='onday'>
 		<?php foreach ($days as $value): ?>
 			<option value="<?php echo $value; ?>" <?php if ($theTimer->getStartDate()->getDay() == $value) echo "selected"; ?>><?php echo $value; ?></option>
 		<?php endforeach; ?>
 		</select>
-		<select name='onmonth' style="width:85px;">
+		<select name='onmonth'>
 		<?php foreach ($months as $num => $value): ?>
 			<option value="<?php echo $num; ?>" <?php if ($theTimer->getStartDate()->getMonth() == $num) echo "selected"; ?>><?php echo $value; ?></option>
 		<?php endforeach; ?>
 		</select>
     </td>
   </tr>
-</table>
+
 
 <!-- date end -->
-<table cellspacing="0" cellpadding="0" border="0" class="clear">
+
   <tr>
-    <td width="80px"><h6><?php echo $lang['enddate']; ?>:</h6></td>
-    <td width="200px">
-		<select name='offday' style="width:45px;">
+    <td><h6><?php echo $lang['enddate']; ?>:</h6></td>
+    <td>
+		<select name='offday'>
 		<?php foreach ($days as $value): ?>
 			<option value="<?php echo $value; ?>" <?php if ($theTimer->getStopDate()->getDay() == $value) echo "selected"; ?>><?php echo $value; ?></option>
 		<?php endforeach; ?>
 		</select>
-		<select name='offmonth' style="width:85px;">
+		<select name='offmonth'>
 		<?php foreach ($months as $num => $value): ?>
 			<option value="<?php echo $num; ?>" <?php if ($theTimer->getStopDate()->getMonth() == $num) echo "selected"; ?>><?php echo $value; ?></option>
 		<?php endforeach; ?>
 		</select>
     </td>
   </tr>
-</table>
+
 
 <!-- Time On -->
-<table cellspacing="0" cellpadding="0" border="0" class="clear">
+
   <tr>
-    <td width="80px"><h6><?php echo $lang['ontime']; ?>:</h6></td>
-  	<td width="200px">
+    <td><h6><?php echo $lang['ontime']; ?>:</h6></td>
+  	<td>
   		<input type="radio" name='starttimetype' value="time" <?php if(!$theTimer->getStartTime()->isNow() && !$theTimer->getStartTime()->isDawnDusk()) echo "checked"; ?> /> <?php echo ($lang['time']);?>
   		<input type="radio" name='starttimetype' value="dawn" <?php if($theTimer->getStartTime()->getDawnDusk() == "dawn") echo "checked"; ?> /> <?php echo ($lang['dawn']);?>
   		<input type="radio" name='starttimetype' value="dusk" <?php if($theTimer->getStartTime()->getDawnDusk() == "dusk") echo "checked"; ?> /> <?php echo ($lang['dusk']);?>
   	</td>
   </tr>
   <tr>
-    <td width="80px">
+    <td>
     </td>
-    <td width="200px">
-    <select name='onhour' style="width:45px;">
+    <td>
+    <select name='onhour'>
 	<?php foreach ($hours as $value): ?>
 		<?php if (strlen($value) == 1): $value = "0".$value; endif; ?>
 		<option value="<?php echo $value; ?>" <?php if ($theTimer->getStartTime()->getHours() == $value) echo "selected"; ?>><?php echo $value; ?></option>
 	<?php endforeach; ?>
 	</select>
-	<select name='onmin' style="width:45px;">
+	<select name='onmin'>
 	<?php foreach ($mins as $value): ?>
 		<?php if (strlen($value) == 1): $value = "0".$value; endif; ?>
 		<option value="<?php echo $value; ?>" <?php if ($theTimer->getStartTime()->getMins() == $value) echo "selected"; ?>><?php echo $value; ?></option>
@@ -103,29 +103,29 @@ $buttonaction = $_POST["buttonaction"];
 	</select>
     </td>
   </tr>
-</table>
+
 
 <!-- Time Off -->
-<table cellspacing="0" cellpadding="0" border="0" class="clear">
+
   <tr>
-    <td width="80px"><h6><?php echo $lang['offtime']; ?>:</h6></td>
-  	<td width="200px">
+    <td><h6><?php echo $lang['offtime']; ?>:</h6></td>
+  	<td>
   		<input type="radio" name='stoptimetype' value="time" <?php if(!$theTimer->getStopTime()->isNow() && !$theTimer->getStopTime()->isDawnDusk()) echo "checked"; ?> /> <?php echo ($lang['time']);?>
   		<input type="radio" name='stoptimetype' value="dawn" <?php if($theTimer->getStopTime()->getDawnDusk() == "dawn") echo "checked"; ?> /> <?php echo ($lang['dawn']);?>
   		<input type="radio" name='stoptimetype' value="dusk" <?php if($theTimer->getStopTime()->getDawnDusk() == "dusk") echo "checked"; ?> /> <?php echo ($lang['dusk']);?>
   	</td>
   </tr>
   <tr>
-    <td width="80px">
+    <td>
     </td>
-    <td width="200px">
-    <select name='offhour' style="width:45px;">
+    <td>
+    <select name='offhour'>
 	<?php foreach (array_reverse($hours) as $value): ?>
 		<?php if (strlen($value) == 1): $value = "0".$value; endif; ?>
 		<option value="<?php echo $value; ?>" <?php if ($theTimer->getStopTime()->getHours() == $value) echo "selected"; ?>><?php echo $value; ?></option>
 	<?php endforeach; ?>
 	</select>
-	<select name='offmin' style="width:45px;">
+	<select name='offmin'>
 	<?php foreach ($mins as $value): ?>
 		<?php if (strlen($value) == 1): $value = "0".$value; endif; ?>
 		<option value="<?php echo $value; ?>" <?php if ($theTimer->getStopTime()->getMins() == $value) echo "selected"; ?>><?php echo $value; ?></option>
@@ -135,7 +135,8 @@ $buttonaction = $_POST["buttonaction"];
   </tr>
 </table>
 
-</td><td>
+</td>
+<td style="vertical-align: top;">
 
 <!-- labels -->
 <table cellspacing="0" cellpadding="0" border="0" class="clear">
@@ -144,8 +145,8 @@ $buttonaction = $_POST["buttonaction"];
   	<td><?php echo $lang["null"]; ?>: <?php echo $lang["on"]; ?> <input disabled type="checkbox" name="null_macro_on" <?php if ($theTimer->getStartMacro() == "null") echo "checked"; ?>/> <?php echo $lang["off"]; ?> <input disabled type="checkbox" name="null_macro_off" <?php if (rtrim($theTimer->getStopMacro()) == "null") echo "checked"; ?>/></td>
   </tr>
   <tr>
-    <td width="100px">
-    <select name="module" size="9" disabled>
+    <td>
+    <select name="module" size="12" disabled>
 	<?php foreach ($codelabels as $codelabel): ?>
 		<?php list($code, $label) = split("@", $codelabel, 2); ?>
  		<option value="<?php echo $label;?>" <?php if ($selcode == $label) echo "selected"; ?>><?php echo label_parse($label, false);?></option>
@@ -161,7 +162,7 @@ $buttonaction = $_POST["buttonaction"];
 </td></tr>
 
 <tr>
-<td style="border-right: none;" align="center">
+<td align="center">
 <input type="submit" value="<?php echo ($lang['save']); ?>" />
 <input type="button" onClick="window.location='<?php echo ($_SERVER['PHP_SELF']); ?>'" value="<?php echo ($lang['cancel']); ?>" />
 </td>

@@ -22,7 +22,8 @@
   <td></td>
 </tr>
 <tr>
-  <td width="120"><h6><?php echo ($lang['timer']);?></h6></td>
+  <td><h6><?php echo ($lang['timer']);?></h6></td>
+  <td width="10"></td>
   <td align="center"><h6><?php echo ($lang['weekdays']);?></h6></td>
   <td width="10"></td>
   <td width="50" align="center"><h6><?php echo ucwords($lang['start']);?></h6></td>
@@ -33,7 +34,7 @@
   <td width="10"></td>
   <td width="10" align="center"><h6><?php echo ($lang['option']);?></h6></td>
   <td width="10"></td>
-  <td colspan="3" width="100px" align="center"><h6><?php echo ($lang['actions']);?></h6></td>
+  <td colspan="3" align="center"><h6><?php echo ($lang['actions']);?></h6></td>
   <td colspan="2" align="center"><h6><?php echo ($lang['move']);?></h6></td>
 </tr>
 
@@ -45,6 +46,7 @@ foreach ($timers as $timerObj):
  
  <tr <?php if (!$timerObj->isEnabled()) echo "style='color: #cccccc'"; ?> class="row">
   <td><?php echo label_parse($timerObj->getStartMacro(),false)."-".label_parse($timerObj->getStopMacro(),false); ?></td>
+  <td>&nbsp;</td>
   <td align="center">
   <?php echo weekdays($timerObj->getDaysOfWeek(), $lang, true, $timerObj->isEnabled()); ?>
   </td>
@@ -57,8 +59,8 @@ foreach ($timers as $timerObj):
   <td>&nbsp;</td>
   <td align="center"><a onmouseover="popup('<?php foreach($timerObj->getTimerOptions() as $aTimerOption) $aPupStr = $aPupStr.$aTimerOption." "; echo $aPupStr; ?>')" onmouseout="kill()" title="" onfocus="this.blur()" href=""><?php if(count($timerObj->getTimerOptions()) == 0) echo ""; else echo "<img src=".($config['url_path'])."/theme/".($config['theme'])."/images/magnifier.png border=0 />"; ?></a></td>
   <td>&nbsp;</td>
-  <td align="center" width="20px"><a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=edit&line=<?php echo $timerObj->getLineNum();?>"><?php echo ($lang['edit']);?></a></td>
-  <td align="center" width="20px"><a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=del&line=<?php echo $timerObj->getLineNum();?>&onm=<?php echo $timerObj->getStartMacro();?>&ofm=<?php echo $timerObj->getStopMacro();?>" onclick="return confirm('<?php echo ($lang['deleteconfirm']);?>')"><?php echo ($lang['delete']);?></a></td>
+  <td align="center"><a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=edit&line=<?php echo $timerObj->getLineNum();?>"><?php echo ($lang['edit']);?></a></td>
+  <td align="center"><a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=del&line=<?php echo $timerObj->getLineNum();?>&onm=<?php echo $timerObj->getStartMacro();?>&ofm=<?php echo $timerObj->getStopMacro();?>" onclick="return confirm('<?php echo ($lang['deleteconfirm']);?>')"><?php echo ($lang['delete']);?></a></td>
   <td>
   <?php if ($timerObj->isEnabled()): ?>
   	<a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=disable&line=<?php echo $timerObj->getLineNum();?>&onm=<?php echo $timerObj->getStartMacro();?>&ofm=<?php echo $timerObj->getStopMacro();?>"><?php echo ($lang['disable']);?></a>
@@ -66,8 +68,8 @@ foreach ($timers as $timerObj):
   	<a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=enable&line=<?php echo $timerObj->getLineNum();?>&onm=<?php echo $timerObj->getStartMacro();?>&ofm=<?php echo $timerObj->getStopMacro();?>"><?php echo ($lang['enable']);?></a>
   <?php endif; ?>
   </td>
-  <td width="18px"><?php if ($timerObj->getArrayNum() != 0): ?><a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=move&dir=up&line=<?php echo $timerObj->getLineNum();?>"><img src="<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/arrow-u.gif" border="0" /></a><?php endif; ?></td>
-  <td width="18px"><?php if ($timerObj->getArrayNum() != $arrayEnd): ?><a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=move&dir=down&line=<?php echo $timerObj->getLineNum();?>"><img src="<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/arrow-d.gif" border="0" /></a><?php endif; ?></td>
+  <td><?php if ($timerObj->getArrayNum() != 0): ?><a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=move&dir=up&line=<?php echo $timerObj->getLineNum();?>"><img src="<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/arrow-u.gif" border="0" /></a><?php endif; ?></td>
+  <td><?php if ($timerObj->getArrayNum() != $arrayEnd): ?><a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=move&dir=down&line=<?php echo $timerObj->getLineNum();?>"><img src="<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/arrow-d.gif" border="0" /></a><?php endif; ?></td>
 </tr>
  
 <?php endforeach; ?>

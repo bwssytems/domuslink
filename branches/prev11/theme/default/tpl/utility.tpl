@@ -26,8 +26,8 @@
 <tr><td>
 <table cellspacing="0" cellpadding="0" border="0" class="content">
 <tr>
-<td width="100px" align="center"><h6><?php echo ($lang['command']); ?></h6></td>
-<td width="600px" align="center"><h6><?php echo ($lang['output']); ?></h6></td>
+<td align="center"><h6><?php echo ($lang['command']); ?></h6></td>
+<td width="700px" align="center"><h6><?php echo ($lang['output']); ?></h6></td>
 </tr>
 <tr>
 <td align="center">

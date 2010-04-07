@@ -18,12 +18,14 @@
   <td></td>
 </tr>
 <tr>
-  <td width="120"><h6><?php echo ($lang['unit']);?></h6></td>
-  <td width="40"><h6><?php echo ($lang['command']);?></h6></td>
-  <td width="10"></td>
-  <td width="120"><h6><?php echo ($lang['macro']);?></h6></td>
-  <td width="10"></td>
-  <td colspan="3" width="100px" align="center"><h6><?php echo ($lang['actions']);?></h6></td>
+  <td><h6><?php echo ($lang['unit']);?></h6></td>
+  <td style="width:10px;"></td>
+  <td><h6><?php echo ($lang['command']);?></h6></td>
+  <td style="width:10px;"></td>
+  <td><h6><?php echo ($lang['macro']);?></h6></td>
+  <td style="width:10px;"></td>
+  <td colspan="3" align="center"><h6><?php echo ($lang['actions']);?></h6></td>
+  <td style="width:10px;"></td>
   <td colspan="2" align="center"><h6><?php echo ($lang['move']);?></h6></td>
 </tr>
 
@@ -38,12 +40,13 @@ foreach ($triggers as $triggerline):
  
  <tr <?php if (!$enabled) echo "style='color: #cccccc'"; ?> class="row">
   <td><?php echo label_parse($tunit, false); ?></td>
+  <td>&nbsp;</td>
   <td><?php echo strtoupper($command); ?></td>
   <td>&nbsp;</td>
   <td><?php echo label_parse($macro, false); ?></td>
   <td>&nbsp;</td>
-  <td align="center" width="20px"><a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=edit&line=<?php echo $line_num;?>"><?php echo ($lang['edit']);?></a></td>
-  <td align="center" width="20px"><a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=del&line=<?php echo $line_num;?>" onclick="return confirm('<?php echo ($lang['deleteconfirm']);?>')"><?php echo ($lang['delete']);?></a></td>
+  <td align="center"><a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=edit&line=<?php echo $line_num;?>"><?php echo ($lang['edit']);?></a></td>
+  <td align="center"><a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=del&line=<?php echo $line_num;?>" onclick="return confirm('<?php echo ($lang['deleteconfirm']);?>')"><?php echo ($lang['delete']);?></a></td>
   <td>
   <?php if ($enabled): ?>
   	<a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=disable&line=<?php echo $line_num;?>"><?php echo ($lang['disable']);?></a>
@@ -51,8 +54,9 @@ foreach ($triggers as $triggerline):
   	<a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=enable&line=<?php echo $line_num;?>"><?php echo ($lang['enable']);?></a>
   <?php endif; ?>
   </td>
-  <td width="18px"><?php if ($arrayNum != 0): ?><a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=move&dir=up&line=<?php echo $line_num;?>"><img src="<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/arrow-u.gif" border="0" /></a><?php endif; ?></td>
-  <td width="18px"><?php if ($arrayNum != $arrayEnd): ?><a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=move&dir=down&line=<?php echo $line_num;?>"><img src="<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/arrow-d.gif" border="0" /></a><?php endif; ?></td>
+  <td>&nbsp;</td>
+  <td><?php if ($arrayNum != 0): ?><a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=move&dir=up&line=<?php echo $line_num;?>"><img src="<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/arrow-u.gif" border="0" /></a><?php endif; ?></td>
+  <td><?php if ($arrayNum != $arrayEnd): ?><a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=move&dir=down&line=<?php echo $line_num;?>"><img src="<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/arrow-d.gif" border="0" /></a><?php endif; ?></td>
 </tr>
  
 <?php endforeach; ?>

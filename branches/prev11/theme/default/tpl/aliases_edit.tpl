@@ -11,24 +11,24 @@
 <!-- Code -->
 <table cellspacing="0" cellpadding="0" border="0" class="clear">
   <tr>
-    <td valign="top" width="60px"><h6><?php echo ($lang['code']); ?>:</h6></td>
-    <td valign="top" width="150px"><input type="text" name="code" value="<?php echo $code; ?>" size="10" /></td>
+    <td valign="top"><h6><?php echo ($lang['code']); ?>:</h6></td>
+    <td valign="top"><input type="text" name="code" value="<?php echo $code; ?>" size="10" /></td>
   </tr>
-</table>
+
 
 <!-- Label -->
-<table cellspacing="0" cellpadding="0" border="0" class="clear">
+
   <tr>
-    <td valign="top" width="60px"><h6><?php echo ($lang['label']);?>:</h6></td>
-    <td valign="top" width="150px"><input type="text" name="label" value="<?php echo label_parse($label); ?>" size="20" /></td>
+    <td valign="top"><h6><?php echo ($lang['label']);?>:</h6></td>
+    <td valign="top"><input type="text" name="label" value="<?php echo label_parse($label); ?>" size="20" /></td>
   </tr>
-</table>
+
 
 <!-- Modules -->
-<table cellspacing="0" cellpadding="0" border="0" class="clear">
+
   <tr>
-    <td valign="top" width="60px"><h6><?php echo ($lang['module']);?>:</h6></td>
-    <td valign="top" width="150px">
+    <td valign="top"><h6><?php echo ($lang['module']);?>:</h6></td>
+    <td valign="top">
     <select name="module">
     <?php foreach (load_file(MODULE_FILE_LOCATION) as $modulenf): ?>
     <?php $modulef = rtrim($modulenf); ?>
@@ -41,13 +41,13 @@
 	</select>
     </td>
   </tr>
-</table>
+
 
 <!-- Type -->
-<table cellspacing="0" cellpadding="0" border="0" class="clear">
+
   <tr>
-    <td valign="top" width="60px"><h6><?php echo ($lang['type']);?>:</h6></td>
-    <td valign="top" width="150px">
+    <td valign="top"><h6><?php echo ($lang['type']);?>:</h6></td>
+    <td valign="top">
     <select name="type">
     <?php foreach ($modtypes as $key => $typenf): ?>
     <?php $typef = rtrim($typenf); ?>
@@ -60,13 +60,13 @@
     </select>
     </td>
   </tr>
-</table>
+
 
 <!-- Location -->
-<table cellspacing="0" cellpadding="0" border="0" class="clear">
+
   <tr>
-    <td valign="top" width="60px"><h6><?php echo ($lang['location']);?>:</h6></td>
-    <td valign="top" width="150px">
+    <td valign="top"><h6><?php echo ($lang['location']);?>:</h6></td>
+    <td valign="top">
     <select name="loc">
 	<?php foreach (load_file(FPLAN_FILE_LOCATION) as $locnf): ?>
 	<?php $locf = rtrim($locnf); ?>
@@ -84,7 +84,7 @@
 </td></tr>
 
 <tr>
-<td style="border-right: none;" align="center">
+<td align="center">
 <input type="submit" value="<?php echo ($lang['save']); ?>" />
 <input type="button" onClick="window.location='<?php echo ($_SERVER['PHP_SELF']); ?>'" value="<?php echo ($lang['cancel']); ?>" />
 </td>

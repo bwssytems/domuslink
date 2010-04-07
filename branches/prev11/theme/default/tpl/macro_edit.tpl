@@ -23,24 +23,27 @@ function validateForm(form)
 
 <!-- start center table -->
 <table cellspacing="0" cellpadding="0" border="0" class="clear">
-<tr>
-<td width="180px" align="center"><h6><?php echo ($lang['status']);?>:</h6></td>
-<td width="150px" align="left"><h6><?php echo ($lang['label']);?>:</h6></td>
-<td width="270px" align="left"><h6><?php echo ($lang['execute']);?>:</h6></td>
-</tr>
-<tr>
-<td align="center">
 <!-- status -->
-<select name="status" style="width:75px;">
+<tr>
+<td align="left"><h6><?php echo ($lang['status']);?>:</h6></td>
+<td align="left">
+<select name="status">
  	<option value="" <?php if ($enabled) echo "selected"; ?>><?php echo ($lang['enabled']);?></option>
  	<option value="#" <?php if (!$enabled) echo "selected"; ?>><?php echo ($lang['disabled']);?></option>
 </select>
-<!-- end status -->
 </td>
-<td width="150px" align="left">
+</tr>
+<!-- label -->
+<tr>
+<td align="left"><h6><?php echo ($lang['label']);?>:</h6></td>
+<td align="left">
 <input size="50" type="text" name="macro_name" value="<?php echo $macro_name?>" />
 </td>
-<td width="270px" align="left">
+</tr>
+<!-- command -->
+<tr>
+<td align="left"><h6><?php echo ($lang['execute']);?>:</h6></td>
+<td align="left">
 <input size="100" type="text" name="macro_command" value="<?php echo $macro_command?>" />
 </td>
 </tr>
@@ -50,7 +53,7 @@ function validateForm(form)
 </td>
 </tr>
 <tr>
-<td style="border-right: none;" align="center">
+<td align="center">
 <input type="submit" value="<?php echo ($lang['save']);?>" />
 <input type="button" onClick="window.location='<?php echo ($_SERVER['PHP_SELF']); ?>'" value="<?php echo ($lang['cancel']); ?>" />
 </td>

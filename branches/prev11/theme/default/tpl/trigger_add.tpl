@@ -27,21 +27,23 @@ function validateForm(form)
 <!-- start center table -->
 <table cellspacing="0" cellpadding="0" border="0" class="clear">
 <tr>
-<td width="180px" align="center"><h6><?php echo ($lang['trig_cmd']);?>:</h6></td>
-<td width="180px" align="center"><h6><?php echo ($lang['status']);?>:</h6></td>
+<td align="center"><h6><?php echo ($lang['trig_cmd']);?>:</h6></td>
+<td style="width:10px;"></td>
+<td align="center"><h6><?php echo ($lang['status']);?>:</h6></td>
 </tr>
 <tr>
 <td align="center">
 <!-- trigger command -->
-<select name="command" style="width:50px;">
+<select name="command">
 	<option value="on" selected><?php echo ($lang['on']);?></option>
 	<option value="off"><?php echo ($lang['off']);?></option>
 </select>
 <!-- end trigger command -->
 </td>
+<td>&nbsp;</td>
 <td align="center">
 <!-- status -->
-<select name="status" style="width:75px;">
+<select name="status">
 	<option value="" selected><?php echo ($lang['enabled']);?></option>
 	<option value="#"><?php echo ($lang['disabled']);?></option>
 </select>
@@ -50,6 +52,7 @@ function validateForm(form)
 </tr>
 <tr>
 <td align="center"><h6><?php echo ($lang['trig_unit']);?>:</h6></td>
+<td>&nbsp;</td>
 <td align="center"><h6><?php echo ($lang['macro']);?>:</h6></td>
 </tr>
 <tr>
@@ -65,7 +68,8 @@ function validateForm(form)
 </select>
 <!-- end trigger unit -->
 </td>
-<td align="center">
+<td>&nbsp;</td>
+<td align="center" style="width:200px;">
 <!-- execute macro -->
 <select name="macro" size="9">
 <?php foreach ($cmacs as $cmac): ?>

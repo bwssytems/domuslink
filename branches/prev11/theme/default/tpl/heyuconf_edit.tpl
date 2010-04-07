@@ -122,11 +122,11 @@ ProgressDestroy();	// Hides
 
 <form action="<?php echo($_SERVER['PHP_SELF']); ?>?action=save" method="post">
 
-<table cellspacing="0" cellpadding="0" border="0" width="400px" align="center" class="content">
+<table cellspacing="0" cellpadding="0" border="0" align="center" class="content">
 <tr><th colspan="3"><?php echo ($lang['heyuconf']);?></th></tr>
 
 <tr>
-<td align="center" colspan="3">
+<td colspan="3">
 
 <!-- start -->
 
@@ -152,12 +152,12 @@ ProgressDestroy();	// Hides
   </td>
 </tr>
     <tr>
-      <td width="200">
+      <td>
         <h6><?php echo $directive; ?>:&nbsp;</h6>
       </td>
 
     <?php if ($directivenf == "SCRIPT_MODE"): ?>
-      <td width="120">
+      <td>
         <select name="<?php echo($directivenf); ?>">
         <?php if ($value == "SCRIPTS"): ?>
           <option selected value='SCRIPTS'>SCRIPTS</option>
@@ -169,7 +169,7 @@ ProgressDestroy();	// Hides
         </select>
       </td>
       <?php elseif ($directivenf == "MODE"): ?>
-      <td width="120">
+      <td>
         <select name="<?php echo($directivenf); ?>">
           <?php if ($value == "COMPATIBLE"): ?>
             <option selected value="COMPATIBLE">COMPATIBLE</option>
@@ -182,20 +182,20 @@ ProgressDestroy();	// Hides
       </td>
       <?php elseif ($directivenf == "COMBINE_EVENTS" || $directivenf == "COMPRESS_MACROS" || $directivenf == "REPL_DELAYED_MACROS" ||
       $directivenf == "WRITE_CHECK_FILES" || $directivenf == "ACK_HAILS" || $directivenf == "AUTOFETCH"): ?>
-      <td width="120">
+      <td>
         <select name="<?php echo($directivenf); ?>">
           <?php echo yesnoopt($value); ?>
         </select>
       </td>
       <?php elseif ($directivenf == "DAWN_OPTION" || $directivenf == "DUSK_OPTION"): ?>
-      <td width="120">
+      <td>
         <select name="<?php echo($directivenf); ?>">
           <?php echo dawnduskopt($value); ?>
         </select>
       </td>
       <?php else: ?>
-        <td width="120">
-          <input type="text" name="<?php echo($directivenf); ?>" value="<?php echo($value); ?>" size="15" />
+        <td>
+          <input type="text" name="<?php echo($directivenf); ?>" value="<?php echo($value); ?>" size="80" />
         </td>
       <?php endif; ?>
     </tr>
@@ -209,8 +209,8 @@ ProgressDestroy();	// Hides
 </tr>
 
 <tr>
-  	<td style="border-right:none;" align="left" width="20px"><a href="#" onclick="javascript:window.open('../doc/heyuconf.htm','','scrollbars=yes,menubar=no,width=700,height=500,resizable=yes,toolbar=no,location=no,status=no');">Help</a></td>
-    <td style="border-left:none;border-right:none;" align="right">
+  	<td style="border-right:none;" align="left"><a href="#" onclick="javascript:window.open('../doc/heyuconf.htm','','scrollbars=yes,menubar=no,width=700,height=500,resizable=yes,toolbar=no,location=no,status=no');">Help</a></td>
+    <td style="border-left:none;" align="right">
     <input type="submit" value="<?php echo($lang['save']); ?>" onclick="CallJS('Demo()')" />
     <input type="button" onClick="window.location='<?php echo ($_SERVER['PHP_SELF']); ?>'" value="<?php echo ($lang['cancel']); ?>" />
     </td>

@@ -204,9 +204,9 @@ $lang["dawngt"] = "Lever après";
 $lang["dusklt"] = "Coucher avant";
 $lang["duskgt"] = "Coucher après";
 $lang["security"] = "Securité ";
-$lang["now"] = "Now"; // PLEASE TRANSLATE
+$lang["now"] = "Maintenant";
 $lang["timeroptions"] = "Options ";
-$lang["option"] = "Option"; // PLEASE TRANSLATE
+$lang["option"] = "Option";
 $lang["expire"] = "Expire";
 
 /* Heyu Config Management Text */

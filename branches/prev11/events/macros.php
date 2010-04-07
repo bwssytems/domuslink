@@ -72,7 +72,7 @@ else {
 			list($lbl, $named_macro, $delay, $execute_command) = explode(" ", $schedObjs[$_GET['line']]->getElementLine(), 4);
 			$tpl_edit = & new Template(TPL_FILE_LOCATION.'macro_edit.tpl');
 			$tpl_edit->set('lang', $lang);
-			$tpl_edit->set('enabled', (substr($lbl, 0, 1) == "#") ? false : true);
+			$tpl_edit->set('enabled', $schedObjs[$_GET['line']]->isEnabled());
 			$tpl_edit->set('macro_command', $execute_command);
 			$tpl_edit->set('macro_name', $named_macro);
 			$tpl_edit->set('linenum', $_GET['line']); // sets number of line being edited
