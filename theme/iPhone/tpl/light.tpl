@@ -1,10 +1,8 @@
 			<?php 
-			if ($state == 'on')
-			{
+			if ($state == 'on') {
 				$toggeled = 'true';
 			}
-			else
-			{
+			else {
 				$toggeled = '';
 			}
 			?>

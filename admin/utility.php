@@ -32,10 +32,10 @@ $tpl->set('title', $lang['utility']);
 $tpl->set('page', 'utility');
 
 // List of commands in helper select list
-$commands = array("help","version", "setclock", "readclock", "show", "reset", "catchup", "trigger", "macro", "modlist", "enginestate", "allon", "alloff");
+$commands = array("help","version", "logtail", "setclock", "readclock", "show", "reset", "catchup", "trigger", "macro", "modlist", "enginestate", "allon", "alloff");
 // Commands that cannot be handled properly with executing hey from php in domus.Link
 // i.e. The monitor command is an open ended command that holds the terminal while executing.
-$restricted_cmds = array("monitor", "logtail", "port_line_test");
+$restricted_cmds = array("monitor", "port_line_test");
 $tpl_body = & new Template(TPL_FILE_LOCATION.'utility.tpl');
 $tpl_body->set('lang', $lang);
 $tpl_body->set('commands', $commands);
@@ -71,7 +71,7 @@ else {
 	}
 	else {
 		// execute the heyu command and return output
-		$tpl_body->set('out_lines', execute_cmd($config['heyuexec']." ".$_POST["command"]." ".$_POST["arguments"]));
+		$tpl_body->set('out_lines', execute_cmd($config['heyuexecreal']." ".$_POST["command"]." ".$_POST["arguments"], true));
 	}
 }
 

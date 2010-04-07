@@ -31,8 +31,8 @@ if ($config['seclevel'] != "0" && !$authenticated) {
 }
 
 ## Instantiate heyuConf class and get schedule file with absolute path
-$heyuconf = new heyuConf($config['heyuconf']);
-$schedfileloc = $config['heyu_base'].$heyuconf->getSchedFile();
+$heyuconf = new heyuConf($config['heyuconfloc']);
+$schedfileloc = $config['heyu_base_real'].$heyuconf->getSchedFile();
 
 ## Load aliases and parse so that only code and labels remain
 $aliases = $heyuconf->getAliases();
@@ -40,66 +40,81 @@ $codelabels = $heyuconf->getCodesAndLabels($aliases);
 
 ## Instantiate heyuSched class, get contents and parse timers
 $heyusched = new heyuSched($schedfileloc);
-$schedfile = $heyusched->get();
-$macros = $heyusched->getMacros();
-$triggers = $heyusched->getTriggers();
+$schedObjs = $heyusched->getObjects();
+$macros = $heyusched->getMacroObjects();
+$triggers = $heyusched->getTriggerObjects();
 
 ## Set template parameters
-$tpl->set('title', $lang['timers']);
+$tpl->set('title', $lang['triggers']);
 
 $tpl_body = & new Template(TPL_FILE_LOCATION.'trigger_view.tpl');
 $tpl_body->set('lang', $lang);
 $tpl_body->set('triggers', $triggers);
 $tpl_body->set('config', $config);
-$tpl_body->set('first_line', $heyusched->getTimerEndLine()+1);
-$tpl_body->set('last_line', $heyusched->getTimerEndLine()+count($triggers));
 
 if (!isset($_GET["action"])) {
 	$tpl_add = & new Template(TPL_FILE_LOCATION.'trigger_add.tpl');
 	$tpl_add->set('lang', $lang);
 	$tpl_add->set('codelabels', $codelabels);
-	$tpl_add->set('cmacs', clean_and_translate_macros($macros));
+	$tpl_add->set('cmacs', $macros);
 	$tpl_body->set('form', $tpl_add);
 }
 else {
 	switch ($_GET["action"]) {
 		case "enable":
-			replace_line($schedfileloc, $schedfile, substr($schedfile[$_GET['line']], 1), $_GET['line']);
+			$schedObjs[$_GET['line']]->setEnabled(true);
+			save_file($schedObjs, $schedfileloc);
 			break;
 			
 		case "disable":
-			replace_line($schedfileloc, $schedfile, "#".$schedfile[$_GET['line']], $_GET['line']);
+			$schedObjs[$_GET['line']]->setEnabled(false);
+			save_file($schedObjs, $schedfileloc);
 			break;
 			
 		case "edit":
-			list($lbl, $tunit, $command, $macro) = split(" ", $schedfile[$_GET['line']], 4);
+			list($lbl, $tunit, $command, $macro) = split(" ", $schedObjs[$_GET['line']]->getElementLine(), 4);
 			$tpl_edit = & new Template(TPL_FILE_LOCATION.'trigger_edit.tpl');
 			$tpl_edit->set('lang', $lang);
-			$tpl_edit->set('enabled', (substr($lbl, 0, 1) == "#") ? false : true);
+			$tpl_edit->set('enabled', $schedObjs[$_GET['line']]->isEnabled());
 			$tpl_edit->set('tcommand', strtolower($command));
 			$tpl_edit->set('codelabels', $codelabels);
 			$tpl_edit->set('unit', $tunit);
-			$tpl_edit->set('cmacs', clean_and_translate_macros($macros));
+			$tpl_edit->set('cmacs', $macros);
 			$tpl_edit->set('selmacro', $macro);
 			$tpl_edit->set('linenum', $_GET['line']); // sets number of line being edited
 			$tpl_body->set('form', $tpl_edit);
 			break;
 			
 		case "add":
-			add_line($schedfile, $schedfileloc, 'trigger');
+			$aTrigger = new ScheduleElement(TRIGGER_D." ".$_POST["unit"]." ".$_POST["command"]." ".$_POST["macro"]);
+			if ($_POST["status"] == COMMENT_SIGN_D)
+				$aTrigger->setEnabled(false);
+			else
+				$aTrigger->setEnabled(true);
+
+			array_splice($schedObjs,$heyusched->getLine(TRIGGER_D, END_D)+ 1, 0, array($aTrigger));
+			$heyusched->setLine(TRIGGER_D, $heyusched->getLine(TRIGGER_D, END_D) + 1, END_D);
+
+			save_file($schedObjs, $schedfileloc);
 			break;
 			
 		case "save":
-			edit_line($schedfile, $schedfileloc, 'trigger');
+			$schedObjs[$_POST["line"]]->setElementLine(TRIGGER_D." ".$_POST["unit"]." ".$_POST["command"]." ".$_POST["macro"]);
+			if ($_POST["status"] == COMMENT_SIGN_D)
+				$schedObjs[$_POST["line"]]->setEnabled(false);
+			else
+				$schedObjs[$_POST["line"]]->setEnabled(true);
+
+			save_file($schedObjs, $schedfileloc);
 			break;
 			
 		case "del":
-			delete_line($schedfile, $schedfileloc, $_GET["line"]);
+			delete_line($schedObjs, $schedfileloc, $_GET["line"]);
 			break;
 		
 		case "move":
-			if ($_GET["dir"] == "up") reorder_array($schedfile, $_GET['line'], $_GET['line']-1, $schedfileloc);
-			if ($_GET["dir"] == "down") reorder_array($schedfile, $_GET['line'], $_GET['line']+1, $schedfileloc);
+			if ($_GET["dir"] == "up") reorder_array($schedObjs, $_GET['line'], $_GET['line']-1, $schedfileloc);
+			if ($_GET["dir"] == "down") reorder_array($schedObjs, $_GET['line'], $_GET['line']+1, $schedfileloc);
 			break;
 	}
 }
@@ -108,31 +123,5 @@ else {
 $tpl->set('content', $tpl_body);
 
 echo $tpl->fetch(TPL_FILE_LOCATION.'layout.tpl');
-
-/**
- * 
- */
-function clean_and_translate_macros($macros, $i = 0) {
-	global $lang;
-	foreach ($macros as $macro_line) {
-		//macro [label] [optional_delay] [command]+[code] 
-		//macro tv_set_on 0 on tv_set
-		list($macro, $line) = split("@", $macro_line, 2);
-		list($tmp, $macron, $delay, $command, $alias) = split(" ", $macro, 5);
-		//array = [label]@[code]@[on/off translated]
-		
-		//$onp = strpos(strtolower($macron), "_on");
-		//$offp = strpos(strtolower($macron), "_off");
-		
-		if (strpos(strtolower($macron), "_on"))
-			$mc[$i] = trim($alias)."@".$command."@".$lang["on"];
-		else
-			$mc[$i] = trim($alias)."@".$command."@".$lang["off"];
-			
-		$i++;
-	}
-	
-	if (!empty($mc)) return $mc;
-}
 
 ?>

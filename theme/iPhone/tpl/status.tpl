@@ -26,6 +26,12 @@
 			<?php endif; ?>
 		</p>
 	</fieldset>
+	<h2><?php echo $lang['heyucurrentconfig'] ?></h2>
+	<fieldset style="padding:5px;">
+		<p align="left" style="margin:5px;">
+			<?php echo $config['heyu_config_name']." ".$lang['heyuindir']." ".$config['heyu_base_real'].($config['heyu_subdir'] == "default"?"":$config['heyu_subdir'])?>
+		</p>
+	</fieldset>
 	<h2>Uptime</h2>
 	<fieldset style="padding:5px;">
 		<p align="left" style="margin:5px;">

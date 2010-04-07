@@ -29,7 +29,7 @@
     <?php endif; ?>
   <?php endif; ?>
 <?php endfor; ?>
-<tr>
+</tr>
 </table>
 <!-- dimmer table end -->
 

@@ -24,15 +24,15 @@
  * 
  * Description: This function loads a file and returns the whole content
  *
- * @param $file represent's file to load
+ * @param $fileloc represent's file to load
  */
-function load_file($file) {
+function load_file($fileloc) {
 	global $lang;
-	if (is_readable($file) == true) {
-		$content = file($file);
+	if (is_readable($fileloc) == true) {
+		$content = file($fileloc);
 	}
 	else {
-		gen_error(null, $file." ".$lang['error_filer']);
+		gen_error(null, $fileloc." ".$lang['error_filer']);
 	}
 	
 	return $content;
@@ -42,37 +42,38 @@ function load_file($file) {
  * Add line to file
  *
  * @param $content file contents being received
- * @param $file complete file location
+ * @param $fileloc complete file location
+ * @param $linenum line to add after
  * @param $editing represents what type is being edited (alias, location, etc)
  */
-function add_line($content, $file, $editing) {
+function add_line($content, $fileloc, $linenum, $editing) {
+	array_splice($content, $linenum, 0, build_new_line($editing));
+	save_file($content, $fileloc);
+}
+
+/**
+ * Add line to end of file
+ *
+ * @param $content file contents being received
+ * @param $fileloc complete file location
+ * @param $editing represents what type is being edited (alias, location, etc)
+ */
+function add_line_end($content, $fileloc, $editing) {
 	
 	array_push($content, build_new_line($editing));
-	save_file($content, $file);
+	save_file($content, $fileloc);
 }
 
 /**
  * Edit line in file
  *
  * @param $content file contents
- * @param $file being edited
+ * @param $fileloc being edited
  * @param $editing represents what type is being edited (alias, location, etc)
  */
-function edit_line($content, $file, $editing) {
+function edit_line($content, $fileloc, $editing) {
 	$line = $_POST["line"]; // line being edited
-
-	if ($line == 0 || (count($content) - 1) == $line) {
-		// first or last line editing
-		array_splice($content, $line, 1, build_new_line($editing));
-	}
-	else {
-		// when editing line in middle
-		$end = array_splice($content, $line+1);
-		array_splice($content, $line, 1, build_new_line($editing));
-		$content = array_merge($content, $end);
-	}
-	
-	save_file($content, $file);
+	direct_replace_line($content, $fileloc, build_new_line($editing), $line);
 }
 
 /**
@@ -81,7 +82,6 @@ function edit_line($content, $file, $editing) {
  * @param $type represents type of line being created
  */
 function build_new_line($type) {
-	global $wdayo;
 	
 	switch ($type)
 	{
@@ -97,64 +97,40 @@ function build_new_line($type) {
 		case "type":
 			return $_POST["type"]."\n";
 			break;
-		case "trigger":
-			$str = "trigger ".$_POST["unit"]." ".$_POST["command"]." ".$_POST["macro"]."\n";
-			if ($_POST["status"] == "#") return "#$str";
-			else return $str;
-			break;
-		case "timer":
-			//build weekday string (ie: s.tw...)
-			$wdaystr = "";
-			foreach ($wdayo as $num => $day) {
-				if (isset($_POST[$num.$day])) 
-					$wdaystr .= $_POST[$num.$day]; 
-				else 
-					$wdaystr .= ".";
-			}
-			
-			$onmonth = (strlen($_POST["onmonth"]) == 1) ? "0".$_POST["onmonth"] : $_POST["onmonth"];
-			$onday = (strlen($_POST["onday"]) == 1) ? "0".$_POST["onday"] : $_POST["onday"];
-			$offmonth = (strlen($_POST["offmonth"]) == 1) ? "0".$_POST["offmonth"] : $_POST["offmonth"];
-			$offday = (strlen($_POST["offday"]) == 1) ? "0".$_POST["offday"] : $_POST["offday"];
-			
-			$ondate = "$onmonth/$onday";
-			$offdate = "$offmonth/$offday";
-			$ontime = $_POST["onhour"].":".$_POST["onmin"];
-			$offtime = $_POST["offhour"].":".$_POST["offmin"];
-			
-			$onmacro = strtolower($_POST["module"])."_on";
-			$offmacro = strtolower($_POST["module"])."_off";
-			if (isset($_POST["status"])) {
-				$tline = $_POST["status"]."timer $wdaystr $ondate-$offdate $ontime $offtime $onmacro $offmacro\n";
-			}
-			else {
-				$tline = "timer $wdaystr $ondate-$offdate $ontime $offtime $onmacro $offmacro\n";
-
-			}
-			
-			return array($tline,$onmacro,$offmacro);
-			break;
 	}
 }
 
 /**
  * 
  */
-function replace_line($file, $filecontent, $linecontent, $linenumber) {
-	$filecontent[$linenumber] = $linecontent;
-	save_file($filecontent, $file);
+function direct_replace_line($content, $fileloc, $linecontent, $linenumber) {
+	$content[$linenumber] = $linecontent;
+	save_file($content, $fileloc);
+}
+
+/**
+ * Direct Add line to file
+ *
+ * @param $content file contents being received
+ * @param $fileloc complete file location
+ * @param $linenum line to add after
+ * @param $editing represents what type is being edited (alias, location, etc)
+ */
+function direct_add_line($content, $fileloc, $linecontent, $linenum) {
+	array_splice($content, $linenum, 0, $linecontent);
+	save_file($content, $fileloc);
 }
 
 /**
  * Delete line from file
  *
  * @param $content file contents
- * @param $file being edited
+ * @param $fileloc being edited
  * @param $line to be deleted
  */
-function delete_line($content, $file, $line) {
+function delete_line($content, $fileloc, $line) {
 	array_splice($content, $line, 1);
-	save_file($content, $file);
+	save_file($content, $fileloc);
 }
 
 /**
@@ -163,14 +139,14 @@ function delete_line($content, $file, $line) {
  * @param $array original array to use
  * @param $org_pos initial position of line
  * @param $final_pos final position of line
- * @param $file in which array contents are located
+ * @param $fileloc in which array contents are located
  */
-function reorder_array($array, $org_pos, $final_pos, $file) {
+function reorder_array($array, $org_pos, $final_pos, $fileloc) {
 	$tmp = $array[$org_pos];
 	$array[$org_pos] = $array[$final_pos];
 	$array[$final_pos] = $tmp;
 	
-	save_file($array, $file);
+	save_file($array, $fileloc);
 }
 
 /**
@@ -179,16 +155,16 @@ function reorder_array($array, $org_pos, $final_pos, $file) {
  * Description: This function saves a file to the specified filename
  *
  * @param $content new content to be saved
- * @param $file nome of file to save to
+ * @param $fileloc name of file to save to
  * @param $isheyuconf boolean that represent's if changes being saved
  *         are from the heyu settings. If true then force a reload
  */
-function save_file($content, $file, $isheyuconf = false) {
+function save_file($content, $fileloc, $isheyuconf = false) {
 	global $config;
 	global $lang;
-	$fp = fopen($file,'w');
+	$fp = fopen($fileloc,'w');
 
-	if (is_writable($file) == true) {
+	if (is_writable($fileloc) == true) {
 		foreach ($content as $line) {
 			$write = fwrite($fp, $line);
 		}
@@ -199,7 +175,7 @@ function save_file($content, $file, $isheyuconf = false) {
 
 	}
 	else {
-		gen_error(null, $file." ".$lang['error_filerw']);
+		gen_error(null, $fileloc." ".$lang['error_filerw']);
 	}
 	fclose($fp);
 }

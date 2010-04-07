@@ -15,7 +15,10 @@ body {
 
 form input, select, option, textarea {
 	margin: 0;
-	padding: 0;
+	padding-top: 0;
+	padding-bottom: 0;
+	padding-left: 0;
+	padding-right: 5;
 	font-size: 10px;
 }
 
@@ -49,7 +52,7 @@ div#menu img {
 
 div#menuitem {
 	float: left;
-	width: 16.59%;
+	width: 12.5%;
 	text-align: center;
 	font-size: 14px;
 	height: 40px;
@@ -297,4 +300,20 @@ h1 {
 h6 {
 	font-size: 11px;
 	font-weight: bold;
+}
+
+/************** POPUP **************/
+
+#pup {
+  position:absolute;
+  z-index:200; /* aaaalways on top*/
+  padding: 3px;
+  margin-left: 10px;
+  margin-top: 5px;
+  width: 250px;
+  border: 1px solid black;
+  color: inherit;
+  background-color: inherit;
+  font-family: inherit;
+  font-size: inherit;
 }

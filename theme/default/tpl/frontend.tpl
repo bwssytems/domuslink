@@ -1,10 +1,20 @@
-<form action="<?php echo ($_SERVER['PHP_SELF']); ?>?action=save" method="post">
+<script language="JavaScript" type="text/javascript">
+<!--
+function validateForm(form)
+{
+	alert( "After changing Heyu Configuration Select, YOU MUST STOP AND START HEYU.");
 
-<table cellspacing="0" cellpadding="0" border="0" width="550px" align="middle" class="content">
-<tr><th colspan="2"><?php echo ($lang['frontendadmin']); ?></th></tr>
+  return true ;
+}
+//-->
+</script>
+<form action="<?php echo ($_SERVER['PHP_SELF']); ?>?action=save" method="post" onsubmit="return validateForm(this);">
+
+<table cellspacing="0" cellpadding="0" border="0" width="550px" align="center" class="content">
+<tr><th><?php echo ($lang['frontendadmin']); ?></th></tr>
 
 <tr>
-<td align="center" colspan="2">
+<td align="center">
 
 <!-- Interface -->
 <table cellspacing="0" cellpadding="0" border="0" class="clear">
@@ -12,7 +22,7 @@
     <td colspan="2" style="border-bottom:1px dotted #ccc;"><h6><?php echo ($lang['pcinterface']); ?></h6></td>
   </tr>
   <tr>
-    <td valign="top" width="150px">
+    <td valign="top">
     <select name="pc_interface">
 		<?php $options = array('CM11A', 'CM17A'); ?>
 		<?php foreach ($options as $key=>$opt): ?>
@@ -24,50 +34,89 @@
 		<?php endforeach; ?>
     </select>
     </td>
-    <td width="350px"><?php echo ($lang['pcinterface_txt']); ?></td>
+    <td><?php echo ($lang['pcinterface_txt']); ?></td>
   </tr>
-</table>
-<br />
+
+<!-- HeyuBase Usage-->
+<tr><td></td></tr>
+  <tr>
+    <td colspan="2" style="border-bottom:1px dotted #ccc;"><h6><?php echo ($lang['heyubaseuse']); ?></h6></td>
+  </tr>
+  <tr>
+    <td valign="top">
+    <!-- Heyu Base Usage dropdown -->
+    <select name="heyu_base_use">
+    <?php $options = array('NO', 'YES'); ?>
+    <?php foreach ($options as $key=>$opt): ?>
+     <?php if ($opt == $config['heyu_base_use']): ?>
+       <option selected value="<?php echo $opt; ?>"><?php echo $opt; ?></option>
+     <?php else: ?>
+       <option value="<?php echo $opt; ?>"><?php echo $opt; ?></option>
+     <?php endif; ?>
+    <?php endforeach; ?>
+    </select>
+    <!-- End dropdown -->
+    </td>
+    <td><?php echo ($lang['heyubaseuse_txt']); ?></td>
+  </tr>
+
+<!-- Heyu Managment -->
+<tr><td></td></tr>
+  <tr>
+    <td colspan="2" style="border-bottom:1px dotted #ccc;"><h6><?php echo ($lang['heyumgmt']); ?></h6></td>
+  </tr>
+  <tr>
+    <td valign="top">
+    <select name="heyu_subdir">
+		<?php foreach ($subdirlist as $asubdir): ?>
+			<?php if ($asubdir == $config['heyu_subdir']): ?>
+				<option selected value="<?php echo $asubdir; ?>"><?php echo $asubdir; ?></option>
+			<?php else: ?>
+				<option value="<?php echo $asubdir; ?>"><?php echo $asubdir; ?></option>
+			<?php endif; ?>
+		<?php endforeach; ?>
+    </select>
+    </td>
+    <td><?php echo ($lang['heyumgmt_txt']); ?></td>
+  </tr>
+
 <!-- HeyuBase -->
-<table cellspacing="0" cellpadding="0" border="0" class="clear">
+<tr><td></td></tr>
   <tr>
     <td colspan="2" style="border-bottom:1px dotted #ccc;"><h6><?php echo ($lang['heyubaseloc']); ?></h6></td>
   </tr>
   <tr>
-    <td valign="top" width="150px"><input type="text" name="heyu_base" value="<?php echo ($config['heyu_base']); ?>" /></td>
-    <td width="350px"><?php echo ($lang['heyubaseloc_txt']); ?></td>
+    <td valign="top"><input type="text" name="heyu_base" value="<?php echo ($config['heyu_base']); ?>" /></td>
+    <td><?php echo ($lang['heyubaseloc_txt']); ?></td>
   </tr>
-</table>
-<br />
+
 <!-- HeyuConf -->
-<table cellspacing="0" cellpadding="0" border="0" class="clear">
+<tr><td></td></tr>
   <tr>
     <td colspan="2" style="border-bottom:1px dotted #ccc;"><h6><?php echo ($lang['heyuconfile']); ?></h6></td>
   </tr>
   <tr>
-    <td valign="top" width="150px"><input type="text" name="heyuconf" value="<?php echo substr($config['heyuconf'], strlen($config['heyu_base'])); ?>" /></td>
-    <td width="350px"><?php echo ($lang['heyuconfile_txt']); ?></td>
+    <td valign="top"><input type="text" name="heyuconf" value="<?php echo $config['heyuconf']; ?>" /></td>
+    <td><?php echo ($lang['heyuconfile_txt']); ?></td>
   </tr>
-</table>
-<br />
+
 <!-- Heyu Exec -->
-<table cellspacing="0" cellpadding="0" border="0" class="clear">
+<tr><td></td></tr>
   <tr>
     <td colspan="2" style="border-bottom:1px dotted #ccc;"><h6><?php echo ($lang['heyuexec']); ?></h6></td>
   </tr>
   <tr>
-    <td valign="top" width="150px"><input type="text" name="heyuexec" value="<?php echo ($config['heyuexec']); ?>" /></td>
-    <td width="350px"><?php echo ($lang['heyuexec_txt']); ?></td>
+    <td valign="top"><input type="text" name="heyuexec" value="<?php echo ($config['heyuexec']); ?>" /></td>
+    <td><?php echo ($lang['heyuexec_txt']); ?></td>
   </tr>
-</table>
-<br />
+
 <!-- Security Level -->
-<table cellspacing="0" cellpadding="0" border="0" class="clear">
+<tr><td></td></tr>
   <tr>
     <td colspan="2" style="border-bottom:1px dotted #ccc;"><h6><?php echo ($lang['seclevel']); ?></h6></td>
   </tr>
   <tr>
-    <td valign="top" width="150px">
+    <td valign="top">
     <select name="seclevel">
 		<?php $options = array('0', '1', '2'); ?>
 		<?php foreach ($options as $key=>$opt): ?>
@@ -79,28 +128,26 @@
 		<?php endforeach; ?>
     </select>
     </td>
-    <td width="350px"><?php echo ($lang['seclevel_txt']); ?></td>
+    <td><?php echo ($lang['seclevel_txt']); ?></td>
   </tr>
-</table>
-<br />
+
 <!-- Password -->
-<table cellspacing="0" cellpadding="0" border="0" class="clear">
+<tr><td></td></tr>
   <tr>
     <td colspan="2" style="border-bottom:1px dotted #ccc;"><h6><?php echo ($lang['password']); ?></h6></td>
   </tr>
   <tr>
-    <td valign="top" width="150px"><input type="text" name="password" value="<?php echo ($config['password']); ?>" /></td>
-    <td width="350px"><?php echo ($lang['password_txt']); ?></td>
+    <td valign="top"><input type="text" name="password" value="<?php echo ($config['password']); ?>" /></td>
+    <td><?php echo ($lang['password_txt']); ?></td>
   </tr>
-</table>
-<br />
+
 <!-- Language -->
-<table cellspacing="0" cellpadding="0" border="0" class="clear">
+<tr><td></td></tr>
   <tr>
    <td colspan="2" style="border-bottom:1px dotted #ccc;"><h6><?php echo ($lang['language']); ?></h6></td>
   </tr>
   <tr>
-    <td valign="top" width="150px">
+    <td valign="top">
     <!-- Language dropdown -->
     <?php $files = list_dir_content(LANG_FILE_LOCATION); $found = false; ?>
     <select name='lang'>
@@ -121,28 +168,26 @@
     </select>
     <!-- End language dropdown -->
     </td>
-    <td width="350px"><?php echo ($lang['language_txt']); ?></td>
+    <td><?php echo ($lang['language_txt']); ?></td>
   </tr>
-</table>
-<br />
+
 <!-- URL Path -->
-<table cellspacing="0" cellpadding="0" border="0" class="clear">
+<tr><td></td></tr>
   <tr>
     <td colspan="2" style="border-bottom:1px dotted #ccc;"><h6><?php echo ($lang['urlpath']); ?></h6></td>
   </tr>
   <tr>
-    <td valign="top" width="150px"><input type="text" name="url_path" value="<?php echo ($config['url_path']); ?>" /></td>
-    <td width="350px"><?php echo ($lang['urlpath_txt']); ?></td>
+    <td valign="top"><input type="text" name="url_path" value="<?php echo ($config['url_path']); ?>" /></td>
+    <td><?php echo ($lang['urlpath_txt']); ?></td>
   </tr>
-</table>
-<br />
+
 <!-- Theme -->
-<table cellspacing="0" cellpadding="0" border="0" class="clear">
+<tr><td></td></tr>
   <tr>
     <td colspan="2" style="border-bottom:1px dotted #ccc;"><h6><?php echo ($lang['theme']); ?></h6></td>
   </tr>
   <tr>
-    <td valign="top" width="150px">
+    <td valign="top">
     <!-- Theme dropdown -->
     <?php $subdir = list_dir_content(FULL_THEME_FILE_LOCATION); ?>
     <select name="theme">
@@ -156,17 +201,16 @@
     </select>
     <!-- End theme dropdown -->
     </td>
-    <td width="350px"><?php echo ($lang['theme_txt']); ?></td>
+    <td><?php echo ($lang['theme_txt']); ?></td>
   </tr>
-</table>
-<br />
+
 <!-- Images -->
-<table cellspacing="0" cellpadding="0" border="0" class="clear">
+<tr><td></td></tr>
   <tr>
     <td colspan="2" style="border-bottom:1px dotted #ccc;"><h6><?php echo ($lang['imgs']); ?></h6></td>
   </tr>
   <tr>
-    <td valign="top" width="150px">
+    <td valign="top">
     <!-- Images dropdown -->
     <select name="imgs">
     <?php $options = array('ON', 'OFF'); ?>
@@ -180,17 +224,16 @@
     </select>
     <!-- End images dropdown -->
     </td>
-    <td width="350px"><?php echo ($lang['imgs_txt']); ?></td>
+    <td><?php echo ($lang['imgs_txt']); ?></td>
   </tr>
-</table>
-<br />
+
 <!-- Codes -->
-<table cellspacing="0" cellpadding="0" border="0" class="clear">
+<tr><td></td></tr>
   <tr>
     <td colspan="2" style="border-bottom:1px dotted #ccc;"><h6><?php echo ($lang['codes']); ?></h6></td>
   </tr>
   <tr>
-    <td valign="top" width="150px">
+    <td valign="top">
     <!-- Codes dropdown -->
     <select name="codes">
     <?php $options = array('ON', 'OFF'); ?>
@@ -204,18 +247,17 @@
     </select>
     <!-- End Codes dropdown -->
     </td>
-    <td width="350px"><?php echo ($lang['codes_txt']); ?></td>
+    <td><?php echo ($lang['codes_txt']); ?></td>
   </tr>
-</table>
-<br />
+
 <!-- Refresh -->
-<table cellspacing="0" cellpadding="0" border="0" class="clear">
+<tr><td></td></tr>
   <tr>
     <td colspan="2" style="border-bottom:1px dotted #ccc;"><h6><?php echo ($lang['refresh']); ?></h6></td>
   </tr>
   <tr>
-    <td valign="top" width="150px"><input type="text" size="10" name="refresh" value="<?php echo ($config['refresh']); ?>" /></td>
-    <td width="350px"><?php echo ($lang['refresh_txt']); ?></td>
+    <td valign="top"><input type="text" size="10" name="refresh" value="<?php echo ($config['refresh']); ?>" /></td>
+    <td><?php echo ($lang['refresh_txt']); ?></td>
   </tr>
 </table>
 
@@ -223,9 +265,10 @@
 </tr>
 
 <tr>
-    <td style="border-right:none;" align="right"><input type="submit" value="<?php echo ($lang['save']); ?>" /></form></td>
-    <td style="border-left:none;">
-      <form action="<?php echo ($_SERVER['PHP_SELF']); ?>" method="post"><input type="submit" value="<?php echo ($lang['cancel']); ?>" /></form>
+    <td align="center">
+    <input type="submit" value="<?php echo ($lang['save']); ?>" />
+    <input type="button" onClick="window.location='<?php echo ($_SERVER['PHP_SELF']); ?>'" value="<?php echo ($lang['cancel']); ?>" />
     </td>
 </tr>
 </table>
+</form>

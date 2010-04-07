@@ -64,10 +64,10 @@ if (!isset($page))
 	$page='home';
 }
 
-if ( ($page == "lights") || ($page == "all") )
+if ( ($page == "lights") || ($page == "shutters") || ($page == "other") || ($page == "appliances") || ($page == "irrigation") || ($page == "all") )
 {
     ?>
-    <div id='generated_content_for_lights' class="panel" selected='true'>
+    <div id='generated_id_content_for_<?php echo $page;?>' class="panel" selected='true'>
     <?php 
         if (!empty($content))
         {

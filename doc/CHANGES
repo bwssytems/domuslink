@@ -3,6 +3,37 @@
  |                               CHANGES                                      |
  |                                                                            |
  +----------------------------------------------------------------------------*/
+  v1.1 - 4/Apr/2010
+ ------
+ 	* Added ability to select a null on one side of a timer i.e.: on or off
+ 	  but not both.
+	* Added Shutter category and module type.
+	* Added Other category and module type. (irrigation category was left alone)
+	* Added dawn/dusk capability to timers.
+	* Added Advanced timers page. This page allows editing timers by selecting
+	  the specific macros and all options for timers identified in heyu 2.8.0.
+	  This page does not create macros as the simple timer page does.
+	* Added a macro edit page. Allows the creation of macros in domus.Link.
+	* Added ability to manage heyu configurations based on the constructs of heyu's
+	  default -0 thru -9 handling or explicit -c config paths. If -c config path is
+	  used, the -0 thru -9 command pass thru is disabled. domus.Link does not currently
+	  support starting multiple heyu instances at this time.
+	* Updated Trigger page to view and select macros as they are defined.
+	* Updated schedule file handling to be object based. The schedule file no longer
+	  requires a custom layout as was needed previously. Any valid heyu schedule file
+	  will be acceptable.
+	* Updated view pages (marco, timer, trigger) enable/disable to now be in the action
+	  column.
+	* Updated db file for floorplan to be named floorplan-dist so as not to overwrite users
+	  current floorplan file.
+	* Fixed issue 2 - error output of utility exection should stay in the utility output
+	  window.
+	* Fixed issue 4 - drop down list widths would cut off text in list. udpated all drop
+	  downs to be wider.
+	* Fixed issue 5 - updated domus.Link module list from heyu modlist in 2.8.0.
+	* Fixed issue 10 - updated utility to execute heyu logtail.
+	* Fixed issue 23 - updated about page to dynamically echo current version number.
+
   v1.0.2 (GPL Release) - 21/Feb/2010
  ------
     * Added new domus.Link GPL header to domus.Link created files

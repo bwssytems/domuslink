@@ -18,24 +18,30 @@
  * this program; if not, write to the Free Software Foundation, 
  * Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
+require_once(CLASS_FILE_LOCATION.'heyusched.const.php');
+require_once(CLASS_FILE_LOCATION.'scheduleelementfactory.class.php');
 
 class heyuSched {
 
 	var $heyusched;
 	var $filename;
+	var $lineStore;
+	private $heyuSchedObjects;
 
 	/**
 	 * Constructor
 	 *
-	 * @param $filename represents name and location
+	 * @args[0] $filename represents name and location
 	 */
-	function heyuSched($filename) {
-		$this->filename = $filename;
-		$this->heyusched = '';
-		$this->macroend = '';
-		$this->timerend = '';
-
-		$this->load();
+	function __construct() {
+    	$args = func_get_args();
+        if(!empty($args))
+        {
+			$this->filename = $args[0];
+			$this->heyusched = '';
+			$this->lineStore = array(END_D => array(), BEGIN_D => array());
+			$this->load();
+        }
 	}
 
 	/**
@@ -43,98 +49,107 @@ class heyuSched {
 	 */
 	function load() {
 		$this->heyusched = load_file($this->filename);
+
+		$i = 0;
+		foreach ($this->heyusched as $num => $line) {
+			try {
+				$this->heyuSchedObjects[$i] = ScheduleElementFactory::createElement($line);
+				$this->heyuSchedObjects[$i]->setLineNum($num);
+				$i++;
+			}
+			catch(Exception $e ) {
+				gen_error("load schedule file - line ".$num, $e->getMessage());
+			}
+		}
 	}
 
 	/**
-	 * Return heyu settings from defined file in config.php
+	 * Return heyu objects from defined file in config.php
 	 */
-	function get() {
-		return $this->heyusched;
+	function getObjects() {
+		return $this->heyuSchedObjects;
 	}
-
+	
 	/**
-	 * Get Macros
+	 * Get Sched File Objects
 	 *
-	 * Description: Returns an array containing all the macros along
+	 * Description: Returns an array containing the Objects of the specified types along
 	 * with their respective line numbers in the schedule file.
 	 */
-	function getMacros($i = 0) {
-		foreach ($this->heyusched as $num => $line) {
-			if (substr($line, 0, 5) == "macro" || substr($line, 0, 6) == "#macro") {
-				$macros[$i] = $line."@".$num;
+	function getSchedObjects($objectType) {
+		$i = 0;
+		$objectArray = array();
+		$beginLine = 0;
+		$endLine = 0;
+		foreach($this->heyuSchedObjects as $schedElement) {
+			if ($schedElement->getType() == $objectType) {
+				$objectArray[$i] = $schedElement;
+				$objectArray[$i]->setArrayNum($i);
 				$i++;
-			}
-			elseif (trim($line) == "## TIMERS ##") {
-				$this->macroend = $num;
-				break;
+				if (!$beginLine) {
+					$this->setLine($objectType, $schedElement->getLineNum(), BEGIN_D);
+					$beginLine = $schedElement->getLineNum();
+				}
+				elseif ($beginLine) {
+					$this->setLine($objectType, $schedElement->getLineNum(), END_D);
+					$endLine = $schedElement->getLineNum();
+				}
 			}
 		}
 		
-		if (!empty($macros)) return $macros;
-		else return $macros = array();
+		if(!$endLine) {
+			$this->setLine($objectType, $schedElement->getLineNum(), END_D);
+		} 
+		return $objectArray;
+	}
+	
+	function setLine($theObjType, $theLine, $theLocation) {
+		$this->lineStore[$theLocation] = array_merge($this->lineStore[$theLocation], array($theObjType => $theLine));
+	}
+
+	function getLine($theObjType, $theLocation) {
+		$theLineLocation = $this->lineStore[$theLocation];
+		return $theLineLocation[$theObjType];
+	}
+
+	/**
+	 * Get Macro Objects
+	 * 
+	 * Description: Returns an array containing all macro Objects
+	 * 
+	 */
+	function getMacroObjects() {
+		return $this->getSchedObjects(MACRO_D);
 	}
 	
 	/**
-	 * Get Macro End Line
+	 * Get Timer Objects
 	 * 
-	 * Description: Returns the line number at which macros
-	 * finish and timers start.
+	 * Description: Returns an array containing all timer Objects
+	 * 
 	 */
-	function getMacroEndLine() {
-		return $this->macroend;
+	function getTimerObjects() {
+		return $this->getSchedObjects(TIMER_D);
 	}
 	
 	/**
-	 * Get Timers
+	 * Get Trigger Objects
 	 * 
-	 * Description: Returns an array containing all timers along
-	 * with their respective line numbers in the schedule file
+	 * Description: Returns an array containing all trigger Objects
+	 * 
 	 */
-	function getTimers($i = 0) {
-		foreach ($this->heyusched as $num => $line) {
-			if (substr($line, 0, 5) == "timer" || substr($line, 0, 6) == "#timer") {
-				$timers[$i] = $line."@".$num;
-				$i++;
-			}
-			elseif (trim($line) == "## TRIGGERS ##") {
-				$this->timerend = $num;
-				break;
-			}
-		}
-		
-		if (!empty($timers)) return $timers;
-		else return $timers = array();
+	function getTriggerObjects() {
+		return $this->getSchedObjects(TRIGGER_D);
 	}
 	
 	/**
-	 * Get Timer End Line
+	 * Get Config Objects
 	 * 
-	 * Description: Returns the line number at which timers
-	 * finish and triggers start.
-	 */
-	function getTimerEndLine() {
-		if (!$this->timerend)
-			$this->getTimers();
-			
-		return $this->timerend;
-	}
-	
-	/** Get Triggers
+	 * Description: Returns an array containing all config Objects
 	 * 
-	 * Description: Returns an array containing all the triggers along
-	 * with their respective line numbers in the schedule file.
 	 */
-	function getTriggers($i = 0) {
-		foreach ($this->heyusched as $num => $line) {
-			if (substr($line, 0, 7) == "trigger" || substr($line, 0, 8) == "#trigger") {
-				$triggers[$i] = $line."@".$num;
-				$i++;
-			}
-		}
-		
-		if (!empty($triggers)) return $triggers;
-		else return $triggers = array();
+	function getConfigObjects() {
+		return $this->getSchedObjects(CONFIG_D);
 	}
 }
-
 ?>

@@ -25,6 +25,8 @@
 			- Cedric Aveline<BR>
 			- Jeroen<BR>
             - Frank van der Stad<BR>
+            - Philippe Carlier<BR>
+            - Brad Samuels<BR>
 		</p>
 	</div>
 	<div class="row">
@@ -60,7 +62,7 @@
 			- Tobias Axelsson<br>
 			<BR>
 			Spanish:<br>
-			- Israel Santana Alemán<br>
+			- Israel Santana Alemï¿½n<br>
 			<BR>            
 		</p>
 	</div>

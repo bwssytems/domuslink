@@ -30,7 +30,7 @@ if ($config['seclevel'] != "0" && !$authenticated) {
 }
 
 ## Instantiate HeyuConf class
-$heyuconf = new heyuConf($config['heyuconf']);
+$heyuconf = new heyuConf($config['heyuconfloc']);
 ## Get locations
 $locations = load_file(FPLAN_FILE_LOCATION);
 $locsize = count($locations);
@@ -62,7 +62,7 @@ else {
 		
 		// add location	
 		case "add":
-			add_line($locations, FPLAN_FILE_LOCATION, 'floorplan');
+			add_line_end($locations, FPLAN_FILE_LOCATION, 'floorplan');
 			break;
 		
 		// save location (called from edits)
@@ -93,7 +93,7 @@ else {
 			}
 			
 			edit_line($locations, FPLAN_FILE_LOCATION, 'floorplan'); // save new floorplan
-			if ($changed) save_file($array, $config['heyuconf']); // save heyu conf file if changes made
+			if ($changed) save_file($array, $config['heyuconfloc']); // save heyu conf file if changes made
 			break;
 		
 		// delete location	

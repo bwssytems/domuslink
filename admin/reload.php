@@ -25,13 +25,13 @@ require_once('..'.DIRECTORY_SEPARATOR.'include.php');
 require_once(CLASS_FILE_LOCATION.'heyuconf.class.php');
 
 ## Security validation's
-if ($config['seclevel'] == "2" && !$authenticated) {
-	header("Location: login.php?from=index");
+if ($config['seclevel'] != "0" && !$authenticated) {
+	header("Location: ../login.php?from=admin/reload");
 	exit();
 }
 
 ## Instantiate HeyuConf class
-$heyuconf = new heyuConf($config['heyuconf']);
+$heyuconf = new heyuConf($config['heyuconfloc']);
 ## Get heyu (x10.conf) file contents/settings
 $settings = $heyuconf->get();
 

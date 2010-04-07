@@ -37,6 +37,9 @@ require_once(FUNC_FILE_LOCATION.'file.func.php');
 require_once(FUNC_FILE_LOCATION.'misc.func.php');
 require_once(FUNC_FILE_LOCATION.'cmd.func.php');
 require_once(FUNC_FILE_LOCATION.'debug.func.php');
+require_once(FUNC_FILE_LOCATION.'macro.func.php');
+require_once(FUNC_FILE_LOCATION.'timer.func.php');
+require_once(FUNC_FILE_LOCATION.'heyumgmt.func.php');
 
 ## Load config file functions and grab settings
 require($dirname.DIRECTORY_SEPARATOR.'version.php');
@@ -82,5 +85,7 @@ $tpl->set('authenticated', $authenticated);
 $modtypes['lights'] = 'Light';
 $modtypes['appliances'] = 'Appliance';
 $modtypes['irrigation'] = 'Irrigation';
+$modtypes['shutters'] = 'Shutter';
+$modtypes['other'] = 'Other';
 
 ?>

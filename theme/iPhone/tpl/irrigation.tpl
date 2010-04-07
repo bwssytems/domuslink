@@ -1,14 +1,15 @@
-			<?php 
-			if ($state == 'on')
-			{
-				$toggeled = 'true';
-			}
-			else
-			{
-				$toggeled = '';
-			}
+		<?php
+			$codeState  = $_SERVER['PHP_SELF'] . "?action=".$state."&page=".$page."&code=".$code;
+			$codeOn  = $_SERVER['PHP_SELF'] . "?action=on&page=".$page."&code=".$code;
+			$codeOff = $_SERVER['PHP_SELF'] . "?action=off&page=".$page."&code=".$code;
 			?>
-			<div class="row">
-				<label><?php echo str_replace(" ","&nbsp;",$label); ?></label>
-				<div class="toggle" onclick="<?php echo $_SERVER['PHP_SELF']; ?>?action=<?php echo $action; ?>&code=<?php echo $code; ?>&page=<?php echo $page; ?>" name="<?php echo $code;?>" toggled="<?php echo $toggeled;?>" selected=''><span class="thumb"></span><span class="toggleOn"><?php echo $lang['on'];?></span><span class="toggleOff"><?php echo $lang['off'];?></span></div>
-			</div>
+		<li>
+			<table>
+				<tr>
+					<td style='width:66%'><?php echo $label; ?></td>
+					<td><a href="<?php echo $codeState ?>"><img src="<?php echo $config['url_path']; ?>/theme/<?php echo $config['theme']; ?>/images/module_irrigation_<?php echo $state; ?>.png" /></a></td>
+					<td><a href="<?php echo $codeOn ?>">On</a></td>					
+					<td><a href="<?php echo $codeOff ?>">Off</a></td>
+				</tr>
+			</table>
+		</li>

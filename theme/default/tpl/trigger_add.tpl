@@ -2,9 +2,15 @@
 <!--
 function validateForm(form)
 {
-	if (form.module.value == "") {
-		alert( "No module has been selected, please try again." );
-		form.module.focus();
+	if (form.unit.value == "") {
+		alert( "No unit has been selected, please try again." );
+		form.unit.focus();
+		return false ;
+	}
+
+	if (form.macro.value == "") {
+		alert( "No macro has been selected, please try again." );
+		form.macro.focus();
 		return false ;
 	}
 
@@ -12,7 +18,7 @@ function validateForm(form)
 }
 //-->
 </script>
-<form action="<?php echo($_SERVER['PHP_SELF']); ?>?action=add" method="post">
+<form action="<?php echo($_SERVER['PHP_SELF']); ?>?action=add" method="post" onsubmit="return validateForm(this);">
 
 <table cellspacing="0" cellpadding="0" border="0" class="content">
 <tr><th><?php echo ($lang['addtrigger']); ?></th></tr>
@@ -21,8 +27,9 @@ function validateForm(form)
 <!-- start center table -->
 <table cellspacing="0" cellpadding="0" border="0" class="clear">
 <tr>
-<td width="180px" align="center"><h6><?php echo ($lang['trig_cmd']);?>:</h6></td>
-<td width="180px" align="center"><h6><?php echo ($lang['status']);?>:</h6></td>
+<td align="center"><h6><?php echo ($lang['trig_cmd']);?>:</h6></td>
+<td style="width:10px;"></td>
+<td align="center"><h6><?php echo ($lang['status']);?>:</h6></td>
 </tr>
 <tr>
 <td align="center">
@@ -33,6 +40,7 @@ function validateForm(form)
 </select>
 <!-- end trigger command -->
 </td>
+<td>&nbsp;</td>
 <td align="center">
 <!-- status -->
 <select name="status">
@@ -44,14 +52,15 @@ function validateForm(form)
 </tr>
 <tr>
 <td align="center"><h6><?php echo ($lang['trig_unit']);?>:</h6></td>
-<td align="center"><h6><?php echo ($lang['execute']);?>:</h6></td>
+<td>&nbsp;</td>
+<td align="center"><h6><?php echo ($lang['macro']);?>:</h6></td>
 </tr>
 <tr>
 <td align="center">
 <!-- trigger unit -->
 <select name="unit" size="9">
 <?php foreach ($codelabels as $codelabel): ?>
-	<?php list($code, $label) = split("@", $codelabel, 2); ?>
+	<?php list($code, $label) = explode("@", $codelabel, 2); ?>
 	<?php if (!is_multi_alias($code)): ?>
 		<option value="<?php echo $label;?>"><?php echo label_parse($label, false);?></option>
 	<?php endif; ?>
@@ -59,12 +68,13 @@ function validateForm(form)
 </select>
 <!-- end trigger unit -->
 </td>
-<td align="center">
+<td>&nbsp;</td>
+<td align="center" style="width:200px;">
 <!-- execute macro -->
 <select name="macro" size="9">
 <?php foreach ($cmacs as $cmac): ?>
-	<?php list($alias, $code, $trans) = split("@", $cmac, 3); ?>
-	<option value="<?php echo $alias;?>_<?php echo $code;?>"><?php echo label_parse($alias, false);?> <?php echo strtoupper($trans);?></option>
+	<?php list($macro_label, $macro_name, $delay, $commands) = explode(" ", $cmac, 4); ?>
+	<option value="<?php echo $macro_name;?>"><?php echo label_parse($macro_name, false);?> - <?php echo $commands;?></option>
 <?php endforeach; ?>
 </select>
 <!-- end execute macro -->
