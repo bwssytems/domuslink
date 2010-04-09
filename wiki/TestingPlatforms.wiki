@@ -29,5 +29,8 @@ Brandt -
       Explorer<br/>
       Chrome<br/>
 
+   Xubuntu 9.04
+      Firefox<br/>
+
    Nokia 770, N800<br/>
       Mozilla MicroB<br/>
