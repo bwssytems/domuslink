@@ -1,11 +1,12 @@
-Testing Platforms
+#labels Phase-QA
+= Testing Platforms =
 
-= Introduction =
+== Introduction ==
 
 This page is to list all the team members, and the operating system and browser combinations they have available to them for testing purposes. This will help us identify any platform browser combinations we are not able to test against.
 
 
-= Details =
+== Details ==
 
 Istvan - 
 
@@ -16,17 +17,17 @@ Brad -
 Brandt - 
 
    Mac OS X
-      Safari
-      Firefox
+      Safari<br/>
+      Firefox<br/>
 
    Solaris 10
-      Firefox
-      Mozilla
+      Firefox<br/>
+      Mozilla<br/>
 
    Windows XP, 7
-      Firefox
-      Explorer
-      Chrome
+      Firefox<br/>
+      Explorer<br/>
+      Chrome<br/>
 
-   Nokia 770, N800
-      Mozilla MicroB
+   Nokia 770, N800<br/>
+      Mozilla MicroB<br/>
