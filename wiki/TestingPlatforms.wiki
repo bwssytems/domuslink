@@ -1,0 +1,32 @@
+Testing Platforms
+
+= Introduction =
+
+This page is to list all the team members, and the operating system and browser combinations they have available to them for testing purposes. This will help us identify any platform browser combinations we are not able to test against.
+
+
+= Details =
+
+Istvan - 
+
+
+Brad - 
+
+
+Brandt - 
+
+   Mac OS X
+      Safari
+      Firefox
+
+   Solaris 10
+      Firefox
+      Mozilla
+
+   Windows XP, 7
+      Firefox
+      Explorer
+      Chrome
+
+   Nokia 770, N800
+      Mozilla MicroB
