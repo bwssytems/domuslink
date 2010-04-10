@@ -13,12 +13,12 @@ Istvan -
 
 Brad - 
    Ubuntu 9.10
-      Heyu 2.8.0
+      Heyu 2.8.0<br/>
       Firefox 3.5.9<br/>
       Apache 2.2.12-1<br/>
 
    PCLinuxOS 2009
-      Heyu 2.8.0
+      Heyu 2.8.0<br/>
       Firefox 3.5.6<br/>
       Apache 2.2.14-3<br/>
 
