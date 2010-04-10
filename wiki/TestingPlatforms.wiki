@@ -22,6 +22,9 @@ Brad -
       Firefox 3.5.6<br/>
       Apache 2.2.14-3<br/>
 
+   Ubuntu 6.10
+      Firefox 1.5.0.12eol<br/>
+
    Nokia N800<br/>
       Mozilla MicroB<br/>
 
