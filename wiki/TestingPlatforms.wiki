@@ -48,3 +48,16 @@ Brandt -
 
    Nokia 770, N800<br/>
       Mozilla MicroB<br/>
+
+Philippe
+   "server"
+      Ubuntu 9.10
+      Heyu 2.8.0
+      apache 2.1.2
+
+   "client"
+      i phone
+      windows xp / firefox 3 , explorer / chrome
+      ubuntu 9.10 / firefox 3
+
+
