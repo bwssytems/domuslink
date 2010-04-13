@@ -8,7 +8,7 @@ This page will contain the domus.Link roadmap, agreed upon and developed by all 
 
 = Next Versions =
 == v1.2 ==
-  * Resolve issue 1
+  * Resolve Issue 1
   * Improve x10.conf file parsing (use webhook command) Issue 30
   * Android theme/compatibility
 
