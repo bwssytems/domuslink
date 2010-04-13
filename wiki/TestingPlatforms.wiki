@@ -8,78 +8,83 @@ This page is to list all the team members, and the operating system and browser 
 
 == Details ==
 
-Istvan - 
+=== Istvan ===
 
+----
+=== Brad === 
+Server(s)
+  # PCLinuxOS 2009
+    * Firefox 3.5.6
+    * Heyu 2.8.0
+    * Apache 2.2.14-3<br/>
+  # Ubuntu 9.10
+    * Firefox 3.5.9
+    * Heyu 2.8.0
+    * Apache 2.2.12-1<br/>  
 
-Brad - 
-   Ubuntu 9.10
-      Heyu 2.8.0<br/>
-      Firefox 3.5.9<br/>
-      Apache 2.2.12-1<br/>
+Client(s)
+  # Ubuntu 6.10
+    * Firefox 1.5.0.12eol<br/>
+  # Nokia N800
+    * Mozilla MicroB<br/>
 
-   PCLinuxOS 2009
-      Heyu 2.8.0<br/>
-      Firefox 3.5.6<br/>
-      Apache 2.2.14-3<br/>
+----
+=== Brandt ===  
 
-   Ubuntu 6.10
-      Firefox 1.5.0.12eol<br/>
+Client(s)
+  # Mac OS X
+    * Firefox
+    * Safari<br/>
+  # Solaris 10
+    * Firefox
+    * Mozilla<br/>
+  # Windows XP, 7
+    * Firefox
+    * Explorer
+    * Chrome<br/>
+  # Xubuntu 9.04
+    * Firefox<br/>
+  # Nokia 770, N800
+    * Mozilla MicroB<br/>
 
-   Nokia N800<br/>
-      Mozilla MicroB<br/>
+----
+=== Philippe === 
+Server(s)
+  * Ubuntu 9.10
+  * Heyu 2.8.0
+  * Apache 2.1.2
 
-Brandt - 
+Client(s)
+  # Windows XP
+    * Firefox
+    * Explorer
+    * Chrome<br/>
+  # iPhone
+    * Safari<br/>
+  # Ubuntu 9.10
+    * Firefox<br/>
 
-   Mac OS X
-      Safari<br/>
-      Firefox<br/>
+----
+=== Frank ===  
 
-   Solaris 10
-      Firefox<br/>
-      Mozilla<br/>
+Server(s)
+  # Fedora Core 11
+    * Firefox 2.x
+    * Heyu 2.7.0
+    * Apache 2.2.13<br/>
 
-   Windows XP, 7
-      Firefox<br/>
-      Explorer<br/>
-      Chrome<br/>
-
-   Xubuntu 9.04
-      Firefox<br/>
-
-   Nokia 770, N800<br/>
-      Mozilla MicroB<br/>
-
-Philippe
-   "server"
-      Ubuntu 9.10
-      Heyu 2.8.0
-      apache 2.1.2
-
-   "client"
-      i phone
-      windows xp / firefox 3 , explorer / chrome
-      ubuntu 9.10 / firefox 3
-
-Frank - 
-
-   "server"
-     Fedora Core 11
-       Firefox<br/>
-       Mozilla<br/>
-
-   "clients"
-     Windows XP
-       Firefox<br/>
-       Explorer<br/>
-       Chrome<br/>
-       Opera<br/>
-
-    iPhone 3G<br/>
-       Safari<br/>
-       Opera<br/>
-
-    BlackBerry<br/>
-       Default browser<br/>
-
-    Android phone<br/>
-       Chrome<br/>
+Clients(s)
+  # Windows XP
+    * Firefox
+    * Explorer
+    * Chrome
+    * Opera<br/>
+  # iPhone 3G
+    * Safari
+    * Opera<br/>
+  # BlackBerry
+    * Default browser<br/>
+  # Android phone
+    * Chrome<br/>
+  
+----
