@@ -60,4 +60,26 @@ Philippe
       windows xp / firefox 3 , explorer / chrome
       ubuntu 9.10 / firefox 3
 
+Frank - 
 
+   "server"
+     Fedora Core 11
+       Firefox<br/>
+       Mozilla<br/>
+
+   "clients"
+     Windows XP
+       Firefox<br/>
+       Explorer<br/>
+       Chrome<br/>
+       Opera<br/>
+
+    iPhone 3G<br/>
+       Safari<br/>
+       Opera<br/>
+
+    BlackBerry<br/>
+       Default browser<br/>
+
+    Android phone<br/>
+       Chrome<br/>
