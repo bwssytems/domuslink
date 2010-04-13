@@ -1,3 +1,4 @@
+#summary List all the team members and the server/client configuration
 #labels Phase-QA
 = Testing Platforms =
 
