@@ -31,6 +31,10 @@ Client(s)
 
 ----
 === Brandt ===  
+Server(s)
+  # Synology NAS Linux DiskStation 2.6.24
+    * Heyu 2.8.0
+    * Apache/2.2.13 (Unix)
 
 Client(s)
   # Mac OS X
