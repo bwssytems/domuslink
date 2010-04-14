@@ -3,7 +3,7 @@
 
 == Introduction ==
 
-This will help familiarize new developers with the purpose and contents of each file containing code.
+This document will help familiarize new developers with the purpose and contents of each file containing code.
 
 
 == Details ==
@@ -25,46 +25,31 @@ This will help familiarize new developers with the purpose and contents of each 
 || version.php ||  ||
 
 ./admin:
-aliases.php
-floorplan.php
-frontend.php
-heyu.php
-reload.php
-utility.php
+|| aliases.php ||  ||
+|| floorplan.php ||  ||
+|| frontend.php ||  ||
+|| heyu.php ||  ||
+|| reload.php ||  ||
+|| utility.php ||  ||
 
 ./db:
-floorplan
-floorplan-dist
-modules
-schedules
+|| floorplan-dist ||  ||
+|| modules ||  ||
+|| schedules ||  ||
 
 ./doc:
-CHANGES
-INSTALL
-LICENSE
-README
-heyuconf.htm
-screenshots
-x10.conf
-x10.sched
+|| CHANGES ||  ||
+|| INSTALL ||  ||
+|| LICENSE ||  ||
+|| README ||  ||
+|| heyuconf.htm ||  ||
+|| screenshots ||  ||
+|| x10.conf ||  ||
+|| x10.sched ||  ||
 
 ./doc/screenshots:
-iphone-theme
+|| iphone-theme ||  ||
 
-./doc/screenshots/iphone-theme:
-00_springboard.png
-01_logon_page.png
-02_logging_in.png
-03_home_page.png
-04_module_by_type_page.jpg
-04_module_by_type_page.png
-05_module_by_type_error_page.png
-06_module_by_location_page.jpg
-06_module_by_location_page.png
-07_heyu_status_on_page.png
-08_heyu_status_off_page.png
-09_about_page.png
-10_heyu_info_page.png
 
 ./events:
 macros.php
@@ -124,48 +109,7 @@ images
 javascript
 tpl
 
-./theme/default/images:
-1px.gif
-arrow-d.gif
-arrow-u.gif
-button.gif
-connect.png
-disconnect.png
-favicon.ico
-header_left.gif
-header_logo.gif
-header_right.gif
-magnifier.png
-menu_about_off.png
-menu_about_on.png
-menu_appliances_off.png
-menu_appliances_on.png
-menu_events_off.png
-menu_events_on.png
-menu_home_off.png
-menu_home_on.png
-menu_irrigation_off.png
-menu_irrigation_on.png
-menu_lights_off.png
-menu_lights_on.png
-menu_other_off.png
-menu_other_on.png
-menu_setup_off.png
-menu_setup_on.png
-menu_shutters_off.png
-menu_shutters_on.png
-module_appliance_off.png
-module_appliance_on.png
-module_irrig_off.png
-module_irrig_on.png
-module_light_off.png
-module_light_on.png
-module_multi.png
-module_other_off.png
-module_other_on.png
-module_shutter_off.png
-module_shutter_on.png
-switch_off.gif
+
 switch_on.gif
 
 ./theme/default/javascript:
@@ -219,83 +163,6 @@ iui
 style.css
 tpl
 
-./theme/iPhone/images:
-1px.gif
-apple-touch-icon.png
-arrow-d.gif
-arrow-u.gif
-button.gif
-favicon.ico
-header_left.gif
-header_logo.gif
-header_right.gif
-icontexto-webdev-arrow-down-024x024.png
-icontexto-webdev-arrow-down_bw-024x024.png
-icontexto-webdev-arrow-up-024x024.png
-icontexto-webdev-arrow-up_bw-024x024.png
-icontexto-webdev-cancel-032x032.png
-icontexto-webdev-cancel-128x128.png
-icontexto-webdev-config-024x024.png
-icontexto-webdev-info-032x032.png
-icontexto-webdev-ok-032x032.png
-icontexto-webdev-ok-128x128.png
-icontexto-webdev-reload-032x032.png
-icontexto-webdev-remove-024x024.png
-menu_about_off.png
-menu_about_on.png
-menu_appliances_off.png
-menu_appliances_on.png
-menu_home_off.png
-menu_home_on.png
-menu_irrigation_off.png
-menu_irrigation_on.png
-menu_lights_off.png
-menu_lights_on.png
-menu_other_off.png
-menu_other_on.png
-menu_setup_off.png
-menu_setup_on.png
-menu_shutters_off.gif
-menu_shutters_off.png
-menu_shutters_on.png
-menu_status_off.gif
-menu_status_on.gif
-module_appliance_off.png
-module_appliance_on.png
-module_irrig_off.png
-module_irrig_on.png
-module_light_off.png
-module_light_on.png
-module_multi.png
-module_other_off.png
-module_other_on.png
-module_shutter_off.png
-module_shutter_on.png
-switch_off.gif
-switch_on.gif
-
-./theme/iPhone/iui:
-backButton.png
-blueButton.png
-cancel.png
-grayButton.png
-iui.css
-iui.js
-iuix.css
-iuix.js
-listArrow.png
-listArrowSel.png
-listGroup.png
-loading.gif
-pinstripes.png
-preview.html
-selection.png
-thumb.png
-toggle.png
-toggleOn.png
-toolButton.png
-toolbar.png
-whiteButton.png
 
 ./theme/iPhone/tpl:
 about.tpl
