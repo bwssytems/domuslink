@@ -24,7 +24,7 @@ Server(s)
     * Apache 2.2.12-1<br/>  
 
 Client(s)
-  # Ubuntu 6.10
+  # Ubuntu 6.06LTS
     * Firefox 1.5.0.12eol<br/>
   # Nokia N800
     * Mozilla MicroB<br/>
