@@ -20,7 +20,7 @@
  */
 
 class heyuConf {
-
+	
 	var $heyuconf;
 	var $filename;
 
@@ -93,10 +93,14 @@ class heyuConf {
 	 * @param $number boolean, if true add line number of original file
 	 */
 	function getAliases($number = false, $i = 0) {
-		foreach ($this->heyuconf as $num => $line) {
-			if (substr($line, 0, 5) == "ALIAS") {
+		global $config;
+		//		foreach ($this->heyuconf as $num => $line) {
+		$aliasLines = execute_cmd($config['heyuexecreal']." webhook config_dump -L\"%V@\" -d\"%V \" -b\"%V\" alias");
+		foreach ($aliasLines as $aline) {
+			list($num, $line) = explode("@", $aline, 2);
+			if (strtolower(substr($line, 0, 5)) == "alias") {
 				//if $number = true, store alias in new array along with line numb of original file
-				$aliases[$i] = ($number) ? $line."@".$num : $line;
+				$aliases[$i] = ($number) ? $line."@".($num-1) : $line;
 				$i++;
 			}
 		}

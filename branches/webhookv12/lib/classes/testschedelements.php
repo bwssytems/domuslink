@@ -1,6 +1,5 @@
 <?php
-define("CLASS_FILE_LOCATION", "/home/bsamuels/workspace/dawnduskV11/lib/classes/");
-define("FUNC_FILE_LOCATION", "/home/bsamuels/workspace/dawnduskV11/lib/func/");
+require_once("../../include.php");
 require_once(FUNC_FILE_LOCATION."debug.func.php");
 require_once(CLASS_FILE_LOCATION."scheduleelement.class.php");
 require_once(CLASS_FILE_LOCATION."timer.class.php");
@@ -9,37 +8,39 @@ $testLine = "# timer s.....s expire-23 6:02 22:30  office_flrlamp_on	 office_flr
 //$testLine = "trigger button_o1 on familytbl_on";
 //$testLine = "comment test this";
 //$testLine = "section timers";
-echo "-------------------- Test bed for schedule element classes --------------------\n"; 
-echo "The element line [".$testLine."]\n";
-echo "* Test ScheduleElement \n";
+echo "-------------------- Test bed for schedule element classes --------------------<br/>";
+echo "The element line [".$testLine."]<br/>";
+echo "<br/>";
+echo "* Test ScheduleElement <br/>";
 try {
 $anElement = new ScheduleElement($testLine);
-echo "\tThe return of schedule element getElementLine [".$anElement->getElementLine()."]\n";
-echo "\tThe return of schedule element getType [".$anElement->getType()."]\n";
-echo "\tThe return of Timer element isEnabled [".$anElement->isEnabled()."]\n";
+echo "&nbsp;&nbsp;&nbsp;&nbsp;The return of schedule element getElementLine [".$anElement->getElementLine()."]<br/>";
+echo "&nbsp;&nbsp;&nbsp;&nbsp;The return of schedule element getType [".$anElement->getType()."]<br/>";
+echo "&nbsp;&nbsp;&nbsp;&nbsp;The return of Timer element isEnabled [".$anElement->isEnabled()."]<br/>";
 }
 catch(Exception $e ) {
-	echo "\tE!: ".$e->getMessage()."\n";
+	echo "&nbsp;&nbsp;&nbsp;&nbsp;E!: ".$e->getMessage()."<br/>";
 }
-echo "* Test Timer with passed in line \n";
+echo "* Test Timer with passed in line <br/>";
 try {
  $timer = new Timer($testLine);
-echo "\tThe return of Timer getElementLine [".$timer->getElementLine()."]\n";
-echo "\tThe return of Timer element getType [".$timer->getType()."]\n";
-echo "\tThe return of Timer element isEnabled [".$timer->isEnabled()."]\n";
+echo "&nbsp;&nbsp;&nbsp;&nbsp;The return of Timer getElementLine [".$timer->getElementLine()."]<br/>";
+echo "&nbsp;&nbsp;&nbsp;&nbsp;The return of Timer element getType [".$timer->getType()."]<br/>";
+echo "&nbsp;&nbsp;&nbsp;&nbsp;The return of Timer element isEnabled [".$timer->isEnabled()."]<br/>";
 }
 catch(Exception $e ) {
-	echo "\tE!: ".$e->getMessage()."\n";
+	echo "&nbsp;&nbsp;&nbsp;&nbsp;E!: ".$e->getMessage()."<br/>";
 }
-echo "* Test Timer with no args \n";
+echo "* Test Timer with no args <br/>";
 try {
 $timer = new Timer();
-echo "\tThe return of Timer getElementLine [".$timer->getElementLine()."]\n";
-echo "\tThe return of Timer element getType [".$timer->getType()."]\n";
-echo "\tThe return of Timer element isEnabled [".$timer->isEnabled()."]\n";
+echo "&nbsp;&nbsp;&nbsp;&nbsp;The return of Timer getElementLine [".$timer->getElementLine()."]<br/>";
+echo "&nbsp;&nbsp;&nbsp;&nbsp;The return of Timer element getType [".$timer->getType()."]<br/>";
+echo "&nbsp;&nbsp;&nbsp;&nbsp;The return of Timer element isEnabled [".$timer->isEnabled()."]<br/>";
 }
 catch(Exception $e ) {
-	echo "\tE!: ".$e->getMessage()."\n";
+	echo "&nbsp;&nbsp;&nbsp;&nbsp;E!: ".$e->getMessage()."<br/>";
 }
-echo "-------------------- End Test bed for schedule element classes --------------------\n";
+echo "<br/>";
+echo "-------------------- End Test bed for schedule element classes --------------------<br/>";
 ?>

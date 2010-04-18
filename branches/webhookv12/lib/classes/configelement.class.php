@@ -18,21 +18,14 @@
  * this program; if not, write to the Free Software Foundation, 
  * Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
+
 require_once(CLASS_FILE_LOCATION."element.class.php");
-require_once(CLASS_FILE_LOCATION."heyusched.const.php");
-class ScheduleElement extends Element {
+require_once(CLASS_FILE_LOCATION."heyuconf.const.php");
+
+class ConfigElement extends Element {
 	protected function validateType($theType) {
 		switch($theType) {
-			case TIMER_D:
-				return true;
-				break;
-			case MACRO_D:
-				return true;
-				break;
-			case TRIGGER_D:
-				return true;
-				break;
-			case CONFIG_D:
+			case ALIAS_D:
 				return true;
 				break;
 			case SECTION_D:
