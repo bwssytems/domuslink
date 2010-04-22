@@ -20,7 +20,7 @@
 
   <tr>
     <td valign="top"><h6><?php echo ($lang['label']);?>:</h6></td>
-    <td valign="top"><input type="text" name="label" value="<?php echo label_parse($label); ?>" size="20" /></td>
+    <td valign="top"><input type="text" name="label" value="<?php echo $label; ?>" size="20" /></td>
   </tr>
 
 
@@ -67,13 +67,32 @@
   <tr>
     <td valign="top"><h6><?php echo ($lang['location']);?>:</h6></td>
     <td valign="top">
-    <select name="loc">
-	<?php foreach (load_file(FPLAN_FILE_LOCATION) as $locnf): ?>
+    <select name="loc" onClick="beginEditing(this);" onBlur="finishEditing();">
+	<?php foreach ($floorplan as $locnf): ?>
 	<?php $locf = rtrim($locnf); ?>
 	    <?php if (rtrim($loc) == $locf): ?>
     		<option value="<?php echo $locf; ?>" selected><?php echo $locf; ?></option>
     	<?php else: ?>
     		<option value="<?php echo $locf; ?>"><?php echo $locf; ?></option>
+    	<?php endif; ?>
+	<?php endforeach; ?>
+  		<option value=""></option>
+	</select>
+    </td>
+  </tr>
+  
+<!-- Home Hidden -->
+
+  <tr>
+    <td valign="top"><h6><?php echo ($lang['home']);?>:</h6></td>
+    <td valign="top">
+    <select name="homehidden">
+    <?php $options = array("visible", "hidden"); ?>
+	<?php foreach ($options as $anOption): ?>
+	    <?php if ($homehidden == $anOption): ?>
+    		<option value="<?php echo $anOption; ?>" selected><?php echo $anOption; ?></option>
+    	<?php else: ?>
+    		<option value="<?php echo $anOption; ?>"><?php echo $anOption; ?></option>
     	<?php endif; ?>
 	<?php endforeach; ?>
 	</select>

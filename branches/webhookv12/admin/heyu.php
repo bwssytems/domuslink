@@ -33,7 +33,7 @@ if ($config['seclevel'] != "0" && !$authenticated) {
 ## Instantiate HeyuConf class
 $heyuconf = new heyuConf($config['heyuconfloc']);
 ## Get heyu (x10.conf) file contents/settings
-$settings = $heyuconf->get();
+$settings = $heyuconf->getObjects();
 
 ## Set template parameters
 $tpl->set('title', 'Heyu Setup');
@@ -60,13 +60,13 @@ else {
 		foreach ($_POST as $key => $value) {
 			$primary = substr($key, 0, 5);
 			switch ($primary) {
-				case "ALIAS":
+				case ALIAS_D:
 					$newcontent[$i] = $primary." ".$value."\n";
 					break;
-				case "SCENE":
+				case SCENE_D:
 					$newcontent[$i] = $primary." ".$value."\n";
 					break;
-				case "USERS": // USERSYN
+				case "users": // USERSYN
 					$newcontent[$i] = substr($key, 0, 7)." ".$value."\n";
 					break;
 				default:

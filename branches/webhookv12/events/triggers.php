@@ -36,7 +36,6 @@ $schedfileloc = $config['heyu_base_real'].$heyuconf->getSchedFile();
 
 ## Load aliases and parse so that only code and labels remain
 $aliases = $heyuconf->getAliases();
-$codelabels = $heyuconf->getCodesAndLabels($aliases);
 
 ## Instantiate heyuSched class, get contents and parse timers
 $heyusched = new heyuSched($schedfileloc);
@@ -55,7 +54,7 @@ $tpl_body->set('config', $config);
 if (!isset($_GET["action"])) {
 	$tpl_add = & new Template(TPL_FILE_LOCATION.'trigger_add.tpl');
 	$tpl_add->set('lang', $lang);
-	$tpl_add->set('codelabels', $codelabels);
+	$tpl_add->set('aliases', $aliases);
 	$tpl_add->set('cmacs', $macros);
 	$tpl_body->set('form', $tpl_add);
 }
@@ -77,7 +76,7 @@ else {
 			$tpl_edit->set('lang', $lang);
 			$tpl_edit->set('enabled', $schedObjs[$_GET['line']]->isEnabled());
 			$tpl_edit->set('tcommand', strtolower($command));
-			$tpl_edit->set('codelabels', $codelabels);
+			$tpl_edit->set('aliases', $aliases);
 			$tpl_edit->set('unit', $tunit);
 			$tpl_edit->set('cmacs', $macros);
 			$tpl_edit->set('selmacro', $macro);

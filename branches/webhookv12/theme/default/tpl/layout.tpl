@@ -31,6 +31,7 @@
   <?php endif; ?>
   <script type="application/x-javascript" src="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/javascript/browser_detect.js"></script>
   <script type="application/x-javascript" src="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/javascript/popup.js"></script>
+  <script type="application/x-javascript" src="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/javascript/editableselect.js"></script>
 
   <SCRIPT LANGUAGE="JavaScript">
   <!--
@@ -137,7 +138,6 @@
   <?php if ($authenticated): ?><div id="setupmenuitem"><a href="<?php echo ($config['url_path']);?>/login.php?action=logout"><?php echo ($lang['logout']); ?></a></div><?php endif; ?>
   <div id="setupmenuitem"><a href="<?php echo ($config['url_path']);?>/admin/heyu.php"><?php echo ($lang['heyusetup']); ?></a></div>
   <div id="setupmenuitem"><a href="<?php echo ($config['url_path']);?>/admin/frontend.php"><?php echo ($lang['frontend']); ?></a></div>
-  <div id="setupmenuitem"><a href="<?php echo ($config['url_path']);?>/admin/floorplan.php"><?php echo ($lang['floorplan']); ?></a></div>
   <div id="setupmenuitem"><a href="<?php echo ($config['url_path']);?>/admin/aliases.php"><?php echo ($lang['aliases']); ?></a></div>
   <div id="setupmenuitem"><a href="<?php echo ($config['url_path']);?>/admin/utility.php"><?php echo ($lang['utility']); ?></a></div>
 </div>

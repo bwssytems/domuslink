@@ -18,6 +18,13 @@
  * this program; if not, write to the Free Software Foundation, 
  * Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-$FRONTEND_VERSION = "pre1.2";
+require_once(CLASS_FILE_LOCATION.'elementfile.class.php');
 
+class AliasMap extends ElementFile {
+
+	protected function createElement($aLine) {
+		return new AliasMapElement($aLine);
+	}
+
+}
 ?>

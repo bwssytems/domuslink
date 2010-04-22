@@ -34,10 +34,6 @@ if ($config['seclevel'] != "0" && !$authenticated) {
 $heyuconf = new heyuConf($config['heyuconfloc']);
 $schedfileloc = $config['heyu_base_real'].$heyuconf->getSchedFile();
 
-## Load aliases and parse so that only code and labels remain
-$aliases = $heyuconf->getAliases();
-$codelabels = $heyuconf->getCodesAndLabels($aliases);
-
 ## Instantiate heyuSched class, get contents and parse macros
 $heyusched = new heyuSched($schedfileloc);
 $schedObjs = $heyusched->getObjects();

@@ -76,10 +76,25 @@ function validateForm(form)
   <tr>
     <td valign="top"><h6><?php echo ($lang['location']);?>:</h6></td>
     <td valign="top">
-    <select name="loc">
-	<?php foreach (load_file(FPLAN_FILE_LOCATION) as $locnf): ?>
+    <select name="loc" onClick="beginEditing(this);" onBlur="finishEditing();">
+	<?php foreach ($floorplan as $locnf): ?>
 	<?php $locf = rtrim($locnf); ?>
 		<option value="<?php echo $locf;?>"><?php echo $locf;?></option>
+	<?php endforeach; ?>
+		<option value=""></option>
+	</select>
+    </td>
+  </tr>
+
+<!-- Home Hidden -->
+
+  <tr>
+    <td valign="top"><h6><?php echo ($lang['home']);?>:</h6></td>
+    <td valign="top">
+    <select name="homehidden">
+    <?php $options = array("visible", "hidden"); ?>
+	<?php foreach ($options as $anOption): ?>
+   		<option value="<?php echo $anOption; ?>"><?php echo $anOption; ?></option>
 	<?php endforeach; ?>
 	</select>
     </td>

@@ -18,6 +18,24 @@
  * this program; if not, write to the Free Software Foundation, 
  * Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-$FRONTEND_VERSION = "pre1.2";
+require_once(CLASS_FILE_LOCATION."alias.class.php");
 
+class ConfigElementFactory {
+	function createElement ($lineData) {
+		try {
+			$anElement = new ConfigElement($lineData);
+			switch($anElement->getType()) {
+				case ALIAS_D:
+					return new Alias($lineData);
+					break;
+				default:
+					return $anElement;
+					break;
+			}
+		}
+		catch(Exception $e) {
+			throw $e;
+		}
+	} 
+}
 ?>

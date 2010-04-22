@@ -33,7 +33,7 @@ if ($config['seclevel'] != "0" && !$authenticated) {
 ## Instantiate HeyuConf class
 $heyuconf = new heyuConf($config['heyuconfloc']);
 ## Get heyu (x10.conf) file contents/settings
-$settings = $heyuconf->get();
+$settings = $heyuconf->getObjects();
 
 heyu_ctrl('restart');
 header("Location: heyu.php");

@@ -69,31 +69,18 @@ else {
 		case "save":
 			$orgloc1 = $locations[$_POST["line"]]; // get original location name
 			$newloc = $_POST["location"];  // get new location name
-			$i = 0;
-			
-			// check if original location name is in use
-			foreach($heyuconf->get() as $line) {
-				if (substr($line, 0, 5) == "ALIAS") {
-					list($temp, $label, $code, $module_type_loc) = split(" ", $line, 4);
-					list($module, $type_loc) = split(" # ", $module_type_loc, 2);
-					list($type, $orgloc2) = split(",", $type_loc, 2);
-		
-					// if and ALIAS and location in use, then substitute with new name and add to array
-					if ($orgloc1 == $orgloc2) {
-						$array[$i] = $temp." ".$label." ".$code." ".$module." # ".$type.",".$newloc."\n";
-						$changed = true;	
-					}
-					else 
-						$array[$i] = $line; // else just add line to array
-				}
-				else 
-					$array[$i] = $line; // if != ALIAS add to array
-					
-				$i++;
+			$found = false;
+			foreach($heyuconf->getAliases() as $anAlias) {
+				 if ($anAlias->getAliasMap()->getFloorPlanLabel() == trim($orgloc1)) {
+					$found = true;
+				 }
 			}
-			
-			edit_line($locations, FPLAN_FILE_LOCATION, 'floorplan'); // save new floorplan
-			if ($changed) save_file($array, $config['heyuconfloc']); // save heyu conf file if changes made
+						
+			// if location was found do not allow edit
+			if (!$found)
+				edit_line($locations, FPLAN_FILE_LOCATION, 'floorplan'); // save new floorplan
+			else
+				gen_error(null, $lang['error_loc_in_use']);
 			break;
 		
 		// delete location	
@@ -102,18 +89,17 @@ else {
 			$found = false;
 			
 			// check if location is in use
-			foreach($heyuconf->getAliases() as $alias_num) {
-				list($alias, $temp) = split("@", $alias_num, 2);
-				list($temp, $temp, $temp, $module_type) = split(" ", $alias, 4);
-				list($temp, $typenloc) = split(" # ", $module_type, 2);
-				list($temp, $loc) = split(",", $typenloc, 2);
-			
-				if ($loc2rm == $loc) $found = true;
+			foreach($heyuconf->getAliases() as $anAlias) {
+				 if ($anAlias->getAliasMap()->getFloorPlanLabel() == trim($loc2rm)) {
+					$found = true;
+				 }
 			}
 		
 			// if location was found do not allow removal
-			if (!$found) delete_line($locations, FPLAN_FILE_LOCATION, $_GET["line"]);
-			else gen_error(null, $lang['error_loc_in_use']);
+			if (!$found)
+				delete_line($locations, FPLAN_FILE_LOCATION, $_GET["line"]);
+			else
+				gen_error(null, $lang['error_loc_in_use']);
 			break;
 		
 		// move up/down location

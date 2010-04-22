@@ -19,13 +19,15 @@
  * Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 require_once(CLASS_FILE_LOCATION."configelement.class.php");
+require_once(CLASS_FILE_LOCATION."aliasmapelement.class.php");
+
 class Alias extends ConfigElement {
 	private $label;
 	private $houseCode;
 	private $devices;
 	private $moduleType;
 	private $moduleOptions;
-	private $enabled;
+	private $aliasMapElement;
 
 	/**
 	 * Constructor
@@ -51,6 +53,9 @@ class Alias extends ConfigElement {
         	$this->devices = '1';
         	$this->moduleType = 'STDLM';
         	$this->moduleOptions = '';
+        	$this->aliasMapElement = new AliasMapElement();
+        	$this->aliasMapElement->setAliasLabel($this->label);
+        	$this->aliasMapElement->rebuildElementLine();
         	$this->enabled = true;
 			$this->rebuildElementLine();
         }
@@ -74,13 +79,40 @@ class Alias extends ConfigElement {
 		// FIX ME
 //		$elements = preg_split('/(^[a-pA-P])[0-9\-,]*/', $houseUnitCodes, -1, PREG_SPLIT_DELIM_CAPTURE);
 		preg_match('/(^[a-pA-P])[0-9\-,]*/', $houseUnitCodes, $elements);
-		pr($elements);
+//		pr($elements);
 		if(count($elements) > 1) {
 			$this->houseCode = $elements[1];
 			$this->devices = substr($houseUnitCodes, 1);
 		}
 		else
 			throw new Exception("Invalid alias house-unit codes: ".print_r($elements, true));
+	}
+	
+	function getLabel() {
+		return $this->label;
+	}
+
+	function setAliasMap($anAliasMap) {
+		$this->aliasMapElement = $anAliasMap;
+	}
+	
+	function getAliasMap() {
+		return $this->aliasMapElement;
+	}
+	
+	function getHouseDevice() {
+		return $this->houseCode.$this->devices;
+	}
+	
+	function getModuleType() {
+		return $this->moduleType;
+	}
+	
+	function getCodeAndLabel() {
+//			list($temp, $label, $code, $module_type_loc) = split(" ", $line, 4);
+			$cl	= $houseCode.$devices."@".$label;
+		
+		return $cl;
 	}
 }
 ?>

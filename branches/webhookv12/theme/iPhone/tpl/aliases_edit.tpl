@@ -38,7 +38,7 @@
                 <br clear="all" />
                 <label><?php echo ($lang['location']);?>:</label>
                 <select name="loc">
-                <?php foreach (load_file(FPLAN_FILE_LOCATION) as $locnf): ?>
+                <?php foreach ($floorplan as $locnf): ?>
                 <?php $locf = rtrim($locnf); ?>
                     <?php if (rtrim($loc) == $locf): ?>
                         <option value="<?php echo $locf; ?>" selected><?php echo $locf; ?></option>

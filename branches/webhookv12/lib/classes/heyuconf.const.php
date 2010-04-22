@@ -19,4 +19,17 @@
  * Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 define("ALIAS_D", "alias");
+define("USERSYN_D", "usersyn");
+define("SCENE_D", "scene");
+define("SCRIPT_MODE_D", "script_mode");
+define("MODE_D", "mode");
+define("AUTOFETCH_D", "autofetch");
+define("ACK_HAILS_D", "ack_hails");
+define("WRITE_CHECK_FILES_D", "write_check_files");
+define("REPL_DELAYED_MACROS_D", "repl_delayed_macros");
+define("COMPRESS_MACROS_D", "compress_macros");
+define("COMBINE_EVENTS_D", "combine_events");
+define("DUSK_OPTION_D", "dusk_option");
+define("DAWN_OPTION_D", "dawn_option");
+define("SCRIPTS_D", "scripts");
 ?>

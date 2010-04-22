@@ -31,6 +31,9 @@ class ConfigElement extends Element {
 			case SECTION_D:
 				return true;
 				break;
+			default:
+				return true;
+				break;
 		}
 		return false;
 	}

@@ -147,9 +147,8 @@ $buttonaction = $_POST["buttonaction"];
   <tr>
     <td>
     <select name="module" size="12" disabled>
-	<?php foreach ($codelabels as $codelabel): ?>
-		<?php list($code, $label) = split("@", $codelabel, 2); ?>
- 		<option value="<?php echo $label;?>" <?php if ($selcode == $label) echo "selected"; ?>><?php echo label_parse($label, false);?></option>
+	<?php foreach ($aliases as $alias): ?>
+ 		<option value="<?php echo $alias->getLabel();?>" <?php if ($selcode == $alias->getLabel()) echo "selected"; ?>><?php echo label_parse($alias->getLabel(), false);?></option>
 	<?php endforeach; ?>
 	</select>
     </td>

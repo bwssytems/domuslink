@@ -32,8 +32,9 @@ if ($config['seclevel'] != "0" && !$authenticated) {
 ## Instantiate HeyuConf class
 $heyuconf = new heyuConf($config['heyuconfloc']);
 ## Get heyu conf & aliases
-$settings = $heyuconf->get();
-$aliases = $heyuconf->getAliases(true);
+$settings = $heyuconf->getObjects();
+$aliases = $heyuconf->getAliases();
+$floorPlan = $heyuconf->getFloorPlan();
 ## Disallowed characters for alias label (separator |)
 $chars = '/ã|é|à|ç|õ|ñ|è|ñ|ª|º|~|è|!|"|\#|\$|\^|%|\&|\?|\«|\»/';
 
@@ -51,23 +52,22 @@ if (!isset($_GET["action"])) {
 	$tpl_add = & new Template(TPL_FILE_LOCATION.'aliases_add.tpl');
 	$tpl_add->set('lang', $lang);
 	$tpl_add->set('modtypes', $modtypes);
+	$tpl_add->set('floorplan', $floorPlan);
 	$tpl_body->set('form', $tpl_add);
 }
 else {
 	switch ($_GET["action"]) {
 		case "edit":
-			list($temp, $label, $code, $module_type_loc) = split(" ", $settings[$_GET['line']], 4);
-			list($module, $type_loc) = split(" # ", $module_type_loc, 2);
-			list($type, $loc) = split(",", $type_loc, 2);
-			
 			$tpl_edit = & new Template(TPL_FILE_LOCATION.'aliases_edit.tpl');
 			$tpl_edit->set('lang', $lang);		
-			$tpl_edit->set('label', $label);
-			$tpl_edit->set('code', $code);
-			$tpl_edit->set('module', $module);
+			$tpl_edit->set('label', $settings[$_GET['line']]->getLabel());
+			$tpl_edit->set('code', $settings[$_GET['line']]->getHouseDevice());
+			$tpl_edit->set('module', $settings[$_GET['line']]->getModuleType());
 			$tpl_edit->set('modtypes', $modtypes);
-			$tpl_edit->set('type', $type);
-			$tpl_edit->set('loc', $loc);
+			$tpl_edit->set('type', $settings[$_GET['line']]->getAliasMap()->getType());
+			$tpl_edit->set('loc', $settings[$_GET['line']]->getAliasMap()->getFloorPlanLabel());
+			$tpl_edit->set('floorplan', $floorPlan);
+			$tpl_edit->set('homehidden', $settings[$_GET['line']]->getAliasMap()->getHiddenFromHome());
 			$tpl_edit->set('linenum', $_GET['line']); // sets number of line being edited
 			$tpl_body->set('form', $tpl_edit);
 			break;
@@ -75,24 +75,44 @@ else {
 		case "add":
 			if (preg_match($chars, $_POST["label"]))
 				gen_error(null, $lang['error_special_chars']);
-			else
-				add_line_end($settings, $config['heyuconfloc'], 'alias');
+			else {
+				$anAlias = new Alias(ALIAS_D." ".$_POST["label"]." ".$_POST["code"]." ".$_POST["module"]);
+				$anAlias->setAliasMap(new AliasMapElement($_POST["label"].",".$_POST["type"].",".$_POST["loc"].",".$_POST["homehidden"]));
+				$heyuconf->addElement($anAlias);
+
+				$heyuconf->save();
+				header("Location: ".$_SERVER['PHP_SELF']);
+			}
 			break;
 		
 		case "save":
 			if (preg_match($chars, $_POST["label"]))
 				gen_error(null, $lang['error_special_chars']);
-			else
-				edit_line($settings, $config['heyuconfloc'], 'alias');
+			else {
+				$settings[$_POST["line"]]->parseAliasLine(ALIAS_D." ".$_POST["label"]." ".$_POST["code"]." ".$_POST["module"]);
+				$settings[$_POST["line"]]->getAliasMap()->setType($_POST["type"]);
+				$settings[$_POST["line"]]->getAliasMap()->setAliasLabel($_POST["label"]);
+				$settings[$_POST["line"]]->getAliasMap()->setFloorPlanLabel($_POST["loc"]);
+				$settings[$_POST["line"]]->getAliasMap()->setHiddenFromHome($_POST["homehidden"]);
+				$settings[$_POST["line"]]->getAliasMap()->rebuildElementLine();
+				$settings[$_POST["line"]]->rebuildElementLine();
+
+				$heyuconf->save();
+				header("Location: ".$_SERVER['PHP_SELF']);
+			}
 			break;
 		
 		case "del":
-			delete_line($settings, $config['heyuconfloc'], $_GET["line"]);
+			$heyuconf->deleteElement($_GET["line"]);
+			$heyuconf->save();
+			header("Location: ".$_SERVER['PHP_SELF']);
 			break;
 		
 		case "move":
-			if ($_GET["dir"] == "up") reorder_array($settings, $_GET['line'], $_GET['line']-1, $config['heyuconfloc']);
-			if ($_GET["dir"] == "down") reorder_array($settings, $_GET['line'], $_GET['line']+1, $config['heyuconfloc']);
+			if ($_GET["dir"] == "up") $heyuconf->reorderElements($_GET['line'], $_GET['line']-1);
+			if ($_GET["dir"] == "down") $heyuconf->reorderElements($_GET['line'], $_GET['line']+1);
+			$heyuconf->save();
+			header("Location: ".$_SERVER['PHP_SELF']);
 			break;
 			
 		//I need the add form seperated from the list (otherwise the iPhone theme is to long (a lot of scrolling))
@@ -100,15 +120,15 @@ else {
 			$tpl_add = & new Template(TPL_FILE_LOCATION.'aliases_add.tpl');
 			$tpl_add->set('lang', $lang);
 			$tpl_add->set('modtypes', $modtypes);
+			$tpl_add->set('floorplan', $floorPlan);
 			$tpl_body->set('form', $tpl_add);				
 			//unset the aliases and size so it doesn't show.
 			$tpl_body->set('aliases', '');
 			$tpl_body->set('size', '');
-		break;
+			break;
 			
 		//I need the edit form seperated from the list (otherwise the iPhone theme is to long (a lot of scrolling))
 		case "showeditform":
-
 			//unset the aliases and size so it doesn't show.
 			$tpl_body->set('aliases', '');
 			$tpl_body->set('size', '');	
@@ -116,22 +136,18 @@ else {
 			unset($tpl_add);
 			
 			//Ok, ready to get the edit form!
-			list($temp, $label, $code, $module_type_loc) = split(" ", $settings[$_GET['line']], 4);
-			list($module, $type_loc) = split(" # ", $module_type_loc, 2);
-			list($type, $loc) = split(",", $type_loc, 2);
-			
 			$tpl_edit = & new Template(TPL_FILE_LOCATION.'aliases_edit.tpl');
 			$tpl_edit->set('lang', $lang);		
-			$tpl_edit->set('label', $label);
-			$tpl_edit->set('code', $code);
-			$tpl_edit->set('module', $module);
+			$tpl_edit->set('label', $settings[$_GET['line']]->getLabel());
+			$tpl_edit->set('code', $settings[$_GET['line']]->getHouseDevice());
+			$tpl_edit->set('module', $settings[$_GET['line']]->getModuleType());
 			$tpl_edit->set('modtypes', $modtypes);
-			$tpl_edit->set('type', $type);
-			$tpl_edit->set('loc', $loc);
+			$tpl_edit->set('type', $settings[$_GET['line']]->getAliasMap()->getType());
+			$tpl_edit->set('loc', $settings[$_GET['line']]->getAliasMap()->getFloorPlanLabel());
+			$tpl_edit->set('floorplan', $floorPlan);
 			$tpl_edit->set('linenum', $_GET['line']); // sets number of line being edited
 			$tpl_body->set('form', $tpl_edit);				
-
-		break;			
+			break;			
 	}
 }
 

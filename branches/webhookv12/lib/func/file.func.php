@@ -39,19 +39,6 @@ function load_file($fileloc) {
 }
 
 /**
- * Add line to file
- *
- * @param $content file contents being received
- * @param $fileloc complete file location
- * @param $linenum line to add after
- * @param $editing represents what type is being edited (alias, location, etc)
- */
-function add_line($content, $fileloc, $linenum, $editing) {
-	array_splice($content, $linenum, 0, build_new_line($editing));
-	save_file($content, $fileloc);
-}
-
-/**
  * Add line to end of file
  *
  * @param $content file contents being received
@@ -85,18 +72,18 @@ function build_new_line($type) {
 	
 	switch ($type)
 	{
-		case "alias":
-			return "ALIAS ".label_parse($_POST["label"], true)." ".strtoupper($_POST["code"])." ".$_POST["module"]." # ".$_POST["type"].",".$_POST["loc"]."\n";
-			break;
+//		case "alias":
+//			return "ALIAS ".label_parse($_POST["label"], true)." ".strtoupper($_POST["code"])." ".$_POST["module"]." # ".$_POST["type"].",".$_POST["loc"]."\n";
+//			break;
 		case "floorplan":
 			return $_POST["location"]."\n";
 			break;
-		case "module":
-			return $_POST["module"]."\n";
-			break;
-		case "type":
-			return $_POST["type"]."\n";
-			break;
+//		case "module":
+//			return $_POST["module"]."\n";
+//			break;
+//		case "type":
+//			return $_POST["type"]."\n";
+//			break;
 	}
 }
 
@@ -105,19 +92,6 @@ function build_new_line($type) {
  */
 function direct_replace_line($content, $fileloc, $linecontent, $linenumber) {
 	$content[$linenumber] = $linecontent;
-	save_file($content, $fileloc);
-}
-
-/**
- * Direct Add line to file
- *
- * @param $content file contents being received
- * @param $fileloc complete file location
- * @param $linenum line to add after
- * @param $editing represents what type is being edited (alias, location, etc)
- */
-function direct_add_line($content, $fileloc, $linecontent, $linenum) {
-	array_splice($content, $linenum, 0, $linecontent);
 	save_file($content, $fileloc);
 }
 
@@ -168,6 +142,7 @@ function save_file($content, $fileloc, $isheyuconf = false) {
 		foreach ($content as $line) {
 			$write = fwrite($fp, $line);
 		}
+		fclose($fp);
 		if ($isheyuconf)
 			header("Location: ".$config['url_path']."/admin/reload.php");
 		else
@@ -175,9 +150,24 @@ function save_file($content, $fileloc, $isheyuconf = false) {
 
 	}
 	else {
+		fclose($fp);
 		gen_error(null, $fileloc." ".$lang['error_filerw']);
 	}
-	fclose($fp);
 }
 
+function save_file_raw($content, $fileloc) {
+	global $lang;
+	$fp = fopen($fileloc,'w');
+
+	if (is_writable($fileloc) == true) {
+		foreach ($content as $line) {
+			$write = fwrite($fp, $line);
+		}
+		fclose($fp);
+	}
+	else {
+		fclose($fp);
+		gen_error(null, $fileloc." ".$lang['error_filerw']);
+	}
+}
 ?>

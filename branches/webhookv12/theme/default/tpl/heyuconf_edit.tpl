@@ -136,16 +136,17 @@ ProgressDestroy();	// Hides
 <?php $act = 0; $sct = 0; $usct = 0; // alias, scene and usersyn counts for posts ?>
 <?php foreach($settings as $setting):
   list($directivenf, $valuenf) = split(" ", $setting, 2);
+  $directivenf = $setting->getType();
   $value = rtrim($valuenf, "\n");
   $directive = str_replace("_", " ", $directivenf); ?>
 
-  <?php if ($directive == "ALIAS"): ?>
+  <?php if ($directive == ALIAS_D): ?>
   <input type="hidden" name="<?php echo $directivenf; echo $act; ?>" value="<?php echo $value; ?>" />
   <?php $act++; ?>
-  <?php elseif ($directive == "SCENE"): ?>
+  <?php elseif ($directive == SCENE_D): ?>
     <input type="hidden" name="<?php echo $directivenf; echo $act; ?>" value="<?php echo $value; ?>" />
     <?php $sct++; ?>
-  <?php elseif ($directive == "USERSYN"): ?>
+  <?php elseif ($directive == USERSYN_D): ?>
     <input type="hidden" name="<?php echo $directivenf; echo $act; ?>" value="<?php echo $value; ?>" />
     <?php $usct++; ?>
   <?php else: // if not alias, scene or usersyn ?>
@@ -156,7 +157,7 @@ ProgressDestroy();	// Hides
         <h6><?php echo $directive; ?>:&nbsp;</h6>
       </td>
 
-    <?php if ($directivenf == "SCRIPT_MODE"): ?>
+    <?php if ($directivenf == SCRIPT_MODE_D): ?>
       <td>
         <select name="<?php echo($directivenf); ?>">
         <?php if ($value == "SCRIPTS"): ?>
@@ -168,7 +169,7 @@ ProgressDestroy();	// Hides
         <?php endif ?>
         </select>
       </td>
-      <?php elseif ($directivenf == "MODE"): ?>
+      <?php elseif ($directivenf == MODE_D): ?>
       <td>
         <select name="<?php echo($directivenf); ?>">
           <?php if ($value == "COMPATIBLE"): ?>
@@ -180,14 +181,14 @@ ProgressDestroy();	// Hides
           <?php endif ?>
         </select>
       </td>
-      <?php elseif ($directivenf == "COMBINE_EVENTS" || $directivenf == "COMPRESS_MACROS" || $directivenf == "REPL_DELAYED_MACROS" ||
-      $directivenf == "WRITE_CHECK_FILES" || $directivenf == "ACK_HAILS" || $directivenf == "AUTOFETCH"): ?>
+      <?php elseif ($directivenf == COMBINE_EVENTS_D || $directivenf == COMPRESS_MACROS_D || $directivenf == REPL_DELAYED_MACROS_D ||
+      $directivenf == WRITE_CHECK_FILES_D || $directivenf == ACK_HAILS_D || $directivenf == AUTOFETCH_D): ?>
       <td>
         <select name="<?php echo($directivenf); ?>">
           <?php echo yesnoopt($value); ?>
         </select>
       </td>
-      <?php elseif ($directivenf == "DAWN_OPTION" || $directivenf == "DUSK_OPTION"): ?>
+      <?php elseif ($directivenf == DAWN_OPTION_D || $directivenf == DUSK_OPTION_D): ?>
       <td>
         <select name="<?php echo($directivenf); ?>">
           <?php echo dawnduskopt($value); ?>

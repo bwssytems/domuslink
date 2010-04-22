@@ -24,4 +24,5 @@ define("COMMENT_D", "comment");
 define("COMMENT_SIGN_D", "#");
 define("SECTION_D", "section");
 define("ARRAY_DELIMETER_D", "@");
+define("ALL_OBJECTS_D", "ALL_OBJECTS");
 ?>

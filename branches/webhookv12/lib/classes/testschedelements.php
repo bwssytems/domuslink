@@ -2,6 +2,7 @@
 require_once("../../include.php");
 require_once(FUNC_FILE_LOCATION."debug.func.php");
 require_once(CLASS_FILE_LOCATION."scheduleelement.class.php");
+require_once(CLASS_FILE_LOCATION."heyusched.class.php");
 require_once(CLASS_FILE_LOCATION."timer.class.php");
 $testLine = "# timer s.....s expire-23 6:02 22:30  office_flrlamp_on	 office_flrlamp_off Dusklt 21:04	# this is a test Dusklt 21:00 #\n";
 //$testLine = "macro halltbllamp_on 0 on upstairs_hall_table";
@@ -42,5 +43,18 @@ catch(Exception $e ) {
 	echo "&nbsp;&nbsp;&nbsp;&nbsp;E!: ".$e->getMessage()."<br/>";
 }
 echo "<br/>";
+echo "The sched file [x10.sched]<br/>";
+echo "<br/>";
+echo "* Test Sched file<br/>";
+try {
+$aHeyuSched = new heyuSched("/etc/heyu/x10.sched");
+echo "&nbsp;&nbsp;&nbsp;&nbsp;The return of heyu sched get element objects<br/>";
+pr($aHeyuSched->getElementObjects("trigger"));
+echo "&nbsp;&nbsp;&nbsp;&nbsp;The return of heyu sched file<br/>";
+pr($aHeyuSched);
+}
+catch(Exception $e ) {
+	echo "&nbsp;&nbsp;&nbsp;&nbsp;E!: ".$e->getMessage()."<br/>";
+}
 echo "-------------------- End Test bed for schedule element classes --------------------<br/>";
 ?>
