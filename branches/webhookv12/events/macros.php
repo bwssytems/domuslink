@@ -56,12 +56,12 @@ else {
 	switch ($_GET["action"]) {
 		case "enable":
 			$schedObjs[$_GET['line']]->setEnabled(true);
-			save_file($schedObjs, $schedfileloc);
+			$heyusched->save();
 			break;
 			
 		case "disable":
 			$schedObjs[$_GET['line']]->setEnabled(false);
-			save_file($schedObjs, $schedfileloc);
+			$heyusched->save();
 			break;
 			
 		case "edit":
@@ -86,10 +86,9 @@ else {
 				else
 					$aMacro->setEnabled(true);
 
-				array_splice($schedObjs,$heyusched->getLine(MACRO_D, END_D)+ 1, 0, array($aMacro));
-				$heyusched->setLine(MACRO_D, $heyusched->getLine(MACRO_D, END_D) + 1, END_D);
+				$heyusched->addElement($aMacro);
 
-				save_file($schedObjs, $schedfileloc);
+				$heyusched->save();
 			}
 			break;
 			
@@ -101,21 +100,26 @@ else {
 			else
 				$schedObjs[$_POST["line"]]->setEnabled(true);
 
-			save_file($schedObjs, $schedfileloc);
+			$heyusched->save();
 			break;
 			
 		case "del":
-			delete_line($schedObjs, $schedfileloc, $_GET["line"]);
+			$heyusched->deleteElement($_GET["line"]);
+			$heyusched->save();
 			break;
 		
 		case "cancel":
 			break;
 		
 		case "move":
-			if ($_GET["dir"] == "up") reorder_array($schedObjs, $_GET['line'], $_GET['line']-1, $schedfileloc);
-			if ($_GET["dir"] == "down") reorder_array($schedObjs, $_GET['line'], $_GET['line']+1, $schedfileloc);
+			if ($_GET["dir"] == "up") $heyusched->reorderElements($_GET['line'], $_GET['line']-1);
+			if ($_GET["dir"] == "down") $heyusched->reorderElements($_GET['line'], $_GET['line']+1);
+			$heyusched->save();
 			break;
 	}
+
+	if($_GET["action"] != "edit")
+		header("Location: ".$_SERVER['PHP_SELF']);
 }
 
 ## Display the page

@@ -121,7 +121,7 @@ class location {
 		global $config;
 		global $modtypes;
 		
-		$multi_alias = is_multi_alias($alias->getHouseDevice()); // check if A1,2 or just A1
+		$multi_alias = $alias->isMultiAlias(); // check if A1,2 or just A1
 		
 		// check if is a multi alias, if true, use modules.tpl, if not use template acording to $type
 		$tpl = ($multi_alias) ? "modules.tpl" : strtolower($alias->getAliasMap()->getType()).".tpl";

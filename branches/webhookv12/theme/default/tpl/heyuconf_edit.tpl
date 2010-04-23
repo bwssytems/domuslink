@@ -137,19 +137,20 @@ ProgressDestroy();	// Hides
 <?php foreach($settings as $setting):
   list($directivenf, $valuenf) = split(" ", $setting, 2);
   $directivenf = $setting->getType();
-  $value = rtrim($valuenf, "\n");
+  $value = rtrim($valuenf);
   $directive = str_replace("_", " ", $directivenf); ?>
 
-  <?php if ($directive == ALIAS_D): ?>
-  <input type="hidden" name="<?php echo $directivenf; echo $act; ?>" value="<?php echo $value; ?>" />
+  <?php if ($directivenf == ALIAS_D): ?>
   <?php $act++; ?>
-  <?php elseif ($directive == SCENE_D): ?>
-    <input type="hidden" name="<?php echo $directivenf; echo $act; ?>" value="<?php echo $value; ?>" />
+  <?php elseif ($directivenf == SCENE_D): ?>
     <?php $sct++; ?>
-  <?php elseif ($directive == USERSYN_D): ?>
-    <input type="hidden" name="<?php echo $directivenf; echo $act; ?>" value="<?php echo $value; ?>" />
+  <?php elseif ($directivenf == USERSYN_D): ?>
     <?php $usct++; ?>
-  <?php else: // if not alias, scene or usersyn ?>
+  <?php elseif ($directivenf == SCRIPT_D): ?>
+    <?php $usct++; ?>
+  <?php elseif ($directivenf == LAUNCHER_D): ?>
+    <?php $usct++; ?>
+  <?php else: // if not alias, scene or usersyn or other multi use directives ?>
   </td>
 </tr>
     <tr>
@@ -159,8 +160,8 @@ ProgressDestroy();	// Hides
 
     <?php if ($directivenf == SCRIPT_MODE_D): ?>
       <td>
-        <select name="<?php echo($directivenf); ?>">
-        <?php if ($value == "SCRIPTS"): ?>
+        <select name="<?php echo($directivenf); echo "@"; echo $setting->getLineNum(); ?>">
+        <?php if (strtoupper($value) == "SCRIPTS"): ?>
           <option selected value='SCRIPTS'>SCRIPTS</option>
           <option value='HEYUHELPER'>HEYUHELPER</option>
         <?php else: ?>
@@ -171,8 +172,8 @@ ProgressDestroy();	// Hides
       </td>
       <?php elseif ($directivenf == MODE_D): ?>
       <td>
-        <select name="<?php echo($directivenf); ?>">
-          <?php if ($value == "COMPATIBLE"): ?>
+        <select name="<?php echo($directivenf); echo "@"; echo $setting->getLineNum(); ?>">
+          <?php if (strtoupper($value) == "COMPATIBLE"): ?>
             <option selected value="COMPATIBLE">COMPATIBLE</option>
             <option value="HEYU">HEYU</option>
           <?php else: ?>
@@ -184,23 +185,23 @@ ProgressDestroy();	// Hides
       <?php elseif ($directivenf == COMBINE_EVENTS_D || $directivenf == COMPRESS_MACROS_D || $directivenf == REPL_DELAYED_MACROS_D ||
       $directivenf == WRITE_CHECK_FILES_D || $directivenf == ACK_HAILS_D || $directivenf == AUTOFETCH_D): ?>
       <td>
-        <select name="<?php echo($directivenf); ?>">
+        <select name="<?php echo($directivenf); echo "@"; echo $setting->getLineNum(); ?>">
           <?php echo yesnoopt($value); ?>
         </select>
       </td>
       <?php elseif ($directivenf == DAWN_OPTION_D || $directivenf == DUSK_OPTION_D): ?>
       <td>
-        <select name="<?php echo($directivenf); ?>">
+        <select name="<?php echo($directivenf); echo "@"; echo $setting->getLineNum(); ?>">
           <?php echo dawnduskopt($value); ?>
         </select>
       </td>
       <?php else: ?>
         <td>
-          <input type="text" name="<?php echo($directivenf); ?>" value="<?php echo($value); ?>" size="80" />
+          <input type="text" name="<?php echo($directivenf); echo "@"; echo $setting->getLineNum(); ?>" value="<?php echo($value); ?>" size="80" />
         </td>
       <?php endif; ?>
     </tr>
-  <?php endif; // end if not alias, scene or usersyn ?>
+  <?php endif; // end if not alias, scene or usersyn or other multi types ?>
 <?php endforeach; ?>
 </table>
 

@@ -32,4 +32,6 @@ define("COMBINE_EVENTS_D", "combine_events");
 define("DUSK_OPTION_D", "dusk_option");
 define("DAWN_OPTION_D", "dawn_option");
 define("SCRIPTS_D", "scripts");
+define("SCRIPT_D", "script");
+define("LAUNCHER_D", "launcher");
 ?>

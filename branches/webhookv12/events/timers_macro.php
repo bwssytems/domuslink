@@ -75,13 +75,11 @@ else {
 		case "enable":
 			$schedObjs[$_GET['line']]->setEnabled(true);
 			$heyusched->save();
-			header("Location: ".$_SERVER['PHP_SELF']);
 			break;
 			
 		case "disable":
 			$schedObjs[$_GET['line']]->setEnabled(false);
 			$heyusched->save();
-			header("Location: ".$_SERVER['PHP_SELF']);
 			break;
 		
 		case "edit":
@@ -121,7 +119,6 @@ else {
 			$heyusched->addElement($aTimer);
 
 			$heyusched->save();
-			header("Location: ".$_SERVER['PHP_SELF']);
 			break;
 			
 		case "save":
@@ -138,23 +135,23 @@ else {
 			$schedObjs[$_POST["line"]]->rebuildElementLine();
 
 			$heyusched->save();
-			header("Location: ".$_SERVER['PHP_SELF']);
 			break;
 
 		case "del":
 			$heyusched->deleteElement($_GET["line"]);
 			$heyusched->save();
-			header("Location: ".$_SERVER['PHP_SELF']);
 			break;
 		
 		case "move":
 			if ($_GET["dir"] == "up") $heyusched->reorderElements($_GET['line'], $_GET['line']-1);
 			if ($_GET["dir"] == "down") $heyusched->reorderElements($_GET['line'], $_GET['line']+1);
 			$heyusched->save();
-			header("Location: ".$_SERVER['PHP_SELF']);
 			break;
 			
 	}
+	
+	if($_GET["action"] != "edit")
+		header("Location: ".$_SERVER['PHP_SELF']);
 }
 
 ## Display the page

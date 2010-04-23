@@ -43,13 +43,13 @@ catch(Exception $e ) {
 	echo "&nbsp;&nbsp;&nbsp;&nbsp;E!: ".$e->getMessage()."<br/>";
 }
 echo "<br/>";
-echo "The sched file [x10.sched]<br/>";
+echo "The sched file tests [x10.sched]<br/>";
 echo "<br/>";
 echo "* Test Sched file<br/>";
 try {
 $aHeyuSched = new heyuSched("/etc/heyu/x10.sched");
 echo "&nbsp;&nbsp;&nbsp;&nbsp;The return of heyu sched get element objects<br/>";
-pr($aHeyuSched->getElementObjects("trigger"));
+pr($aHeyuSched->getElementObjects(ALL_OBJECTS_D));
 echo "&nbsp;&nbsp;&nbsp;&nbsp;The return of heyu sched file<br/>";
 pr($aHeyuSched);
 }

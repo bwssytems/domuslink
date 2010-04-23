@@ -76,10 +76,7 @@ class Alias extends ConfigElement {
 	}
 	
 	function parseHouseUnitCodes($houseUnitCodes) {
-		// FIX ME
-//		$elements = preg_split('/(^[a-pA-P])[0-9\-,]*/', $houseUnitCodes, -1, PREG_SPLIT_DELIM_CAPTURE);
-		preg_match('/(^[a-pA-P])[0-9\-,]*/', $houseUnitCodes, $elements);
-//		pr($elements);
+		preg_match('/(^[a-pA-P])([0-9\-,]*)/', $houseUnitCodes, $elements);
 		if(count($elements) > 1) {
 			$this->houseCode = $elements[1];
 			$this->devices = substr($houseUnitCodes, 1);
@@ -104,15 +101,15 @@ class Alias extends ConfigElement {
 		return $this->houseCode.$this->devices;
 	}
 	
+	function isMultiAlias() {
+		if (strpos($this->devices, ",") || strpos($this->devices, "-"))
+			return true;
+		else
+			return false;
+	}
+
 	function getModuleType() {
 		return $this->moduleType;
-	}
-	
-	function getCodeAndLabel() {
-//			list($temp, $label, $code, $module_type_loc) = split(" ", $line, 4);
-			$cl	= $houseCode.$devices."@".$label;
-		
-		return $cl;
 	}
 }
 ?>

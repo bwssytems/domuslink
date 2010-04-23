@@ -63,20 +63,6 @@ function label_parse($str, $add = false) {
 }
 
 /**
- * Check if alias contains various modules
- * 
- * Description: This function received an alias and check's if string contain's a ","
- * If it does, then string has various aliases
- * 
- * @param $alias represents alias received
- * 
- */
-function is_multi_alias($alias) {
-	if (strpos($alias, ",") || strpos($alias, "-"))
-		return true;
-}
-
-/**
  * Uptime
  * 
  * Description: Return the result for the uptime command

@@ -35,7 +35,7 @@ if ($config['seclevel'] != "0" && !$authenticated) {
 $heyuconf = new heyuConf($config['heyuconfloc']);
 $schedfileloc = $config['heyu_base_real'].$heyuconf->getSchedFile();
 
-## Load aliases and parse so that only code and labels remain
+## Load aliases objects
 $aliases = $heyuconf->getAliases();
 
 ## Instantiate heyuSched class, get contents and parse timers
@@ -76,7 +76,7 @@ else {
 			$sm = get_specific_macros($macros, $_GET['onm'], $_GET['ofm']); 
 			change_macro_states($sm, "enable");
 			$schedObjs[$_GET['line']]->setEnabled(true);
-			save_file($schedObjs, $schedfileloc);
+			$heyusched->save();
 			break;
 			
 		case "disable":
@@ -92,7 +92,7 @@ else {
 			}
 
 			$schedObjs[$_GET['line']]->setEnabled(false);
-			save_file($schedObjs, $schedfileloc);
+			$heyusched->save();
 			break;
 		
 		case "edit":
@@ -128,7 +128,7 @@ else {
 			if(!isset($_POST["null_macro_off"]))
 				$aTimer->setStopMacro(strtolower($_POST["module"])."_off");
 
-			if($_POST["status"] == "#")
+			if($_POST["status"] == COMMENT_SIGN_D)
 				$aTimer->setEnabled(false);
 
 			$aTimer->rebuildElementLine();
@@ -143,55 +143,51 @@ else {
 			else {
 				if( $aTimer->getStartMacro() != "null") {
 					$onMacroObj = new ScheduleElement("macro ".$aTimer->getStartMacro()." 0 on ".strtolower($_POST["module"]));
-					array_splice($schedObjs,$heyusched->getLine(MACRO_D, END_D) + 1, 0, array($onMacroObj));
-					$heyusched->setLine(MACRO_D, $heyusched->getLine(MACRO_D, END_D) + 1, END_D);
+					$heyusched->addElement($onMacroObj);
 					$i++;
 				}
 				if( $aTimer->getStopMacro() != "null") {
 					$offMacroObj = new ScheduleElement("macro ".$aTimer->getStopMacro()." 0 off ".strtolower($_POST["module"]));
-					array_splice($schedObjs,$heyusched->getLine(MACRO_D, END_D) + 1, 0, array($offMacroObj));
-					$heyusched->setLine(MACRO_D, $heyusched->getLine(MACRO_D, END_D) + 1, END_D);
+					$heyusched->addElement($offMacroObj);
 					$i++;
 				}
 			}
-
-			array_splice($schedObjs,$heyusched->getLine(TIMER_D, END_D)+ $i, 0, array($aTimer));
-			$heyusched->setLine(TIMER_D, $heyusched->getLine(TIMER_D, END_D) + $i, END_D);
-
-			save_file($schedObjs, $schedfileloc);
+			$heyusched->addElement($aTimer);
+			$heyusched->save();
 			break;
 			
 		case "save":
 			//build timer line with POST results
 			post_data_to_timer($schedObjs[$_POST["line"]]);
 			$schedObjs[$_POST["line"]]->rebuildElementLine();
-			save_file($schedObjs, $schedfileloc);
+			$heyusched->save();
 			break;
 
 		case "del":
 			//check if any other timer or trigger (enabled or disabled) is using macros
 			//	if no  - delete timer and assiociated macros
 			//	if yes - only delete timer
+			$heyusched->deleteElement($_GET["line"]);
 			if (multiple_macro_use($schedObjs, $_GET['onm'], $_GET['ofm'], $_GET['line']) == 0) {
 				//delete timer and associated macros
 				$smas = get_specific_macros($macros, $_GET['onm'], $_GET['ofm']);
 				foreach ($smas as $num => $macroObj) {
-						array_splice($schedObjs, $macroObj->getLineNum()-$num, 1); //deletes macros
+					$heyusched->deleteElement($macroObj->getLineNum());
 				}
-				delete_line($schedObjs, $schedfileloc, $_GET["line"]-count($smas)); //deletes timer
 			}
-			else {
-				//only delete timer since other timer(s) are using macros
-				delete_line($schedObjs, $schedfileloc, $_GET["line"]); //deletes timer
-			}
+			$heyusched->save();
 			break;
 		
 		case "move":
-			if ($_GET["dir"] == "up") reorder_array($schedObjs, $_GET['line'], $_GET['line']-1, $schedfileloc);
-			if ($_GET["dir"] == "down") reorder_array($schedObjs, $_GET['line'], $_GET['line']+1, $schedfileloc);
+			if ($_GET["dir"] == "up") $heyusched->reorderElements($_GET['line'], $_GET['line']-1);
+			if ($_GET["dir"] == "down") $heyusched->reorderElements($_GET['line'], $_GET['line']+1);
+			$heyusched->save();
 			break;
 			
 	}
+
+	if($_GET["action"] != "edit")
+		header("Location: ".$_SERVER['PHP_SELF']);
 }
 
 ## Display the page

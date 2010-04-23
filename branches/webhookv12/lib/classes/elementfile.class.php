@@ -36,7 +36,6 @@ abstract class ElementFile {
         if(!empty($args))
         {
 			$this->filename = $args[0];
-			$this->lineStore = array(END_D => array(), BEGIN_D => array());
 			$this->load();
         }
 	}
@@ -58,10 +57,26 @@ abstract class ElementFile {
 				throw new Exception("Error loading ".$this->filename." - line ".$num.", ".$e->getMessage());
 			}
 		}
+		$this->updateLineNumbers();
 	}
 
+	
+	private function updateLineNumbers() {
+		$this->lineStore = array(END_D => array(), BEGIN_D => array());
+		for($i = 0; $i < count($this->elementObjects); $i++) {
+			$this->elementObjects[$i]->setLineNum($i);
+			if (!array_key_exists($this->elementObjects[$i]->getType(), $this->lineStore[BEGIN_D])) {
+				$this->setLine($this->elementObjects[$i]->getType(), $this->elementObjects[$i]->getLineNum(), BEGIN_D);
+			}
+
+			if (array_key_exists($this->elementObjects[$i]->getType(), $this->lineStore[BEGIN_D])) {
+				$this->setLine($this->elementObjects[$i]->getType(), $this->elementObjects[$i]->getLineNum(), END_D);
+			}
+		}
+	}
+	
 	function save() {
-		save_file_raw($this->getObjects(), $this->filename);
+		save_file($this->getObjects(), $this->filename);
 	}
 
 	function addElement($anElement) {
@@ -71,17 +86,21 @@ abstract class ElementFile {
 			$arrayIndex = $arrayLength - 1;
 
 		array_splice($this->elementObjects, $arrayIndex + 1, 0, array($anElement));
-		$this->setLine($anElement->getType(), $arrayIndex + 1, END_D);
+//		$this->setLine($anElement->getType(), $arrayIndex + 1, END_D);
+		$this->updateLineNumbers();
 	}
 	
 	function deleteElement($arrayIndex) {
+		$theType = $this->elementObjects[$arrayIndex]->getType();
 		array_splice($this->elementObjects, $arrayIndex, 1);
+		$this->updateLineNumbers();
 	}
 
 	function reorderElements($arrayIndex, $newArrayIndex) {
 		$tmp = $this->elementObjects[$arrayIndex];
 		$this->elementObjects[$arrayIndex] = $this->elementObjects[$newArrayIndex];
 		$this->elementObjects[$newArrayIndex] = $tmp;
+		$this->updateLineNumbers();
 	}
 	
 	function getObjects() {
@@ -90,6 +109,7 @@ abstract class ElementFile {
 
 	protected function setObjects($elements) {
 		$this->elementObjects = $elements;
+		$this->updateLineNumbers();
 	}
 	
 	/**
@@ -101,29 +121,14 @@ abstract class ElementFile {
 	function getElementObjects($objectType) {
 		$i = 0;
 		$objectArray = array();
-		$beginLine = 0;
-		$beginLineSet = false;
-		$endLine = 0;
 		foreach($this->elementObjects as $anElementObject) {
 			if ($anElementObject->getType() == $objectType || $objectType == ALL_OBJECTS_D) {
 				$objectArray[$i] = $anElementObject;
 				$objectArray[$i]->setArrayNum($i);
 				$i++;
-				if (!$beginLineSet) {
-					$this->setLine($objectType, $anElementObject->getLineNum(), BEGIN_D);
-					$beginLine = $anElementObject->getLineNum();
-					$beginLineSet = true;
-				}
-				elseif ($beginLine) {
-					$this->setLine($objectType, $anElementObject->getLineNum(), END_D);
-					$endLine = $anElementObject->getLineNum();
-				}
 			}
 		}
 		
-		if(!$endLine) {
-			$this->setLine($objectType, $anElementObject->getLineNum(), END_D);
-		} 
 		return $objectArray;
 	}
 	

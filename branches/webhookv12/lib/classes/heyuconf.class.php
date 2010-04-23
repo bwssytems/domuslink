@@ -39,6 +39,7 @@ class heyuConf extends ElementFile {
         }
         
 		$this->aliasMap = new AliasMap(ALIASMAP_FILE_LOCATION);
+		$this->getAliases();
 	}
 
 	protected function createElement($aLine) {
