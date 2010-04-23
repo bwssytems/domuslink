@@ -25,6 +25,7 @@ This document will help familiarize new developers with the purpose and contents
 || version.php ||  ||
 
 ./admin:
+|| *Name* || *Description* ||
 || aliases.php ||  ||
 || floorplan.php ||  ||
 || frontend.php ||  ||
@@ -33,11 +34,13 @@ This document will help familiarize new developers with the purpose and contents
 || utility.php ||  ||
 
 ./db:
+|| *Name* || *Description* ||
 || floorplan-dist ||  ||
 || modules ||  ||
 || schedules ||  ||
 
 ./doc:
+|| *Name* || *Description* ||
 || CHANGES ||  ||
 || INSTALL ||  ||
 || LICENSE ||  ||
@@ -48,10 +51,12 @@ This document will help familiarize new developers with the purpose and contents
 || x10.sched ||  ||
 
 ./doc/screenshots:
+|| *Name* || *Description* ||
 || iphone-theme ||  ||
 
 
 ./events:
+|| *Name* || *Description* ||
 || macros.php ||  ||
 || timers.php ||  ||
 || timers_macro.php ||  ||
@@ -59,6 +64,7 @@ This document will help familiarize new developers with the purpose and contents
 || upload.php ||  ||
 
 ./lang:
+|| *Name* || *Description* ||
 || Dutch.php ||  ||
 || English.php ||  ||
 || French.php ||  ||
@@ -70,10 +76,12 @@ This document will help familiarize new developers with the purpose and contents
 || scanLang.pl ||  ||
 
 ./lib:
+|| *Name* || *Description* ||
 || classes ||  ||
 || func ||  ||
 
 ./lib/classes:
+|| *Name* || *Description* ||
 || error.class.php ||  ||
 || global.class.php ||  ||
 || heyuconf.class.php ||  ||
@@ -88,27 +96,33 @@ This document will help familiarize new developers with the purpose and contents
 || tpl.class.php ||  ||
 
 ./lib/func:
-|| cmd.func.php ||  ||
+|| *Name* || *Description* ||
+|| cmd.func.php ||  Common function to execute commands ||
 || config.func.php ||  ||
-|| debug.func.php ||  ||
-|| file.func.php ||  ||
+|| debug.func.php || Debug library ||
+|| file.func.php || This function loads a file and returns the whole content ||
 || heyumgmt.func.php ||  ||
-|| lang.func.php ||  ||
-|| macro.func.php ||  ||
-|| misc.func.php ||  ||
-|| timer.func.php ||  ||
+|| lang.func.php || Full Operating system language detection ||
+|| macro.func.php || Receives macro name in format 'tv_on' or 'tv_off',
+ * strips and returns only alias name ||
+|| misc.func.php || List's a specified directories contents, while excluding README files, ., .., and .svn ||
+|| timer.func.php || This function generates the weekday's table. It can
+ * be used for viewing existing timers, adding new timers and editing ||
 
 ./theme:
+|| *Name* || *Description* ||
 || README ||  ||
 || default ||  ||
 || iPhone ||  ||
 
 ./theme/default:
+|| *Name* || *Description* ||
 || default.css ||  ||
 || images ||  ||
 || javascript ||  ||
 || tpl ||  ||
 
 ./theme/default/javascript:
-|| browser_detect.js ||  ||
+|| *Name* || *Description* ||
+|| browser_detect.js || Browser Detect  v2.1.6 ||
 || popup.js ||  ||
