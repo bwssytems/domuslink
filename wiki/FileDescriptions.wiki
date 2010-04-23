@@ -103,11 +103,9 @@ This document will help familiarize new developers with the purpose and contents
 || file.func.php || This function loads a file and returns the whole content ||
 || heyumgmt.func.php ||  ||
 || lang.func.php || Full Operating system language detection ||
-|| macro.func.php || Receives macro name in format 'tv_on' or 'tv_off',
- * strips and returns only alias name ||
+|| macro.func.php || Receives macro name in format tv_on or tv_off strips and returns only alias name ||
 || misc.func.php || List's a specified directories contents, while excluding README files, ., .., and .svn ||
-|| timer.func.php || This function generates the weekday's table. It can
- * be used for viewing existing timers, adding new timers and editing ||
+|| timer.func.php || This function generates the weekday's table. It can be used for viewing existing timers, adding new timers and editing ||
 
 ./theme:
 || *Name* || *Description* ||
