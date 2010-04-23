@@ -47,6 +47,7 @@ abstract class ElementFile {
 		$elementData = load_file($this->filename);
 
 		$i = 0;
+		$this->elementObjects = array();
 		foreach ($elementData as $num => $line) {
 			try {
 				$this->elementObjects[$i] = $this->createElement($line);
