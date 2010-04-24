@@ -8,21 +8,21 @@ This document will help familiarize new developers with the purpose and contents
 
 == Details ==
 || *Name* || *Description* ||
-|| admin ||  ||
-|| config.php ||  ||
-|| db ||  ||
-|| doc || ||
-|| error.php ||  ||
-|| events ||  ||
-|| fileloc.php ||  ||
-|| include.php ||  ||
-|| index.php ||  ||
-|| lang ||  ||
-|| lib ||  ||
-|| login.php ||  ||
-|| robots.txt ||  ||
-|| theme ||  ||
-|| version.php ||  ||
+|| admin || Directory for holding administrative view controllers ||
+|| config.php || domus.Link configuration settings ||
+|| db || Directory for holding domus.Link data files ||
+|| doc ||Directory for holding domus.Link documentation files ||
+|| error.php || Error display controller to display managed exceptions in domus.Link ||
+|| events || Directory for holding timers/triggers/macro view controllers ||
+|| fileloc.php || Code to set default paths for file locations ||
+|| include.php || Code to execute initial/global settings ||
+|| index.php || Main domus.Link entry point ||
+|| lang || Directory for holding language files ||
+|| lib || Directory for hlding classes and functions ||
+|| login.php || Manage domus.Link security based on security level set in config.php ||
+|| robots.txt || Instruction set for web robots - default is disallow of course ||
+|| theme || Directory for holding domus.Link skins ||
+|| version.php || domus.Link global version setting ||
 
 ./admin:
 || *Name* || *Description* ||
