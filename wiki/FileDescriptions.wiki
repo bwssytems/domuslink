@@ -18,7 +18,7 @@ This document will help familiarize new developers with the purpose and contents
 || include.php || Code to execute initial/global settings ||
 || index.php || Main domus.Link entry point ||
 || lang || Directory for holding language files ||
-|| lib || Directory for hlding classes and functions ||
+|| lib || Directory for holding classes and functions ||
 || login.php || Manage domus.Link security based on security level set in config.php ||
 || robots.txt || Instruction set for web robots - default is disallow of course ||
 || theme || Directory for holding domus.Link skins ||
