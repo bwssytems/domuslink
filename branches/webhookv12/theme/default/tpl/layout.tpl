@@ -32,6 +32,7 @@
   <script type="application/x-javascript" src="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/javascript/browser_detect.js"></script>
   <script type="application/x-javascript" src="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/javascript/popup.js"></script>
   <script type="application/x-javascript" src="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/javascript/editableselect.js"></script>
+  <script type="application/x-javascript" src="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/javascript/progressbar.js"></script>
 
   <SCRIPT LANGUAGE="JavaScript">
   <!--
