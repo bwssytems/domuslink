@@ -217,4 +217,8 @@ $lang["heyucurrentconfig"] = "Current heyu configuration is";
 $lang["heyubaseuse"] = "Heyu Base Dir Usage";
 $lang["heyubaseuse_txt"] = "This switch forces domus.Link to pass explicit path directive using -c to heyu on execution based on the heyu_base setting when set to YES. If set to NO, domus.Link will default its heyu_base path and x10config file settings to /etc/heyu and x10.conf respectively.";
 $lang['heyuindir'] = "in directory";
+
+$lang["directive"] = "Directive";
+$lang["comment"] = "Comment";
+$lang["value"] = "Value";
 ?>

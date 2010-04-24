@@ -132,6 +132,13 @@ ProgressDestroy();	// Hides
 
 <table border="0" cellspacing="0" cellpadding="0" class="clear">
 <tr>
+  <td><h6><?php echo ($lang['directive']);?></h6></td>
+  <td style="width:10px;"></td>
+  <td><h6><?php echo ($lang['comment']);?></h6></td>
+  <td style="width:10px;"></td>
+  <td><h6><?php echo ($lang['value']);?></h6></td>
+</tr>
+<tr>
 <td>
 <?php $act = 0; $sct = 0; $usct = 0; // alias, scene and usersyn counts for posts ?>
 <?php foreach($settings as $setting):
@@ -150,6 +157,8 @@ ProgressDestroy();	// Hides
     <?php $usct++; ?>
   <?php elseif ($directivenf == LAUNCHER_D): ?>
     <?php $usct++; ?>
+  <?php elseif ($directivenf == COMMENT_D): ?>
+    <?php $usct++; ?>
   <?php else: // if not alias, scene or usersyn or other multi use directives ?>
   </td>
 </tr>
@@ -157,6 +166,9 @@ ProgressDestroy();	// Hides
       <td>
         <h6><?php echo $directive; ?>:&nbsp;</h6>
       </td>
+  		<td>&nbsp;</td>
+      <td><input type="checkbox" name="<?php echo "comment_d@"; echo $setting->getLineNum(); ?>" <?php if(!($setting->isEnabled())) echo "checked"; ?>/></td>
+		<td>&nbsp;</td>
 
     <?php if ($directivenf == SCRIPT_MODE_D): ?>
       <td>

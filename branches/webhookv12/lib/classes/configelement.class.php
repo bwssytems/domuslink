@@ -23,19 +23,10 @@ require_once(CLASS_FILE_LOCATION."element.class.php");
 require_once(CLASS_FILE_LOCATION."heyuconf.const.php");
 
 class ConfigElement extends Element {
+
 	protected function validateType($theType) {
-		switch($theType) {
-			case ALIAS_D:
-				return true;
-				break;
-			case SECTION_D:
-				return true;
-				break;
-			default:
-				return true;
-				break;
-		}
-		return false;
+		global $directive;
+		return $directive->validateDirective($theType);
 	}
 }
 ?>

@@ -60,7 +60,13 @@ else {
 			$elements = $heyuconf->getElementObjects($type);
 			foreach($elements as $anElement) {
 				if($anElement->getLineNum() == $lineNum)
+				{
 					$anElement->setElementLine(array($type, $value));
+					if(isset($_POST["comment_d@".$lineNum]))
+						$anElement->setEnabled(false);
+					else
+						$anElement->setEnabled(true);
+				}
 			}
 		}
 		$heyuconf->save();

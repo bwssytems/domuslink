@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  * domus.Link :: PHP Web-based frontend for Heyu (X10 Home Automation)
  * Copyright (c) 2007, Istvan Hubay Cebrian (istvan.cebrian@domus.link.co.pt)
@@ -19,37 +19,11 @@
  * Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-class frontObject {
+require_once(CLASS_FILE_LOCATION."element.class.php");
 
-	// Config object containing variable from config.php
-	var $config;
-	var $lang;
-	var $directive;
-
-	function & getConfig() {
-		if (!isset($this->config)) {
-			$configinstance = config_load();
-			$this->config = &$configinstance;
-		}
-
-		return $this->config;
-	}
-
-	function & getLanguageFile() {
-		if (!isset($this->lang)) {
-			$langinstance = lang_load($this->config['lang']);
-			$this->lang = &$langinstance;
-		}
-
-		return $this->lang;
-	}
-
-	function & getDirectives() {
-		if (!isset($this->directive)) {
-			$directiveinstance = new DirectiveList(DB_FILE_LOCATION."directive");
-			$this->directive = $directiveinstance;
-		}
-
-		return $this->directive;
+class DirectiveElement extends Element {
+	protected function validateType($theType) {
+		return true;
 	}
 }
+?>

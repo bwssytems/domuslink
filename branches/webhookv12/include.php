@@ -41,6 +41,10 @@ require_once(FUNC_FILE_LOCATION.'macro.func.php');
 require_once(FUNC_FILE_LOCATION.'timer.func.php');
 require_once(FUNC_FILE_LOCATION.'heyumgmt.func.php');
 
+## Load directives file
+require_once(CLASS_FILE_LOCATION.'directivelist.class.php');
+$directive =& $frontObj->getDirectives();
+
 ## Load config file functions and grab settings
 require($dirname.DIRECTORY_SEPARATOR.'version.php');
 require(FUNC_FILE_LOCATION.'config.func.php');
@@ -53,6 +57,8 @@ if (substr($config['url_path'], -1) == '/')
 ## Load language file
 require_once(FUNC_FILE_LOCATION.'lang.func.php');
 $lang =& $frontObj->getLanguageFile();
+
+
 
 ## iPhone theme autodetection
 if (strpos(strtolower($_SERVER['HTTP_USER_AGENT']),'iphone')) {
