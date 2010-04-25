@@ -32,7 +32,8 @@ abstract class ElementFile {
 	 * @args[0] $filename represents name and location
 	 */
 	function __construct() {
-    	$args = func_get_args();
+		$this->elementObjects = array();
+		$args = func_get_args();
         if(!empty($args))
         {
 			$this->filename = $args[0];
@@ -47,7 +48,6 @@ abstract class ElementFile {
 		$elementData = load_file($this->filename);
 
 		$i = 0;
-		$this->elementObjects = array();
 		foreach ($elementData as $num => $line) {
 			try {
 				$this->elementObjects[$i] = $this->createElement($line);
