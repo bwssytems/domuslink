@@ -58,6 +58,7 @@ $page = (isset($_GET['page'])) ? $_GET['page'] : "home";
 // set page title
 $tpl->set('title', ucwords($page));
 $tpl->set('page', $page);
+$tpl->set('heyu_config_name', $heyuconf->getFirstSection());
 
 // check if heyu is running, if true display modules
 if (heyu_running()) {

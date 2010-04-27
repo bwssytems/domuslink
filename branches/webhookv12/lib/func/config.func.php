@@ -224,8 +224,6 @@ function parse_config($config)
 		$config['heyuconfloc'] = $config['heyu_base_real'].$config['heyuconf_real'];
 	}
 
-	$heyuconf = new heyuConf($config['heyuconfloc']);
-	$config['heyu_config_name'] = $heyuconf->getFirstSection();
 	return $config;
 }
 

@@ -171,7 +171,7 @@
 <?php echo $lang['down']; ?> (<a href="<?php echo ($config['url_path']);?>/?daemon=start"><?php echo ($lang['start']);?></a>)
 <?php endif; ?>
 </td>
-<td align="center"><?php echo $lang['heyucurrentconfig'].": ".$config['heyu_config_name']." ".$lang['heyuindir']." ".$config['heyu_base_real'].($config['heyu_subdir'] == "default"?"":$config['heyu_subdir'])?></td>
+<td align="center"><?php echo $lang['heyucurrentconfig'].": ".$heyu_config_name." ".$lang['heyuindir']." ".$config['heyu_base_real'].($config['heyu_subdir'] == "default"?"":$config['heyu_subdir'])?></td>
 <td align="right"><?php echo (uptime()); ?></td>
 </tr>
 </table>

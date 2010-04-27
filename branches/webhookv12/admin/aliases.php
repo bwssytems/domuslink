@@ -53,6 +53,7 @@ if (!isset($_GET["action"])) {
 	$tpl_add->set('lang', $lang);
 	$tpl_add->set('modtypes', $modtypes);
 	$tpl_add->set('floorplan', $floorPlan);
+	$tpl_add->set('config', $config);
 	$tpl_body->set('form', $tpl_add);
 }
 else {
@@ -69,6 +70,7 @@ else {
 			$tpl_edit->set('floorplan', $floorPlan);
 			$tpl_edit->set('homehidden', $settings[$_GET['line']]->getAliasMap()->getHiddenFromHome());
 			$tpl_edit->set('linenum', $_GET['line']); // sets number of line being edited
+			$tpl_edit->set('config', $config);
 			$tpl_body->set('form', $tpl_edit);
 			break;
 		

@@ -47,7 +47,7 @@ function validateForm(form)
     <td valign="top"><h6><?php echo ($lang['module']);?>:</h6></td>
     <td valign="top">
     <select name="module">
-	<?php foreach (execute_cmd("heyu modlist") as $modulenf): ?>
+	<?php foreach (execute_cmd($config['heyuexec']." modlist") as $modulenf): ?>
  	<?php $modulef = rtrim($modulenf); ?>
  		<option value="<?php echo $modulef;?>"><?php echo $modulef;?></option>
 	<?php endforeach; ?>
