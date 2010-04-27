@@ -37,21 +37,18 @@ abstract class ElementFile {
         if(!empty($args))
         {
 			$this->filename = $args[0];
-			$this->load();
+			$this->load(load_file($this->filename));
         }
 	}
 
 	/**
-	 * Load elements from fiven file
+	 * Load elements from given data set
 	 */
-	function load() {
-		$elementData = load_file($this->filename);
-
+	protected function load($elementData) {
 		$i = 0;
-		foreach ($elementData as $num => $line) {
+		foreach ($elementData as $line) {
 			try {
 				$this->elementObjects[$i] = $this->createElement($line);
-				$this->elementObjects[$i]->setLineNum($num);
 				$i++;
 			}
 			catch(Exception $e ) {

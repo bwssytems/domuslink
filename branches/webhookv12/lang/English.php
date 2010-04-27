@@ -221,4 +221,10 @@ $lang['heyuindir'] = "in directory";
 $lang["directive"] = "Directive";
 $lang["comment"] = "Comment";
 $lang["value"] = "Value";
+$lang["setupverify"] = "Setup Verification";
+$lang["aliaslocationtext"] = "Derived Alias to Locations and Types from Heyu config";
+$lang["continue"] = "Continue";
+$lang["convert"] = "Convert";
+$lang["converttext"] = "Use displayed alias/locations/types derived from heyu config.";
+$lang["continuetext"] = "Continue without conversion of derived alias/locations/types.";
 ?>

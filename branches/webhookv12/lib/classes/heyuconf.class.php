@@ -38,7 +38,10 @@ class heyuConf extends ElementFile {
         	parent::__construct();
         }
         
-		$this->aliasMap = new AliasMap(ALIASMAP_FILE_LOCATION);
+		if(!file_exists(ALIASMAP_FILE_LOCATION))
+			touch(ALIASMAP_FILE_LOCATION);
+			
+        $this->aliasMap = new AliasMap(ALIASMAP_FILE_LOCATION);
 		$this->getAliases();
 	}
 

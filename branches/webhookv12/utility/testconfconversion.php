@@ -11,7 +11,7 @@ echo "The heyu conf file [x10.conf]<br/>";
 echo "<br/>";
 echo "* Test Heyu Conf file<br/>";
 try {
-$aHeyuConf = new heyuConfOld("../doc/x10.conf");
+$aHeyuConf = new heyuConfOld("/etc/heyu/x10.conf");
 echo "&nbsp;&nbsp;&nbsp;&nbsp;The return of heyu conf old get derived alias map<br/>";
 $newAliasLines = $aHeyuConf->getAliasesWithLocationAndType();
 pr($newAliasLines);

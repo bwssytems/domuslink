@@ -3,6 +3,52 @@
  |                               CHANGES                                      |
  |                                                                            |
  +----------------------------------------------------------------------------*/
+  v1.2 - XX/May/2010
+ ------
+	* Updated heyu config file handling to be agnostic and object oriented. domus.Link
+	  will now support a users custom heyu config file without any additional changes.
+	  One caveat is that domus.Link will not save comments that are placed at the end
+	  of a directive line. But, domus will preserve comments that are on a line by
+	  themselves. Internal implementation does validate directive types to valid heyu
+	  directives by executing the "heyu conflist" command to get the valid directive list.
+	* Updated alias to location(floorplan)/type handling. domus.Link will now dynamically
+	  build the alias to location/type map through the alias edit screens. domus.Link
+	  will create a db file called aliasmap based on these assignments. This precludes
+	  the need for the floorplan file and the floorplan maintenance has been deprecated.
+	  To aid in dynamically creating the floorplan, the location field in the alias add
+	  and edit windows are now editable as well as dynamically loaded with previously
+	  entered locations. When a new heyu conf with aliases is found and there is no alias
+	  map, all items are assigned to a default location(unknown) and type(other).
+	* Added a setup verification for aliases to location/type maps for help in conversion
+	  from previous versions of domus.Link. When domus.Link V1.2 is entered after installation,
+	  the heyu config file is checked for the previous format for domus.Link. If it finds the
+	  previous style configuration for assignment of location and type, it will generate a
+	  derived alias to location/type map for acceptance. The user has the option to convert
+	  at this point to create the new aliasmap. If the user does not want to do this at the time,
+	  a "continue" option is available and will load the aliases with the default location(unknown)
+	  and type(other). This is valid for the session. If no updates are made to the aliases nothing
+	  is changed and it will be rechecked on the next browser session start. 
+	* Added the capability to hide modules from the main home module page. Useful for
+	  not displaying monitoring/trigger based modules. These modules will still be displayed
+	  in their appropriate type sections.
+	* Deprecated the db file "modules". This is now done dynamically when editing aliases. The 
+	  command "heyu modlist" is executed to get the valid module type values when needed.
+	* The db distribution directory is now empty. It is provided only to get the directory structure
+	  as no files need to be provided for installation.
+	* Fixed error with popup when displaying extended option info in the timer view. Popup would
+	  inadvertantly display a previous items values plus it's own value.
+	* Updated all file handling to be objectified. This provides a framework for all the config/sched
+	  types to be handled by their respective classes. File handling was moved to the object
+	  base class elementfile.class.php.
+	* Deprecated miscelaneous functions due to objectification of aliases.
+	* Updated heyu config file editing to only show directives applicable to heyu execution. Other
+	  directive types are not shown as to cleanup the heyu conf edit screen. There is no impact to
+	  the other directives.
+	* Updated progress bar handling to be generic. Progress bar javascript is now in the javascript
+	  directory and not embedded.
+	* Installation is now simplified due to the fact there is no installed db files.
+	
+
   v1.1 - 4/Apr/2010
  ------
  	* Added ability to select a null on one side of a timer i.e.: on or off

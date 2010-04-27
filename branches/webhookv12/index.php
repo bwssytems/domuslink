@@ -29,6 +29,20 @@ if ($config['seclevel'] == "2" && !$authenticated) {
 	exit();
 }
 
+if(!isset($_SESSION['configChecked']) || !$_SESSION['configChecked'])
+{
+	require_once('utility/heyuconfold.class.php');
+	try {
+		$oldHeyuConf = new heyuConfOld($config['heyuconfloc']);
+		$oldHeyuConf->getAliasesWithLocationAndType();
+		header("Location: utility/setupverify.php?from=index");
+	}
+	catch(Exception $e) {
+		//if you get here, the config file is a new style with no locations and types
+		$_SESSION['configChecked'] = true;
+	}
+}
+
 ## Instantiate heyuConf & location class
 require_once(CLASS_FILE_LOCATION.'heyuconf.class.php');
 require_once(CLASS_FILE_LOCATION.'location.class.php');
