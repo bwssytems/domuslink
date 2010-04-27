@@ -24,7 +24,6 @@ class frontObject {
 	// Config object containing variable from config.php
 	var $config;
 	var $lang;
-	var $directive;
 
 	function & getConfig() {
 		if (!isset($this->config)) {
@@ -42,14 +41,5 @@ class frontObject {
 		}
 
 		return $this->lang;
-	}
-
-	function & getDirectives() {
-		if (!isset($this->directive)) {
-			$directiveinstance = new DirectiveList(DB_FILE_LOCATION."directive");
-			$this->directive = $directiveinstance;
-		}
-
-		return $this->directive;
 	}
 }
