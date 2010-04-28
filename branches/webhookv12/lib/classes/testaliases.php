@@ -1,10 +1,7 @@
 <?php
 require_once("../../include.php");
-require_once(FUNC_FILE_LOCATION."debug.func.php");
-require_once(CLASS_FILE_LOCATION."alias.class.php");
-require_once(CLASS_FILE_LOCATION."aliasmap.class.php");
-require_once(CLASS_FILE_LOCATION."aliasmapelement.class.php");
-$testLine = "ALIAS ThisLight a1,2-5,7,8 STDAM\n";
+
+$testLine = "ALIAS ThisLight E3 PALMPAD  RFFORWARD test test\n";
 $testMapLine = "kitchen,light,kitchen,visible";
 //$testLine = "macro halltbllamp_on 0 on upstairs_hall_table";
 //$testLine = "trigger button_o1 on familytbl_on";

@@ -73,6 +73,11 @@ class Alias extends ConfigElement {
 		$this->label = $elements[1];
 		$this->parseHouseUnitCodes($elements[2]);
 		$this->moduleType = $elements[3];
+		$this->moduleOptions = "";
+		for($i = 4; $i < count($elements); $i++) {
+			$this->moduleOptions = $this->moduleOptions." ".$elements[$i]; 
+		}
+		$this->moduleOptions = trim($this->moduleOptions);
 	}
 	
 	function parseHouseUnitCodes($houseUnitCodes) {
@@ -110,6 +115,22 @@ class Alias extends ConfigElement {
 
 	function getModuleType() {
 		return $this->moduleType;
+	}
+	
+	function getModuleOptions() {
+		return $this->moduleOptions;
+	}
+	
+	function setLabel($aLabel) {
+		$this->label = $aLabel;
+	}
+	
+	function setModuleType($aModuleType) {
+		$this->moduleType = $aModuleType;
+	}
+	
+	function setModuleOptions($aModuleOptions) {
+		$this->moduleOptions = $aModuleOptions;
 	}
 }
 ?>

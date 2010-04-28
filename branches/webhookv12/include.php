@@ -54,6 +54,10 @@ if (substr($config['url_path'], -1) == '/')
 require_once(FUNC_FILE_LOCATION.'lang.func.php');
 $lang =& $frontObj->getLanguageFile();
 
+## instantiate cached lists
+$frontObj->getDirectives();
+$frontObj->getModList();
+
 ## iPhone theme autodetection
 if (strpos(strtolower($_SERVER['HTTP_USER_AGENT']),'iphone')) {
 	# Theme - GUI's Theme

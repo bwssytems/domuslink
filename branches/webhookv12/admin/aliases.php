@@ -91,7 +91,9 @@ else {
 			if (preg_match($chars, $_POST["label"]))
 				gen_error(null, $lang['error_special_chars']);
 			else {
-				$settings[$_POST["line"]]->parseAliasLine(ALIAS_D." ".$_POST["label"]." ".$_POST["code"]." ".$_POST["module"]);
+				$settings[$_POST["line"]]->setLabel($_POST["label"]);
+				$settings[$_POST["line"]]->parseHouseUnitCodes($_POST["code"]);
+				$settings[$_POST["line"]]->setModuleType($_POST["module"]);
 				$settings[$_POST["line"]]->getAliasMap()->setType($_POST["type"]);
 				$settings[$_POST["line"]]->getAliasMap()->setAliasLabel($_POST["label"]);
 				$settings[$_POST["line"]]->getAliasMap()->setFloorPlanLabel($_POST["loc"]);

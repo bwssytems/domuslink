@@ -21,11 +21,12 @@
 
 require_once(CLASS_FILE_LOCATION."element.class.php");
 require_once(CLASS_FILE_LOCATION."heyuconf.const.php");
+require_once(CLASS_FILE_LOCATION."global.class.php");
 
 class ConfigElement extends Element {
 
 	protected function validateType($theType) {
-		foreach(execute_cmd($GLOBALS['config']['heyuexec']." conflist") as $validDirective) {
+		foreach($GLOBALS['frontObj']->getDirectives() as $validDirective) {
 			if(trim(strtoupper($theType)) == $validDirective)
 				return true;
 		}

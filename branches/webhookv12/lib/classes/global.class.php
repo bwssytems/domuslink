@@ -24,6 +24,8 @@ class frontObject {
 	// Config object containing variable from config.php
 	var $config;
 	var $lang;
+	var $directives;
+	var $modlist;
 
 	function & getConfig() {
 		if (!isset($this->config)) {
@@ -41,5 +43,23 @@ class frontObject {
 		}
 
 		return $this->lang;
+	}
+
+	function & getDirectives() {
+		if (!isset($this->directives)) {
+			$directivesinstance = execute_cmd_ret($this->config['heyuexec']." conflist");
+			$this->directives = &$directivesinstance;
+		}
+
+		return $this->directives;
+	}
+
+	function & getModList() {
+		if (!isset($this->modlist)) {
+			$modlistinstance = execute_cmd_ret($this->config['heyuexec']." modlist");
+			$this->modlist = &$modlistinstance;
+		}
+
+		return $this->modlist;
 	}
 }
