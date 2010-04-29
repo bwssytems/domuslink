@@ -1,4 +1,4 @@
-<?php
+<?php 
 /*
  * domus.Link :: PHP Web-based frontend for Heyu (X10 Home Automation)
  * Copyright (c) 2007, Istvan Hubay Cebrian (istvan.cebrian@domus.link.co.pt)
@@ -19,17 +19,10 @@
  * Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-## Includes
-require_once('..'.DIRECTORY_SEPARATOR.'include.php');
-
-
-## Security validation's
-if ($config['seclevel'] != "0" && !$authenticated) {
-	header("Location: ../login.php?from=admin/reload");
-	exit();
-}
-
-heyu_ctrl('restart');
-header("Location: heyu.php");
+## instantiate cached lists
+$directives = $_SESSION['frontObj']->getDirectives();
+$modlist = $_SESSION['frontObj']->getModList();
+$heyuconf = $_SESSION['frontObj']->getHeyuConf();
+$heyusched = $_SESSION['frontObj']->getHeyuSched();
 
 ?>

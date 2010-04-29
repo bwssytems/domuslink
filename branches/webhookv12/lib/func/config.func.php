@@ -177,7 +177,7 @@ function config_save($config)
  * 
  * @param $config contains all the frontend's configuration options
  */
-function parse_config($config)
+function & parse_config(&$config)
 {
 	if ($config['pc_interface'] == 'CM11A') 
 	{

@@ -60,14 +60,28 @@ class heyuConfOld {
         }
        
         function getAliasesWithLocationAndType() {
+        	global $modtypes;
         	$theAliases = $this->getAliases();
         	$request = array();
         	if(count($theAliases)) {
                 foreach ($theAliases as $line) {
-                	list($temp, $label, $code, $module_type_loc) = split(" ", $line, 4);
-                    list($module, $type_loc) = split(" # ", $module_type_loc, 2);
-                    list($type, $orgloc) = split(",", $type_loc, 2);
-                       
+                	list($aliasInfo, $module_type_loc) = explode("#", trim($line), 2);
+                	list($temp, $label, $stuff) = explode(" ", trim($aliasInfo), 3);
+                    list($type, $orgloc) = split(",", trim($module_type_loc), 2);
+
+                    $typeFound = false;
+                    foreach($modtypes as $aModType) {
+                    	if($type == $aModType)
+                    	{
+                    		$typeFound = true;
+                    		break;
+                    	}
+                    }
+
+                    if(!$typeFound)
+                    	$type = "Other";
+                    if(trim($orgloc) == "")
+                    	$orgloc = "unknown";
                    	$request[$label] = $label.",".trim($type).",".trim($orgloc).",visible";
                 }
                

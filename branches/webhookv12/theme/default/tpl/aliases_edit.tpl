@@ -30,7 +30,7 @@
     <td valign="top"><h6><?php echo ($lang['module']);?>:</h6></td>
     <td valign="top">
     <select name="module">
-    <?php foreach ($GLOBALS['frontObj']->getModList() as $modulenf): ?>
+    <?php foreach ($modlist as $modulenf): ?>
     <?php $modulef = rtrim($modulenf); ?>
     	<?php if ($module == $modulef): ?>
     		<option value="<?php echo $modulef; ?>" selected><?php echo $modulef; ?></option>

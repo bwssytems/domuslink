@@ -21,7 +21,7 @@
 
 ## Includes
 require_once('..'.DIRECTORY_SEPARATOR.'include.php');
-require_once(CLASS_FILE_LOCATION.'heyuconf.class.php');
+require_once('..'.DIRECTORY_SEPARATOR.'include_globals.php');
 
 ## Security validation's
 if ($config['seclevel'] != "0" && !$authenticated) { 
@@ -29,8 +29,6 @@ if ($config['seclevel'] != "0" && !$authenticated) {
 	exit();
 }
 
-## Instantiate HeyuConf class
-$heyuconf = new heyuConf($config['heyuconfloc']);
 ## Get heyu (x10.conf) file contents/settings
 $settings = $heyuconf->getObjects();
 

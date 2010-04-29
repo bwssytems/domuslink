@@ -21,7 +21,7 @@
 
 ## Includes
 require_once('..'.DIRECTORY_SEPARATOR.'include.php');
-require_once(CLASS_FILE_LOCATION.'heyuconf.class.php');
+require_once('..'.DIRECTORY_SEPARATOR.'include_globals.php');
 
 ## Security validation's
 if ($config['seclevel'] != "0" && !$authenticated) {
@@ -29,8 +29,6 @@ if ($config['seclevel'] != "0" && !$authenticated) {
 	exit();
 }
 
-## Instantiate HeyuConf class
-$heyuconf = new heyuConf($config['heyuconfloc']);
 ## Get heyu conf & aliases
 $settings = $heyuconf->getObjects();
 $aliases = $heyuconf->getAliases();
@@ -54,6 +52,7 @@ if (!isset($_GET["action"])) {
 	$tpl_add->set('modtypes', $modtypes);
 	$tpl_add->set('floorplan', $floorPlan);
 	$tpl_add->set('config', $config);
+	$tpl_add->set('modlist', $modlist);
 	$tpl_body->set('form', $tpl_add);
 }
 else {
@@ -70,6 +69,7 @@ else {
 			$tpl_edit->set('floorplan', $floorPlan);
 			$tpl_edit->set('homehidden', $settings[$_GET['line']]->getAliasMap()->getHiddenFromHome());
 			$tpl_edit->set('linenum', $_GET['line']); // sets number of line being edited
+			$tpl_edit->set('modlist', $modlist);
 			$tpl_edit->set('config', $config);
 			$tpl_body->set('form', $tpl_edit);
 			break;

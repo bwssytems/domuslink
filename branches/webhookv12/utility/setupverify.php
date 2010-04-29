@@ -21,8 +21,8 @@
 
 ## Includes
 require_once('../include.php');
+require_once('../include_globals.php');
 require_once('heyuconfold.class.php');
-require_once(CLASS_FILE_LOCATION.'heyuconf.class.php');
 require_once('converttoaliasmap.func.php');
 
 ## Security validation's
@@ -48,9 +48,8 @@ if (!isset($_GET["action"])) {
 else {
 	if($_GET["action"] == "edit")
 	{
-		$newHeyuConf = new heyuConf($config['heyuconfloc']);
-		convert_to_alias_map($oldHeyuConf, $newHeyuConf);
-		$newHeyuConf->save();
+		convert_to_alias_map($oldHeyuConf, $heyuconf);
+		$heyuconf->save();
 		$_SESSION['configChecked'] = true;
 	}
 	else

@@ -26,7 +26,7 @@ require_once(CLASS_FILE_LOCATION."global.class.php");
 class ConfigElement extends Element {
 
 	protected function validateType($theType) {
-		foreach($GLOBALS['frontObj']->getDirectives() as $validDirective) {
+		foreach($_SESSION['frontObj']->getDirectives() as $validDirective) {
 			if(trim(strtoupper($theType)) == $validDirective)
 				return true;
 		}

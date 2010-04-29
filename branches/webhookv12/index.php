@@ -29,26 +29,6 @@ if ($config['seclevel'] == "2" && !$authenticated) {
 	exit();
 }
 
-if(!isset($_SESSION['configChecked']) || !$_SESSION['configChecked'])
-{
-	require_once('utility/heyuconfold.class.php');
-	try {
-		$oldHeyuConf = new heyuConfOld($config['heyuconfloc']);
-		$oldHeyuConf->getAliasesWithLocationAndType();
-		header("Location: utility/setupverify.php?from=index");
-	}
-	catch(Exception $e) {
-		//if you get here, the config file is a new style with no locations and types
-		$_SESSION['configChecked'] = true;
-	}
-}
-
-## Instantiate heyuConf & location class
-require_once(CLASS_FILE_LOCATION.'heyuconf.class.php');
-require_once(CLASS_FILE_LOCATION.'location.class.php');
-$heyuconf = new heyuConf($config['heyuconfloc']);
-$locations = new location($heyuconf);
-
 // start/stop controls for heyu
 if (isset($_GET["daemon"])) heyu_ctrl($_GET["daemon"]);
 
@@ -58,10 +38,29 @@ $page = (isset($_GET['page'])) ? $_GET['page'] : "home";
 // set page title
 $tpl->set('title', ucwords($page));
 $tpl->set('page', $page);
-$tpl->set('heyu_config_name', $heyuconf->getFirstSection());
 
 // check if heyu is running, if true display modules
 if (heyu_running()) {
+	$dirname = dirname(__FILE__);
+	require_once($dirname.DIRECTORY_SEPARATOR.'include_globals.php');
+	
+	if(!isset($_SESSION['configChecked']) || !$_SESSION['configChecked'])
+	{
+		require_once('utility/heyuconfold.class.php');
+		try {
+			$oldHeyuConf = new heyuConfOld($config['heyuconfloc']);
+			$oldHeyuConf->getAliasesWithLocationAndType();
+			header("Location: utility/setupverify.php?from=index");
+		}
+		catch(Exception $e) {
+			//if you get here, the config file is a new style with no locations and types
+			$_SESSION['configChecked'] = true;
+		}
+	}
+
+	require_once(CLASS_FILE_LOCATION.'location.class.php');
+	$locations = new location($heyuconf);
+	
 	// if any action set, act on it
 	if (isset($_GET['action'])) heyu_action();
 

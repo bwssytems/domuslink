@@ -21,17 +21,12 @@
 
 ## Includes
 require_once('..'.DIRECTORY_SEPARATOR.'include.php');
-require_once(CLASS_FILE_LOCATION.'heyuconf.class.php');
 
 ## Security validation's
 if ($config['seclevel'] != "0" && !$authenticated) {
 	header("Location: ../login.php?from=events/upload");
 	exit();
 }
-
-## Instantiate heyuConf class
-$heyuconf = new heyuConf($config['heyuconfloc']);
-$schedfileloc = $config['heyu_base_real'].$heyuconf->getSchedFile();
 
 ## Set template parameters
 $tpl->set('title', $lang['timers']);
