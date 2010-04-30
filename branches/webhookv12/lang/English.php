@@ -227,4 +227,6 @@ $lang["continue"] = "Continue";
 $lang["convert"] = "Convert";
 $lang["converttext"] = "Use displayed alias/locations/types derived from heyu config.";
 $lang["continuetext"] = "Continue without conversion of derived alias/locations/types.";
+$lang["show"] = "show";
+$lang["hide"] = "hide";
 ?>

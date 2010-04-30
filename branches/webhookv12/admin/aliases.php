@@ -57,12 +57,35 @@ if (!isset($_GET["action"])) {
 }
 else {
 	switch ($_GET["action"]) {
+		case "enable":
+			$settings[$_GET['line']]->setEnabled(true);
+			$heyuconf->save();
+			break;
+			
+		case "disable":
+			$settings[$_GET['line']]->setEnabled(false);
+			$heyuconf->save();
+			break;
+
+		case "hide":
+			$settings[$_GET['line']]->getAliasMap()->setHiddenFromHome("hidden");
+			$settings[$_GET["line"]]->getAliasMap()->rebuildElementLine();
+			$heyuconf->save();
+			break;
+			
+		case "show":
+			$settings[$_GET['line']]->getAliasMap()->setHiddenFromHome("visible");
+			$settings[$_GET["line"]]->getAliasMap()->rebuildElementLine();
+			$heyuconf->save();
+			break;
+			
 		case "edit":
 			$tpl_edit = & new Template(TPL_FILE_LOCATION.'aliases_edit.tpl');
 			$tpl_edit->set('lang', $lang);		
 			$tpl_edit->set('label', $settings[$_GET['line']]->getLabel());
 			$tpl_edit->set('code', $settings[$_GET['line']]->getHouseDevice());
 			$tpl_edit->set('module', $settings[$_GET['line']]->getModuleType());
+			$tpl_edit->set('moduleopts', $settings[$_GET['line']]->getModuleOptions());
 			$tpl_edit->set('modtypes', $modtypes);
 			$tpl_edit->set('type', $settings[$_GET['line']]->getAliasMap()->getType());
 			$tpl_edit->set('loc', $settings[$_GET['line']]->getAliasMap()->getFloorPlanLabel());
@@ -78,12 +101,20 @@ else {
 			if (preg_match($chars, $_POST["label"]))
 				gen_error(null, $lang['error_special_chars']);
 			else {
-				$anAlias = new Alias(ALIAS_D." ".$_POST["label"]." ".$_POST["code"]." ".$_POST["module"]);
-				$anAlias->setAliasMap(new AliasMapElement($_POST["label"].",".$_POST["type"].",".$_POST["loc"].",".$_POST["homehidden"]));
+				$anAlias = new Alias();
+				$anAlias->setLabel($_POST["label"]);
+				$anAlias->parseHouseUnitCodes($_POST["code"]);
+				$anAlias->setModuleType($_POST["module"]);
+				$anAlias->setModuleOptions($_POST["moduleopts"]);
+				$anAlias->getAliasMap()->setType($_POST["type"]);
+				$anAlias->getAliasMap()->setAliasLabel($_POST["label"]);
+				$anAlias->getAliasMap()->setFloorPlanLabel($_POST["loc"]);
+				$anAlias->getAliasMap()->setHiddenFromHome("visible");
+				$anAlias->getAliasMap()->rebuildElementLine();
+				$anAlias->rebuildElementLine();
 				$heyuconf->addElement($anAlias);
 
 				$heyuconf->save();
-				header("Location: ".$_SERVER['PHP_SELF']);
 			}
 			break;
 		
@@ -94,29 +125,26 @@ else {
 				$settings[$_POST["line"]]->setLabel($_POST["label"]);
 				$settings[$_POST["line"]]->parseHouseUnitCodes($_POST["code"]);
 				$settings[$_POST["line"]]->setModuleType($_POST["module"]);
+				$settings[$_POST["line"]]->setModuleOptions($_POST["moduleopts"]);
 				$settings[$_POST["line"]]->getAliasMap()->setType($_POST["type"]);
 				$settings[$_POST["line"]]->getAliasMap()->setAliasLabel($_POST["label"]);
 				$settings[$_POST["line"]]->getAliasMap()->setFloorPlanLabel($_POST["loc"]);
-				$settings[$_POST["line"]]->getAliasMap()->setHiddenFromHome($_POST["homehidden"]);
 				$settings[$_POST["line"]]->getAliasMap()->rebuildElementLine();
 				$settings[$_POST["line"]]->rebuildElementLine();
 
 				$heyuconf->save();
-				header("Location: ".$_SERVER['PHP_SELF']);
 			}
 			break;
 		
 		case "del":
 			$heyuconf->deleteElement($_GET["line"]);
 			$heyuconf->save();
-			header("Location: ".$_SERVER['PHP_SELF']);
 			break;
 		
 		case "move":
 			if ($_GET["dir"] == "up") $heyuconf->reorderElements($_GET['line'], $_GET['line']-1);
 			if ($_GET["dir"] == "down") $heyuconf->reorderElements($_GET['line'], $_GET['line']+1);
 			$heyuconf->save();
-			header("Location: ".$_SERVER['PHP_SELF']);
 			break;
 			
 		//I need the add form seperated from the list (otherwise the iPhone theme is to long (a lot of scrolling))
@@ -153,6 +181,9 @@ else {
 			$tpl_body->set('form', $tpl_edit);				
 			break;			
 	}
+
+	if($_GET["action"] != "edit" && $_GET["action"] != "showeditform" && $_GET["action"] != "showaddform")
+		header("Location: ".$_SERVER['PHP_SELF']);
 }
 
 ## Display the page

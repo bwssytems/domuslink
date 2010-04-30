@@ -19,6 +19,21 @@
 	  and edit windows are now editable as well as dynamically loaded with previously
 	  entered locations. When a new heyu conf with aliases is found and there is no alias
 	  map, all items are assigned to a default location(unknown) and type(other).
+
+	  The location field IS the edit field for the floorplan items. You can delete
+	  it, but if you haven't removed all references to that location in all
+	  of your aliases, it is dynamically rebuilt from the current aliases.
+
+	  The blank space at the bottom of the list is a convenience to have a
+	  blank area to edit a new location. It really doesn't matter as you can
+	  just overwrite the displayed one with a new location and then it will
+	  be added to the alias. Then the list is dynamically regened and it
+	  will be added for selection.
+
+	  Try changing the location of one of your modules by typing in a new
+	  location that doesn't exist and save it. You'll see it show up on the
+	  alias and now it is available in the list to select as well. 
+
 	* Added a setup verification for aliases to location/type maps for help in conversion
 	  from previous versions of domus.Link. When domus.Link V1.2 is entered after installation,
 	  the heyu config file is checked for the previous format for domus.Link. If it finds the
@@ -30,7 +45,7 @@
 	  is changed and it will be rechecked on the next browser session start. 
 	* Added the capability to hide modules from the main home module page. Useful for
 	  not displaying monitoring/trigger based modules. These modules will still be displayed
-	  in their appropriate type sections.
+	  in their appropriate type sections. Use "hide/show" in the alias view actions column.
 	* Deprecated the db file "modules". This is now done dynamically when editing aliases. The 
 	  command "heyu modlist" is executed to get the valid module type values when needed.
 	* The db distribution directory is now empty. It is provided only to get the directory structure

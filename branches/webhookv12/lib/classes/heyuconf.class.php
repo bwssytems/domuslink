@@ -96,15 +96,21 @@ class heyuConf extends ElementFile {
 	/**
 	 * Get Aliases
 	 *
-	 * @param $number boolean, if true add line number of original file
+	 * @param $onlyEnabled boolean, if true, return only enabled aliases
 	 */
-	function getAliases($number = false, $i = 0) {
+	function getAliases($onlyEnabled = false) {
 //		$aliasLines = execute_cmd($config['heyuexecreal']." webhook config_dump -L\"%V@\" -d\"%V \" -b\"%V\" alias");
 		$aliases = $this->getElementObjects(ALIAS_D);
+		$request = array();
+		$x = 0;
 		for($i = 0; $i < count($aliases); $i++) {
 			$aliases[$i]->setAliasMap($this->getAliasMapForLabel($aliases[$i]->getLabel()));
+			if($aliases[$i]->isEnabled()|| !$onlyEnabled ) {
+				$request[$x] = $aliases[$i];
+				$x++;
+			}
 		}
-		return $aliases;
+		return $request;
 	}
 
 	function getAliasMapForLabel($aLabel) {

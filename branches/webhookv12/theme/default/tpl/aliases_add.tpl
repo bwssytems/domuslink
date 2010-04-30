@@ -56,6 +56,13 @@ function validateForm(form)
   </tr>
 
 
+<!-- Module Options -->
+
+  <tr>
+    <td valign="top"><h6><?php echo ($lang['option']);?>:</h6></td>
+    <td valign="top"><input type="text" name="moduleopts" value="" size="20" /></td>
+  </tr>
+
 <!-- Type -->
 
   <tr>
@@ -82,20 +89,6 @@ function validateForm(form)
 		<option value="<?php echo $locf;?>"><?php echo $locf;?></option>
 	<?php endforeach; ?>
 		<option value=""></option>
-	</select>
-    </td>
-  </tr>
-
-<!-- Home Hidden -->
-
-  <tr>
-    <td valign="top"><h6><?php echo ($lang['home']);?>:</h6></td>
-    <td valign="top">
-    <select name="homehidden">
-    <?php $options = array("visible", "hidden"); ?>
-	<?php foreach ($options as $anOption): ?>
-   		<option value="<?php echo $anOption; ?>"><?php echo $anOption; ?></option>
-	<?php endforeach; ?>
 	</select>
     </td>
   </tr>

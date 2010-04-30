@@ -155,7 +155,7 @@ class location {
 			$mod->set('state', $state);
 				
 			if ($type == $modtypes['lights']) {
-				$mod->set('level', $this->level_calc(dim_level($code)));
+				$mod->set('level', $this->level_calc(dim_level($alias->getHouseDevice())));
 			}
 		}
 		
@@ -192,7 +192,7 @@ class location {
 	 * @param $loc represents the wanted location
 	 */
 	function getAliasesByLocation($loc, $i = 0) {
-		foreach ($this->heyuconfObj->getAliases(false) as $line) {
+		foreach ($this->heyuconfObj->getAliases(true) as $line) {
 			if($line->getAliasMap()->getFloorPlanLabel() == trim($loc)) {
 				$request[$i] = $line;
 				$i++;

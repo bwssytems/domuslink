@@ -42,6 +42,12 @@
     </td>
   </tr>
 
+<!-- Module Options -->
+
+  <tr>
+    <td valign="top"><h6><?php echo ($lang['option']);?>:</h6></td>
+    <td valign="top"><input type="text" name="moduleopts" value="<?php echo $moduleopts; ?>" size="20" /></td>
+  </tr>
 
 <!-- Type -->
 
@@ -77,24 +83,6 @@
     	<?php endif; ?>
 	<?php endforeach; ?>
   		<option value=""></option>
-	</select>
-    </td>
-  </tr>
-  
-<!-- Home Hidden -->
-
-  <tr>
-    <td valign="top"><h6><?php echo ($lang['home']);?>:</h6></td>
-    <td valign="top">
-    <select name="homehidden">
-    <?php $options = array("visible", "hidden"); ?>
-	<?php foreach ($options as $anOption): ?>
-	    <?php if ($homehidden == $anOption): ?>
-    		<option value="<?php echo $anOption; ?>" selected><?php echo $anOption; ?></option>
-    	<?php else: ?>
-    		<option value="<?php echo $anOption; ?>"><?php echo $anOption; ?></option>
-    	<?php endif; ?>
-	<?php endforeach; ?>
 	</select>
     </td>
   </tr>
