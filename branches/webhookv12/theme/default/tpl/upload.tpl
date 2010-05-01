@@ -1,5 +1,5 @@
 <SCRIPT LANGUAGE="JavaScript">
-InstantiateProgressBar("<?php echo $lang['progress']; ?>)";
+InstantiateProgressBar("<?php echo $lang['progress']; ?>");
 </script>
 
 <table cellspacing="0" cellpadding="0" border="0" align="center" class="content" width="550px">
