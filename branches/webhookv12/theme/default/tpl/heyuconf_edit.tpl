@@ -22,7 +22,7 @@ InstantiateProgressBar('Heyu Restart Progress');
 </tr>
 <tr>
 <td>
-<?php $act = 0; $sct = 0; $usct = 0; // alias, scene and usersyn counts for posts ?>
+<?php $junk = 0; // alias, scene and usersyn counts for posts ?>
 <?php foreach($settings as $setting):
   list($directivenf, $valuenf) = split(" ", $setting, 2);
   $directivenf = $setting->getType();
@@ -30,17 +30,17 @@ InstantiateProgressBar('Heyu Restart Progress');
   $directive = str_replace("_", " ", $directivenf); ?>
 
   <?php if ($directivenf == ALIAS_D): ?>
-  <?php $act++; ?>
+  <?php $junk++; ?>
   <?php elseif ($directivenf == SCENE_D): ?>
-    <?php $sct++; ?>
+    <?php $junk++; ?>
   <?php elseif ($directivenf == USERSYN_D): ?>
-    <?php $usct++; ?>
+    <?php $junk++; ?>
   <?php elseif ($directivenf == SCRIPT_D): ?>
-    <?php $usct++; ?>
+    <?php $junk++; ?>
   <?php elseif ($directivenf == LAUNCHER_D): ?>
-    <?php $usct++; ?>
+    <?php $junk++; ?>
   <?php elseif ($directivenf == COMMENT_D): ?>
-    <?php $usct++; ?>
+    <?php $junk++; ?>
   <?php else: // if not alias, scene or usersyn or other multi use directives ?>
   </td>
 </tr>

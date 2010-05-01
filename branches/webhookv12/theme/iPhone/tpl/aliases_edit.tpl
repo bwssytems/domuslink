@@ -12,7 +12,7 @@
                 <input type="text" name="label" value="<?php echo $label; ?>" size="25" />
                 <label><?php echo ($lang['module']);?>:</label>
                 <select name="module">
-                <?php foreach (load_file(MODULE_FILE_LOCATION) as $modulenf): ?>
+                <?php foreach ($modlist as $modulenf): ?>
                 <?php $modulef = rtrim($modulenf); ?>
                     <?php if ($module == $modulef): ?>
                         <option value="<?php echo $modulef; ?>" selected><?php echo $modulef; ?></option>

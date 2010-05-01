@@ -44,7 +44,6 @@ $tpl_body = & new Template(TPL_FILE_LOCATION.'aliases_view.tpl');
 $tpl_body->set('lang', $lang);
 $tpl_body->set('aliases', $aliases);
 $tpl_body->set('config', $config);
-$tpl_body->set('size', count($aliases));
 
 if (!isset($_GET["action"])) {
 	$tpl_add = & new Template(TPL_FILE_LOCATION.'aliases_add.tpl');
@@ -177,6 +176,7 @@ else {
 			$tpl_edit->set('type', $settings[$_GET['line']]->getAliasMap()->getType());
 			$tpl_edit->set('loc', $settings[$_GET['line']]->getAliasMap()->getFloorPlanLabel());
 			$tpl_edit->set('floorplan', $floorPlan);
+			$tpl_edit->set('modlist', $modlist);
 			$tpl_edit->set('linenum', $_GET['line']); // sets number of line being edited
 			$tpl_body->set('form', $tpl_edit);				
 			break;			

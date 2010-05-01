@@ -154,7 +154,7 @@ class location {
 			$mod->set('action', $action);
 			$mod->set('state', $state);
 				
-			if ($type == $modtypes['lights']) {
+			if ($alias->getAliasMap()->getType() == $modtypes['lights']) {
 				$mod->set('level', $this->level_calc(dim_level($alias->getHouseDevice())));
 			}
 		}
