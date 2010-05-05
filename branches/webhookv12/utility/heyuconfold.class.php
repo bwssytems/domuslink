@@ -67,7 +67,7 @@ class heyuConfOld {
                 foreach ($theAliases as $line) {
                 	list($aliasInfo, $module_type_loc) = explode("#", trim($line), 2);
                 	list($temp, $label, $stuff) = explode(" ", trim($aliasInfo), 3);
-                    list($type, $orgloc) = split(",", trim($module_type_loc), 2);
+                    list($type, $orgloc) = explode(",", trim($module_type_loc), 2);
 
                     $typeFound = false;
                     foreach($modtypes as $aModType) {

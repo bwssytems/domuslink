@@ -24,7 +24,7 @@ InstantiateProgressBar('Heyu Restart Progress');
 <td>
 <?php $junk = 0; // alias, scene and usersyn counts for posts ?>
 <?php foreach($settings as $setting):
-  list($directivenf, $valuenf) = split(" ", $setting, 2);
+  list($directivenf, $valuenf) = explode(" ", $setting, 2);
   $directivenf = $setting->getType();
   $value = rtrim($valuenf);
   $directive = str_replace("_", " ", $directivenf); ?>

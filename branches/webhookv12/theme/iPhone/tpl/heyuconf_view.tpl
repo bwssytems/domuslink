@@ -8,7 +8,7 @@
 				<?php  foreach($settings as $setting):
  			 		if ($setting->getType() != COMMENT_D && $setting->getType() != ALIAS_D &&
   					$setting->getType() != SCENE_D && $setting->getType() != USERSYN_D && $setting->getType() != SCRIPT_D):
-    				list($directivenf, $valuenf) = split(" ", $setting, 2); ?>
+    				list($directivenf, $valuenf) = explode(" ", $setting, 2); ?>
                     <tr>
                       <td width="30%"><?php echo(str_replace("_", " ", $setting->getType())); ?>:&nbsp;</td>
 				      <td width="15%"><input type="checkbox" disabled name="<?php echo "comment_d@"; echo $setting->getLineNum(); ?>" <?php if(!($setting->isEnabled())) echo "checked"; ?>/></td>

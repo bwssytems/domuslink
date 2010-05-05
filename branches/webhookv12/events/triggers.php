@@ -63,7 +63,7 @@ else {
 			break;
 			
 		case "edit":
-			list($lbl, $tunit, $command, $macro) = split(" ", $schedObjs[$_GET['line']]->getElementLine(), 4);
+			list($lbl, $tunit, $command, $macro) = explode(" ", $schedObjs[$_GET['line']]->getElementLine(), 4);
 			$tpl_edit = & new Template(TPL_FILE_LOCATION.'trigger_edit.tpl');
 			$tpl_edit->set('lang', $lang);
 			$tpl_edit->set('enabled', $schedObjs[$_GET['line']]->isEnabled());

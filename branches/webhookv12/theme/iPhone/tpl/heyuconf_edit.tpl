@@ -10,7 +10,7 @@
                 <table border="0" cellspacing="0" cellpadding="0" class="clear">
                 <?php $act = 0; $sct = 0; $usct = 0; // alias, scene and usersyn counts for posts ?>
                 <?php foreach($settings as $setting):
-                  list($directivenf, $valuenf) = split(" ", $setting, 2);
+                  list($directivenf, $valuenf) = explode(" ", $setting, 2);
   					$directivenf = $setting->getType();
                   $value = rtrim($valuenf, "\n");
                   $directive = str_replace("_", " ", $directivenf); ?>
