@@ -44,6 +44,7 @@ $tpl_body = & new Template(TPL_FILE_LOCATION.'aliases_view.tpl');
 $tpl_body->set('lang', $lang);
 $tpl_body->set('aliases', $aliases);
 $tpl_body->set('config', $config);
+$mustSave = false;
 
 if (!isset($_GET["action"])) {
 	$tpl_add = & new Template(TPL_FILE_LOCATION.'aliases_add.tpl');
@@ -58,24 +59,24 @@ else {
 	switch ($_GET["action"]) {
 		case "enable":
 			$settings[$_GET['line']]->setEnabled(true);
-			$heyuconf->save();
+			$mustSave = true;
 			break;
 			
 		case "disable":
 			$settings[$_GET['line']]->setEnabled(false);
-			$heyuconf->save();
+			$mustSave = true;
 			break;
 
 		case "hide":
 			$settings[$_GET['line']]->getAliasMap()->setHiddenFromHome("hidden");
 			$settings[$_GET["line"]]->getAliasMap()->rebuildElementLine();
-			$heyuconf->save();
+			$mustSave = true;
 			break;
 			
 		case "show":
 			$settings[$_GET['line']]->getAliasMap()->setHiddenFromHome("visible");
 			$settings[$_GET["line"]]->getAliasMap()->rebuildElementLine();
-			$heyuconf->save();
+			$mustSave = true;
 			break;
 			
 		case "edit":
@@ -113,7 +114,7 @@ else {
 				$anAlias->rebuildElementLine();
 				$heyuconf->addElement($anAlias);
 
-				$heyuconf->save();
+				$mustSave = true;
 			}
 			break;
 		
@@ -131,19 +132,19 @@ else {
 				$settings[$_POST["line"]]->getAliasMap()->rebuildElementLine();
 				$settings[$_POST["line"]]->rebuildElementLine();
 
-				$heyuconf->save();
+				$mustSave = true;
 			}
 			break;
 		
 		case "del":
 			$heyuconf->deleteElement($_GET["line"]);
-			$heyuconf->save();
+			$mustSave = true;
 			break;
 		
 		case "move":
 			if ($_GET["dir"] == "up") $heyuconf->reorderElements($_GET['line'], $_GET['line']-1);
 			if ($_GET["dir"] == "down") $heyuconf->reorderElements($_GET['line'], $_GET['line']+1);
-			$heyuconf->save();
+			$mustSave = true;
 			break;
 			
 		//I need the add form seperated from the list (otherwise the iPhone theme is to long (a lot of scrolling))
@@ -182,6 +183,17 @@ else {
 			break;			
 	}
 
+	if($mustSave)
+	{
+		try {
+			$heyuconf->save();
+		}
+		catch(Exception $e)	{
+			gen_error(null, array($e->getMessage(), "Exit your browser and try again."));
+			exit();
+		}
+	}
+	
 	if($_GET["action"] != "edit" && $_GET["action"] != "showeditform" && $_GET["action"] != "showaddform")
 		header("Location: ".$_SERVER['PHP_SELF']);
 }

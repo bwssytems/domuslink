@@ -67,7 +67,13 @@ else {
 				}
 			}
 		}
-		$heyuconf->save();
+		try {
+			$heyuconf->save();
+		}
+		catch(Exception $e)	{
+			gen_error(null, $e->getMessage());
+			exit();
+		}
 		header("Location: ".$config['url_path']."/admin/reload.php");
 	}
 }

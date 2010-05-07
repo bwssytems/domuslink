@@ -55,14 +55,14 @@ if(!isset($_SESSION['frontObj'])) {
 
 ## Load config file functions and grab settings
 //$config =& parse_config($frontObj->getConfig());
-$config = $_SESSION['frontObj']->getConfig();
+$config =& $_SESSION['frontObj']->getConfig();
 
 ## Clean url_path config variable
 if (substr($config['url_path'], -1) == '/') 
 	$config['url_path'] = substr($config['url_path'], 0, -1);
 
 ## Load language file
-$lang = $_SESSION['frontObj']->getLanguageFile();
+$lang =& $_SESSION['frontObj']->getLanguageFile();
 
 ## instantiate cached lists
 ## $frontObj->getDirectives();

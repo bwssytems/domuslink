@@ -23,6 +23,7 @@ require_once(CLASS_FILE_LOCATION.'element.const.php');
 abstract class ElementFile {
 
 	private $filename;
+	private $filemodtime;
 	private $lineStore;
 	private $elementObjects;
 
@@ -55,6 +56,8 @@ abstract class ElementFile {
 				throw new Exception("Error loading ".$this->filename." - line ".$num.", ".$e->getMessage());
 			}
 		}
+		$this->filemodtime = time();
+		//error_log("The change time of ".$this->filename." is ".$this->filemodtime." in element load.", 0);
 		$this->updateLineNumbers();
 	}
 
@@ -74,7 +77,16 @@ abstract class ElementFile {
 	}
 	
 	function save() {
-		save_file($this->getObjects(), $this->filename);
+		if($this->hasFileChanged()) {
+			throw new Exception("File: ".$this->filename." has been modified by another session before save.");
+		}
+		else {
+			save_file($this->getObjects(), $this->filename);
+			$theChangeTime = time();
+//			error_log("The change time of ".$this->filename." is ".$theChangeTime." and was ".$this->filemodtime." in element save.", 0);
+			$this->filemodtime = $theChangeTime;
+			
+		}
 	}
 
 	function addElement($anElement) {
@@ -84,7 +96,6 @@ abstract class ElementFile {
 			$arrayIndex = $arrayLength - 1;
 
 		array_splice($this->elementObjects, $arrayIndex + 1, 0, array($anElement));
-//		$this->setLine($anElement->getType(), $arrayIndex + 1, END_D);
 		$this->updateLineNumbers();
 	}
 	
@@ -137,6 +148,13 @@ abstract class ElementFile {
 	function getLine($theObjType, $theLocation) {
 		$theLineLocation = $this->lineStore[$theLocation];
 		return $theLineLocation[$theObjType];
+	}
+	
+	function hasFileChanged() {
+		if(filemtime($this->filename) > $this->filemodtime)
+			return true;
+		else
+			return false;
 	}
 	
 	abstract protected function createElement($aLine);

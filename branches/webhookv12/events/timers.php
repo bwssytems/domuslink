@@ -50,6 +50,7 @@ $tpl_body = & new Template(TPL_FILE_LOCATION.'timers_view.tpl');
 $tpl_body->set('lang', $lang);
 $tpl_body->set('timers', $timers);
 $tpl_body->set('config', $config);
+$mustSave = false;
 
 if (!isset($_GET["action"])) {
 	$tpl_add = & new Template(TPL_FILE_LOCATION.'timer_add.tpl');
@@ -67,7 +68,7 @@ else {
 			$sm = get_specific_macros($macros, $_GET['onm'], $_GET['ofm']); 
 			change_macro_states($sm, "enable");
 			$schedObjs[$_GET['line']]->setEnabled(true);
-			$heyusched->save();
+			$mustSave = true;
 			break;
 			
 		case "disable":
@@ -83,7 +84,7 @@ else {
 			}
 
 			$schedObjs[$_GET['line']]->setEnabled(false);
-			$heyusched->save();
+			$mustSave = true;
 			break;
 		
 		case "edit":
@@ -144,14 +145,14 @@ else {
 				}
 			}
 			$heyusched->addElement($aTimer);
-			$heyusched->save();
+			$mustSave = true;
 			break;
 			
 		case "save":
 			//build timer line with POST results
 			post_data_to_timer($schedObjs[$_POST["line"]]);
 			$schedObjs[$_POST["line"]]->rebuildElementLine();
-			$heyusched->save();
+			$mustSave = true;
 			break;
 
 		case "del":
@@ -166,17 +167,28 @@ else {
 					$heyusched->deleteElement($macroObj->getLineNum());
 				}
 			}
-			$heyusched->save();
+			$mustSave = true;
 			break;
 		
 		case "move":
 			if ($_GET["dir"] == "up") $heyusched->reorderElements($_GET['line'], $_GET['line']-1);
 			if ($_GET["dir"] == "down") $heyusched->reorderElements($_GET['line'], $_GET['line']+1);
-			$heyusched->save();
+			$mustSave = true;
 			break;
 			
 	}
 
+	if($mustSave)
+	{
+		try {
+			$heyusched->save();
+		}
+		catch(Exception $e)	{
+			gen_error(null, array($e->getMessage(), "Exit your browser and try again."));
+			exit();
+		}
+	}
+	
 	if($_GET["action"] != "edit")
 		header("Location: ".$_SERVER['PHP_SELF']);
 }

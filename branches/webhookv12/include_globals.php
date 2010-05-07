@@ -20,9 +20,9 @@
  */
 
 ## instantiate cached lists
-$directives = $_SESSION['frontObj']->getDirectives();
-$modlist = $_SESSION['frontObj']->getModList();
-$heyuconf = $_SESSION['frontObj']->getHeyuConf();
-$heyusched = $_SESSION['frontObj']->getHeyuSched();
+$directives =& $_SESSION['frontObj']->getDirectives();
+$modlist =& $_SESSION['frontObj']->getModList();
+$heyuconf =& $_SESSION['frontObj']->getHeyuConf();
+$heyusched =& $_SESSION['frontObj']->getHeyuSched();
 
 ?>
