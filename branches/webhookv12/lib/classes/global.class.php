@@ -108,6 +108,9 @@ class frontObject {
 	}
 	
 	function & getHeyuConfigName() {
-		return $this->heyuConf->getFirstSection();
+		if(!isset($this->heyuConf))
+			return "";
+		else
+			return $this->heyuConf->getFirstSection();
 	}
 }
