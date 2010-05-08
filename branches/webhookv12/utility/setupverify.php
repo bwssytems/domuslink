@@ -20,8 +20,8 @@
  */
 
 ## Includes
-require_once('../include.php');
-require_once('../include_globals.php');
+require_once('..'.DIRECTORY_SEPARATOR.'include.php');
+require_once('..'.DIRECTORY_SEPARATOR.'include_globals.php');
 require_once('heyuconfold.class.php');
 require_once('converttoaliasmap.func.php');
 
@@ -34,15 +34,16 @@ if ($config['seclevel'] != "0" && !$authenticated) {
 ## Set template parameters
 $tpl->set('title', $lang['setupverify']);
 $tpl->set('lang', $lang);
-
+$aliasMaps = array();
 try {
 	$oldHeyuConf = new heyuConfOld($config['heyuconfloc']);
 	$aliasMaps = $oldHeyuConf->getAliasesWithLocationAndType();
 }
 catch(Exception $e) {
 	$_SESSION['configChecked'] = true;
-	header("Location: ".$config['url_path']);
-}
+	header("Location: ../index.php");
+	exit();
+}	
 
 $tpl_body = & new Template(TPL_FILE_LOCATION.'setupverify.tpl');
 $tpl_body->set('lang', $lang);
@@ -64,7 +65,8 @@ else {
 				
 	}
 	
-	header("Location: ".$config['url_path']);
+	header("Location: ../index.php");
+	exit();
 }
 
 ## Display the page
