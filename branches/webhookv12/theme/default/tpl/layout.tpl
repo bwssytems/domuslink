@@ -172,7 +172,7 @@
 <?php endif; ?>
 </td>
 <td align="center"><?php echo $lang['heyucurrentconfig'].": ".$_SESSION['frontObj']->getHeyuConfigName()." ".$lang['heyuindir']." ".$config['heyu_base_real'].($config['heyu_subdir'] == "default"?"":$config['heyu_subdir'])?></td>
-<td align="right"><?php echo (uptime()); ?></td>
+<td align="right"><?php echo ("LC: [".$_SESSION['load_count']."] ".uptime()); ?></td>
 </tr>
 </table>
 </div>

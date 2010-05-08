@@ -31,7 +31,6 @@ class frontObject {
 	var $modlist;
 	var $heyuConf;
 	var $heyuSched;
-	var $heyuConfigName;
 
 	function & getConfig($reload = false) {
 		if (!isset($this->config) || $reload) {
@@ -78,18 +77,26 @@ class frontObject {
 	}
 
 	function & getHeyuConf($reload = false) {
+		if(isset($this->heyuConf) && !$reload) {
+			if($this->heyuConf->hasFileChanged())
+				$reload = true;
+		}
+		
 		if(!isset($this->heyuConf) || $reload) {
 			$_SESSION['load_count'] += 1;
 			$heyuconfinstance = new heyuConf($this->config['heyuconfloc']);
 			$this->heyuConf = &$heyuconfinstance;
-			$heyuconfnameinstance = $this->heyuConf->getFirstSection();
-			$this->heyuConfigName = &$heyuconfnameinstance;
 		}
 		
 		return $this->heyuConf;
 	}
 
 	function & getHeyuSched($reload = false) {
+		if(isset($this->heyuSched) && !$reload) {
+			if($this->heyuSched->hasFileChanged())
+				$reload = true;
+		}
+		
 		if(!isset($this->heyuSched) || $reload) {
 			$_SESSION['load_count'] += 1;
 			$schedfileloc = $this->config['heyu_base_real'].$this->heyuConf->getSchedFile();
@@ -101,6 +108,6 @@ class frontObject {
 	}
 	
 	function & getHeyuConfigName() {
-		return $this->heyuConfigName;
+		return $this->heyuConf->getFirstSection();
 	}
 }
