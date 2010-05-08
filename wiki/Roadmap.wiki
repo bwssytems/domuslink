@@ -9,7 +9,7 @@ This page will contain the domus.Link roadmap, agreed upon and developed by all 
 = Next Versions =
 == v1.2 ==
   * iPhone theme stability - Issue 1
-  * Improve x10.conf file parsing (use webhook command) - Issue 30, Issue 16
+  * Improve x10.conf file parsing - Issue 30, Issue 16
   * Add flag to alias to set visibility in home/floorplan view - Issue 26
   * Android theme/compatibility
 
