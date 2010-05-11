@@ -10,6 +10,8 @@ This page will contain the domus.Link roadmap, agreed upon and developed by all 
 == v1.2 ==
   * iPhone theme stability - Issue 1
   * Improve x10.conf file parsing - Issue 30, Issue 16
+       Use of aliases with same name - aliases can be upper/lower case mix and
+       are considered different.
   * Add flag to alias to set visibility in home/floorplan view - Issue 26
   * Add heyu engine start check - Issue 34
   * Secure heyu start and system infor for security level 1 - Issue 27
@@ -22,7 +24,6 @@ This page will contain the domus.Link roadmap, agreed upon and developed by all 
   * Android theme/compatibility
 
 = Features Under Consideration =
-  * Use of aliases with same name
   * Scene & Usersyn
   * Cron administration
   * Script support
