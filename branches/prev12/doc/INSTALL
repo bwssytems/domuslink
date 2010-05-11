@@ -6,11 +6,12 @@
 
  Requirements:
  --------------
- To run and use domus.Link you need the following:
+ To run and use domus.Link V1.2+ you need the following:
  
- - Heyu
- - Apache or any other webserver
- - PHP support
+ These have been tested -
+ - Heyu 2.8.0
+ - Apache 2.2+ (2.0+ may work if PHP5 is installed. Not Tested)
+ - PHP5+ support
  
  
  Assumptions:
@@ -36,10 +37,6 @@
 
     $ cp [your web path]/domus.Link/config.php [backup location]/config.php.backup
     
-    This step is optional. V1.1 will not overwrite your current floorplan file.
-    
-    $ cp -r [your web path]/domus.Link/db [backup location]/dbbackup
-
  3) Un-tar to a location within the webserver root or a specific directory.
  
  	These instructions show that /var/www is the web path for your server.
@@ -48,49 +45,31 @@
     $ cd /var/www
     $ tar xfvz domuslink-XXX.tar.gz
 
- 4) Backup existing x10.conf & x10.sched files (VERY IMPORTANT if new installation)
-
-    $ cp /etc/heyu/x10.conf /etc/heyu/x10.conf.backup
-    $ cp /etc/heyu/x10.sched /etc/heyu/x10.sched.backup
-
- 5) Copy supplied x10.conf file to heyu configuration directory (VERY IMPORTANT if new installation)
-    
-    $ cp /var/www/domus.Link/doc/x10.conf /etc/heyu/x10.conf
-
-    The supplied x10.conf file is prepared for use with the 
-    frontend and therefore must be used. The x10.conf file
-    supplied with Heyu will not work with domus.Link. This is due
-    to domus.Link requiring all directives to be uppercase.
-    
-    Since V1.1 the x10.scehd file parsing is now heyu compatible.
-
- 6) Edit x10.conf file and change TTY directive to suit your system.
-    - Do not add tabs, or extra spaces between options and directives.
-    - Do not add comments, or any other text.
-    - Leave everything else as is.
-    
-    $ vi /etc/heyu/x10.conf
-
- 7) Change file permission's so that webserver can read/write to the following files/dirs:
+ 4) Change file permission's so that webserver can read/write to the following files/dirs:
     - /etc/heyu
-    - /var/www/domus.Link/db/floorplan 
+    - /var/www/domus.Link/db/ 
     - /var/www/domus.Link/config.php
     
-    $ chmod o+rw /etc/heyu /var/www/domus.Link/db/floorplan /var/www/domus.Link/config.php
+    $ chmod o+rw /etc/heyu /var/www/domus.Link/db /var/www/domus.Link/config.php
 
- 8) If upgrading from previous version, copy back backed up config.php.
+ 5) If upgrading from previous version, copy back backed up config.php.
  
  	$ cp [your backup location]/config.php.backup [your web path]/domus.Link/config.php
  
-    Otherwise, if this is a new installation, copy the floorplan-dist file.
-    
-    $ cp [your web path]/domus.Link/db/floorplan-dist [your web path]/domus.Link/db/floorplan
-
- 9) Setup apache accordingly, refer to http://httpd.apache.org if you don't
+ 6) Setup apache accordingly, refer to http://httpd.apache.org if you don't
     know how to do this.
     
- 10) Finally, point your web browser to your webserver (ie: http://localhost/domus.Link)
+ 7) Finally, point your web browser to your webserver (ie: http://localhost/domus.Link)
     and start heyu using the 'START' link located on the footer.
+
+    If you are upgrading from a previous version of domus.Link prior to V1.2, you will be
+    asked to convert your alias and floorplan to the new version. Click 'Convert' to
+    accomplish this.
+    If you click 'Continue', you will bypass the conversion and all aliases will be of type
+    'other' and in location 'unknown'. While this action will not change your mapping, if you
+    make a modification to the heyu config file in the admin area or update an alias, you will
+    not be asked again for the convert. If you do not do anything and then start another session
+    later, you will be asked for the conversion again.
 
 
  ------------------------------------------------------------------------

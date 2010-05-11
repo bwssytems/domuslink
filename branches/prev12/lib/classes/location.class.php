@@ -21,15 +21,22 @@
 
 class location {
 
-	var $heyuconf;
+	private $heyuconfObj;
 
 	/**
 	 * Constructor
 	 *
 	 * @param $heyuconf represents heyuconf object
 	 */
-	function location($heyuconf) {
-		$this->heyuconf = $heyuconf;
+
+	function __construct() {
+    	$args = func_get_args();
+        if(!empty($args))
+        {
+			$this->heyuconfObj = $args[0];
+        }
+        else
+        	throw new Exception("heyu conf object argument required");
 	}
 
 	/**
@@ -41,20 +48,20 @@ class location {
 	function buildLocations($type_filter, $type = 'localized') {
 		$html = null;
 		// loop through each location in floorplan file
-		foreach (load_file(FPLAN_FILE_LOCATION) as $location) {
+		foreach ($this->heyuconfObj->getFloorPlan() as $location) {
 			// get all aliases specific to location
-			$localized_aliases = $this->heyuconf->getAliasesByLocation($location);
+			$localized_aliases = $this->getAliasesByLocation($location);
 			
 			// if location contains aliases/modules then display them
 			if (count($localized_aliases) > 0) {
 				if ($type == 'typed') {
-					$typed_aliases = $this->heyuconf->getAliasesByType($localized_aliases, $type_filter);
+					$typed_aliases = $this->getAliasesByType($localized_aliases, $type_filter);
 					if (count($typed_aliases) > 0) {
-						$html .= $this->buildLocationTable($location, $typed_aliases);
+						$html .= $this->buildLocationTable($location, $typed_aliases, $type);
 					}		
 				}
 				else {
-					$html .= $this->buildLocationTable($location, $localized_aliases);
+					$html .= $this->buildLocationTable($location, $localized_aliases, $type);
 				}
 			}
 		}
@@ -71,7 +78,7 @@ class location {
 	 * @param $aliases
 	 * @param $modtypes
 	 */
-	function buildLocationTable($location, $aliases, $html = null) {
+	function buildLocationTable($location, $aliases, $type, $html = null) {
 		//global $config;
 		//global $modtypes;
 		
@@ -86,9 +93,17 @@ class location {
 		
 		// iterate array specific to a house zone
 		foreach ($aliases as $alias) {
-			$html .= $this->buildModuleTable($alias);
+			if($type != 'typed') {
+				if(!($alias->getAliasMap()->isHiddenFromHome()))
+					$html .= $this->buildModuleTable($alias);
+			}
+			else
+				$html .= $this->buildModuleTable($alias);
 		}
 		
+		if($html == null)
+			return;
+
 		$zone_tpl->set('modules',$html);
 		
 		return $zone_tpl->fetch(TPL_FILE_LOCATION.'floorplan_table.tpl');
@@ -106,17 +121,16 @@ class location {
 		global $config;
 		global $modtypes;
 		
-		list($label, $code, $type) = split(" ", $alias, 3);
-		$multi_alias = is_multi_alias($code); // check if A1,2 or just A1
+		$multi_alias = $alias->isMultiAlias(); // check if A1,2 or just A1
 		
 		// check if is a multi alias, if true, use modules.tpl, if not use template acording to $type
-		$tpl = ($multi_alias) ? "modules.tpl" : strtolower($type).".tpl";
+		$tpl = ($multi_alias) ? "modules.tpl" : strtolower($alias->getAliasMap()->getType()).".tpl";
 		
 		// create new template
 		$mod = & new Template(TPL_FILE_LOCATION.$tpl);
 		$mod->set('config', $config);
-		$mod->set('label', label_parse($label, false));
-		$mod->set('code', $code);
+		$mod->set('label', label_parse($alias->getLabel(), false));
+		$mod->set('code', $alias->getHouseDevice());
 		$mod->set('lang', $lang);
 		
 		if (!isset($_GET['page'])) {
@@ -128,7 +142,7 @@ class location {
 		
 		// if alias is a multi alias, module state & dimlevel are not checked
 		if (!$multi_alias) {
-			if (on_state($code)) {
+			if (on_state($alias->getHouseDevice())) {
 				$state = 'on';
 				$action = $config['cmd_off']; 
 			}
@@ -140,8 +154,8 @@ class location {
 			$mod->set('action', $action);
 			$mod->set('state', $state);
 				
-			if ($type == $modtypes['lights']) {
-				$mod->set('level', $this->level_calc(dim_level($code)));
+			if ($alias->getAliasMap()->getType() == $modtypes['lights']) {
+				$mod->set('level', $this->level_calc(dim_level($alias->getHouseDevice())));
 			}
 		}
 		
@@ -172,6 +186,37 @@ class location {
 			return 1;
 	}
 
+	/**
+	 * Get Aliases By Location
+	 * 
+	 * @param $loc represents the wanted location
+	 */
+	function getAliasesByLocation($loc, $i = 0) {
+		foreach ($this->heyuconfObj->getAliases(true) as $line) {
+			if($line->getAliasMap()->getFloorPlanLabel() == trim($loc)) {
+				$request[$i] = $line;
+				$i++;
+			}
+		}
+		
+		if (!empty($request)) return $request;
+	}
+	
+	/**
+	 * Get Aliases By Type
+	 * 
+	 * @param $aliases represents an array of aliases built by getAliasesByLocation
+	 * @param $type represents the type os module (light, appliance, etc)
+	 */
+	function getAliasesByType($aliases, $type, $i = 0) {
+		foreach ($aliases as $alias) {
+			if($alias->getAliasMap()->getType() == $type) {
+				$request[$i] = $alias;
+				$i++;
+			}
+		}
+		
+		if (!empty($request)) return $request;
+	}
 }
-
 ?>

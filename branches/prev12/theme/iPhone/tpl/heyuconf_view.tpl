@@ -1,17 +1,18 @@
 <table cellspacing="0" cellpadding="0" border="0" width="100%" align="middle" class="content">
 	<tr>
-		<th colspan="2"><?php echo($lang['heyuconf']); ?></th>
+		<th colspan="3"><?php echo($lang['heyuconf']); ?></th>
 	</tr>
 	<tr>
         <td align="center" colspan="2">
             <table border="0" cellspacing="0" cellpadding="0" class="clear">
-                <?php  foreach($settings as $setting):
-                  if (substr($setting, 0, 1) != "#" && $setting != "\n" && substr($setting, 0, 5) != "ALIAS" &&
-                  substr($setting, 0, 5) != "SCENE" && substr($setting, 0, 7) != "USERSYN" && $setting != " \n"):
-                    list($directivenf, $valuenf) = split(" ", $setting, 2); ?>
+				<?php  foreach($settings as $setting):
+ 			 		if ($setting->getType() != COMMENT_D && $setting->getType() != ALIAS_D &&
+  					$setting->getType() != SCENE_D && $setting->getType() != USERSYN_D && $setting->getType() != SCRIPT_D):
+    				list($directivenf, $valuenf) = explode(" ", $setting, 2); ?>
                     <tr>
-                      <td width="33%"><?php echo(str_replace("_", " ", $directivenf)); ?>:&nbsp;</td>
-                      <td width="66%"><?php echo(rtrim($valuenf, "\n")); ?></td>
+                      <td width="30%"><?php echo(str_replace("_", " ", $setting->getType())); ?>:&nbsp;</td>
+				      <td width="15%"><input type="checkbox" disabled name="<?php echo "comment_d@"; echo $setting->getLineNum(); ?>" <?php if(!($setting->isEnabled())) echo "checked"; ?>/></td>
+                      <td width="55%"><?php echo(rtrim($valuenf)); ?></td>
                     </tr>
                     <?php endif; ?>
                 <?php endforeach; ?>

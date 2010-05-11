@@ -20,6 +20,7 @@
  */
 ## Includes
 require_once('..'.DIRECTORY_SEPARATOR.'include.php');
+require_once('..'.DIRECTORY_SEPARATOR.'include_globals.php');
 
 ## Security validation's
 if ($config['seclevel'] != "0" && !$authenticated) {

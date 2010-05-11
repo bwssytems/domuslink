@@ -29,12 +29,6 @@ if ($config['seclevel'] == "2" && !$authenticated) {
 	exit();
 }
 
-## Instantiate heyuConf & location class
-require_once(CLASS_FILE_LOCATION.'heyuconf.class.php');
-require_once(CLASS_FILE_LOCATION.'location.class.php');
-$heyuconf = new heyuConf($config['heyuconfloc']);
-$locations = new location($heyuconf);
-
 // start/stop controls for heyu
 if (isset($_GET["daemon"])) heyu_ctrl($_GET["daemon"]);
 
@@ -47,6 +41,18 @@ $tpl->set('page', $page);
 
 // check if heyu is running, if true display modules
 if (heyu_running()) {
+	$dirname = dirname(__FILE__);
+	require_once($dirname.DIRECTORY_SEPARATOR.'include_globals.php');
+	
+	if(!isset($_SESSION['configChecked']) || !$_SESSION['configChecked'])
+	{
+		header("Location: utility/setupverify.php?from=index");
+		exit();
+	}
+
+	require_once(CLASS_FILE_LOCATION.'location.class.php');
+	$locations = new location($heyuconf);
+	
 	// if any action set, act on it
 	if (isset($_GET['action'])) heyu_action();
 

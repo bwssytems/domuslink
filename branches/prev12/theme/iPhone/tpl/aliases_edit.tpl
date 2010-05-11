@@ -12,7 +12,7 @@
                 <input type="text" name="label" value="<?php echo $label; ?>" size="25" />
                 <label><?php echo ($lang['module']);?>:</label>
                 <select name="module">
-                <?php foreach (load_file(MODULE_FILE_LOCATION) as $modulenf): ?>
+                <?php foreach ($modlist as $modulenf): ?>
                 <?php $modulef = rtrim($modulenf); ?>
                     <?php if ($module == $modulef): ?>
                         <option value="<?php echo $modulef; ?>" selected><?php echo $modulef; ?></option>
@@ -38,7 +38,7 @@
                 <br clear="all" />
                 <label><?php echo ($lang['location']);?>:</label>
                 <select name="loc">
-                <?php foreach (load_file(FPLAN_FILE_LOCATION) as $locnf): ?>
+                <?php foreach ($floorplan as $locnf): ?>
                 <?php $locf = rtrim($locnf); ?>
                     <?php if (rtrim($loc) == $locf): ?>
                         <option value="<?php echo $locf; ?>" selected><?php echo $locf; ?></option>

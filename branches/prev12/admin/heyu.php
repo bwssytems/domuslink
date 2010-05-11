@@ -20,9 +20,8 @@
  */
 
 ## Includes
-$dirname = dirname(__FILE__);
 require_once('..'.DIRECTORY_SEPARATOR.'include.php');
-require_once(CLASS_FILE_LOCATION.'heyuconf.class.php');
+require_once('..'.DIRECTORY_SEPARATOR.'include_globals.php');
 
 ## Security validation's
 if ($config['seclevel'] != "0" && !$authenticated) { 
@@ -30,10 +29,8 @@ if ($config['seclevel'] != "0" && !$authenticated) {
 	exit();
 }
 
-## Instantiate HeyuConf class
-$heyuconf = new heyuConf($config['heyuconfloc']);
 ## Get heyu (x10.conf) file contents/settings
-$settings = $heyuconf->get();
+$settings = $heyuconf->getObjects();
 
 ## Set template parameters
 $tpl->set('title', 'Heyu Setup');
@@ -52,35 +49,37 @@ else {
 		$tpl_body->set('settings', $settings);
 	}
 	elseif ($_GET["action"] == "save") {
-		$i = 0;
 		
 		// $_POST contains all lines in heyu conf file.
 		// $key represents each directive, alias (with #, so ALIAS1,ALIAS2,etc), etc
 		// $value represents directive value or full string of ALIAS,SCENE,etc
 		foreach ($_POST as $key => $value) {
-			$primary = substr($key, 0, 5);
-			switch ($primary) {
-				case "ALIAS":
-					$newcontent[$i] = $primary." ".$value."\n";
-					break;
-				case "SCENE":
-					$newcontent[$i] = $primary." ".$value."\n";
-					break;
-				case "USERS": // USERSYN
-					$newcontent[$i] = substr($key, 0, 7)." ".$value."\n";
-					break;
-				default:
-					$newcontent[$i] = $key." ".$value."\n";
-					break;
+			list($type, $lineNum) = explode("@", $key, 2);
+			$elements = $heyuconf->getElementObjects($type);
+			foreach($elements as $anElement) {
+				if($anElement->getLineNum() == $lineNum)
+				{
+					$anElement->setElementLine(array($type, $value));
+					if(isset($_POST["comment_d@".$lineNum]))
+						$anElement->setEnabled(false);
+					else
+						$anElement->setEnabled(true);
+				}
 			}
-			$i++;
 		}
-		save_file($newcontent, $config['heyuconfloc'], true);
+		try {
+			$heyuconf->save();
+		}
+		catch(Exception $e)	{
+			gen_error(null, array($e->getMessage(), $lang['exitbrowser']));
+			exit();
+		}
+		header("Location: ".$config['url_path']."/admin/reload.php");
 	}
 }
 
 function yesnoopt($value) {
-	if ($value == "YES") {
+	if (strtoupper($value) == "YES") {
 		return "<option selected value='YES'>YES</option>\n" .
 				"<option value='NO'>NO</option>\n";
 	} 
@@ -91,35 +90,35 @@ function yesnoopt($value) {
 }
 
 function dawnduskopt($value) {
-	if ($value == "FIRST") {
+	if (strtoupper($value) == "FIRST") {
 		return "<option selected value='FIRST'>FIRST</option>\n" .
 				"<option value='EARLIEST'>EARLIEST</option>\n" .
 				"<option value='LATEST'>LATEST</option>\n" .
 				"<option value='AVERAGE'>AVERAGE</option>\n" .
 				"<option value='MEDIAN'>MEDIAN</option>\n";
 	}
-	elseif ($value == "EARLIEST") {
+	elseif (strtoupper($value) == "EARLIEST") {
 		return "<option value='FIRST'>FIRST</option>\n" .
 				"<option selected value='EARLIEST'>EARLIEST</option>\n" .
 				"<option value='LATEST'>LATEST</option>\n" .
 				"<option value='AVERAGE'>AVERAGE</option>\n" .
 				"<option value='MEDIAN'>MEDIAN</option>\n";
 	}
-	elseif ($value == "LATEST") {
+	elseif (strtoupper($value) == "LATEST") {
 		return "<option value='FIRST'>FIRST</option>\n" .
 				"<option value='EARLIEST'>EARLIEST</option>\n" .
 				"<option selected value='LATEST'>LATEST</option>\n" .
 				"<option value='AVERAGE'>AVERAGE</option>\n" .
 				"<option value='MEDIAN'>MEDIAN</option>\n";
 	}
-	elseif ($value == "AVERAGE") {
+	elseif (strtoupper($value) == "AVERAGE") {
 		return "<option value='FIRST'>FIRST</option>\n" .
 				"<option value='EARLIEST'>EARLIEST</option>\n" .
 				"<option value='LATEST'>LATEST</option>\n" .
 				"<option selected value='AVERAGE'>AVERAGE</option>\n" .
 				"<option value='MEDIAN'>MEDIAN</option>\n";
 	}
-	elseif ($value == "MEDIAN") {
+	elseif (strtoupper($value) == "MEDIAN") {
 		return "<option value='FIRST'>FIRST</option>\n" .
 				"<option value='EARLIEST'>EARLIEST</option>\n" .
 				"<option value=LATEST>LATEST</option>\n" .

@@ -21,9 +21,7 @@
 
 ## Includes
 require_once('..'.DIRECTORY_SEPARATOR.'include.php');
-require_once(CLASS_FILE_LOCATION.'heyuconf.class.php');
-require_once(CLASS_FILE_LOCATION.'heyusched.class.php');
-require_once(CLASS_FILE_LOCATION.'timer.class.php');
+require_once('..'.DIRECTORY_SEPARATOR.'include_globals.php');
 
 ## Security validation's
 if ($config['seclevel'] != "0" && !$authenticated) {
@@ -31,12 +29,6 @@ if ($config['seclevel'] != "0" && !$authenticated) {
 	exit();
 }
 
-## Instantiate heyuConf class and get schedule file with absolute path
-$heyuconf = new heyuConf($config['heyuconfloc']);
-$schedfileloc = $config['heyu_base_real'].$heyuconf->getSchedFile();
-
-## Instantiate heyuSched class, get contents and parse timers
-$heyusched = new heyuSched($schedfileloc);
 $schedObjs = $heyusched->getObjects();
 $macros = $heyusched->getMacroObjects();
 $timers = $heyusched->getTimerObjects();
@@ -59,6 +51,8 @@ $tpl_body->set('lang', $lang);
 $tpl_body->set('timers', $timers);
 $tpl_body->set('config', $config);
 $tpl_body->set('themeloc', TPL_FILE_LOCATION);
+$mustSave = false;
+
 if (!isset($_GET["action"])) {
 	$tpl_add = & new Template(TPL_FILE_LOCATION.'timer_macro_add.tpl');
 	$tpl_add->set('lang', $lang);
@@ -74,12 +68,12 @@ else {
 	switch ($_GET["action"]) {
 		case "enable":
 			$schedObjs[$_GET['line']]->setEnabled(true);
-			save_file($schedObjs, $schedfileloc);
+			$mustSave = true;
 			break;
 			
 		case "disable":
 			$schedObjs[$_GET['line']]->setEnabled(false);
-			save_file($schedObjs, $schedfileloc);
+			$mustSave = true;
 			break;
 		
 		case "edit":
@@ -115,10 +109,10 @@ else {
 				$aTimer->setEnabled(false);
 
 			$aTimer->rebuildElementLine();
-			array_splice($schedObjs,$heyusched->getLine(TIMER_D, END_D)+ 1, 0, array($aTimer));
-			$heyusched->setLine(TIMER_D, $heyusched->getLine(TIMER_D, END_D) + 1, END_D);
 
-			save_file($schedObjs, $schedfileloc);
+			$heyusched->addElement($aTimer);
+
+			$mustSave = true;
 			break;
 			
 		case "save":
@@ -133,19 +127,36 @@ else {
 			else
 				$schedObjs[$_POST["line"]]->setStopMacro(trim($_POST["macro_off"]));
 			$schedObjs[$_POST["line"]]->rebuildElementLine();
-			save_file($schedObjs, $schedfileloc);
+
+			$mustSave = true;
 			break;
 
 		case "del":
-			delete_line($schedObjs, $schedfileloc, $_GET["line"]);
+			$heyusched->deleteElement($_GET["line"]);
+			$mustSave = true;
 			break;
 		
 		case "move":
-			if ($_GET["dir"] == "up") reorder_array($schedObjs, $_GET['line'], $_GET['line']-1, $schedfileloc);
-			if ($_GET["dir"] == "down") reorder_array($schedObjs, $_GET['line'], $_GET['line']+1, $schedfileloc);
+			if ($_GET["dir"] == "up") $heyusched->reorderElements($_GET['line'], $_GET['line']-1);
+			if ($_GET["dir"] == "down") $heyusched->reorderElements($_GET['line'], $_GET['line']+1);
+			$mustSave = true;
 			break;
 			
 	}
+	
+	if($mustSave)
+	{
+		try {
+			$heyusched->save();
+		}
+		catch(Exception $e)	{
+			gen_error(null, array($e->getMessage(), $lang['exitbrowser']));
+			exit();
+		}
+	}
+	
+	if($_GET["action"] != "edit")
+		header("Location: ".$_SERVER['PHP_SELF']);
 }
 
 ## Display the page

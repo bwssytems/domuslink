@@ -49,7 +49,7 @@ function validateForm(form)
                 <br clear="all" />
                 <label><?php echo ($lang['location']);?>:</label>
                 <select name="loc">
-                <?php foreach (load_file(FPLAN_FILE_LOCATION) as $locnf): ?>
+                <?php foreach ($floorplan as $locnf): ?>
                 <?php $locf = rtrim($locnf); ?>
                     <option value="<?php echo $locf; ?>"><?php echo $locf; ?></option>
                 <?php endforeach; ?>

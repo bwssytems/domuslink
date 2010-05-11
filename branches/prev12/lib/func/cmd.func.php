@@ -29,9 +29,18 @@
  */
 function execute_cmd($cmd, $noerror = false) {
 	exec ($cmd." 2>&1", $rs, $retval);
-	
 	if ($retval > 0 && !$noerror) {
 		gen_error($cmd,$rs);
+	}
+	else
+		return $rs;
+}
+
+function execute_cmd_ret($cmd) {
+	$ret_str = exec ($cmd." 2>&1", $rs, $retval);
+	if ($retval > 0) {
+		pr($rs);
+		throw new Exception($ret_str);
 	}
 	else
 		return $rs;
