@@ -71,7 +71,7 @@ else {
 			$heyuconf->save();
 		}
 		catch(Exception $e)	{
-			gen_error(null, $e->getMessage());
+			gen_error(null, array($e->getMessage(), $lang['exitbrowser']));
 			exit();
 		}
 		header("Location: ".$config['url_path']."/admin/reload.php");

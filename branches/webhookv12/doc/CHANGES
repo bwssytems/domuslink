@@ -62,6 +62,11 @@
 	* Updated progress bar handling to be generic. Progress bar javascript is now in the javascript
 	  directory and not embedded.
 	* Installation is now simplified due to the fact there is no installed db files.
+	* Added file modification verification and detection. Domus will check to see if the config files
+	  have changed between actions. It will reload the config file with the new values automatically.
+	  If domus detects the file has changed just before the save process, it will generate and error
+	  to the user. This is internal to the save of the file for consistency, otherwise the user would 
+	  see the changed file first.
 	
 
   v1.1 - 4/Apr/2010

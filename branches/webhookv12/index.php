@@ -47,6 +47,7 @@ if (heyu_running()) {
 	if(!isset($_SESSION['configChecked']) || !$_SESSION['configChecked'])
 	{
 		header("Location: utility/setupverify.php?from=index");
+		exit();
 	}
 
 	require_once(CLASS_FILE_LOCATION.'location.class.php');

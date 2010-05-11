@@ -118,7 +118,7 @@ else {
 			$heyusched->save();
 		}
 		catch(Exception $e)	{
-			gen_error(null, array($e->getMessage(), "Exit your browser and try again."));
+			gen_error(null, array($e->getMessage(), $lang['exitbrowser']));
 			exit();
 		}
 	}

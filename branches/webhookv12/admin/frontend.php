@@ -65,6 +65,7 @@ elseif ($_GET["action"] == "save") {
 	}
 	else {
 		gen_error(null, CONFIG_FILE_LOCATION." ".$lang['error_filerw']);
+		exit();
     }
 }
 

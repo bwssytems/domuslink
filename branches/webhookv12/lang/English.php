@@ -229,4 +229,5 @@ $lang["converttext"] = "Use displayed alias/locations/types derived from heyu co
 $lang["continuetext"] = "Continue without conversion of derived alias/locations/types.";
 $lang["show"] = "Show";
 $lang["hide"] = "Hide";
+$lang["exitbrowser"] = "Exit your browser and try again.";
 ?>
