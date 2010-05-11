@@ -14,7 +14,7 @@ This page will contain the domus.Link roadmap, agreed upon and developed by all 
        are considered different.
   * Add flag to alias to set visibility in home/floorplan view - Issue 26
   * Add heyu engine start check - Issue 34
-  * Secure heyu start and system infor for security level 1 - Issue 27
+  * Secure heyu start and system info for security level 1 - Issue 27
   * Code clean-up - complete
 
 == v2.0 ==
