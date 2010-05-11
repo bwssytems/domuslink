@@ -11,13 +11,15 @@ This page will contain the domus.Link roadmap, agreed upon and developed by all 
   * iPhone theme stability - Issue 1
   * Improve x10.conf file parsing - Issue 30, Issue 16
   * Add flag to alias to set visibility in home/floorplan view - Issue 26
-  * Android theme/compatibility
+  * Add heyu engine start check - Issue 34
+  * Secure heyu start and system infor for security level 1 - Issue 27
+  * Code clean-up - complete
 
 == v2.0 ==
-  * Code clean-up
   * Complete OOP focus
   * View by location/floorplan or types
   * AJAX implementation (drag&drop sorting, etc)
+  * Android theme/compatibility
 
 = Features Under Consideration =
   * Use of aliases with same name
