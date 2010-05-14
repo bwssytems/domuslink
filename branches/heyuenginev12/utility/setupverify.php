@@ -25,9 +25,10 @@ require_once('..'.DIRECTORY_SEPARATOR.'include_globals.php');
 require_once('heyuconfold.class.php');
 require_once('converttoaliasmap.func.php');
 
-## Security validation's
-if ($config['seclevel'] != "0" && !$authenticated) {
-	header("Location: ../login.php?from=utility/setupverify");
+
+if ($config['theme'] == 'iPhone') {
+	$_SESSION['configChecked'] = true;
+	header("Location: ../index.php");
 	exit();
 }
 
@@ -43,7 +44,13 @@ catch(Exception $e) {
 	$_SESSION['configChecked'] = true;
 	header("Location: ../index.php");
 	exit();
-}	
+}
+
+## Security validation must be checked to convert.
+if ($config['seclevel'] != "0" && !$authenticated) {
+	header("Location: ../login.php?from=utility/setupverify");
+	exit();
+}
 
 $tpl_body = & new Template(TPL_FILE_LOCATION.'setupverify.tpl');
 $tpl_body->set('lang', $lang);
@@ -56,7 +63,16 @@ else {
 	if($_GET["action"] == "edit")
 	{
 		convert_to_alias_map($oldHeyuConf, $heyuconf);
-		$heyuconf->save();
+		try {
+			$heyuconf->save();
+		}
+		catch(Exception $e)	{
+			if(count(preg_grep("/modified/", $e->getMessage())))
+				gen_error(null, array($e->getMessage(), $lang['exitbrowser']));
+			else
+				gen_error(null, $e->getMessage());
+			exit();
+		}
 		$_SESSION['configChecked'] = true;
 	}
 	else

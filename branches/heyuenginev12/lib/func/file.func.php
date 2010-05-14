@@ -32,7 +32,7 @@ function load_file($fileloc) {
 		$content = file($fileloc);
 	}
 	else {
-		gen_error(null, $fileloc." ".$lang['error_filer']);
+		throw new Exception($fileloc." ".$lang['error_filer']);
 	}
 	
 	return $content;
@@ -59,7 +59,7 @@ function save_file($content, $fileloc) {
 	}
 	else {
 		fclose($fp);
-		gen_error(null, $fileloc." ".$lang['error_filerw']);
+		throw new Exception($fileloc." ".$lang['error_filerw']);
 	}
 }
 ?>

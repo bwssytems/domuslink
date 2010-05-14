@@ -189,13 +189,18 @@ else {
 			$heyuconf->save();
 		}
 		catch(Exception $e)	{
-			gen_error(null, array($e->getMessage(), $lang['exitbrowser']));
+			if(count(preg_grep("/modified/", $e->getMessage())))
+				gen_error(null, array($e->getMessage(), $lang['exitbrowser']));
+			else
+				gen_error(null, $e->getMessage());
 			exit();
 		}
 	}
 	
-	if($_GET["action"] != "edit" && $_GET["action"] != "showeditform" && $_GET["action"] != "showaddform")
+	if($_GET["action"] != "edit" && $_GET["action"] != "showeditform" && $_GET["action"] != "showaddform") {
 		header("Location: ".$_SERVER['PHP_SELF']);
+		exit();
+	}
 }
 
 ## Display the page

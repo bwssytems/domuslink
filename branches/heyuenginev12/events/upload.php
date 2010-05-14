@@ -28,6 +28,11 @@ if ($config['seclevel'] != "0" && !$authenticated) {
 	exit();
 }
 
+if(!isset($heyusched) || !count($heyusched->getObjects())) {
+	gen_error(null,"No schedule file defined.");
+	exit();
+}
+
 ## Set template parameters
 $tpl->set('title', $lang['timers']);
 

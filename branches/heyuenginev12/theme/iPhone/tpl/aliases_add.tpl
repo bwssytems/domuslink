@@ -31,7 +31,7 @@ function validateForm(form)
                 <input type="text" name="label" value="" size="25" />
                 <label><?php echo ($lang['module']);?>:</label>
                 <select name="module">
-                <?php foreach (load_file(MODULE_FILE_LOCATION) as $modulenf): ?>
+                <?php foreach ($modlist as $modulenf): ?>
                 <?php $modulef = rtrim($modulenf); ?>
                         <option value="<?php echo $modulef; ?>"><?php echo $modulef; ?></option>
                 <?php endforeach; ?>

@@ -35,6 +35,7 @@ if (isset($_GET["action"])) {
 	if ($_GET["action"] == "logout") {
 		$login->logout();
 		header("Location: login.php?from=index");
+		exit();
 	}
 }
 
@@ -45,6 +46,7 @@ if (isset($_POST['password'])) {
 	else {
 		header("Location: login.php?from=".$_POST['from']."&failed=true");
 	}
+	exit();
 }
 
 $tpl_body = & new Template(TPL_FILE_LOCATION.'login.tpl');

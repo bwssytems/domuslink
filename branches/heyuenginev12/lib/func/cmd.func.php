@@ -30,15 +30,6 @@
 function execute_cmd($cmd, $noerror = false) {
 	exec ($cmd." 2>&1", $rs, $retval);
 	if ($retval > 0 && !$noerror) {
-		gen_error($cmd,$rs);
-	}
-	else
-		return $rs;
-}
-
-function execute_cmd_ret($cmd) {
-	$ret_str = exec ($cmd." 2>&1", $rs, $retval);
-	if ($retval > 0) {
 		pr($rs);
 		throw new Exception($ret_str);
 	}
@@ -46,14 +37,27 @@ function execute_cmd_ret($cmd) {
 		return $rs;
 }
 
+function execute_cmd_ret($cmd) {
+	return execute_cmd($cmd, false);
+}
+
 /**
  * Heyu Status Check
  *
  */
 function heyu_running() {
+	$proc_count = 0;
 	$rs = execute_cmd("ps ax");
-	if (count(preg_grep('/[h]eyu/', $rs)) >= 2) 
-		return true;
+	if (count(preg_grep('/[h]eyu_relay/', $rs)) == 1)
+		 $proc_count++;
+
+	if (count(preg_grep('/[h]eyu_engine/', $rs)) == 1)
+		 $proc_count++;
+
+	if($proc_count == 2)
+		 return true;
+	else
+		return false;
 }
 
 /**
@@ -76,17 +80,22 @@ function heyu_ctrl($action) {
 	switch ($action) 
 	{
 		case "start":
-			$cmd = $config['heyuexecreal']." start";
+			$rs = execute_cmd("ps ax");
+			if (count(preg_grep('/[h]eyu_relay/', $rs)) != 1) {
+				execute_cmd($config['heyuexecreal']." start");
+			}
+			
+			if (count(preg_grep('/[h]eyu_engine/', $rs)) != 1) {
+				execute_cmd($config['heyuexecreal']." engine");
+			} 
 			break;
 		case "stop":
-			$cmd = $config['heyuexecreal']." stop";
+			execute_cmd($config['heyuexecreal']." stop");
 			break;
 		case "restart":
-			$cmd = $config['heyuexecreal']." restart";
+			execute_cmd($config['heyuexecreal']." restart");
 			break;
 	}
-
-	execute_cmd($cmd);
 }
 
 /**
@@ -108,11 +117,6 @@ function heyu_action() {
 	}
 	
 	execute_cmd($cmd);
-
-	if (isset($_GET['page']))
-		header("Location: ".$_SERVER['PHP_SELF']."?page=". $_GET['page']);
-	else
-		header("Location: ".$_SERVER['PHP_SELF']);
 }
 
 /**
@@ -187,7 +191,7 @@ function on_state($code) {
 			execute_cmd($cmd);
 		}
 		else {
-			gen_error($cmd, $rs);
+			throw new Exception($cmd." ".$rs);
 		}
 	}
 }

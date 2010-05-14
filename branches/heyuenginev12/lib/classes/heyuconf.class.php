@@ -66,7 +66,7 @@ class heyuConf extends ElementFile {
 		if(count($schedFileObjs) > 0)
 			$schedfile = trim(substr($schedFileObjs[0]->getElementLine(), 14));
 		else
-			throw new Exception("schedule_file not found");
+			throw new Exception("Schedule_file not defined");
 		
 		return $schedfile;
 	}

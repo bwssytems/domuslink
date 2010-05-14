@@ -96,21 +96,31 @@ class frontObject {
 			if($this->heyuSched->hasFileChanged())
 				$reload = true;
 		}
-		
+
 		if(!isset($this->heyuSched) || $reload) {
 			$_SESSION['load_count'] += 1;
 			$schedfileloc = $this->config['heyu_base_real'].$this->heyuConf->getSchedFile();
-			$heyuschedinstance = new heyuSched($schedfileloc);
+			
+			try {
+				$heyuschedinstance = new heyuSched($schedfileloc);
+			}
+			catch (Exception $e) {
+				error_log("No sched file available, creating default with location [".$schedfileloc."]");
+				$heyuschedinstance = new heyuSched();
+				$heyuschedinstance->setFileName($schedfileloc);
+			}
 			$this->heyuSched = &$heyuschedinstance;
 		}
 		
 		return $this->heyuSched;
 	}
 	
-	function & getHeyuConfigName() {
-		if(!isset($this->heyuConf))
-			return "";
-		else
-			return $this->heyuConf->getFirstSection();
+	function getHeyuConfigName() {
+		if(isset($this->heyuConf)) {
+			$configName = $this->heyuConf->getFirstSection();
+			if(strlen($configName))
+				return $configName;
+		}
+		return "[undefined]";
 	}
 }

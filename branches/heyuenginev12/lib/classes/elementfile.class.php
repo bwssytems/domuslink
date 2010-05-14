@@ -40,6 +40,9 @@ abstract class ElementFile {
 			$this->filename = $args[0];
 			$this->load(load_file($this->filename));
         }
+        else
+        	$this->filemodtime = time();
+        
 	}
 
 	/**
@@ -121,6 +124,13 @@ abstract class ElementFile {
 		$this->updateLineNumbers();
 	}
 	
+	function getFileName() {
+		return $this->filename;
+	}
+	
+	function setFileName($aFileName) {
+		$this->filename = $aFileName;
+	}
 	/**
 	 * Get Element Objects by a type
 	 *

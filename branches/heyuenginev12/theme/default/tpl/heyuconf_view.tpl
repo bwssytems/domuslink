@@ -37,3 +37,9 @@
   </td>
 </tr>
 </table>
+
+<?php 
+if (!empty($form)):
+ echo($form);
+endif; 
+?>

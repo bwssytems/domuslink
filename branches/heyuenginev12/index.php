@@ -54,7 +54,15 @@ if (heyu_running()) {
 	$locations = new location($heyuconf);
 	
 	// if any action set, act on it
-	if (isset($_GET['action'])) heyu_action();
+	if (isset($_GET['action'])) {
+		heyu_action();
+
+		if (isset($_GET['page']))
+			header("Location: ".$_SERVER['PHP_SELF']."?page=". $_GET['page']);
+		else
+			header("Location: ".$_SERVER['PHP_SELF']);
+		exit();
+	}
 
 	// load page acordingly
 	switch($page) {
