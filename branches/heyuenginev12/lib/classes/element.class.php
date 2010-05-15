@@ -47,9 +47,17 @@ abstract class Element {
 				if(strlen(ltrim(rtrim($testforcomments[$i]))) != 0)
 					break;
 			}	
+
+			if($i >= count($testforcomments)) {
+				//This is a blank line with a commnet delimeter. Set it and exit
+				$this->setType(COMMENT_D);
+				$this->setEnabled(true);
+				$this->setElementLine("");
+				return;
+			}
 		}
 		elseif(strlen(ltrim(rtrim($testforcomments[$i]))) == 0 && count($testforcomments) == 1) {
-			//This is a blank line. Set it and exit
+			//This is a blank line without a commnet delimeter. Set it and exit
 			$this->setType(COMMENT_D);
 			$this->setEnabled(true);
 			$this->setElementLine($elementLine);
