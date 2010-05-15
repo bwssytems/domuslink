@@ -54,8 +54,14 @@ if (isset($_GET["action"])) {
 			}
 			break;
 		case "erase":
-			$rs = heyu_erase();
-			$tpl_body->set('type', 'erase');
+			try {
+				$rs = heyu_erase();
+				$tpl_body->set('type', 'erase');
+			}
+			catch(Exception $e) {
+				gen_error("heyu erase", $e);
+				exit();
+			}
 			break;
 	}
 	$tpl_body->set('out', $rs);
