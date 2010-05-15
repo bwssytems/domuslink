@@ -23,6 +23,7 @@ This page will contain the domus.Link roadmap, agreed upon and developed by all 
   * View by location/floorplan or types
   * AJAX implementation (drag&drop sorting, etc) - Issue 37
   * Android theme/compatibility
+  * Nokia Internet Tablet theme/compatibility - Issue 31
 
 = Features Under Consideration =
   * Scene & Usersyn
