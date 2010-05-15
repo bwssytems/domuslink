@@ -30,8 +30,16 @@ if ($config['seclevel'] == "2" && !$authenticated) {
 }
 
 // start/stop controls for heyu
-if (isset($_GET["daemon"])) heyu_ctrl($_GET["daemon"]);
-
+if (isset($_GET["daemon"])) {
+	try {
+		heyu_ctrl($_GET["daemon"]);
+	}
+	catch(Exception $e) {
+		gen_error("heyu ".$_GET["daemon"], $e->getMessage());
+		exit();
+	}
+}
+	
 // get which page is open
 $page = (isset($_GET['page'])) ? $_GET['page'] : "home";
 
