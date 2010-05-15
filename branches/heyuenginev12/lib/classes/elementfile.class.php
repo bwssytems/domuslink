@@ -93,7 +93,13 @@ abstract class ElementFile {
 	}
 
 	function addElement($anElement) {
-		$arrayIndex = $this->getLine($anElement->getType(), END_D);
+		$arrayIndex = 0;
+		try {
+			$arrayIndex = $this->getLine($anElement->getType(), END_D);
+		}
+		catch(Exception $e) {
+			// noop
+		}
 		$arrayLength = count($this->elementObjects);
 		if(!$arrayIndex && $arrayLength)
 			$arrayIndex = $arrayLength - 1;
@@ -156,8 +162,13 @@ abstract class ElementFile {
 	}
 
 	function getLine($theObjType, $theLocation) {
-		$theLineLocation = $this->lineStore[$theLocation];
-		return $theLineLocation[$theObjType];
+		if(!array_key_exists($theLocation, $this->lineStore))
+			throw new Exception("No line location set [".$theLocation."]");
+			
+		if(array_key_exists($theObjType, $this->lineStore[$theLocation]))
+			return $this->lineStore[$theLocation][$theObjType];
+		else
+			throw new Exception("No line location set [".$theLocation." ".$theObjType."]");
 	}
 	
 	function hasFileChanged() {

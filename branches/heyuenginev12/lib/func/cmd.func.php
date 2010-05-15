@@ -28,17 +28,21 @@
  * @param $noerror represents a boolean if true errors are ignored 
  */
 function execute_cmd($cmd, $noerror = false) {
+	//security check, try to prevent bad things.
+	if(strpos($cmd, ";")) {
+		error_log("domus.Link: Command contains unsafe content. Throwing exception. [".$cmd."]");
+		if($noerror)
+			return array("Command is invalid.");
+		else
+			throw new Exception("Command is invalid.");
+	}
+	
 	exec ($cmd." 2>&1", $rs, $retval);
 	if ($retval > 0 && !$noerror) {
-		pr($rs);
-		throw new Exception($ret_str);
+		throw new Exception($rs[0]);
 	}
 	else
 		return $rs;
-}
-
-function execute_cmd_ret($cmd) {
-	return execute_cmd($cmd, false);
 }
 
 /**
@@ -83,8 +87,10 @@ function heyu_ctrl($action) {
 			$rs = execute_cmd("ps ax");
 			if (count(preg_grep('/[h]eyu_relay/', $rs)) != 1) {
 				execute_cmd($config['heyuexecreal']." start");
+				sleep(2);
 			}
 			
+			$rs = execute_cmd("ps ax");
 			if (count(preg_grep('/[h]eyu_engine/', $rs)) != 1) {
 				execute_cmd($config['heyuexecreal']." engine");
 			} 
@@ -210,10 +216,16 @@ function dim_level($unit) {
 /**
  * Description: Upload schedule file defined in
  * heyu configuratin file.
+ * NOTE: Does not call execute command due to security restriction
  */
 function heyu_upload() {	
 	global $config;
-	return (execute_cmd("cd ".$config['heyu_base_real']."; ".$config['heyuexecreal']." upload"));
+	exec ("cd ".$config['heyu_base_real']."; ".$config['heyuexecreal']." upload 2>&1", $rs, $retval);
+	if ($retval > 0) {
+		throw new Exception($rs[0]);
+	}
+	else
+		return $rs;
 }
 
 /**

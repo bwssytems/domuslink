@@ -41,8 +41,11 @@ $tpl_body = & new Template(TPL_FILE_LOCATION.'utility.tpl');
 $tpl_body->set('lang', $lang);
 $tpl_body->set('commands', $commands);
 
-if ($_GET["action"] != "execute") {
-	$tpl_body->set('out_lines', $out_lines);
+if (!isset($_GET["action"])) {
+	if(isset($out_lines))
+		$tpl_body->set('out_lines', $out_lines);
+	else
+		$tpl_body->set('out_lines', "");
 }
 else {
 	$bad_cmd = false;
@@ -72,7 +75,7 @@ else {
 	}
 	else {
 		// execute the heyu command and return output
-		$tpl_body->set('out_lines', execute_cmd_ret($config['heyuexecreal']." ".$_POST["command"]." ".$_POST["arguments"]));
+		$tpl_body->set('out_lines', execute_cmd($config['heyuexecreal']." ".$_POST["command"]." ".$_POST["arguments"], true));
 	}
 }
 

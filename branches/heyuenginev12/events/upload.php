@@ -21,6 +21,7 @@
 
 ## Includes
 require_once('..'.DIRECTORY_SEPARATOR.'include.php');
+require_once('..'.DIRECTORY_SEPARATOR.'include_globals.php');
 
 ## Security validation's
 if ($config['seclevel'] != "0" && !$authenticated) {
@@ -43,8 +44,14 @@ $tpl_body->set('config', $config);
 if (isset($_GET["action"])) {
 	switch ($_GET["action"]) {
 		case "upload":
-			$rs = heyu_upload();
-			$tpl_body->set('type', 'upload');
+			try {
+				$rs = heyu_upload();
+				$tpl_body->set('type', 'upload');
+			}
+			catch(Exception $e) {
+				gen_error("heyu upload", $e);
+				exit();
+			}
 			break;
 		case "erase":
 			$rs = heyu_erase();

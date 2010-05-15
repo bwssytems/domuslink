@@ -70,14 +70,20 @@ class Alias extends ConfigElement {
 		$elements = preg_split('/\s{1,}/', $aliasLine);
 		$elementCount = count($elements);
 
+		if($elementCount < 3)
+			throw new Exception("Alias line does not have enough elements [".$aliasLine."]");
+
 		$this->label = $elements[1];
 		$this->parseHouseUnitCodes($elements[2]);
-		$this->moduleType = $elements[3];
-		$this->moduleOptions = "";
-		for($i = 4; $i < count($elements); $i++) {
-			$this->moduleOptions = $this->moduleOptions." ".$elements[$i]; 
+		if($elementCount > 3)
+			$this->moduleType = $elements[3];
+		if($elementCount > 4) {
+			$this->moduleOptions = "";
+			for($i = 4; $i < count($elements); $i++) {
+				$this->moduleOptions = $this->moduleOptions." ".$elements[$i]; 
+			}
+			$this->moduleOptions = trim($this->moduleOptions);
 		}
-		$this->moduleOptions = trim($this->moduleOptions);
 	}
 	
 	function parseHouseUnitCodes($houseUnitCodes) {

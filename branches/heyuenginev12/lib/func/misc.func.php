@@ -70,7 +70,7 @@ function label_parse($str, $add = false) {
  */
 function uptime() {
 	try {
-		$rs = execute_cmd_ret("uptime");
+		$rs = execute_cmd("uptime", true);
 		return $rs[0];
 	}
 	catch(Exception $e) {

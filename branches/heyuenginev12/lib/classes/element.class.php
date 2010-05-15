@@ -39,14 +39,21 @@ abstract class Element {
      	// Split line into commented whitespace/empty lines and object lines
 		$testforcomments = preg_split('/\s{0,}#|(?i)comment\s{0,}/', $elementLine);
 		$i = 0;
-		if(strlen(ltrim(rtrim($testforcomments[$i]))) == 0) {
+		if(strlen(ltrim(rtrim($testforcomments[$i]))) == 0 && count($testforcomments) > 1) {
 			// line is commented
 			$this->setEnabled(false);
 			for(; $i < count($testforcomments); $i++) {
-				//find element data
+				//find element comment data
 				if(strlen(ltrim(rtrim($testforcomments[$i]))) != 0)
 					break;
 			}	
+		}
+		elseif(strlen(ltrim(rtrim($testforcomments[$i]))) == 0 && count($testforcomments) == 1) {
+			//This is a blank line. Set it and exit
+			$this->setType(COMMENT_D);
+			$this->setEnabled(true);
+			$this->setElementLine($elementLine);
+			return;
 		}
 		// Split line into elements of the type that are not comments
 		$elements = preg_split('/\s{1,}/', ltrim(rtrim($testforcomments[$i])));
@@ -76,6 +83,7 @@ abstract class Element {
     }
 
     public function setElementLine($lineElements) {
+    	$newLine = "";
     	if(is_array($lineElements)) {
     		foreach($lineElements as $anElement) {
 				$newLine = $newLine.rtrim(ltrim($anElement))." ";

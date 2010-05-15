@@ -49,17 +49,15 @@ function load_file($fileloc) {
 
 function save_file($content, $fileloc) {
 	global $lang;
-	$fp = fopen($fileloc,'w');
+	if(file_exists($fileloc)) {
+		if (!is_writable($fileloc))
+			throw new Exception($fileloc." ".$lang['error_filerw']);
+	}
 
-	if (is_writable($fileloc) == true) {
-		foreach ($content as $line) {
-			$write = fwrite($fp, $line);
-		}
-		fclose($fp);
+	$fp = fopen($fileloc,'w');
+	foreach ($content as $line) {
+		$write = fwrite($fp, $line);
 	}
-	else {
-		fclose($fp);
-		throw new Exception($fileloc." ".$lang['error_filerw']);
-	}
+	fclose($fp);
 }
 ?>

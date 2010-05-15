@@ -34,7 +34,10 @@ class frontObject {
 
 	function & getConfig($reload = false) {
 		if (!isset($this->config) || $reload) {
-			$_SESSION['load_count'] += 1;
+			if(isset($_SESSION['load_count']))
+				$_SESSION['load_count'] += 1;
+			else
+				$_SESSION['load_count'] = 1;
 			$configinstance = config_load();
 			$this->config = &parse_config($configinstance);
 		}
@@ -55,7 +58,7 @@ class frontObject {
 	function & getDirectives() {
 		if (!isset($this->directives)) {
 			$_SESSION['load_count'] += 1;
-			$directivesinstance = execute_cmd_ret($this->config['heyuexecreal']." conflist");
+			$directivesinstance = execute_cmd($this->config['heyuexecreal']." conflist");
 			for($i = 0; $i < count($directivesinstance); $i++) {
 				if(trim($directivesinstance[$i]) == "")
 					array_splice($directivesinstance, $i, 1);
@@ -69,7 +72,7 @@ class frontObject {
 	function & getModList() {
 		if (!isset($this->modlist)) {
 			$_SESSION['load_count'] += 1;
-			$modlistinstance = execute_cmd_ret($this->config['heyuexecreal']." modlist");
+			$modlistinstance = execute_cmd($this->config['heyuexecreal']." modlist");
 			$this->modlist = &$modlistinstance;
 		}
 

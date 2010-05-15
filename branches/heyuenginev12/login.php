@@ -40,7 +40,11 @@ if (isset($_GET["action"])) {
 }
 
 if (isset($_POST['password'])) {
-	if ($login->checkLogin($_POST['password'],$_POST['remember'])) {
+	if(isset($_POST['remember']))
+		$remember = true;
+	else
+		$remember = false;
+	if ($login->checkLogin($_POST['password'],$remember)) {
 			header("Location: ".$config['url_path']."/".$_POST['from'].".php");
 	}
 	else {

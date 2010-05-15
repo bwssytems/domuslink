@@ -55,7 +55,12 @@ if (heyu_running()) {
 	
 	// if any action set, act on it
 	if (isset($_GET['action'])) {
-		heyu_action();
+		try {
+			heyu_action();
+		}
+		catch(Exception $e) {
+			// noop
+		}
 
 		if (isset($_GET['page']))
 			header("Location: ".$_SERVER['PHP_SELF']."?page=". $_GET['page']);
