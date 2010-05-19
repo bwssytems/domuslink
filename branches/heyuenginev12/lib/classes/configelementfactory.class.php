@@ -39,7 +39,18 @@ class ConfigElementFactory {
 					}
 					break;
 				default:
-					return $anElement;
+					// Simple validation until Directives are Objectified
+					$elements = explode(" ", $anElement->getElementLine());
+					if(count($elements) < 2 && !$anElement->isEnabled()) {
+						// if the line is commented out, make it a comment as it is meant to be.
+						// It is not a a disabled directive.
+						$anElement->setType(COMMENT_D);
+						return $anElement;
+					}
+					elseif(count($elements) < 2 && $anElement->isEnabled())
+						throw new Exception("Directive line has too few elements, must be 2 or greater - [".$anElement->getElementLine()."]");
+					else
+						return $anElement;
 					break;
 			}
 		}
