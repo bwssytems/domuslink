@@ -67,10 +67,10 @@ class heyuConfOld {
         	if(count($theAliases)) {
                 foreach ($theAliases as $line) {
                     $typeFound = false;
-                	list($aliasInfo, $module_type_loc) = explode("#", trim($line), 2);
-                	list($temp, $label, $stuff) = explode(" ", trim($aliasInfo), 3);
-                	if(strlen(trim($module_type_loc))) {
-                    	list($type, $orgloc) = explode(",", trim($module_type_loc), 2);
+                	$aliasInfo = explode("#", trim($line), 2);
+                	list($temp, $label, $stuff) = explode(" ", trim($aliasInfo[0]), 3);
+                	if(count($aliasInfo) > 1 && strlen(trim($aliasInfo[1]))) {
+                    	list($type, $orgloc) = explode(",", trim($aliasInfo[1]), 2);
 
 	                   	foreach($modtypes as $aModType) {
 	                    	if($type == $aModType)

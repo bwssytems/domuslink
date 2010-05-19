@@ -108,9 +108,15 @@ class frontObject {
 				$heyuschedinstance = new heyuSched($schedfileloc);
 			}
 			catch (Exception $e) {
-				error_log("No sched file available, creating default with location [".$schedfileloc."]");
-				$heyuschedinstance = new heyuSched();
-				$heyuschedinstance->setFileName($schedfileloc);
+//				prx($e);
+				$theTrace = $e->getTrace();
+				if($theTrace[0]["function"] == "load_file") {
+					error_log("domus.Link: No sched file available, creating default with location [".$schedfileloc."]");
+					$heyuschedinstance = new heyuSched();
+					$heyuschedinstance->setFileName($schedfileloc);
+				}
+				else
+					throw $e;
 			}
 			$this->heyuSched = &$heyuschedinstance;
 		}
@@ -124,6 +130,6 @@ class frontObject {
 			if(strlen($configName))
 				return $configName;
 		}
-		return "[undefined]";
+		return "";
 	}
 }

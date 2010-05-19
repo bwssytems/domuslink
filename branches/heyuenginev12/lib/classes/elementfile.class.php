@@ -56,11 +56,11 @@ abstract class ElementFile {
 				$i++;
 			}
 			catch(Exception $e ) {
-				throw new Exception("Error loading ".$this->filename." - line ".$num.", ".$e->getMessage());
+				throw new Exception("Error loading ".$this->filename." - line ".($i+1).", ".$e->getMessage());
 			}
 		}
 		$this->filemodtime = time();
-		//error_log("The change time of ".$this->filename." is ".$this->filemodtime." in element load.", 0);
+		//error_log("domus.Link: The change time of ".$this->filename." is ".$this->filemodtime." in element load.", 0);
 		$this->updateLineNumbers();
 	}
 
@@ -86,7 +86,7 @@ abstract class ElementFile {
 		else {
 			save_file($this->getObjects(), $this->filename);
 			$theChangeTime = time();
-//			error_log("The change time of ".$this->filename." is ".$theChangeTime." and was ".$this->filemodtime." in element save.", 0);
+//			error_log("domus.Link: The change time of ".$this->filename." is ".$theChangeTime." and was ".$this->filemodtime." in element save.", 0);
 			$this->filemodtime = $theChangeTime;
 			
 		}
@@ -172,6 +172,9 @@ abstract class ElementFile {
 	}
 	
 	function hasFileChanged() {
+		if(!file_exists($this->filename))
+			return false;
+
 		if(filemtime($this->filename) > $this->filemodtime)
 			return true;
 		else

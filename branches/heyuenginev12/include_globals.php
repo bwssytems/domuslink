@@ -34,7 +34,12 @@ try {
 $heyusched =& $_SESSION['frontObj']->getHeyuSched();
 }
 catch(Exception $e) {
-	// noop
+	$theTrace = $e->getTrace();
+	if($theTrace[0]["function"] == "load") {
+		gen_error("Load Cache Sched File", $e->getMessage());
+		exit();
+	}
+	// else noop
 }
 
 ?>

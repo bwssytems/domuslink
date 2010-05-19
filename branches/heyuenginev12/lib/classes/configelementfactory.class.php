@@ -26,7 +26,17 @@ class ConfigElementFactory {
 			$anElement = new ConfigElement($lineData);
 			switch($anElement->getType()) {
 				case ALIAS_D:
-					return new Alias($lineData);
+					try {
+						$anAlias = new Alias($lineData);
+						return $anAlias;
+					}
+					catch(Exception $e) {
+						if(!$anElement->isEnabled()) {
+							$anElement->setType(COMMENT_D);
+							return $anElement;
+						}
+						throw $e;
+					}
 					break;
 				default:
 					return $anElement;

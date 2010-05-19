@@ -14,7 +14,9 @@
 <?php  foreach($settings as $setting):
   if ($setting->getType() != COMMENT_D && $setting->getType() != ALIAS_D &&
   $setting->getType() != SCENE_D && $setting->getType() != USERSYN_D && $setting->getType() != SCRIPT_D && $setting->getType() != LAUNCHER_D):
-    list($directivenf, $valuenf) = explode(" ", $setting, 2); ?>
+    $elements = explode(" ", $setting, 2); ?>
+	<?php $directivenf = $elements[0]; ?>
+	<?php if(count($elements) > 1) $valuenf = $elements[1]; else $valuenf = ""; ?>
     <tr>
       <td><h6><?php echo(str_replace("_", " ", $setting->getType())); ?>:&nbsp;</h6></td>
   		<td>&nbsp;</td>

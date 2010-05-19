@@ -26,10 +26,10 @@ InstantiateProgressBar('Heyu Restart Progress');
 <?php foreach($settings as $setting):
   if ($setting->getType() != COMMENT_D && $setting->getType() != ALIAS_D &&
   $setting->getType() != SCENE_D && $setting->getType() != USERSYN_D && $setting->getType() != SCRIPT_D && $setting->getType() != LAUNCHER_D):
-  list($directivenf, $valuenf) = explode(" ", $setting, 2);
-  $directivenf = $setting->getType();
-  $value = rtrim($valuenf);
-  $directive = str_replace("_", " ", $directivenf); ?>
+  $elements = explode(" ", $setting, 2);
+  $directivenf = $setting->getType(); ?>
+  <?php if(count($elements) > 1) $value = $elements[1]; else $value = ""; ?>
+  <?php $directive = str_replace("_", " ", $directivenf); ?>
   </td>
 </tr>
     <tr>
