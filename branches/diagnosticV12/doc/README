@@ -1,0 +1,50 @@
+/*----------------------------------------------------------------------------+
+ |                                                                            |
+ |                                 README                                     |
+ |                                                                            |
+ +----------------------------------------------------------------------------*/
+
+  ----------
+  Installing
+  ----------
+  Refer to /doc/INSTALL
+
+
+  ----------------
+  Troubleshooting
+  ----------------
+  1) Warning: Cannot modify header information - headers already sent
+  Edit you php.ini file (usually located within apache configuration dir)
+  locate "output_buffering" and make sure it is set to "on".
+
+  2) HEYU: Can't open TTY line. check permissions!
+  Check apache/webserver user has permissions to use tty port.
+  chmod o+rw /dev/tts/0 (for slackware/arch linux ttyS0 port)
+  
+  3) /etc/heyu/x10.conf not found or not readable! (or similar)
+  First make sure permission's for the file are in fact correct, either 
+  by setting the file owner/group to the webserver's user/group or by 
+  giving read/write permission's to all. If problem persists edit your 
+  php.ini file and make sure 'open_basedir' is disabled or that the 
+  /etc/heyu directory is included.
+  
+  4) When veiwing the home screen, all of my modules show in the 'unknown' location.
+  You have a new instance of domus.Link and will need to assign the aliases to a
+  loaction in the admin/alias screen. This is done by editing an alias and in the location
+  drop down, typing in a new location as this field is editable.
+  
+  5) Error in saving config file, file has been modified.
+  This occurs when another user or a manual edit has occured on a config filewhen you have
+  tried to save a modification. In most instances the changes will be detected before
+  this happens. If it does happen, exit your browser completely and try again.
+
+  6) Parse error: syntax error, unexpected T_OBJECT_OPERATOR in.....
+  Domus.Link now requires PHP5+ as we use the php object model with multiple object operator
+  redirection. This is not supported in the PHP4 object model. Please upgrade to PHP5.
+  
+  7) Path to favicon.ico not found.
+  Domus.Link now requires PHP5+.
+  -------
+  License
+  -------
+  Refer to /doc/LICENSE
