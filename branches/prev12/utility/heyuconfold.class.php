@@ -49,6 +49,7 @@ class heyuConfOld {
          */
         function getAliases() {
         	$i = 0;
+        	$aliases = array();
             foreach ($this->heyuconf as $num => $line) {
             	if (substr($line, 0, 5) == "ALIAS") {
                     $aliases[$i] = $line;
@@ -65,22 +66,24 @@ class heyuConfOld {
         	$request = array();
         	if(count($theAliases)) {
                 foreach ($theAliases as $line) {
-                	list($aliasInfo, $module_type_loc) = explode("#", trim($line), 2);
-                	list($temp, $label, $stuff) = explode(" ", trim($aliasInfo), 3);
-                    list($type, $orgloc) = explode(",", trim($module_type_loc), 2);
-
                     $typeFound = false;
-                    foreach($modtypes as $aModType) {
-                    	if($type == $aModType)
-                    	{
-                    		$typeFound = true;
-                    		break;
-                    	}
-                    }
+                	$aliasInfo = explode("#", trim($line), 2);
+                	list($temp, $label, $stuff) = explode(" ", trim($aliasInfo[0]), 3);
+                	if(count($aliasInfo) > 1 && strlen(trim($aliasInfo[1]))) {
+                    	list($type, $orgloc) = explode(",", trim($aliasInfo[1]), 2);
+
+	                   	foreach($modtypes as $aModType) {
+	                    	if($type == $aModType)
+	                    	{
+	                    		$typeFound = true;
+	                    		break;
+	                    	}
+	                    }
+                	}
 
                     if(!$typeFound)
                     	$type = "Other";
-                    if(trim($orgloc) == "")
+                    if(!isset($orgloc) || trim($orgloc) == "")
                     	$orgloc = "unknown";
                    	$request[$label] = $label.",".trim($type).",".trim($orgloc).",visible";
                 }

@@ -80,7 +80,7 @@ class Timer extends ScheduleElement {
 		$elementCount = count($elements);
 		
 		if($elementCount < 7)
-			throw new Exception("Timer line has less than 7 elements. Something is missing!".print_r($elements, true));
+			throw new Exception("Timer line has less than 7 elements. Something is missing! ".print_r($elements, true));
 
 		if($elementCount == 9 || $elementCount == 11 || $elementCount == 13 || $elementCount == 15)
 			$this->parseTimerOptions($elements);

@@ -1,6 +1,3 @@
-<?php
-$buttonaction = $_POST["buttonaction"];
-?>
 <form action="<?php echo($_SERVER['PHP_SELF']); ?>?action=save" method="post">
 <input type="hidden" name="line" value="<?php echo $theTimer->getlineNum(); ?>" / >
 <input type="hidden" name="module" value="<?php echo $selcode;?>" / >

@@ -61,12 +61,14 @@ elseif ($_GET["action"] == "save") {
 		$_SESSION['frontObj']->getLanguageFile(true);
 		$_SESSION['frontObj']->getHeyuConf(true);
 		$_SESSION['frontObj']->getHeyuSched(true);
-		header("Location: ".$_SERVER['PHP_SELF']);
 	}
 	else {
 		gen_error(null, CONFIG_FILE_LOCATION." ".$lang['error_filerw']);
 		exit();
     }
+    
+	header("Location: ".$_SERVER['PHP_SELF']);
+	exit();
 }
 
 ## Display the page

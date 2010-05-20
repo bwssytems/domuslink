@@ -20,9 +20,26 @@
  */
 
 ## instantiate cached lists
+try {
 $directives =& $_SESSION['frontObj']->getDirectives();
 $modlist =& $_SESSION['frontObj']->getModList();
 $heyuconf =& $_SESSION['frontObj']->getHeyuConf();
+}
+catch(Exception $e) {
+	gen_error("Load Cache", $e->getMessage());
+	exit();
+}
+
+try {
 $heyusched =& $_SESSION['frontObj']->getHeyuSched();
+}
+catch(Exception $e) {
+	$theTrace = $e->getTrace();
+	if($theTrace[0]["function"] == "load") {
+		gen_error("Load Cache Sched File", $e->getMessage());
+		exit();
+	}
+	// else noop
+}
 
 ?>

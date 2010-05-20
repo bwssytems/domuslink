@@ -24,24 +24,12 @@ InstantiateProgressBar('Heyu Restart Progress');
 <td>
 <?php $junk = 0; // alias, scene and usersyn counts for posts ?>
 <?php foreach($settings as $setting):
-  list($directivenf, $valuenf) = explode(" ", $setting, 2);
-  $directivenf = $setting->getType();
-  $value = rtrim($valuenf);
-  $directive = str_replace("_", " ", $directivenf); ?>
-
-  <?php if ($directivenf == ALIAS_D): ?>
-  <?php $junk++; ?>
-  <?php elseif ($directivenf == SCENE_D): ?>
-    <?php $junk++; ?>
-  <?php elseif ($directivenf == USERSYN_D): ?>
-    <?php $junk++; ?>
-  <?php elseif ($directivenf == SCRIPT_D): ?>
-    <?php $junk++; ?>
-  <?php elseif ($directivenf == LAUNCHER_D): ?>
-    <?php $junk++; ?>
-  <?php elseif ($directivenf == COMMENT_D): ?>
-    <?php $junk++; ?>
-  <?php else: // if not alias, scene or usersyn or other multi use directives ?>
+  if ($setting->getType() != COMMENT_D && $setting->getType() != ALIAS_D &&
+  $setting->getType() != SCENE_D && $setting->getType() != USERSYN_D && $setting->getType() != SCRIPT_D && $setting->getType() != LAUNCHER_D):
+  $elements = explode(" ", $setting, 2);
+  $directivenf = $setting->getType(); ?>
+  <?php if(count($elements) > 1) $value = $elements[1]; else $value = ""; ?>
+  <?php $directive = str_replace("_", " ", $directivenf); ?>
   </td>
 </tr>
     <tr>

@@ -230,4 +230,6 @@ $lang["continuetext"] = "Continue without conversion of derived alias/locations/
 $lang["show"] = "Show";
 $lang["hide"] = "Hide";
 $lang["exitbrowser"] = "Exit your browser and try again.";
+$lang["addschedfile"] = "Add Schedule File";
+$lang["noscheddefined"] = "No schedule file defined. Check heyu configuration.";
 ?>

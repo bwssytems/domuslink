@@ -26,13 +26,47 @@ class ScheduleElementFactory {
 			$anElement = new ScheduleElement($lineData);
 			switch($anElement->getType()) {
 				case TIMER_D:
-					return new Timer($lineData);
+					try {
+						$aTimer = new Timer($lineData);
+						return $aTimer;
+					}
+					catch(Exception $e) {
+						// if the line is commented out, make it a comment as it is meant to be.
+						// It is not a a disabled timer.
+						if(!$anElement->isEnabled()) {
+							$anElement->setType(COMMENT_D);
+							return $anElement;
+						}
+						throw $e;
+					}
 					break;
 				case MACRO_D:
-					return $anElement;
+					// Simple validation until Macros or Objectified
+					$elements = explode(" ", $anElement->getElementLine());
+					if(count($elements) < 5 && !$anElement->isEnabled()) {
+						// if the line is commented out, make it a comment as it is meant to be.
+						// It is not a a disabled macro.
+						$anElement->setType(COMMENT_D);
+						return $anElement;
+					}
+					elseif(count($elements) < 5 && $anElement->isEnabled())
+						throw new Exception("Macro line has too few elements, must be 5 or greater - [".$anElement->getElementLine()."]");
+					else
+						return $anElement;
 					break;
 				case TRIGGER_D:
-					return $anElement;
+					// Simple validation until Triggers or Objectified
+					$elements = explode(" ", $anElement->getElementLine());
+					if(count($elements) < 4 && !$anElement->isEnabled()) {
+						// if the line is commented out, make it a comment as it is meant to be.
+						// It is not a a disabled trigger.
+						$anElement->setType(COMMENT_D);
+						return $anElement;
+					}
+					elseif(count($elements) < 4 && $anElement->isEnabled())
+						throw new Exception("Trigger line has too few elements, must be 4 or greater - [".$anElement->getElementLine()."]");
+					else
+						return $anElement;
 					break;
 				case CONFIG_D:
 					return $anElement;

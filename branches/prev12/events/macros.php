@@ -29,6 +29,11 @@ if ($config['seclevel'] != "0" && !$authenticated) {
 	exit();
 }
 
+if(!isset($heyusched)) {
+	gen_error(null, $lang['noscheddefined']);
+	exit();
+}
+
 $schedObjs = $heyusched->getObjects();
 $macros = $heyusched->getMacroObjects();
 
@@ -118,13 +123,18 @@ else {
 			$heyusched->save();
 		}
 		catch(Exception $e)	{
-			gen_error(null, array($e->getMessage(), $lang['exitbrowser']));
+			if(count(preg_grep("/modified/", array($e->getMessage()))))
+				gen_error(null, array($e->getMessage(), $lang['exitbrowser']));
+			else
+				gen_error(null, $e->getMessage());
 			exit();
 		}
 	}
 	
-	if($_GET["action"] != "edit")
+	if($_GET["action"] != "edit") {
 		header("Location: ".$_SERVER['PHP_SELF']);
+		exit();
+	}
 }
 
 ## Display the page

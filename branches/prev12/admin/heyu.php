@@ -31,15 +31,21 @@ if ($config['seclevel'] != "0" && !$authenticated) {
 
 ## Get heyu (x10.conf) file contents/settings
 $settings = $heyuconf->getObjects();
+$mustSave = false;
 
 ## Set template parameters
-$tpl->set('title', 'Heyu Setup');
+$tpl->set('title', $lang['heyuconf']);
 
 if (!isset($_GET["action"])) {
 	$tpl_body = & new Template(TPL_FILE_LOCATION.'heyuconf_view.tpl');
 	$tpl_body->set('config', $config);
 	$tpl_body->set('lang', $lang);
 	$tpl_body->set('settings', $settings);
+	if(!isset($heyusched)) {
+		$tpl_add = & new Template(TPL_FILE_LOCATION.'sched_file_add.tpl');
+		$tpl_add->set('lang', $lang);
+		$tpl_body->set('form', $tpl_add);
+	}
 }
 else {
 	if ($_GET["action"] == "edit") {
@@ -67,63 +73,28 @@ else {
 				}
 			}
 		}
+		$mustSave = true;
+	}
+	elseif ($_GET["action"] == "add") {
+		$aSchedDirective = new ConfigElement("schedule_file ".$_POST["sched_file_name"]);
+		$heyuconf->addElement($aSchedDirective);
+		$mustSave = true;
+	}
+	
+	if($mustSave) {
 		try {
 			$heyuconf->save();
 		}
 		catch(Exception $e)	{
-			gen_error(null, array($e->getMessage(), $lang['exitbrowser']));
+			if(count(preg_grep("/modified/", $e->getMessage())))
+				gen_error(null, array($e->getMessage(), $lang['exitbrowser']));
+			else
+				gen_error(null, $e->getMessage());
 			exit();
 		}
-		header("Location: ".$config['url_path']."/admin/reload.php");
-	}
-}
-
-function yesnoopt($value) {
-	if (strtoupper($value) == "YES") {
-		return "<option selected value='YES'>YES</option>\n" .
-				"<option value='NO'>NO</option>\n";
-	} 
-	else {
-		return "<option value='YES'>YES</option>\n" .
-				"<option selected value='NO'>NO</option>\n";
-	}
-}
-
-function dawnduskopt($value) {
-	if (strtoupper($value) == "FIRST") {
-		return "<option selected value='FIRST'>FIRST</option>\n" .
-				"<option value='EARLIEST'>EARLIEST</option>\n" .
-				"<option value='LATEST'>LATEST</option>\n" .
-				"<option value='AVERAGE'>AVERAGE</option>\n" .
-				"<option value='MEDIAN'>MEDIAN</option>\n";
-	}
-	elseif (strtoupper($value) == "EARLIEST") {
-		return "<option value='FIRST'>FIRST</option>\n" .
-				"<option selected value='EARLIEST'>EARLIEST</option>\n" .
-				"<option value='LATEST'>LATEST</option>\n" .
-				"<option value='AVERAGE'>AVERAGE</option>\n" .
-				"<option value='MEDIAN'>MEDIAN</option>\n";
-	}
-	elseif (strtoupper($value) == "LATEST") {
-		return "<option value='FIRST'>FIRST</option>\n" .
-				"<option value='EARLIEST'>EARLIEST</option>\n" .
-				"<option selected value='LATEST'>LATEST</option>\n" .
-				"<option value='AVERAGE'>AVERAGE</option>\n" .
-				"<option value='MEDIAN'>MEDIAN</option>\n";
-	}
-	elseif (strtoupper($value) == "AVERAGE") {
-		return "<option value='FIRST'>FIRST</option>\n" .
-				"<option value='EARLIEST'>EARLIEST</option>\n" .
-				"<option value='LATEST'>LATEST</option>\n" .
-				"<option selected value='AVERAGE'>AVERAGE</option>\n" .
-				"<option value='MEDIAN'>MEDIAN</option>\n";
-	}
-	elseif (strtoupper($value) == "MEDIAN") {
-		return "<option value='FIRST'>FIRST</option>\n" .
-				"<option value='EARLIEST'>EARLIEST</option>\n" .
-				"<option value=LATEST>LATEST</option>\n" .
-				"<option value='AVERAGE'>AVERAGE</option>\n" .
-				"<option selected value='MEDIAN'>MEDIAN</option>\n";
+		heyu_ctrl('restart');
+		header("Location: ".$_SERVER['PHP_SELF']);
+		exit();
 	}
 }
 

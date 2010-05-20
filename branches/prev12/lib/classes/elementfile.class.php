@@ -40,6 +40,9 @@ abstract class ElementFile {
 			$this->filename = $args[0];
 			$this->load(load_file($this->filename));
         }
+        else
+        	$this->filemodtime = time();
+        
 	}
 
 	/**
@@ -53,11 +56,11 @@ abstract class ElementFile {
 				$i++;
 			}
 			catch(Exception $e ) {
-				throw new Exception("Error loading ".$this->filename." - line ".$num.", ".$e->getMessage());
+				throw new Exception("Error loading ".$this->filename." - line ".($i+1).", ".$e->getMessage());
 			}
 		}
 		$this->filemodtime = time();
-		//error_log("The change time of ".$this->filename." is ".$this->filemodtime." in element load.", 0);
+		//error_log("domus.Link: The change time of ".$this->filename." is ".$this->filemodtime." in element load.", 0);
 		$this->updateLineNumbers();
 	}
 
@@ -83,14 +86,20 @@ abstract class ElementFile {
 		else {
 			save_file($this->getObjects(), $this->filename);
 			$theChangeTime = time();
-//			error_log("The change time of ".$this->filename." is ".$theChangeTime." and was ".$this->filemodtime." in element save.", 0);
+//			error_log("domus.Link: The change time of ".$this->filename." is ".$theChangeTime." and was ".$this->filemodtime." in element save.", 0);
 			$this->filemodtime = $theChangeTime;
 			
 		}
 	}
 
 	function addElement($anElement) {
-		$arrayIndex = $this->getLine($anElement->getType(), END_D);
+		$arrayIndex = 0;
+		try {
+			$arrayIndex = $this->getLine($anElement->getType(), END_D);
+		}
+		catch(Exception $e) {
+			// noop
+		}
 		$arrayLength = count($this->elementObjects);
 		if(!$arrayIndex && $arrayLength)
 			$arrayIndex = $arrayLength - 1;
@@ -121,6 +130,13 @@ abstract class ElementFile {
 		$this->updateLineNumbers();
 	}
 	
+	function getFileName() {
+		return $this->filename;
+	}
+	
+	function setFileName($aFileName) {
+		$this->filename = $aFileName;
+	}
 	/**
 	 * Get Element Objects by a type
 	 *
@@ -146,11 +162,19 @@ abstract class ElementFile {
 	}
 
 	function getLine($theObjType, $theLocation) {
-		$theLineLocation = $this->lineStore[$theLocation];
-		return $theLineLocation[$theObjType];
+		if(!array_key_exists($theLocation, $this->lineStore))
+			throw new Exception("No line location set [".$theLocation."]");
+			
+		if(array_key_exists($theObjType, $this->lineStore[$theLocation]))
+			return $this->lineStore[$theLocation][$theObjType];
+		else
+			throw new Exception("No line location set [".$theLocation." ".$theObjType."]");
 	}
 	
 	function hasFileChanged() {
+		if(!file_exists($this->filename))
+			return false;
+
 		if(filemtime($this->filename) > $this->filemodtime)
 			return true;
 		else

@@ -67,7 +67,9 @@
 	  If domus detects the file has changed just before the save process, it will generate and error
 	  to the user. This is internal to the save of the file for consistency, otherwise the user would 
 	  see the changed file first.
-	
+	* Updated redirection handling when setting php header commands.
+	* Updated error handling of files for writing.
+	* domus.Link handling of heyu config without a schedule file defined.
 
   v1.1 - 4/Apr/2010
  ------

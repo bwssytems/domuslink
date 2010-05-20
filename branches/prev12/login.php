@@ -35,16 +35,22 @@ if (isset($_GET["action"])) {
 	if ($_GET["action"] == "logout") {
 		$login->logout();
 		header("Location: login.php?from=index");
+		exit();
 	}
 }
 
 if (isset($_POST['password'])) {
-	if ($login->checkLogin($_POST['password'],$_POST['remember'])) {
+	if(isset($_POST['remember']))
+		$remember = true;
+	else
+		$remember = false;
+	if ($login->checkLogin($_POST['password'],$remember)) {
 			header("Location: ".$config['url_path']."/".$_POST['from'].".php");
 	}
 	else {
 		header("Location: login.php?from=".$_POST['from']."&failed=true");
 	}
+	exit();
 }
 
 $tpl_body = & new Template(TPL_FILE_LOCATION.'login.tpl');

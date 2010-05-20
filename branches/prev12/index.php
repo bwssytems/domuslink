@@ -30,8 +30,16 @@ if ($config['seclevel'] == "2" && !$authenticated) {
 }
 
 // start/stop controls for heyu
-if (isset($_GET["daemon"])) heyu_ctrl($_GET["daemon"]);
-
+if (isset($_GET["daemon"])) {
+	try {
+		heyu_ctrl($_GET["daemon"]);
+	}
+	catch(Exception $e) {
+		gen_error("heyu ".$_GET["daemon"], $e->getMessage());
+		exit();
+	}
+}
+	
 // get which page is open
 $page = (isset($_GET['page'])) ? $_GET['page'] : "home";
 
@@ -54,7 +62,20 @@ if (heyu_running()) {
 	$locations = new location($heyuconf);
 	
 	// if any action set, act on it
-	if (isset($_GET['action'])) heyu_action();
+	if (isset($_GET['action'])) {
+		try {
+			heyu_action();
+		}
+		catch(Exception $e) {
+			// noop
+		}
+
+		if (isset($_GET['page']))
+			header("Location: ".$_SERVER['PHP_SELF']."?page=". $_GET['page']);
+		else
+			header("Location: ".$_SERVER['PHP_SELF']);
+		exit();
+	}
 
 	// load page acordingly
 	switch($page) {
