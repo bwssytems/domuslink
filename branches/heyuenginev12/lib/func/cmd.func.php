@@ -96,10 +96,12 @@ function heyu_ctrl($action) {
 			} 
 			break;
 		case "stop":
-			execute_cmd($config['heyuexecreal']." stop");
+			if(heyu_running())
+				execute_cmd($config['heyuexecreal']." stop");
 			break;
 		case "restart":
-			execute_cmd($config['heyuexecreal']." restart");
+			if(heyu_running())
+				execute_cmd($config['heyuexecreal']." restart");
 			break;
 	}
 }
