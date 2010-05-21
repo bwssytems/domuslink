@@ -29,6 +29,12 @@ if ($config['seclevel'] == "2" && !$authenticated) {
 	exit();
 }
 
+if(!isset($_SESSION['filesChecked']) || !$_SESSION['filesChecked'])
+{
+	header("Location: utility/diagnostic.php?from=index");
+	exit();
+}
+
 // start/stop controls for heyu
 if (isset($_GET["daemon"])) {
 	try {
