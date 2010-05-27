@@ -234,4 +234,5 @@ $lang["addschedfile"] = "Add Schedule File";
 $lang["noscheddefined"] = "No schedule file defined. Check heyu configuration.";
 $lang["diagnostic"] = "Diagnostic";
 $lang["diagnostictext"] = "domus.Link Diagnostics";
+$lang["diagnosticstatus"] = "Diagnostic status - click to check";
 ?>

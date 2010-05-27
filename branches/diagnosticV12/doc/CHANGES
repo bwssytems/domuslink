@@ -67,6 +67,12 @@
 	  If domus detects the file has changed just before the save process, it will generate and error
 	  to the user. This is internal to the save of the file for consistency, otherwise the user would 
 	  see the changed file first.
+	* Added diagnostic check for file setup in domus.Link. This diagnostic checks for the major configuration
+	  files that are required to be present and if they are writable or executable. The diagnostic page is
+	  only displayed if there is an issue. There is an option to just continue from this page and it will not
+	  check until requested. There is a status icon in the footer bar that displays the state as a color of the
+	  checked files. Green for good, red for errors and black/gray for unchecked state. The icon is also the
+	  method of running the diagnostic check at anytime. 
 	* Updated redirection handling when setting php header commands.
 	* Updated error handling of files for writing.
 	* domus.Link handling of heyu config without a schedule file defined.

@@ -63,8 +63,17 @@ class heyuConf extends ElementFile {
 	 */
 	function getSchedFileValue() {
 		$schedFileObjs = $this->getElementObjects("schedule_file");			
-		if(count($schedFileObjs) > 0)
-			$schedfile = trim(substr($schedFileObjs[0]->getElementLine(), 14));
+		if(count($schedFileObjs) > 0) {
+			foreach($schedFileObjs as $schedFileObj) {
+				if($schedFileObj->isEnabled()) {
+					$schedfile = trim(substr($schedFileObjs[0]->getElementLine(), 14));
+					break;
+				}
+			}
+			
+			if(!isset($schedfile))
+				throw new EXception("Schedule file not enabled");
+		}
 		else
 			throw new Exception("Schedule_file not defined");
 		

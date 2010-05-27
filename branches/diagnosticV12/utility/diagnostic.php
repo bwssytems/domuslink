@@ -46,34 +46,69 @@ $fileCheck[4]["targetname"] = $config['heyuexec'];
 $fileCheck[4]["exists"] = file_exists($config['heyuexec']);
 $fileCheck[4]["executable"] = is_executable($config['heyuexec']);
 
+$i = 4;
+if(file_exists(ALIASMAP_FILE_LOCATION)) {
+	$i++;
+	$fileCheck[$i]["targetname"] = ALIASMAP_FILE_LOCATION;
+	$fileCheck[$i]["exists"] = true;
+	$fileCheck[$i]["writable"] = is_writable(ALIASMAP_FILE_LOCATION);
+	
+}
+
+// Check tty and sched file priveleges
 if($fileCheck[3]["exists"] && $fileCheck[3]["writable"]) {
+	try {
+		// This check is in place until heyu incorporates not starting on getting the conflist.
+		// It does have the benefit of checking first if the tty device is accessible.
 	$heyuConf = new heyuConf($config["heyuconfloc"]);
-	$ttyObjects = $heyuConf->getElementObjects("tty");
-	$i = 4;
-	foreach($ttyObjects as $ttyObject) {
-		if($ttyObject->isEnabled()) {
-			list($label, $device) = explode(" ", $ttyObject->getElementLine());
-			if(strtolower($device) != "dummy") {
-				$i++;
-				$fileCheck[$i]["targetname"] = $device;
-				$fileCheck[$i]["exists"] = file_exists($device);
-				$fileCheck[$i]["writable"] = is_writable($device);
-				break;
-			}
-		}
+
+	try {
+		$schedFile = $heyuConf->getSchedFile();
+		$i++;
+		$fileCheck[$i]["targetname"] = $schedFile;
+		$fileCheck[$i]["exists"] = file_exists($schedFile);
+		$fileCheck[$i]["writable"] = is_writable($schedFile);
+	}
+	catch(Exception $e) {
+		// noop
 	}
 
-	$ttyObjects = $heyuConf->getElementObjects("tty_aux");
-	foreach($ttyObjects as $ttyObject) {
-		if($ttyObject->isEnabled()) {
-			list($label, $device) = explode(" ", $ttyObject->getElementLine());
-			if(strtolower($device) != "dummy") {
-				$i++;
-				$fileCheck[$i]["targetname"] = $device;
-				$fileCheck[$i]["exists"] = file_exists($device);
-				$fileCheck[$i]["writable"] = is_writable($device);
-				break;
-			}
+// Commented out device checks for now since access to /dev is prohibited
+//	$ttyObjects = $heyuConf->getElementObjects("tty");
+
+//	foreach($ttyObjects as $ttyObject) {
+//		if($ttyObject->isEnabled()) {
+//			list($label, $device) = explode(" ", $ttyObject->getElementLine());
+//			if(strtolower($device) != "dummy") {
+//				$i++;
+//				$fileCheck[$i]["targetname"] = $device;
+//				$fileCheck[$i]["exists"] = file_exists($device);
+//				$fileCheck[$i]["writable"] = is_writable($device);
+//				break;
+//			}
+//		}
+//	}
+//
+//	$ttyObjects = $heyuConf->getElementObjects("tty_aux");
+//	foreach($ttyObjects as $ttyObject) {
+//		if($ttyObject->isEnabled()) {
+//			list($label, $device) = explode(" ", $ttyObject->getElementLine());
+//			if(strtolower($device) != "dummy") {
+//				$i++;
+//				$fileCheck[$i]["targetname"] = $device;
+//				$fileCheck[$i]["exists"] = file_exists($device);
+//				$fileCheck[$i]["writable"] = is_writable($device);
+//				break;
+//			}
+//		}
+//	}
+	}
+	catch(Exception $e) {
+		if(strpos($e->getMessage(), "t open tty line.  Check the permissions.")) {
+			$i++;
+			$fileCheck[$i]["targetname"] = "TTY device";
+			$fileCheck[$i]["exists"] = true;
+			$fileCheck[$i]["writable"] = false;		
 		}
 	}
 }
@@ -92,10 +127,14 @@ for($i = 0; $i < count($fileCheck); $i++) {
 
 if(!$errorCount) {
 	$_SESSION['filesChecked'] = true;
+	$_SESSION['filesErrored'] = false;
 
 	header("Location: ../index.php");
 	exit();	
 }
+else
+	$_SESSION['filesErrored'] = true;
+
 ## Set template parameters
 $tpl->set('title', $lang['diagnostic']);
 $tpl->set('lang', $lang);
