@@ -22,12 +22,6 @@
 ## Includes
 require_once('..'.DIRECTORY_SEPARATOR.'include.php');
 
-## Security validation must be checked
-if ($config['seclevel'] != "0" && !$authenticated) {
-	header("Location: ../login.php?from=utility/diagnostic");
-	exit();
-}
-
 $fileCheck = array();
 
 $fileCheck[0]["targetname"] = DB_FILE_LOCATION;
