@@ -16,7 +16,7 @@ This page will contain the domus.Link roadmap, agreed upon and developed by all 
   * Add heyu engine start check - Issue 34
   * Secure heyu start and system info for security level 1 - Issue 27
   * Code clean-up - complete
-  * Diagnostic page and startup configuration detection - Issue 33
+  * Diagnostic page and startup configuration detection - Issue 33, Issue 25, Issue 27
   * Fix issue 39
   * Fix issue 44
 
