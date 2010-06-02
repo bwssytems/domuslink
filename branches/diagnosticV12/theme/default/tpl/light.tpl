@@ -4,7 +4,7 @@
 <td width="17" valign="top"><img src="<?php echo $config['url_path']; ?>/theme/<?php echo $config['theme']; ?>/images/module_light_<?php echo $state; ?>.png" vspace="2" />
 
 </td>
-<td width="110px" valign="bottom" height="22"><input type="text" value="<?php echo $label; ?>" class="module_<?php echo $state; ?>"  /></td>
+<td width="110px" valign="bottom" height="22"><input type="text" disabled="disabled" value="<?php echo $label; ?>" class="module_<?php echo $state; ?>"  /></td>
 <td rowspan="2"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?action=<?php echo $action; ?>&code=<?php echo $code; ?>&page=<?php echo $page; ?>"><img src="<?php echo $config['url_path']; ?>/theme/<?php echo $config['theme']; ?>/images/switch_<?php echo $state; ?>.gif" border="0" /></a></td>
 </tr>
 <tr>

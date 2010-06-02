@@ -6,7 +6,7 @@
 <img src="<?php echo $config['url_path'].'/theme/'.$config['theme'].'/images/module_shutter_'.$state.'.png'; ?>" vspace="2" />
 </td>
 
-<td width="110px"><input type="text" value="<?php echo $label; ?>" class="module"  /></td>
+<td width="110px"><input type="text" disabled="disabled" value="<?php echo $label; ?>" class="module"  /></td>
 <td rowspan="2">
 <table cellspacing="1" cellpadding="0" border="1" class="onofftb" width="32px">
 <tr>
