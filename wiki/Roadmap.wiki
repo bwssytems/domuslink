@@ -19,6 +19,7 @@ This page will contain the domus.Link roadmap, agreed upon and developed by all 
   * Diagnostic page and startup configuration detection - Issue 33, Issue 25
   * Fix issue 39
   * Fix issue 44
+  * Fix issue 43
 
 == v2.0 ==
   * Complete OOP focus
