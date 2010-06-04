@@ -3,7 +3,7 @@
  |                               CHANGES                                      |
  |                                                                            |
  +----------------------------------------------------------------------------*/
-  v1.2 - XX/May/2010
+  v1.2 - XX/June/2010
  ------
 	* Updated heyu config file handling to be agnostic and object oriented. domus.Link
 	  will now support a users custom heyu config file without any additional changes.
