@@ -232,4 +232,9 @@ $lang["hide"] = "Hide";
 $lang["exitbrowser"] = "Exit your browser and try again.";
 $lang["addschedfile"] = "Add Schedule File";
 $lang["noscheddefined"] = "No schedule file defined. Check heyu configuration.";
+$lang["diagnostic"] = "Diagnostic";
+$lang["diagnostictext"] = "domus.Link Diagnostics";
+$lang["diagnosticstatus"] = "Diagnostic status - click to check";
+$lang["statusinfo"] = "Click for status info";
+$lang["systemuptime"] = "System Uptime";
 ?>

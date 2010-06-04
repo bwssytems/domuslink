@@ -232,6 +232,7 @@ input.module {
 	text-align: center;
 	color: #666;
 	font-weight: bold;
+	background-color: #fff;
 }
 
 input.module_on {
@@ -242,6 +243,7 @@ input.module_on {
 	text-align: center;
 	color: #666;
 	font-weight: bold;
+	background-color: #fff;
 }
 
 input.module_off {
@@ -252,6 +254,7 @@ input.module_off {
 	text-align: center;
 	color: #a4a4a4;
 	font-weight: bold;
+	background-color: #fff;
 }
 
 table.dimlevel td {

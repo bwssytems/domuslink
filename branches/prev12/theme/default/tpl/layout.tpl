@@ -162,23 +162,30 @@
 <!-- start footer div -->
 <div id="footer">
 <table cellspacing="0" cellpadding="0" border="0" width="100%">
- <tr>
-  <td>
+<tr>
+<td align="left">
 <?php echo ($lang['heyustatus']);?>:
+<a onMouseOver="popup('<?php echo ($lang['statusinfo']); ?>')" onmouseout="kill()" onfocus="this.blur()" href="<?php echo ($config['url_path']);?>/index.php?page=status">
 <?php if (heyu_running()): ?>
-<?php echo $lang['running']; ?> (<a href="<?php echo ($config['url_path']);?>/index.php?page=info"><?php echo strtolower($lang['info']);?></a>|<a href="<?php echo ($config['url_path']);?>/?daemon=restart"><?php echo ($lang['reload']);?></a>|<a href="<?php echo ($config['url_path']);?>/?daemon=stop"><?php echo ($lang['stop']); ?></a>)
+<?php echo ("<font color='green'>".$lang['running']."</font>"); ?>
 <?php else:  ?>
-<?php echo $lang['down']; ?> (<a href="<?php echo ($config['url_path']);?>/?daemon=start"><?php echo ($lang['start']);?></a>)
+<?php echo ("<font color='red'>".$lang['down']."</font>"); ?>
 <?php endif; ?>
+</a>
 </td>
-<td align="center"><?php echo $lang['heyucurrentconfig'].": ".$_SESSION['frontObj']->getHeyuConfigName()." ".$lang['heyuindir']." ".$config['heyu_base_real'].($config['heyu_subdir'] == "default"?"":$config['heyu_subdir'])?></td>
-<td align="right"><?php echo (uptime()); ?></td>
-</tr>
+<td align="right">
+<?php echo $lang['heyucurrentconfig'].": ".$_SESSION['frontObj']->getHeyuConfigName()." ".$lang['heyuindir']." ".$config['heyu_base_real'].($config['heyu_subdir'] == "default"?" ":$config['heyu_subdir']." ")?>
+<a onMouseOver="popup('<?php echo ($lang['diagnosticstatus']); ?>')" onmouseout="kill()" onfocus="this.blur()" href="<?php echo $config['url_path'];?>/utility/diagnostic.php" >
+<img src="<?php echo ($config['url_path']."/theme/".$config['theme']."/images/".(isset($_SESSION['filesErrored'])?($_SESSION['filesErrored']?"red_info.png":"green_info.png"):"black_info.png"));?>" border=0 />
+</a>
 </table>
 </div>
 <!-- end footer div -->
 <br>
-<div id="copyright"><a href="<?php echo ($lang['dlurl']); ?>" target="_blank">domus.Link :: Heyu Frontend</a> v<?php echo $ver; ?>
-<br>Copyright <SCRIPT LANGUAGE="JavaScript">copyrightDate();</SCRIPT><br><a href="http://icebrian.net" target="_blank">Istvan Hubay Cebrian</a></div>
+<div id="copyright">
+<a href="<?php echo ($lang['dlurl']); ?>" target="_blank">domus.Link :: Heyu Frontend</a> v<?php echo $ver; ?>
+<br>Copyright <SCRIPT LANGUAGE="JavaScript">copyrightDate();</SCRIPT>
+<br><a href="http://icebrian.net" target="_blank">Istvan Hubay Cebrian</a>
+</div>
 </body>
 </html>

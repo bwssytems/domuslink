@@ -102,7 +102,7 @@ class frontObject {
 
 		if(!isset($this->heyuSched) || $reload) {
 			$_SESSION['load_count'] += 1;
-			$schedfileloc = $this->config['heyu_base_real'].$this->heyuConf->getSchedFile();
+			$schedfileloc = $this->heyuConf->getSchedFile();
 			
 			try {
 				$heyuschedinstance = new heyuSched($schedfileloc);
