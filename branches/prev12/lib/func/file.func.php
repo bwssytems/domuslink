@@ -55,6 +55,10 @@ function save_file($content, $fileloc) {
 	}
 
 	$fp = fopen($fileloc,'w');
+	if(!$fp) {
+		throw new Exception($fileloc." ".$lang['error_filerw']);
+	}
+	
 	foreach ($content as $line) {
 		$write = fwrite($fp, $line);
 	}

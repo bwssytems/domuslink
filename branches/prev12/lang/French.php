@@ -25,9 +25,9 @@
  $lang["home"]="Accueil"; 
  $lang["lights"]="Lumières"; 
  $lang["appliances"]="Appareils"; 
- $lang["shutters"]="Volets";
+ $lang["shutters"]="Volets"; 
  $lang["irrigation"]="Arrosage"; 
- $lang["other"] = "Autres";
+ $lang["other"]="Autres"; 
  $lang["login"]="Identification"; 
  $lang["setup"]="Installation"; 
  $lang["aliases"]="Noms des modules"; 
@@ -176,45 +176,65 @@
  $lang["output"]="Sortie"; 
 
 /* Macro Text */
-$lang["macro"] = "Macro ";
-$lang["macros"] = "Macros";
-$lang["delay"] = "Retard";
-$lang["addmacro"] = "Ajouter une macro";
-$lang["editmacro"] = "Modifier une macro";
-$lang["macro_unit"] = "Macro Unit"; // PLEASE TRANSLATE
-$lang["macro_cmd"] = "Macro Command"; // PLEASE TRANSLATE
-$lang["obdim"] = "On-Bright-Dim"; // PLEASE TRANSLATE
-$lang["brightb"] = "Brighten"; // PLEASE TRANSLATE
-$lang["timeraddadv"] = "Timer Add Advanced"; // PLEASE TRANSLATE
-$lang["macro_on"] = "Macro On ";
-$lang["macro_off"] = "Macro Off ";
-$lang["timers_macro"] = "Programmateurs : menu avancé";
-$lang["addmacrotimer"] = "Ajouter un programmateur";
-$lang["editmacrotimer"] = "Modifier un programmateur";
-$lang["simple_timers"] = "Programmateurs : menu simplifié";
+ $lang["macro"]="Macro "; 
+ $lang["macros"]="Macros"; 
+ $lang["delay"]="Retard"; 
+ $lang["addmacro"]="Ajouter une macro"; 
+ $lang["editmacro"]="Modifier une macro"; 
+ $lang["macro_unit"]="Macro Unit"; 
+ $lang["macro_cmd"]="Macro Command"; 
+ $lang["obdim"]="On-Bright-Dim"; 
+ $lang["brightb"]="Brighten"; 
+ $lang["timeraddadv"]="Timer Add Advanced"; 
+ $lang["macro_on"]="Macro On "; 
+ $lang["macro_off"]="Macro Off "; 
+ $lang["timers_macro"]="Programmateurs : menu avancé"; 
+ $lang["addmacrotimer"]="Ajouter un programmateur"; 
+ $lang["editmacrotimer"]="Modifier un programmateur"; 
+ $lang["simple_timers"]="Programmateurs : menu simplifié"; 
 
-$lang["null"] = "Null ";
+ $lang["null"]="Null "; 
 
 /* Advanced Timer Text */
-$lang["dawn"] = "Lever";
-$lang["dusk"] = "Coucher";
-$lang["reminder"] = "Rappel ";
-$lang["dawnlt"] = "Lever avant";
-$lang["dawngt"] = "Lever après";
-$lang["dusklt"] = "Coucher avant";
-$lang["duskgt"] = "Coucher après";
-$lang["security"] = "Securité ";
-$lang["now"] = "Maintenant";
-$lang["timeroptions"] = "Options ";
-$lang["option"] = "Option";
-$lang["expire"] = "Expire";
+ $lang["dawn"]="Lever"; 
+ $lang["dusk"]="Coucher"; 
+ $lang["reminder"]="Rappel "; 
+ $lang["dawnlt"]="Lever avant"; 
+ $lang["dawngt"]="Lever après"; 
+ $lang["dusklt"]="Coucher avant"; 
+ $lang["duskgt"]="Coucher après"; 
+ $lang["security"]="Securité "; 
+ $lang["now"]="Maintenant"; 
+ $lang["timeroptions"]="Options "; 
+ $lang["option"]="Option"; 
+ $lang["expire"]="Expire"; 
 
 /* Heyu Config Management Text */
-$lang["heyumgmt"] = "Choix de la configuration à utiliser";
-$lang["heyumgmtadmin"] = "Heyu Configuration Management"; // PLEASE TRANSLATE
-$lang["heyumgmt_txt"] = "Permet d'indiquer quels fichiers de configuration Heyu va utiliser. Cette fonction est basée sur les sous-répertoires gérés pas Heyu pour avoir plusieurs configurations qui incluent le fichier de configuration et l'agenda.";
-$lang["heyucurrentconfig"] = "Configuration courante de heyu ";
-$lang["heyubaseuse"] = "Changer le répertoire de base de Heyu";
-$lang["heyubaseuse_txt"] = "Si activée (Yes), cette option permet de forcer domus.Link à passer le répertoire contenant les fichiers de configuration en utilisant la directive -c de Heyu, avec le chemin indiqué dans 'Localisation des fichiers Heyu'. Si à NO, domus.Link utilisera les valeurs par défaut, à savoir /etc/heyu et x10.conf.";
-$lang['heyuindir'] = "dans le répertoire";
+ $lang["heyumgmt"]="Choix de la configuration à utiliser"; 
+ $lang["heyumgmtadmin"]="Heyu Configuration Management"; 
+ $lang["heyumgmt_txt"]="Permet d'indiquer quels fichiers de configuration Heyu va utiliser. Cette fonction est basée sur les sous-répertoires gérés pas Heyu pour avoir plusieurs configurations qui incluent le fichier de configuration et l'agenda."; 
+ $lang["heyucurrentconfig"]="Configuration courante de heyu "; 
+ $lang["heyubaseuse"]="Changer le répertoire de base de Heyu"; 
+ $lang["heyubaseuse_txt"]="Si activée (Yes), cette option permet de forcer domus.Link à passer le répertoire contenant les fichiers de configuration en utilisant la directive -c de Heyu, avec le chemin indiqué dans 'Localisation des fichiers Heyu'. Si à NO, domus.Link utilisera les valeurs par défaut, à savoir /etc/heyu et x10.conf."; 
+$lang['heyuindir'] = "in directory";
+
+$lang["directive"] = "Directive"; // PLEASE TRANSLATE
+$lang["comment"] = "Comment"; // PLEASE TRANSLATE
+$lang["value"] = "Value"; // PLEASE TRANSLATE
+$lang["setupverify"] = "Setup Verification"; // PLEASE TRANSLATE
+$lang["aliaslocationtext"] = "Derived Alias to Locations and Types from Heyu config"; // PLEASE TRANSLATE
+$lang["continue"] = "Continue"; // PLEASE TRANSLATE
+$lang["convert"] = "Convert"; // PLEASE TRANSLATE
+$lang["converttext"] = "Use displayed alias/locations/types derived from heyu config."; // PLEASE TRANSLATE
+$lang["continuetext"] = "Continue without conversion of derived alias/locations/types."; // PLEASE TRANSLATE
+$lang["show"] = "Show"; // PLEASE TRANSLATE
+$lang["hide"] = "Hide"; // PLEASE TRANSLATE
+$lang["exitbrowser"] = "Exit your browser and try again."; // PLEASE TRANSLATE
+$lang["addschedfile"] = "Add Schedule File"; // PLEASE TRANSLATE
+$lang["noscheddefined"] = "No schedule file defined. Check heyu configuration."; // PLEASE TRANSLATE
+$lang["diagnostic"] = "Diagnostic"; // PLEASE TRANSLATE
+$lang["diagnostictext"] = "domus.Link Diagnostics"; // PLEASE TRANSLATE
+$lang["diagnosticstatus"] = "Diagnostic status - click to check"; // PLEASE TRANSLATE
+$lang["statusinfo"] = "Click for status info"; // PLEASE TRANSLATE
+$lang["systemuptime"] = "System Uptime"; // PLEASE TRANSLATE
 ?>

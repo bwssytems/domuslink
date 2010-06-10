@@ -122,7 +122,7 @@ else {
 			$heyusched->save();
 		}
 		catch(Exception $e)	{
-			if(count(preg_grep("/modified/", $e->getMessage())))
+			if(count(preg_grep("/modified/", array($e->getMessage()))))
 				gen_error(null, array($e->getMessage(), $lang['exitbrowser']));
 			else
 				gen_error(null, $e->getMessage());
