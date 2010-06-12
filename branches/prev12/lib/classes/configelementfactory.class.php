@@ -21,7 +21,7 @@
 require_once(CLASS_FILE_LOCATION."alias.class.php");
 
 class ConfigElementFactory {
-	function createElement ($lineData) {
+	public static function createElement ($lineData) {
 		try {
 			$anElement = new ConfigElement($lineData);
 			switch($anElement->getType()) {

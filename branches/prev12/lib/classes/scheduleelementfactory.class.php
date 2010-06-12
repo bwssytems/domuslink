@@ -21,7 +21,7 @@
 require_once(CLASS_FILE_LOCATION."timer.class.php");
 
 class ScheduleElementFactory {
-	function createElement ($lineData) {
+	public static function createElement ($lineData) {
 		try {
 			$anElement = new ScheduleElement($lineData);
 			switch($anElement->getType()) {

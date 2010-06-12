@@ -78,7 +78,7 @@ if (strpos(strtolower($_SERVER['HTTP_USER_AGENT']),'iphone')) {
 define("TPL_FILE_LOCATION", dirname(__FILE__) . DIRECTORY_SEPARATOR . 'theme' . DIRECTORY_SEPARATOR . $config['theme'] . DIRECTORY_SEPARATOR . 'tpl' . DIRECTORY_SEPARATOR);
 
 ## Make new template object
-$tpl = & new Template(TPL_FILE_LOCATION.'layout.tpl');
+$tpl = new Template(TPL_FILE_LOCATION.'layout.tpl');
 $tpl->set('config', $config);
 $tpl->set('lang', $lang);
 $tpl->set('ver', $FRONTEND_VERSION);

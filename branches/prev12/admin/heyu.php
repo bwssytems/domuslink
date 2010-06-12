@@ -37,19 +37,19 @@ $mustSave = false;
 $tpl->set('title', $lang['heyuconf']);
 
 if (!isset($_GET["action"])) {
-	$tpl_body = & new Template(TPL_FILE_LOCATION.'heyuconf_view.tpl');
+	$tpl_body = new Template(TPL_FILE_LOCATION.'heyuconf_view.tpl');
 	$tpl_body->set('config', $config);
 	$tpl_body->set('lang', $lang);
 	$tpl_body->set('settings', $settings);
 	if(!isset($heyusched)) {
-		$tpl_add = & new Template(TPL_FILE_LOCATION.'sched_file_add.tpl');
+		$tpl_add = new Template(TPL_FILE_LOCATION.'sched_file_add.tpl');
 		$tpl_add->set('lang', $lang);
 		$tpl_body->set('form', $tpl_add);
 	}
 }
 else {
 	if ($_GET["action"] == "edit") {
-		$tpl_body = & new Template(TPL_FILE_LOCATION.'heyuconf_edit.tpl');
+		$tpl_body = new Template(TPL_FILE_LOCATION.'heyuconf_edit.tpl');
 		$tpl_body->set('config', $config);
 		$tpl_body->set('lang', $lang);
 		$tpl_body->set('settings', $settings);

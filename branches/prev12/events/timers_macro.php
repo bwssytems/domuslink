@@ -51,7 +51,7 @@ $offsetmins = array_merge($offsetmins, range(20,360,5));
 ## Set template parameters
 $tpl->set('title', $lang['timers_macro']);
 
-$tpl_body = & new Template(TPL_FILE_LOCATION.'timer_macro_view.tpl');
+$tpl_body = new Template(TPL_FILE_LOCATION.'timer_macro_view.tpl');
 $tpl_body->set('lang', $lang);
 $tpl_body->set('timers', $timers);
 $tpl_body->set('config', $config);
@@ -59,7 +59,7 @@ $tpl_body->set('themeloc', TPL_FILE_LOCATION);
 $mustSave = false;
 
 if (!isset($_GET["action"])) {
-	$tpl_add = & new Template(TPL_FILE_LOCATION.'timer_macro_add.tpl');
+	$tpl_add = new Template(TPL_FILE_LOCATION.'timer_macro_add.tpl');
 	$tpl_add->set('lang', $lang);
 	$tpl_add->set('macros', $macros);
 	$tpl_add->set('months', $months);
@@ -84,7 +84,7 @@ else {
 		case "edit":
 			$timerObj = $schedObjs[$_GET['line']];
 
-			$tpl_edit = & new Template(TPL_FILE_LOCATION.'timer_macro_edit.tpl');
+			$tpl_edit = new Template(TPL_FILE_LOCATION.'timer_macro_edit.tpl');
 			$tpl_edit->set('lang', $lang);		
 			$tpl_edit->set('macros', $macros);
 			$tpl_edit->set('months', $months);

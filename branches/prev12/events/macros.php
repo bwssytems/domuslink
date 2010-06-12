@@ -40,14 +40,14 @@ $macros = $heyusched->getMacroObjects();
 ## Set template parameters
 $tpl->set('title', $lang['macros']);
 
-$tpl_body = & new Template(TPL_FILE_LOCATION.'macro_view.tpl');
+$tpl_body = new Template(TPL_FILE_LOCATION.'macro_view.tpl');
 $tpl_body->set('lang', $lang);
 $tpl_body->set('macros', $macros);
 $tpl_body->set('config', $config);
 $mustSave = false;
 
 if (!isset($_GET["action"])) {
-	$tpl_add = & new Template(TPL_FILE_LOCATION.'macro_add.tpl');
+	$tpl_add = new Template(TPL_FILE_LOCATION.'macro_add.tpl');
 	$tpl_add->set('lang', $lang);
 	$tpl_body->set('form', $tpl_add);
 }
@@ -65,7 +65,7 @@ else {
 			
 		case "edit":
 			list($lbl, $named_macro, $delay, $execute_command) = explode(" ", $schedObjs[$_GET['line']]->getElementLine(), 4);
-			$tpl_edit = & new Template(TPL_FILE_LOCATION.'macro_edit.tpl');
+			$tpl_edit = new Template(TPL_FILE_LOCATION.'macro_edit.tpl');
 			$tpl_edit->set('lang', $lang);
 			$tpl_edit->set('enabled', $schedObjs[$_GET['line']]->isEnabled());
 			$tpl_edit->set('macro_command', $execute_command);

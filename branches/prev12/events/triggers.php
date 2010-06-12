@@ -43,14 +43,14 @@ $triggers = $heyusched->getTriggerObjects();
 ## Set template parameters
 $tpl->set('title', $lang['triggers']);
 
-$tpl_body = & new Template(TPL_FILE_LOCATION.'trigger_view.tpl');
+$tpl_body = new Template(TPL_FILE_LOCATION.'trigger_view.tpl');
 $tpl_body->set('lang', $lang);
 $tpl_body->set('triggers', $triggers);
 $tpl_body->set('config', $config);
 $mustSave = false;
 
 if (!isset($_GET["action"])) {
-	$tpl_add = & new Template(TPL_FILE_LOCATION.'trigger_add.tpl');
+	$tpl_add = new Template(TPL_FILE_LOCATION.'trigger_add.tpl');
 	$tpl_add->set('lang', $lang);
 	$tpl_add->set('aliases', $aliases);
 	$tpl_add->set('cmacs', $macros);
@@ -70,7 +70,7 @@ else {
 			
 		case "edit":
 			list($lbl, $tunit, $command, $macro) = explode(" ", $schedObjs[$_GET['line']]->getElementLine(), 4);
-			$tpl_edit = & new Template(TPL_FILE_LOCATION.'trigger_edit.tpl');
+			$tpl_edit = new Template(TPL_FILE_LOCATION.'trigger_edit.tpl');
 			$tpl_edit->set('lang', $lang);
 			$tpl_edit->set('enabled', $schedObjs[$_GET['line']]->isEnabled());
 			$tpl_edit->set('tcommand', strtolower($command));

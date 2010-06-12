@@ -37,7 +37,7 @@ $commands = array("help","version", "logtail", "setclock", "readclock", "show", 
 // Commands that cannot be handled properly with executing hey from php in domus.Link
 // i.e. The monitor command is an open ended command that holds the terminal while executing.
 $restricted_cmds = array("monitor", "port_line_test");
-$tpl_body = & new Template(TPL_FILE_LOCATION.'utility.tpl');
+$tpl_body = new Template(TPL_FILE_LOCATION.'utility.tpl');
 $tpl_body->set('lang', $lang);
 $tpl_body->set('commands', $commands);
 

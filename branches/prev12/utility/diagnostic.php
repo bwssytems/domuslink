@@ -134,7 +134,7 @@ $tpl->set('title', $lang['diagnostic']);
 $tpl->set('lang', $lang);
 
 
-$tpl_body = & new Template(TPL_FILE_LOCATION.'diagnostic.tpl');
+$tpl_body = new Template(TPL_FILE_LOCATION.'diagnostic.tpl');
 $tpl_body->set('lang', $lang);
 $tpl_body->set('fileCheck', $fileCheck);
 

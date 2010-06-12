@@ -37,7 +37,7 @@ if(!isset($heyusched) || !count($heyusched->getObjects())) {
 ## Set template parameters
 $tpl->set('title', $lang['timers']);
 
-$tpl_body = & new Template(TPL_FILE_LOCATION.'upload.tpl');
+$tpl_body = new Template(TPL_FILE_LOCATION.'upload.tpl');
 $tpl_body->set('lang', $lang);
 $tpl_body->set('config', $config);
 

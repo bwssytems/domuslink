@@ -82,7 +82,7 @@ class location {
 		//global $config;
 		//global $modtypes;
 		
-		$zone_tpl = & new Template(TPL_FILE_LOCATION.'floorplan_table.tpl');
+		$zone_tpl = new Template(TPL_FILE_LOCATION.'floorplan_table.tpl');
 		$zone_tpl->set('header', $location);
 		
 		if (empty($_GET['page'])) {
@@ -127,7 +127,7 @@ class location {
 		$tpl = ($multi_alias) ? "modules.tpl" : strtolower($alias->getAliasMap()->getType()).".tpl";
 		
 		// create new template
-		$mod = & new Template(TPL_FILE_LOCATION.$tpl);
+		$mod = new Template(TPL_FILE_LOCATION.$tpl);
 		$mod->set('config', $config);
 		$mod->set('label', label_parse($alias->getLabel(), false));
 		$mod->set('code', $alias->getHouseDevice());

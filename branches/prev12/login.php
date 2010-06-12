@@ -53,7 +53,7 @@ if (isset($_POST['password'])) {
 	exit();
 }
 
-$tpl_body = & new Template(TPL_FILE_LOCATION.'login.tpl');
+$tpl_body = new Template(TPL_FILE_LOCATION.'login.tpl');
 $tpl_body->set('lang', $lang);
 
 ## Display the page

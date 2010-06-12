@@ -33,7 +33,7 @@ $subdirList = array("default", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9")
 $tpl->set('title', $lang['frontendadmin']);
 
 if (!isset($_GET["action"])) {
-	$tpl_body = & new Template(TPL_FILE_LOCATION.'frontend.tpl');
+	$tpl_body = new Template(TPL_FILE_LOCATION.'frontend.tpl');
 	$tpl_body->set('config', $config);
 	$tpl_body->set('subdirlist', $subdirList);
 	$tpl_body->set('lang', $lang);

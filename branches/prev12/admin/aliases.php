@@ -40,14 +40,14 @@ $chars = '/ã|é|à|ç|õ|ñ|è|ñ|ª|º|~|è|!|"|\#|\$|\^|%|\&|\?|\«|\»/';
 $tpl->set('title', $lang['aliases']);
 $tpl->set('page', 'aliases');
 
-$tpl_body = & new Template(TPL_FILE_LOCATION.'aliases_view.tpl');
+$tpl_body = new Template(TPL_FILE_LOCATION.'aliases_view.tpl');
 $tpl_body->set('lang', $lang);
 $tpl_body->set('aliases', $aliases);
 $tpl_body->set('config', $config);
 $mustSave = false;
 
 if (!isset($_GET["action"])) {
-	$tpl_add = & new Template(TPL_FILE_LOCATION.'aliases_add.tpl');
+	$tpl_add = new Template(TPL_FILE_LOCATION.'aliases_add.tpl');
 	$tpl_add->set('lang', $lang);
 	$tpl_add->set('modtypes', $modtypes);
 	$tpl_add->set('floorplan', $floorPlan);
@@ -80,7 +80,7 @@ else {
 			break;
 			
 		case "edit":
-			$tpl_edit = & new Template(TPL_FILE_LOCATION.'aliases_edit.tpl');
+			$tpl_edit = new Template(TPL_FILE_LOCATION.'aliases_edit.tpl');
 			$tpl_edit->set('lang', $lang);		
 			$tpl_edit->set('label', $settings[$_GET['line']]->getLabel());
 			$tpl_edit->set('code', $settings[$_GET['line']]->getHouseDevice());
@@ -149,7 +149,7 @@ else {
 			
 		//I need the add form seperated from the list (otherwise the iPhone theme is to long (a lot of scrolling))
 		case "showaddform":
-			$tpl_add = & new Template(TPL_FILE_LOCATION.'aliases_add.tpl');
+			$tpl_add = new Template(TPL_FILE_LOCATION.'aliases_add.tpl');
 			$tpl_add->set('lang', $lang);
 			$tpl_add->set('modtypes', $modtypes);
 			$tpl_add->set('floorplan', $floorPlan);
@@ -168,7 +168,7 @@ else {
 			unset($tpl_add);
 			
 			//Ok, ready to get the edit form!
-			$tpl_edit = & new Template(TPL_FILE_LOCATION.'aliases_edit.tpl');
+			$tpl_edit = new Template(TPL_FILE_LOCATION.'aliases_edit.tpl');
 			$tpl_edit->set('lang', $lang);		
 			$tpl_edit->set('label', $settings[$_GET['line']]->getLabel());
 			$tpl_edit->set('code', $settings[$_GET['line']]->getHouseDevice());

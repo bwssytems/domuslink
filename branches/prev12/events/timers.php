@@ -51,14 +51,14 @@ $hours = range(00,23);
 ## Set template parameters
 $tpl->set('title', $lang['timers']);
 
-$tpl_body = & new Template(TPL_FILE_LOCATION.'timers_view.tpl');
+$tpl_body = new Template(TPL_FILE_LOCATION.'timers_view.tpl');
 $tpl_body->set('lang', $lang);
 $tpl_body->set('timers', $timers);
 $tpl_body->set('config', $config);
 $mustSave = false;
 
 if (!isset($_GET["action"])) {
-	$tpl_add = & new Template(TPL_FILE_LOCATION.'timer_add.tpl');
+	$tpl_add = new Template(TPL_FILE_LOCATION.'timer_add.tpl');
 	$tpl_add->set('lang', $lang);
 	$tpl_add->set('aliases', $aliases);
 	$tpl_add->set('months', $months);
@@ -95,7 +95,7 @@ else {
 		case "edit":
 			$timerObj = $schedObjs[$_GET['line']];
 			
-			$tpl_edit = & new Template(TPL_FILE_LOCATION.'timer_edit.tpl');
+			$tpl_edit = new Template(TPL_FILE_LOCATION.'timer_edit.tpl');
 			$tpl_edit->set('lang', $lang);
 			$tpl_edit->set('aliases', $aliases);
 			$tpl_edit->set('months', $months);

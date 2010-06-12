@@ -31,7 +31,7 @@ if ($config['seclevel'] != "0" && !$authenticated) {
 ## Set template parameters
 $tpl->set('title', $lang['status']);
 
-$tpl_body = & new Template(TPL_FILE_LOCATION.'status.tpl');
+$tpl_body = new Template(TPL_FILE_LOCATION.'status.tpl');
 $tpl_body->set('lang', $lang);
 $tpl_body->set('config', $config);
 

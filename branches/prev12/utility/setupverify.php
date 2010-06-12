@@ -52,7 +52,7 @@ if ($config['seclevel'] != "0" && !$authenticated) {
 	exit();
 }
 
-$tpl_body = & new Template(TPL_FILE_LOCATION.'setupverify.tpl');
+$tpl_body = new Template(TPL_FILE_LOCATION.'setupverify.tpl');
 $tpl_body->set('lang', $lang);
 $tpl_body->set('aliasMaps', $aliasMaps);
 
