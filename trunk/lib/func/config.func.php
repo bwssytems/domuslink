@@ -177,7 +177,7 @@ function config_save($config)
  * 
  * @param $config contains all the frontend's configuration options
  */
-function parse_config($config)
+function & parse_config(&$config)
 {
 	if ($config['pc_interface'] == 'CM11A') 
 	{
@@ -224,8 +224,6 @@ function parse_config($config)
 		$config['heyuconfloc'] = $config['heyu_base_real'].$config['heyuconf_real'];
 	}
 
-	$heyuconf = new heyuConf($config['heyuconfloc']);
-	$config['heyu_config_name'] = $heyuconf->getFirstSection();
 	return $config;
 }
 

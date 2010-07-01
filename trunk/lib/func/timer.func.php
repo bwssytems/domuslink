@@ -40,7 +40,7 @@ function weekdays($string, $lang, $list, $enabled) {
 					substr($lang['fri'], 0, 1),
 					substr($lang['sat'], 0, 1));
 	
-	$week_tpl = & new Template(TPL_FILE_LOCATION.'weekdays.tpl');
+	$week_tpl = new Template(TPL_FILE_LOCATION.'weekdays.tpl');
 	$week_tpl->set('wdayt', $wdayt);
 	$week_tpl->set('wdayo', $wdayo);
 	$week_tpl->set('weekdays', $string);

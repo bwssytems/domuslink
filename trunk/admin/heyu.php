@@ -20,9 +20,8 @@
  */
 
 ## Includes
-$dirname = dirname(__FILE__);
 require_once('..'.DIRECTORY_SEPARATOR.'include.php');
-require_once(CLASS_FILE_LOCATION.'heyuconf.class.php');
+require_once('..'.DIRECTORY_SEPARATOR.'include_globals.php');
 
 ## Security validation's
 if ($config['seclevel'] != "0" && !$authenticated) { 
@@ -30,101 +29,72 @@ if ($config['seclevel'] != "0" && !$authenticated) {
 	exit();
 }
 
-## Instantiate HeyuConf class
-$heyuconf = new heyuConf($config['heyuconfloc']);
 ## Get heyu (x10.conf) file contents/settings
-$settings = $heyuconf->get();
+$settings = $heyuconf->getObjects();
+$mustSave = false;
 
 ## Set template parameters
-$tpl->set('title', 'Heyu Setup');
+$tpl->set('title', $lang['heyuconf']);
 
 if (!isset($_GET["action"])) {
-	$tpl_body = & new Template(TPL_FILE_LOCATION.'heyuconf_view.tpl');
+	$tpl_body = new Template(TPL_FILE_LOCATION.'heyuconf_view.tpl');
 	$tpl_body->set('config', $config);
 	$tpl_body->set('lang', $lang);
 	$tpl_body->set('settings', $settings);
+	if(!isset($heyusched)) {
+		$tpl_add = new Template(TPL_FILE_LOCATION.'sched_file_add.tpl');
+		$tpl_add->set('lang', $lang);
+		$tpl_body->set('form', $tpl_add);
+	}
 }
 else {
 	if ($_GET["action"] == "edit") {
-		$tpl_body = & new Template(TPL_FILE_LOCATION.'heyuconf_edit.tpl');
+		$tpl_body = new Template(TPL_FILE_LOCATION.'heyuconf_edit.tpl');
 		$tpl_body->set('config', $config);
 		$tpl_body->set('lang', $lang);
 		$tpl_body->set('settings', $settings);
 	}
 	elseif ($_GET["action"] == "save") {
-		$i = 0;
 		
 		// $_POST contains all lines in heyu conf file.
 		// $key represents each directive, alias (with #, so ALIAS1,ALIAS2,etc), etc
 		// $value represents directive value or full string of ALIAS,SCENE,etc
 		foreach ($_POST as $key => $value) {
-			$primary = substr($key, 0, 5);
-			switch ($primary) {
-				case "ALIAS":
-					$newcontent[$i] = $primary." ".$value."\n";
-					break;
-				case "SCENE":
-					$newcontent[$i] = $primary." ".$value."\n";
-					break;
-				case "USERS": // USERSYN
-					$newcontent[$i] = substr($key, 0, 7)." ".$value."\n";
-					break;
-				default:
-					$newcontent[$i] = $key." ".$value."\n";
-					break;
+			list($type, $lineNum) = explode("@", $key, 2);
+			$elements = $heyuconf->getElementObjects($type);
+			foreach($elements as $anElement) {
+				if($anElement->getLineNum() == $lineNum)
+				{
+					$anElement->setElementLine(array($type, $value));
+					if(isset($_POST["comment_d@".$lineNum]))
+						$anElement->setEnabled(false);
+					else
+						$anElement->setEnabled(true);
+				}
 			}
-			$i++;
 		}
-		save_file($newcontent, $config['heyuconfloc'], true);
+		$mustSave = true;
 	}
-}
-
-function yesnoopt($value) {
-	if ($value == "YES") {
-		return "<option selected value='YES'>YES</option>\n" .
-				"<option value='NO'>NO</option>\n";
-	} 
-	else {
-		return "<option value='YES'>YES</option>\n" .
-				"<option selected value='NO'>NO</option>\n";
+	elseif ($_GET["action"] == "add") {
+		$aSchedDirective = new ConfigElement("schedule_file ".$_POST["sched_file_name"]);
+		$heyuconf->addElement($aSchedDirective);
+		$mustSave = true;
 	}
-}
-
-function dawnduskopt($value) {
-	if ($value == "FIRST") {
-		return "<option selected value='FIRST'>FIRST</option>\n" .
-				"<option value='EARLIEST'>EARLIEST</option>\n" .
-				"<option value='LATEST'>LATEST</option>\n" .
-				"<option value='AVERAGE'>AVERAGE</option>\n" .
-				"<option value='MEDIAN'>MEDIAN</option>\n";
-	}
-	elseif ($value == "EARLIEST") {
-		return "<option value='FIRST'>FIRST</option>\n" .
-				"<option selected value='EARLIEST'>EARLIEST</option>\n" .
-				"<option value='LATEST'>LATEST</option>\n" .
-				"<option value='AVERAGE'>AVERAGE</option>\n" .
-				"<option value='MEDIAN'>MEDIAN</option>\n";
-	}
-	elseif ($value == "LATEST") {
-		return "<option value='FIRST'>FIRST</option>\n" .
-				"<option value='EARLIEST'>EARLIEST</option>\n" .
-				"<option selected value='LATEST'>LATEST</option>\n" .
-				"<option value='AVERAGE'>AVERAGE</option>\n" .
-				"<option value='MEDIAN'>MEDIAN</option>\n";
-	}
-	elseif ($value == "AVERAGE") {
-		return "<option value='FIRST'>FIRST</option>\n" .
-				"<option value='EARLIEST'>EARLIEST</option>\n" .
-				"<option value='LATEST'>LATEST</option>\n" .
-				"<option selected value='AVERAGE'>AVERAGE</option>\n" .
-				"<option value='MEDIAN'>MEDIAN</option>\n";
-	}
-	elseif ($value == "MEDIAN") {
-		return "<option value='FIRST'>FIRST</option>\n" .
-				"<option value='EARLIEST'>EARLIEST</option>\n" .
-				"<option value=LATEST>LATEST</option>\n" .
-				"<option value='AVERAGE'>AVERAGE</option>\n" .
-				"<option selected value='MEDIAN'>MEDIAN</option>\n";
+	
+	if($mustSave) {
+		try {
+			$heyuconf->save();
+		}
+		catch(Exception $e)	{
+			if(count(preg_grep("/modified/", array($e->getMessage()))))
+				gen_error(null, array($e->getMessage(), $lang['exitbrowser']));
+			else
+				gen_error(null, $e->getMessage());
+			exit();
+		}
+		heyu_ctrl('restart');
+		header("Location: ".$_SERVER['PHP_SELF']);
+		exit();
 	}
 }
 

@@ -32,31 +32,28 @@
 <?php
 $arrayEnd = count($triggers) - 1;
 foreach ($triggers as $triggerline):
-	$line_num = $triggerline->getLineNum();
-	$arrayNum = $triggerline->getArrayNum();
-	$enabled = $triggerline->isEnabled();
 	list($lbl, $tunit, $command, $macro) = explode(" ", $triggerline->getElementLine(), 4); 
 ?>
  
- <tr <?php if (!$enabled) echo "style='color: #cccccc'"; ?> class="row">
+ <tr <?php if (!$triggerline->isEnabled()) echo "style='color: #cccccc'"; ?> class="row">
   <td><?php echo label_parse($tunit, false); ?></td>
   <td>&nbsp;</td>
   <td><?php echo strtoupper($command); ?></td>
   <td>&nbsp;</td>
   <td><?php echo label_parse($macro, false); ?></td>
   <td>&nbsp;</td>
-  <td align="center"><a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=edit&line=<?php echo $line_num;?>"><?php echo ($lang['edit']);?></a></td>
-  <td align="center"><a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=del&line=<?php echo $line_num;?>" onclick="return confirm('<?php echo ($lang['deleteconfirm']);?>')"><?php echo ($lang['delete']);?></a></td>
+  <td align="center"><a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=edit&line=<?php echo $triggerline->getLineNum();?>"><?php echo ($lang['edit']);?></a></td>
+  <td align="center"><a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=del&line=<?php echo $triggerline->getLineNum();?>" onclick="return confirm('<?php echo ($lang['deleteconfirm']);?>')"><?php echo ($lang['delete']);?></a></td>
   <td>
-  <?php if ($enabled): ?>
-  	<a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=disable&line=<?php echo $line_num;?>"><?php echo ($lang['disable']);?></a>
+  <?php if ($triggerline->isEnabled()): ?>
+  	<a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=disable&line=<?php echo $triggerline->getLineNum();?>"><?php echo ($lang['disable']);?></a>
   <?php else: ?>
-  	<a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=enable&line=<?php echo $line_num;?>"><?php echo ($lang['enable']);?></a>
+  	<a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=enable&line=<?php echo $triggerline->getLineNum();?>"><?php echo ($lang['enable']);?></a>
   <?php endif; ?>
   </td>
   <td>&nbsp;</td>
-  <td><?php if ($arrayNum != 0): ?><a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=move&dir=up&line=<?php echo $line_num;?>"><img src="<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/arrow-u.gif" border="0" /></a><?php endif; ?></td>
-  <td><?php if ($arrayNum != $arrayEnd): ?><a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=move&dir=down&line=<?php echo $line_num;?>"><img src="<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/arrow-d.gif" border="0" /></a><?php endif; ?></td>
+  <td><?php if ($triggerline->getArrayNum() != 0): ?><a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=move&dir=up&line=<?php echo $triggerline->getLineNum();?>"><img src="<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/arrow-u.gif" border="0" /></a><?php endif; ?></td>
+  <td><?php if ($triggerline->getArrayNum() != $arrayEnd): ?><a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=move&dir=down&line=<?php echo $triggerline->getLineNum();?>"><img src="<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/arrow-d.gif" border="0" /></a><?php endif; ?></td>
 </tr>
  
 <?php endforeach; ?>

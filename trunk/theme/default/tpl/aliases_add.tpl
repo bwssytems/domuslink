@@ -47,7 +47,7 @@ function validateForm(form)
     <td valign="top"><h6><?php echo ($lang['module']);?>:</h6></td>
     <td valign="top">
     <select name="module">
-	<?php foreach (load_file(MODULE_FILE_LOCATION) as $modulenf): ?>
+	<?php foreach ($modlist as $modulenf): ?>
  	<?php $modulef = rtrim($modulenf); ?>
  		<option value="<?php echo $modulef;?>"><?php echo $modulef;?></option>
 	<?php endforeach; ?>
@@ -55,6 +55,13 @@ function validateForm(form)
     </td>
   </tr>
 
+
+<!-- Module Options -->
+
+  <tr>
+    <td valign="top"><h6><?php echo ($lang['option']);?>:</h6></td>
+    <td valign="top"><input type="text" name="moduleopts" value="" size="20" /></td>
+  </tr>
 
 <!-- Type -->
 
@@ -76,11 +83,12 @@ function validateForm(form)
   <tr>
     <td valign="top"><h6><?php echo ($lang['location']);?>:</h6></td>
     <td valign="top">
-    <select name="loc">
-	<?php foreach (load_file(FPLAN_FILE_LOCATION) as $locnf): ?>
+    <select name="loc" onClick="beginEditing(this);" onBlur="finishEditing();">
+	<?php foreach ($floorplan as $locnf): ?>
 	<?php $locf = rtrim($locnf); ?>
 		<option value="<?php echo $locf;?>"><?php echo $locf;?></option>
 	<?php endforeach; ?>
+		<option value=""></option>
 	</select>
     </td>
   </tr>

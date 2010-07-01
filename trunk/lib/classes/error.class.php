@@ -32,7 +32,7 @@ class error {
     
     function setPage() {
     	global $lang;
-    	$this->page = & new Template(TPL_FILE_LOCATION.'error.tpl');
+    	$this->page = new Template(TPL_FILE_LOCATION.'error.tpl');
     	$this->page->set('lang', $lang);
 		$this->page->set('errormsgs', $this->msgs);
     }

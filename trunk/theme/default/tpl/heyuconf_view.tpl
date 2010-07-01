@@ -1,17 +1,28 @@
 <table cellspacing="0" cellpadding="0" border="0" width="600px" align="center" class="content">
-<tr><th colspan="2"><?php echo($lang['heyuconf']); ?></th></tr>
+<tr><th colspan="3"><?php echo($lang['heyuconf']); ?></th></tr>
 
 <tr>
-<td colspan="2">
-
+<td colspan="3">
 <table border="0" cellspacing="0" cellpadding="0" class="clear">
+<tr>
+  <td><h6><?php echo ($lang['directive']);?></h6></td>
+  <td style="width:10px;"></td>
+  <td><h6><?php echo ($lang['comment']);?></h6></td>
+  <td style="width:10px;"></td>
+  <td><h6><?php echo ($lang['value']);?></h6></td>
+</tr>
 <?php  foreach($settings as $setting):
-  if (substr($setting, 0, 1) != "#" && $setting != "\n" && substr($setting, 0, 5) != "ALIAS" &&
-  substr($setting, 0, 5) != "SCENE" && substr($setting, 0, 7) != "USERSYN" && $setting != " \n"):
-    list($directivenf, $valuenf) = split(" ", $setting, 2); ?>
+  if ($setting->getType() != COMMENT_D && $setting->getType() != ALIAS_D &&
+  $setting->getType() != SCENE_D && $setting->getType() != USERSYN_D && $setting->getType() != SCRIPT_D && $setting->getType() != LAUNCHER_D):
+    $elements = explode(" ", $setting, 2); ?>
+	<?php $directivenf = $elements[0]; ?>
+	<?php if(count($elements) > 1) $valuenf = $elements[1]; else $valuenf = ""; ?>
     <tr>
-      <td><h6><?php echo(str_replace("_", " ", $directivenf)); ?>:&nbsp;</h6></td>
-      <td><?php echo(rtrim($valuenf, "\n")); ?></td>
+      <td><h6><?php echo(str_replace("_", " ", $setting->getType())); ?>:&nbsp;</h6></td>
+  		<td>&nbsp;</td>
+      <td><input type="checkbox" disabled name="<?php echo "comment_d@"; echo $setting->getLineNum(); ?>" <?php if(!($setting->isEnabled())) echo "checked"; ?>/></td>
+		<td>&nbsp;</td>
+      <td><?php echo(trim($valuenf)); ?></td>
     </tr>
     <?php endif; ?>
 <?php endforeach; ?>
@@ -28,3 +39,9 @@
   </td>
 </tr>
 </table>
+
+<?php 
+if (!empty($form)):
+ echo($form);
+endif; 
+?>

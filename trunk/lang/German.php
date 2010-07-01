@@ -1,23 +1,4 @@
 <?php
-/*
- * domus.Link :: PHP Web-based frontend for Heyu (X10 Home Automation)
- * Copyright (c) 2007, Istvan Hubay Cebrian (istvan.cebrian@domus.link.co.pt)
- * Project's homepage: http://domus.link.co.pt
- * Project's dev. homepage: http://domuslink.googlecode.com
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope's that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details. You should have 
- * received a copy of the GNU General Public License along with
- * this program; if not, write to the Free Software Foundation, 
- * Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- */
 
 $lang["dlurl"]="http://domus.link.co.pt";
 $lang["title"]="domus.Link";
@@ -194,5 +175,24 @@ $lang["heyubaseuse"]="'Heyu Base Dir' Verwendung";
 $lang["heyubaseuse_txt"]="Ist dieser Schalter auf 'Ja', dann verwendet domus.Link den absoluten Pfad aus der heyu Basis-Einstellungen.
 Ist der Schalter auf 'Nein', wird die Basispfad und die x10config-Datei und x10.conf aus /etc/heyu verwendet.";
 $lang["heyuindir"]="im Verzeichnis";
+$lang["directive"]="Anweisung";
+$lang["comment"]="Kommentar";
+$lang["value"]="Wert";
+$lang["setupverify"]="Einstellungsüberprüfung";
+$lang["aliaslocationtext"]="abgeleitete Alias für Räume and Typen von Heyu Konfiguration";
+$lang["continue"]="Fortsetzen";
+$lang["convert"]="konvertieren";
+$lang["converttext"]="angezeigte alias/locations/types verwenden (abgeleitet von  heyu Konfiguration)";
+$lang["continuetext"]="ohne Konvertierung der abgeleiteten alias/locations/types fortsetzen";
+$lang["show"]="Anzeigen";
+$lang["hide"]="Verstecken";
+$lang["exitbrowser"]="Browser beenden und neu versuchen";
+$lang["addschedfile"]="Schedule File hinzufügen";
+$lang["noscheddefined"]="Kein Schedule file definiert. heyu Konfiguration überprüfen";
+$lang["diagnostic"]="Diagnose";
+$lang["diagnostictext"]="domus.Link Diagnose";
+$lang["diagnosticstatus"]="Diagnose Status - zum Überpüfen klicken";
+$lang["statusinfo"]="für Status Info klicken";
+$lang["systemuptime"]="System Uptime";
 
 ?>

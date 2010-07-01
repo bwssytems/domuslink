@@ -29,15 +29,23 @@ if ($config['seclevel'] == "2" && !$authenticated) {
 	exit();
 }
 
-## Instantiate heyuConf & location class
-require_once(CLASS_FILE_LOCATION.'heyuconf.class.php');
-require_once(CLASS_FILE_LOCATION.'location.class.php');
-$heyuconf = new heyuConf($config['heyuconfloc']);
-$locations = new location($heyuconf);
+if(!isset($_SESSION['filesChecked']) || !$_SESSION['filesChecked'])
+{
+	header("Location: utility/diagnostic.php?from=index");
+	exit();
+}
 
 // start/stop controls for heyu
-if (isset($_GET["daemon"])) heyu_ctrl($_GET["daemon"]);
-
+if (isset($_GET["daemon"])) {
+	try {
+		heyu_ctrl($_GET["daemon"]);
+	}
+	catch(Exception $e) {
+		gen_error("heyu ".$_GET["daemon"], $e->getMessage());
+		exit();
+	}
+}
+	
 // get which page is open
 $page = (isset($_GET['page'])) ? $_GET['page'] : "home";
 
@@ -47,15 +55,42 @@ $tpl->set('page', $page);
 
 // check if heyu is running, if true display modules
 if (heyu_running()) {
+	$dirname = dirname(__FILE__);
+	require_once($dirname.DIRECTORY_SEPARATOR.'include_globals.php');
+	
+	if(!isset($_SESSION['configChecked']) || !$_SESSION['configChecked'])
+	{
+		header("Location: utility/setupverify.php?from=index");
+		exit();
+	}
+
+	require_once(CLASS_FILE_LOCATION.'location.class.php');
+	$locations = new location($heyuconf);
+	
 	// if any action set, act on it
-	if (isset($_GET['action'])) heyu_action();
+	if (isset($_GET['action'])) {
+		try {
+			heyu_action();
+		}
+		catch(Exception $e) {
+			// noop
+		}
+
+		if (isset($_GET['page']))
+			header("Location: ".$_SERVER['PHP_SELF']."?page=". $_GET['page']);
+		else
+			header("Location: ".$_SERVER['PHP_SELF']);
+		exit();
+	}
 
 	// load page acordingly
 	switch($page) {
 		case "home":
 			//if theme is iPhone, we want to show a menu instead of the location_tb
-			if ($config['theme'] == 'iPhone') $html = $tpl->fetch(TPL_FILE_LOCATION.'home.tpl');
-			else $html = $locations->buildLocations('','localized');
+			if ($config['theme'] == 'iPhone')
+				$html = $tpl->fetch(TPL_FILE_LOCATION.'home.tpl');
+			else
+				$html = $locations->buildLocations('','localized');
 			break;
 		case "all":
 			//if theme is iPhone, we want to show a the location_tb
@@ -69,32 +104,44 @@ if (heyu_running()) {
 			$html = $locations->buildLocations($modtypes[$page],'typed');
 			break;
 			
-		case "about":				
 		case "status":			
-		case "setup": //for iphone
-			if ($page == "setup" && $config['theme'] != "iPhone") $page="status";
+			header("Location: utility/status.php?from=index");
+			exit();
+			break;	
+
+		case "about":				
 			$html = $tpl->fetch(TPL_FILE_LOCATION.$page.'.tpl');
 			break;	
-			
-		case "info":
-			$info = & new Template(TPL_FILE_LOCATION.'info.tpl');
-			$info->set('lines', heyu_info());
-			$html = $info->fetch(TPL_FILE_LOCATION.'info.tpl');								
+
+		case "setup": //for iphone
+			## Security validation's
+			if ($config['seclevel'] != "0" && !$authenticated) {
+				header("Location: login.php?from=index");
+				exit();
+			}
+			else
+				$html = $tpl->fetch(TPL_FILE_LOCATION.$page.'.tpl');
 			break;
 
+		default:
+			//if theme is iPhone, we want to show a menu instead of the location_tb
+			if ($config['theme'] == 'iPhone')
+				$html = $tpl->fetch(TPL_FILE_LOCATION.'home.tpl');
+			else
+				$html = $locations->buildLocations('','localized');
+			break;
 	} // end switch
 }
 else {
 	// if heyu not running show status or about page
 	switch($page) {	
 		case "about":
-		case "setup": //for iphone
-			if ($page == "setup" && $config['theme'] != "iPhone") $page="status";
 			$html = $tpl->fetch(TPL_FILE_LOCATION.$page.'.tpl');
 			break;
-			
+
 		default:
-			$html = $tpl->fetch(TPL_FILE_LOCATION.'status.tpl');
+			header("Location: utility/status.php?from=index");
+			exit();
 			break;
 
 	} // end switch

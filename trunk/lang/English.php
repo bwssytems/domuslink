@@ -217,4 +217,24 @@ $lang["heyucurrentconfig"] = "Current heyu configuration is";
 $lang["heyubaseuse"] = "Heyu Base Dir Usage";
 $lang["heyubaseuse_txt"] = "This switch forces domus.Link to pass explicit path directive using -c to heyu on execution based on the heyu_base setting when set to YES. If set to NO, domus.Link will default its heyu_base path and x10config file settings to /etc/heyu and x10.conf respectively.";
 $lang['heyuindir'] = "in directory";
+
+$lang["directive"] = "Directive";
+$lang["comment"] = "Comment";
+$lang["value"] = "Value";
+$lang["setupverify"] = "Setup Verification";
+$lang["aliaslocationtext"] = "Derived Alias to Locations and Types from Heyu config";
+$lang["continue"] = "Continue";
+$lang["convert"] = "Convert";
+$lang["converttext"] = "Use displayed alias/locations/types derived from heyu config.";
+$lang["continuetext"] = "Continue without conversion of derived alias/locations/types.";
+$lang["show"] = "Show";
+$lang["hide"] = "Hide";
+$lang["exitbrowser"] = "Exit your browser and try again.";
+$lang["addschedfile"] = "Add Schedule File";
+$lang["noscheddefined"] = "No schedule file defined. Check heyu configuration.";
+$lang["diagnostic"] = "Diagnostic";
+$lang["diagnostictext"] = "domus.Link Diagnostics";
+$lang["diagnosticstatus"] = "Diagnostic status - click to check";
+$lang["statusinfo"] = "Click for status info";
+$lang["systemuptime"] = "System Uptime";
 ?>

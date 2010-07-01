@@ -1,23 +1,4 @@
 <?php
-/*
- * domus.Link :: PHP Web-based frontend for Heyu (X10 Home Automation)
- * Copyright (c) 2007, Istvan Hubay Cebrian (istvan.cebrian@domus.link.co.pt)
- * Project's homepage: http://domus.link.co.pt
- * Project's dev. homepage: http://domuslink.googlecode.com
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope's that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details. You should have 
- * received a copy of the GNU General Public License along with
- * this program; if not, write to the Free Software Foundation, 
- * Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- */
 
 $lang["dlurl"]="http://domus.link.co.pt";
 $lang["title"]="domus.Link";
@@ -193,5 +174,24 @@ $lang["heyucurrentconfig"]="Current heyu configuration is";
 $lang["heyubaseuse"]="Heyu Base Dir Usage";
 $lang["heyubaseuse_txt"]="This switch forces domus.Link to pass explicit path directive using -c to heyu on execution based on the heyu_base setting when set to YES. If set to NO, domus.Link will default its heyu_base path and x10config file settings to /etc/heyu and x10.conf respectively.";
 $lang["heyuindir"]="in directory";
+$lang["directive"]="Directive";
+$lang["comment"]="Comment";
+$lang["value"]="Value";
+$lang["setupverify"]="Setup Verification";
+$lang["aliaslocationtext"]="Derived Alias to Locations and Types from Heyu config";
+$lang["continue"]="Continue";
+$lang["convert"]="Convert";
+$lang["converttext"]="Use displayed alias/locations/types derived from heyu config.";
+$lang["continuetext"]="Continue without conversion of derived alias/locations/types.";
+$lang["show"]="Show";
+$lang["hide"]="Hide";
+$lang["exitbrowser"]="Exit your browser and try again.";
+$lang["addschedfile"]="Add Schedule File";
+$lang["noscheddefined"]="No schedule file defined. Check heyu configuration.";
+$lang["diagnostic"]="Diagnostic";
+$lang["diagnostictext"]="domus.Link Diagnostics";
+$lang["diagnosticstatus"]="Diagnostic status - click to check";
+$lang["statusinfo"]="Click for status info";
+$lang["systemuptime"]="System Uptime";
 
 ?>
