@@ -3,7 +3,7 @@
  |                               CHANGES                                      |
  |                                                                            |
  +----------------------------------------------------------------------------*/
-  v1.2 - XX/June/2010
+  v1.2 - 01/July/2010
  ------
 	* Updated heyu config file handling to be agnostic and object oriented. domus.Link
 	  will now support a users custom heyu config file without any additional changes.
@@ -84,6 +84,8 @@
 	* Updated redirection handling when setting php header commands.
 	* Updated error handling of files for writing.
 	* domus.Link handling of heyu config without a schedule file defined.
+	* Issue 45 fixed - Changed all deprecated PHP4 calls to be PHP5 compatibale
+	* Updated Language files.
 
   v1.1 - 4/Apr/2010
  ------

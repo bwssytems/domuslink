@@ -183,9 +183,9 @@
 <!-- end footer div -->
 <br>
 <div id="copyright">
-<a href="<?php echo ($lang['dlurl']); ?>" target="_blank">domus.Link :: Heyu Frontend</a> v<?php echo $ver; ?>
+domus.Link :: Heyu Frontend v<?php echo $ver; ?>
 <br>Copyright <SCRIPT LANGUAGE="JavaScript">copyrightDate();</SCRIPT>
-<br><a href="http://icebrian.net" target="_blank">Istvan Hubay Cebrian</a>
+<br><a href="<?php echo ($lang['dlurl']); ?>" target="_blank">domus.Link is free software released under the General Public Licence.</a>
 </div>
 </body>
 </html>
