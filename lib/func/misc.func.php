@@ -63,28 +63,19 @@ function label_parse($str, $add = false) {
 }
 
 /**
- * Check if alias contains various modules
- * 
- * Description: This function received an alias and check's if string contain's a ","
- * If it does, then string has various aliases
- * 
- * @param $alias represents alias received
- * 
- */
-function is_multi_alias($alias) {
-	if (strpos($alias, ",") || strpos($alias, "-"))
-		return true;
-}
-
-/**
  * Uptime
  * 
  * Description: Return the result for the uptime command
  * 
  */
 function uptime() {
-	$rs = execute_cmd("uptime");
-	return $rs[0];
+	try {
+		$rs = execute_cmd("uptime", true);
+		return $rs[0];
+	}
+	catch(Exception $e) {
+		return "";
+	}
 }
 
 /**
@@ -99,6 +90,55 @@ function gen_error($cmd, $rs) {
 	if ($cmd) array_push($rs, "Exec: ".$cmd);
 	$_SESSION['errors'] = array_reverse($rs);
 	header("Location: ".$config['url_path']."/error.php");
+}
+
+function yesnoopt($value) {
+	if (strtoupper($value) == "YES") {
+		return "<option selected value='YES'>YES</option>\n" .
+				"<option value='NO'>NO</option>\n";
+	} 
+	else {
+		return "<option value='YES'>YES</option>\n" .
+				"<option selected value='NO'>NO</option>\n";
+	}
+}
+
+function dawnduskopt($value) {
+	if (strtoupper($value) == "FIRST") {
+		return "<option selected value='FIRST'>FIRST</option>\n" .
+				"<option value='EARLIEST'>EARLIEST</option>\n" .
+				"<option value='LATEST'>LATEST</option>\n" .
+				"<option value='AVERAGE'>AVERAGE</option>\n" .
+				"<option value='MEDIAN'>MEDIAN</option>\n";
+	}
+	elseif (strtoupper($value) == "EARLIEST") {
+		return "<option value='FIRST'>FIRST</option>\n" .
+				"<option selected value='EARLIEST'>EARLIEST</option>\n" .
+				"<option value='LATEST'>LATEST</option>\n" .
+				"<option value='AVERAGE'>AVERAGE</option>\n" .
+				"<option value='MEDIAN'>MEDIAN</option>\n";
+	}
+	elseif (strtoupper($value) == "LATEST") {
+		return "<option value='FIRST'>FIRST</option>\n" .
+				"<option value='EARLIEST'>EARLIEST</option>\n" .
+				"<option selected value='LATEST'>LATEST</option>\n" .
+				"<option value='AVERAGE'>AVERAGE</option>\n" .
+				"<option value='MEDIAN'>MEDIAN</option>\n";
+	}
+	elseif (strtoupper($value) == "AVERAGE") {
+		return "<option value='FIRST'>FIRST</option>\n" .
+				"<option value='EARLIEST'>EARLIEST</option>\n" .
+				"<option value='LATEST'>LATEST</option>\n" .
+				"<option selected value='AVERAGE'>AVERAGE</option>\n" .
+				"<option value='MEDIAN'>MEDIAN</option>\n";
+	}
+	elseif (strtoupper($value) == "MEDIAN") {
+		return "<option value='FIRST'>FIRST</option>\n" .
+				"<option value='EARLIEST'>EARLIEST</option>\n" .
+				"<option value=LATEST>LATEST</option>\n" .
+				"<option value='AVERAGE'>AVERAGE</option>\n" .
+				"<option selected value='MEDIAN'>MEDIAN</option>\n";
+	}
 }
 
 

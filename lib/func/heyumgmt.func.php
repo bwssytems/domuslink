@@ -51,8 +51,8 @@ function createHeyuSubdir($dirNum) {
 function getHeyuConfDirModifier() {
 	global $config;
 	if($config['heyu_subdir'] != "default")
-		return strtolower($config['heyu_subdir'])."/";
+		return $config['heyu_base_real'].$config['heyu_subdir']."/";
 	else
-		return "";
+		return $config['heyu_base_real'];
 }
 ?>

@@ -18,48 +18,67 @@
  * this program; if not, write to the Free Software Foundation, 
  * Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
+require_once(CLASS_FILE_LOCATION."alias.class.php");
+require_once(CLASS_FILE_LOCATION."aliasmap.class.php");
+require_once(CLASS_FILE_LOCATION."heyuconf.const.php");
+require_once(CLASS_FILE_LOCATION."elementfile.class.php");
+require_once(CLASS_FILE_LOCATION."configelementfactory.class.php");
 
-class heyuConf {
 
-	var $heyuconf;
-	var $filename;
+class heyuConf extends ElementFile {
+	
+	private $aliasMap;
 
-	/**
-	 * Constructor
-	 *
-	 * @param $filename represents name and location
-	 */
-	function heyuConf($filename) {
-		$this->heyuconf = '';
-		$this->filename = $filename;
-
-		$this->load();
+	function __construct() {
+		$args = func_get_args();
+        if(!empty($args)) {
+        	parent::__construct($args[0]);
+        }
+        else {
+        	parent::__construct();
+        }
+        
+		if(!file_exists(ALIASMAP_FILE_LOCATION)) {
+			$this->aliasMap = new AliasMap();
+			$this->aliasMap->setFileName(ALIASMAP_FILE_LOCATION);
+		}
+		else
+			$this->aliasMap = new AliasMap(ALIASMAP_FILE_LOCATION);
+			
+		$this->getAliases();
 	}
 
-	/**
-	 * Load heyu settings from defined file in config.php
-	 */
-	function load() {
-		$this->heyuconf = load_file($this->filename);
-	}
-
-	/**
-	 * Return heyu settings from defined file in config.php
-	 */
-	function get() {
-		return $this->heyuconf;
+	protected function createElement($aLine) {
+		return ConfigElementFactory::createElement($aLine);
 	}
 	
+	/**
+	 * Heyu Config Save
+	 * 	Need to override parent to save alias map contained within this class
+	 */
+	function save() {
+		$this->rebuildAliasMap();
+		$this->getAliasMap()->save();
+		parent::save();		
+	}
 	/**
 	 * Get defined schedule file from heyu configuration file without directory modifier
 	 */
 	function getSchedFileValue() {
-		foreach ($this->heyuconf as $num => $line) {
-			if (substr($line, 0, 13) == "SCHEDULE_FILE") {
-				$schedfile = trim(substr($line, 14));
-				break;
-			}			
+		$schedFileObjs = $this->getElementObjects("schedule_file");			
+		if(count($schedFileObjs) > 0) {
+			foreach($schedFileObjs as $schedFileObj) {
+				if($schedFileObj->isEnabled()) {
+					$schedfile = trim(substr($schedFileObjs[0]->getElementLine(), 14));
+					break;
+				}
+			}
+			
+			if(!isset($schedfile))
+				throw new EXception("Schedule file not enabled");
 		}
+		else
+			throw new Exception("Schedule_file not defined");
 		
 		return $schedfile;
 	}
@@ -77,12 +96,11 @@ class heyuConf {
 	 */
 	function getFirstSection() {
 		$firstSection = "";
-		foreach ($this->heyuconf as $num => $line) {
-			if (strtolower(substr($line, 0, 7)) == "section") {
-				$firstSection = trim(substr($line, 8));
-				break;
-			}			
-		}
+
+		$schedFileObjs = $this->getElementObjects("section");
+		if(count($schedFileObjs) > 0)
+			$firstSection = trim(substr($schedFileObjs[0]->getElementLine(), 8));
+		
 		
 		return $firstSection;		
 	}
@@ -90,72 +108,89 @@ class heyuConf {
 	/**
 	 * Get Aliases
 	 *
-	 * @param $number boolean, if true add line number of original file
+	 * @param $onlyEnabled boolean, if true, return only enabled aliases
 	 */
-	function getAliases($number = false, $i = 0) {
-		foreach ($this->heyuconf as $num => $line) {
-			if (substr($line, 0, 5) == "ALIAS") {
-				//if $number = true, store alias in new array along with line numb of original file
-				$aliases[$i] = ($number) ? $line."@".$num : $line;
+	function getAliases($onlyEnabled = false) {
+//		$aliasLines = execute_cmd($config['heyuexecreal']." webhook config_dump -L\"%V@\" -d\"%V \" -b\"%V\" alias");
+		$aliases = $this->getElementObjects(ALIAS_D);
+		$request = array();
+		$x = 0;
+		for($i = 0; $i < count($aliases); $i++) {
+			$aliases[$i]->setAliasMap($this->getAliasMapForLabel($aliases[$i]->getLabel()));
+			if($aliases[$i]->isEnabled()|| !$onlyEnabled ) {
+				$request[$x] = $aliases[$i];
+				$x++;
+			}
+		}
+		return $request;
+	}
+
+	function getAliasMapForLabel($aLabel) {
+		foreach($this->aliasMap->getElementObjects("ALL_OBJECTS") as $anAliasMapElement) {
+			if($aLabel == $anAliasMapElement->getAliasLabel())
+				return $anAliasMapElement;
+		}
+		
+		$anAliasMapElement = new AliasMapElement();
+		$anAliasMapElement->setAliasLabel($aLabel);
+		$anAliasMapElement->rebuildElementLine();
+		return $anAliasMapElement;
+	}
+	
+	/*
+	 * When a change is made to aliases, we need to rebuild the aliasmap object elements
+	 * from the aliases that could be changed. This will ensure the alias map only contains
+	 * the current definitions for the aliases that are saved in the elementObjects.
+	 */
+	function rebuildAliasMap() {
+		$listOfElements = $this->getElementObjects(ALIAS_D);
+		$i = 0;
+		$newAliasMap = array();
+		foreach($listOfElements as $anAlias) {
+			if($anAlias->getType() == ALIAS_D) {
+				$newAliasMap[$i] = $anAlias->getAliasMap();
 				$i++;
 			}
 		}
 		
-		return $aliases;
+		$this->aliasMap->setObjects($newAliasMap);
+		$junk = $this->getAliases();
 	}
 	
-	/**
-	 * Get Aliases By Location
-	 * 
-	 * @param $loc represents the wanted location
+	function getAliasMap() {
+		return $this->aliasMap;
+	}
+
+	/*
+	 * Dynamically build the floorplan from saved alias map definitions
 	 */
-	function getAliasesByLocation($loc, $i = 0) {
-		foreach ($this->getAliases(false) as $line) {
-			list($temp, $label, $code, $module_type_loc) = split(" ", $line, 4);
-			list($module, $type_loc) = split(" # ", $module_type_loc, 2);
-			list($type, $orgloc) = split(",", $type_loc, 2);
+	function getFloorPlan() {
+		$floorPlan = array();
+		$i = 0;
+		$isUnknown = false;
+		foreach($this->aliasMap->getObjects() as $anAliasMap) {
+			$isFound = false;
+			$fpLabel = $anAliasMap->getFloorPlanLabel();
+			for($x = 0; $x < count($floorPlan); $x++) {
+				if($fpLabel == $floorPlan[$x]) {
+					$isFound = true;
+					break;
+				}
+			}
+
+			if(!$isFound) {
+				$floorPlan[$i] = $fpLabel;
+				$i++;
+			}
+				
+			if($fpLabel == 'unknown')
+				$isUnknown = true;
+		}
+		
+		if(!$isUnknown)
+			$floorPlan[$i] = "unknown";
 			
-			if (trim($orgloc) == trim($loc)) {
-				$request[$i] = $label." ".$code." ".$type; // $type is kept to use in getAliasesByType
-				$i++;
-			}
-		}
-		
-		if (!empty($request)) return $request;
-	}
-	
-	/**
-	 * Get Aliases By Type
-	 * 
-	 * @param $aliases represents an array of aliases built by getAliasesByLocation
-	 * @param $type represents the type os module (light, appliance, etc)
-	 */
-	function getAliasesByType($aliases, $type, $i = 0) {
-		foreach ($aliases as $alias) {
-			list($label, $code, $orgtype) = split (" ", $alias, 3);
-			
-			if (trim($orgtype) == trim($type)){
-				$request[$i] = $label." ".$code." ".$type;
-				$i++;
-			}
-		}
-		
-		if (!empty($request)) return $request;
-	}
-	
-	/**
-	 * 
-	 * @param $aliases array
-	 */
-	function getCodesAndLabels($aliases, $i = 0) {
-		foreach ($aliases as $line) {
-			list($temp, $label, $code, $module_type_loc) = split(" ", $line, 4);
-			$cl[$i]	= $code."@".$label;
-			$i++;
-		}
-		
-		return $cl;
+		return $floorPlan;
 	}
 }
-
 ?>

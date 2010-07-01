@@ -20,7 +20,7 @@
 
   <tr>
     <td valign="top"><h6><?php echo ($lang['label']);?>:</h6></td>
-    <td valign="top"><input type="text" name="label" value="<?php echo label_parse($label); ?>" size="20" /></td>
+    <td valign="top"><input type="text" name="label" value="<?php echo $label; ?>" size="20" /></td>
   </tr>
 
 
@@ -30,7 +30,7 @@
     <td valign="top"><h6><?php echo ($lang['module']);?>:</h6></td>
     <td valign="top">
     <select name="module">
-    <?php foreach (load_file(MODULE_FILE_LOCATION) as $modulenf): ?>
+    <?php foreach ($modlist as $modulenf): ?>
     <?php $modulef = rtrim($modulenf); ?>
     	<?php if ($module == $modulef): ?>
     		<option value="<?php echo $modulef; ?>" selected><?php echo $modulef; ?></option>
@@ -42,6 +42,12 @@
     </td>
   </tr>
 
+<!-- Module Options -->
+
+  <tr>
+    <td valign="top"><h6><?php echo ($lang['option']);?>:</h6></td>
+    <td valign="top"><input type="text" name="moduleopts" value="<?php echo $moduleopts; ?>" size="20" /></td>
+  </tr>
 
 <!-- Type -->
 
@@ -67,8 +73,8 @@
   <tr>
     <td valign="top"><h6><?php echo ($lang['location']);?>:</h6></td>
     <td valign="top">
-    <select name="loc">
-	<?php foreach (load_file(FPLAN_FILE_LOCATION) as $locnf): ?>
+    <select name="loc" onClick="beginEditing(this);" onBlur="finishEditing();">
+	<?php foreach ($floorplan as $locnf): ?>
 	<?php $locf = rtrim($locnf); ?>
 	    <?php if (rtrim($loc) == $locf): ?>
     		<option value="<?php echo $locf; ?>" selected><?php echo $locf; ?></option>
@@ -76,6 +82,7 @@
     		<option value="<?php echo $locf; ?>"><?php echo $locf; ?></option>
     	<?php endif; ?>
 	<?php endforeach; ?>
+  		<option value=""></option>
 	</select>
     </td>
   </tr>

@@ -1,32 +1,13 @@
 <?php
-/*
- * domus.Link :: PHP Web-based frontend for Heyu (X10 Home Automation)
- * Copyright (c) 2007, Istvan Hubay Cebrian (istvan.cebrian@domus.link.co.pt)
- * Project's homepage: http://domus.link.co.pt
- * Project's dev. homepage: http://domuslink.googlecode.com
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope's that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details. You should have 
- * received a copy of the GNU General Public License along with
- * this program; if not, write to the Free Software Foundation, 
- * Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- */
 
 $lang["dlurl"]="http://domus.link.co.pt";
 $lang["title"]="domus.Link";
 $lang["home"]="Casa";
 $lang["lights"]="Luces";
 $lang["appliances"]="Dispositivos";
-$lang["shutters"]="Shutters";
+$lang["shutters"]="Persianas";
 $lang["irrigation"]="Riego";
-$lang["other"]="Other";
+$lang["other"]="Otro";
 $lang["login"]="Entrar";
 $lang["setup"]="Configuración";
 $lang["aliases"]="Alias";
@@ -90,7 +71,7 @@ $lang["codes_txt"]="Select whether or not you would like to show the unit codes 
 $lang["codes"]="Unit codes";
 $lang["unit"]="Unit";
 $lang["command"]="Comando";
-$lang["log"]="Log";
+$lang["log"]="Registro";
 $lang["progress"]="Progreso";
 $lang["error"]="Error";
 $lang["logout"]="Desconectarme";
@@ -99,26 +80,26 @@ $lang["upload"]="Subir";
 $lang["erase"]="Borrar";
 $lang["uploadsuccess"]="Subido cargado correctamente";
 $lang["erasesuccess"]="Borrado correcto";
-$lang["upload_erase_log_txt"]="Click <a href='#' onclick='divShowHide(log);'>here</a> to view output log.";
+$lang["upload_erase_log_txt"]="Pulse <a href='#' onclick='divShowHide(log);'>aquí</a> para ver el registro de salida.";
 $lang["upload_txt"]="To upload the schedule file defined in the <a href=../admin/heyu.php>heyu configuration</a> file and configured in the <a href=../events/timers.php>timer administration</a> section, click the button bellow.";
 $lang["erase_txt"]="If you would like to erase the entire contents of your computer interface, click the button bellow.";
 $lang["upload_erase_txt"]="Please note that uploading/erasing takes aproximately 8 seconds. <br />Do not navigate away from this page until process has completed.";
 $lang["error_no_modules"]="<h1>¡ No hay módulos disponibles !</h1><br />No se puede mostrar ningún módulo.";
-$lang["error_filerw"]="not found or not writable!";
-$lang["error_filer"]="not found or not readable!";
+$lang["error_filerw"]="¡ No encontrado o se puede escribir !";
+$lang["error_filer"]="¡ No encontrado o se puede leer !";
 $lang["about"]="Acerca de ";
 $lang["status"]="Estado";
 $lang["events"]="Eventos";
-$lang["timers"]="Timers";
-$lang["timer"]="Timer";
+$lang["timers"]="Temporizadores";
+$lang["timer"]="Temporizador";
 $lang["triggers"]="Activadores";
 $lang["trigger"]="Activador";
 $lang["addtrigger"]="Añadir activador";
 $lang["edittrigger"]="Editar activador";
 $lang["trig_cmd"]="Comando activador";
 $lang["trig_unit"]="Trigger Unit";
-$lang["addtimer"]="Add Timer";
-$lang["edittimer"]="Edit Timer";
+$lang["addtimer"]="Añadir temporizador";
+$lang["edittimer"]="Editar temporizador";
 $lang["startdate"]="Fecha inicio";
 $lang["enddate"]="Fecha final";
 $lang["ontime"]="On Time";
@@ -153,15 +134,15 @@ $lang["wed"]="Miércoles";
 $lang["thu"]="Jueves";
 $lang["fri"]="Viernes";
 $lang["sat"]="Sábado";
-$lang["utility"]="Utility";
-$lang["utilitytool"]="Utility - Excecute heyu Command";
-$lang["arguments"]="Arguments";
-$lang["output"]="Output";
+$lang["utility"]="Utilidad";
+$lang["utilitytool"]="Utilidad - Ejecuta comando heyu";
+$lang["arguments"]="Argumentos";
+$lang["output"]="Salida";
 $lang["macro"]="Macro";
 $lang["macros"]="Macros";
-$lang["delay"]="Delay";
-$lang["addmacro"]="Add Macro";
-$lang["editmacro"]="Edit Macro";
+$lang["delay"]="Retardo";
+$lang["addmacro"]="Añadir Macro";
+$lang["editmacro"]="Editar Macro";
 $lang["macro_unit"]="Macro Unit";
 $lang["macro_cmd"]="Macro Command";
 $lang["obdim"]="On-Bright-Dim";
@@ -181,10 +162,10 @@ $lang["dawnlt"]="DawnLT";
 $lang["dawngt"]="DawnGT";
 $lang["dusklt"]="DuskLT";
 $lang["duskgt"]="DuskGT";
-$lang["security"]="Security";
-$lang["now"]="Now";
+$lang["security"]="Securidad";
+$lang["now"]="Ahora";
 $lang["timeroptions"]="Timer Options";
-$lang["option"]="Option";
+$lang["option"]="Opción";
 $lang["expire"]="Expire";
 $lang["heyumgmt"]="Heyu Config Select";
 $lang["heyumgmtadmin"]="Heyu Configuration Management";
@@ -193,5 +174,24 @@ $lang["heyucurrentconfig"]="Current heyu configuration is";
 $lang["heyubaseuse"]="Heyu Base Dir Usage";
 $lang["heyubaseuse_txt"]="This switch forces domus.Link to pass explicit path directive using -c to heyu on execution based on the heyu_base setting when set to YES. If set to NO, domus.Link will default its heyu_base path and x10config file settings to /etc/heyu and x10.conf respectively.";
 $lang["heyuindir"]="in directory";
+$lang["directive"]="Directiva";
+$lang["comment"]="Comentario";
+$lang["value"]="Valor";
+$lang["setupverify"]="Setup Verification";
+$lang["aliaslocationtext"]="Derived Alias to Locations and Types from Heyu config";
+$lang["continue"]="Continuar";
+$lang["convert"]="Convertir";
+$lang["converttext"]="Use displayed alias/locations/types derived from heyu config.";
+$lang["continuetext"]="Continue without conversion of derived alias/locations/types.";
+$lang["show"]="Mostrar";
+$lang["hide"]="Ocultar";
+$lang["exitbrowser"]="Salga de su navegador e inténtelo de nuevo.";
+$lang["addschedfile"]="Add Schedule File";
+$lang["noscheddefined"]="No schedule file defined. Check heyu configuration.";
+$lang["diagnostic"]="Diagnostico";
+$lang["diagnostictext"]="domus.Link Diagnostics";
+$lang["diagnosticstatus"]="Diagnostic status - click to check";
+$lang["statusinfo"]="Click for status info";
+$lang["systemuptime"]="System Uptime";
 
 ?>

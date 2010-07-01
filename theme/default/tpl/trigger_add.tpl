@@ -59,10 +59,9 @@ function validateForm(form)
 <td align="center">
 <!-- trigger unit -->
 <select name="unit" size="9">
-<?php foreach ($codelabels as $codelabel): ?>
-	<?php list($code, $label) = explode("@", $codelabel, 2); ?>
-	<?php if (!is_multi_alias($code)): ?>
-		<option value="<?php echo $label;?>"><?php echo label_parse($label, false);?></option>
+<?php foreach ($aliases as $alias): ?>
+	<?php if (!$alias->isMultiAlias()): ?>
+		<option value="<?php echo $alias->getLabel();?>"><?php echo label_parse($alias->getLabel(), false);?></option>
 	<?php endif; ?>
 <?php endforeach; ?>
 </select>

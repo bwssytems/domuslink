@@ -21,7 +21,7 @@
 
 ## Includes
 require_once('..'.DIRECTORY_SEPARATOR.'include.php');
-require_once(CLASS_FILE_LOCATION.'heyuconf.class.php');
+require_once('..'.DIRECTORY_SEPARATOR.'include_globals.php');
 
 ## Security validation's
 if ($config['seclevel'] != "0" && !$authenticated) {
@@ -29,26 +29,39 @@ if ($config['seclevel'] != "0" && !$authenticated) {
 	exit();
 }
 
-## Instantiate heyuConf class
-$heyuconf = new heyuConf($config['heyuconfloc']);
-$schedfileloc = $config['heyu_base_real'].$heyuconf->getSchedFile();
+if(!isset($heyusched) || !count($heyusched->getObjects())) {
+	gen_error(null,"No schedule file defined.");
+	exit();
+}
 
 ## Set template parameters
 $tpl->set('title', $lang['timers']);
 
-$tpl_body = & new Template(TPL_FILE_LOCATION.'upload.tpl');
+$tpl_body = new Template(TPL_FILE_LOCATION.'upload.tpl');
 $tpl_body->set('lang', $lang);
 $tpl_body->set('config', $config);
 
 if (isset($_GET["action"])) {
 	switch ($_GET["action"]) {
 		case "upload":
-			$rs = heyu_upload();
-			$tpl_body->set('type', 'upload');
+			try {
+				$rs = heyu_upload();
+				$tpl_body->set('type', 'upload');
+			}
+			catch(Exception $e) {
+				gen_error("heyu upload", $e);
+				exit();
+			}
 			break;
 		case "erase":
-			$rs = heyu_erase();
-			$tpl_body->set('type', 'erase');
+			try {
+				$rs = heyu_erase();
+				$tpl_body->set('type', 'erase');
+			}
+			catch(Exception $e) {
+				gen_error("heyu erase", $e);
+				exit();
+			}
 			break;
 	}
 	$tpl_body->set('out', $rs);

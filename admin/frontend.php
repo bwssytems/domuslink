@@ -33,35 +33,42 @@ $subdirList = array("default", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9")
 $tpl->set('title', $lang['frontendadmin']);
 
 if (!isset($_GET["action"])) {
-	$tpl_body = & new Template(TPL_FILE_LOCATION.'frontend.tpl');
+	$tpl_body = new Template(TPL_FILE_LOCATION.'frontend.tpl');
 	$tpl_body->set('config', $config);
 	$tpl_body->set('subdirlist', $subdirList);
 	$tpl_body->set('lang', $lang);
 }
 elseif ($_GET["action"] == "save") {
-	$newconfig['pc_interface'] = $_POST["pc_interface"];
-	$newconfig['heyu_base_use'] = $_POST["heyu_base_use"];
-	$newconfig['heyu_base'] = $_POST["heyu_base"];
-	$newconfig['heyu_subdir'] = $_POST["heyu_subdir"];
-	$newconfig['heyuconf'] = $_POST["heyuconf"];
-	$newconfig['heyuexec'] = $_POST["heyuexec"];
-	$newconfig['seclevel'] = $_POST["seclevel"];
-	$newconfig['password'] = $_POST["password"];
-	$newconfig['lang'] = $_POST["lang"];
-	$newconfig['url_path'] = $_POST["url_path"];
-	$newconfig['theme'] = $_POST["theme"];
-	$newconfig['imgs'] = $_POST["imgs"];
-	$newconfig['codes'] = $_POST["codes"];
-	$newconfig['refresh'] = $_POST["refresh"];
+	$config['pc_interface'] = $_POST["pc_interface"];
+	$config['heyu_base_use'] = $_POST["heyu_base_use"];
+	$config['heyu_base'] = $_POST["heyu_base"];
+	$config['heyu_subdir'] = $_POST["heyu_subdir"];
+	$config['heyuconf'] = $_POST["heyuconf"];
+	$config['heyuexec'] = $_POST["heyuexec"];
+	$config['seclevel'] = $_POST["seclevel"];
+	$config['password'] = $_POST["password"];
+	$config['lang'] = $_POST["lang"];
+	$config['url_path'] = $_POST["url_path"];
+	$config['theme'] = $_POST["theme"];
+	$config['imgs'] = $_POST["imgs"];
+	$config['codes'] = $_POST["codes"];
+	$config['refresh'] = $_POST["refresh"];
 
 	if ((file_exists(CONFIG_FILE_LOCATION) && is_writable(CONFIG_FILE_LOCATION)) || !file_exists(CONFIG_FILE_LOCATION)) {
 		createHeyuSubdir($_POST["heyu_subdir"]);
-		config_save($newconfig);
-		header("Location: ".$_SERVER['PHP_SELF']);
+		config_save($config);
+		$_SESSION['frontObj']->getConfig(true);
+		$_SESSION['frontObj']->getLanguageFile(true);
+		$_SESSION['frontObj']->getHeyuConf(true);
+		$_SESSION['frontObj']->getHeyuSched(true);
 	}
 	else {
 		gen_error(null, CONFIG_FILE_LOCATION." ".$lang['error_filerw']);
+		exit();
     }
+    
+	header("Location: ".$_SERVER['PHP_SELF']);
+	exit();
 }
 
 ## Display the page

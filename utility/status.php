@@ -20,22 +20,26 @@
  */
 
 ## Includes
-$dirname = dirname(__FILE__);
 require_once('..'.DIRECTORY_SEPARATOR.'include.php');
-require_once(CLASS_FILE_LOCATION.'heyuconf.class.php');
 
-## Security validation's
+## Security validation must be checked
 if ($config['seclevel'] != "0" && !$authenticated) {
-	header("Location: ../login.php?from=admin/reload");
+	header("Location: ../login.php?from=utility/status");
 	exit();
 }
 
-## Instantiate HeyuConf class
-$heyuconf = new heyuConf($config['heyuconfloc']);
-## Get heyu (x10.conf) file contents/settings
-$settings = $heyuconf->get();
+## Set template parameters
+$tpl->set('title', $lang['status']);
 
-heyu_ctrl('restart');
-header("Location: heyu.php");
+$tpl_body = new Template(TPL_FILE_LOCATION.'status.tpl');
+$tpl_body->set('lang', $lang);
+$tpl_body->set('config', $config);
+
+## Display the page
+if (!empty($tpl_body)) {
+	$tpl->set('content', $tpl_body);
+}
+
+echo $tpl->fetch(TPL_FILE_LOCATION.'layout.tpl');
 
 ?>
