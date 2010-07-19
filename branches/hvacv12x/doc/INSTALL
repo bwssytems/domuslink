@@ -1,0 +1,91 @@
+/*----------------------------------------------------------------------------+
+ |                                                                            |
+ |                                INSTALL                                     |
+ |                                                                            |
+ +----------------------------------------------------------------------------*/
+
+ Requirements:
+ --------------
+ To run and use domus.Link V1.2+ you need the following:
+ 
+ These have been tested -
+ - Heyu 2.8.0
+ - Apache 2.2+ (2.0+ may work if PHP5 is installed. Not Tested)
+ - PHP5+ support
+ 
+ 
+ Assumptions:
+ --------------
+ The following install procedure assumes the following:
+ 
+ - Heyu is NOT running ($ [sudo] heyu stop )
+ - Heyu configuration files are located in /etc/heyu
+ - Heyu binary is located in /usr/local/bin
+ - Websever root folder is /var/www
+ - And domus.Link is being installed in /var/www/domus.Link
+ 
+ 
+ Installation:
+ --------------
+ 
+ Note: Some commands that are shown may require root priveleges. Either become root on your system
+ or pre-pend the command with sudo.
+
+ 1) Download latest version from http://domus.link.co.pt/download
+
+ 2) If upgrading from a previous version of domus.Link, backup existing domus.Link files for safety. (VERY IMPORTANT)
+
+    $ cp [your web path]/domus.Link/config.php [backup location]/config.php.backup
+    
+ 3) Un-tar to a location within the webserver root or a specific directory.
+ 
+ 	These instructions show that /var/www is the web path for your server.
+ 
+    $ mv domuslink-XXX.tar.gz /var/www
+    $ cd /var/www
+    $ tar xfvz domuslink-XXX.tar.gz
+
+ 4) Change file permission's so that webserver can read/write to the following files/dirs:
+    - /etc/heyu
+    - /var/www/domus.Link/db/ 
+    - /var/www/domus.Link/config.php
+    
+    $ chmod o+rw /etc/heyu /var/www/domus.Link/db /var/www/domus.Link/config.php
+
+ 5) If upgrading from previous version, copy back backed up config.php.
+ 
+ 	$ cp [your backup location]/config.php.backup [your web path]/domus.Link/config.php
+ 
+ 6) Setup apache accordingly, refer to http://httpd.apache.org if you don't
+    know how to do this.
+    
+ 7) Finally, point your web browser to your webserver (ie: http://localhost/domus.Link)
+    and start heyu using the 'START' link located on the footer.
+
+    If you are upgrading from a previous version of domus.Link prior to V1.2, you will be
+    asked to convert your alias and floorplan to the new version. Click 'Convert' to
+    accomplish this.
+    If you click 'Continue', you will bypass the conversion and all aliases will be of type
+    'other' and in location 'unknown'. While this action will not change your mapping, if you
+    make a modification to the heyu config file in the admin area or update an alias, you will
+    not be asked again for the convert. If you do not do anything and then start another session
+    later, you will be asked for the conversion again.
+
+
+ ------------------------------------------------------------------------
+ The next step might not be required, however, if you keep getting a
+ "HEYU: Can't open TTY line. check permissions!" then please follow it.
+ ------------------------------------------------------------------------
+
+
+ X) Change permission on TTY port so that heyu can use it.
+    
+    The typically used port is /dev/ttyS0 which is usually a sym. link to
+    /dev/tts/0 so in this case use the following command:
+    
+    $ chmod o+rw /dev/tts/0
+    
+    To check where /dev/ttyS0 links to, issue the following command:
+    
+    $ ls -l /dev/ttyS0
+    
