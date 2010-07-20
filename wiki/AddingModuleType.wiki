@@ -61,7 +61,7 @@ hvac.tpl (create a new template)
 
 include.php
 
-$modtypes['hvac'] = 'HVAC';
+{{{$modtypes['hvac'] = 'HVAC';}}}
 
 
 
