@@ -14,11 +14,11 @@ index.php
 ---------------------------------------
 
 layout.tpl
-{noformat}
+{{{
   <div id="menuitem"><p><a href="<?php echo ($config['url_path']); ?>/index.php?page=hvac"><?php echo ($lang['hvac']); ?></a></p></div> 
 
   <div id="menuitem"><a href="<?php echo ($config['url_path']);?>/index.php?page=hvac" onmouseover="imgRoll('img_6', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_hvac_on.png')" onmouseout="imgRoll('img_6', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_hvac_off.png')"><img alt="<?php echo ($lang['hvac']);?>" src="<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_hvac_off.png" border="0" name="img_6" /></a></div>
-{noformat}
+}}}
 incremented imgRoll id's
 
 
@@ -50,8 +50,9 @@ div#menuitem {
 
 hvac.tpl (create a new template)
 
+{{{
 <img src="<?php echo $config['url_path']; ?>/theme/<?php echo $config['theme']; ?>/images/module_hvac_<?php echo $state; ?>.png" vspace="2" />
-
+}}}
 
 
 
