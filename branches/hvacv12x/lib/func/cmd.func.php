@@ -122,6 +122,9 @@ function heyu_action() {
 		case "db":
 			$cmd = dim_bright($_GET["state"], $_GET["curr"], $_GET["req"], $_GET["code"]);
 			break;
+                case "sp":
+                        $cmd = rcs_sp($_GET["change"]);
+                        break;
 	}
 	
 	execute_cmd($cmd);
@@ -214,6 +217,19 @@ function dim_level($unit) {
 	$rs = execute_cmd($config['heyuexecreal']." dimlevel ".$unit);
 	return $rs[0];
 }
+
+
+function rcs_sp($change) {
+         global $config;
+         if ($change == "inc") {
+            $req = execute_cmd($config['heyuexecreal']." preset h4 9", true);
+         }
+         if ($change == "dec") {
+            $req = execute_cmd($config['heyuexecreal']." preset h4 10", true);
+         }
+         return $req[0];
+}
+
 
 /**
  * Description: Upload schedule file defined in

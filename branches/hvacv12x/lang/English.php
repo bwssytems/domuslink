@@ -169,6 +169,16 @@ $lang["thu"] = "Thursday";
 $lang["fri"] = "Friday";
 $lang["sat"] = "Saturday";
 
+/* Module Configuration Text */
+$lang["modconfig"] = "Modules";
+$lang["modconfigadmin"] = "Module Configuration";
+$lang["hvacsupport"] = "RCS Thermostat Support";
+$lang["hvacsupport_txt"] = "This option will enable or disable support for the RCS TXB16.";
+$lang["hvacdefcode"] = "RCS Thermostat Default Housecode";
+$lang["hvacdefcode_txt"] = "The RCS TXB16 unit requires an entire housecode when using the non-limited decode tables.";
+$lang["hvacdecode"] = "RCS Thermostat Decode Table";
+$lang["hvacdecode_txt"] = "The RCS thermostats require the selection of a decode table. P - Primary, B - Non Bidirectional, L - Limited. Please see the supplied RCS documentation for further details.";
+
 /* Utility Text */
 $lang["utility"] = "Utility";
 $lang["utilitytool"] = "Utility - Excecute heyu Command";

@@ -100,6 +100,7 @@ if (heyu_running()) {
 		case "appliances":
 		case "irrigation":
 		case "shutters":
+		case "hvac":
 		case "other":
 			$html = $locations->buildLocations($modtypes[$page],'typed');
 			break;

@@ -98,6 +98,7 @@ $modtypes['lights'] = 'Light';
 $modtypes['appliances'] = 'Appliance';
 $modtypes['irrigation'] = 'Irrigation';
 $modtypes['shutters'] = 'Shutter';
+$modtypes['hvac'] = 'HVAC';
 $modtypes['other'] = 'Other';
 
 ?>
