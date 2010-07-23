@@ -19,12 +19,12 @@ $config['pc_interface'] = 'CM11A';
 # setting when set to "YES". If set to "NO", domus.Link will default its
 # heyu_base path and x10config file settings to "/etc/heyu" and 
 # "x10.conf" respectively.
-$config['heyu_base_use'] = 'YES';
+$config['heyu_base_use'] = 'NO';
 
 # Heyu base directory - This directory is where Heyu
 # searches for it's configuration files, and stores
 # state information
-$config['heyu_base'] = '/volume1/opt/etc/heyu/';
+$config['heyu_base'] = '/etc/heyu/';
 
 # Heyu subdirectory configuration - This controls where
 # domus.Link uses the config and scehdule files for the controller
@@ -39,7 +39,7 @@ $config['heyuconf'] = 'x10.conf';
 # heyuexec setting - This setting specifies the
 # location of the Heyu exectuable file. Typically
 # this will be in /usr/local/bin/
-$config['heyuexec'] = '/volume1/opt/bin/heyu';
+$config['heyuexec'] = '/usr/local/bin/heyu';
 
 # -----------------
 # Frontend Settings
@@ -54,7 +54,7 @@ $config['seclevel'] = '2';
 # Frontend password - Define a password here to
 # access the setup area of the frontend.
 # Leave blank to disable password.
-$config['password'] = 'family';
+$config['password'] = '1234';
 
 # Language - Define the language for the frontend here.
 # If left blank browsers preferred language will be used.
@@ -67,7 +67,7 @@ $config['lang'] = 'English';
 # say http://your-host/domuslink, then you should define the
 # url path as /domuslink. Leave blank if your are running
 # domus.Link at the root ie http://your-host/
-$config['url_path'] = '/hvacv12x';
+$config['url_path'] = '/domus.Link';
 
 # Theme - GUI's Theme
 $config['theme'] = 'default';
