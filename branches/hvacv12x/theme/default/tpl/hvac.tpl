@@ -11,20 +11,6 @@
 <td><?php if ($config['codes'] == "ON"): ?>
 <p class="code"><?php echo $code; ?></p>
 <?php endif; ?></td>
-<td valign="bottom" align="center">
-
-<!-- dimmer table start -->
-<table cellspacing="2" cellpadding="0" border="0" align="center">
-<tr>
-    <td class="code"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?action=sp&change=inc&page=<?php echo $page; ?>">+ </a></td>
-    <td class="code"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?action=sp&change=dec&page=<?php echo $page; ?>">- </a></td>
-<td border="0">
-</td>
-</tr>
-</table>
-<!-- dimmer table end -->
-
-</td>
 </tr>
 </table>
 </div>

@@ -16,7 +16,7 @@ domus.Link is a web-based frontend for Heyu. The design focuses on separating co
 </tr>
 <tr>
 <td valign="top"><b>Contributors:</b></td>
-<td>Frank van der Stad</br>Cedric Aveline</br>Jeroen</br>Philippe Carlier</br>Brad Samuels</td>
+<td>Frank van der Stad</br>Cedric Aveline</br>Jeroen</br>Philippe Carlier</br>Brad Samuels</br>Brandt Daniels</td>
 </tr>
 <tr>
 <td valign="top"><b>Themes:</b></td>

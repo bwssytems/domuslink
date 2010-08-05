@@ -103,7 +103,9 @@
   <div id="menuitem"><p><a href="<?php echo ($config['url_path']); ?>/index.php?page=appliances"><?php echo ($lang['appliances']); ?></a></p></div>
   <div id="menuitem"><p><a href="<?php echo ($config['url_path']); ?>/index.php?page=shutters"><?php echo ($lang['shutters']); ?></a></p></div>  
   <div id="menuitem"><p><a href="<?php echo ($config['url_path']); ?>/index.php?page=irrigation"><?php echo ($lang['irrigation']); ?></a></p></div>
+<?php if ($config['rcs_support']=='ON') { ?>
   <div id="menuitem"><p><a href="<?php echo ($config['url_path']); ?>/index.php?page=hvac"><?php echo ($lang['hvac']); ?></a></p></div>  
+<?php } ## end if ?>
   <div id="menuitem"><p><a href="<?php echo ($config['url_path']); ?>/index.php?page=other"><?php echo ($lang['other']); ?></a></p></div>  
   <div id="menuitem"><p><a href="#" onclick="divShowHide(setupmenu, 'hidden'); divShowHide(eventsmenu);"><?php echo ($lang['events']); ?></a></p></div>
   <div id="menuitem"><p><a href="#" onclick="divShowHide(eventsmenu, 'hidden'); divShowHide(setupmenu);"><?php echo ($lang['setup']); ?></a></p></div>
@@ -113,7 +115,9 @@
   <div id="menuitem"><a href="<?php echo ($config['url_path']);?>/index.php?page=appliances" onmouseover="imgRoll('img_3', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_appliances_on.png')" onmouseout="imgRoll('img_3', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_appliances_off.png')"><img alt="<?php echo ($lang['appliances']);?>" src="<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_appliances_off.png" border="0" name="img_3" /></a></div>
   <div id="menuitem"><a href="<?php echo ($config['url_path']);?>/index.php?page=shutters" onmouseover="imgRoll('img_4', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_shutters_on.png')" onmouseout="imgRoll('img_4', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_shutters_off.png')"><img alt="<?php echo ($lang['shutters']);?>" src="<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_shutters_off.png" border="0" name="img_4" /></a></div>
   <div id="menuitem"><a href="<?php echo ($config['url_path']);?>/index.php?page=irrigation" onmouseover="imgRoll('img_5', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_irrigation_on.png')" onmouseout="imgRoll('img_5', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_irrigation_off.png')"><img alt="<?php echo ($lang['irrigation']);?>" src="<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_irrigation_off.png" border="0" name="img_5" /></a></div>
+<?php if ($config['rcs_support']=='ON') { ?>
   <div id="menuitem"><a href="<?php echo ($config['url_path']);?>/index.php?page=hvac" onmouseover="imgRoll('img_6', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_hvac_on.png')" onmouseout="imgRoll('img_6', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_hvac_off.png')"><img alt="<?php echo ($lang['hvac']);?>" src="<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_hvac_off.png" border="0" name="img_6" /></a></div>
+<?php } ## end if ?>
   <div id="menuitem"><a href="<?php echo ($config['url_path']);?>/index.php?page=other" onmouseover="imgRoll('img_7', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_other_on.png')" onmouseout="imgRoll('img_7', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_other_off.png')"><img alt="<?php echo ($lang['other']);?>" src="<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_other_off.png" border="0" name="img_7" /></a></div>
   <div id="menuitem"><a href="#" onclick="divShowHide(setupmenu, 'hidden'); divShowHide(eventsmenu);" onmouseover="imgRoll('img_8', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_events_on.png')" onmouseout="imgRoll('img_8', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_events_off.png')"><img alt="<?php echo ($lang['events']);?>" src="<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_events_off.png" border="0" name="img_8" /></a></div>
   <div id="menuitem"><a href="#" onclick="divShowHide(eventsmenu, 'hidden'); divShowHide(setupmenu);" onmouseover="imgRoll('img_9', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_setup_on.png')" onmouseout="imgRoll('img_9', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_setup_off.png')"><img alt="<?php echo ($lang['setup']);?>" src="<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_setup_off.png" border="0" name="img_9" /></a></div>
@@ -165,8 +169,13 @@
 <!-- start footer div -->
 <div id="footer">
 <table cellspacing="0" cellpadding="0" border="0" width="100%">
+<<<<<<< .mine
+<tr style="vertical-align: top; white-space: nowrap;">
+<td align="left" width="33%">
+=======
 <tr>
 <td align="left" width="33%">
+>>>>>>> .r789
 <?php echo ($lang['heyustatus']);?>:
 <a onMouseOver="popup('<?php echo ($lang['statusinfo']); ?>')" onmouseout="kill()" onfocus="this.blur()" href="<?php echo ($config['url_path']);?>/index.php?page=status">
 <?php if (heyu_running()): ?>
@@ -176,6 +185,25 @@
 <?php endif; ?>
 </a>
 </td>
+<<<<<<< .mine
+<td align="center" width="33%" style="padding: 0em 2em 0em 2em;">
+<?php if ($config['rcs_support']=='ON' && $authenticated) {
+echo $lang['hvac']." - [ ";
+$temp=implode(execute_cmd($config['heyuexecreal']." rcs_req preset ".$config['rcs_housecode']."5 1", true)); $temp=(explode(" ",$temp)); echo $lang['temperature'].": ".$temp[5]."&#176";
+$mode=implode(execute_cmd($config['heyuexecreal']." rcs_req preset ".$config['rcs_housecode']."5 3", true)); $mode=(explode(" ",$mode)); echo " ".$lang['mode'].": ".$mode[5];
+$setpoint=implode(execute_cmd($config['heyuexecreal']." rcs_req preset ".$config['rcs_housecode']."5 2", true)); $setpoint=(explode(" ",$setpoint)); echo " ".$lang['setpoint'].": "?>
+<a href="<?php echo $_SERVER['PHP_SELF']; ?>?action=sp&change=dec&page=<?php echo $page; ?>">
+<img src="<?php echo $config['url_path']; ?>/theme/<?php echo $config['theme']; ?>/images/arrow-d.png" border="0" align="absmiddle"/>
+</a>
+<?php echo " ".$setpoint[5]."&#176"; ?>
+<a href="<?php echo $_SERVER['PHP_SELF']; ?>?action=sp&change=inc&page=<?php echo $page; ?>">
+<img src="<?php echo $config['url_path']; ?>/theme/<?php echo $config['theme']; ?>/images/arrow-u.png" border="0" align="absmiddle"/>
+</a>
+<?php echo "]";
+} ## end if ?>
+</td>
+<td align="right" width="33%">
+=======
 <td align="center" width="33%">
 <?php echo "HVAC - ["; ?>
 <?php $temp=implode(execute_cmd($config['heyuexecreal']." rcs_req preset h5 1", true)); $temp=(explode(" ",$temp)); echo " Temperature: ".$temp[5]; ?>&#176
@@ -184,9 +212,10 @@
 <?php echo "]"; ?>
 </td>
 <td align="right" width="33%">
+>>>>>>> .r789
 <?php echo $lang['heyucurrentconfig'].": ".$_SESSION['frontObj']->getHeyuConfigName()." ".$lang['heyuindir']." ".$config['heyu_base_real'].($config['heyu_subdir'] == "default"?" ":$config['heyu_subdir']." ")?>
 <a onMouseOver="popup('<?php echo ($lang['diagnosticstatus']); ?>')" onmouseout="kill()" onfocus="this.blur()" href="<?php echo $config['url_path'];?>/utility/diagnostic.php" >
-<img src="<?php echo ($config['url_path']."/theme/".$config['theme']."/images/".(isset($_SESSION['filesErrored'])?($_SESSION['filesErrored']?"red_info.png":"green_info.png"):"black_info.png"));?>" border=0 />
+<img src="<?php echo ($config['url_path']."/theme/".$config['theme']."/images/".(isset($_SESSION['filesErrored'])?($_SESSION['filesErrored']?"red_info.png":"green_info.png"):"black_info.png"));?>" border=0 align="absmiddle"/>
 </a>
 </td>
 </table>

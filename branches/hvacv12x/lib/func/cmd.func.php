@@ -123,7 +123,9 @@ function heyu_action() {
 			$cmd = dim_bright($_GET["state"], $_GET["curr"], $_GET["req"], $_GET["code"]);
 			break;
                 case "sp":
-                        $cmd = rcs_sp($_GET["change"]);
+                        if ($config['rcs_support']=='ON') {
+                           $cmd = rcs_sp($_GET["change"]);
+                        }
                         break;
 	}
 	
@@ -222,10 +224,10 @@ function dim_level($unit) {
 function rcs_sp($change) {
          global $config;
          if ($change == "inc") {
-            $req = execute_cmd($config['heyuexecreal']." preset h4 9", true);
+            $req = execute_cmd($config['heyuexecreal']." preset ".$config['rcs_housecode']."4 9", true);
          }
          if ($change == "dec") {
-            $req = execute_cmd($config['heyuexecreal']." preset h4 10", true);
+            $req = execute_cmd($config['heyuexecreal']." preset ".$config['rcs_housecode']."4 10", true);
          }
          return $req[0];
 }

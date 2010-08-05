@@ -98,7 +98,9 @@ $modtypes['lights'] = 'Light';
 $modtypes['appliances'] = 'Appliance';
 $modtypes['irrigation'] = 'Irrigation';
 $modtypes['shutters'] = 'Shutter';
-$modtypes['hvac'] = 'HVAC';
+if ($config['rcs_support']=='ON') {
+   $modtypes['hvac'] = 'HVAC';
+} ## end if
 $modtypes['other'] = 'Other';
 
 ?>

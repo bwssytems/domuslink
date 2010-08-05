@@ -84,4 +84,16 @@ $config['codes'] = 'ON';
 # refreshes. The page being refreshed is the main page where modules
 # are displayed. Leave empty to disable this feature.
 $config['refresh'] = '';
+
+# Module Configuration - These settings allow domus.Link to support
+# devices that require extra configuration.
+
+# RCS Thermostat Support
+$config['rcs_support'] = 'OFF';
+
+# RCS Thermostat Default Housecode 
+$config['rcs_housecode'] = 'A';
+
+# RCS Thermostat Decode Table 
+$config['rcs_decode'] = 'P';
 ?>
