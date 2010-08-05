@@ -27,6 +27,7 @@ $lang["lights"] = "Lights";
 $lang["appliances"] = "Appliances";
 $lang["shutters"]="Shutters";
 $lang["irrigation"] = "Irrigation";
+$lang["hvac"] = "HVAC";
 $lang["other"] = "Other";
 $lang["login"] = "Login";
 $lang["setup"] = "Setup";
@@ -172,12 +173,22 @@ $lang["sat"] = "Saturday";
 /* Module Configuration Text */
 $lang["modconfig"] = "Modules";
 $lang["modconfigadmin"] = "Module Configuration";
-$lang["hvacsupport"] = "RCS Thermostat Support";
-$lang["hvacsupport_txt"] = "This option will enable or disable support for the RCS TXB16.";
-$lang["hvacdefcode"] = "RCS Thermostat Default Housecode";
-$lang["hvacdefcode_txt"] = "The RCS TXB16 unit requires an entire housecode when using the non-limited decode tables.";
-$lang["hvacdecode"] = "RCS Thermostat Decode Table";
-$lang["hvacdecode_txt"] = "The RCS thermostats require the selection of a decode table. P - Primary, B - Non Bidirectional, L - Limited. Please see the supplied RCS documentation for further details.";
+
+/* RCS Thermostat Text */
+$lang["rcs_support"] = "RCS Thermostat Support";
+$lang["rcs_support_txt"] = "This option will enable or disable domus.Link support for the RCS thermostat.";
+$lang["rcs_housecode"] = "RCS Thermostat Housecode";
+$lang["rcs_housecode_txt"] = "The RCS thermostat uses an entire housecode when set to one of the non-limited decode tables. The housecode needs to be programmed at the wall display unit.";
+$lang["rcs_decode"] = "RCS Thermostat Decode Table";
+$lang["rcs_decode_txt"] = "The RCS thermostats require the selection of a decode table. P - Primary, B - Non Bidirectional, L - Limited. Please see the RCS documentation for further details. If RCS support is enabled this will program the decode table for your RCS unit upon saving.";
+
+/* HVAC Footer Text */
+$lang["temperature"] = "Temperature";
+$lang["mode"] = "Mode";
+$lang["on"] = "ON";
+$lang["off"] = "OFF";
+$lang["setpoint"] = "Setpoint";
+
 
 /* Utility Text */
 $lang["utility"] = "Utility";
