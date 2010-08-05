@@ -41,8 +41,8 @@ function config_load()
 	$config["codes"] = "ON";
 	$config["refresh"] = "0";
         $config['rcs_support'] = 'OFF';
-        $config['rcs_housecode'] = 'A';
-        $config['rcs_decode'] = 'P';
+        $config['rcs_housecode'] = '';
+        $config['rcs_decode'] = '';
 
 
 	if (file_exists(CONFIG_FILE_LOCATION))

@@ -92,8 +92,8 @@ $config['refresh'] = '';
 $config['rcs_support'] = 'OFF';
 
 # RCS Thermostat Default Housecode 
-$config['rcs_housecode'] = 'A';
+$config['rcs_housecode'] = '';
 
 # RCS Thermostat Decode Table 
-$config['rcs_decode'] = 'P';
+$config['rcs_decode'] = '';
 ?>

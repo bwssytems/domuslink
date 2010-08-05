@@ -169,13 +169,8 @@
 <!-- start footer div -->
 <div id="footer">
 <table cellspacing="0" cellpadding="0" border="0" width="100%">
-<<<<<<< .mine
 <tr style="vertical-align: top; white-space: nowrap;">
 <td align="left" width="33%">
-=======
-<tr>
-<td align="left" width="33%">
->>>>>>> .r789
 <?php echo ($lang['heyustatus']);?>:
 <a onMouseOver="popup('<?php echo ($lang['statusinfo']); ?>')" onmouseout="kill()" onfocus="this.blur()" href="<?php echo ($config['url_path']);?>/index.php?page=status">
 <?php if (heyu_running()): ?>
@@ -185,7 +180,6 @@
 <?php endif; ?>
 </a>
 </td>
-<<<<<<< .mine
 <td align="center" width="33%" style="padding: 0em 2em 0em 2em;">
 <?php if ($config['rcs_support']=='ON' && $authenticated) {
 echo $lang['hvac']." - [ ";
@@ -203,16 +197,6 @@ $setpoint=implode(execute_cmd($config['heyuexecreal']." rcs_req preset ".$config
 } ## end if ?>
 </td>
 <td align="right" width="33%">
-=======
-<td align="center" width="33%">
-<?php echo "HVAC - ["; ?>
-<?php $temp=implode(execute_cmd($config['heyuexecreal']." rcs_req preset h5 1", true)); $temp=(explode(" ",$temp)); echo " Temperature: ".$temp[5]; ?>&#176
-<?php $mode=implode(execute_cmd($config['heyuexecreal']." rcs_req preset h5 3", true)); $mode=(explode(" ",$mode)); echo " Mode: ".$mode[5]; ?>
-<?php $setpoint=implode(execute_cmd($config['heyuexecreal']." rcs_req preset h5 2", true)); $setpoint=(explode(" ",$setpoint)); echo " Setpoint: ".$setpoint[5]; ?>&#176
-<?php echo "]"; ?>
-</td>
-<td align="right" width="33%">
->>>>>>> .r789
 <?php echo $lang['heyucurrentconfig'].": ".$_SESSION['frontObj']->getHeyuConfigName()." ".$lang['heyuindir']." ".$config['heyu_base_real'].($config['heyu_subdir'] == "default"?" ":$config['heyu_subdir']." ")?>
 <a onMouseOver="popup('<?php echo ($lang['diagnosticstatus']); ?>')" onmouseout="kill()" onfocus="this.blur()" href="<?php echo $config['url_path'];?>/utility/diagnostic.php" >
 <img src="<?php echo ($config['url_path']."/theme/".$config['theme']."/images/".(isset($_SESSION['filesErrored'])?($_SESSION['filesErrored']?"red_info.png":"green_info.png"):"black_info.png"));?>" border=0 align="absmiddle"/>
