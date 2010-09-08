@@ -10,16 +10,17 @@ if (isset($page)) {
 <link rel="shortcut icon" href="<?php echo ($config['url_path']);?>/theme/iPhone/images/favicon.ico" type="image/x-icon" />
 <link rel="apple-touch-icon" href="<?php echo ($config['url_path']);?>/theme/iPhone/images/apple-touch-icon.png"/> 
 <meta content="minimum-scale=1.0, width=device-width, maximum-scale=0.6667, user-scalable=no" name="viewport" />
-<script type="application/x-javascript" src="<?php echo ($config['url_path']);?>/theme/iPhone/iui/iui.js"></script>
+<script type="application/x-javascript" src="<?php echo ($config['url_path']);?>/theme/iPhone/iWebKit5.04/Framework/javascript/functions.js"></script>
 <style type="text/css" media="screen">
-@import "<?php echo ($config['url_path']);?>/theme/iPhone/iui/iui.css";
-@import "<?php echo ($config['url_path']);?>/theme/iPhone/iPhone.css";
+@import "<?php echo ($config['url_path']);?>/theme/iPhone/iWebKit5.04/Framework/css/style.css";
+@import "<?php echo ($config['url_path']);?>/theme/iPhone/iWebKit5.04/Framework/css/developer-style.css";
 </style>
 </head>
 <body>
-<div id="toolbar" class="toolbar">
-	<h1 id="pageTitle"></h1>
-	<a id="backButton" class="button" href="/domus.Link/#"><?php echo ($lang['home']); ?></a>
+<div id="topbar">
+	<div id="title"> domus.Link</div>
+	<div id="leftbutton"> <a id="backButton" class="button" href="/domus.Link/#"><?php echo ($lang['home']); ?></a> </div>
+	<div id="rightbutton">
 	<?php
     	if (isset($back_button))
         {
@@ -57,6 +58,8 @@ if (isset($page)) {
             */
 		}
 	?>            
+	
+	</div>	
 </div>
 <?php
 if (!isset($page)) 

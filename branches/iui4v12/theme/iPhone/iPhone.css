@@ -49,6 +49,9 @@ a, a:hover { text-decoration: none; }
 	font-weight:normal;
 }
 
+.row {
+	border-bottom:1px solid #999999;
+}
 
 .row > p {
 	display:block;
