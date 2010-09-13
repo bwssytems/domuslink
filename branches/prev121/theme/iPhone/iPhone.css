@@ -1,54 +1,15 @@
-ol, ul { list-style: none; margin: 0; padding: 0; border: 0; } 
-li { margin: 0; padding: 0; border: 0; } 
-table { border-collapse: collapse; border-spacing: 0; } 
-a, a:hover { text-decoration: none; }
-
-#toolbar {border-bottom: 1px solid #2d3642; border-top: 1px solid #6d84a2; background: url('/domus.Link/theme/iPhone/iui/toolbar.png') #6d84a2 repeat-x; text-align:left; color:white; font-size: 18px;}
-#toolbar li {display:inline;}
-#toolbar li a {border-right:1px solid black; text-align:center; padding:11px 8px; display:inline-block;}
-.white {background-color: #fff; -moz-border-radius: 10px; -webkit-border-radius: 10px; border: 2px solid #EFEFEF; width:95%; margin:10px auto 0 auto; font-weight:bold;}
-.shortbutul li a {display:block;text-align:center;background: url('/domus.Link/theme/iPhone/iui/toolbar.png') #6d84a2 repeat-x top;-moz-border-radius: 10px;-webkit-border-radius: 10px;border: 1px solid #333;padding:8px 10px; color:black}
-.shortbutul li table {width:100%}
-.shortbutul li table td {padding:3px; height:20px;}
-.shortbutul li {padding:3px 5px;border-bottom: 2px solid #EFEFEF;}
-
-
-/*ABOUT SECTION*/
-.progInfoTitle {
-	margin-left:60px;
-	margin-bottom:10px;
-	padding:0;
-	margin-top:0;
-	font-weight:bold;
+.textbox p {
+	padding:10px;
 }
 
-.progInfoTijd {
-	margin-left:60px;
-	margin-bottom:5px;
-	padding:0;
-	margin-top:0;
+#leftbutton, #rightbutton {
+	width:50px;
+	text-align:center;
 }
 
-.progInfoDesc {
-	padding:0;
-	margin-top:0;
-	text-align:left;
+.row {
+	border-bottom:1px solid #999999;
 }
-
-.progDesc {
-	margin-top: 10px;
-	margin-bottom: 10px;
-	padding:20px;
-	text-align:left;
-	border:1px solid #999999;
-	background:#FFFFFF;
-	-webkit-border-radius: 10px;
-}
-
-.progLink{
-	font-weight:normal;
-}
-
 
 .row > p {
 	display:block;
@@ -69,6 +30,38 @@ a, a:hover { text-decoration: none; }
 	line-height:42px;
 	font-weight:bold;
 	color:#7388a5;
+}
+
+.left_4col {
+	float:left;
+	width:20%;
+	font-size:9px;
+	text-align:center;
+	height:10px;
+}
+.vert_divider_4col
+{
+	border-right:1px solid #999999;
+	width:5%;
+	float:left;
+}
+.left {
+	float:left;
+	width:45%;
+	text-align:right;
+}
+.right {
+	float:right;
+	width:45%;
+	text-align:left;
+}
+.vert_divider
+{
+	border-right:1px solid #999999;
+	height:60px;
+	min-height:60px;
+	width:5%;
+	float:left;
 }
 
 .white > label {
@@ -103,4 +96,55 @@ a, a:hover { text-decoration: none; }
     color: inherit;
     -webkit-border-image: url(/domus.Link/theme/iPhone/iui/whiteButton.png) 0 10 0 10;
     text-shadow: rgba(255, 255, 255, 0.7) 0 1px 0;
+}
+
+/************** TABLES **************/
+table {
+	line-height: 1.4em;
+	border: none;
+}
+
+table.content th {
+	color: #000;
+	font-size: 14px;
+	font-weight: bold;
+	border-bottom: 2px solid #c5d0d3;
+	padding-top: 20px;
+	padding-bottom: 5px;
+}
+
+table.content td {
+	padding: 2px;
+	border-left: 1px dotted #ccc;
+	border-right: 1px dotted #ccc;
+	border-bottom: 1px dotted #ccc;
+	/*background-color: #fbfbfb;*/
+}
+
+tr.row:hover {
+	background-color: #eee;
+}
+
+table.clear td {
+	border: none;
+}
+
+.musiclist span {
+	height:40px;
+	vertical-align:middle;
+}
+.musiclist .checkbox span {
+	height:40px;
+	vertical-align:top;
+	border:1px solid #ff00000;
+}
+.musiclist .number a img {
+	padding-top:10px;
+}
+.musiclist .time {
+	float:right;
+	margin-right:10px;
+}
+.musiclist .time a {
+	color:#848484;
 }

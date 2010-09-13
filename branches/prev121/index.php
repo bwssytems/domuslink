@@ -21,6 +21,7 @@
 
 ## Includes
 $dirname = dirname(__FILE__);
+//die($dirname);
 require_once($dirname.DIRECTORY_SEPARATOR.'include.php');
 
 ## Security validation's
@@ -34,6 +35,7 @@ if(!isset($_SESSION['filesChecked']) || !$_SESSION['filesChecked'])
 	header("Location: utility/diagnostic.php?from=index");
 	exit();
 }
+
 
 // start/stop controls for heyu
 if (isset($_GET["daemon"])) {
@@ -56,6 +58,7 @@ $tpl->set('page', $page);
 // check if heyu is running, if true display modules
 if (heyu_running()) {
 	$dirname = dirname(__FILE__);
+	//die($dirname);
 	require_once($dirname.DIRECTORY_SEPARATOR.'include_globals.php');
 	
 	if(!isset($_SESSION['configChecked']) || !$_SESSION['configChecked'])

@@ -27,9 +27,9 @@ require_once('converttoaliasmap.func.php');
 
 
 if ($config['theme'] == 'iPhone') {
-	$_SESSION['configChecked'] = true;
-	header("Location: ../index.php");
-	exit();
+	//$_SESSION['configChecked'] = true;
+	//header("Location: ../index.php");
+	//exit();
 }
 
 ## Set template parameters

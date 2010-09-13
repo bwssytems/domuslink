@@ -21,6 +21,7 @@
 
 ## Includes
 $dirname = dirname(__FILE__);
+//die($dirname);
 require_once($dirname.DIRECTORY_SEPARATOR.'include.php');
 require_once(CLASS_FILE_LOCATION.'error.class.php');
 

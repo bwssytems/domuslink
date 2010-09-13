@@ -67,10 +67,10 @@ $config['lang'] = 'English';
 # say http://your-host/domuslink, then you should define the
 # url path as /domuslink. Leave blank if your are running
 # domus.Link at the root ie http://your-host/
-$config['url_path'] = '/domus.Link';
+$config['url_path'] = '/domus.Link2';
 
 # Theme - GUI's Theme
-$config['theme'] = 'default';
+$config['theme'] = 'iPhone';
 
 # Images - Select ON or OFF if you want images to be displayed
 # in the menu bar instead of text.
@@ -84,4 +84,5 @@ $config['codes'] = 'ON';
 # refreshes. The page being refreshed is the main page where modules
 # are displayed. Leave empty to disable this feature.
 $config['refresh'] = '';
+
 ?>

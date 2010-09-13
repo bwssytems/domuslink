@@ -1,11 +1,15 @@
-			<?php 
-			if ($state == 'on') {
-				$toggeled = 'true';
-			}
-			else {
-				$toggeled = '';
-			}
-			?>
+		<?php
+		$type = 'module';
+		if ($state == 'on') {
+			$toggeled = 'true';
+		}
+		else {
+			$toggeled = '';
+		}		
+		//$state  = $_SERVER['PHP_SELF'] . "?action=".$state."&page=".$page."&code=".$code;
+		$on  = $_SERVER['PHP_SELF'] . "?action=on&page=".$page."&code=".$code;
+		$off = $_SERVER['PHP_SELF'] . "?action=off&page=".$page."&code=".$code;
+		?>
 		<li>
 			<table>
 				<tr>
@@ -23,4 +27,11 @@
 					<?php endif; ?>					
 				</tr>
 			</table>
+		</li>
+
+			<?php 
+
+			?>
+		<li>
+
 		</li>

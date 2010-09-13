@@ -1,40 +1,53 @@
-	<form name="form" method="post" class="panel" action="<?php echo($_SERVER['PHP_SELF']); ?>">
-        <h2><?php echo ($lang['login']); ?></h2>
-		<p>
+<div id="content" class="panel">
+	<span class="graytitle"><?php echo ($lang['login']); ?></span>
+	<?php 
+	if ( (isset($_GET['failed']) && $_GET['failed'] == "true") )
+	{
+		?>		
+		<ul class="pageitem">
+			<li class="textbox">
+				<span class="header"><?php echo ($lang['error']); ?></span>
+				<p><font color="#CB7B7A"><?php echo ($lang['error_wrong_pass']); ?></font></p>
+			</li>
+		</ul>		
 		<?php 
-        if ( (isset($_GET['failed']) && $_GET['failed'] == "true") )
-        {
-        	?>
-            <font color="#CB7B7A"><?php echo ($lang['error_wrong_pass']); ?></font><br>
-            <?php 
-        }
-        ?>
-		<?php if (!isset($_POST['password'])): ?><?php echo ($lang['enter_password']); ?><?php endif; ?>
-		</p>
-        <fieldset>
-            <div class="row">
-                <label><?php echo($lang['password']);?></label>
-                <input type="hidden" name="from" value="<?php if ($_GET) echo ($_GET['from']); ?>" />
-				<input type="password" name="password" />
-            </div>
+	}
+	?>	
+	<form name="form" method="post" action="<?php echo($_SERVER['PHP_SELF']); ?>">
+		<?php
+		if ($_GET['from']) 
+		{
+			?>
+			<input type="hidden" name="from" value="<?php echo ($_GET['from']);?>" />
+			<?php
+		}
+		else
+		{
+			?>
+			<input type="hidden" name="from" value="index" />
+			<?php
+		}
+		?>
+		<fieldset>
+			<?php if (!isset($_POST['password'])): ?>
+				<ul class="pageitem">
+					<li class="textbox">
+						<p><?php echo ($lang['enter_password']); ?></p>
+					</li>
+				</ul>		
+			<?php endif; ?>
+				<ul class="pageitem">
+					<li class="bigfield"><input placeholder="Password" type="password" name="password" /></li>			
+					<li class="button"><input name="Submit" type="submit" value="<?php echo($lang['login']);?>" /></li>
+				</ul>	
+				<ul class="pageitem">
+					<li class="checkbox">
+						<span class="check">
+							<span class="name"><?php echo($lang['keep_login']);?></span>
+							<input name="remember" type="checkbox" value="true" />
+						</span>
+					</li>
+				</ul>
 		</fieldset>
-         <div id="error" title="<?php echo ($lang['error']); ?>" class="white">
-            <br />
-            <label><?php echo($lang['keep_login']);?> </label>
-            &nbsp;&nbsp;&nbsp;<input type="checkbox" name="remember" value="true" width="5" style="width:5px" />             
-            <br />
-            <br />
-		</div>        
-        <br /><br />
-		<input type="submit" name="Submit" value="<?php echo($lang['login']);?>" />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-    </form>
+	</form>
+</div>
