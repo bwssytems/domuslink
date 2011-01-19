@@ -10,6 +10,7 @@ This page will contain the domus.Link roadmap, agreed upon and developed by all 
 == v2.0 ==
   * iPhone theme stability - Issue 1
   * Complete OOP focus - Issue 21, Issue 22
+  * REST API for extended UI development - Issue 52
   * Android theme/compatibility - Issue 50, Issue 52
   * CM17A interface bug - Issue 51
   * Alias/Macro/Trigger name with a space char - Issue 46
