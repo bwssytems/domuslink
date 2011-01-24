@@ -22,6 +22,7 @@
 ##
 ## Load definitions - These must be at the head before session start !!!!
 ##
+# error_log("entered apiinclude.php");
 $dirname = dirname(__FILE__);
 require_once($dirname.DIRECTORY_SEPARATOR.'fileloc.php');
 ## Load all other required functions
@@ -29,14 +30,14 @@ require_once(FUNC_FILE_LOCATION.'file.func.php');
 require_once(FUNC_FILE_LOCATION.'misc.func.php');
 require_once(FUNC_FILE_LOCATION.'cmd.func.php');
 require_once(FUNC_FILE_LOCATION.'debug.func.php');
-require_once(FUNC_FILE_LOCATION.'macro.func.php');
-require_once(FUNC_FILE_LOCATION.'timer.func.php');
+# require_once(FUNC_FILE_LOCATION.'macro.func.php');
+# require_once(FUNC_FILE_LOCATION.'timer.func.php');
 require_once(FUNC_FILE_LOCATION.'heyumgmt.func.php');
 require($dirname.DIRECTORY_SEPARATOR.'version.php');
 require(FUNC_FILE_LOCATION.'config.func.php');
 require_once(FUNC_FILE_LOCATION.'lang.func.php');
 
-require_once(CLASS_FILE_LOCATION.'tpl.class.php');
+# require_once(CLASS_FILE_LOCATION.'tpl.class.php');
 require_once(CLASS_FILE_LOCATION.'global.class.php');
 require_once(CLASS_FILE_LOCATION.'login.class.php');
 
@@ -46,12 +47,10 @@ if (!isset($_SESSION)) {
 	$_SESSION['sessid'] = session_id();
 }
 
-
 ## Instantiate frontend object
 if(!isset($_SESSION['frontObj'])) {
 	$_SESSION['frontObj'] = new frontObject();
 }
-
 
 ## Load config file functions and grab settings
 //$config =& parse_config($frontObj->getConfig());
@@ -61,43 +60,5 @@ $config =& $_SESSION['frontObj']->getConfig();
 if (substr($config['url_path'], -1) == '/') 
 	$config['url_path'] = substr($config['url_path'], 0, -1);
 
-## Load language file
-$lang =& $_SESSION['frontObj']->getLanguageFile();
-
-## instantiate cached lists
-## $frontObj->getDirectives();
-## $frontObj->getModList();
-
-## iPhone theme autodetection
-if (strpos(strtolower($_SERVER['HTTP_USER_AGENT']),'iphone')) {
-	# Theme - GUI's Theme
-	$config['theme'] = 'iPhone';
-}
-
-## Theme definition for template loading
-define("TPL_FILE_LOCATION", dirname(__FILE__) . DIRECTORY_SEPARATOR . 'theme' . DIRECTORY_SEPARATOR . $config['theme'] . DIRECTORY_SEPARATOR . 'tpl' . DIRECTORY_SEPARATOR);
-
-## Make new template object
-$tpl = new Template(TPL_FILE_LOCATION.'layout.tpl');
-$tpl->set('config', $config);
-$tpl->set('lang', $lang);
-$tpl->set('ver', $FRONTEND_VERSION);
-
-## Security validation's
-$authenticated = false;
-if ($config['seclevel'] != "0") {
-	$authentication = new Login($config['password']);
-	if ($authentication->login()) $authenticated = true;
-}
-
-## Set authentication state
-$tpl->set('authenticated', $authenticated);
-
-## Constants
-$modtypes['lights'] = 'Light';
-$modtypes['appliances'] = 'Appliance';
-$modtypes['irrigation'] = 'Irrigation';
-$modtypes['shutters'] = 'Shutter';
-$modtypes['other'] = 'Other';
-
+# error_log("exited apiinclude.php");
 ?>

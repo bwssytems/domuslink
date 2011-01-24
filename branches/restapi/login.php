@@ -25,7 +25,7 @@ require_once($dirname.DIRECTORY_SEPARATOR.'include.php');
 require_once(CLASS_FILE_LOCATION.'login.class.php');
 
 ## Instantiate login class
-$login = new login();
+$login = new Login($config['password']);
 
 ## Set template parameters
 $tpl->set('title', $lang['login']);

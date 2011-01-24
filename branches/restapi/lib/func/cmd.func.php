@@ -36,9 +36,11 @@ function execute_cmd($cmd, $noerror = false) {
 		else
 			throw new Exception("Command is invalid.");
 	}
-	
+
 	exec ($cmd." 2>&1", $rs, $retval);
 	if ($retval > 0 && !$noerror) {
+		error_log("domus.Link: Command execution error. [".$cmd."]");
+	
 		throw new Exception($rs[0]);
 	}
 	else
@@ -70,6 +72,10 @@ function heyu_running() {
  */
 function heyu_info() {
 	global $config;
+	return get_heyu_info();
+}
+
+function get_heyu_info($config) {
 	$rs = execute_cmd($config['heyuexecreal']." info");
 	return $rs;
 }
@@ -79,8 +85,7 @@ function heyu_info() {
  *
  * @param $action to undertake (start, stop, reload)
  */
-function heyu_ctrl($action) {
-	global $config;
+function heyu_ctrl($config, $action) {
 	switch ($action) 
 	{
 		case "start":
@@ -110,17 +115,18 @@ function heyu_ctrl($action) {
  * Heyu Action
  *
  */
-function heyu_action() {
-	global $config;
-	switch ($_GET["action"]) {
+function heyu_action($config, $theActionRequest, $theCode, $theState = null, $curr = null, $req = null) {
+	switch ($theActionRequest) {
 		case "on":
-		case "off":
 		case "fon":
+			$cmd = $config['heyuexecreal']." ".$config['cmd_on']." ".$theCode;
+			break;
 		case "foff":
-			$cmd = $config['heyuexecreal']." ".$_GET["action"]." ".$_GET["code"];
+		case "off":
+			$cmd = $config['heyuexecreal']." ".$config['cmd_off']." ".$theCode;
 			break;
 		case "db":
-			$cmd = dim_bright($_GET["state"], $_GET["curr"], $_GET["req"], $_GET["code"]);
+			$cmd = dim_bright($config, $theState, $curr, $req, $theCode);
 			break;
 	}
 	
@@ -136,8 +142,7 @@ function heyu_action() {
  * @param $code modules unitcode
  * 
  */
-function dim_bright($state, $currlevel, $reqlevel, $code) {	
-	global $config;
+function dim_bright($config, $state, $currlevel, $reqlevel, $code) {	
 	if ($currlevel == $reqlevel) return false;
 	
 	if ($currlevel < $reqlevel) {
@@ -185,8 +190,7 @@ function dim_bright($state, $currlevel, $reqlevel, $code) {
  * @param $code code of module to check
  */
 
-function on_state($code) {
-	global $config;
+function on_state($config, $code) {
 	$rs = execute_cmd($config['heyuexecreal']." onstate ".$code, true);
 
 	if ($rs[0] == "1" || $rs[0] == "0") {
@@ -209,8 +213,7 @@ function on_state($code) {
  *
  * @param $unit code of module to check
  */
-function dim_level($unit) {
-	global $config;
+function dim_level($config, $unit) {
 	$rs = execute_cmd($config['heyuexecreal']." dimlevel ".$unit);
 	return $rs[0];
 }

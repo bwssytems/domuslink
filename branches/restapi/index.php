@@ -38,7 +38,7 @@ if(!isset($_SESSION['filesChecked']) || !$_SESSION['filesChecked'])
 // start/stop controls for heyu
 if (isset($_GET["daemon"])) {
 	try {
-		heyu_ctrl($_GET["daemon"]);
+		heyu_ctrl($config, $_GET["daemon"]);
 	}
 	catch(Exception $e) {
 		gen_error("heyu ".$_GET["daemon"], $e->getMessage());
@@ -70,7 +70,7 @@ if (heyu_running()) {
 	// if any action set, act on it
 	if (isset($_GET['action'])) {
 		try {
-			heyu_action();
+			heyu_action($config, $_GET["action"], $_GET["code"], $_GET["state"], $_GET["curr"], $_GET["req"]);
 		}
 		catch(Exception $e) {
 			// noop

@@ -142,7 +142,7 @@ class location {
 		
 		// if alias is a multi alias, module state & dimlevel are not checked
 		if (!$multi_alias) {
-			if (on_state($alias->getHouseDevice())) {
+			if (on_state($config, $alias->getHouseDevice())) {
 				$state = 'on';
 				$action = $config['cmd_off']; 
 			}
@@ -155,7 +155,7 @@ class location {
 			$mod->set('state', $state);
 				
 			if ($alias->getAliasMap()->getType() == $modtypes['lights']) {
-				$mod->set('level', $this->level_calc(dim_level($alias->getHouseDevice())));
+				$mod->set('level', $this->level_calc(dim_level($config, $alias->getHouseDevice())));
 			}
 		}
 		
@@ -191,10 +191,14 @@ class location {
 	 * 
 	 * @param $loc represents the wanted location
 	 */
-	function getAliasesByLocation($loc, $i = 0) {
+	function getAliasesByLocation($loc, $json = false) {
+		$i = 0;
 		foreach ($this->heyuconfObj->getAliases(true) as $line) {
 			if($line->getAliasMap()->getFloorPlanLabel() == trim($loc)) {
-				$request[$i] = $line;
+				if($json)
+					$request[$i] = $line->encodeJSON();
+				else
+					$request[$i] = $line;
 				$i++;
 			}
 		}
@@ -208,10 +212,14 @@ class location {
 	 * @param $aliases represents an array of aliases built by getAliasesByLocation
 	 * @param $type represents the type os module (light, appliance, etc)
 	 */
-	function getAliasesByType($aliases, $type, $i = 0) {
+	function getAliasesByType($aliases, $type, $json = false) {
+		$i = 0;
 		foreach ($aliases as $alias) {
 			if($alias->getAliasMap()->getType() == $type) {
-				$request[$i] = $alias;
+				if($json)
+					$request[$i] = $alias->encodeJSON();
+				else
+					$request[$i] = $alias;
 				$i++;
 			}
 		}

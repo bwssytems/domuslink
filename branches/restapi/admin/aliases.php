@@ -102,13 +102,13 @@ else {
 				gen_error(null, $lang['error_special_chars']);
 			else {
 				$anAlias = new Alias();
-				$anAlias->setLabel($_POST["label"]);
+				$anAlias->setLabel(label_parse($_POST["label"],true));
 				$anAlias->parseHouseUnitCodes($_POST["code"]);
 				$anAlias->setModuleType($_POST["module"]);
 				$anAlias->setModuleOptions($_POST["moduleopts"]);
 				$anAlias->getAliasMap()->setType($_POST["type"]);
-				$anAlias->getAliasMap()->setAliasLabel($_POST["label"]);
-				$anAlias->getAliasMap()->setFloorPlanLabel($_POST["loc"]);
+				$anAlias->getAliasMap()->setAliasLabel(label_parse($_POST["label"],true));
+				$anAlias->getAliasMap()->setFloorPlanLabel(label_parse($_POST["loc"],true));
 				$anAlias->getAliasMap()->setHiddenFromHome("visible");
 				$anAlias->getAliasMap()->rebuildElementLine();
 				$anAlias->rebuildElementLine();
@@ -122,13 +122,13 @@ else {
 			if (preg_match($chars, $_POST["label"]))
 				gen_error(null, $lang['error_special_chars']);
 			else {
-				$settings[$_POST["line"]]->setLabel($_POST["label"]);
+				$settings[$_POST["line"]]->setLabel(label_parse($_POST["label"],true));
 				$settings[$_POST["line"]]->parseHouseUnitCodes($_POST["code"]);
 				$settings[$_POST["line"]]->setModuleType($_POST["module"]);
 				$settings[$_POST["line"]]->setModuleOptions($_POST["moduleopts"]);
 				$settings[$_POST["line"]]->getAliasMap()->setType($_POST["type"]);
-				$settings[$_POST["line"]]->getAliasMap()->setAliasLabel($_POST["label"]);
-				$settings[$_POST["line"]]->getAliasMap()->setFloorPlanLabel($_POST["loc"]);
+				$settings[$_POST["line"]]->getAliasMap()->setAliasLabel(label_parse($_POST["label"],true));
+				$settings[$_POST["line"]]->getAliasMap()->setFloorPlanLabel(label_parse($_POST["loc"],true));
 				$settings[$_POST["line"]]->getAliasMap()->rebuildElementLine();
 				$settings[$_POST["line"]]->rebuildElementLine();
 

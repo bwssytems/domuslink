@@ -137,7 +137,51 @@ abstract class Element {
 	public function fetch() {
 		return $this;
 	}
-	
+
+	public function toArray() {
+        return $this->processArray(get_object_vars($this));
+    }
+   
+    private function processArray($array) {
+        foreach($array as $key => $value) {
+            if (is_object($value)) {
+                $array[$key] = $value->toArray();
+            }
+            if (is_array($value)) {
+                $array[$key] = $this->processArray($value);
+            }
+        }
+        // If the property isn't an object or array, leave it untouched
+        return $array;
+    }
+    
+   /*
+    * TODO - this needs to be renamed prepareForJSON
+    */
+    public function encodeJSON() {
+        return $this->objectToArray($this);
+    }
+    /**
+    *
+    * Convert an object to an array
+    *
+    * @param    object  $object The object to convert
+    * @reeturn      array
+    *
+    */
+    public function objectToArray( $object )
+    {
+        if( !is_object( $object ) && !is_array( $object ) )
+        {
+            return $object;
+        }
+        if( is_object( $object ) )
+        {
+            $object = get_object_vars( $object );
+        }
+        return array_map( 'Element::objectToArray', $object );
+    }
+    
 	public function __toString() {
 		return ($this->isEnabled() ? "" : COMMENT_SIGN_D).$this->elementLine."\n";
 	}

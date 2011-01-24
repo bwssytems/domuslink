@@ -79,7 +79,7 @@ else {
 			// add them to file
 			$sm = get_specific_macro($macros, strtolower($_POST["macro_name"]));
 			if (!$sm) {
-				$aMacro = new ScheduleElement(MACRO_D." ".$_POST["macro_name"]." 0 ".$_POST["macro_command"]);
+				$aMacro = new ScheduleElement(MACRO_D." ".label_parse($_POST["macro_name"], true)." 0 ".$_POST["macro_command"]);
 				if ($_POST["status"] == COMMENT_SIGN_D)
 					$aMacro->setEnabled(false);
 				else
@@ -93,7 +93,7 @@ else {
 			
 		case "save":
 			//build macro line with POST results	
-			$schedObjs[$_POST["line"]]->setElementLine(MACRO_D." ".$_POST["macro_name"]." 0 ".$_POST["macro_command"]);
+			$schedObjs[$_POST["line"]]->setElementLine(MACRO_D." ".label_parse($_POST["macro_name"], true)." 0 ".$_POST["macro_command"]);
 			if ($_POST["status"] == COMMENT_SIGN_D)
 				$schedObjs[$_POST["line"]]->setEnabled(false);
 			else

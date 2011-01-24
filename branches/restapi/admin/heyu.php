@@ -92,7 +92,7 @@ else {
 				gen_error(null, $e->getMessage());
 			exit();
 		}
-		heyu_ctrl('restart');
+		heyu_ctrl($config, 'restart');
 		header("Location: ".$_SERVER['PHP_SELF']);
 		exit();
 	}

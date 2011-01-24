@@ -19,12 +19,26 @@
  * Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
  
-class login {
+class Login {
 	
-	var $ok;
-	var $salt = "kjsdr23a21dcf";
-	var $id = 'domuslogin';
+	private $ok;
+	private $salt;
+	private $id;
+	private $thePassword;
 
+	function __construct() {
+    	$args = func_get_args();
+        if(!empty($args)) {
+			$this->thePassword = $args[0];
+        }
+        else {
+			$this->thePassword = "";
+        }
+        $this->salt = "kjsdr23a21dcf";
+        $this->id = 'domuslogin';
+        $this->ok = false;
+	}
+	
 	/**
 	 * 
 	 */
@@ -60,8 +74,7 @@ class login {
 	 * 
 	 */
 	function checkLogin($password,$remember) {
-		global $config;
-		if ($config['password'] == $password) {
+		if ($this->thePassword == $password) {
 			$this->ok = true;
 			$_SESSION[$this->id] = md5($password . $this->salt);
 			if ($remember) setcookie($this->id, $_SESSION[$this->id], time()+60*60*24*30, "/");
@@ -75,8 +88,7 @@ class login {
 	 * 
 	 */
 	function check($password) {
-		global $config;
-		if(md5($config['password'] . $this->salt) == $password) {
+		if(md5($this->thePassword . $this->salt) == $password) {
 			$this->ok = true;
 			return true;
 		}

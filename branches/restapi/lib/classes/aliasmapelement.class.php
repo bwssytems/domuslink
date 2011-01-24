@@ -23,9 +23,9 @@ require_once(CLASS_FILE_LOCATION."element.class.php");
 
 class AliasMapElement extends Element {
 	
-	private $aliasLabel;
-	private $floorPlanLabel;
-	private $hiddenFromHome;
+	protected $aliasLabel;
+	protected $floorPlanLabel;
+	protected $hiddenFromHome;
 	
 	function __construct() {
     	$args = func_get_args();

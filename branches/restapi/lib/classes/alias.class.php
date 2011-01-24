@@ -22,12 +22,12 @@ require_once(CLASS_FILE_LOCATION."configelement.class.php");
 require_once(CLASS_FILE_LOCATION."aliasmapelement.class.php");
 
 class Alias extends ConfigElement {
-	private $label;
-	private $houseCode;
-	private $devices;
-	private $moduleType;
-	private $moduleOptions;
-	private $aliasMapElement;
+	protected $label;
+	protected $houseCode;
+	protected $devices;
+	protected $moduleType;
+	protected $moduleOptions;
+	protected $aliasMapElement;
 
 	/**
 	 * Constructor
