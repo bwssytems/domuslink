@@ -1,4 +1,5 @@
 Domus.Link REST API Documentation V0.1beta
+
 To help in expanding the available user interfaces for domus.Link, we have created an REST API to allow clients to connect and get alias and floorplan information and control those aliases. The implementation is based Jacob Wright's restserver and was obtained at https://github.com/jacwright/RestServer and using his blog entry at http://jacwright.com/blog/250/simple-rest-server-in-php-supports-json-amf/ to build the controller for domus.Link. This provides us with a very extensible framework to build the API. All the returns from the API calls are in JSON encoded format.
 
 The API utilizes BASIC HTTP AUTHENTICATION, so use of username/password is expected. The username can be anything as of this version as we only use the password to verify from domus.Link to authenticate the request.
@@ -8,6 +9,7 @@ To call the api currently we use the following path below using a HTTP GET or HT
 http://<your location and path to domus>/api.php
 Common Method Returns
 All methods can return the following error codes in the common format:
+
 {"error":{"code":<code>,"message":"<str error string>"}}
 
 		    Code      Error String
@@ -45,9 +47,13 @@ All methods can return the following error codes in the common format:
                 '500' => 'Internal Server Error',
                 '501' => 'Not Implemented',
                 '503' => 'Service Unavailable'
+
 domus.Link JSON Objects
+
 Alias and AliasMapElement
+
 This is the JSON object structure for the core domus.Link Alias objects.
+
 {
 "label":"<str name>",
 "houseCode":"<str house code>",
@@ -73,6 +79,7 @@ This is the JSON object structure for the core domus.Link Alias objects.
 }
 
 Methods
+
 http://<your path to domus>/api.php]
 (HTTP GET)
 (No Args)
