@@ -9,9 +9,9 @@ To call the api currently we use the following path below using a HTTP GET or HT
 http://<your location and path to domus>/api.php
 Common Method Returns
 All methods can return the following error codes in the common format:
-
+<b>
 {"error":{"code":<code>,"message":"<str error string>"}}
-
+<b>
 		    Code      Error String
                 '100' => 'Continue',
                 '200' => 'OK',
