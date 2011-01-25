@@ -1,0 +1,158 @@
+Domus.Link REST API Documentation V0.1beta
+To help in expanding the available user interfaces for domus.Link, we have created an REST API to allow clients to connect and get alias and floorplan information and control those aliases. The implementation is based Jacob Wright's restserver and was obtained at https://github.com/jacwright/RestServer and using his blog entry at http://jacwright.com/blog/250/simple-rest-server-in-php-supports-json-amf/ to build the controller for domus.Link. This provides us with a very extensible framework to build the API. All the returns from the API calls are in JSON encoded format.
+
+The API utilizes BASIC HTTP AUTHENTICATION, so use of username/password is expected. The username can be anything as of this version as we only use the password to verify from domus.Link to authenticate the request.
+Calling the API
+To call the api currently we use the following path below using a HTTP GET or HTTP POST request as defined by the methods below. I haven't provided the URL rewriting for the web server configuration yet.
+
+http://<your location and path to domus>/api.php
+Common Method Returns
+All methods can return the following error codes in the common format:
+{"error":{"code":<code>,"message":"<str error string>"}}
+
+		    Code      Error String
+                '100' => 'Continue',
+                '200' => 'OK',
+                '201' => 'Created',
+                '202' => 'Accepted',
+                '203' => 'Non-Authoritative Information',
+                '204' => 'No Content',
+                '205' => 'Reset Content',
+                '206' => 'Partial Content',
+                '300' => 'Multiple Choices',
+                '301' => 'Moved Permanently',
+                '302' => 'Found',
+                '303' => 'See Other',
+                '304' => 'Not Modified',
+                '305' => 'Use Proxy',
+                '307' => 'Temporary Redirect',
+                '400' => 'Bad Request',
+                '401' => 'Unauthorized',
+                '402' => 'Payment Required',
+                '403' => 'Forbidden',
+                '404' => 'Not Found',
+                '405' => 'Method Not Allowed',
+                '406' => 'Not Acceptable',
+                '409' => 'Conflict',
+                '410' => 'Gone',
+                '411' => 'Length Required',
+                '412' => 'Precondition Failed',
+                '413' => 'Request Entity Too Large',
+                '414' => 'Request-URI Too Long',
+                '415' => 'Unsupported Media Type',
+                '416' => 'Requested Range Not Satisfiable',
+                '417' => 'Expectation Failed',
+                '500' => 'Internal Server Error',
+                '501' => 'Not Implemented',
+                '503' => 'Service Unavailable'
+domus.Link JSON Objects
+Alias and AliasMapElement
+This is the JSON object structure for the core domus.Link Alias objects.
+{
+"label":"<str name>",
+"houseCode":"<str house code>",
+"devices":"<str device code(s)>",
+"moduleType":"<str module type>",
+"moduleOptions":<str module options>,
+"aliasMapElement":
+	{
+	"aliasLabel":"<str name>",
+	"floorPlanLabel":"<str name>",
+	"hiddenFromHome":"<str visible | hidden>",
+	"elementType":"<str Light | Appliance | Shutter | Irrigation | Other>",
+	"elementLine":"<str label,elementType,floorPlanLabel,hiddenFromHome>”,
+	"lineNum":<int fileline#>,
+	"arrayNum":<int array index>,
+	"enabled":<boolean true|false>
+	},
+"elementType":"<str “alias”>",
+"elementLine":"<str alias label houseCodedevices moduleType>",
+"lineNum":<int fileline#>,
+"arrayNum":<int array index>,
+"enabled":<boolean true|false>
+}
+
+Methods
+http://<your path to domus>/api.php]
+(HTTP GET)
+(No Args)
+(Not Authenticated)
+This will call the internal test method and return a text string. This is used to make sure that the api and controller have been correctly setup.
+
+Return: "DomusController test call successful."
+http://<your path to domus>/api.php/floorplan
+(HTTP GET)
+(No Args)
+(Authenticated)
+This will call getFloorPlan and return an array of locations that domus.Link is configured with.
+
+Return: {"floorplan":["<str loc1>","<str loc2>","<str loc3>”]}
+http://<your path to domus>/api.php/location/<floorplan label> | no arg
+(HTTP GET)
+(Authenticated)
+This will call getAliasesByLocation and return an array of aliases at the given location that domus.Link is configured with. If no argument is given, it calls location with the domus.Link internal default location of “unknown”.
+
+Return using location: {"floorplan":["<str loc1>","<str loc2>","<str loc3>”]}
+{"<str floorPlanLabel>":[
+{"label":"<str name>","houseCode":"<str house code>","devices":"<str device code(s)>","moduleType":"<str module type>","moduleOptions":<str module options>,"aliasMapElement":{"aliasLabel":"<str name>","floorPlanLabel":"<str name>","hiddenFromHome":"<str visible | hidden>","elementType":"<str Light | Appliance | Shutter | Irrigation | Other>","elementLine":"<str label,elementType,floorPlanLabel,hiddenFromHome>”,"lineNum":<int fileline#>,"arrayNum":<int array index>,"enabled":<boolean true|false>},"elementType":"<str “alias”>","elementLine":"<str alias label houseCodedevices moduleType>","lineNum":<int fileline#>,"arrayNum":<int array index>,"enabled":<boolean true|false>},
+{"label":"<str name>","houseCode":"<str house code>","devices":"<str device code(s)>","moduleType":"<str module type>","moduleOptions":<str module options>,"aliasMapElement":{"aliasLabel":"<str name>","floorPlanLabel":"<str name>","hiddenFromHome":"<str visible | hidden>","elementType":"<str Light | Appliance | Shutter | Irrigation | Other>","elementLine":"<str label,elementType,floorPlanLabel,hiddenFromHome>”,"lineNum":<int fileline#>,"arrayNum":<int array index>,"enabled":<boolean true|false>},"elementType":"<str “alias”>","elementLine":"<str alias label houseCodedevices moduleType>","lineNum":<int fileline#>,"arrayNum":<int array index>,"enabled":<boolean true|false>}
+]}
+
+Retrun using no args:
+{"unknown":[
+{"label":"<str name>","houseCode":"<str house code>","devices":"<str device code(s)>","moduleType":"<str module type>","moduleOptions":<str module options>,"aliasMapElement":{"aliasLabel":"<str name>","floorPlanLabel":"<str name>","hiddenFromHome":"<str visible | hidden>","elementType":"<str Light | Appliance | Shutter | Irrigation | Other>","elementLine":"<str label,elementType,floorPlanLabel,hiddenFromHome>”,"lineNum":<int fileline#>,"arrayNum":<int array index>,"enabled":<boolean true|false>},"elementType":"<str “alias”>","elementLine":"<str alias label houseCodedevices moduleType>","lineNum":<int fileline#>,"arrayNum":<int array index>,"enabled":<boolean true|false>},
+{"label":"<str name>","houseCode":"<str house code>","devices":"<str device code(s)>","moduleType":"<str module type>","moduleOptions":<str module options>,"aliasMapElement":{"aliasLabel":"<str name>","floorPlanLabel":"<str name>","hiddenFromHome":"<str visible | hidden>","elementType":"<str Light | Appliance | Shutter | Irrigation | Other>","elementLine":"<str label,elementType,floorPlanLabel,hiddenFromHome>”,"lineNum":<int fileline#>,"arrayNum":<int array index>,"enabled":<boolean true|false>},"elementType":"<str “alias”>","elementLine":"<str alias label houseCodedevices moduleType>","lineNum":<int fileline#>,"arrayNum":<int array index>,"enabled":<boolean true|false>}
+]}
+
+http://<your path to domus>/api.php/aliases/<alias name> | all
+(HTTP GET)
+(Authenticated)
+This will call getAliases and return an array of aliases or the single named alias.
+
+Return from builtin “all”:
+{"aliases":[
+{"label":"<str name>","houseCode":"<str house code>","devices":"<str device code(s)>","moduleType":"<str module type>","moduleOptions":<str module options>,"aliasMapElement":{"aliasLabel":"<str name>","floorPlanLabel":"<str name>","hiddenFromHome":"<str visible | hidden>","elementType":"<str Light | Appliance | Shutter | Irrigation | Other>","elementLine":"<str label,elementType,floorPlanLabel,hiddenFromHome>”,"lineNum":<int fileline#>,"arrayNum":<int array index>,"enabled":<boolean true|false>},"elementType":"<str “alias”>","elementLine":"<str alias label houseCodedevices moduleType>","lineNum":<int fileline#>,"arrayNum":<int array index>,"enabled":<boolean true|false>},
+{"label":"<str name>","houseCode":"<str house code>","devices":"<str device code(s)>","moduleType":"<str module type>","moduleOptions":<str module options>,"aliasMapElement":{"aliasLabel":"<str name>","floorPlanLabel":"<str name>","hiddenFromHome":"<str visible | hidden>","elementType":"<str Light | Appliance | Shutter | Irrigation | Other>","elementLine":"<str label,elementType,floorPlanLabel,hiddenFromHome>”,"lineNum":<int fileline#>,"arrayNum":<int array index>,"enabled":<boolean true|false>},"elementType":"<str “alias”>","elementLine":"<str alias label houseCodedevices moduleType>","lineNum":<int fileline#>,"arrayNum":<int array index>,"enabled":<boolean true|false>},
+{"label":"<str name>","houseCode":"<str house code>","devices":"<str device code(s)>","moduleType":"<str module type>","moduleOptions":<str module options>,"aliasMapElement":{"aliasLabel":"<str name>","floorPlanLabel":"<str name>","hiddenFromHome":"<str visible | hidden>","elementType":"<str Light | Appliance | Shutter | Irrigation | Other>","elementLine":"<str label,elementType,floorPlanLabel,hiddenFromHome>”,"lineNum":<int fileline#>,"arrayNum":<int array index>,"enabled":<boolean true|false>},"elementType":"<str “alias”>","elementLine":"<str alias label houseCodedevices moduleType>","lineNum":<int fileline#>,"arrayNum":<int array index>,"enabled":<boolean true|false>}
+]}
+
+Return from a given label :
+{"label":"<str name>","houseCode":"<str house code>","devices":"<str device code(s)>","moduleType":"<str module type>","moduleOptions":<str module options>,"aliasMapElement":{"aliasLabel":"<str name>","floorPlanLabel":"<str name>","hiddenFromHome":"<str visible | hidden>","elementType":"<str Light | Appliance | Shutter | Irrigation | Other>","elementLine":"<str label,elementType,floorPlanLabel,hiddenFromHome>”,"lineNum":<int fileline#>,"arrayNum":<int array index>,"enabled":<boolean true|false>},"elementType":"<str “alias”>","elementLine":"<str alias label houseCodedevices moduleType>","lineNum":<int fileline#>,"arrayNum":<int array index>,"enabled":<boolean true|false>}
+http://<your path to domus>/api.php/map/<alias name> | all
+(HTTP GET)
+(Authenticated)
+This will call getMap and return an array of alias map elemenrts or the single named alias map element.
+
+Return from requested alias name:
+{"aliasLabel":"<str name>","floorPlanLabel":"<str name>","hiddenFromHome":"<str visible | hidden>","elementType":"<str Light | Appliance | Shutter | Irrigation | Other>","elementLine":"<str label,elementType,floorPlanLabel,hiddenFromHome>”,"lineNum":<int fileline#>,"arrayNum":<int array index>,"enabled":<boolean true|false>}
+
+Return from builtin “all”:
+{“map”:[
+{"aliasLabel":"<str name>","floorPlanLabel":"<str name>","hiddenFromHome":"<str visible | hidden>","elementType":"<str Light | Appliance | Shutter | Irrigation | Other>","elementLine":"<str label,elementType,floorPlanLabel,hiddenFromHome>”,"lineNum":<int fileline#>,"arrayNum":<int array index>,"enabled":<boolean true|false>},
+{"aliasLabel":"<str name>","floorPlanLabel":"<str name>","hiddenFromHome":"<str visible | hidden>","elementType":"<str Light | Appliance | Shutter | Irrigation | Other>","elementLine":"<str label,elementType,floorPlanLabel,hiddenFromHome>”,"lineNum":<int fileline#>,"arrayNum":<int array index>,"enabled":<boolean true|false>},
+{"aliasLabel":"<str name>","floorPlanLabel":"<str name>","hiddenFromHome":"<str visible | hidden>","elementType":"<str Light | Appliance | Shutter | Irrigation | Other>","elementLine":"<str label,elementType,floorPlanLabel,hiddenFromHome>”,"lineNum":<int fileline#>,"arrayNum":<int array index>,"enabled":<boolean true|false>}
+]}
+http://<your path to domus>/api.php/aliasstate/<houseDevice code>
+(HTTP GET)
+(Authenticated)
+This will call getAliasState and return an array of state of the device, 0 for off, 1 for on and the dim level of the device in 0 to 100.
+
+Return from requested houseDevice code: {"state":<int 0|1>,"level":<int 0-100>}
+http://<your path to domus>/api.php/on/<alias name>
+(HTTP POST)
+(Authenticated)
+This will call turnOn for a device and return an array of status of the call.
+
+Return from requested alias name: {"status":"<str “done”|”not done”>”}
+http://<your path to domus>/api.php/off/<alias name>
+(HTTP POST)
+(Authenticated)
+This will call turnOff for a device and return an array of status of the call.
+
+Return from requested alias name: {"status":"<str “done”|”not done”>”}
+http://<your path to domus>/api.php/dimbright/<alias name>/<state “on”|”off”>/<curr level 1-5>/<requested level 1-5>
+(HTTP POST)
+(Authenticated)
+This will call turnOff for a device and return an array of status of the call.
+
+Return from requested alias name: {"status":"<str “done”|”not done”>”}
