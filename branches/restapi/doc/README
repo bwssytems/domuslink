@@ -44,6 +44,11 @@
   
   7) Path to favicon.ico not found.
   Domus.Link now requires PHP5+.
+  
+  8) With version 2.0, the REST API code creates a cache that may need to be removed when upgrading.
+  This file is ni the root directory of the web install of domus.Link and is urlCache.map. You should
+  remove this file after upgrading or the API commands may not be properly found or are returning HTTP
+  errors.
   -------
   License
   -------
