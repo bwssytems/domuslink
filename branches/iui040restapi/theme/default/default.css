@@ -1,0 +1,326 @@
+/************** COMMON **************/
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	width: 100%;
+	background-color: #fff;
+	font-family: Verdana,Geneva,Arial,Helvetica,sans-serif;
+	font-size: 10px;
+	line-height: 1.4em;
+	color: #666;
+}
+
+form input, select, option, textarea {
+	margin: 0;
+	padding-top: 0;
+	padding-bottom: 0;
+	padding-left: 0;
+	padding-right: 5;
+	font-size: 10px;
+}
+
+a {
+	color: #90ACBF;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+/************** HEADER **************/
+
+div#header {
+	height: 49px;
+	border-bottom: 1px solid #eee;
+	line-height: 1.2em;
+}
+
+/************** MENU **************/
+div#menu {
+	height: 40px;
+}
+
+
+div#menu img {
+	padding-top: 2px;
+	padding-bottom: 3px;
+}
+
+div#menuitem {
+	float: left;
+	width: 12.5%;
+	text-align: center;
+	font-size: 14px;
+	height: 40px;
+}
+
+div#menuitem p {
+	padding-top: 11px;
+	padding-bottom: 12px;
+}
+
+div#menuitem a {
+	border-left: 1px solid #eee;
+	text-decoration: none;
+	color: #666;
+	display: block;
+}
+
+div#black_sep1 {
+	background-color: #c5d0d3;
+	height: 8px;
+}
+
+/************** SETUP MENU **************/
+div#setupmenu {
+	background: #fff url(images/header_left.gif) no-repeat;
+	height: 18px;
+	border-bottom: 1px dotted #ccc;
+	border-right: 1px solid #ccc;
+	line-height: 1.2em;
+}
+
+div#setupmenuitem {
+	float: right;
+	text-align: center;
+	border-left: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+}
+
+div#setupmenuitem a {
+	text-decoration: none;
+	color: #000;
+	display: block;
+	padding-left: 30px;
+	padding-right: 30px;
+	padding-top: 3px;
+	padding-bottom: 3px;
+}
+
+div#setupmenuitem a:hover {
+	text-decoration: none;
+	background-color: #ccc;
+	color: #666;
+}
+
+/************** EVENTS MENU **************/
+div#eventsmenu {
+	background: #fff url(images/header_left.gif) no-repeat;
+	height: 18px;
+	border-bottom: 1px dotted #ccc;
+	border-right: 1px solid #ccc;
+	line-height: 1.2em;
+}
+
+div#eventsmenuitem {
+	float: right;
+	text-align: center;
+	border-left: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+}
+
+div#eventsmenuitem a {
+	text-decoration: none;
+	color: #000;
+	display: block;
+	padding-left: 30px;
+	padding-right: 30px;
+	padding-top: 3px;
+	padding-bottom: 3px;
+}
+
+div#eventsmenuitem a:hover {
+	text-decoration: none;
+	background-color: #ccc;
+	color: #666;
+}
+
+/************** CONTENT **************/
+div#content {
+	padding-left: 15px;
+	padding-right: 15px;
+	padding-bottom: 15px;
+	/*
+	width: auto;
+	height: auto;
+	*/
+}
+
+/************** FOOTER **************/
+div#footer {
+	border-top: 1px solid #ccc;
+	border-bottom: 4px solid #c5d0d3;
+	height: 18px;
+	padding-top: 2px;
+	padding-left: 15px;
+	padding-right: 15px;
+	background-color: #eee;
+}
+
+div#copyright {
+	font-size: 10px;
+	text-align: center;
+}
+
+/************** TABLES **************/
+table {
+	font-size: 10px;
+	line-height: 1.4em;
+	border: none;
+}
+
+table.content th {
+	color: #000;
+	font-size: 14px;
+	font-weight: bold;
+	border-bottom: 3px solid #c5d0d3;
+	padding-top: 20px;
+	padding-bottom: 5px;
+}
+
+table.content td {
+	padding: 2px;
+	border-left: 1px dotted #ccc;
+	border-right: 1px dotted #ccc;
+	border-bottom: 1px dotted #ccc;
+	/*background-color: #fbfbfb;*/
+}
+
+tr.row:hover {
+	background-color: #eee;
+}
+
+table.clear td {
+	border: none;
+}
+
+/************* MODULES ***************/
+
+div#module {
+	float: left;
+	width: 160px;
+	height: 36px;
+	background: #fff url(images/button.gif) no-repeat;
+	padding-top: 3px;
+	padding-left: 5px;
+	padding-right: 5px;
+	padding-bottom: 6px;
+	margin: 8px;
+}
+
+.code {
+	font-weight: bold;
+	color: #a4a4a4;
+}
+
+table.module td {
+	border: 0;
+	padding: 0;
+	margin: 0;
+	font-size: 9px;
+}
+
+input.module {
+	border: 0;
+	padding: 0;
+	font-size: 11px;
+	width: 110px;
+	text-align: center;
+	color: #666;
+	font-weight: bold;
+	background-color: #fff;
+}
+
+input.module_on {
+	border: 0;
+	padding: 0;
+	font-size: 11px;
+	width: 110px;
+	text-align: center;
+	color: #666;
+	font-weight: bold;
+	background-color: #fff;
+}
+
+input.module_off {
+	border: 0;
+	padding: 0;
+	font-size: 11px;
+	width: 110px;
+	text-align: center;
+	color: #a4a4a4;
+	font-weight: bold;
+	background-color: #fff;
+}
+
+table.dimlevel td {
+	border-top: 1px solid #ccc;
+	border-left: 1px solid #ccc;
+	border-right: 1px solid #ccc;
+}
+
+.dimlevelon {
+	background-color: #ffe593;
+}
+
+.dimlevelon a {
+	display: block;
+	width: 8px;
+	height: 10px;
+}
+
+.dimleveloff a {
+	display: block;
+	width: 8px;
+	height: 10px;
+}
+
+table.onofftb td {
+	border: 1px dotted #ccc;
+}
+
+.onoff a {
+	display:block;
+}
+
+.onoff a:hover {
+	display:block;
+	background-color: #e5e5e5;
+}
+
+
+/************** HEADINGS **************/
+
+h1 {
+	padding-top: 15px;
+}
+
+/* h6 used mostly in table column headers */
+h6 {
+	font-size: 11px;
+	font-weight: bold;
+}
+
+/************** POPUP **************/
+
+#pup {
+  position:absolute;
+  z-index:200; /* aaaalways on top*/
+  padding: 3px;
+  margin-left: 10px;
+  margin-top: 5px;
+  width: 250px;
+  border: 1px solid black;
+  color: inherit;
+  background-color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+/************** Progress Bar **************/
+.hide { position:absolute; visibility:hidden; }
+.show { position:absolute; visibility:visible; }
