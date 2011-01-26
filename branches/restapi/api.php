@@ -1,5 +1,5 @@
 <?php
-# require_once("./apiinclude.php");
+require_once("./apiinclude.php");
 $dirname = dirname(__FILE__);
 require_once($dirname.DIRECTORY_SEPARATOR.'lib/classes/restserver.php');
 require_once($dirname.DIRECTORY_SEPARATOR.'api/domuscontroller.php');
@@ -9,7 +9,8 @@ $mode = 'production'; // 'debug' or 'production'
 $server = new RestServer($mode, "domus.Link");
 # $server->refreshCache(); // uncomment momentarily to clear the cache if classes change in production mode
 
-$server->addClass('DomusController', "domus.Link/api.php/");
+$config = $_SESSION['frontObj']->getConfig();
+$server->addClass('DomusController', $config['url_path']."/api.php/");
 # $server->addClass('ProductsController', '/products'); // adds this as a base to all the URLs in this class
 
 $server->handle();

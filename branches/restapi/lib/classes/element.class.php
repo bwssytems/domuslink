@@ -179,7 +179,7 @@ abstract class Element {
         {
             $object = get_object_vars( $object );
         }
-        return array_map( 'Element::objectToArray', $object );
+        return array_map( array( __CLASS__, 'objectToArray'), $object );
     }
     
 	public function __toString() {
