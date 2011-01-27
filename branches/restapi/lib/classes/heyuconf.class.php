@@ -226,7 +226,7 @@ class heyuConf extends ElementFile {
 				$isUnknown = true;
 		}
 		
-		if(!$isUnknown)
+		if(!$isUnknown && !$jsonEncode)
 			$floorPlan[$i] = "unknown";
 		if($jsonEncode)			
 			return array("floorplan" => $floorPlan);
