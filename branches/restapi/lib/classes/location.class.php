@@ -174,9 +174,9 @@ class location {
 	function level_calc($dimpercent) {
 		if ($dimpercent == "0") 
 			return 0;
-		elseif ($dimpercent > "82" && $dimpercent <= "100") 
+		elseif ($dimpercent > "80" && $dimpercent <= "100") 
 			return 5;
-		elseif ($dimpercent > "60" && $dimpercent <= "82") 
+		elseif ($dimpercent > "60" && $dimpercent <= "80") 
 			return 4;
 		elseif ($dimpercent > "40" && $dimpercent <= "60") 
 			return 3;
@@ -191,15 +191,18 @@ class location {
 	 * 
 	 * @param $loc represents the wanted location
 	 */
-	function getAliasesByLocation($loc, $json = false) {
+	function getAliasesByLocation($loc, $json = false, $onlyVisible = false) {
 		$i = 0;
 		foreach ($this->heyuconfObj->getAliases(true) as $line) {
 			if($line->getAliasMap()->getFloorPlanLabel() == trim($loc)) {
+				if(!$onlyVisible || !$line->getAliasMap()->isHiddenFromHome())
+				{
 				if($json)
 					$request[$i] = $line->encodeJSON();
 				else
 					$request[$i] = $line;
 				$i++;
+				}
 			}
 		}
 		

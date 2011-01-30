@@ -1,5 +1,23 @@
 <?php
-## Includes
+/*
+ * domus.Link :: PHP Web-based frontend for Heyu (X10 Home Automation)
+ * Copyright (c) 2007, Istvan Hubay Cebrian (istvan.cebrian@domus.link.co.pt)
+ * Project's homepage: http://domus.link.co.pt
+ * Project's dev. homepage: http://domuslink.googlecode.com
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope's that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details. You should have 
+ * received a copy of the GNU General Public License along with
+ * this program; if not, write to the Free Software Foundation, 
+ * Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
 
 class DomusController
 {
@@ -52,16 +70,18 @@ class DomusController
         }
         else
         {
-    		return(array("alaises" => $heyuconf->getAliases(false, true)));
+        	// Will only return enabled aliases
+    		return(array("alaises" => $heyuconf->getAliases(true, true)));
         }
     }
 
     /**
      * Gets the aliases by location in the floorplan
+     * @url GET /location/$label/$visible
      * @url GET /location/$label
      * @url GET /location
      */
-    public function getAliasesByLocation($label = null)
+    public function getAliasesByLocation($label = null, $visible = "false")
     {
 		error_log("Enter getAliasesByLocation");
     	require_once('.'.DIRECTORY_SEPARATOR.'apiinclude.php');
@@ -70,7 +90,10 @@ class DomusController
 
 		if($label == null)
 			$label = "unknown";
-		return(array($label => $theLocation->getAliasesByLocation($label, true)));
+		$passVisible = false;
+		if($visible == "true")
+			$passVisible = true;
+		return(array($label => $theLocation->getAliasesByLocation($label, true, $passVisible)));
     }
 
     /**
@@ -116,16 +139,18 @@ class DomusController
     
     /**
      * Gets the floorplan
+     * @url GET /floorplan/$visible
      * @url GET /floorplan
      */
-    public function getFloorPlan()
+    public function getFloorPlan($visible = "false")
     {
 		error_log("Enter getFloorPlan");
     	require_once('.'.DIRECTORY_SEPARATOR.'apiinclude.php');
 		require_once('.'.DIRECTORY_SEPARATOR.'include_globals.php');
-
-//   		return(array("floorplan" => $heyuconf->getFloorPlan(false)));
-   		return($heyuconf->getFloorPlan(true));
+		$passVisible = false;
+		if($visible == "true")
+			$passVisible = true;
+   		return($heyuconf->getFloorPlan(true, $passVisible));
     }
     
     /**
@@ -202,7 +227,7 @@ class DomusController
 			if($anAlias)
 			{
 				try {
-					heyu_action($config, "db", $anAlias->getHouseDevice(), $state, $curr, $req);
+					heyu_action($config, "dbapi", $anAlias->getHouseDevice(), $state, $curr, $req);
 				}
 				catch(Exception $e) {
 					// noop

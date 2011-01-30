@@ -49,6 +49,53 @@
   This file is ni the root directory of the web install of domus.Link and is urlCache.map. You should
   remove this file after upgrading or the API commands may not be properly found or are returning HTTP
   errors.
+  
+  9) Issue starting and stopping heyu within domus.Link or through the command line after a good configuration.
+  		Here some background information for domus.Link and heyu start/stop:
+
+		Linux/Unix specific definition: the owner of a running process is the one that can control it directly.
+		Otherwise, permissions in linux/unix need to be granted. Root mostly has control over all, but running
+		as root is always not recommended.
+
+		domus.Link specific definition: domus.Link requires both the heyu relay and engine to be running to
+		function. By default, if the engine is not running and the relay is, domus will try to start it.
+		If neither are running, it will try to start both. This is when the 'start' button is selected.
+
+		heyu specific definition: in the x10.conf file, there is a parameter to auto start the heyu engine.
+		If this is 'start_engine AUTO', when heyu is started it will bring up both the relay and the engine.
+		Otherwise, just the relay is started.
+
+		apache specific definition: in most linux/unix systems, the webserver is run under a  specific user id
+		such as 'apache'. This is not a root level id and has access only to the items given permission by the
+		user creation. This would be similar to a normal user in the system.
+
+		Scenario 1:
+		So, if user 'brad' starts heyu and the x10.conf file does not have AUTO for start_engine, there will
+		be one process owned by 'brad' called 'heyu_relay'.
+
+		Then the apache webserver starts under user id 'apache'. A user loads the domus.Link page and it says
+		that hey is not running. The user selects the 'start' from the web page, and then it comes back saying
+		heyu is still not running.
+
+		Problem: Since 'brad' started heyu_relay and apache wants to start the 'heyu_engine' the heyu relay
+		denies another process owner to start the second process as they both have to be the same owner, which
+		in this case is 'brad'.
+
+		Scenario 2:
+		So, if user 'brad' starts heyu and the x10.conf file does have AUTO for start_engine, there will be
+		two process owned by 'brad' called 'heyu_relay and 'heyu_engine'.
+
+		Then the apache webserver starts under user id 'apache'. A user loads the domus.Link page and it says
+		that hey is running. The user selects the 'stop' from the web page, and then it comes back saying heyu
+		is still running.
+
+		Problem: Since 'brad' started heyu_relay and heyu engine and apache wants to stop the 'heyu_engine'
+		and the heyu relay, the system denies another process owner to stop the second process as they both
+		have to be the same owner, which in this case is 'brad'.
+
+		The moral of he story is, to keep control consistent for domus.Link, it  is best that the heyu processes
+		are running under the apache user id. Then domus.Link has full control.
+
   -------
   License
   -------

@@ -23,6 +23,15 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
+/*
+ * Brad Samuels 01/30/11
+ * modifications from original server code
+ * urlMap.cache filename usage was adding a slach to the beginning - removed
+ * constructor was determining path for root and cacheDir based on Document Root and Script name location.
+ * 	This caused errors when they were the same path.
+ * contrutctor now takes a relative path for the location of the cache
+ */
+
 /**
  * Constants used in RestServer Class.
  */
@@ -66,13 +75,13 @@ class RestServer
 	 * 
 	 * @param string $mode The mode, either debug or production
 	 */
-	public function  __construct($mode = 'debug', $realm = 'Rest Server')
+	public function  __construct($mode = 'debug', $realm = 'Rest Server', $cacheDirRelative = '')
 	{
 		$this->mode = $mode;
 		$this->realm = $realm;
-		$dir = dirname(str_replace($_SERVER['DOCUMENT_ROOT'], '', $_SERVER['SCRIPT_FILENAME']));
+		$dir = dirname($_SERVER['SCRIPT_FILENAME']);
 		$this->root = ($dir == '.' ? '' : $dir . '/');
-		$this->cacheDir = $this->root;
+		$this->cacheDir = $this->root.$cacheDirRelative;
 	}
 	
 	public function  __destruct()
@@ -81,7 +90,7 @@ class RestServer
 			if (function_exists('apc_store')) {
 				apc_store('urlMap', $this->map);
 			} else {
-				file_put_contents($this->cacheDir . '/urlMap.cache', serialize($this->map));
+				file_put_contents($this->cacheDir . 'urlMap.cache', serialize($this->map));
 			}
 		}
 	}
@@ -202,6 +211,7 @@ class RestServer
 	
 	protected function loadCache()
 	{
+		$map = null;
 		if ($this->cached !== null) {
 			return;
 		}
@@ -211,8 +221,8 @@ class RestServer
 		if ($this->mode == 'production') {
 			if (function_exists('apc_fetch')) {
 				$map = apc_fetch('urlMap');
-			} elseif (file_exists($this->cacheDir . '/urlMap.cache')) {
-				$map = unserialize(file_get_contents($this->cacheDir . '/urlMap.cache'));
+			} elseif (file_exists($this->cacheDir . 'urlMap.cache')) {
+				$map = unserialize(file_get_contents($this->cacheDir . 'urlMap.cache'));
 			}
 			if ($map && is_array($map)) {
 				$this->map = $map;
@@ -222,7 +232,7 @@ class RestServer
 			if (function_exists('apc_delete')) {
 				apc_delete('urlMap');
 			} else {
-				@unlink($this->cacheDir . '/urlMap.cache');
+				@unlink($this->cacheDir . 'urlMap.cache');
 			}
 		}
 	}

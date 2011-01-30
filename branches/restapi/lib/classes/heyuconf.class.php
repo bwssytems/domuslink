@@ -203,12 +203,14 @@ class heyuConf extends ElementFile {
 	 * Dynamically build the floorplan from saved alias map definitions
 	 * @param $jsonEncode boolean, if true, return result in json format
 	 */
-	function getFloorPlan($jsonEncode = false) {
+	function getFloorPlan($jsonEncode = false, $onlyVisible = false) {
 		$floorPlan = array();
 		$i = 0;
 		$isUnknown = false;
 		foreach($this->aliasMap->getObjects() as $anAliasMap) {
 			$isFound = false;
+			if(!$onlyVisible || !$anAliasMap->isHiddenFromHome())
+			{
 			$fpLabel = $anAliasMap->getFloorPlanLabel();
 			for($x = 0; $x < count($floorPlan); $x++) {
 				if($fpLabel == $floorPlan[$x]) {
@@ -224,6 +226,7 @@ class heyuConf extends ElementFile {
 				
 			if($fpLabel == 'unknown')
 				$isUnknown = true;
+			}
 		}
 		
 		if(!$isUnknown && !$jsonEncode)

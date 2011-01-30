@@ -128,13 +128,19 @@ function heyu_action($config, $theActionRequest, $theCode, $theState = null, $cu
 		case "db":
 			$cmd = dim_bright($config, $theState, $curr, $req, $theCode);
 			break;
+		case "dbapi":
+			$cmd = dim_bright_real($config, $theState, $curr, $req, $theCode);
+			break;
 	}
 	
+	if($cmd == false)
+		return;
+		
 	execute_cmd($cmd);
 }
 
 /**
- * Dim Bright Lights
+ * Dim Bright Lights using levels 1-5
  * 
  * @param $state 
  * @param $currlevel current intensity level at which the module is
@@ -142,46 +148,74 @@ function heyu_action($config, $theActionRequest, $theCode, $theState = null, $cu
  * @param $code modules unitcode
  * 
  */
-function dim_bright($config, $state, $currlevel, $reqlevel, $code) {	
-	if ($currlevel == $reqlevel) return false;
+function dim_bright($config, $state, $currlevel, $reqlevel, $code) {
+	$modCurrLevel = $currlevel * 20;
+	$modReqLevel = $reqlevel * 20;
+	
+	return dim_bright_real($config, $state, $modCurrLevel, $modReqLevel, $code);
+}
+
+/**
+ * Dim Bright Lights using real 0-100 levels
+ * 
+ * @param $state 
+ * @param $currlevel current intensity level at which the module is
+ * @param $reqlevel intensity level requested
+ * @param $code modules unitcode
+ * 
+ */
+function dim_bright_real($config, $state, $currlevel, $reqlevel, $code) {	
+	if ($currlevel == $reqlevel)
+		return false;
+		
+	$incdec = 0;
 	
 	if ($currlevel < $reqlevel) {
 		if ($state == "off")
-			$cmd = $config['cmd_dimb']." ".$code;
+		{
+			$incdec = calc_real_level(100, $reqlevel);
+			if($incdec == 0)
+				return $config['heyuexecreal']." ".$config['cmd_on']." ".$code;
+			else
+				$cmd = $config['cmd_dimb']." ".$code;
+		}
 		else
+		{
 			$cmd = $config['cmd_bright']." ".$code;
 			
-		$incdec = $reqlevel - $currlevel;
+			$incdec = calc_real_level($reqlevel, $currlevel);
+		}
 	}
-	elseif ($currlevel > $reqlevel) {
+	elseif ($currlevel > $reqlevel && $reqlevel != 0) {
 		$cmd = $config['cmd_dim']." ".$code;
-		$incdec = $currlevel - $reqlevel;
+		$incdec = calc_real_level($currlevel, $reqlevel);
 	}
+	else
+		return $config['heyuexecreal']." ".$config['cmd_off']." ".$code;
 	
-	// select how much to increase or decrease level by.
-	switch ($incdec) {
-		case 1:
-			if ($state == "on") $cmd .= " 4";
-			else $cmd .= " 22";
-			break;
-		case 2:
-			if ($state == "on") $cmd .= " 8";
-			else $cmd .= " 16";
-			break;	
-		case 3:
-			$cmd .= " 12";
-			break;
-		case 4:
-			if ($state == "on") $cmd .= " 16";
-			else $cmd .= " 8";
-			break;
-		case 5:
-			if ($state == "on") $cmd .= " 22";
-			else $cmd .= " 4";
-			break;
-	}
+	return $config['heyuexecreal']." ".$cmd." ".$incdec;
+}
+
+/* Need to convert real 0 - 100 values into 1-22 values for heyu
+ * @param value1 this is the value to subtract from
+ * @param value2 this is the value to subtract
+ */
+function calc_real_level($value1, $value2)
+{
+	$dim_interval = (float)100.00 / 22.00;
 	
-	return $config['heyuexecreal']." ".$cmd;
+	$diff = (float)($value1 - $value2);
+	$real_diff = (int)0;
+	
+	if($diff != 0.0 && $diff < $dim_interval)
+		$real_diff = 1;
+	else if($diff > 95.0)
+		$real_diff = 22;
+	else
+		$real_diff = (int)($diff * 0.22);
+
+	return $real_diff;
+	
 }
 
 /**

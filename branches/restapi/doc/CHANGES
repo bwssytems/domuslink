@@ -15,6 +15,10 @@
 	* Issue 46 fixed - When creating an alias with spaces in the name, domus.Link
 	  did not create a sanitized name with lowercase and underscores.
 	* Issue 51 fixed - CN17A commands for on/off were not being properly handled.
+	* Changed the way dimming is handled to correctly set based on request. There
+	  is a new method to handle dimming in 0-100 percent terms with the corrected
+	  calculation of if the device is on or off. This is now called by the legacy
+	  method dim_bright.
   v1.2 - 01/July/2010
  ------
 	* Updated heyu config file handling to be agnostic and object oriented. domus.Link

@@ -49,7 +49,10 @@ if (!isset($_GET["action"])) {
 }
 else {
 	$bad_cmd = false;
-	$requested_cmd = " ".$_POST["command"]; // add a space to get a non-zero value when checking
+	if(isset($_POST["command"]))
+		$requested_cmd = " ".$_POST["command"]; // add a space to get a non-zero value when checking
+	else
+		$requested_cmd = "";
 	$requested_args = " ".$_POST["arguments"]; // add a space to get a non-zero value when checking
 
 	// check command and arguments for any restricted commands
@@ -70,12 +73,12 @@ else {
 	}
 
 	if($bad_cmd == true) {
-		$err_lines = array("domus.Link Utility restricted command cannot be executed: <b>".$_POST["command"]." ".$_POST["arguments"]."</b>", " ");
+		$err_lines = array("domus.Link Utility restricted command cannot be executed: <b>".$requested_cmd." ".$requested_args."</b>", " ");
 		$tpl_body->set('out_lines', $err_lines);
 	}
 	else {
 		// execute the heyu command and return output
-		$tpl_body->set('out_lines', execute_cmd($config['heyuexecreal']." ".$_POST["command"]." ".$_POST["arguments"], true));
+		$tpl_body->set('out_lines', execute_cmd($config['heyuexecreal']." ".$requested_cmd." ".$requested_args, true));
 	}
 }
 
