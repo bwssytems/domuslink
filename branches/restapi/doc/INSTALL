@@ -9,7 +9,7 @@
  To run and use domus.Link V1.2+ you need the following:
  
  These have been tested -
- - Heyu 2.8.0
+ - Heyu 2.8.0+
  - Apache 2.2+ (2.0+ may work if PHP5 is installed. Not Tested)
  - PHP5+ support
  
