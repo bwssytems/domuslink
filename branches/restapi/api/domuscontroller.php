@@ -21,20 +21,21 @@
 
 class DomusController
 {
+	private $apiVersion = "3";
+	private $apiQualifier = "beta";
 	
 	public function authorize()
 	{
-		error_log("Enter authorize");
 		require_once('.'.DIRECTORY_SEPARATOR.'apiinclude.php');
 		## Load config file functions and grab settings
 		//$config =& parse_config($frontObj->getConfig());
 		$config = $_SESSION['frontObj']->getConfig();
 		$myLogin = new Login($config['password']);
-		error_log("authorize for level ".$config['seclevel']." and this login status is ".$myLogin->login());
+		error_log("Enter authorize for level ".$config['seclevel']." and this login status is ".$myLogin->login());
 		## Security validation's
 		if ($config['seclevel'] != "0" && $myLogin->login() != true) {
 			if(isset($_SERVER['PHP_AUTH_PW'])) {
-				error_log("validate password ".$_SERVER['PHP_AUTH_PW']);
+				error_log("validate password ******");
 				if($myLogin->checkLogin($_SERVER['PHP_AUTH_PW'], true))
 					return true;
 			}
@@ -51,9 +52,19 @@ class DomusController
      */
     public function test()
     {
-        return "DomusController test call successful.";
+        return(array("test" => "DomusController test call successful."));
     }
-   
+
+    /**
+     * Returns a JSON version of the RESTAPI for domus.Link
+     * @noAuth
+     * @url GET /version
+     */
+    public function version()
+    {
+        return(array("api" => array("name" => "domus.Link.RESTAPI.v".$this->apiVersion.$this->apiQualifier, "version" => $this->apiVersion)));
+    }
+    
     /**
      * Gets the aliases by label or current for all
      * @url GET /aliases/$label
