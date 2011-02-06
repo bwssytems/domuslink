@@ -102,6 +102,14 @@ public class DomusAsyncTask extends AsyncTask<DomusAsyncParams, Void, DomusAsync
 				theResults.setTheException(e);
 			}
 			break;			
+		case DomusHandler.GET_VERSION:
+			try {
+				theResults.setVersionInfo(theParams.getTheHandler().getDomusApiVersion());
+			}
+			catch(Exception e) {
+				theResults.setTheException(e);
+			}
+			break;
 		case DomusHandler.GET_INITIAL:
 			try {
 				theResults.setLocations(theParams.getTheHandler().getFloorPlan());
@@ -138,23 +146,26 @@ public class DomusAsyncTask extends AsyncTask<DomusAsyncParams, Void, DomusAsync
 			pUpdater.setFloorPlanResult(result.getLocations());
 			break;
 		case DomusHandler.GET_ALIAS_STATE:
-			pUpdater.actionComplete("ALIAS_STATE");
+			pUpdater.actionComplete(new String[] {"ALIAS_STATE"});
 			break;
 		case DomusHandler.GET_ALIASES_BY_LOCATION:
 			pUpdater.setAliasesResult(result.getAliases());
 			break;
 		case DomusHandler.DIM_ALIAS:
-			pUpdater.actionComplete("DIM_ALIAS");
+			pUpdater.actionComplete(new String[] {"DIM_ALIAS"});
 			break;
 		case DomusHandler.TURN_ON_ALIAS:
-			pUpdater.actionComplete("ON_ALIAS");
+			pUpdater.actionComplete(new String[] {"ON_ALIAS"});
 			break;
 		case DomusHandler.TURN_OFF_ALIAS:
-			pUpdater.actionComplete("OFF_ALIAS");
+			pUpdater.actionComplete(new String[] {"OFF_ALIAS"});
 			break;			
 		case DomusHandler.GET_INITIAL:
 			pUpdater.setFloorPlanResult(result.getLocations());
 			pUpdater.setAliasesResult(result.getAliases());
+			break;
+		case DomusHandler.GET_VERSION:
+			pUpdater.actionComplete(result.getVersionInfo());
 			break;
 
 		}

@@ -24,6 +24,7 @@ import com.domuslink.elements.Alias;
 public class DomusAsyncResults {
 	public String[] locations;
 	public Alias[] Aliases;
+	public String[] versionInfo;
 	public Exception theException;
 	public DomusAsyncParams calledParams;
 	
@@ -61,6 +62,14 @@ public class DomusAsyncResults {
 
 	public void setCalledParams(DomusAsyncParams calledParams) {
 		this.calledParams = calledParams;
+	}
+
+	public String[] getVersionInfo() {
+		return versionInfo;
+	}
+
+	public void setVersionInfo(String[] versionInfo) {
+		this.versionInfo = versionInfo;
 	}
 
 }

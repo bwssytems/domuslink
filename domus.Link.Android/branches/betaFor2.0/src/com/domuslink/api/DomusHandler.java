@@ -19,18 +19,19 @@
  */
 package com.domuslink.api;
 
+import org.apache.http.client.CookieStore;
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import android.content.Context;
 import android.util.Log;
-
+import com.domuslink.communication.ApiCookieHandler;
 import com.domuslink.communication.ApiHandler;
 import com.domuslink.elements.Alias;
 
-public class DomusHandler {
+public class DomusHandler implements ApiCookieHandler {
 	private String hostPath = null;
 	private String authPass = null;
+	private CookieStore cookies;
 	private boolean visible = true;
 	private Context c;
     private static final String TAG = "DomusLink.DomusHandler";
@@ -43,7 +44,9 @@ public class DomusHandler {
     public static final int DIM_ALIAS = 3;
     public static final int TURN_ON_ALIAS = 4;
     public static final int TURN_OFF_ALIAS = 5;
-    public static final int GET_INITIAL = 6;
+    public static final int GET_VERSION = 98;
+    public static final int GET_INITIAL = 99;
+    
 
 
 	public DomusHandler(Context theContext, String host, String auth, boolean visible)
@@ -52,6 +55,7 @@ public class DomusHandler {
 		this.authPass = auth;
 		this.visible = visible;
 		this.c = theContext;
+		this.cookies = null;
 	}
 
 	public String[] getFloorPlan() throws Exception
@@ -65,9 +69,9 @@ public class DomusHandler {
 	        ApiHandler.prepareUserAgent(this.c, authPass, hostPath);
 	        try {
 	        	if(this.visible)
-	        		theResponse = ApiHandler.getPageContent("floorplan", "true");
+	        		theResponse = ApiHandler.getPageContent(this, "floorplan", "true");
 	        	else
-	        		theResponse = ApiHandler.getPageContent("floorplan", "false");
+	        		theResponse = ApiHandler.getPageContent(this, "floorplan", "false");
 	        }
 	        catch(Exception e) {
 	            Log.e(TAG, "Error getting floorplan page content at "+this.hostPath, e);
@@ -109,7 +113,7 @@ public class DomusHandler {
         if(this.hostPath != null || this.hostPath.length() != 0) {
 	        ApiHandler.prepareUserAgent(this.c, authPass, hostPath);
 	        try {
-	        	theResponse = ApiHandler.getPageContent("aliasstate", theAlias.getHouseDevice());
+	        	theResponse = ApiHandler.getPageContent(this, "aliasstate", theAlias.getHouseDevice());
 	        }
 	        catch(Exception e) {
 	            Log.e(TAG, "Error getting aliasstate page content at "+this.hostPath, e);
@@ -144,9 +148,9 @@ public class DomusHandler {
 	        ApiHandler.prepareUserAgent(this.c, authPass, hostPath);
 	        try {
 	        	if(this.visible)
-	        		theResponse = ApiHandler.getPageContent("location", theLocation+"/true");
+	        		theResponse = ApiHandler.getPageContent(this, "location", theLocation+"/true");
 	        	else
-	        		theResponse = ApiHandler.getPageContent("location", theLocation+"/false");
+	        		theResponse = ApiHandler.getPageContent(this, "location", theLocation+"/false");
 	        }
 	        catch(Exception e) {
 	            Log.e(TAG, "Error getting location page content at "+this.hostPath, e);
@@ -182,6 +186,48 @@ public class DomusHandler {
        return theAliases;
 		
 	}
+
+	public String[] getDomusApiVersion() throws Exception
+	{
+    	JSONObject theApi = null;
+    	JSONObject theResponse = null;
+    	String[] theVersionInfo;
+
+
+        if(this.hostPath != null || this.hostPath.length() != 0) {
+	        ApiHandler.prepareUserAgent(this.c, authPass, hostPath);
+	        try {
+        		theResponse = ApiHandler.getPageContent(this, "version", null);
+	        }
+	        catch(Exception e) {
+	            Log.e(TAG, "Error getting version page content at "+this.hostPath, e);
+	            throw e;
+	        }
+	        
+        	try {
+        		theApi = theResponse.getJSONObject("api");
+        	}
+        	catch(Exception e)
+        	{
+                Log.e(TAG, "Error getting version from JSONObject", e);
+                throw e;
+        	}
+	        theVersionInfo = new String[2];
+        	try {
+        		theVersionInfo[0] = theApi.getString("name");
+        		theVersionInfo[1] = theApi.getString("version");
+        	}
+        	catch(Exception e)
+        	{
+                Log.e(TAG, "Error getting version info from JSONArray", e);
+                throw e;
+        	}
+        }
+        else
+        	theVersionInfo = EMPTY_LIST;
+        
+        return theVersionInfo;
+	}
 	
 	public void dimAlias(Alias theAlias, int theRequestLevel) throws Exception {
     	JSONObject theResponse = null;
@@ -189,7 +235,7 @@ public class DomusHandler {
         if(this.hostPath != null || this.hostPath.length() != 0) {
 	        ApiHandler.prepareUserAgent(this.c, authPass, hostPath);
 	        try {
-	        	theResponse = ApiHandler.postPageContent("dimbright", theAlias.getLabel()+"/"+theAlias.getStringState()+"/"+theAlias.getDimLevel()+"/"+theRequestLevel);
+	        	theResponse = ApiHandler.postPageContent(this, "dimbright", theAlias.getLabel()+"/"+theAlias.getStringState()+"/"+theAlias.getDimLevel()+"/"+theRequestLevel);
 	        }
 	        catch(Exception e) {
 	            Log.e(TAG, "Error setting on page content at "+this.hostPath+" for alias "+theAlias.getLabel(), e);
@@ -209,7 +255,7 @@ public class DomusHandler {
         if(this.hostPath != null || this.hostPath.length() != 0) {
 	        ApiHandler.prepareUserAgent(this.c, authPass, hostPath);
 	        try {
-	        	theResponse = ApiHandler.postPageContent("on", theAlias.getLabel());
+	        	theResponse = ApiHandler.postPageContent(this, "on", theAlias.getLabel());
 	        }
 	        catch(Exception e) {
 	            Log.e(TAG, "Error setting on page content at "+this.hostPath+" for alias "+theAlias.getLabel(), e);
@@ -226,7 +272,7 @@ public class DomusHandler {
         if(this.hostPath != null || this.hostPath.length() != 0) {
 	        ApiHandler.prepareUserAgent(this.c, authPass, hostPath);
 	        try {
-	        	theResponse = ApiHandler.postPageContent("off", theAlias.getLabel());
+	        	theResponse = ApiHandler.postPageContent(this, "off", theAlias.getLabel());
 	        }
 	        catch(Exception e) {
 	            Log.e(TAG, "Error setting on page content at "+this.hostPath+" for alias "+theAlias.getLabel(), e);
@@ -237,4 +283,17 @@ public class DomusHandler {
        }
         
 	}
+
+	@Override
+	public CookieStore getCookieStore() {
+		return cookies;
+	}
+
+	@Override
+	public void setCookieStore(CookieStore aCookieStore) {
+		cookies = aCookieStore;
+		
+	}
+	
+	
 }

@@ -181,7 +181,7 @@ public class DevicesAdapter extends BaseAdapter implements DomusAsyncUpdater {
 	}
 
 	@Override
-	public void actionComplete(String result) {
+	public void actionComplete(String[] result) {
 		// not used
 		
 	}

@@ -24,6 +24,7 @@ import com.domuslink.api.DomusAsyncTask;
 import com.domuslink.api.DomusAsyncUpdater;
 import com.domuslink.api.DomusHandler;
 import com.domuslink.elements.Alias;
+import com.domuslink.util.VersionHandler;
 import com.domuslink.DomusLink.DevicesAdapter;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -32,6 +33,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -61,10 +64,15 @@ public class DomusLink extends Activity implements DomusAsyncUpdater {
     private SeekBar mDeviceDimmer;
     private TextView mDimmerLevel;
     private String[] mFloorPlan;
-    public String updateDialogText = "Please update your domus.Link Settings.";
+    public String updateDialogText;
+    public String infoDialogText;
+    
+    private VersionHandler mVersion;
 
 
     public final int UPDATE_SETTINGS_DIALOG = 1;
+    public final int INFO_DIALOG = 2;
+    public final int INFO_EXIT_DIALOG = 3;
     public final String TAG = "DomusLink";
 
     /** Called when the activity is first created. */
@@ -95,7 +103,7 @@ public class DomusLink extends Activity implements DomusAsyncUpdater {
 		mDeviceSwitch.setVisibility(View.GONE);
 		mDeviceOn.setVisibility(View.GONE);
 		mDeviceOff.setVisibility(View.GONE);
-        initializeFloorPlan();
+		validateVersion();
     }
     
     public void initializeFloorPlan() {
@@ -114,13 +122,39 @@ public class DomusLink extends Activity implements DomusAsyncUpdater {
        	DomusAsyncParams theParams = new DomusAsyncParams(domusHandler, DomusHandler.GET_INITIAL, null, null, 0);
        	theTask.execute(theParams);
     }
- 
+
+    public void validateVersion() {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        
+//      Log.d(TAG, "This host is ["+prefs.getString("hostPref", "")+"] and password ["+prefs.getString("passPref", "")+"]" );
+      if (prefs.getString("hostPref", "").length() == 0 || prefs.getString("passPref", "").length() == 0) {
+//      	Log.d(TAG, "Showing settings dialog");
+    	  processUpdateDialog("Prefs not found - update your Domus Settings.");
+          return;
+      }
+      
+      domusHandler = new DomusHandler(this, prefs.getString("hostPref", ""), prefs.getString("passPref", ""), prefs.getBoolean("visiblePref", true));
+     	DomusAsyncTask theTask = new DomusAsyncTask();
+     	theTask.setUpdater(this);
+     	DomusAsyncParams theParams = new DomusAsyncParams(domusHandler, DomusHandler.GET_VERSION, null, null, 0);
+     	theTask.execute(theParams);
+   	
+    }
+    
 	protected String getUpdateDialogText() {
 		return updateDialogText;
 	}
 
 	protected void setUpdateDialogText(String updateDialogText) {
 		this.updateDialogText = updateDialogText;
+	}
+
+	public String getInfoDialogText() {
+		return infoDialogText;
+	}
+
+	public void setInfoDialogText(String infoDialogText) {
+		this.infoDialogText = infoDialogText;
 	}
 
 	protected String[] getmFloorPlan() {
@@ -222,6 +256,18 @@ public class DomusLink extends Activity implements DomusAsyncUpdater {
             case R.id.prefs:
                 updatePreferences();
                 break;
+            case R.id.about:
+            	String versionInfo;
+            	try {
+            		PackageInfo pInfo = this.getPackageManager().getPackageInfo(this.getPackageName(), PackageManager.GET_META_DATA);
+            		versionInfo = pInfo.versionName;
+            	}
+            	catch(Exception e)
+            	{
+            		versionInfo = "Unknown";
+            	}
+            	processInfoDialog(this.getResources().getString(R.string.app_name)+" v"+versionInfo+"\nvalid RESTAPI levels are ("+Integer.toString(mVersion.getMinApiVersion())+":"+Integer.toString(mVersion.getExpectedApiVersion())+")");
+                break;
             case R.id.exit:
             	this.finish();
                 break;
@@ -231,11 +277,12 @@ public class DomusLink extends Activity implements DomusAsyncUpdater {
     
     @Override
     protected Dialog onCreateDialog(int id) {
+    	AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
+    	AlertDialog alert = null;
         switch (id) {
             case UPDATE_SETTINGS_DIALOG:
 //            	Log.d(TAG, "entering onCreateDialog for settings with text: "+updateDialogText);
-            	AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            	builder.setMessage(updateDialogText)
+            	alertBuilder.setMessage(updateDialogText)
                         .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
 //                            	Log.d(TAG, "onClick in prefs alert - positive");
@@ -247,14 +294,38 @@ public class DomusLink extends Activity implements DomusAsyncUpdater {
                                R.string.exit, new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int whichButton) {
 //                                    	Log.d(TAG, "onClick in prefs alert - negative");
+                                        dialog.dismiss();
                                     	DomusLink.this.finish();
                                     }
                         });
-
-                AlertDialog alert = builder.create();
-                return alert;
+            	break;
+            case INFO_DIALOG:
+//            	Log.d(TAG, "entering onCreateDialog for settings with text: "+updateDialogText);
+            	alertBuilder.setMessage(infoDialogText)
+                        .setNeutralButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+//                            	Log.d(TAG, "onClick in info msg - positive");
+                                dialog.dismiss();
+                            }
+                        });
+                break;
+            case INFO_EXIT_DIALOG:
+//            	Log.d(TAG, "entering onCreateDialog for settings with text: "+updateDialogText);
+            	alertBuilder.setMessage(infoDialogText)
+                        .setNeutralButton(
+                               R.string.exit, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int whichButton) {
+//                                    	Log.d(TAG, "onClick in info msg - negative");
+                                        dialog.dismiss();
+                                    	DomusLink.this.finish();
+                                    }
+                        });
+                break;
         }
-        return null;
+        
+        if(alertBuilder != null)
+        	alert = alertBuilder.create();
+        return alert;
     }
     
     public void updatePreferences() {
@@ -267,16 +338,31 @@ public class DomusLink extends Activity implements DomusAsyncUpdater {
     	setUpdateDialogText(dialogText);
     	removeDialog(UPDATE_SETTINGS_DIALOG);
         showDialog(UPDATE_SETTINGS_DIALOG);
-        return;
     }
 
-	@Override
+    public void processInfoDialog(String dialogText) {
+    	setInfoDialogText(dialogText);
+    	removeDialog(INFO_DIALOG);
+        showDialog(INFO_DIALOG);
+    }
+
+    public void processInfoExitDialog(String dialogText) {
+    	setInfoDialogText(dialogText);
+    	removeDialog(INFO_EXIT_DIALOG);
+        showDialog(INFO_EXIT_DIALOG);
+    }
+
+    @Override
 	public Context getContext() {
 		return this;
 	}
 
 	@Override
 	public void setAliasesResult(Alias[] theAliases) {
+		// FIXME this is actually kind of ugly as I want to show the first device in the
+		// gallery. This wouldn't be the preferred way to handle UI initialization in the
+		// current model. The FloorPlanClickListener would handle the showing of the devices
+		// in the gallery. Otherwise, we can show nothing until a location is selected.
 	    mDeviceAdapter = new DevicesAdapter(this, domusHandler, theAliases);
 	    mDevicesView.setAdapter(mDeviceAdapter);
 	    mDevicesView.setOnItemClickListener(mDevicesClickListener);
@@ -297,14 +383,20 @@ public class DomusLink extends Activity implements DomusAsyncUpdater {
 	public void handleAsyncException(Exception e) {
     	Log.e(TAG, "InitializeFloorPlan - Exception - showing settings dialog", e);
     	processUpdateDialog("Error communicating with Domus: "+e.getMessage()+"\nUpdate Settings or Exit");
-        return;
 	}
     
 	@Override
-	public void actionComplete(String result) {
-		// not used
-		
+	public void actionComplete(String[] result) {
+		mVersion = new VersionHandler(this.getResources().getInteger(R.integer.expected_api_version), this.getResources().getInteger(R.integer.min_api_version), Integer.parseInt(result[1]), result[0]);
+		if(!mVersion.validateVersion()) {
+			if(!mVersion.getCompatibilty()) {
+				processInfoExitDialog("Invalid server API Level ["+mVersion.getDomusVersionName()+"] valid API levels are ("+Integer.toString(mVersion.getMinApiVersion())+":"+Integer.toString(mVersion.getExpectedApiVersion())+")");
+				return;
+			}
+			else {
+				processInfoDialog("Versions are different but compatible, "+mVersion.getCompatibilityString());
+			}
+		}
+		initializeFloorPlan();
 	}
-
-   
 }

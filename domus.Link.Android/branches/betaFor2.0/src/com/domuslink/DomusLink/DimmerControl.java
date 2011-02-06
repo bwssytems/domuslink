@@ -57,7 +57,7 @@ public class DimmerControl implements SeekBar.OnSeekBarChangeListener, DomusAsyn
 	    }
 
 		@Override
-		public void actionComplete(String result) {
+		public void actionComplete(String[] result) {
 			mParent.getmDeviceSwitch().setChecked(mAlias.isOn());
 			mParent.getmDeviceAdapter().refreshImageIds();
 			mParent.getmDeviceAdapter().notifyDataSetChanged();

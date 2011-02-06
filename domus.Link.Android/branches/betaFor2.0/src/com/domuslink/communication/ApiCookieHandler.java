@@ -17,20 +17,13 @@
  * this program; if not, write to the Free Software Foundation, 
  * Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-package com.domuslink.api;
 
-import com.domuslink.elements.Alias;
+package com.domuslink.communication;
 
-import android.content.Context;
+import org.apache.http.client.CookieStore;
 
-public interface DomusAsyncUpdater {
-	public Context getContext();
-	
-	public void setFloorPlanResult(String[] theLocations);
+public interface ApiCookieHandler {
+	public CookieStore getCookieStore();
 
-	public void setAliasesResult(Alias[] theAliases);
-	
-	public void handleAsyncException(Exception e);
-	
-	public void actionComplete(String[] result);
+	public void setCookieStore(CookieStore aCookieStore);
 }

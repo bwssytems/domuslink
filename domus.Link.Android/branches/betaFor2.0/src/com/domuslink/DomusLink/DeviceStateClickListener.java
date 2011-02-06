@@ -69,7 +69,7 @@ public class DeviceStateClickListener implements OnClickListener, DomusAsyncUpda
 	}
 
 	@Override
-	public void actionComplete(String result) {
+	public void actionComplete(String[] result) {
 		mParent.getmDeviceSwitch().setChecked(mAlias.isOn());	
 		mParent.getmDeviceDimmer().setProgress(mAlias.getDimLevel());
 		mParent.getmDeviceAdapter().refreshImageIds();

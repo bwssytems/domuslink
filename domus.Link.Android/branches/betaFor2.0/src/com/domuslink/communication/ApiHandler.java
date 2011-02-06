@@ -44,10 +44,13 @@ import org.apache.http.HttpResponse;
 import org.apache.http.StatusLine;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.http.client.CookieStore;
 import org.apache.http.client.CredentialsProvider;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpRequestBase;
+import org.apache.http.cookie.Cookie;
+import org.apache.http.impl.client.BasicCookieStore;
 import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONException;
@@ -63,6 +66,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Helper methods to simplify talking with and parsing responses from a
@@ -171,14 +176,14 @@ public class ApiHandler {
      * @throws ApiException If any connection or server error occurs.
      * @throws ParseException If there are problems parsing the response.
      */
-    public static JSONObject getPageContent(String function, String param)
+    public static JSONObject getPageContent(ApiCookieHandler cookieHandler, String function, String param)
     	throws ApiException, ParseException {
-    	return(pageContent(GET_TYPE, sHost, function, param));
+    	return(pageContent(GET_TYPE, sHost, cookieHandler, function, param));
     }
     
-    public static JSONObject postPageContent(String function, String param)
+    public static JSONObject postPageContent(ApiCookieHandler cookieHandler, String function, String param)
     throws ApiException, ParseException {
-    	return(pageContent(POST_TYPE, sHost, function, param));
+    	return(pageContent(POST_TYPE, sHost, cookieHandler, function, param));
     }
 
     /**
@@ -196,7 +201,7 @@ public class ApiHandler {
      * @throws ParseException If there are problems parsing the response.
      */
 
-    protected static JSONObject pageContent(int type, String baseUrl, String function, String param)
+    protected static JSONObject pageContent(int type, String baseUrl, ApiCookieHandler cookieHandler, String function, String param)
         throws ApiException, ParseException {
     	String content;
     	URI commandURI = null;
@@ -217,7 +222,7 @@ public class ApiHandler {
     		throw new ParseException("Problem parsing for URI", e);
     	}
 
-    	content = urlContent(type, commandURI);
+    	content = urlContent(type, commandURI, cookieHandler);
     	
         try {
             // Drill into the JSON response to find the content body
@@ -239,7 +244,7 @@ public class ApiHandler {
      * @return The raw content returned by the server.
      * @throws ApiException If any connection or server error occurs.
      */
-    protected static synchronized String urlContent(int type, URI commandURI) throws ApiException {
+    protected static synchronized String urlContent(int type, URI commandURI, ApiCookieHandler cookieHandler) throws ApiException {
     	HttpResponse response;
     	HttpRequestBase request;
     	
@@ -253,7 +258,24 @@ public class ApiHandler {
         CredentialsProvider credsProvider = new BasicCredentialsProvider();
         credsProvider.setCredentials(new AuthScope(AuthScope.ANY_HOST, AuthScope.ANY_PORT), creds); 
         client.setCredentialsProvider(credsProvider);
-
+        CookieStore cookieStore = cookieHandler.getCookieStore();
+    	if(cookieStore != null)
+    	{
+    		boolean expiredCookies = false;
+    		Date nowTime = new Date();
+            for(Cookie theCookie : cookieStore.getCookies())
+            {
+            	if(theCookie.isExpired(nowTime))
+            		expiredCookies = true;
+            }
+            if(!expiredCookies)
+            	client.setCookieStore(cookieStore);
+            else
+            {
+            	cookieHandler.setCookieStore(null);
+            	cookieStore = null;
+            }
+    	}
 
         try {
         	if(type == POST_TYPE)
@@ -283,6 +305,19 @@ public class ApiHandler {
                 content.write(sBuffer, 0, readBytes);
             }
 
+            if(cookieStore == null)
+            {
+	            List<Cookie> realCookies = client.getCookieStore().getCookies();
+	            if (!realCookies.isEmpty()) {
+	            	BasicCookieStore newCookies = new BasicCookieStore();
+	                for (int i = 0; i < realCookies.size(); i++) {
+	                	newCookies.addCookie(realCookies.get(i));
+//	                	Log.d(TAG, "aCookie - " + realCookies.get(i).toString());
+	                }
+	                cookieHandler.setCookieStore(newCookies);
+	            }
+            }
+            
             // Return result from buffered stream
             return content.toString();
         }
@@ -294,6 +329,11 @@ public class ApiHandler {
         {
         	Log.e(TAG, "urlContent: client execute: "+commandURI.toString());
             throw new ApiException("Problem communicating with API", e);       	
+        } finally {
+            // When HttpClient instance is no longer needed,
+            // shut down the connection manager to ensure
+            // immediate deallocation of all system resources
+            client.getConnectionManager().shutdown();
         }
     }
 }

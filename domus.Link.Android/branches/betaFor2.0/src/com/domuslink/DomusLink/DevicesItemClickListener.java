@@ -58,7 +58,7 @@ public class DevicesItemClickListener implements OnItemClickListener, DomusAsync
 	}
 
 	@Override
-	public void actionComplete(String result) {
+	public void actionComplete(String[] result) {
 		mParent.getmDeviceTitleView().setText("Device: "+theSelectedDevice.getLabel());
 		mParent.getmDeviceSwitch().setChecked(theSelectedDevice.isOn());
 		DeviceStateClickListener aDeviceStateClickListener = new DeviceStateClickListener(mParent, theSelectedDevice);
