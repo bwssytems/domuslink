@@ -45,6 +45,7 @@ elseif ($_GET["action"] == "save") {
 	$config['heyu_subdir'] = $_POST["heyu_subdir"];
 	$config['heyuconf'] = $_POST["heyuconf"];
 	$config['heyuexec'] = $_POST["heyuexec"];
+	$config['hvac_house_code'] = $_POST["hvac_house_code"];
 	$config['seclevel'] = $_POST["seclevel"];
 	$config['password'] = $_POST["password"];
 	$config['lang'] = $_POST["lang"];

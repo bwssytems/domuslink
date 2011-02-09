@@ -70,7 +70,16 @@ if (heyu_running()) {
 	// if any action set, act on it
 	if (isset($_GET['action'])) {
 		try {
-			heyu_action($config, $_GET["action"], $_GET["code"], $_GET["state"], $_GET["curr"], $_GET["req"]);
+			$theState = '';
+			$theCurr = '';
+			$theReq = '';
+			if(isset($_GET["state"]))
+				$theState = $_GET["state"];
+			if(isset($_GET["curr"]))
+				$theCurr = $_GET["curr"];
+			if(isset( $_GET["req"]))
+				$theReq =  $_GET["req"];
+			heyu_action($config, $_GET["action"], $_GET["code"], $theState, $theCurr, $theReq);
 		}
 		catch(Exception $e) {
 			// noop
@@ -100,6 +109,7 @@ if (heyu_running()) {
 		case "appliances":
 		case "irrigation":
 		case "shutters":
+		case "hvac":
 		case "other":
 			$html = $locations->buildLocations($modtypes[$page],'typed');
 			break;

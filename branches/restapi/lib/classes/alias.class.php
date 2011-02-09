@@ -109,7 +109,10 @@ class Alias extends ConfigElement {
 	}
 	
 	function getHouseDevice() {
-		return $this->houseCode.$this->devices;
+		if($this->aliasMapElement->getType() == "HVAC")
+			return($this->houseCode);
+		else
+			return $this->houseCode.$this->devices;
 	}
 	
 	function isMultiAlias() {

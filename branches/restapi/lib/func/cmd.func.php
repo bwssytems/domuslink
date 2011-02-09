@@ -72,7 +72,7 @@ function heyu_running() {
  */
 function heyu_info() {
 	global $config;
-	return get_heyu_info();
+	return get_heyu_info($config);
 }
 
 function get_heyu_info($config) {
@@ -131,6 +131,10 @@ function heyu_action($config, $theActionRequest, $theCode, $theState = null, $cu
 		case "dbapi":
 			$cmd = dim_bright_real($config, $theState, $curr, $req, $theCode);
 			break;
+		case "sp":
+			$cmd = rcs_sp($config, $_GET["change"]);
+			break;
+			
 	}
 	
 	if($cmd == false)
@@ -273,6 +277,16 @@ function heyu_upload() {
 function heyu_erase() {	
 	global $config;
 	return (execute_cmd($config['heyuexecreal']." erase"));
+}
+
+function rcs_sp($config, $change) {
+         if ($change == "inc") {
+            $req = execute_cmd($config['heyuexecreal']." preset h4 9", true);
+         }
+         if ($change == "dec") {
+            $req = execute_cmd($config['heyuexecreal']." preset h4 10", true);
+         }
+         return $req[0];
 }
 
 ?>

@@ -32,6 +32,7 @@ function config_load()
 	$config["heyu_subdir"] = "default";
 	$config["heyuconf"] = "x10.conf";
 	$config["heyuexec"] = "/usr/local/bin/heyu";
+	$config["hvac_house_code"] = "";
 	$config["seclevel"] = "1";
 	$config["password"] = "1234";
 	$config["lang"] = "";
@@ -99,6 +100,14 @@ function config_text($config)
 # location of the Heyu exectuable file. Typically
 # this will be in /usr/local/bin/
 \$config['heyuexec'] = '{$config['heyuexec']}';
+
+# -----------------
+# HVAC Settings for RCS usage
+# -----------------
+
+# RCS thermostats use a complete house code.
+# This value specifies which house code to use
+\$config['hvac_house_code'] = '{$config['hvac_house_code']}';
 
 # -----------------
 # Frontend Settings

@@ -42,6 +42,14 @@ $config['heyuconf'] = 'x10.conf';
 $config['heyuexec'] = '/usr/local/bin/heyu';
 
 # -----------------
+# HVAC Settings for RCS usage
+# -----------------
+
+# RCS thermostats use a complete house code.
+# This value specifies which house code to use
+$config['hvac_house_code'] = '';
+
+# -----------------
 # Frontend Settings
 # -----------------
 

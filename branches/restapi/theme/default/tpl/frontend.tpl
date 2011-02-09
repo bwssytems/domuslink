@@ -110,6 +110,30 @@ function validateForm(form)
     <td><?php echo ($lang['heyuexec_txt']); ?></td>
   </tr>
 
+<!-- Heyu hvac house code -->
+<tr><td></td></tr>
+  <tr>
+    <td colspan="2" style="border-bottom:1px dotted #ccc;"><h6><?php echo ($lang['hvachousecode']); ?></h6></td>
+  </tr>
+  <tr>
+    <td valign="top">
+    <!-- Heyu hvac house code dropdown -->
+    <select name="hvac_house_code">
+    <?php $options = array('', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P'); ?>
+    <?php foreach ($options as $key=>$opt): ?>
+     <?php if ($opt == $config['hvac_house_code']): ?>
+       <option selected value="<?php echo $opt; ?>"><?php echo $opt; ?></option>
+     <?php else: ?>
+       <option value="<?php echo $opt; ?>"><?php echo $opt; ?></option>
+     <?php endif; ?>
+    <?php endforeach; ?>
+    </select>
+    <!-- End dropdown -->
+    </td>
+    <td><?php echo ($lang['hvachousecode_txt']); ?></td>
+  </tr>
+
+
 <!-- Security Level -->
 <tr><td></td></tr>
   <tr>

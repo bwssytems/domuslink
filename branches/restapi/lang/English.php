@@ -237,4 +237,9 @@ $lang["diagnostictext"] = "domus.Link Diagnostics";
 $lang["diagnosticstatus"] = "Diagnostic status - click to check";
 $lang["statusinfo"] = "Click for status info";
 $lang["systemuptime"] = "System Uptime";
+
+/* HVAC Text */
+$lang["hvac"] = "HVAC";
+$lang["hvachousecode"] = "HVAC House Code";
+$lang["hvachousecode_txt"] = "Possible values are: None; A-P. Compatiblity is only for RCS TXB16.";
 ?>
