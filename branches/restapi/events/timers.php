@@ -107,7 +107,7 @@ else {
 			
 			if($timerObj->getStartMacro() != "null")
 				$tpl_edit->set('selcode', strip_code($timerObj->getStartMacro()));
-			elseif($offmacro != "null")
+			elseif($timerObj->getStopMacro() != "null")
 				$tpl_edit->set('selcode', strip_code($timerObj->getStopMacro()));
 
 			$tpl_body->set('form', $tpl_edit);
@@ -139,12 +139,18 @@ else {
 			}
 			else {
 				if( $aTimer->getStartMacro() != "null") {
-					$onMacroObj = new ScheduleElement("macro ".$aTimer->getStartMacro()." 0 on ".strtolower($_POST["module"]));
+					$onMacroObj = new Macro();
+					$onMacroObj->setLabel($aTimer->getStartMacro());
+					$onMacroObj->setCommand("on ".strtolower($_POST["module"]));
+					$onMacroObj->rebuildElementLine();
 					$heyusched->addElement($onMacroObj);
 					$i++;
 				}
 				if( $aTimer->getStopMacro() != "null") {
-					$offMacroObj = new ScheduleElement("macro ".$aTimer->getStopMacro()." 0 off ".strtolower($_POST["module"]));
+					$offMacroObj = new Macro();
+					$offMacroObj->setLabel($aTimer->getStopMacro());
+					$offMacroObj->setCommand("off ".strtolower($_POST["module"])); 
+					$offMacroObj->rebuildElementLine();
 					$heyusched->addElement($offMacroObj);
 					$i++;
 				}

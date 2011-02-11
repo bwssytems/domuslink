@@ -175,6 +175,7 @@
 <?php endif; ?>
 </a>
 </td>
+<?php if($config['hvac_house_code'] != ''): ?>
 <td align="center" width="33%">
 <?php echo $lang["hvac"]." - ["; ?>
 <?php $temp=implode(execute_cmd($config['heyuexecreal']." rcs_req preset ".$config['hvac_house_code']."5 1", true)); $temp=(explode(" ",$temp)); echo " Temperature: ".$temp[5]; ?>&#176
@@ -182,6 +183,7 @@
 <?php $setpoint=implode(execute_cmd($config['heyuexecreal']." rcs_req preset ".$config['hvac_house_code']."5 2", true)); $setpoint=(explode(" ",$setpoint)); echo " Setpoint: ".$setpoint[5]; ?>&#176
 <?php echo "]"; ?>
 </td>
+<?php endif; ?>
 <td align="right" width="33%">
 <?php echo $lang['heyucurrentconfig'].": ".$_SESSION['frontObj']->getHeyuConfigName()." ".$lang['heyuindir']." ".$config['heyu_base_real'].($config['heyu_subdir'] == "default"?" ":$config['heyu_subdir']." ")?>
 <a onMouseOver="popup('<?php echo ($lang['diagnosticstatus']); ?>')" onmouseout="kill()" onfocus="this.blur()" href="<?php echo $config['url_path'];?>/utility/diagnostic.php" >

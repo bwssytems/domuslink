@@ -1,5 +1,5 @@
 <form action="<?php echo($_SERVER['PHP_SELF']); ?>?action=save" method="post">
-<input type="hidden" name="line" value="<?php echo $linenum; ?>" / >
+<input type="hidden" name="line" value="<?php echo $theTrigger->getLineNum(); ?>" / >
 
 <table cellspacing="0" cellpadding="0" border="0" class="content">
 <tr><th colspan="2"><?php echo ($lang['edittrigger']); ?></th></tr>
@@ -16,8 +16,8 @@
 <td align="center">
 <!-- trigger command -->
 <select name="command" style="width:50px;">
-	<option value="on" <?php if ($tcommand == "on") echo "selected"; ?>><?php echo ($lang['on']);?></option>
-	<option value="off" <?php if ($tcommand == "off") echo "selected"; ?>><?php echo ($lang['off']);?></option>
+	<option value="on" <?php if ($theTrigger->getCommand() == "on") echo "selected"; ?>><?php echo ($lang['on']);?></option>
+	<option value="off" <?php if ($theTrigger->getCommand() == "off") echo "selected"; ?>><?php echo ($lang['off']);?></option>
 </select>
 <!-- end trigger command -->
 </td>
@@ -25,8 +25,8 @@
 <td align="center">
 <!-- status -->
 <select name="status" style="width:75px;">
- 	<option value="" <?php if ($enabled) echo "selected"; ?>><?php echo ($lang['enabled']);?></option>
- 	<option value="#" <?php if (!$enabled) echo "selected"; ?>><?php echo ($lang['disabled']);?></option>
+ 	<option value="" <?php if ($theTrigger->isEnabled()) echo "selected"; ?>><?php echo ($lang['enabled']);?></option>
+ 	<option value="#" <?php if (!$theTrigger->isEnabled()) echo "selected"; ?>><?php echo ($lang['disabled']);?></option>
 </select>
 <!-- end status -->
 </td>
@@ -42,7 +42,7 @@
 <select name="unit" size="9">
 <?php foreach ($aliases as $alias): ?>
 	<?php if (!$alias->isMultiAlias()): ?>
-		<option value="<?php echo $alias->getLabel();?>" <?php if ($unit == $alias->getLabel()) echo "selected"; ?>><?php echo label_parse($alias->getLabel(), false);?></option>
+		<option value="<?php echo $alias->getLabel();?>" <?php if ($theTrigger->getLabel() == $alias->getLabel()) echo "selected"; ?>><?php echo label_parse($alias->getLabel(), false);?></option>
 	<?php endif; ?>
 <?php endforeach; ?>
 </select>
@@ -53,8 +53,7 @@
 <!-- execute macro -->
 <select name="macro" size="9">
 <?php foreach ($cmacs as $cmac): ?>
-	<?php list($macro_label, $macro_name, $delay, $commands) = explode(" ", $cmac, 4); ?>
-	<option value="<?php echo $macro_name;?>" <?php if (trim($selmacro) == $macro_name) echo "selected"; ?>><?php echo label_parse($macro_name, false);?> - <?php echo $commands;?></option>
+	<option value="<?php echo $cmac->getLabel();?>" <?php if ($theTrigger->getMacroLabel() == $cmac->getLabel()) echo "selected"; ?>><?php echo label_parse($cmac->getLabel(), false);?> - <?php echo $cmac->getCommand();?></option>
 <?php endforeach; ?>
 </select>
 <!-- end execute macro -->

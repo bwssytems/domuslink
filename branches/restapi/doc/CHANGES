@@ -5,7 +5,7 @@
  +----------------------------------------------------------------------------*/
   v2.0beta - 25/January/2011
  ------
- 	* Added a REST API for domus.Link to have applications be able to create other
+ 	* Issue 52 enhancement - Added a REST API for domus.Link to have applications be able to create other
  	  applications that can talk directly to the domus.Link core. This will allow
  	  creation of other types of UI's (native mobile, AJAX) or allow external
  	  applications to use the domus.Link core to control heyu. This currently
@@ -19,6 +19,10 @@
 	  is a new method to handle dimming in 0-100 percent terms with the corrected
 	  calculation of if the device is on or off. This is now called by the legacy
 	  method dim_bright.
+	* Issue 35 enhancement - Support for RCS TXB16. This is basic control of the RCS
+	  thermostat. This also assumes default decode table of P.
+	* Issue 21 fixed - Objectified Triggers
+	* Issue 22 fixed - Objectified Macros
   v1.2 - 01/July/2010
  ------
 	* Updated heyu config file handling to be agnostic and object oriented. domus.Link
