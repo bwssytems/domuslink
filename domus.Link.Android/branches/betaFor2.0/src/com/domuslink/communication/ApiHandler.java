@@ -254,7 +254,7 @@ public class ApiHandler {
 
         // Create client and set our specific user-agent string
         DefaultHttpClient client = new DefaultHttpClient();
-        UsernamePasswordCredentials creds = new UsernamePasswordCredentials("user", sPassword);
+        UsernamePasswordCredentials creds = new UsernamePasswordCredentials("", sPassword);
         CredentialsProvider credsProvider = new BasicCredentialsProvider();
         credsProvider.setCredentials(new AuthScope(AuthScope.ANY_HOST, AuthScope.ANY_PORT), creds); 
         client.setCredentialsProvider(credsProvider);
