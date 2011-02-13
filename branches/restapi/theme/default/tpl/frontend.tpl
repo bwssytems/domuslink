@@ -134,35 +134,14 @@ function validateForm(form)
   </tr>
 
 
-<!-- Security Level -->
+<!-- HVAC Security Level -->
 <tr><td></td></tr>
   <tr>
-    <td colspan="2" style="border-bottom:1px dotted #ccc;"><h6><?php echo ($lang['seclevel']); ?></h6></td>
+    <td colspan="2" style="border-bottom:1px dotted #ccc;"><h6><?php echo ($lang['hvac_seclevel']); ?></h6></td>
   </tr>
   <tr>
-    <td valign="top">
-    <select name="seclevel">
-		<?php $options = array('0', '1', '2'); ?>
-		<?php foreach ($options as $key=>$opt): ?>
-			<?php if ($opt == $config['seclevel']): ?>
-				<option selected value="<?php echo $opt; ?>"><?php echo $opt; ?></option>
-			<?php else: ?>
-				<option value="<?php echo $opt; ?>"><?php echo $opt; ?></option>
-			<?php endif; ?>
-		<?php endforeach; ?>
-    </select>
-    </td>
-    <td><?php echo ($lang['seclevel_txt']); ?></td>
-  </tr>
-
-<!-- Password -->
-<tr><td></td></tr>
-  <tr>
-    <td colspan="2" style="border-bottom:1px dotted #ccc;"><h6><?php echo ($lang['password']); ?></h6></td>
-  </tr>
-  <tr>
-    <td valign="top"><input type="text" name="password" value="<?php echo ($config['password']); ?>" /></td>
-    <td><?php echo ($lang['password_txt']); ?></td>
+    <td valign="top"><input type="text" name="hvac_seclevel" value="<?php echo ($config['hvac_seclevel']); ?>" /></td>
+    <td><?php echo ($lang['hvac_seclevel_txt']); ?></td>
   </tr>
 
 <!-- Language -->

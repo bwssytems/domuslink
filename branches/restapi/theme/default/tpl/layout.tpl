@@ -104,9 +104,13 @@
   <div id="menuitem"><p><a href="<?php echo ($config['url_path']); ?>/index.php?page=shutters"><?php echo ($lang['shutters']); ?></a></p></div>  
   <div id="menuitem"><p><a href="<?php echo ($config['url_path']); ?>/index.php?page=irrigation"><?php echo ($lang['irrigation']); ?></a></p></div>
   <div id="menuitem"><p><a href="<?php echo ($config['url_path']); ?>/index.php?page=hvac"><?php echo ($lang['hvac']); ?></a></p></div>  
-  <div id="menuitem"><p><a href="<?php echo ($config['url_path']); ?>/index.php?page=other"><?php echo ($lang['other']); ?></a></p></div>  
-  <div id="menuitem"><p><a href="#" onclick="divShowHide(setupmenu, 'hidden'); divShowHide(eventsmenu);"><?php echo ($lang['events']); ?></a></p></div>
-  <div id="menuitem"><p><a href="#" onclick="divShowHide(eventsmenu, 'hidden'); divShowHide(setupmenu);"><?php echo ($lang['setup']); ?></a></p></div>
+  <div id="menuitem"><p><a href="<?php echo ($config['url_path']); ?>/index.php?page=other"><?php echo ($lang['other']); ?></a></p></div>
+  <?php if ($sec_level <= 1): ?>    
+  	<div id="menuitem"><p><a href="#" onclick="divShowHide(setupmenu, 'hidden'); divShowHide(eventsmenu);"><?php echo ($lang['events']); ?></a></p></div>
+	<div id="menuitem"><p><a href="#" onclick="divShowHide(eventsmenu, 'hidden'); divShowHide(setupmenu);"><?php echo ($lang['setup']); ?></a></p></div>
+  <?php else: ?>    
+	<div id="menuitem"><p><a href="#" onclick="divShowHide(setupmenu);"><?php echo ($lang['setup']); ?></a></p></div>
+  <?php endif; ?>
 <?php else: ?>
   <div id="menuitem"><a href="<?php echo ($config['url_path']);?>/index.php?page=home" onmouseover="imgRoll('img_1', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_home_on.png')" onmouseout="imgRoll('img_1', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_home_off.png')"><img alt="<?php echo ($lang['home']);?>" src="<?php echo($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_home_off.png" border="0" name="img_1" /></a></div>
   <div id="menuitem"><a href="<?php echo ($config['url_path']);?>/index.php?page=lights" onmouseover="imgRoll('img_2', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_lights_on.png')" onmouseout="imgRoll('img_2', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_lights_off.png')"><img alt="<?php echo ($lang['lights']);?>" src="<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_lights_off.png" border="0" name="img_2" /></a></div>
@@ -114,15 +118,20 @@
   <div id="menuitem"><a href="<?php echo ($config['url_path']);?>/index.php?page=shutters" onmouseover="imgRoll('img_4', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_shutters_on.png')" onmouseout="imgRoll('img_4', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_shutters_off.png')"><img alt="<?php echo ($lang['shutters']);?>" src="<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_shutters_off.png" border="0" name="img_4" /></a></div>
   <div id="menuitem"><a href="<?php echo ($config['url_path']);?>/index.php?page=irrigation" onmouseover="imgRoll('img_5', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_irrigation_on.png')" onmouseout="imgRoll('img_5', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_irrigation_off.png')"><img alt="<?php echo ($lang['irrigation']);?>" src="<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_irrigation_off.png" border="0" name="img_5" /></a></div>
   <div id="menuitem"><a href="<?php echo ($config['url_path']);?>/index.php?page=hvac" onmouseover="imgRoll('img_6', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_hvac_on.png')" onmouseout="imgRoll('img_6', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_hvac_off.png')"><img alt="<?php echo ($lang['hvac']);?>" src="<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_hvac_off.png" border="0" name="img_6" /></a></div>
-  <div id="menuitem"><a href="<?php echo ($config['url_path']);?>/index.php?page=other" onmouseover="imgRoll('img_6', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_other_on.png')" onmouseout="imgRoll('img_6', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_other_off.png')"><img alt="<?php echo ($lang['other']);?>" src="<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_other_off.png" border="0" name="img_6" /></a></div>
-  <div id="menuitem"><a href="#" onclick="divShowHide(setupmenu, 'hidden'); divShowHide(eventsmenu);" onmouseover="imgRoll('img_7', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_events_on.png')" onmouseout="imgRoll('img_7', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_events_off.png')"><img alt="<?php echo ($lang['events']);?>" src="<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_events_off.png" border="0" name="img_7" /></a></div>
-  <div id="menuitem"><a href="#" onclick="divShowHide(eventsmenu, 'hidden'); divShowHide(setupmenu);" onmouseover="imgRoll('img_8', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_setup_on.png')" onmouseout="imgRoll('img_8', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_setup_off.png')"><img alt="<?php echo ($lang['setup']);?>" src="<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_setup_off.png" border="0" name="img_8" /></a></div>
+  <div id="menuitem"><a href="<?php echo ($config['url_path']);?>/index.php?page=other" onmouseover="imgRoll('img_7', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_other_on.png')" onmouseout="imgRoll('img_7', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_other_off.png')"><img alt="<?php echo ($lang['other']);?>" src="<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_other_off.png" border="0" name="img_7" /></a></div>
+  <?php if ($sec_level <= 1): ?>    
+	  <div id="menuitem"><a href="#" onclick="divShowHide(setupmenu, 'hidden'); divShowHide(eventsmenu);" onmouseover="imgRoll('img_8', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_events_on.png')" onmouseout="imgRoll('img_8', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_events_off.png')"><img alt="<?php echo ($lang['events']);?>" src="<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_events_off.png" border="0" name="img_8" /></a></div>
+      <div id="menuitem"><a href="#" onclick="divShowHide(eventsmenu, 'hidden'); divShowHide(setupmenu);" onmouseover="imgRoll('img_9', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_setup_on.png')" onmouseout="imgRoll('img_9', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_setup_off.png')"><img alt="<?php echo ($lang['setup']);?>" src="<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_setup_off.png" border="0" name="img_9" /></a></div>
+  <?php else: ?>    
+      <div id="menuitem"><a href="#" onclick="divShowHide(setupmenu);" onmouseover="imgRoll('img_8', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_setup_on.png')" onmouseout="imgRoll('img_8', '<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_setup_off.png')"><img alt="<?php echo ($lang['setup']);?>" src="<?php echo ($config['url_path']);?>/theme/<?php echo ($config['theme']);?>/images/menu_setup_off.png" border="0" name="img_8" /></a></div>
+  <?php endif; ?>
 <?php endif; ?>
 </div>
 <!-- end menu div -->
 
 <div id="black_sep1"></div><!-- separator div -->
 
+<?php if ($sec_level <= 1): ?>    
 <!-- start events div -->
 <div id="eventsmenu" style="display:none">
   <div id="menuspacer"  style="height: 18px; width: 16.8%; float: right; border-left: 1px solid #ccc;">&nbsp;</div>
@@ -135,14 +144,18 @@
 <SCRIPT LANGUAGE="JavaScript">divShowHide(eventsmenu, 'visible');</SCRIPT>
 <?php endif; ?>
 <!-- end setup div -->
+<?php endif; ?>
 
 <!-- start setup div -->
 <div id="setupmenu" style="display:none">
-  <?php if ($authenticated): ?><div id="setupmenuitem"><a href="<?php echo ($config['url_path']);?>/login.php?action=logout"><?php echo ($lang['logout']); ?></a></div><?php endif; ?>
-  <div id="setupmenuitem"><a href="<?php echo ($config['url_path']);?>/admin/heyu.php"><?php echo ($lang['heyusetup']); ?></a></div>
-  <div id="setupmenuitem"><a href="<?php echo ($config['url_path']);?>/admin/frontend.php"><?php echo ($lang['frontend']); ?></a></div>
-  <div id="setupmenuitem"><a href="<?php echo ($config['url_path']);?>/admin/aliases.php"><?php echo ($lang['aliases']); ?></a></div>
-  <div id="setupmenuitem"><a href="<?php echo ($config['url_path']);?>/admin/utility.php"><?php echo ($lang['utility']); ?></a></div>
+  <div id="setupmenuitem"><a href="<?php echo ($config['url_path']);?>/login.php?action=logout"><?php echo ($lang['logout']); ?></a></div>
+  <?php if ($sec_level == 0): ?>
+  	<div id="setupmenuitem"><a href="<?php echo ($config['url_path']);?>/admin/users.php"><?php echo ($lang['users']); ?></a></div>
+  	<div id="setupmenuitem"><a href="<?php echo ($config['url_path']);?>/admin/heyu.php"><?php echo ($lang['heyusetup']); ?></a></div>
+  	<div id="setupmenuitem"><a href="<?php echo ($config['url_path']);?>/admin/frontend.php"><?php echo ($lang['frontend']); ?></a></div>
+  	<div id="setupmenuitem"><a href="<?php echo ($config['url_path']);?>/admin/aliases.php"><?php echo ($lang['aliases']); ?></a></div>
+  	<div id="setupmenuitem"><a href="<?php echo ($config['url_path']);?>/admin/utility.php"><?php echo ($lang['utility']); ?></a></div>
+  <?php endif; ?>
 </div>
 <?php if (substr(strstr($_SERVER['REQUEST_URI'], "admin"), 0, 5) == "admin"): ?>
 <SCRIPT LANGUAGE="JavaScript">divShowHide(setupmenu, 'visible');</SCRIPT>
@@ -167,26 +180,34 @@
 <tr>
 <td align="left">
 <?php echo ($lang['heyustatus']);?>:
-<a onMouseOver="popup('<?php echo ($lang['statusinfo']); ?>')" onmouseout="kill()" onfocus="this.blur()" href="<?php echo ($config['url_path']);?>/index.php?page=status">
+<?php if($sec_level <= 2): ?>
+	<a onMouseOver="popup('<?php echo ($lang['statusinfo']); ?>')" onmouseout="kill()" onfocus="this.blur()" href="<?php echo ($config['url_path']);?>/index.php?page=status">
+<?php else: ?>
+	<a onMouseOver="popup('<?php echo ($lang['statusinfouser']); ?>')" onmouseout="kill()" onfocus="this.blur()" href="">
+<?php endif; ?>
 <?php if (heyu_running()): ?>
-<?php echo ("<font color='green'>".$lang['running']."</font>"); ?>
+	<?php echo ("<font color='green'>".$lang['running']."</font>"); ?>
 <?php else:  ?>
-<?php echo ("<font color='red'>".$lang['down']."</font>"); ?>
+	<?php echo ("<font color='red'>".$lang['down']."</font>"); ?>
 <?php endif; ?>
 </a>
 </td>
-<?php if($config['hvac_house_code'] != ''): ?>
-<td align="center" width="33%">
-<?php echo $lang["hvac"]." - ["; ?>
-<?php $temp=implode(execute_cmd($config['heyuexecreal']." rcs_req preset ".$config['hvac_house_code']."5 1", true)); $temp=(explode(" ",$temp)); echo " Temperature: ".$temp[5]; ?>&#176
-<?php $mode=implode(execute_cmd($config['heyuexecreal']." rcs_req preset ".$config['hvac_house_code']."5 3", true)); $mode=(explode(" ",$mode)); echo " Mode: ".$mode[5]; ?>
-<?php $setpoint=implode(execute_cmd($config['heyuexecreal']." rcs_req preset ".$config['hvac_house_code']."5 2", true)); $setpoint=(explode(" ",$setpoint)); echo " Setpoint: ".$setpoint[5]; ?>&#176
-<?php echo "]"; ?>
-</td>
+<?php if($config['hvac_house_code'] != '' && $sec_level <= $config['hvac_seclevel']): ?>
+	<td align="center" width="33%">
+	<?php echo $lang["hvac"]." - ["; ?>
+	<?php $temp=implode(execute_cmd($config['heyuexecreal']." rcs_req preset ".$config['hvac_house_code']."5 1", true)); $temp=(explode(" ",$temp)); echo " Temperature: ".$temp[5]; ?>&#176
+	<?php $mode=implode(execute_cmd($config['heyuexecreal']." rcs_req preset ".$config['hvac_house_code']."5 3", true)); $mode=(explode(" ",$mode)); echo " Mode: ".$mode[5]; ?>
+	<?php $setpoint=implode(execute_cmd($config['heyuexecreal']." rcs_req preset ".$config['hvac_house_code']."5 2", true)); $setpoint=(explode(" ",$setpoint)); echo " Setpoint: ".$setpoint[5]; ?>&#176
+	<?php echo "]"; ?>
+	</td>
 <?php endif; ?>
 <td align="right" width="33%">
 <?php echo $lang['heyucurrentconfig'].": ".$_SESSION['frontObj']->getHeyuConfigName()." ".$lang['heyuindir']." ".$config['heyu_base_real'].($config['heyu_subdir'] == "default"?" ":$config['heyu_subdir']." ")?>
-<a onMouseOver="popup('<?php echo ($lang['diagnosticstatus']); ?>')" onmouseout="kill()" onfocus="this.blur()" href="<?php echo $config['url_path'];?>/utility/diagnostic.php" >
+<?php if($sec_level == 0): ?>
+	<a onMouseOver="popup('<?php echo ($lang['diagnosticstatus']); ?>')" onmouseout="kill()" onfocus="this.blur()" href="<?php echo $config['url_path'];?>/utility/diagnostic.php" >
+<?php else: ?>
+	<a onMouseOver="popup('<?php echo ($lang['diagnosticstatususer']); ?>')" onmouseout="kill()" onfocus="this.blur()" href="" >
+<?php endif; ?>
 <img src="<?php echo ($config['url_path']."/theme/".$config['theme']."/images/".(isset($_SESSION['filesErrored'])?($_SESSION['filesErrored']?"red_info.png":"green_info.png"):"black_info.png"));?>" border=0 />
 </a>
 </table>

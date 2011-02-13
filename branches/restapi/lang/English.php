@@ -82,7 +82,7 @@ $lang["heyubaseloc_txt"] = "Heyu base directory - This directory is where Heyu s
 $lang["language_txt"] = "Define the language for the frontend here. You can also select auto, which will use the browsers preferred language.";
 $lang["heyuconfile_txt"] = "This file is typically named x10.conf and usually located in /etc/heyu/ for system wide use. Only used if Heyu Base Dir Usage is set to YES.";
 $lang["urlpath_txt"] = "If you are running domus.Link in a folder say http://your-host/domuslink, then define the url path as /domuslink. Leave blank if your are running domus.Link at the root ie http://your-host/";
-$lang["seclevel_txt"] = "Possible values are: 0 - None; 1 - Only setup area; 2 - Entire frontend.";
+$lang["hvac_seclevel_txt"] = "Possible values are: 0 - requires admin level; 1 - requires maint level; 2...n - specific access level."; // changed
 $lang["pcinterface_txt"] = "The Computer Interface can either be the CM11A or the CM17A. The CM11A is the most common and therefore selected by default.";
 $lang["refresh_txt"] = "By setting this field the main page in which the modules are shown shall be refreshed every X seconds. To disable, leave field blank.";
 
@@ -234,12 +234,25 @@ $lang["addschedfile"] = "Add Schedule File";
 $lang["noscheddefined"] = "No schedule file defined. Check heyu configuration.";
 $lang["diagnostic"] = "Diagnostic";
 $lang["diagnostictext"] = "domus.Link Diagnostics";
-$lang["diagnosticstatus"] = "Diagnostic status - click to check";
-$lang["statusinfo"] = "Click for status info";
+$lang["diagnosticstatus"] = "Diagnostic status - click to check"; // changed
+$lang["statusinfo"] = "Status of heyu - click for info"; // changed
 $lang["systemuptime"] = "System Uptime";
 
 /* HVAC Text */
 $lang["hvac"] = "HVAC";
 $lang["hvachousecode"] = "HVAC House Code";
 $lang["hvachousecode_txt"] = "Possible values are: None; A-P. Compatiblity is only for RCS TXB16.";
+
+$lang["diagnosticstatususer"] = "Diagnostic status"; //new
+$lang["statusinfouser"] = "Status of heyu"; // new
+$lang["users"] = "Users";
+$lang["secleveltype"] = "Security Level Type";
+$lang["adduser"] = "Add User";
+$lang["edituser"] = "Edit User";
+$lang["username"] = "Username";
+$lang["secleveltypeexact"] = "Exact";
+$lang["secleveltypegreater"] = "Greater";
+$lang["usertypepin"] = "PIN";
+$lang["usertypeuser"] = "User";
+$lang["hvac_seclevel"] = "HVAC Security Level";
 ?>

@@ -6,6 +6,7 @@
 		<?php if ($isRunning): ?>
 			<img alt="<?php echo $lang['running']; ?>" src="<?php echo ($config['url_path']);?>/theme/iPhone/images/icontexto-webdev-ok-128x128.png">
 			<br /><br />
+			<?php if ($sec_level <= 1): ?>
 			<table cellspacing="0" cellpadding="0" border="0" class="clear" width="120px">
 			<tr>
 			<td><a href="<?php echo ($config['url_path']);?>/index.php?page=status&daemon=restart" target="_self"><img alt="<?php echo $lang['running']; ?>" src="<?php echo ($config['url_path']);?>/theme/iPhone/images/icontexto-webdev-reload-032x032.png" border="0"></a></td>
@@ -16,6 +17,7 @@
 			<td><a href="<?php echo ($config['url_path']);?>/index.php?page=status&daemon=stop" target="_self"><?php echo ($lang['stop']);?></a></td>
 			</tr>
 			</table>
+			<?php endif; ?>
 			
 		<?php else:  ?>
 			<img alt="<?php echo $lang['down']; ?>" src="<?php echo ($config['url_path']);?>/theme/iPhone/images/icontexto-webdev-cancel-128x128.png">

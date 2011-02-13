@@ -84,14 +84,12 @@ $tpl->set('lang', $lang);
 $tpl->set('ver', $FRONTEND_VERSION);
 
 ## Security validation's
-$authenticated = false;
-if ($config['seclevel'] != "0") {
-	$authentication = new Login($config['password']);
-	if ($authentication->login()) $authenticated = true;
-}
+require_once($dirname.DIRECTORY_SEPARATOR.'utility/setupuserdb.php');
+
+setUpUserDB();
 
 ## Set authentication state
-$tpl->set('authenticated', $authenticated);
+$tpl->set('sec_level', 99999999);
 
 ## Constants
 $modtypes['lights'] = 'Light';

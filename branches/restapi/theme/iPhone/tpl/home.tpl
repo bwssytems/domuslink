@@ -8,7 +8,7 @@
 	<!--Setup is not yet working correctly-->
 	<!--
     <?php
-		if ($config['seclevel'] == "2") 
+		if ($sec_level == 0) 
 		{
 			if (!isset($_COOKIE["dluloged"])) 
 			{

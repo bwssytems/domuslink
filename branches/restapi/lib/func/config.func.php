@@ -33,8 +33,7 @@ function config_load()
 	$config["heyuconf"] = "x10.conf";
 	$config["heyuexec"] = "/usr/local/bin/heyu";
 	$config["hvac_house_code"] = "";
-	$config["seclevel"] = "1";
-	$config["password"] = "1234";
+	$config["hvac_seclevel"] = "0";
 	$config["lang"] = "";
 	$config["url_path"] = "/";
 	$config["theme"] = "default";
@@ -109,20 +108,15 @@ function config_text($config)
 # This value specifies which house code to use
 \$config['hvac_house_code'] = '{$config['hvac_house_code']}';
 
+# HVAC Security Level, Possible values are:
+# 0 - requires admin level
+# 1 - requires maint level
+# 2...n - specific access level
+\$config['hvac_seclevel'] = '{$config['hvac_seclevel']}';
+
 # -----------------
 # Frontend Settings
 # -----------------
-
-# Security Level, Possible values are:
-# 0 - No security/Password protection
-# 1 - Password protection for administration area
-# 2 - Password protection for frontend and administration area
-\$config['seclevel'] = '{$config['seclevel']}';
-
-# Frontend password - Define a password here to
-# access the setup area of the frontend.
-# Leave blank to disable password.
-\$config['password'] = '{$config['password']}';
 
 # Language - Define the language for the frontend here.
 # If left blank browsers preferred language will be used.

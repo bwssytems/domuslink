@@ -24,10 +24,12 @@ $dirname = dirname(__FILE__);
 require_once($dirname.DIRECTORY_SEPARATOR.'include.php');
 
 ## Security validation's
-if ($config['seclevel'] == "2" && !$authenticated) {
+$authCheck = new Login(USERDB_FILE_LOCATION);
+if (!$authCheck->login()) {
 	header("Location: login.php?from=index");
 	exit();
 }
+$tpl->set('sec_level', $authCheck->getUser()->getSecurityLevel());
 
 if(!isset($_SESSION['filesChecked']) || !$_SESSION['filesChecked'])
 {
@@ -125,7 +127,7 @@ if (heyu_running()) {
 
 		case "setup": //for iphone
 			## Security validation's
-			if ($config['seclevel'] != "0" && !$authenticated) {
+			if (!$authCheck->login()) {
 				header("Location: login.php?from=index");
 				exit();
 			}

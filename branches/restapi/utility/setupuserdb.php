@@ -18,6 +18,32 @@
  * this program; if not, write to the Free Software Foundation, 
  * Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-$FRONTEND_VERSION = "2.0beta6";
+// require_once('..'.DIRECTORY_SEPARATOR.'include.php');
+require_once(CLASS_FILE_LOCATION.'/user.const.php');
+require_once(CLASS_FILE_LOCATION.'/userdb.class.php');
+require_once(CLASS_FILE_LOCATION.'/user.class.php');
+
+function setUpUserDB() {
+	if(!file_exists(USERDB_FILE_LOCATION)) {
+		$aUserDB = new UserDB();
+		$aUserDB->setFileName(USERDB_FILE_LOCATION);
+		$aNewUser = new User();
+		$aNewUser->setUserName("admin");
+		$aNewUser->setMD5Password("1234");
+		$aNewUser->setSecurityLevel(0);
+		$aNewUser->setSecurityLevelType(SEC_LEVEL_GREATER_D);
+		$aNewUser->rebuildElementLine();
+		$aUserDB->addElement($aNewUser);
+		$aNewUser = new User();
+		$aNewUser->setType(PIN_TYPE_D);
+		$aNewUser->setUserName("pin1");
+		$aNewUser->setMD5Password("1234");
+		$aNewUser->setSecurityLevel(0);
+		$aNewUser->setSecurityLevelType(SEC_LEVEL_GREATER_D);
+		$aNewUser->rebuildElementLine();
+		$aUserDB->addElement($aNewUser);
+		$aUserDB->save();
+	}
+}
 
 ?>

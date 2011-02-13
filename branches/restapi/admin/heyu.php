@@ -24,10 +24,16 @@ require_once('..'.DIRECTORY_SEPARATOR.'include.php');
 require_once('..'.DIRECTORY_SEPARATOR.'include_globals.php');
 
 ## Security validation's
-if ($config['seclevel'] != "0" && !$authenticated) { 
+$authCheck = new Login(USERDB_FILE_LOCATION);
+if (!$authCheck->login()) {
 	header("Location: ../login.php?from=admin/heyu");
 	exit();
 }
+if($authCheck->getUser()->getSecurityLevel() != 0) {
+	header("Location: ../index.php");
+	exit();
+}
+$tpl->set('sec_level', $authCheck->getUser()->getSecurityLevel());
 
 ## Get heyu (x10.conf) file contents/settings
 $settings = $heyuconf->getObjects();

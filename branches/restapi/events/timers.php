@@ -24,10 +24,16 @@ require_once('..'.DIRECTORY_SEPARATOR.'include.php');
 require_once('..'.DIRECTORY_SEPARATOR.'include_globals.php');
 
 ## Security validation's
-if ($config['seclevel'] != "0" && !$authenticated) {
+$authCheck = new Login(USERDB_FILE_LOCATION);
+if (!$authCheck->login()) {
 	header("Location: ../login.php?from=events/timers");
 	exit();
 }
+if($authCheck->getUser()->getSecurityLevel()  > 1) {
+	header("Location: ../index.php");
+	exit();
+}
+$tpl->set('sec_level', $authCheck->getUser()->getSecurityLevel());
 
 if(!isset($heyusched)) {
 	gen_error(null, $lang['noscheddefined']);

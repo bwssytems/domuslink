@@ -18,6 +18,9 @@
  * this program; if not, write to the Free Software Foundation, 
  * Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-$FRONTEND_VERSION = "2.0beta6";
-
+define("PIN_TYPE_D", "pin");
+define("USER_TYPE_D", "user");
+define("SALT_D", "kjsdr23a21dcf");
+define("SEC_LEVEL_EXACT_D", "exact");
+define("SEC_LEVEL_GREATER_D", "greater");
 ?>

@@ -25,7 +25,7 @@ require_once($dirname.DIRECTORY_SEPARATOR.'include.php');
 require_once(CLASS_FILE_LOCATION.'login.class.php');
 
 ## Instantiate login class
-$login = new Login($config['password']);
+$login = new Login(USERDB_FILE_LOCATION);
 
 ## Set template parameters
 $tpl->set('title', $lang['login']);
@@ -44,10 +44,12 @@ if (isset($_POST['password'])) {
 		$remember = true;
 	else
 		$remember = false;
-	if ($login->checkLogin($_POST['password'],$remember)) {
+	if ($login->checkLogin("", $_POST['password'],$remember)) {
+			error_log("login.php successful");
 			header("Location: ".$config['url_path']."/".$_POST['from'].".php");
 	}
 	else {
+		error_log("login.php UNsuccessful");
 		header("Location: login.php?from=".$_POST['from']."&failed=true");
 	}
 	exit();

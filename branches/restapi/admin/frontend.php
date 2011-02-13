@@ -23,10 +23,17 @@
 require_once('..'.DIRECTORY_SEPARATOR.'include.php');
 
 ## Security validation's
-if ($config['seclevel'] != "0" && !$authenticated) {
+$authCheck = new Login(USERDB_FILE_LOCATION);
+if (!$authCheck->login()) {
 	header("Location: ../login.php?from=admin/frontend");
 	exit();
 }
+if($authCheck->getUser()->getSecurityLevel() != 0) {
+	header("Location: ../index.php");
+	exit();
+}
+$tpl->set('sec_level', $authCheck->getUser()->getSecurityLevel());
+
 $subdirList = array("default", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9");
 
 ## Set template parameters
@@ -46,8 +53,7 @@ elseif ($_GET["action"] == "save") {
 	$config['heyuconf'] = $_POST["heyuconf"];
 	$config['heyuexec'] = $_POST["heyuexec"];
 	$config['hvac_house_code'] = $_POST["hvac_house_code"];
-	$config['seclevel'] = $_POST["seclevel"];
-	$config['password'] = $_POST["password"];
+	$config['hvac_seclevel'] = $_POST["hvac_seclevel"];
 	$config['lang'] = $_POST["lang"];
 	$config['url_path'] = $_POST["url_path"];
 	$config['theme'] = $_POST["theme"];

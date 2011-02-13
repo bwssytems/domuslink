@@ -3,7 +3,7 @@
  |                               CHANGES                                      |
  |                                                                            |
  +----------------------------------------------------------------------------*/
-  v2.0beta - 25/January/2011
+  v2.0beta - 13/February/2011
  ------
  	* Issue 52 enhancement - Added a REST API for domus.Link to have applications be able to create other
  	  applications that can talk directly to the domus.Link core. This will allow
@@ -23,6 +23,22 @@
 	  thermostat. This also assumes default decode table of P.
 	* Issue 21 fixed - Objectified Triggers
 	* Issue 22 fixed - Objectified Macros
+	* Issue 8 fixed - domus.Link now removes the password and security level from the
+	  frontend configuration and now allows the use of users or PINs to have multiple
+	  logins with different access.
+	  	username/password || PIN is always required, currently there is a "no security"
+	  	setting and we will have to do away with that.
+		These are tied to a security level -
+		0 = admin level - all access
+		1 = macro/timer/trigger, start/stop and upload access
+		2 = allow starting of heyu but not stop and control of any aliases
+		3 - n = assignable to aliases and then limits control based on login.
+		
+		The setting levels can be exact matches or greater than matches to further limit control.
+		
+		On first start of this version, the system will create a default admin user and pin with pass '1234'.
+		Please change the passwords to something better.
+	  
   v1.2 - 01/July/2010
  ------
 	* Updated heyu config file handling to be agnostic and object oriented. domus.Link

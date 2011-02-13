@@ -30,13 +30,13 @@ class DomusController
 		## Load config file functions and grab settings
 		//$config =& parse_config($frontObj->getConfig());
 		$config = $_SESSION['frontObj']->getConfig();
-		$myLogin = new Login($config['password']);
-		error_log("Enter authorize for level ".$config['seclevel']." and this login status is ".$myLogin->login());
+		$myLogin = new Login(USERDB_FILE_LOCATION);
+		error_log("Enter authorize and this login status is ".$myLogin->login());
 		## Security validation's
-		if ($config['seclevel'] != "0" && $myLogin->login() != true) {
+		if ($myLogin->login() != true) {
 			if(isset($_SERVER['PHP_AUTH_PW'])) {
-				error_log("validate password ******");
-				if($myLogin->checkLogin($_SERVER['PHP_AUTH_PW'], true))
+				error_log("user: [".$_SERVER['PHP_AUTH_USER']."] validate password ******");
+				if($myLogin->checkLogin($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW'], true))
 					return true;
 			}
 			return false;
