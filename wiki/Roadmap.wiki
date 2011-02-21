@@ -29,5 +29,5 @@ This page will contain the domus.Link roadmap, agreed upon and developed by all 
   * Interactive installation
   * Weather reporting and monitoring for irrigation control
   * Screensaver
-  * Mobile/PDA/Touchscreen themes - Issue 31
+  * Mobile/PDA/Touchscreen web themes that are different from the iPhone theme - Issue 31
   * AJAX implementation (drag&drop sorting, etc) - Issue 37
