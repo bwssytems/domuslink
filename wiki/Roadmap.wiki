@@ -30,5 +30,5 @@ This page will contain the domus.Link roadmap, agreed upon and developed by all 
   * Weather reporting and monitoring for irrigation control
   * Screensaver
   * Mobile/PDA/Touchscreen themes - Issue 31
-  * View by location/floorplan or types - Issue 37, Issue 52
-  * AJAX implementation (drag&drop sorting, etc) - Issue 37, Issue 52
+  * View by location/floorplan or types - Issue 37
+  * AJAX implementation (drag&drop sorting, etc) - Issue 37
