@@ -45,7 +45,7 @@ class heyuConf extends ElementFile {
 		else
 			$this->aliasMap = new AliasMap(ALIASMAP_FILE_LOCATION);
 			
-		$this->getAliases();
+		$this->setAliasMaps();
 	}
 
 	protected function createElement($aLine) {
@@ -111,14 +111,13 @@ class heyuConf extends ElementFile {
 	 * @param $onlyEnabled boolean, if true, return only enabled aliases
 	 * @param $jsonEncode boolean, if true, return array in json format
 	 */
-	function getAliases($onlyEnabled = false, $jsonEncode = false) {
-//		$aliasLines = execute_cmd($config['heyuexecreal']." webhook config_dump -L\"%V@\" -d\"%V \" -b\"%V\" alias");
+	function getAliases($user, $onlyEnabled = false, $jsonEncode = false) {
 		$aliases = $this->getElementObjects(ALIAS_D);
 		$request = array();
 		$x = 0;
 		for($i = 0; $i < count($aliases); $i++) {
 			$aliases[$i]->setAliasMap($this->getAliasMapForLabel($aliases[$i]->getLabel()));
-			if($aliases[$i]->isEnabled()|| !$onlyEnabled ) {
+			if(($aliases[$i]->isEnabled() || !$onlyEnabled ) && $aliases[$i]->getAliasMap()->hasAccess($user->getSecurityLevel(), $user->getSecurityLevelType())) {
 				if($jsonEncode)
 					$request[$x] = $aliases[$i]->encodeJSON();
 				else
@@ -131,14 +130,25 @@ class heyuConf extends ElementFile {
 	}
 	
 	/**
+	 * Set Alias Maps
+	 *
+	 */
+	private function setAliasMaps() {
+		$aliases = $this->getElementObjects(ALIAS_D);
+		for($i = 0; $i < count($aliases); $i++) {
+			$aliases[$i]->setAliasMap($this->getAliasMapForLabel($aliases[$i]->getLabel()));
+		}
+	}
+	
+	/**
 	 * Get Alias by name
 	 *
 	 * @param $aLabel string, the label name of the alias to retrieve
 	 * @param $jsonEncode boolean, if true, return array in json format
 	 */
-	function getAliasForLabel($aLabel, $jsonEncode = false) {
+	public function getAliasForLabel($user, $aLabel, $jsonEncode = false) {
 		foreach($this->getElementObjects(ALIAS_D) as $anAlias) {
-			if($aLabel == $anAlias->getLabel()) {
+			if($aLabel == $anAlias->getLabel() && $anAlias->getAliasMap()->hasAccess($user->getSecurityLevel(), $user->getSecurityLevelType())) {
 				if($jsonEncode)
 					return $anAlias->encodeJSON();
 				else
@@ -147,7 +157,7 @@ class heyuConf extends ElementFile {
 		}
 	}
 
-	function getAliasMapForLabel($aLabel, $jsonEncode = false) {
+	private function getAliasMapForLabel($aLabel, $jsonEncode = false) {
 		foreach($this->aliasMap->getElementObjects("ALL_OBJECTS") as $anAliasMapElement) {
 			if($aLabel == $anAliasMapElement->getAliasLabel()) {
 				if($jsonEncode)
@@ -168,22 +178,23 @@ class heyuConf extends ElementFile {
 	 * from the aliases that could be changed. This will ensure the alias map only contains
 	 * the current definitions for the aliases that are saved in the elementObjects.
 	 */
-	function rebuildAliasMap() {
+	public function rebuildAliasMap() {
 		$listOfElements = $this->getElementObjects(ALIAS_D);
 		$i = 0;
 		$newAliasMap = array();
 		foreach($listOfElements as $anAlias) {
 			if($anAlias->getType() == ALIAS_D) {
+				$anAlias->getAliasMap()->rebuildElementLine();
 				$newAliasMap[$i] = $anAlias->getAliasMap();
 				$i++;
 			}
 		}
 		
 		$this->aliasMap->setObjects($newAliasMap);
-		$junk = $this->getAliases();
+		$this->setAliasMaps();
 	}
 	
-	function getAliasMap($jsonEncode = false) {
+	private function getAliasMap($jsonEncode = false) {
 		if($jsonEncode) {
 			$theElements = $this->aliasMap->getObjects();
 			$x = 0;
@@ -203,29 +214,29 @@ class heyuConf extends ElementFile {
 	 * Dynamically build the floorplan from saved alias map definitions
 	 * @param $jsonEncode boolean, if true, return result in json format
 	 */
-	function getFloorPlan($jsonEncode = false, $onlyVisible = false) {
+	public function getFloorPlan($user, $jsonEncode = false, $onlyVisible = false) {
 		$floorPlan = array();
 		$i = 0;
 		$isUnknown = false;
 		foreach($this->aliasMap->getObjects() as $anAliasMap) {
 			$isFound = false;
-			if(!$onlyVisible || !$anAliasMap->isHiddenFromHome())
+			if((!$onlyVisible || !$anAliasMap->isHiddenFromHome()) && $anAliasMap->hasAccess($user->getSecurityLevel(), $user->getSecurityLevelType()))
 			{
-			$fpLabel = $anAliasMap->getFloorPlanLabel();
-			for($x = 0; $x < count($floorPlan); $x++) {
-				if($fpLabel == $floorPlan[$x]) {
-					$isFound = true;
-					break;
+				$fpLabel = $anAliasMap->getFloorPlanLabel();
+				for($x = 0; $x < count($floorPlan); $x++) {
+					if($fpLabel == $floorPlan[$x]) {
+						$isFound = true;
+						break;
+					}
 				}
-			}
-
-			if(!$isFound) {
-				$floorPlan[$i] = $fpLabel;
-				$i++;
-			}
-				
-			if($fpLabel == 'unknown')
-				$isUnknown = true;
+	
+				if(!$isFound) {
+					$floorPlan[$i] = $fpLabel;
+					$i++;
+				}
+					
+				if($fpLabel == 'unknown')
+					$isUnknown = true;
 			}
 		}
 		
@@ -235,6 +246,30 @@ class heyuConf extends ElementFile {
 			return array("floorplan" => $floorPlan);
 		else
 			return $floorPlan;
+	}
+
+	public function groupHasDisplayableModules($aGroupName, $viewType, $secLevel, $secLevelType) {
+		foreach($this->getElementObjects(ALIAS_D) as $anAlias) {
+			if($viewType == 'grouped') {
+				if($anAlias->isEnabled() && $anAlias->getAliasMap()->getGroup() == $aGroupName && $anAlias->getAliasMap()->hasAccess($secLevel, $secLevelType))
+				{
+					return true;
+				}
+			}
+			elseif($viewType == 'typed') {
+				if($anAlias->isEnabled() && $anAlias->getAliasMap()->getType() == $aGroupName && $anAlias->getAliasMap()->hasAccess($secLevel, $secLevelType))
+				{
+					return true;
+				}
+			}
+			elseif($viewType == 'localized') {
+				if($anAlias->isEnabled() && $anAlias->getAliasMap()->hasAccess($secLevel, $secLevelType))
+				{
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 }
 ?>

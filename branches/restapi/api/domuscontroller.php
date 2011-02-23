@@ -21,8 +21,9 @@
 
 class DomusController
 {
-	private $apiVersion = "3";
+	private $apiVersion = "4";
 	private $apiQualifier = "beta";
+	private $myLogin;
 	
 	public function authorize()
 	{
@@ -30,13 +31,14 @@ class DomusController
 		## Load config file functions and grab settings
 		//$config =& parse_config($frontObj->getConfig());
 		$config = $_SESSION['frontObj']->getConfig();
-		$myLogin = new Login(USERDB_FILE_LOCATION);
-		error_log("Enter authorize and this login status is ".$myLogin->login());
+		if(!isset($this->myLogin))
+			$this->myLogin = new Login(USERDB_FILE_LOCATION);
+		error_log("Enter authorize and this login status is ".$this->myLogin->login());
 		## Security validation's
-		if ($myLogin->login() != true) {
+		if ($this->myLogin->login() != true) {
 			if(isset($_SERVER['PHP_AUTH_PW'])) {
 				error_log("user: [".$_SERVER['PHP_AUTH_USER']."] validate password ******");
-				if($myLogin->checkLogin($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW'], true))
+				if($this->myLogin->checkLogin($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW'], true))
 					return true;
 			}
 			return false;
@@ -77,12 +79,12 @@ class DomusController
 		require_once('.'.DIRECTORY_SEPARATOR.'include_globals.php');
 
         if ($label && $label != 'all') {
-            return($heyuconf->getAliasforLabel($label, true));
+            return($heyuconf->getAliasForLabel($this->myLogin->getUser(), $label, true));
         }
         else
         {
         	// Will only return enabled aliases
-    		return(array("alaises" => $heyuconf->getAliases(true, true)));
+    		return(array("alaises" => $heyuconf->getAliases($this->myLogin->getUser(), true, true)));
         }
     }
 
@@ -104,43 +106,28 @@ class DomusController
 		$passVisible = false;
 		if($visible == "true")
 			$passVisible = true;
-		return(array($label => $theLocation->getAliasesByLocation($label, true, $passVisible)));
+		return(array($label => $theLocation->getAliasesByLocation($label, $this->myLogin->getUser(), true, $passVisible)));
     }
 
-    /**
-     * Gets the floorplan and aliases
-     * @url GET /map/$label
-     * @url GET /map/all
-     */
-    public function getMap($label = null)
-    {
-		error_log("Enter getMap");
-    	require_once('.'.DIRECTORY_SEPARATOR.'apiinclude.php');
-		require_once('.'.DIRECTORY_SEPARATOR.'include_globals.php');
-
-        if ($label && $label != 'all') {
-            return($heyuconf->getAliasMapforLabel($label, true));
-        }
-        else
-        {
-			return(array("map" => $heyuconf->getAliasMap(true)));
-        }
-    }
-    
     /**
      * Gets the alias state and dim level
-     * @url GET /aliasstate/$houseDevice
+     * @url GET /aliasstate/$label
      */
-    public function getAliasState($houseDevice = null)
+    public function getAliasState($label = null)
     {
 		error_log("Enter getAliasState");
     	require_once('.'.DIRECTORY_SEPARATOR.'apiinclude.php');
 		require_once('.'.DIRECTORY_SEPARATOR.'include_globals.php');
 		$config = $_SESSION['frontObj']->getConfig();
+		$moduleTypes = $_SESSION['frontObj']->getModuleTypes();
 
-        if ($houseDevice) {
-        	$theState = on_state($config, $houseDevice);
-        	$theLevel = dim_level($config, $houseDevice);
+        if ($label) {
+        	$anAlias = $heyuconf->getAliasforLabel($this->myLogin->getUser(), $label, false);
+        	$theState = on_state($config, $anAlias->getHouseDevice());
+        	if($moduleTypes->getModuleType($anAlias->getAliasMap()->getType())->getModuleType() == HVAC_D)
+        		$theLevel = 0;
+        	else
+        		$theLevel = dim_level($config, $anAlias->getHouseDevice());
         	if($theState)
             	return(array("state" => 1, "level" => $theLevel));
         }
@@ -161,7 +148,20 @@ class DomusController
 		$passVisible = false;
 		if($visible == "true")
 			$passVisible = true;
-   		return($heyuconf->getFloorPlan(true, $passVisible));
+   		return($heyuconf->getFloorPlan($this->myLogin->getUser(), true, $passVisible));
+    }
+    
+    /**
+     * Gets the module types
+     * @url GET /moduletypes
+     */
+    public function getModuleTypes()
+    {
+		error_log("Enter getModuleTypes");
+    	require_once('.'.DIRECTORY_SEPARATOR.'apiinclude.php');
+		require_once('.'.DIRECTORY_SEPARATOR.'include_globals.php');
+		$moduleTypes = $_SESSION['frontObj']->getModuleTypes();
+		return(array("moduletypes" => $moduleTypes->getElementObjects(ALL_OBJECTS_D, true)));
     }
     
     /**
@@ -176,7 +176,7 @@ class DomusController
 		$config = $_SESSION['frontObj']->getConfig();
 		
 		if($label) {
-			$anAlias = $heyuconf->getAliasforLabel($label, false);
+			$anAlias = $heyuconf->getAliasForLabel($this->myLogin->getUser(), $label, false);
 			if($anAlias)
 			{
 				try {
@@ -205,7 +205,7 @@ class DomusController
 		$config = $_SESSION['frontObj']->getConfig();
 		
 		if($label) {
-			$anAlias = $heyuconf->getAliasforLabel($label, false);
+			$anAlias = $heyuconf->getAliasForLabel($this->myLogin->getUser(), $label, false);
 			if($anAlias)
 			{
 				try {
@@ -234,7 +234,7 @@ class DomusController
 		$config = $_SESSION['frontObj']->getConfig();
 		
 		if($label) {
-			$anAlias = $heyuconf->getAliasforLabel($label, false);
+			$anAlias = $heyuconf->getAliasForLabel($this->myLogin->getUser(), $label, false);
 			if($anAlias)
 			{
 				try {

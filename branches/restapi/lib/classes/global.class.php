@@ -21,6 +21,9 @@
 require_once(CLASS_FILE_LOCATION.'heyuconf.class.php');
 require_once(CLASS_FILE_LOCATION.'location.class.php');
 require_once(CLASS_FILE_LOCATION.'heyusched.class.php');
+require_once(CLASS_FILE_LOCATION.'imagetypes.class.php');
+require_once(UTILITY_FILE_LOCATION.'setupmodules.php');
+require_once(UTILITY_FILE_LOCATION.'setupgroups.php');
 
 class frontObject {
 
@@ -31,7 +34,10 @@ class frontObject {
 	var $modlist;
 	var $heyuConf;
 	var $heyuSched;
-
+	var $modTypes;
+	var $groups;
+	var $typedGroups;
+	
 	function & getConfig($reload = false) {
 		if (!isset($this->config) || $reload) {
 			if(isset($_SESSION['load_count']))
@@ -77,6 +83,62 @@ class frontObject {
 		}
 
 		return $this->modlist;
+	}
+
+	function & getModuleTypes($reload = false) {
+		if(isset($this->modTypes) && !$reload) {
+			if($this->modTypes->hasFileChanged())
+				$reload = true;
+		}
+		
+		if(!isset($this->modTypes) || $reload) {
+			setUpModules($this->lang);
+			$_SESSION['load_count'] += 1;
+			$modtypesinstance = new ModuleTypes(MODULE_FILE_LOCATION);
+			$this->modTypes = &$modtypesinstance;
+		}
+		
+		return $this->modTypes;
+	}
+
+	function & getGroups($reload = false) {
+		if(isset($this->groups) && !$reload) {
+			if($this->groups->hasFileChanged())
+				$reload = true;
+		}
+		
+		if(!isset($this->groups) || $reload) {
+			setUpGroups($this->lang);
+			$_SESSION['load_count'] += 1;
+			$groupsinstance = new Groups(GROUP_FILE_LOCATION);
+			$this->groups = &$groupsinstance;
+		}
+		
+		return $this->groups;
+	}
+
+	function & getTypedGroups($reload = false) {
+		if(isset($this->typedGroups) && !$reload) {
+			if($this->typedGroups->hasFileChanged())
+				$reload = true;
+		}
+		
+		if(!isset($this->typedGroups) || $reload) {
+			$_SESSION['load_count'] += 1;
+			$groupsinstance = new Groups();
+			$names = ImageTypes::getModuleNames();
+			foreach($names as $name) {
+				$aGroup = new Group();
+				$aGroup->setType($this->lang[$name]);
+				$aGroup->setGroupImage($name);
+				$aGroup->rebuildElementLine();
+				$groupsinstance->addElement($aGroup);
+			}
+			
+			$this->typedGroups = &$groupsinstance;
+		}
+		
+		return $this->typedGroups;
 	}
 
 	function & getHeyuConf($reload = false) {

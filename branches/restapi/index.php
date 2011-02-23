@@ -30,6 +30,7 @@ if (!$authCheck->login()) {
 	exit();
 }
 $tpl->set('sec_level', $authCheck->getUser()->getSecurityLevel());
+$tpl->set('sec_level_type', $authCheck->getUser()->getSecurityLevelType());
 
 if(!isset($_SESSION['filesChecked']) || !$_SESSION['filesChecked'])
 {
@@ -38,7 +39,7 @@ if(!isset($_SESSION['filesChecked']) || !$_SESSION['filesChecked'])
 }
 
 // start/stop controls for heyu
-if (isset($_GET["daemon"])) {
+if (isset($_GET["daemon"]) && $authCheck->getUser()->getSecurityLevel() <= 2) {
 	try {
 		heyu_ctrl($config, $_GET["daemon"]);
 	}
@@ -49,7 +50,7 @@ if (isset($_GET["daemon"])) {
 }
 	
 // get which page is open
-$page = (isset($_GET['page'])) ? $_GET['page'] : "home";
+$page = (isset($_GET['page'])) ? $_GET['page'] : "domus_home_page";
 
 // set page title
 $tpl->set('title', ucwords($page));
@@ -96,64 +97,51 @@ if (heyu_running()) {
 
 	// load page acordingly
 	switch($page) {
-		case "home":
+		case "domus_home_page":
 			//if theme is iPhone, we want to show a menu instead of the location_tb
 			if ($config['theme'] == 'iPhone')
 				$html = $tpl->fetch(TPL_FILE_LOCATION.'home.tpl');
 			else
-				$html = $locations->buildLocations('','localized');
+				$html = $locations->buildLocations('','localized', $authCheck->getUser());
 			break;
-		case "all":
+		case "domus_all_page":
 			//if theme is iPhone, we want to show a the location_tb
-			$html = $locations->buildLocations('','localized');
+			$html = $locations->buildLocations('','localized', $authCheck->getUser());
 			break;
-		case "lights":
-		case "appliances":
-		case "irrigation":
-		case "shutters":
-		case "hvac":
-		case "other":
-			$html = $locations->buildLocations($modtypes[$page],'typed');
-			break;
-			
-		case "status":			
-			header("Location: utility/status.php?from=index");
+
+		case "domus_status_page":			
+//			header("Location: utility/status.php?from=index");
+//			exit();
+			$html = $tpl->fetch(TPL_FILE_LOCATION.'systemstatus.tpl');
+			break;	
+
+		case "domus_about_page":				
+			$html = $tpl->fetch(TPL_FILE_LOCATION.'about.tpl');
+			break;	
+
+		case "domus_themeview_page":				
+			if($config['themeview'] == 'typed')
+				$config['themeview'] = 'grouped';
+			else
+				$config['themeview'] = 'typed';
+			header("Location: index.php?page=domus_home_page");
 			exit();
 			break;	
 
-		case "about":				
-			$html = $tpl->fetch(TPL_FILE_LOCATION.$page.'.tpl');
-			break;	
-
-		case "setup": //for iphone
-			## Security validation's
-			if (!$authCheck->login()) {
-				header("Location: login.php?from=index");
-				exit();
-			}
-			else
-				$html = $tpl->fetch(TPL_FILE_LOCATION.$page.'.tpl');
-			break;
-
 		default:
-			//if theme is iPhone, we want to show a menu instead of the location_tb
-			if ($config['theme'] == 'iPhone')
-				$html = $tpl->fetch(TPL_FILE_LOCATION.'home.tpl');
-			else
-				$html = $locations->buildLocations('','localized');
+			$html = $locations->buildLocations($page, $config['themeview'], $authCheck->getUser());
 			break;
 	} // end switch
 }
 else {
 	// if heyu not running show status or about page
 	switch($page) {	
-		case "about":
-			$html = $tpl->fetch(TPL_FILE_LOCATION.$page.'.tpl');
+		case "domus_about_page":
+			$html = $tpl->fetch(TPL_FILE_LOCATION.'about.tpl');
 			break;
 
 		default:
-			header("Location: utility/status.php?from=index");
-			exit();
+			$html = $tpl->fetch(TPL_FILE_LOCATION.'systemstatus.tpl');
 			break;
 
 	} // end switch

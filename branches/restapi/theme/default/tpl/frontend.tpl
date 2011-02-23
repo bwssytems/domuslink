@@ -184,7 +184,7 @@ function validateForm(form)
     <td><?php echo ($lang['urlpath_txt']); ?></td>
   </tr>
 
-<!-- Theme -->
+<!-- Web Theme -->
 <tr><td></td></tr>
   <tr>
     <td colspan="2" style="border-bottom:1px dotted #ccc;"><h6><?php echo ($lang['theme']); ?></h6></td>
@@ -192,9 +192,8 @@ function validateForm(form)
   <tr>
     <td valign="top">
     <!-- Theme dropdown -->
-    <?php $subdir = list_dir_content(FULL_THEME_FILE_LOCATION); ?>
     <select name="theme">
-    <?php foreach ($subdir as $dir): ?>
+    <?php foreach ($webthemelist as $dir): ?>
      <?php if ($dir == $config['theme']): ?>
        <option selected value="<?php echo $dir;?>"><?php echo $dir;?></option>
      <?php else: ?>
@@ -205,6 +204,50 @@ function validateForm(form)
     <!-- End theme dropdown -->
     </td>
     <td><?php echo ($lang['theme_txt']); ?></td>
+  </tr>
+
+<!-- Theme View -->
+<tr><td></td></tr>
+  <tr>
+    <td colspan="2" style="border-bottom:1px dotted #ccc;"><h6><?php echo ($lang['themeview']); ?></h6></td>
+  </tr>
+  <tr>
+    <td valign="top">
+    <!-- Theme view dropdown -->
+    <select name="themeview">
+    <?php foreach ($themeviewlist as $themeview): ?>
+     <?php if ($themeview == $config['themeview']): ?>
+       <option selected value="<?php echo $themeview;?>"><?php echo $themeview;?></option>
+     <?php else: ?>
+       <option value="<?php echo $themeview;?>"><?php echo $themeview;?></option>
+     <?php endif; ?>
+    <?php endforeach; ?>
+    </select>
+    <!-- End theme view dropdown -->
+    </td>
+    <td><?php echo ($lang['themeview_txt']); ?></td>
+  </tr>
+
+<!-- Mobile Theme -->
+<tr><td></td></tr>
+  <tr>
+    <td colspan="2" style="border-bottom:1px dotted #ccc;"><h6><?php echo ($lang['thememobile']); ?></h6></td>
+  </tr>
+  <tr>
+    <td valign="top">
+    <!-- Mobile Theme dropdown -->
+    <select name="thememobile">
+    <?php foreach ($mobilethemelist as $dir): ?>
+     <?php if ($dir == $config['thememobile']): ?>
+       <option selected value="<?php echo $dir;?>"><?php echo $dir;?></option>
+     <?php else: ?>
+       <option value="<?php echo $dir;?>"><?php echo $dir;?></option>
+     <?php endif; ?>
+    <?php endforeach; ?>
+    </select>
+    <!-- End theme dropdown -->
+    </td>
+    <td><?php echo ($lang['thememobile_txt']); ?></td>
   </tr>
 
 <!-- Images -->

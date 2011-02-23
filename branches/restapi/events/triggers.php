@@ -40,7 +40,7 @@ if(!isset($heyusched)) {
 	exit();
 }
 
-$aliases = $heyuconf->getAliases();
+$aliases = $heyuconf->getAliases($authCheck->getUser());
 
 $schedObjs = $heyusched->getObjects();
 $macros = $heyusched->getMacroObjects();

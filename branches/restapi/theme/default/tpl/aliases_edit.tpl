@@ -1,7 +1,5 @@
-<?php $label; $code; $module; $type; $loc; ?>
-
 <form action="<?php echo ($_SERVER['PHP_SELF']); ?>?action=save" method="post">
-<input type="hidden" name="line" value="<?php echo $linenum; ?>" / >
+<input type="hidden" name="line" value="<?php echo $theAlias->getLineNum(); ?>" / >
 
 <table cellspacing="0" cellpadding="0" border="0" class="content">
 <tr><th colspan="2"><?php echo ($lang['editalias']);?></th></tr>
@@ -12,7 +10,7 @@
 <table cellspacing="0" cellpadding="0" border="0" class="clear">
   <tr>
     <td valign="top"><h6><?php echo ($lang['code']); ?>:</h6></td>
-    <td valign="top"><input type="text" name="code" value="<?php echo $code; ?>" size="10" /></td>
+    <td valign="top"><input type="text" name="code" value="<?php echo $theAlias->getHouseDevice(); ?>" size="10" /></td>
   </tr>
 
 
@@ -20,7 +18,7 @@
 
   <tr>
     <td valign="top"><h6><?php echo ($lang['label']);?>:</h6></td>
-    <td valign="top"><input type="text" name="label" value="<?php echo $label; ?>" size="20" /></td>
+    <td valign="top"><input type="text" name="label" value="<?php echo $theAlias->getLabel(); ?>" size="20" /></td>
   </tr>
 
 
@@ -32,7 +30,7 @@
     <select name="module">
     <?php foreach ($modlist as $modulenf): ?>
     <?php $modulef = rtrim($modulenf); ?>
-    	<?php if ($module == $modulef): ?>
+    	<?php if ($theAlias->getModuleType() == $modulef): ?>
     		<option value="<?php echo $modulef; ?>" selected><?php echo $modulef; ?></option>
     	<?php else: ?>
     		<option value="<?php echo $modulef; ?>"><?php echo $modulef; ?></option>
@@ -46,7 +44,7 @@
 
   <tr>
     <td valign="top"><h6><?php echo ($lang['option']);?>:</h6></td>
-    <td valign="top"><input type="text" name="moduleopts" value="<?php echo $moduleopts; ?>" size="20" /></td>
+    <td valign="top"><input type="text" name="moduleopts" value="<?php echo $theAlias->getModuleOptions(); ?>" size="20" /></td>
   </tr>
 
 <!-- Type -->
@@ -55,12 +53,11 @@
     <td valign="top"><h6><?php echo ($lang['type']);?>:</h6></td>
     <td valign="top">
     <select name="type">
-    <?php foreach ($modtypes as $key => $typenf): ?>
-    <?php $typef = rtrim($typenf); ?>
-    	<?php if (rtrim($type) == $typef): ?>
-    		<option value="<?php echo $typef; ?>" selected><?php echo $typef; ?></option>
+    <?php foreach ($modtypes as $module): ?>
+    	<?php if ($theAlias->getAliasMap()->getType() == $module->getType()): ?>
+    		<option value="<?php echo $module->getType(); ?>" class="imagebacked_mod" style="background-image: url(<?php echo $config['url_path']; ?>/theme/<?php echo $config['theme']; ?>/images/module_<?php echo $module->getModuleImage(); ?>_off.png);" selected><?php echo $module->getType(); ?></option>
     	<?php else: ?>
-    		<option value="<?php echo $typef; ?>"><?php echo $typef; ?></option>
+    		<option value="<?php echo $module->getType(); ?>" class="imagebacked_mod" style="background-image: url(<?php echo $config['url_path']; ?>/theme/<?php echo $config['theme']; ?>/images/module_<?php echo $module->getModuleImage(); ?>_off.png);"><?php echo $module->getType(); ?></option>
     	<?php endif; ?>
     <?php endforeach; ?>
     </select>
@@ -76,7 +73,7 @@
     <select name="loc" onClick="beginEditing(this);" onBlur="finishEditing();">
 	<?php foreach ($floorplan as $locnf): ?>
 	<?php $locf = rtrim($locnf); ?>
-	    <?php if (rtrim($loc) == $locf): ?>
+	    <?php if ($theAlias->getAliasMap()->getFloorPlanLabel() == $locf): ?>
     		<option value="<?php echo $locf; ?>" selected><?php echo $locf; ?></option>
     	<?php else: ?>
     		<option value="<?php echo $locf; ?>"><?php echo $locf; ?></option>
@@ -85,6 +82,30 @@
   		<option value=""></option>
 	</select>
     </td>
+  </tr>
+
+<!-- Group -->
+
+  <tr>
+    <td valign="top"><h6><?php echo ($lang['group']);?>:</h6></td>
+    <td valign="top">
+    <select name="group">
+	<?php foreach ($groups as $group): ?>
+	    <?php if ($theAlias->getAliasMap()->getGroup() == $group->getType()): ?>
+    		<option value="<?php echo $group->getType(); ?>" class="imagebacked_menu" style="background-image: url(<?php echo $config['url_path']; ?>/theme/<?php echo $config['theme']; ?>/images/menu_<?php echo $group->getGroupImage(); ?>_off.png);" selected><?php echo $group->getType(); ?></option>
+    	<?php else: ?>
+    		<option value="<?php echo $group->getType(); ?>" class="imagebacked_menu" style="background-image: url(<?php echo $config['url_path']; ?>/theme/<?php echo $config['theme']; ?>/images/menu_<?php echo $group->getGroupImage(); ?>_off.png);"><?php echo $group->getType(); ?></option>
+    	<?php endif; ?>
+	<?php endforeach; ?>
+	</select>
+    </td>
+  </tr>
+
+<!-- Security Access Level -->
+
+  <tr>
+    <td valign="top"><h6><?php echo ($lang['seclevel']);?>:</h6></td>
+    <td valign="top"><input type="text" name="secaccesslevel" value="<?php echo strval($theAlias->getAliasMap()->getAccessLevel()); ?>" size="4" /></td>
   </tr>
 </table>
 

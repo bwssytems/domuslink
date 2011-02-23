@@ -37,6 +37,8 @@ function config_load()
 	$config["lang"] = "";
 	$config["url_path"] = "/";
 	$config["theme"] = "default";
+	$config["themeview"] = "typed";
+	$config["thememobile"] = "iPhone";
 	$config["imgs"] = "ON";
 	$config["codes"] = "ON";
 	$config["refresh"] = "0";
@@ -131,8 +133,14 @@ function config_text($config)
 # domus.Link at the root ie http://your-host/
 \$config['url_path'] = '{$config['url_path']}';
 
-# Theme - GUI's Theme
+# Theme - Web GUI's Theme
 \$config['theme'] = '{$config['theme']}';
+
+# Theme  View - default view as grouped or types
+\$config['themeview'] = '{$config['themeview']}';
+
+# Mobile Theme - select mobile autodetect theme
+\$config['thememobile'] = '{$config['thememobile']}';
 
 # Images - Select ON or OFF if you want images to be displayed
 # in the menu bar instead of text.

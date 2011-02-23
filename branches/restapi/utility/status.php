@@ -28,16 +28,16 @@ if (!$authCheck->login()) {
 	header("Location: ../login.php?from=utility/status");
 	exit();
 }
-if($authCheck->getUser()->getSecurityLevel() > 2) {
-	header("Location: ../index.php");
-	exit();
-}
+//if($authCheck->getUser()->getSecurityLevel() > 2) {
+//	header("Location: ../index.php");
+//	exit();
+//}
 $tpl->set('sec_level', $authCheck->getUser()->getSecurityLevel());
 
 ## Set template parameters
 $tpl->set('title', $lang['status']);
 
-$tpl_body = new Template(TPL_FILE_LOCATION.'status.tpl');
+$tpl_body = new Template(TPL_FILE_LOCATION.'systemstatus.tpl');
 $tpl_body->set('lang', $lang);
 $tpl_body->set('config', $config);
 $tpl_body->set('sec_level', $authCheck->getUser()->getSecurityLevel());

@@ -41,7 +41,7 @@ div#header {
 
 /************** MENU **************/
 div#menu {
-	height: 40px;
+	height: 60px;
 }
 
 
@@ -52,10 +52,10 @@ div#menu img {
 
 div#menuitem {
 	float: left;
-	width: 10.5%;
+	width: 10%;
 	text-align: center;
 	font-size: 14px;
-	height: 40px;
+	height: 60px;
 }
 
 div#menuitem p {
@@ -188,6 +188,15 @@ table.content td {
 	border-right: 1px dotted #ccc;
 	border-bottom: 1px dotted #ccc;
 	/*background-color: #fbfbfb;*/
+}
+
+td#menuitem {
+	float: left;
+	text-align: center;
+	font-size: 14px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	
 }
 
 tr.row:hover {
@@ -324,3 +333,20 @@ h6 {
 /************** Progress Bar **************/
 .hide { position:absolute; visibility:hidden; }
 .show { position:absolute; visibility:visible; }
+
+/************** option image background ******************/
+option.imagebacked_menu {
+background-repeat: no-repeat;
+background-position: top left;
+text-align: right;
+padding-left: 30px;
+height: 35px;
+}
+
+option.imagebacked_mod {
+background-repeat: no-repeat;
+background-position: top left;
+text-align: right;
+padding-left: 20px;
+height: 20px;
+}

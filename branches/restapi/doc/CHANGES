@@ -3,7 +3,7 @@
  |                               CHANGES                                      |
  |                                                                            |
  +----------------------------------------------------------------------------*/
-  v2.0beta - 13/February/2011
+  v2.0beta - 21/February/2011
  ------
  	* Issue 52 enhancement - Added a REST API for domus.Link to have applications be able to create other
  	  applications that can talk directly to the domus.Link core. This will allow
@@ -34,11 +34,32 @@
 		2 = allow starting of heyu but not stop and control of any aliases
 		3 - n = assignable to aliases and then limits control based on login.
 		
-		The setting levels can be exact matches or greater than matches to further limit control.
+		The setting levels can be exact matches or greater than matches to further limit
+		control.
 		
-		On first start of this version, the system will create a default admin user and pin with pass '1234'.
-		Please change the passwords to something better.
-	  
+		On first start of this version, the system will create a default admin user and
+		pin with pass '1234'. Please change the passwords to something better.
+	 * Issue 1 fixed - stabilized iPhone theme. Removed references to any setup functions.
+	   Also, updated iPhone theme to be compatible with new security and groupings
+	   behavior. Changed iui library to be the base 0.31 native without modifications.
+	   This will allow the path for domus.Link to be anything and will be found.
+	   
+	   This fix also implements the auto detection properly for iPhone, iPad, iTouch, Android
+	   for the theme. Since this noew works properly, I have taken the selection for the 
+	   whole fronend gui for iPhone and put into it's own config as Mobile Theme. This
+	   will prevent using the iPhone theme as your normal browser theme but the iPhone
+	   theme does not have any domus.Link configuration ability now due to the new
+	   complex configuration items that have been added.
+	 * Issue 17 fixed - Added a module of type status that does not have control and only
+	   reflects the state of the module as on or off.
+	 * Issue 36 and Issue 32 fixed - Added the ability to configure custom groups for the main
+	   menu title bar. Also allow the switching from the domus.Link default menu by types to the
+	   new groups and back. The menu is now dynamic and only displays menu groups that are visible
+	   and have accessible modules in them. If there are no modules in a group, the menu item is not
+	   displayed. If the menu group does not contain any accessible modules for the login access
+	   level, that menu group will not be displayed. Groups can also set their visibility explicitly.
+	   This should allow a multitude of display configurations by group/user/pin. 
+	 * Issue 50 added - A native Android application is created to use the new RESTAPI.
   v1.2 - 01/July/2010
  ------
 	* Updated heyu config file handling to be agnostic and object oriented. domus.Link

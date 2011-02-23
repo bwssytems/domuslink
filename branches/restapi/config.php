@@ -77,8 +77,14 @@ $config['lang'] = 'English';
 # domus.Link at the root ie http://your-host/
 $config['url_path'] = '/domus.Link';
 
-# Theme - GUI's Theme
+# Web Theme - GUI's Theme
 $config['theme'] = 'default';
+
+# Theme  View - default view as grouped or types
+$config['themeview'] = 'typed';
+
+# Monile Theme - Theme to use when autodetect of mobile browser
+$config['thememobile'] = 'iPhone';
 
 # Images - Select ON or OFF if you want images to be displayed
 # in the menu bar instead of text.

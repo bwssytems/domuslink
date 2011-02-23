@@ -69,9 +69,8 @@ function validateForm(form)
     <td valign="top"><h6><?php echo ($lang['type']);?>:</h6></td>
     <td valign="top">
     <select name="type">
-	<?php foreach ($modtypes as $key => $typenf): ?>
-	<?php $typef = rtrim($typenf); ?>
-		<option value="<?php echo $typef;?>"><?php echo $typef;?></option>
+	<?php foreach ($modtypes as $module): ?>
+		<option value="<?php echo $module->getType();?>" class="imagebacked_mod" style="background-image: url(<?php echo $config['url_path']; ?>/theme/<?php echo $config['theme']; ?>/images/module_<?php echo $module->getModuleImage(); ?>_off.png);"><?php echo $module->getType();?></option>
 	<?php endforeach; ?>
 	</select>
     </td>
@@ -91,6 +90,26 @@ function validateForm(form)
 		<option value=""></option>
 	</select>
     </td>
+  </tr>
+
+<!-- Group -->
+
+  <tr>
+    <td valign="top"><h6><?php echo ($lang['group']);?>:</h6></td>
+    <td valign="top">
+    <select name="group">
+	<?php foreach ($groups as $group): ?>
+		<option value="<?php echo $group->getType();?>" class="imagebacked_menu" style="background-image: url(<?php echo $config['url_path']; ?>/theme/<?php echo $config['theme']; ?>/images/menu_<?php echo $group->getGroupImage(); ?>_off.png);"><?php echo $group->getType();?></option>
+	<?php endforeach; ?>
+	</select>
+    </td>
+  </tr>
+
+<!-- Security Access Level -->
+
+  <tr>
+    <td valign="top"><h6><?php echo ($lang['seclevel']);?>:</h6></td>
+    <td valign="top"><input type="text" name="secaccesslevel" value="" size="4" /></td>
   </tr>
 </table>
 

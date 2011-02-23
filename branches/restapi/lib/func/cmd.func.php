@@ -154,7 +154,10 @@ function heyu_action($config, $theActionRequest, $theCode, $theState = null, $cu
  */
 function dim_bright($config, $state, $currlevel, $reqlevel, $code) {
 	$modCurrLevel = $currlevel * 20;
-	$modReqLevel = $reqlevel * 20;
+	if($reqlevel < 0)
+	    $modReqLevel = 0;
+	else
+		$modReqLevel = $reqlevel * 20;
 	
 	return dim_bright_real($config, $state, $modCurrLevel, $modReqLevel, $code);
 }

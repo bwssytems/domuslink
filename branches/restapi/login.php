@@ -45,11 +45,11 @@ if (isset($_POST['password'])) {
 	else
 		$remember = false;
 	if ($login->checkLogin("", $_POST['password'],$remember)) {
-			error_log("login.php successful");
+//			error_log("login.php successful");
 			header("Location: ".$config['url_path']."/".$_POST['from'].".php");
 	}
 	else {
-		error_log("login.php UNsuccessful");
+//		error_log("login.php UNsuccessful");
 		header("Location: login.php?from=".$_POST['from']."&failed=true");
 	}
 	exit();
@@ -57,6 +57,11 @@ if (isset($_POST['password'])) {
 
 $tpl_body = new Template(TPL_FILE_LOCATION.'login.tpl');
 $tpl_body->set('lang', $lang);
+/*
+ * FIXME
+ * Used for iPhone theme to determine if we are loggin ing
+ */
+$tpl->set('login', "login");
 
 ## Display the page
 if (!empty($tpl_body)) {

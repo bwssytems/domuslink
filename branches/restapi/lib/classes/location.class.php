@@ -18,6 +18,7 @@
  * this program; if not, write to the Free Software Foundation, 
  * Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
+require_once(CLASS_FILE_LOCATION."module.const.php");
 
 class location {
 
@@ -42,20 +43,27 @@ class location {
 	/**
 	 * Description:
 	 * 
-	 * @param $type_filter
-	 * @param $type
+	 * @param $type_filter represents the name of the group to be used. IF empty then all are returned.
+	 * @param $type this cane be 'typed' for module types, 'grouped' for custom layout, or 'localized' by location
+	 * @param $user represents the user to check access for
 	 */
-	function buildLocations($type_filter, $type = 'localized') {
+	function buildLocations($type_filter, $type = 'localized', $user) {
 		$html = null;
 		// loop through each location in floorplan file
-		foreach ($this->heyuconfObj->getFloorPlan() as $location) {
+		foreach ($this->heyuconfObj->getFloorPlan($user) as $location) {
 			// get all aliases specific to location
-			$localized_aliases = $this->getAliasesByLocation($location);
+			$localized_aliases = $this->getAliasesByLocation($location, $user);
 			
 			// if location contains aliases/modules then display them
 			if (count($localized_aliases) > 0) {
 				if ($type == 'typed') {
-					$typed_aliases = $this->getAliasesByType($localized_aliases, $type_filter);
+					$typed_aliases = $this->getAliasesByType($localized_aliases, $type_filter, $user);
+					if (count($typed_aliases) > 0) {
+						$html .= $this->buildLocationTable($location, $typed_aliases, $type);
+					}		
+				}
+				elseif ($type == 'grouped') {
+					$typed_aliases = $this->getAliasesByGroup($localized_aliases, $type_filter, $user);
 					if (count($typed_aliases) > 0) {
 						$html .= $this->buildLocationTable($location, $typed_aliases, $type);
 					}		
@@ -74,26 +82,24 @@ class location {
 	 * 
 	 * Description:
 	 * 
-	 * @param $location
-	 * @param $aliases
-	 * @param $modtypes
+	 * @param $location represents the location we are building
+	 * @param $aliases represents the alias list
+	 * @param $type represents selection for localized if for iPhone
 	 */
 	function buildLocationTable($location, $aliases, $type, $html = null) {
-		//global $config;
-		//global $modtypes;
 		
 		$zone_tpl = new Template(TPL_FILE_LOCATION.'floorplan_table.tpl');
-		$zone_tpl->set('header', $location);
+		$zone_tpl->set('header', label_parse($location));
 		
 		if (empty($_GET['page'])) {
-			$_GET['page']='home';
+			$_GET['page']='domus_home_page';
 		}
 		
 		$zone_tpl->set('page', $_GET['page']);
 		
 		// iterate array specific to a house zone
 		foreach ($aliases as $alias) {
-			if($type != 'typed') {
+			if($type == 'localized') {
 				if(!($alias->getAliasMap()->isHiddenFromHome()))
 					$html .= $this->buildModuleTable($alias);
 			}
@@ -117,14 +123,14 @@ class location {
 	 * @param $alias
 	 */
 	function buildModuleTable($alias) {
-		global $lang;
-		global $config;
-		global $modtypes;
+		$lang = $_SESSION['frontObj']->getLanguageFile();
+		$config = $_SESSION['frontObj']->getConfig();
+		$modTypes = $_SESSION['frontObj']->getModuleTypes();
 		
 		$multi_alias = $alias->isMultiAlias(); // check if A1,2 or just A1
 		
 		// check if is a multi alias, if true, use modules.tpl, if not use template acording to $type
-		$tpl = ($multi_alias) ? "modules.tpl" : strtolower($alias->getAliasMap()->getType()).".tpl";
+		$tpl = ($multi_alias) ? "modules.tpl" : $modTypes->getModuleType($alias->getAliasMap()->getType())->getModuleImage().".tpl";
 		
 		// create new template
 		$mod = new Template(TPL_FILE_LOCATION.$tpl);
@@ -134,7 +140,7 @@ class location {
 		$mod->set('lang', $lang);
 		
 		if (!isset($_GET['page'])) {
-			$_GET['page']='home';
+			$_GET['page']='domus_home_page';
 		}
 		else {
 			$mod->set('page', $_GET['page']);
@@ -154,7 +160,7 @@ class location {
 			$mod->set('action', $action);
 			$mod->set('state', $state);
 				
-			if ($alias->getAliasMap()->getType() == $modtypes['lights']) {
+			if ($modTypes->getModuleType($alias->getAliasMap()->getType())->getModuleType() == DIMMABLE_D) {
 				$mod->set('level', $this->level_calc(dim_level($config, $alias->getHouseDevice())));
 			}
 		}
@@ -190,11 +196,14 @@ class location {
 	 * Get Aliases By Location
 	 * 
 	 * @param $loc represents the wanted location
+	 * @param $user represents the user to check access for
+	 * @param $json option parameter to specify we are going to encode in json format
+	 * @param $onlyVisible parameter to return only home visible items.
 	 */
-	function getAliasesByLocation($loc, $json = false, $onlyVisible = false) {
+	function getAliasesByLocation($loc, $user, $json = false, $onlyVisible = false) {
 		$i = 0;
-		foreach ($this->heyuconfObj->getAliases(true) as $line) {
-			if($line->getAliasMap()->getFloorPlanLabel() == trim($loc)) {
+		foreach ($this->heyuconfObj->getAliases($user, true) as $line) {
+			if($line->getAliasMap()->getFloorPlanLabel() == trim($loc) && $line->getAliasMap()->hasAccess($user->getSecurityLevel(), $user->getSecurityLevelType())) {
 				if(!$onlyVisible || !$line->getAliasMap()->isHiddenFromHome())
 				{
 				if($json)
@@ -214,11 +223,36 @@ class location {
 	 * 
 	 * @param $aliases represents an array of aliases built by getAliasesByLocation
 	 * @param $type represents the type os module (light, appliance, etc)
+	 * @param $user represents the user to check access for
+	 * @param $json option parameter to specify we are going to encode in json format
 	 */
-	function getAliasesByType($aliases, $type, $json = false) {
+	function getAliasesByType($aliases, $type, $user, $json = false) {
 		$i = 0;
 		foreach ($aliases as $alias) {
-			if($alias->getAliasMap()->getType() == $type) {
+			if($alias->getAliasMap()->getType() == $type && $alias->getAliasMap()->hasAccess($user->getSecurityLevel(), $user->getSecurityLevelType())) {
+				if($json)
+					$request[$i] = $alias->encodeJSON();
+				else
+					$request[$i] = $alias;
+				$i++;
+			}
+		}
+		
+		if (!empty($request)) return $request;
+	}
+
+	/**
+	 * Get Aliases By Group
+	 * 
+	 * @param $aliases represents an array of aliases built by getAliasesByLocation
+	 * @param $group represents the group of the module (light, appliance, etc)
+	 * @param $user represents the user to check access for
+	 * @param $json option parameter to specify we are going to encode in json format
+	 */
+	function getAliasesByGroup($aliases, $group, $user, $json = false) {
+		$i = 0;
+		foreach ($aliases as $alias) {
+			if($alias->getAliasMap()->getGroup() == $group && $alias->getAliasMap()->hasAccess($user->getSecurityLevel(), $user->getSecurityLevelType())) {
 				if($json)
 					$request[$i] = $alias->encodeJSON();
 				else

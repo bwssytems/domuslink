@@ -3,7 +3,7 @@
 
 <tr>
 <td width="17" valign="top">
-<img src="<?php echo $config['url_path']; ?>/theme/<?php echo $config['theme']; ?>/images/module_irrig_<?php echo $state; ?>.png" vspace="2" />
+<img src="<?php echo $config['url_path']; ?>/theme/<?php echo $config['theme']; ?>/images/module_irrigation_<?php echo $state; ?>.png" vspace="2" />
 </td>
 
 <td width="110px" rowspan="2"><input type="text" disabled="disabled" value="<?php echo $label; ?>" class="module_<?php echo $state; ?>"  /></td>

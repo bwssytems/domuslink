@@ -40,6 +40,9 @@ require_once(FUNC_FILE_LOCATION.'lang.func.php');
 # require_once(CLASS_FILE_LOCATION.'tpl.class.php');
 require_once(CLASS_FILE_LOCATION.'global.class.php');
 require_once(CLASS_FILE_LOCATION.'login.class.php');
+require_once(CLASS_FILE_LOCATION.'module.class.php');
+require_once(CLASS_FILE_LOCATION.'moduletypes.class.php');
+
 
 ## Start session for error messages and login
 if (!isset($_SESSION)) {

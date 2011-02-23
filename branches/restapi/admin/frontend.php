@@ -35,6 +35,9 @@ if($authCheck->getUser()->getSecurityLevel() != 0) {
 $tpl->set('sec_level', $authCheck->getUser()->getSecurityLevel());
 
 $subdirList = array("default", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9");
+$themeviewlist = array("typed", "grouped");
+$webthemelist = array("default");
+$mobilethemelist = array("iPhone");
 
 ## Set template parameters
 $tpl->set('title', $lang['frontendadmin']);
@@ -43,6 +46,9 @@ if (!isset($_GET["action"])) {
 	$tpl_body = new Template(TPL_FILE_LOCATION.'frontend.tpl');
 	$tpl_body->set('config', $config);
 	$tpl_body->set('subdirlist', $subdirList);
+	$tpl_body->set('themeviewlist', $themeviewlist);
+	$tpl_body->set('webthemelist', $webthemelist);
+	$tpl_body->set('mobilethemelist', $mobilethemelist);
 	$tpl_body->set('lang', $lang);
 }
 elseif ($_GET["action"] == "save") {
@@ -57,6 +63,8 @@ elseif ($_GET["action"] == "save") {
 	$config['lang'] = $_POST["lang"];
 	$config['url_path'] = $_POST["url_path"];
 	$config['theme'] = $_POST["theme"];
+	$config['themeview'] = $_POST["themeview"];
+	$config['thememobile'] = $_POST["thememobile"];
 	$config['imgs'] = $_POST["imgs"];
 	$config['codes'] = $_POST["codes"];
 	$config['refresh'] = $_POST["refresh"];

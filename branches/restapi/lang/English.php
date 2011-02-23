@@ -34,6 +34,9 @@ $lang["aliases"] = "Aliases";
 $lang["floorplan"] = "Floorplan";
 $lang["frontend"] = "Frontend";
 $lang["heyusetup"] = "Heyu";
+$lang["light"] = "Light";
+$lang["appliance"] = "Appliance";
+$lang["shutter"]="Shutter";
 
 $lang["add"] = "Add";
 $lang["edit"] = "Edit";
@@ -255,4 +258,14 @@ $lang["secleveltypegreater"] = "Greater";
 $lang["usertypepin"] = "PIN";
 $lang["usertypeuser"] = "User";
 $lang["hvac_seclevel"] = "HVAC Security Level";
+$lang["group"] = "Group";
+$lang["groups"] = "Groups";
+$lang["imagename"] = "Image Name";
+$lang["addgroups"] = "Add Group";
+$lang["editgroups"] = "Edit Group";
+$lang["themeview_txt"] = "Select a theme view for the theme. Either select typed for the default view by module type or grouped for the custom user grouping.";
+$lang["themeview"] = "Theme View";
+$lang["themeviewinfo"] = "This sets the view of domus.Link to either builtin typed or custom user setup grouped";
+$lang["thememobile_txt"] = "Select a theme for the autodetect mobile theme.";
+$lang["thememobile"] = "Mobile Theme";
 ?>

@@ -34,6 +34,7 @@ abstract class ElementFile {
 	 */
 	function __construct() {
 		$this->elementObjects = array();
+		$this->lineStore = array();
 		$args = func_get_args();
         if(!empty($args))
         {
@@ -143,13 +144,18 @@ abstract class ElementFile {
 	 * Description: Returns an array containing the Objects of the specified types along
 	 * with their respective line numbers in the file.
 	 */
-	function getElementObjects($objectType) {
+	function getElementObjects($objectType, $jsonEncode = false) {
 		$i = 0;
 		$objectArray = array();
 		foreach($this->elementObjects as $anElementObject) {
 			if ($anElementObject->getType() == $objectType || $objectType == ALL_OBJECTS_D) {
-				$objectArray[$i] = $anElementObject;
-				$objectArray[$i]->setArrayNum($i);
+				if($jsonEncode) {
+					$objectArray[$i] = $anElementObject->encodeJSON();
+				}
+				else {
+					$objectArray[$i] = $anElementObject;
+					$objectArray[$i]->setArrayNum($i);
+				}
 				$i++;
 			}
 		}

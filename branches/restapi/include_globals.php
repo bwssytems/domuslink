@@ -24,6 +24,8 @@ try {
 $directives =& $_SESSION['frontObj']->getDirectives();
 $modlist =& $_SESSION['frontObj']->getModList();
 $heyuconf =& $_SESSION['frontObj']->getHeyuConf();
+$modtypes =& $_SESSION['frontObj']->getModuleTypes();
+$groups =& $_SESSION['frontObj']->getGroups();
 }
 catch(Exception $e) {
 	gen_error("Load Cache", $e->getMessage());
