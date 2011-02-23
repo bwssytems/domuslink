@@ -114,6 +114,7 @@ public class DomusAsyncTask extends AsyncTask<DomusAsyncParams, Void, DomusAsync
 			try {
 				theResults.setLocations(theParams.getTheHandler().getFloorPlan());
 				theResults.setAliases(theParams.getTheHandler().getAliasesByLocation(theResults.getLocations()[0]));
+				theResults.setModuleTypes(theParams.getTheHandler().getModuleTypes());
 			}
 			catch(Exception e) {
 				theResults.setTheException(e);
@@ -161,6 +162,7 @@ public class DomusAsyncTask extends AsyncTask<DomusAsyncParams, Void, DomusAsync
 			pUpdater.actionComplete(new String[] {"OFF_ALIAS"});
 			break;			
 		case DomusHandler.GET_INITIAL:
+			pUpdater.setModuleTypesResult(result.getModuleTypes());
 			pUpdater.setFloorPlanResult(result.getLocations());
 			pUpdater.setAliasesResult(result.getAliases());
 			break;

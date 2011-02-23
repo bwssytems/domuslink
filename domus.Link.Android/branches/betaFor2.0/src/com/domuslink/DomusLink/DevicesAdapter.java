@@ -24,6 +24,8 @@ import com.domuslink.api.DomusAsyncTask;
 import com.domuslink.api.DomusAsyncUpdater;
 import com.domuslink.api.DomusHandler;
 import com.domuslink.elements.Alias;
+import com.domuslink.elements.Module;
+import com.domuslink.elements.ModuleHome;
 import com.domuslink.util.LabelHandler;
 
 import android.content.Context;
@@ -43,13 +45,15 @@ public class DevicesAdapter extends BaseAdapter implements DomusAsyncUpdater {
     private DomusLink mContext;
     private DomusHandler myHandler;
     private Alias[] mAliases;
+    private ModuleHome mModuleTypes;
 
     private String[] mLabelIds;
     
     private Integer[] mImageIds;
 
-    public DevicesAdapter(DomusLink c, DomusHandler theHandler, Alias[] theAliases) {
+    public DevicesAdapter(DomusLink c, DomusHandler theHandler, Alias[] theAliases, ModuleHome theModuleTypes) {
         mContext = c;
+        mModuleTypes = theModuleTypes;
         setData(theHandler, theAliases);
         TypedArray a = mContext.obtainStyledAttributes(R.styleable.DomusDevices);
         mGalleryItemBackground = a.getResourceId(
@@ -76,51 +80,17 @@ public class DevicesAdapter extends BaseAdapter implements DomusAsyncUpdater {
 
         for(int i = 0; i < mAliases.length; i++) {
         	mLabelIds[i] = LabelHandler.labelParse(mAliases[i].getLabel(), false);
+        	String imagePartial = mModuleTypes.find(mAliases[i].getAliasMapElement().getElementType()).getModuleImage();
 	       	if(mAliases[i].isMultiAlias()) {
         		mImageIds[i] = R.drawable.module_multi;
     		}
-	       	else if(mAliases[i].getAliasMapElement().getElementType().equals("Light"))
+	       	else
 	    	{
 	    		if(mAliases[i].getState() == 0)
-	    			mImageIds[i] = R.drawable.menu_lights_off;
+	    			mImageIds[i] = mContext.getResources().getIdentifier("menu_"+imagePartial+"_off", "drawable", "com.domuslink.DomusLink");
 	    		else
-	    			mImageIds[i] = R.drawable.menu_lights_on;
+	    			mImageIds[i] = mContext.getResources().getIdentifier("menu_"+imagePartial+"_on", "drawable", "com.domuslink.DomusLink");
 	    	}
-	    	else if(mAliases[i].getAliasMapElement().getElementType().equals("Appliance"))
-	       	{
-	    		if(mAliases[i].getState() == 0)
-	    			mImageIds[i] = R.drawable.menu_appliance_off;
-	    		else
-	    			mImageIds[i] = R.drawable.menu_appliance_on;
-	    	}
-	       	else if(mAliases[i].getAliasMapElement().getElementType().equals("Irrigation"))
-	       	{
-	    		if(mAliases[i].getState() == 0)
-	    			mImageIds[i] = R.drawable.menu_irrigation_off;
-	    		else
-	    			mImageIds[i] = R.drawable.menu_irrigation_on;
-	    	}
-	      	else if(mAliases[i].getAliasMapElement().getElementType().equals("Shutter"))
-	       	{
-	    		if(mAliases[i].getState() == 0)
-	    			mImageIds[i] = R.drawable.menu_shutters_off;
-	    		else
-	        		mImageIds[i] = R.drawable.menu_shutters_on;
-	    	}
-	       	else if(mAliases[i].getAliasMapElement().getElementType().equals("Other"))
-	       	{
-	    		if(mAliases[i].getState() == 0)
-	    			mImageIds[i] = R.drawable.menu_other_off;
-	    		else
-	    			mImageIds[i] = R.drawable.menu_other_on;           		
-	    	}
-			else
-	       	{
-	    		if(mAliases[i].getState() == 0)
-	    			mImageIds[i] = R.drawable.menu_other_off;           		
-	    		else
-	    			mImageIds[i] = R.drawable.menu_other_on;           		
-	       	}
         }
     }
     public int getCount() {
@@ -182,6 +152,12 @@ public class DevicesAdapter extends BaseAdapter implements DomusAsyncUpdater {
 
 	@Override
 	public void actionComplete(String[] result) {
+		// not used
+		
+	}
+
+	@Override
+	public void setModuleTypesResult(Module[] theModules) {
 		// not used
 		
 	}

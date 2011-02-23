@@ -20,10 +20,12 @@
 package com.domuslink.api;
 
 import com.domuslink.elements.Alias;
+import com.domuslink.elements.Module;
 
 public class DomusAsyncResults {
 	public String[] locations;
-	public Alias[] Aliases;
+	public Alias[] aliases;
+	public Module[] moduleTypes;
 	public String[] versionInfo;
 	public Exception theException;
 	public DomusAsyncParams calledParams;
@@ -31,7 +33,8 @@ public class DomusAsyncResults {
 	public DomusAsyncResults() {
 		super();
 		this.locations = null;
-		this.Aliases = null;
+		this.aliases = null;
+		this.moduleTypes = null;
 		this.theException = null;
 		this.calledParams = null;
 	}
@@ -43,10 +46,18 @@ public class DomusAsyncResults {
 		this.locations = locations;
 	}
 	public Alias[] getAliases() {
-		return Aliases;
+		return aliases;
 	}
-	public void setAliases(Alias[] aliases) {
-		Aliases = aliases;
+	public void setAliases(Alias[] theAliases) {
+		aliases = theAliases;
+	}
+
+	public Module[] getModuleTypes() {
+		return moduleTypes;
+	}
+
+	public void setModuleTypes(Module[] moduleTypes) {
+		this.moduleTypes = moduleTypes;
 	}
 
 	public Exception getTheException() {

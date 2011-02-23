@@ -66,7 +66,10 @@ public class Alias extends Element {
 	}
 
 	public String getHouseDevice() {
-		return (houseCode+devices);
+		if(devices.compareTo("false") == 0)
+			return (houseCode);
+		else
+			return (houseCode+devices);
 	}
 	
 	public boolean isMultiAlias() {

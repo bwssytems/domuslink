@@ -24,6 +24,8 @@ import com.domuslink.api.DomusAsyncTask;
 import com.domuslink.api.DomusAsyncUpdater;
 import com.domuslink.api.DomusHandler;
 import com.domuslink.elements.Alias;
+import com.domuslink.elements.Module;
+import com.domuslink.elements.ModuleHome;
 import com.domuslink.util.VersionHandler;
 import com.domuslink.DomusLink.DevicesAdapter;
 import android.app.Activity;
@@ -64,11 +66,11 @@ public class DomusLink extends Activity implements DomusAsyncUpdater {
     private SeekBar mDeviceDimmer;
     private TextView mDimmerLevel;
     private String[] mFloorPlan;
+    private VersionHandler mVersion;
+    private ModuleHome mModuleTypes;
+
     public String updateDialogText;
     public String infoDialogText;
-    
-    private VersionHandler mVersion;
-
 
     public final int UPDATE_SETTINGS_DIALOG = 1;
     public final int INFO_DIALOG = 2;
@@ -245,6 +247,14 @@ public class DomusLink extends Activity implements DomusAsyncUpdater {
 		this.domusHandler = domusHandler;
 	}
 
+	public ModuleHome getmModuleTypes() {
+		return mModuleTypes;
+	}
+
+	public void setmModuleTypes(ModuleHome mModuleTypes) {
+		this.mModuleTypes = mModuleTypes;
+	}
+
 	public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.systems_menu, menu);
@@ -359,11 +369,7 @@ public class DomusLink extends Activity implements DomusAsyncUpdater {
 
 	@Override
 	public void setAliasesResult(Alias[] theAliases) {
-		// FIXME this is actually kind of ugly as I want to show the first device in the
-		// gallery. This wouldn't be the preferred way to handle UI initialization in the
-		// current model. The FloorPlanClickListener would handle the showing of the devices
-		// in the gallery. Otherwise, we can show nothing until a location is selected.
-	    mDeviceAdapter = new DevicesAdapter(this, domusHandler, theAliases);
+	    mDeviceAdapter = new DevicesAdapter(this, domusHandler, theAliases, mModuleTypes);
 	    mDevicesView.setAdapter(mDeviceAdapter);
 	    mDevicesView.setOnItemClickListener(mDevicesClickListener);
 	}
@@ -398,5 +404,11 @@ public class DomusLink extends Activity implements DomusAsyncUpdater {
 			}
 		}
 		initializeFloorPlan();
+	}
+
+	@Override
+	public void setModuleTypesResult(Module[] theModules) {
+		mModuleTypes = new ModuleHome(theModules);
+		
 	}
 }

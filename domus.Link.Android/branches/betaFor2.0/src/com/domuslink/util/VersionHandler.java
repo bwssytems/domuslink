@@ -46,11 +46,8 @@ public class VersionHandler {
 	public String compatibilityLevel() {
 		if(expectedApiVersion == domusApiVersion)
 			return "true:Fully Compatible";
-		else if(domusApiVersion >= minApiVersion && domusApiVersion < expectedApiVersion)
-			return "true:Some Features may not be available";
-		else if(domusApiVersion > expectedApiVersion)
-			return "false:Unknown Compatibility";
-		
+		else if(domusApiVersion >= minApiVersion)
+			return "true:Some Features may not be available";		
 		
 		return "false:Not Compatible";
 	}

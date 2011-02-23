@@ -27,6 +27,7 @@ import android.util.Log;
 import com.domuslink.communication.ApiCookieHandler;
 import com.domuslink.communication.ApiHandler;
 import com.domuslink.elements.Alias;
+import com.domuslink.elements.Module;
 
 public class DomusHandler implements ApiCookieHandler {
 	private String hostPath = null;
@@ -113,7 +114,7 @@ public class DomusHandler implements ApiCookieHandler {
         if(this.hostPath != null || this.hostPath.length() != 0) {
 	        ApiHandler.prepareUserAgent(this.c, authPass, hostPath);
 	        try {
-	        	theResponse = ApiHandler.getPageContent(this, "aliasstate", theAlias.getHouseDevice());
+	        	theResponse = ApiHandler.getPageContent(this, "aliasstate", theAlias.getLabel());
 	        }
 	        catch(Exception e) {
 	            Log.e(TAG, "Error getting aliasstate page content at "+this.hostPath, e);
@@ -184,6 +185,55 @@ public class DomusHandler implements ApiCookieHandler {
         
 //    	Log.d(TAG, "At DomusHandler.getAliasesByLocation return, Alias list length is "+theAliases.length);
        return theAliases;
+		
+	}
+
+	public Module[] getModuleTypes() throws Exception
+	{
+    	JSONArray theList = null;
+    	JSONObject theResponse = null;
+    	Module[] theModules;
+
+//    	Log.i(TAG, "Entering DomusHandler.getAliasesByLocation: "+theLocation);
+        if(this.hostPath != null || this.hostPath.length() != 0) {
+	        ApiHandler.prepareUserAgent(this.c, authPass, hostPath);
+	        try {
+	        	if(this.visible)
+	        		theResponse = ApiHandler.getPageContent(this, "moduletypes", null);
+	        	else
+	        		theResponse = ApiHandler.getPageContent(this, "moduletypes", null);
+	        }
+	        catch(Exception e) {
+	            Log.e(TAG, "Error getting location page content at "+this.hostPath, e);
+	            throw e;
+	        }
+	        
+        	try {
+        		theList = theResponse.getJSONArray("moduletypes");
+        	}
+        	catch(Exception e)
+        	{
+                Log.e(TAG, "Error getting module types from JSONObject", e);
+                throw e;
+        	}
+
+        	theModules = new Module[theList.length()];
+	        for(int i = 0; i < theList.length(); i++) {
+	        	try {
+	        		theModules[i] = new Module(theList.getJSONObject(i));
+	        	}
+	        	catch(Exception e)
+	        	{
+	                Log.e(TAG, "Error getting module types from JSONArray", e);
+	                throw e;
+	        	}
+	        }
+        }
+        else
+        	theModules = null;
+        
+//    	Log.d(TAG, "At DomusHandler.getAModuleTypes return, Module list length is "+theModules.length);
+       return theModules;
 		
 	}
 

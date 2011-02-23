@@ -17,23 +17,25 @@
  * this program; if not, write to the Free Software Foundation, 
  * Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-package com.domuslink.api;
+package com.domuslink.elements;
 
-import com.domuslink.elements.Alias;
-import com.domuslink.elements.Module;
-
-import android.content.Context;
-
-public interface DomusAsyncUpdater {
-	public Context getContext();
+public class ModuleHome {
+	private Module[] moduleTypes;
 	
-	public void setFloorPlanResult(String[] theLocations);
+	public ModuleHome() {
+		super();
+	}
 
-	public void setAliasesResult(Alias[] theAliases);
+	public ModuleHome(Module[] theModules) {
+		super();
+		moduleTypes = theModules;
+	}
 	
-	public void setModuleTypesResult(Module[] theModules);
-
-	public void handleAsyncException(Exception e);
-	
-	public void actionComplete(String[] result);
+	public Module find(String aType) {
+		for(int i = 0; i < moduleTypes.length; i++) {
+			if(moduleTypes[i].getElementType().compareTo(aType) == 0)
+				return moduleTypes[i];
+		}
+		return null;
+	}
 }

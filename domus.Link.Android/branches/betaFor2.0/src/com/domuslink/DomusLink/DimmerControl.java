@@ -24,6 +24,7 @@ import com.domuslink.api.DomusAsyncTask;
 import com.domuslink.api.DomusAsyncUpdater;
 import com.domuslink.api.DomusHandler;
 import com.domuslink.elements.Alias;
+import com.domuslink.elements.Module;
 
 import android.content.Context;
 import android.util.Log;
@@ -82,6 +83,12 @@ public class DimmerControl implements SeekBar.OnSeekBarChangeListener, DomusAsyn
 
 		@Override
 		public void setFloorPlanResult(String[] theLocations) {
+			// not used
+			
+		}
+
+		@Override
+		public void setModuleTypesResult(Module[] theModules) {
 			// not used
 			
 		}
