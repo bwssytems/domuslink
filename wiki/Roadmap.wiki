@@ -18,6 +18,7 @@ This page will contain the domus.Link roadmap, agreed upon and developed by all 
   * New security model to allow multiple users/pins. Also assign access levels to the aliases - Issue 8
   * Module configuration by using custom groups. This also includes switching the default theme from typed to grouped and only display visible groups or groups that have modules. This will allow the request of view by location/floorplan or types. This is also controlled thru the access level for aliases for a given user. Issue 36, Issue 32
   * Add monitoring module with no controls. Issue 17
+  * Add configuration to frontend for search strings to identify the mobile application. The default is set to "iPhone,iPad,Android" and it is a user customizable search string of comma separated values. Issue 55
 
 
 = Features Under Consideration =
