@@ -99,7 +99,7 @@ if (heyu_running()) {
 	switch($page) {
 		case "domus_home_page":
 			//if theme is iPhone, we want to show a menu instead of the location_tb
-			if ($config['theme'] == 'iPhone')
+			if ($config['theme'] == 'iPhone' || $config['theme'] == 'mobileWebKit')
 				$html = $tpl->fetch(TPL_FILE_LOCATION.'home.tpl');
 			else
 				$html = $locations->buildLocations('','localized', $authCheck->getUser());
@@ -113,6 +113,11 @@ if (heyu_running()) {
 //			header("Location: utility/status.php?from=index");
 //			exit();
 			$html = $tpl->fetch(TPL_FILE_LOCATION.'systemstatus.tpl');
+			break;	
+		case "domus_browserinfo_page":		
+			error_log("browser user agent [".$_SERVER['HTTP_USER_AGENT']."]");	
+			header("Location: index.php?page=domus_home_page");
+			exit();
 			break;	
 
 		case "domus_about_page":				

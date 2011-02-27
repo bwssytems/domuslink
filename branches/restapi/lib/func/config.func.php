@@ -39,6 +39,7 @@ function config_load()
 	$config["theme"] = "default";
 	$config["themeview"] = "typed";
 	$config["thememobile"] = "iPhone";
+	$config["mobileselect"] = "iPhone,iPad,Android";
 	$config["imgs"] = "ON";
 	$config["codes"] = "ON";
 	$config["refresh"] = "0";
@@ -141,6 +142,11 @@ function config_text($config)
 
 # Mobile Theme - select mobile autodetect theme
 \$config['thememobile'] = '{$config['thememobile']}';
+
+# Mobile Select - A list of strings to search aginst the http_user_agent to
+# set the mobile theme automatically. This is a comma separated list. The search
+# will be case insensitive.
+\$config['mobileselect'] = '{$config['mobileselect']}';
 
 # Images - Select ON or OFF if you want images to be displayed
 # in the menu bar instead of text.

@@ -60,6 +60,12 @@
 	   level, that menu group will not be displayed. Groups can also set their visibility explicitly.
 	   This should allow a multitude of display configurations by group/user/pin. 
 	 * Issue 50 added - A native Android application is created to use the new RESTAPI.
+	 * Issue 55 fixed - Create mobile select http_user_agent config to set the mobile theme by user
+	   selected criteria. Added browser user agent info icon in status bar to help selection of mobile select
+	   criteria. Puch the icon to write the user agent string to the webserver error_log.
+	 * Issue 31 fixed - Added mobileWebKit theme based on iWebKit5.04. This works on NokiaN series
+	   and android. Should work on the iPhone/iPad/iTouch as well.
+	 * Added refresh icon in status bar if refresh timer has been set.
   v1.2 - 01/July/2010
  ------
 	* Updated heyu config file handling to be agnostic and object oriented. domus.Link

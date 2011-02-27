@@ -188,6 +188,14 @@
 <tr>
 <!--  Heyu Status on left of bar -->
 <td align="left">
+<?php if(intval($config['refresh']) > 0): ?>
+	<a onMouseOver="popup('<?php echo ($lang['refreshinfo'].$config['refresh']); ?>')" onmouseout="kill()" onfocus="this.blur()" href="">
+	<img src="<?php echo ($config['url_path']."/theme/".$config['theme']."/images/arrow_refresh.png");?>" border=0 />
+	</a>
+<?php endif; ?>
+<a onMouseOver="popup('<?php echo ($_SERVER['HTTP_USER_AGENT']); ?>')" onmouseout="kill()" onfocus="this.blur()" href="<?php echo ($config['url_path']);?>/index.php?page=domus_browserinfo_page">
+<img src="<?php echo ($config['url_path']."/theme/".$config['theme']."/images/exclamation.png");?>" border=0 />
+</a>
 <?php echo ($lang['heyustatus']);?>:
 <a onMouseOver="popup('<?php echo ($lang['statusinfo']); ?>')" onmouseout="kill()" onfocus="this.blur()" href="<?php echo ($config['url_path']);?>/index.php?page=domus_status_page">
 <?php if (heyu_running()): ?>

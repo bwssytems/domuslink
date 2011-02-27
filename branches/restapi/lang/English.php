@@ -266,6 +266,10 @@ $lang["editgroups"] = "Edit Group";
 $lang["themeview_txt"] = "Select a theme view for the theme. Either select typed for the default view by module type or grouped for the custom user grouping.";
 $lang["themeview"] = "Theme View";
 $lang["themeviewinfo"] = "This sets the view of domus.Link to either builtin typed or custom user setup grouped";
-$lang["thememobile_txt"] = "Select a theme for the autodetect mobile theme.";
 $lang["thememobile"] = "Mobile Theme";
+$lang["thememobile_txt"] = "Select a theme for the autodetect mobile theme.";
+$lang["mobileselect"] = "Mobile Select";
+$lang["mobileselect_txt"] = " A list of strings to search aginst the http_user_agent to set the mobile theme automatically. This is a comma separated list. The search will be case insensitive.";
+$lang["refreshinfo"] = "Refresh is on for ";
+$lang["menu"] = "Menu";
 ?>

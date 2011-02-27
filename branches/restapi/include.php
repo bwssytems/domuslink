@@ -77,11 +77,13 @@ else
 ## $frontObj->getModList();
 
 ## mobile theme autodetection
-// error_log("browser user agent [".$_SERVER['HTTP_USER_AGENT']."]");
-if (strpos(strtolower($_SERVER['HTTP_USER_AGENT']),'iphone') || strpos(strtolower($_SERVER['HTTP_USER_AGENT']),'ipad') ||
-	strpos(strtolower($_SERVER['HTTP_USER_AGENT']),'android')) {
-	# Theme - GUI's Theme
-	$config['theme'] = $config['thememobile'];
+$mobilesearch = explode(",", $config['mobileselect']);
+foreach($mobilesearch as $target) {
+	if (strpos(strtolower($_SERVER['HTTP_USER_AGENT']),strtolower($target))) {
+		# set mobile theme
+		$config['theme'] = $config['thememobile'];
+		break;
+	}
 }
 
 ## Theme definition for template loading

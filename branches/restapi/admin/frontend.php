@@ -36,8 +36,23 @@ $tpl->set('sec_level', $authCheck->getUser()->getSecurityLevel());
 
 $subdirList = array("default", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9");
 $themeviewlist = array("typed", "grouped");
-$webthemelist = array("default");
-$mobilethemelist = array("iPhone");
+
+## Build the available theme lists from the theme directory 
+$subdir = list_dir_content(FULL_THEME_FILE_LOCATION);
+$webthemelist = array();
+$mobilethemelist = array();
+$iw = 0;
+$im = 0;
+foreach($subdir as $dir) {
+	if(file_exists(FULL_THEME_FILE_LOCATION.DIRECTORY_SEPARATOR.$dir.DIRECTORY_SEPARATOR."mobile")) {
+		$mobilethemelist[$im] = $dir;
+		$im++;
+	}
+	else {
+		$webthemelist[$iw] = $dir;
+		$iw++;
+	}
+}
 
 ## Set template parameters
 $tpl->set('title', $lang['frontendadmin']);
@@ -65,6 +80,7 @@ elseif ($_GET["action"] == "save") {
 	$config['theme'] = $_POST["theme"];
 	$config['themeview'] = $_POST["themeview"];
 	$config['thememobile'] = $_POST["thememobile"];
+	$config['mobileselect'] = $_POST["mobileselect"];
 	$config['imgs'] = $_POST["imgs"];
 	$config['codes'] = $_POST["codes"];
 	$config['refresh'] = $_POST["refresh"];

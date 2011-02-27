@@ -250,6 +250,16 @@ function validateForm(form)
     <td><?php echo ($lang['thememobile_txt']); ?></td>
   </tr>
 
+<!-- Mobile Select -->
+<tr><td></td></tr>
+  <tr>
+    <td colspan="2" style="border-bottom:1px dotted #ccc;"><h6><?php echo ($lang['mobileselect']); ?></h6></td>
+  </tr>
+  <tr>
+    <td valign="top"><input type="text" name="mobileselect" value="<?php echo ($config['mobileselect']); ?>" /></td>
+    <td><?php echo ($lang['mobileselect_txt']); ?></td>
+  </tr>
+
 <!-- Images -->
 <tr><td></td></tr>
   <tr>

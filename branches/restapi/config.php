@@ -83,8 +83,13 @@ $config['theme'] = 'default';
 # Theme  View - default view as grouped or types
 $config['themeview'] = 'typed';
 
-# Monile Theme - Theme to use when autodetect of mobile browser
+# Mobile Theme - Theme to use when autodetect of mobile browser
 $config['thememobile'] = 'iPhone';
+
+# Mobile Select - A list of strings to search aginst the http_user_agent to
+# set the mobile theme automatically. This is a comma separated list. The search
+# will be case insensitive.
+$config['mobileselect'] = 'iPhone,iPad,Android';
 
 # Images - Select ON or OFF if you want images to be displayed
 # in the menu bar instead of text.
