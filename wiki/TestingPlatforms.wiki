@@ -35,9 +35,9 @@ Client(s)
 ----
 === Brandt ===  
 Server(s)
-  # Synology NAS Linux DiskStation 2.6.24
-    * Heyu 2.8.0
-    * Apache/2.2.13 (Unix)
+  # Sheevaplug Linux 2.6.34.6
+    * Heyu 2.9.2
+    * lighttpd/1.4.28
 
 Client(s)
   # Mac OS X
@@ -52,8 +52,10 @@ Client(s)
     * Chrome<br/>
   # Xubuntu 9.04
     * Firefox<br/>
-  # Nokia 770, N800
+  # Nokia N800
     * Mozilla MicroB<br/>
+  # iPhone 4
+    * Safari<br/>
 
 ----
 === Philippe === 
