@@ -243,8 +243,19 @@ $lang["systemuptime"] = "System Uptime";
 
 /* HVAC Text */
 $lang["hvac"] = "HVAC";
+$lang["temperature"] = "Temperature";
+$lang["hvacmode"] = "Mode";
+$lang["setpoint"] = "Setpoint";
+$lang["OFF"] = "OFF";
+$lang["ON"] = "ON";
+$lang["HEAT"] = "HEAT";
+$lang["COOL"] = "COOL";
+$lang["AUTO"] = "AUTO";
 $lang["hvachousecode"] = "HVAC House Code";
-$lang["hvachousecode_txt"] = "Possible values are: None; A-P. Compatiblity is only for RCS TXB16.";
+$lang["hvachousecode_txt"] = "Possible values are: None; A-P. If this is set, it will show the temperature, mode and setpoint in the status bar of the selected thermostat";
+
+$lang["YES"] = "YES";
+$lang["NO"] = "NO";
 
 $lang["diagnosticstatususer"] = "Diagnostic status"; //new
 $lang["statusinfouser"] = "Status of heyu"; // new
@@ -257,7 +268,6 @@ $lang["secleveltypeexact"] = "Exact";
 $lang["secleveltypegreater"] = "Greater";
 $lang["usertypepin"] = "PIN";
 $lang["usertypeuser"] = "User";
-$lang["hvac_seclevel"] = "HVAC Security Level";
 $lang["group"] = "Group";
 $lang["groups"] = "Groups";
 $lang["imagename"] = "Image Name";

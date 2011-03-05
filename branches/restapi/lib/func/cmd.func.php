@@ -36,7 +36,7 @@ function execute_cmd($cmd, $noerror = false) {
 		else
 			throw new Exception("Command is invalid.");
 	}
-
+//    error_log("execute command [".$cmd."]");
 	exec ($cmd." 2>&1", $rs, $retval);
 	if ($retval > 0 && !$noerror) {
 		error_log("domus.Link: Command execution error. [".$cmd."]");
@@ -116,6 +116,8 @@ function heyu_ctrl($config, $action) {
  *
  */
 function heyu_action($config, $theActionRequest, $theCode, $theState = null, $curr = null, $req = null) {
+//	error_log("heyu_action ".$theActionRequest." - ".$req);
+	$return_error = false;
 	switch ($theActionRequest) {
 		case "on":
 		case "fon":
@@ -131,16 +133,16 @@ function heyu_action($config, $theActionRequest, $theCode, $theState = null, $cu
 		case "dbapi":
 			$cmd = dim_bright_real($config, $theState, $curr, $req, $theCode);
 			break;
-		case "sp":
-			$cmd = rcs_sp($config, $_GET["change"]);
+		case "hvac_control":
+			$return_error = true;
+			$cmd = rcs_control($config, $theCode, $req);
 			break;
-			
 	}
 	
 	if($cmd == false)
 		return;
 		
-	execute_cmd($cmd);
+	return execute_cmd($cmd, $return_error);
 }
 
 /**
@@ -282,14 +284,40 @@ function heyu_erase() {
 	return (execute_cmd($config['heyuexecreal']." erase"));
 }
 
-function rcs_sp($config, $change) {
-         if ($change == "inc") {
-            $req = execute_cmd($config['heyuexecreal']." preset h4 9", true);
-         }
-         if ($change == "dec") {
-            $req = execute_cmd($config['heyuexecreal']." preset h4 10", true);
-         }
-         return $req[0];
+function rcs_control($config, $theCode, $theRequest) {
+	switch ($theRequest) {
+		case "temp":
+			$req = $config['heyuexecreal']." rcs_req preset ".$theCode."5 1";
+            break;
+		case "setpoint":
+			$req = $config['heyuexecreal']." rcs_req preset ".$theCode."5 2";
+            break;
+		case "mode":
+			$req = $config['heyuexecreal']." rcs_req preset ".$theCode."5 3";
+            break;
+		case "off":
+			$req = $config['heyuexecreal']." preset ".$theCode."4 1";
+            break;
+		case "heat":
+			$req = $config['heyuexecreal']." preset ".$theCode."4 2";
+            break;
+		case "cool":
+			$req = $config['heyuexecreal']." preset ".$theCode."4 3";
+            break;
+		case "auto":
+			$req = $config['heyuexecreal']." preset ".$theCode."4 4";
+            break;
+		case "inc":
+            $req = $config['heyuexecreal']." preset ".$theCode."4 9";
+            break;
+		case "dec":
+            $req = $config['heyuexecreal']." preset ".$theCode."4 10";
+            break;
+        default;
+            $req = array();
+        	break;
+	}
+	
+	return $req;
 }
-
 ?>

@@ -5,13 +5,13 @@
  +----------------------------------------------------------------------------*/
   v2.0beta - 21/February/2011
  ------
- 	* Issue 52 enhancement - Added a REST API for domus.Link to have applications be able to create other
- 	  applications that can talk directly to the domus.Link core. This will allow
- 	  creation of other types of UI's (native mobile, AJAX) or allow external
- 	  applications to use the domus.Link core to control heyu. This currently
- 	  only encompasses return of the floorplan and aliases and then providing
- 	  control to the aliases of on/off/dim/bright. Please refer to the document
- 	  DomusRestAPI.doc in the /doc directory.
+ 	* Issue 52 enhancement - Added a REST API for domus.Link to have applications
+ 	  be able to create other applications that can talk directly to the domus.Link
+ 	  core. This will allow creation of other types of UI's (native mobile, AJAX)
+ 	  or allow external applications to use the domus.Link core to control heyu.
+ 	  This currently only encompasses return of the floorplan and aliases and then
+ 	  providing control to the aliases of on/off/dim/bright. Please refer to the
+ 	  document DomusRestAPI.doc in the /doc directory.
 	* Issue 46 fixed - When creating an alias with spaces in the name, domus.Link
 	  did not create a sanitized name with lowercase and underscores.
 	* Issue 51 fixed - CN17A commands for on/off were not being properly handled.
@@ -20,7 +20,8 @@
 	  calculation of if the device is on or off. This is now called by the legacy
 	  method dim_bright.
 	* Issue 35 enhancement - Support for RCS TXB16. This is basic control of the RCS
-	  thermostat. This also assumes default decode table of P.
+	  thermostat for mode running, and setpoint. This also assumes default decode
+	  table of P.
 	* Issue 21 fixed - Objectified Triggers
 	* Issue 22 fixed - Objectified Macros
 	* Issue 8 fixed - domus.Link now removes the password and security level from the

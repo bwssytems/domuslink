@@ -146,8 +146,8 @@ class location {
 			$mod->set('page', $_GET['page']);
 		}
 		
-		// if alias is a multi alias, module state & dimlevel are not checked
-		if (!$multi_alias) {
+		// if alias is a multi alias or HVAC, module state & dimlevel are not checked
+		if (!$multi_alias && !$alias->isHVACAlias()) {
 			if (on_state($config, $alias->getHouseDevice())) {
 				$state = 'on';
 				$action = $config['cmd_off']; 
@@ -163,6 +163,39 @@ class location {
 			if ($modTypes->getModuleType($alias->getAliasMap()->getType())->getModuleType() == DIMMABLE_D) {
 				$mod->set('level', $this->level_calc(dim_level($config, $alias->getHouseDevice())));
 			}
+		}
+		elseif($alias->isHVACAlias()) {
+			$result_arr = heyu_action($config, "hvac_control", $alias->getHouseDevice(), null, null, "mode");
+			$result = explode(" ", $result_arr[0]);
+//			error_log("error of heyu_action in hvac ".$result_arr[0]. " count of result array [".count($result_arr)."]");
+			if(strpos($result_arr[0], "not valid") === false && isset($result[5]))
+				$mode = $result[5];
+			else
+				$mode = "OFF";
+				
+			if($mode == "OFF" || $mode == "?")
+				$state = "off";
+			else
+				$state = "on";
+
+			$result_arr = heyu_action($config, "hvac_control", $alias->getHouseDevice(), null, null, "temp");
+			$result = explode(" ", $result_arr[0]);
+			if(strpos($result_arr[0], "not valid") === false && isset($result[5]))
+				$temp = $result[5];
+			else
+				$temp = "?";
+				
+			$result_arr = heyu_action($config, "hvac_control", $alias->getHouseDevice(), null, null, "setpoint");
+			$result = explode(" ", $result_arr[0]);
+			if(strpos($result_arr[0], "not valid") === false && isset($result[5]))
+				$setpoint = $result[5];
+			else
+				$setpoint = "?";
+				
+			$mod->set('state', $state);
+			$mod->set('mode', $mode);
+			$mod->set('temp', $temp);
+			$mod->set('setpoint', $setpoint);
 		}
 		
 		// return as html

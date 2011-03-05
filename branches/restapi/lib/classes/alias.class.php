@@ -50,7 +50,7 @@ class Alias extends ConfigElement {
         	$this->setType(ALIAS_D);
         	$this->label = 'light';
         	$this->houseCode = 'A';
-        	$this->devices = '1';
+        	$this->devices = '0';
         	$this->moduleType = 'STDLM';
         	$this->moduleOptions = '';
         	$this->aliasMapElement = new AliasMapElement();
@@ -90,7 +90,10 @@ class Alias extends ConfigElement {
 		preg_match('/(^[a-pA-P])([0-9\-,]*)/', $houseUnitCodes, $elements);
 		if(count($elements) > 1) {
 			$this->houseCode = $elements[1];
-			$this->devices = substr($houseUnitCodes, 1);
+			if(strlen($houseUnitCodes) > 0)
+				$this->devices = substr($houseUnitCodes, 1);
+			else
+				$this->devices = "0";
 		}
 		else
 			throw new Exception("Invalid alias house-unit codes: ".print_r($elements, true));
@@ -115,6 +118,13 @@ class Alias extends ConfigElement {
 			return $this->houseCode.$this->devices;
 	}
 	
+	function isHVACAlias() {
+		if($this->aliasMapElement->getType() == "HVAC")
+			return true;
+		else
+			return false;
+	}
+
 	function isMultiAlias() {
 		if (strpos($this->devices, ",") || strpos($this->devices, "-"))
 			return true;

@@ -8,8 +8,8 @@
 				<tr>
 					<td><?php echo $label; ?></td>
 					<td><button type="button"><a href="<?php echo $codeState ?>"><img src="<?php echo $config['url_path']; ?>/theme/<?php echo $config['theme']; ?>/images/module_irrigation_<?php echo $state; ?>.png" /></a></button></td>
-					<td><button type="button"><a href="<?php echo $codeOn ?>">On</a></button></td>					
-					<td><button type="button"><a href="<?php echo $codeOff ?>">Off</a></button></td>
+					<td><button type="button"><a href="<?php echo $codeOn ?>"><?php echo $lang['ON']; ?></a></button></td>					
+					<td><button type="button"><a href="<?php echo $codeOff ?>"><?php echo $lang['OFF']; ?></a></button></td>
 				</tr>
 			</table>
 		</li>

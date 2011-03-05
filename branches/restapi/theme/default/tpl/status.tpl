@@ -6,12 +6,12 @@
 <img src="<?php echo $config['url_path'].'/theme/'.$config['theme'].'/images/module_status_'.$state.'.png'; ?>" vspace="2" />
 </td>
 
-<td width="110px" rowspan="2"><input type="text" disabled="disabled" value="<?php echo $label; ?>" class="module_<?php echo $state; ?>"  /></td>
+<td width="110px" rowspan="2" valign="center"><input type="text" disabled="disabled" value="<?php echo $label; ?>" class="module_<?php echo $state; ?>"  /></td>
 
 <td rowspan="2">
 <table cellspacing="1" cellpadding="0" border="1" class="onofftb" width="32px">
 <tr>
-<td class="onoff" align="center"><?php echo $state; ?></td>
+<td class="onoff" align="center"><?php echo $lang[strtoupper($state)]; ?></td>
 </tr>
 <tr>
 <td class="onoff" align="center"></td>

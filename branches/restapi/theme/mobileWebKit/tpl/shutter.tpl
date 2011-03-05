@@ -8,8 +8,8 @@
 				<tr>
 					<td><?php echo $label; ?></td>
 					<td><button type="button"><a href="<?php echo $shutterState ?>"><img src="<?php echo $config['url_path']; ?>/theme/<?php echo $config['theme']; ?>/images/module_shutter_<?php echo $state; ?>.png" /></a></button></td>
-					<td><button type="button"><a href="<?php echo $shutterOn ?>">On</a></button></td>					
-					<td><button type="button"><a href="<?php echo $shutterOff ?>">Off</a></button></td>
+					<td><button type="button"><a href="<?php echo $shutterOn ?>"><?php echo $lang['ON']; ?></a></button></td>					
+					<td><button type="button"><a href="<?php echo $shutterOff ?>"><?php echo $lang['OFF']; ?></a></button></td>
 				</tr>
 			</table>
 		</li>

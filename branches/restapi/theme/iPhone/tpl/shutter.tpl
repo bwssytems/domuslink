@@ -8,8 +8,8 @@
 				<tr>
 					<td style='width:66%'><?php echo $label; ?></td>
 					<td><a href="<?php echo $shutterState ?>"><img src="<?php echo $config['url_path']; ?>/theme/<?php echo $config['theme']; ?>/images/module_shutter_<?php echo $state; ?>.png" /></a></td>
-					<td><a href="<?php echo $shutterOn ?>">On</a></td>					
-					<td><a href="<?php echo $shutterOff ?>">Off</a></td>
+					<td><a href="<?php echo $shutterOn ?>"><?php echo $lang['ON']; ?></a></td>					
+					<td><a href="<?php echo $shutterOff ?>"><?php echo $lang['OFF']; ?></a></td>
 				</tr>
 			</table>
 		</li>

@@ -7,11 +7,11 @@
 			<table>
 				<tr>
 					<td style='width:66%'><?php echo $label; ?></td>
-					<td><a href="<?php echo $_SERVER['PHP_SELF']; ?>?page=<?php echo $page; ?>" name="<?php echo $code;?>"><img src="<?php echo $config['url_path']; ?>/theme/<?php echo $config['theme']; ?>/images/module_status_<?php echo $state; ?>.png" /></a></td>
+					<td><img src="<?php echo $config['url_path']; ?>/theme/<?php echo $config['theme']; ?>/images/module_status_<?php echo $state; ?>.png" /></td>
 					<?php if($state == 'on'): ?>
-						<td><a href="<?php echo $_SERVER['PHP_SELF']; ?>?page=<?php echo $page; ?>" name="<?php echo $code;?>">On</a></td>
+						<td><a href="<?php echo $_SERVER['PHP_SELF']; ?>?page=<?php echo $page; ?>" name="<?php echo $code;?>"><?php echo $lang['ON']; ?></a></td>
 					<?php else: ?>					
-						<td><a href="<?php echo $_SERVER['PHP_SELF']; ?>?page=<?php echo $page; ?>" name="<?php echo $code;?>">Off</a></td>
+						<td><a href="<?php echo $_SERVER['PHP_SELF']; ?>?page=<?php echo $page; ?>" name="<?php echo $code;?>"><?php echo $lang['OFF']; ?></a></td>
 					<?php endif; ?>
 				</tr>
 			</table>

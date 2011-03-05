@@ -53,17 +53,6 @@ $config['hvac_house_code'] = '';
 # Frontend Settings
 # -----------------
 
-# Security Level, Possible values are:
-# 0 - No security/Password protection
-# 1 - Password protection for administration area
-# 2 - Password protection for frontend and administration area
-$config['seclevel'] = '2';
-
-# Frontend password - Define a password here to
-# access the setup area of the frontend.
-# Leave blank to disable password.
-$config['password'] = '1234';
-
 # Language - Define the language for the frontend here.
 # If left blank browsers preferred language will be used.
 # In case a language is not found it will default to English

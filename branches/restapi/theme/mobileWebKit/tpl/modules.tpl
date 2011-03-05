@@ -7,8 +7,8 @@
 			<table>
 				<tr>
 					<td><?php echo $label; ?></td>
-					<td><button type="button"><a href="<?php echo $moduleOn ?>">On</a></button></td>					
-					<td><button type="button"><a href="<?php echo $moduleOff ?>">Off</a></button></td>
+					<td><button type="button"><a href="<?php echo $moduleOn ?>"><?php echo $lang['ON']; ?></a></button></td>					
+					<td><button type="button"><a href="<?php echo $moduleOff ?>"><?php echo $lang['OFF']; ?></a></button></td>
 				</tr>
 			</table>
 		</li>

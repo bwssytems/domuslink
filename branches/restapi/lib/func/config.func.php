@@ -33,7 +33,6 @@ function config_load()
 	$config["heyuconf"] = "x10.conf";
 	$config["heyuexec"] = "/usr/local/bin/heyu";
 	$config["hvac_house_code"] = "";
-	$config["hvac_seclevel"] = "0";
 	$config["lang"] = "";
 	$config["url_path"] = "/";
 	$config["theme"] = "default";
@@ -110,12 +109,6 @@ function config_text($config)
 # RCS thermostats use a complete house code.
 # This value specifies which house code to use
 \$config['hvac_house_code'] = '{$config['hvac_house_code']}';
-
-# HVAC Security Level, Possible values are:
-# 0 - requires admin level
-# 1 - requires maint level
-# 2...n - specific access level
-\$config['hvac_seclevel'] = '{$config['hvac_seclevel']}';
 
 # -----------------
 # Frontend Settings

@@ -49,9 +49,9 @@ function validateForm(form)
     <?php $options = array('NO', 'YES'); ?>
     <?php foreach ($options as $key=>$opt): ?>
      <?php if ($opt == $config['heyu_base_use']): ?>
-       <option selected value="<?php echo $opt; ?>"><?php echo $opt; ?></option>
+       <option selected value="<?php echo $opt; ?>"><?php echo $lang[$opt]; ?></option>
      <?php else: ?>
-       <option value="<?php echo $opt; ?>"><?php echo $opt; ?></option>
+       <option value="<?php echo $opt; ?>"><?php echo $lang[$opt]; ?></option>
      <?php endif; ?>
     <?php endforeach; ?>
     </select>
@@ -131,17 +131,6 @@ function validateForm(form)
     <!-- End dropdown -->
     </td>
     <td><?php echo ($lang['hvachousecode_txt']); ?></td>
-  </tr>
-
-
-<!-- HVAC Security Level -->
-<tr><td></td></tr>
-  <tr>
-    <td colspan="2" style="border-bottom:1px dotted #ccc;"><h6><?php echo ($lang['hvac_seclevel']); ?></h6></td>
-  </tr>
-  <tr>
-    <td valign="top"><input type="text" name="hvac_seclevel" value="<?php echo ($config['hvac_seclevel']); ?>" /></td>
-    <td><?php echo ($lang['hvac_seclevel_txt']); ?></td>
   </tr>
 
 <!-- Language -->
@@ -272,9 +261,9 @@ function validateForm(form)
     <?php $options = array('ON', 'OFF'); ?>
     <?php foreach ($options as $key=>$opt): ?>
      <?php if ($opt == $config['imgs']): ?>
-       <option selected value="<?php echo $opt; ?>"><?php echo $opt; ?></option>
+       <option selected value="<?php echo $opt; ?>"><?php echo $lang[$opt]; ?></option>
      <?php else: ?>
-       <option value="<?php echo $opt; ?>"><?php echo $opt; ?></option>
+       <option value="<?php echo $opt; ?>"><?php echo $lang[$opt]; ?></option>
      <?php endif; ?>
     <?php endforeach; ?>
     </select>
@@ -295,9 +284,9 @@ function validateForm(form)
     <?php $options = array('ON', 'OFF'); ?>
     <?php foreach ($options as $key=>$opt): ?>
      <?php if ($opt == $config['codes']): ?>
-       <option selected value="<?php echo $opt; ?>"><?php echo $opt; ?></option>
+       <option selected value="<?php echo $opt; ?>"><?php echo $lang[$opt]; ?></option>
      <?php else: ?>
-       <option value="<?php echo $opt; ?>"><?php echo $opt; ?></option>
+       <option value="<?php echo $opt; ?>"><?php echo $lang[$opt]; ?></option>
      <?php endif; ?>
     <?php endforeach; ?>
     </select>
