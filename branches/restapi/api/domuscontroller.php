@@ -123,11 +123,23 @@ class DomusController
 
         if ($label) {
         	$anAlias = $heyuconf->getAliasforLabel($this->myLogin->getUser(), $label, false);
-        	$theState = on_state($config, $anAlias->getHouseDevice());
-        	if($moduleTypes->getModuleType($anAlias->getAliasMap()->getType())->getModuleType() == HVAC_D)
-        		$theLevel = 0;
+        	if($anAlias->isHVACAlias()) {
+        		$theResult = heyu_action($config, "hvac_control", $anAlias->getHouseDevice(), null, null, "mode");
+        		if($theResult[0] == "Error in HVAC result" || $theResult[0] == "OFF")
+        			$theState = false;
+        		else
+        			$theState = true;
+        	}
+        	elseif($anAlias->isMultiAlias())
+        		$theState = false;
         	else
+        		$theState = on_state($config, $anAlias->getHouseDevice());
+        		
+        	if($moduleTypes->getModuleType($anAlias->getAliasMap()->getType())->getModuleType() == DIMMABLE_D)
         		$theLevel = dim_level($config, $anAlias->getHouseDevice());
+        	else
+        		$theLevel = 0;
+        		
         	if($theState)
             	return(array("state" => 1, "level" => $theLevel));
         }
@@ -180,7 +192,10 @@ class DomusController
 			if($anAlias)
 			{
 				try {
-					heyu_action($config, "on", $anAlias->getHouseDevice());
+					if($anAlias->isHVACAlias())
+						heyu_action($config, "hvac_control", $anAlias->getHouseDevice(), null, null, "auto");
+					else
+						heyu_action($config, "on", $anAlias->getHouseDevice());
 				}
 				catch(Exception $e) {
 					// noop
@@ -209,7 +224,10 @@ class DomusController
 			if($anAlias)
 			{
 				try {
-					heyu_action($config, "off", $anAlias->getHouseDevice());
+					if($anAlias->isHVACAlias())
+						heyu_action($config, "hvac_control", $anAlias->getHouseDevice(), null, null, "off");
+					else
+						heyu_action($config, "off", $anAlias->getHouseDevice());
 				}
 				catch(Exception $e) {
 					// noop
@@ -232,10 +250,11 @@ class DomusController
     	require_once('.'.DIRECTORY_SEPARATOR.'apiinclude.php');
 		require_once('.'.DIRECTORY_SEPARATOR.'include_globals.php');
 		$config = $_SESSION['frontObj']->getConfig();
+		$moduleTypes = $_SESSION['frontObj']->getModuleTypes();
 		
 		if($label) {
 			$anAlias = $heyuconf->getAliasForLabel($this->myLogin->getUser(), $label, false);
-			if($anAlias)
+			if($anAlias && $moduleTypes->getModuleType($anAlias->getAliasMap()->getType())->getModuleType() == DIMMABLE_D)
 			{
 				try {
 					heyu_action($config, "dbapi", $anAlias->getHouseDevice(), $state, $curr, $req);
@@ -247,7 +266,7 @@ class DomusController
 			}
 			else
 			{
-				error_log("dimBright no alias found ".$label);
+				error_log("dimBright no dimmable alias found ".$label);
 			}
 		}
 		return(array("status"=>"not done"));
