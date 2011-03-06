@@ -118,6 +118,7 @@ function heyu_ctrl($config, $action) {
 function heyu_action($config, $theActionRequest, $theCode, $theState = null, $curr = null, $req = null) {
 //	error_log("heyu_action ".$theActionRequest." - ".$req);
 	$return_error = false;
+	$hvac_validate = false;
 	switch ($theActionRequest) {
 		case "on":
 		case "fon":
@@ -135,14 +136,21 @@ function heyu_action($config, $theActionRequest, $theCode, $theState = null, $cu
 			break;
 		case "hvac_control":
 			$return_error = true;
+			$hvac_validate = true;
 			$cmd = rcs_control($config, $theCode, $req);
 			break;
+		default:
+			return;
+			break;
 	}
-	
-	if($cmd == false)
-		return;
-		
-	return execute_cmd($cmd, $return_error);
+
+	$rs = execute_cmd($cmd, $return_error);
+	if($hvac_validate)
+		$return_array = parse_hvac_return($rs, $req);
+	else
+		$return_array = $rs;
+
+	return $return_array;
 }
 
 /**
@@ -295,7 +303,13 @@ function rcs_control($config, $theCode, $theRequest) {
 		case "mode":
 			$req = $config['heyuexecreal']." rcs_req preset ".$theCode."5 3";
             break;
-		case "off":
+		case "fan_mode":
+			$req = $config['heyuexecreal']." rcs_req preset ".$theCode."5 4";
+            break;
+		case "setback_mode":
+			$req = $config['heyuexecreal']." rcs_req preset ".$theCode."5 5";
+            break;
+        case "off":
 			$req = $config['heyuexecreal']." preset ".$theCode."4 1";
             break;
 		case "heat":
@@ -307,7 +321,19 @@ function rcs_control($config, $theCode, $theRequest) {
 		case "auto":
 			$req = $config['heyuexecreal']." preset ".$theCode."4 4";
             break;
-		case "inc":
+		case "fan_on":
+			$req = $config['heyuexecreal']." preset ".$theCode."4 5";
+            break;
+		case "fan_auto":
+			$req = $config['heyuexecreal']." preset ".$theCode."4 6";
+            break;
+		case "setback_on":
+			$req = $config['heyuexecreal']." preset ".$theCode."4 7";
+            break;
+		case "setback_off":
+			$req = $config['heyuexecreal']." preset ".$theCode."4 8";
+            break;
+        case "inc":
             $req = $config['heyuexecreal']." preset ".$theCode."4 9";
             break;
 		case "dec":
@@ -319,5 +345,57 @@ function rcs_control($config, $theCode, $theRequest) {
 	}
 	
 	return $req;
+}
+
+function parse_hvac_return($result, $request) {
+	static $search_temp = "Temperature = ";
+	static $search_result_delim = ": hu";
+	static $search_mode = "System_mode = ";
+	static $search_fan_mode = "Fan = ";
+	static $search_setback = "Setback = ";
+	
+	if(count($result) == 0 || count($result) > 1) {
+		array_unshift($result, "Error in HVAC result");
+		return $result;
+	}
+
+	if(strpos($result[0], "not valid") !== false) {
+		array_unshift($result, "Error in HVAC result");
+		return $result;
+	}
+
+	switch ($request) {
+		case "temp":
+			$aTemp = substr($result[0], strpos($result[0], $search_temp)+strlen($search_temp), strpos($result[0], $search_result_delim)-(strpos($result[0], $search_temp)+strlen($search_temp)));
+			$parsed_result = array(trim($aTemp));
+            break;
+		case "setpoint":
+			$aTemp = substr($result[0], strpos($result[0], $search_temp)+strlen($search_temp), strpos($result[0], $search_result_delim)-(strpos($result[0], $search_temp)+strlen($search_temp)));
+			$parsed_result = array(trim($aTemp));
+            break;
+		case "mode":
+			$aMode = substr($result[0], strpos($result[0], $search_mode)+strlen($search_mode), strpos($result[0], $search_result_delim)-(strpos($result[0],$search_mode)+strlen($search_mode)));
+			$parsed_result = array(trim($aMode));
+			break;
+		case "fan_mode":
+			$aMode = substr($result[0], strpos($result[0], $search_fan_mode)+strlen($search_fan_mode), strpos($result[0], $search_result_delim)-(strpos($result[0],$search_fan_mode)+strlen($search_fan_mode)));
+			$parsed_result = array(trim($aMode));
+			break;
+		case "setback_mode":
+			$aMode = substr($result[0], strpos($result[0], $search_setback)+strlen($search_setback), strpos($result[0], $search_result_delim)-(strpos($result[0],$search_setback)+strlen($search_setback)));
+			$parsed_result = array(trim($aMode));
+			break;
+		case "off":
+		case "heat":
+		case "cool":
+		case "auto":
+		case "inc":
+		case "dec":
+        default;
+            $parsed_result = $result;
+        	break;
+	}
+	
+	return $parsed_result;
 }
 ?>

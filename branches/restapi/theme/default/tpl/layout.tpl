@@ -216,9 +216,9 @@
 <?php if($config['hvac_house_code'] != ''): ?>
 	<td align="center" width="33%">
 	<?php echo $lang["hvac"]." - ["; ?>
-	<?php $result_arr=heyu_action($config, "hvac_control", $config['hvac_house_code'], null, null, "temp"); $temp=explode(" ", $result_arr[0]); echo " ".$lang['temperature'].": ".(strpos($result_arr[0], "not valid") === false && isset($temp[5]) ? $temp[5] : "??"); ?>&#176
-	<?php $result_arr=heyu_action($config, "hvac_control", $config['hvac_house_code'], null, null, "mode"); $mode=explode(" ", $result_arr[0]); echo " ".$lang['hvacmode'].": ".(strpos($result_arr[0], "not valid") === false && isset($mode[5]) ? $lang[trim($mode[5])] : $lang['OFF']); ?>
-	<?php $result_arr=heyu_action($config, "hvac_control", $config['hvac_house_code'], null, null, "setpoint"); $setpoint=explode(" ", $result_arr[0]); echo " ".$lang['setpoint'].": ".(strpos($result_arr[0], "not valid") === false && isset($setpoint[5]) ? $setpoint[5] : "??"); ?>&#176
+	<?php $result_arr=heyu_action($config, "hvac_control", $config['hvac_house_code'], null, null, "temp"); echo " ".$lang['temperature'].": ".($result_arr[0] != "Error in HVAC result" ? $result_arr[0] : "??"); ?>&#176
+	<?php $result_arr=heyu_action($config, "hvac_control", $config['hvac_house_code'], null, null, "mode"); echo " ".$lang['hvacmode'].": ".($result_arr[0] != "Error in HVAC result" ? $lang[trim($result_arr[0])] : $lang['OFF']); ?>
+	<?php $result_arr=heyu_action($config, "hvac_control", $config['hvac_house_code'], null, null, "setpoint"); echo " ".$lang['setpoint'].": ".($result_arr[0] != "Error in HVAC result" ? $result_arr[0] : "??"); ?>&#176
 	<?php echo "]"; ?>
 	</td>
 <?php endif; ?>

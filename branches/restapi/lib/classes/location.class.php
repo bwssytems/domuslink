@@ -166,36 +166,47 @@ class location {
 		}
 		elseif($alias->isHVACAlias()) {
 			$result_arr = heyu_action($config, "hvac_control", $alias->getHouseDevice(), null, null, "mode");
-			$result = explode(" ", $result_arr[0]);
 //			error_log("error of heyu_action in hvac ".$result_arr[0]. " count of result array [".count($result_arr)."]");
-			if(strpos($result_arr[0], "not valid") === false && isset($result[5]))
-				$mode = $result[5];
+			if($result_arr[0] != "Error in HVAC result")
+				$mode = $result_arr[0];
 			else
 				$mode = "OFF";
 				
-			if($mode == "OFF" || $mode == "?")
+			if($mode == "OFF")
 				$state = "off";
 			else
 				$state = "on";
 
 			$result_arr = heyu_action($config, "hvac_control", $alias->getHouseDevice(), null, null, "temp");
-			$result = explode(" ", $result_arr[0]);
-			if(strpos($result_arr[0], "not valid") === false && isset($result[5]))
-				$temp = $result[5];
+			if($result_arr[0] != "Error in HVAC result")
+				$temp = $result_arr[0];
 			else
 				$temp = "?";
 				
 			$result_arr = heyu_action($config, "hvac_control", $alias->getHouseDevice(), null, null, "setpoint");
-			$result = explode(" ", $result_arr[0]);
-			if(strpos($result_arr[0], "not valid") === false && isset($result[5]))
-				$setpoint = $result[5];
+			if($result_arr[0] != "Error in HVAC result")
+				$setpoint = $result_arr[0];
 			else
 				$setpoint = "?";
+
+			$result_arr = heyu_action($config, "hvac_control", $alias->getHouseDevice(), null, null, "fan_mode");
+			if($result_arr[0] != "Error in HVAC result")
+				$fan_mode = $result_arr[0];
+			else
+				$fan_mode = "?";
+				
+			$result_arr = heyu_action($config, "hvac_control", $alias->getHouseDevice(), null, null, "setback_mode");
+			if($result_arr[0] != "Error in HVAC result")
+				$setback_mode = $result_arr[0];
+			else
+				$setback_mode = "?";
 				
 			$mod->set('state', $state);
 			$mod->set('mode', $mode);
 			$mod->set('temp', $temp);
 			$mod->set('setpoint', $setpoint);
+			$mod->set('fan_mode', $fan_mode);
+			$mod->set('setback_mode', $setback_mode);
 		}
 		
 		// return as html
