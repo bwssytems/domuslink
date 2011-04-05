@@ -64,7 +64,7 @@ $config['lang'] = 'English';
 # say http://your-host/domuslink, then you should define the
 # url path as /domuslink. Leave blank if your are running
 # domus.Link at the root ie http://your-host/
-$config['url_path'] = '/domus.Link';
+$config['url_path'] = '';
 
 # Web Theme - GUI's Theme
 $config['theme'] = 'default';
@@ -73,7 +73,7 @@ $config['theme'] = 'default';
 $config['themeview'] = 'typed';
 
 # Mobile Theme - Theme to use when autodetect of mobile browser
-$config['thememobile'] = 'iPhone';
+$config['thememobile'] = 'mobileWebKit';
 
 # Mobile Select - A list of strings to search aginst the http_user_agent to
 # set the mobile theme automatically. This is a comma separated list. The search
