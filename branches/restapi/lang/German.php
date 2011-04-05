@@ -84,8 +84,8 @@ $lang["shutter"]="Shutter"; // PLEASE TRANSLATE
  $lang["heyubaseloc_txt"]="In diesem Pfad legt Heyu seine Konfigurationsdateien ab und speichert Statusinformationen."; 
  $lang["language_txt"]="Wähle die Sprache für die Oberfläche. Du kannst auch auto wählen - dann wird die vom Browser bevorzugte Sprache gewählt."; 
  $lang["heyuconfile_txt"]="Diese Datei heißt meist x10.conf und wird normalerweise auf /etc/heyu/ gespeichert."; 
- $lang["urlpath_txt"]="Wenn du domus.Link in ein einem Unterordner z.B.  http://dein-host/domuslink laufen lässt, dann definiere den url-Pfad als /domus.Link. Lass es leer, wenn du domus.Link im root laufen lässt - z.B. http://dein-host/"; 
-$lang["hvac_seclevel_txt"] = "Possible values are: 0 - requires admin level; 1 - requires maint level; 2...n - specific access level."; // changed // PLEASE TRANSLATE
+ $lang["urlpath_txt"]= "Leave blank if your are running domus.Link at the root ie http://your-host/. If you are running domus.Link in a special url path, say http://your-host/domuslink, then define the url path as /domuslink (This will require a special apache configuration).";  // PLEASE TRANSLATE 
+$$lang["hvac_seclevel_txt"] = "Possible values are: 0 - requires admin level; 1 - requires maint level; 2...n - specific access level."; // changed // PLEASE TRANSLATE
  $lang["pcinterface_txt"]="Als Computerinterface kann entweder  CM11A oder CM17A gewählt werden. CM11A ist das meist verwendete und daher als Standard ausgewählt."; 
  $lang["refresh_txt"]="Hier kannst du (in Sekunden) eintragen, in welchem Intervall der Inhalt aktualisiert werden soll. Wenn du keine automatische Aktualisierung möchtest, lasse diesen Wert leer."; 
 

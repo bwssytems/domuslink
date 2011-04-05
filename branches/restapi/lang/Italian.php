@@ -84,8 +84,8 @@ $lang["shutter"]="Shutter"; // PLEASE TRANSLATE
  $lang["heyubaseloc_txt"]="Cartella base Heyu - Questa cartella e' dove Heyu cerca i suoi file configurazione e memorizza informazioni"; 
  $lang["language_txt"]="Scegli qui  quale linguaggio usare per la Facciata. Puoi anche selezionare auto, che usera' il linguaggio impostato nel browser. Nel caso il linguaggio non sia presentesara' usato l'Inglese"; 
  $lang["heyuconfile_txt"]="Questo file configurazione contiene diversi pezzi critici di informazione che il programma Heyu necessita per funzionare, piu' diverse opzioni utente. Questo file e' normalmente chiamato x10.conf ed e' normalmente presente in /etc/heyu per essere usato da tutto il sistema."; 
- $lang["urlpath_txt"]="Questa impostazione definisce l'URL della facciata. Per esempio se hai installato domus.Link in una subdirectory come http://your-host/domuslink, allora dovrai definire l'URL come /domuslink. Lascia vuoto se hai installato domus.Link come root, ovvero http://your-host/"; 
-$lang["hvac_seclevel_txt"] = "Possible values are: 0 - requires admin level; 1 - requires maint level; 2...n - specific access level."; // changed // PLEASE TRANSLATE
+ $lang["urlpath_txt"]= "Leave blank if your are running domus.Link at the root ie http://your-host/. If you are running domus.Link in a special url path, say http://your-host/domuslink, then define the url path as /domuslink (This will require a special apache configuration).";  // PLEASE TRANSLATE 
+$$lang["hvac_seclevel_txt"] = "Possible values are: 0 - requires admin level; 1 - requires maint level; 2...n - specific access level."; // changed // PLEASE TRANSLATE
  $lang["pcinterface_txt"]="L'interfaccia verso il computer puo' essera sia la CM11A che la CM17A. La CM11A e' la piu' comune e quindi selezionata inizialmente."; 
  $lang["refresh_txt"]="Assegnando un valore a questo campo, la pagina principale che mostra i moduli verra' aggiornata automaticamente ogni x secondi. Per disabilitare il rinfresco, laciare il campo vuoto."; 
 
