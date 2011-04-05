@@ -59,6 +59,8 @@ function heyu_running() {
 
 	if (count(preg_grep('/[h]eyu_engine/', $rs)) == 1)
 		 $proc_count++;
+	elseif(count(preg_grep('/[h]eyu/', $rs)) == 2)
+		$proc_count = 2;
 
 	if($proc_count == 2)
 		 return true;

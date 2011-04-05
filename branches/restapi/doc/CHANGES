@@ -3,7 +3,7 @@
  |                               CHANGES                                      |
  |                                                                            |
  +----------------------------------------------------------------------------*/
-  v2.0beta - 21/February/2011
+  v2.0 - 4/April/2011
  ------
  	* Issue 52 enhancement - Added a REST API for domus.Link to have applications
  	  be able to create other applications that can talk directly to the domus.Link
@@ -67,6 +67,8 @@
 	 * Issue 31 fixed - Added mobileWebKit theme based on iWebKit5.04. This works on NokiaN series
 	   and android. Should work on the iPhone/iPad/iTouch as well.
 	 * Added refresh icon in status bar if refresh timer has been set.
+	 * Added additional check for running heyu processes under other OS' such as FreeBSD.
+ 
   v1.2 - 01/July/2010
  ------
 	* Updated heyu config file handling to be agnostic and object oriented. domus.Link
