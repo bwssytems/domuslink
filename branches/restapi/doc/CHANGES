@@ -3,7 +3,7 @@
  |                               CHANGES                                      |
  |                                                                            |
  +----------------------------------------------------------------------------*/
-  v2.0 - 4/April/2011
+  v2.0 - 1/May/2011
  ------
  	* Issue 52 enhancement - Added a REST API for domus.Link to have applications
  	  be able to create other applications that can talk directly to the domus.Link

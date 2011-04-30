@@ -22,7 +22,7 @@
 class DomusController
 {
 	private $apiVersion = "4";
-	private $apiQualifier = "beta";
+	private $apiQualifier = "prod";
 	private $myLogin;
 	
 	public function authorize()
@@ -33,11 +33,11 @@ class DomusController
 		$config = $_SESSION['frontObj']->getConfig();
 		if(!isset($this->myLogin))
 			$this->myLogin = new Login(USERDB_FILE_LOCATION);
-		error_log("Enter authorize and this login status is ".$this->myLogin->login());
+		## error_log("Enter authorize and this login status is ".$this->myLogin->login());
 		## Security validation's
 		if ($this->myLogin->login() != true) {
 			if(isset($_SERVER['PHP_AUTH_PW'])) {
-				error_log("user: [".$_SERVER['PHP_AUTH_USER']."] validate password ******");
+				## error_log("user: [".$_SERVER['PHP_AUTH_USER']."] validate password ******");
 				if($this->myLogin->checkLogin($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW'], true))
 					return true;
 			}
@@ -74,7 +74,7 @@ class DomusController
      */
     public function getAliases($label = null)
     {
-		error_log("Enter getAliases");
+		## error_log("Enter getAliases");
     	require_once('.'.DIRECTORY_SEPARATOR.'apiinclude.php');
 		require_once('.'.DIRECTORY_SEPARATOR.'include_globals.php');
 
@@ -96,7 +96,7 @@ class DomusController
      */
     public function getAliasesByLocation($label = null, $visible = "false")
     {
-		error_log("Enter getAliasesByLocation");
+		## error_log("Enter getAliasesByLocation");
     	require_once('.'.DIRECTORY_SEPARATOR.'apiinclude.php');
 		require_once('.'.DIRECTORY_SEPARATOR.'include_globals.php');
 		$theLocation = new location($heyuconf);
@@ -115,7 +115,7 @@ class DomusController
      */
     public function getAliasState($label = null)
     {
-		error_log("Enter getAliasState");
+		## error_log("Enter getAliasState");
     	require_once('.'.DIRECTORY_SEPARATOR.'apiinclude.php');
 		require_once('.'.DIRECTORY_SEPARATOR.'include_globals.php');
 		$config = $_SESSION['frontObj']->getConfig();
@@ -154,7 +154,7 @@ class DomusController
      */
     public function getFloorPlan($visible = "false")
     {
-		error_log("Enter getFloorPlan");
+		## error_log("Enter getFloorPlan");
     	require_once('.'.DIRECTORY_SEPARATOR.'apiinclude.php');
 		require_once('.'.DIRECTORY_SEPARATOR.'include_globals.php');
 		$passVisible = false;
@@ -169,7 +169,7 @@ class DomusController
      */
     public function getModuleTypes()
     {
-		error_log("Enter getModuleTypes");
+		## error_log("Enter getModuleTypes");
     	require_once('.'.DIRECTORY_SEPARATOR.'apiinclude.php');
 		require_once('.'.DIRECTORY_SEPARATOR.'include_globals.php');
 		$moduleTypes = $_SESSION['frontObj']->getModuleTypes();
@@ -182,7 +182,7 @@ class DomusController
      */
     public function turnOn($label)
     {
-		error_log("Enter turnOn for - ".$label);
+		## error_log("Enter turnOn for - ".$label);
     	require_once('.'.DIRECTORY_SEPARATOR.'apiinclude.php');
 		require_once('.'.DIRECTORY_SEPARATOR.'include_globals.php');
 		$config = $_SESSION['frontObj']->getConfig();
@@ -214,7 +214,7 @@ class DomusController
      */
     public function turnOff($label)
     {
-		error_log("Enter turnOff for - ".$label);
+		## error_log("Enter turnOff for - ".$label);
     	require_once('.'.DIRECTORY_SEPARATOR.'apiinclude.php');
 		require_once('.'.DIRECTORY_SEPARATOR.'include_globals.php');
 		$config = $_SESSION['frontObj']->getConfig();
@@ -246,7 +246,7 @@ class DomusController
      */
     public function dimBright($label, $state, $curr, $req)
     {
-		error_log("Enter dimBright for - ".$label);
+		## error_log("Enter dimBright for - ".$label);
     	require_once('.'.DIRECTORY_SEPARATOR.'apiinclude.php');
 		require_once('.'.DIRECTORY_SEPARATOR.'include_globals.php');
 		$config = $_SESSION['frontObj']->getConfig();
