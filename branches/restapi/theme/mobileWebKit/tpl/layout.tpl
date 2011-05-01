@@ -13,7 +13,7 @@
 </head>
 <body>
 <div id="topbar">
-	<div id="title">domus.Link.<?php echo $ver; ?></div>
+	<div id="title">domus.Link<?php echo $ver; ?></div>
 	<div id="leftbutton">
 		<a href="<?php echo $config['url_path']; ?>/index.php?page=domus_home_page"><?php echo $lang['home']; ?></a> </div>
 	<div id="rightbutton">

@@ -5,6 +5,9 @@
  +----------------------------------------------------------------------------*/
   v2.0 - 1/May/2011
  ------
+    * Changed default web location for frontend. The default is now the root
+      of the configured webserver and not /domus.Link. This will make for easier
+      new installs.
  	* Issue 52 enhancement - Added a REST API for domus.Link to have applications
  	  be able to create other applications that can talk directly to the domus.Link
  	  core. This will allow creation of other types of UI's (native mobile, AJAX)
