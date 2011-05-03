@@ -49,9 +49,9 @@ function validateForm(form)
     <?php $options = array('NO', 'YES'); ?>
     <?php foreach ($options as $key=>$opt): ?>
      <?php if ($opt == $config['heyu_base_use']): ?>
-       <option selected value="<?php echo $opt; ?>"><?php echo $opt; ?></option>
+       <option selected value="<?php echo $opt; ?>"><?php echo $lang[$opt]; ?></option>
      <?php else: ?>
-       <option value="<?php echo $opt; ?>"><?php echo $opt; ?></option>
+       <option value="<?php echo $opt; ?>"><?php echo $lang[$opt]; ?></option>
      <?php endif; ?>
     <?php endforeach; ?>
     </select>
@@ -110,35 +110,27 @@ function validateForm(form)
     <td><?php echo ($lang['heyuexec_txt']); ?></td>
   </tr>
 
-<!-- Security Level -->
+<!-- Heyu hvac house code -->
 <tr><td></td></tr>
   <tr>
-    <td colspan="2" style="border-bottom:1px dotted #ccc;"><h6><?php echo ($lang['seclevel']); ?></h6></td>
+    <td colspan="2" style="border-bottom:1px dotted #ccc;"><h6><?php echo ($lang['hvachousecode']); ?></h6></td>
   </tr>
   <tr>
     <td valign="top">
-    <select name="seclevel">
-		<?php $options = array('0', '1', '2'); ?>
-		<?php foreach ($options as $key=>$opt): ?>
-			<?php if ($opt == $config['seclevel']): ?>
-				<option selected value="<?php echo $opt; ?>"><?php echo $opt; ?></option>
-			<?php else: ?>
-				<option value="<?php echo $opt; ?>"><?php echo $opt; ?></option>
-			<?php endif; ?>
-		<?php endforeach; ?>
+    <!-- Heyu hvac house code dropdown -->
+    <select name="hvac_house_code">
+    <?php $options = array('', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P'); ?>
+    <?php foreach ($options as $key=>$opt): ?>
+     <?php if ($opt == $config['hvac_house_code']): ?>
+       <option selected value="<?php echo $opt; ?>"><?php echo $opt; ?></option>
+     <?php else: ?>
+       <option value="<?php echo $opt; ?>"><?php echo $opt; ?></option>
+     <?php endif; ?>
+    <?php endforeach; ?>
     </select>
+    <!-- End dropdown -->
     </td>
-    <td><?php echo ($lang['seclevel_txt']); ?></td>
-  </tr>
-
-<!-- Password -->
-<tr><td></td></tr>
-  <tr>
-    <td colspan="2" style="border-bottom:1px dotted #ccc;"><h6><?php echo ($lang['password']); ?></h6></td>
-  </tr>
-  <tr>
-    <td valign="top"><input type="text" name="password" value="<?php echo ($config['password']); ?>" /></td>
-    <td><?php echo ($lang['password_txt']); ?></td>
+    <td><?php echo ($lang['hvachousecode_txt']); ?></td>
   </tr>
 
 <!-- Language -->
@@ -181,7 +173,7 @@ function validateForm(form)
     <td><?php echo ($lang['urlpath_txt']); ?></td>
   </tr>
 
-<!-- Theme -->
+<!-- Web Theme -->
 <tr><td></td></tr>
   <tr>
     <td colspan="2" style="border-bottom:1px dotted #ccc;"><h6><?php echo ($lang['theme']); ?></h6></td>
@@ -189,9 +181,8 @@ function validateForm(form)
   <tr>
     <td valign="top">
     <!-- Theme dropdown -->
-    <?php $subdir = list_dir_content(FULL_THEME_FILE_LOCATION); ?>
     <select name="theme">
-    <?php foreach ($subdir as $dir): ?>
+    <?php foreach ($webthemelist as $dir): ?>
      <?php if ($dir == $config['theme']): ?>
        <option selected value="<?php echo $dir;?>"><?php echo $dir;?></option>
      <?php else: ?>
@@ -202,6 +193,60 @@ function validateForm(form)
     <!-- End theme dropdown -->
     </td>
     <td><?php echo ($lang['theme_txt']); ?></td>
+  </tr>
+
+<!-- Theme View -->
+<tr><td></td></tr>
+  <tr>
+    <td colspan="2" style="border-bottom:1px dotted #ccc;"><h6><?php echo ($lang['themeview']); ?></h6></td>
+  </tr>
+  <tr>
+    <td valign="top">
+    <!-- Theme view dropdown -->
+    <select name="themeview">
+    <?php foreach ($themeviewlist as $themeview): ?>
+     <?php if ($themeview == $config['themeview']): ?>
+       <option selected value="<?php echo $themeview;?>"><?php echo $themeview;?></option>
+     <?php else: ?>
+       <option value="<?php echo $themeview;?>"><?php echo $themeview;?></option>
+     <?php endif; ?>
+    <?php endforeach; ?>
+    </select>
+    <!-- End theme view dropdown -->
+    </td>
+    <td><?php echo ($lang['themeview_txt']); ?></td>
+  </tr>
+
+<!-- Mobile Theme -->
+<tr><td></td></tr>
+  <tr>
+    <td colspan="2" style="border-bottom:1px dotted #ccc;"><h6><?php echo ($lang['thememobile']); ?></h6></td>
+  </tr>
+  <tr>
+    <td valign="top">
+    <!-- Mobile Theme dropdown -->
+    <select name="thememobile">
+    <?php foreach ($mobilethemelist as $dir): ?>
+     <?php if ($dir == $config['thememobile']): ?>
+       <option selected value="<?php echo $dir;?>"><?php echo $dir;?></option>
+     <?php else: ?>
+       <option value="<?php echo $dir;?>"><?php echo $dir;?></option>
+     <?php endif; ?>
+    <?php endforeach; ?>
+    </select>
+    <!-- End theme dropdown -->
+    </td>
+    <td><?php echo ($lang['thememobile_txt']); ?></td>
+  </tr>
+
+<!-- Mobile Select -->
+<tr><td></td></tr>
+  <tr>
+    <td colspan="2" style="border-bottom:1px dotted #ccc;"><h6><?php echo ($lang['mobileselect']); ?></h6></td>
+  </tr>
+  <tr>
+    <td valign="top"><input type="text" name="mobileselect" value="<?php echo ($config['mobileselect']); ?>" /></td>
+    <td><?php echo ($lang['mobileselect_txt']); ?></td>
   </tr>
 
 <!-- Images -->
@@ -216,9 +261,9 @@ function validateForm(form)
     <?php $options = array('ON', 'OFF'); ?>
     <?php foreach ($options as $key=>$opt): ?>
      <?php if ($opt == $config['imgs']): ?>
-       <option selected value="<?php echo $opt; ?>"><?php echo $opt; ?></option>
+       <option selected value="<?php echo $opt; ?>"><?php echo $lang[$opt]; ?></option>
      <?php else: ?>
-       <option value="<?php echo $opt; ?>"><?php echo $opt; ?></option>
+       <option value="<?php echo $opt; ?>"><?php echo $lang[$opt]; ?></option>
      <?php endif; ?>
     <?php endforeach; ?>
     </select>
@@ -239,9 +284,9 @@ function validateForm(form)
     <?php $options = array('ON', 'OFF'); ?>
     <?php foreach ($options as $key=>$opt): ?>
      <?php if ($opt == $config['codes']): ?>
-       <option selected value="<?php echo $opt; ?>"><?php echo $opt; ?></option>
+       <option selected value="<?php echo $opt; ?>"><?php echo $lang[$opt]; ?></option>
      <?php else: ?>
-       <option value="<?php echo $opt; ?>"><?php echo $opt; ?></option>
+       <option value="<?php echo $opt; ?>"><?php echo $lang[$opt]; ?></option>
      <?php endif; ?>
     <?php endforeach; ?>
     </select>

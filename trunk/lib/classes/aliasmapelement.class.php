@@ -20,12 +20,15 @@
  */
 
 require_once(CLASS_FILE_LOCATION."element.class.php");
+require_once(CLASS_FILE_LOCATION."user.const.php");
 
 class AliasMapElement extends Element {
 	
-	private $aliasLabel;
-	private $floorPlanLabel;
-	private $hiddenFromHome;
+	protected $aliasLabel;
+	protected $floorPlanLabel;
+	protected $hiddenFromHome;
+	protected $accessLevel;
+	protected $group;
 	
 	function __construct() {
     	$args = func_get_args();
@@ -40,25 +43,39 @@ class AliasMapElement extends Element {
         	$this->floorPlanLabel = 'unknown';
         	$this->aliasLabel = 'unknown';
         	$this->hiddenFromHome = "visible";
+        	$this->group = 'other';
+        	$this->accessLevel = 99999999;
 			$this->rebuildElementLine();
         }
 	}
 	
 	function rebuildElementLine() {
-		$this->setElementLine($this->aliasLabel.",".$this->getType().",".$this->floorPlanLabel.",".$this->hiddenFromHome);
+		$this->setElementLine($this->aliasLabel.",".$this->getType().",".$this->floorPlanLabel.",".$this->hiddenFromHome.",".$this->group.",".strval($this->accessLevel));
 	}
 	
 	function parseMapLine($line) {
 		$elements = explode(",", $line);
-		if(count($elements) != 4) {
+		if(count($elements) < 4 && count($elements) > 6) {
 			throw new Exception("Alias Map element has wrong number of entries - ".$line );
 		}
 		else {
-			// map line is - Alias_Label Type Floorplan_Location HiddenFromHome[hidden,visible]
-			$this->aliasLabel = ltrim(rtrim($elements[0]));
-			$this->setType(ltrim(rtrim($elements[1])));
-			$this->floorPlanLabel = ltrim(rtrim($elements[2]));
-			$this->hiddenFromHome = ltrim(rtrim($elements[3]));
+			// map line is - Alias_Label Type Floorplan_Location HiddenFromHome[hidden,visible],[group name],[numeric access level]
+			$this->aliasLabel = trim($elements[0]);
+			$this->setType(trim($elements[1]));
+			$this->floorPlanLabel = trim($elements[2]);
+			$this->hiddenFromHome = trim($elements[3]);
+			if(count($elements) == 4) {
+				$this->group = trim($elements[1]);
+				$this->accessLevel = 99;
+			}
+			elseif(count($elements) == 5) {
+				$this->group = trim($elements[4]);
+				$this->accessLevel = 99;
+			}
+			else {
+				$this->group = trim($elements[4]);
+				$this->accessLevel = intval($elements[5]);
+			}
 		}
 	}
 	
@@ -88,6 +105,31 @@ class AliasMapElement extends Element {
 
 	function isHiddenFromHome() {
 		return ($this->hiddenFromHome == "hidden") ? true : false;
+	}
+
+	function getAccessLevel() {
+		return $this->accessLevel;
+	}
+	
+	function setAccessLevel($anAccessLevel) {
+		$this->accessLevel = $anAccessLevel;
+	}
+	
+	function hasAccess($anAccessLevel, $accessType) {
+		if($anAccessLevel == $this->accessLevel)
+			return true;
+		elseif(trim($accessType) != SEC_LEVEL_EXACT_D && $anAccessLevel <= $this->accessLevel)
+			return true;
+		
+		return false; 
+	}
+
+	function setGroup($aName) {
+		$this->group = $aName;
+	}
+	
+	function getGroup() {
+		return $this->group;
 	}
 
 	protected function validateType($theType) {

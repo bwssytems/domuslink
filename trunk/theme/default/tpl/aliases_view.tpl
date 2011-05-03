@@ -17,6 +17,10 @@
   <td style="width:10px;"></td>
   <td><h6><?php echo ($lang['location']);?></h6></td>
   <td style="width:10px;"></td>
+  <td><h6><?php echo ($lang['group']);?></h6></td>
+  <td style="width:10px;"></td>
+  <td><h6><?php echo ($lang['seclevel']);?></h6></td>
+  <td style="width:10px;"></td>
   <td colspan="4" align="center"><h6><?php echo ($lang['actions']);?></h6></td>
   <td style="width:10px;"></td>
   <td colspan="2" align="center"><h6><?php echo ($lang['move']);?></h6></td>
@@ -35,9 +39,13 @@ foreach($aliases as $alias):
   <td>&nbsp;</td>
   <td align="center"><a onmouseover="popup('<?php echo $alias->getModuleOptions(); ?>')" onmouseout="kill()" title="" onfocus="this.blur()" href=""><?php if($alias->getModuleOptions() == "") echo ""; else echo "<img src=".($config['url_path'])."/theme/".($config['theme'])."/images/magnifier.png border=0 />"; ?></a></td>
   <td>&nbsp;</td>
-  <td><?php echo rtrim($alias->getAliasMap()->getType());?></td>
+  <td><?php echo $alias->getAliasMap()->getType();?></td>
   <td>&nbsp;</td>
-  <td><?php echo rtrim($alias->getAliasMap()->getFloorPlanLabel());?></td>
+  <td><?php echo label_parse($alias->getAliasMap()->getFloorPlanLabel());?></td>
+  <td>&nbsp;</td>
+  <td><?php echo $alias->getAliasMap()->getGroup();?></td>
+  <td>&nbsp;</td>
+  <td><?php echo strval($alias->getAliasMap()->getAccessLevel());?></td>
   <td>&nbsp;</td>
   <td align="center"><a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=edit&line=<?php echo $alias->getLineNum();?>"><?php echo ($lang['edit']);?></a></td>
   <td align="center"><a href="<?php echo ($_SERVER['PHP_SELF']); ?>?action=del&line=<?php echo $alias->getLineNum();?>" onclick="return confirm('<?php echo ($lang['deleteconfirm']);?>')"><?php echo ($lang['delete']);?></a></td>

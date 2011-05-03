@@ -19,6 +19,8 @@
  * Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 require_once(CLASS_FILE_LOCATION."timer.class.php");
+require_once(CLASS_FILE_LOCATION."macro.class.php");
+require_once(CLASS_FILE_LOCATION."trigger.class.php");
 
 class ScheduleElementFactory {
 	public static function createElement ($lineData) {
@@ -41,32 +43,34 @@ class ScheduleElementFactory {
 					}
 					break;
 				case MACRO_D:
-					// Simple validation until Macros or Objectified
-					$elements = explode(" ", $anElement->getElementLine());
-					if(count($elements) < 5 && !$anElement->isEnabled()) {
+					try {
+						$aMacro = new Macro($lineData);
+						return $aMacro;
+					}
+					catch(Exception $e) {
 						// if the line is commented out, make it a comment as it is meant to be.
 						// It is not a a disabled macro.
-						$anElement->setType(COMMENT_D);
-						return $anElement;
+						if(!$anElement->isEnabled()) {
+							$anElement->setType(COMMENT_D);
+							return $anElement;
+						}
+						throw $e;
 					}
-					elseif(count($elements) < 5 && $anElement->isEnabled())
-						throw new Exception("Macro line has too few elements, must be 5 or greater - [".$anElement->getElementLine()."]");
-					else
-						return $anElement;
 					break;
 				case TRIGGER_D:
-					// Simple validation until Triggers or Objectified
-					$elements = explode(" ", $anElement->getElementLine());
-					if(count($elements) < 4 && !$anElement->isEnabled()) {
+					try {
+						$aTrigger = new Trigger($lineData);
+						return $aTrigger;
+					}
+					catch(Exception $e) {
 						// if the line is commented out, make it a comment as it is meant to be.
 						// It is not a a disabled trigger.
-						$anElement->setType(COMMENT_D);
-						return $anElement;
+						if(!$anElement->isEnabled()) {
+							$anElement->setType(COMMENT_D);
+							return $anElement;
+						}
+						throw $e;
 					}
-					elseif(count($elements) < 4 && $anElement->isEnabled())
-						throw new Exception("Trigger line has too few elements, must be 4 or greater - [".$anElement->getElementLine()."]");
-					else
-						return $anElement;
 					break;
 				case CONFIG_D:
 					return $anElement;

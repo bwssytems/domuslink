@@ -25,7 +25,7 @@ require_once($dirname.DIRECTORY_SEPARATOR.'include.php');
 require_once(CLASS_FILE_LOCATION.'login.class.php');
 
 ## Instantiate login class
-$login = new login();
+$login = new Login(USERDB_FILE_LOCATION);
 
 ## Set template parameters
 $tpl->set('title', $lang['login']);
@@ -40,14 +40,20 @@ if (isset($_GET["action"])) {
 }
 
 if (isset($_POST['password'])) {
+//	error_log("login.php password found");
 	if(isset($_POST['remember']))
 		$remember = true;
 	else
 		$remember = false;
-	if ($login->checkLogin($_POST['password'],$remember)) {
-			header("Location: ".$config['url_path']."/".$_POST['from'].".php");
+	if ($login->checkLogin("", $_POST['password'],$remember)) {
+//			error_log("login.php successful for post from [". $_POST['from']."]");
+			if(isset($_POST['from']) && $_POST['from'] != "")
+				header("Location: ".$_POST['from'].".php");
+			else
+				header("Location: index.php");
 	}
 	else {
+//		error_log("login.php Unsuccessful");
 		header("Location: login.php?from=".$_POST['from']."&failed=true");
 	}
 	exit();
@@ -55,6 +61,11 @@ if (isset($_POST['password'])) {
 
 $tpl_body = new Template(TPL_FILE_LOCATION.'login.tpl');
 $tpl_body->set('lang', $lang);
+/*
+ * FIXME
+ * Used for iPhone theme to determine if we are loggin ing
+ */
+$tpl->set('login', "login");
 
 ## Display the page
 if (!empty($tpl_body)) {

@@ -23,11 +23,36 @@
 require_once('..'.DIRECTORY_SEPARATOR.'include.php');
 
 ## Security validation's
-if ($config['seclevel'] != "0" && !$authenticated) {
+$authCheck = new Login(USERDB_FILE_LOCATION);
+if (!$authCheck->login()) {
 	header("Location: ../login.php?from=admin/frontend");
 	exit();
 }
+if($authCheck->getUser()->getSecurityLevel() != 0) {
+	header("Location: ../index.php");
+	exit();
+}
+$tpl->set('sec_level', $authCheck->getUser()->getSecurityLevel());
+
 $subdirList = array("default", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9");
+$themeviewlist = array("typed", "grouped");
+
+## Build the available theme lists from the theme directory 
+$subdir = list_dir_content(FULL_THEME_FILE_LOCATION);
+$webthemelist = array();
+$mobilethemelist = array();
+$iw = 0;
+$im = 0;
+foreach($subdir as $dir) {
+	if(file_exists(FULL_THEME_FILE_LOCATION.DIRECTORY_SEPARATOR.$dir.DIRECTORY_SEPARATOR."mobile")) {
+		$mobilethemelist[$im] = $dir;
+		$im++;
+	}
+	else {
+		$webthemelist[$iw] = $dir;
+		$iw++;
+	}
+}
 
 ## Set template parameters
 $tpl->set('title', $lang['frontendadmin']);
@@ -36,6 +61,9 @@ if (!isset($_GET["action"])) {
 	$tpl_body = new Template(TPL_FILE_LOCATION.'frontend.tpl');
 	$tpl_body->set('config', $config);
 	$tpl_body->set('subdirlist', $subdirList);
+	$tpl_body->set('themeviewlist', $themeviewlist);
+	$tpl_body->set('webthemelist', $webthemelist);
+	$tpl_body->set('mobilethemelist', $mobilethemelist);
 	$tpl_body->set('lang', $lang);
 }
 elseif ($_GET["action"] == "save") {
@@ -45,11 +73,13 @@ elseif ($_GET["action"] == "save") {
 	$config['heyu_subdir'] = $_POST["heyu_subdir"];
 	$config['heyuconf'] = $_POST["heyuconf"];
 	$config['heyuexec'] = $_POST["heyuexec"];
-	$config['seclevel'] = $_POST["seclevel"];
-	$config['password'] = $_POST["password"];
+	$config['hvac_house_code'] = $_POST["hvac_house_code"];
 	$config['lang'] = $_POST["lang"];
 	$config['url_path'] = $_POST["url_path"];
 	$config['theme'] = $_POST["theme"];
+	$config['themeview'] = $_POST["themeview"];
+	$config['thememobile'] = $_POST["thememobile"];
+	$config['mobileselect'] = $_POST["mobileselect"];
 	$config['imgs'] = $_POST["imgs"];
 	$config['codes'] = $_POST["codes"];
 	$config['refresh'] = $_POST["refresh"];

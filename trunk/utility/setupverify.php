@@ -47,10 +47,16 @@ catch(Exception $e) {
 }
 
 ## Security validation must be checked to convert.
-if ($config['seclevel'] != "0" && !$authenticated) {
+$authCheck = new Login(USERDB_FILE_LOCATION);
+if (!$authCheck->login()) {
 	header("Location: ../login.php?from=utility/setupverify");
 	exit();
 }
+if($authCheck->getUser()->getSecurityLevel()  != 0) {
+	header("Location: ../login.php?from=utility/setupverify");
+	exit();
+}
+$tpl->set('sec_level', $authCheck->getUser()->getSecurityLevel());
 
 $tpl_body = new Template(TPL_FILE_LOCATION.'setupverify.tpl');
 $tpl_body->set('lang', $lang);

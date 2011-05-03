@@ -14,7 +14,7 @@
         <fieldset>
             <div class="row">
                 <label><?php echo($lang['password']);?></label>
-                <input type="hidden" name="from" value="<?php if ($_GET) echo ($_GET['from']); ?>" />
+                <input type="hidden" name="from" value="index" />
 				<input type="password" name="password" />
             </div>
 		</fieldset>

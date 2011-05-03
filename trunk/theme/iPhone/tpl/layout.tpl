@@ -1,11 +1,6 @@
 <html>
 <head>
-<title>
-<?php 
-if (isset($page)) {
-	echo $page . " - ";
-}
-?>Home</title>
+<title>domus.Link</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="shortcut icon" href="<?php echo ($config['url_path']);?>/theme/iPhone/images/favicon.ico" type="image/x-icon" />
 <link rel="apple-touch-icon" href="<?php echo ($config['url_path']);?>/theme/iPhone/images/apple-touch-icon.png"/> 
@@ -19,52 +14,16 @@ if (isset($page)) {
 <body>
 <div id="toolbar" class="toolbar">
 	<h1 id="pageTitle"></h1>
-	<a id="backButton" class="button" href="/domus.Link/#"><?php echo ($lang['home']); ?></a>
-	<?php
-    	if (isset($back_button))
-        {
-            ?>
-            <a id='<?php echo ($back_button['name']); ?>_menu' class="button" href="<?php echo ($config['url_path']); ?><?php echo ($back_button['link']); ?>"><?php echo ($back_button['text']); ?></a>
-            <?php
-        }
-        else
-        {
-            ?>
-            <a id='menu_info' class="button" href="<?php echo ($config['url_path']); ?>/index.php?page=info"><?php echo ($lang['info']); ?></a>
-            <?php        
-            /*
-            if ($config['seclevel'] == "2") 
-            {
-                if (isset($_COOKIE["dluloged"])) 
-                {
-                    ?>
-                    <a id='setup_menu' class="button" href="<?php echo ($config['url_path']); ?>/index.php?page=setup"><?php echo ($lang['setup']); ?></a>
-                    <?php
-                }
-                else
-                {
-                    ?>
-                    <a id='login_menu' class="button" href="<?php echo ($config['url_path']); ?>/admin/login.php?page=login&from=<?php echo $page; ?>"><?php echo ($lang['login']); ?></a>
-                    <?php
-                }
-            }
-            else
-            {
-                    ?>
-                    <a id='menu_info' class="button" href="<?php echo ($config['url_path']); ?>/index.php?page=info"><?php echo ($lang['info']); ?></a>
-                    <?php
-            }
-            */
-		}
-	?>            
+	<a id="backButton" class="button" href="#"></a>
+	<a class="button" href="<?php echo $config['url_path']; ?>/index.php?page=domus_themeview_page" target="_self"><?php echo $config['themeview']; ?></a>
 </div>
 <?php
 if (!isset($page)) 
 {
-	$page='home';
+	$page='domus_home_page';
 }
 
-if ( ($page == "lights") || ($page == "shutters") || ($page == "other") || ($page == "appliances") || ($page == "irrigation") || ($page == "all") )
+if ($page != "domus_home_page" || $login == "login")
 {
     ?>
     <div id='generated_id_content_for_<?php echo $page;?>' class="panel" selected='true'>
@@ -95,16 +54,11 @@ else
 {
     if (!empty($content))
     {
-        ?>
-        <span id='generated_content_for_<?php echo $page;?>' selected='true'>
-            <?php echo($content); ?>
-        </span>
-        <?php
+    	echo($content);
     }
     else
     {
         ?>
-        <span id='generated_content_for_<?php echo $page;?>' class="panel" selected='true'>    
             <div id="error" title="<?php echo ($lang['error']); ?>" class="white">
                 <div align="center">
                     <h2><?php echo ($lang['error']); ?></h2>
@@ -114,7 +68,6 @@ else
                 </div>
             </div>
             <br>
-        </span>
         <?php
     }
 }

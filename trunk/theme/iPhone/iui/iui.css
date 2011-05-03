@@ -1,4 +1,4 @@
-/* iui.css (c) 2007 by iUI Project Members, see LICENSE.txt for license */
+/* iui.css (c) 2007-9 by iUI Project Members, see LICENSE.txt for license */
 body {
     margin: 0;
     font-family: Helvetica;
@@ -18,6 +18,9 @@ body > *:not(.toolbar) {
     top: 45px;
     width: 100%;
     min-height: 372px;
+    -webkit-transition-duration: 300ms;
+    -webkit-transition-property: -webkit-transform;
+    -webkit-transform: translateX(0%);
 }
 
 body[orient="landscape"] > *:not(.toolbar) {
@@ -30,14 +33,14 @@ body > *[selected="true"] {
 
 a[selected], a:active {
     background-color: #194fdb !important;
-    background-image: url(/domus.Link/theme/iPhone/iui/listArrowSel.png), url(/domus.Link/theme/iPhone/iui/selection.png) !important;
+    background-image: url(listArrowSel.png), url(selection.png) !important;
     background-repeat: no-repeat, repeat-x;
     background-position: right center, left top;
     color: #FFFFFF !important;
 }
 
 a[selected="progress"] {
-    background-image: url(/domus.Link/theme/iPhone/iui/loading.gif), url(/domus.Link/theme/iPhone/iui/selection.png) !important;
+    background-image: url(loading.gif), url(selection.png) !important;
 }
 
 /************************************************************************************************/
@@ -50,7 +53,7 @@ body > .toolbar {
     border-top: 1px solid #6d84a2;
     padding: 10px;
     height: 45px;
-    background: url(/domus.Link/theme/iPhone/iui/toolbar.png) #6d84a2 repeat-x;
+    background: url(toolbar.png) #6d84a2 repeat-x;
 }
 
 .toolbar > h1 {
@@ -94,11 +97,11 @@ body[orient="landscape"] > .toolbar > h1 {
     text-decoration: none;
     white-space: nowrap;
     background: none;
-    -webkit-border-image: url(/domus.Link/theme/iPhone/iui/toolButton.png) 0 5 0 5;
+    -webkit-border-image: url(toolButton.png) 0 5 0 5;
 }
 
 .blueButton {
-    -webkit-border-image: url(/domus.Link/theme/iPhone/iui/blueButton.png) 0 5 0 5;
+    -webkit-border-image: url(blueButton.png) 0 5 0 5;
     border-width: 0 5px;
 }
 
@@ -114,10 +117,11 @@ body[orient="landscape"] > .toolbar > h1 {
     padding: 0;
     max-width: 55px;
     border-width: 0 8px 0 14px;
-    -webkit-border-image: url(/domus.Link/theme/iPhone/iui/backButton.png) 0 8 0 14;
+    -webkit-border-image: url(backButton.png) 0 8 0 14;
 }
 
 .whiteButton,
+.redButton,
 .grayButton {
     display: block;
     border-width: 0 12px;
@@ -130,12 +134,18 @@ body[orient="landscape"] > .toolbar > h1 {
 }
 
 .whiteButton {
-    -webkit-border-image: url(/domus.Link/theme/iPhone/iui/whiteButton.png) 0 12 0 12;
+    -webkit-border-image: url(whiteButton.png) 0 12 0 12;
     text-shadow: rgba(255, 255, 255, 0.7) 0 1px 0;
 }
 
+.redButton {
+    -webkit-border-image: url(redButton.png) 0 12 0 12;
+    color:#fff;
+    text-shadow: #7a0001 0 -1px 0;
+}
+
 .grayButton {
-    -webkit-border-image: url(/domus.Link/theme/iPhone/iui/grayButton.png) 0 12 0 12;
+    -webkit-border-image: url(grayButton.png) 0 12 0 12;
     color: #FFFFFF;
 }
 
@@ -158,7 +168,7 @@ body > ul > li.group {
     border-top: 1px solid #7d7d7d;
     border-bottom: 1px solid #999999;
     padding: 1px 10px;
-    background: url(/domus.Link/theme/iPhone/iui/listGroup.png) repeat-x;
+    background: url(listGroup.png) repeat-x;
     font-size: 17px;
     font-weight: bold;
     text-shadow: rgba(0, 0, 0, 0.4) 0 1px 0;
@@ -176,47 +186,7 @@ body > ul > li > a {
     padding: 8px 32px 8px 10px;
     text-decoration: none;
     color: inherit;
-    background: url(/domus.Link/theme/iPhone/iui/listArrow.png) no-repeat right center;
-}
-
-/************************************************************************************************/
-
-body > span > ul > li {
-    position: relative;
-    margin: 0;
-    border-bottom: 1px solid #E0E0E0;
-    padding: 8px 0 8px 10px;
-    font-size: 20px;
-    font-weight: bold;
-    list-style: none;
-}
-
-body > span > ul > li.group {
-    position: relative;
-    top: -1px;
-    margin-bottom: -2px;
-    border-top: 1px solid #7d7d7d;
-    border-bottom: 1px solid #999999;
-    padding: 1px 10px;
-    background: url(/domus.Link/theme/iPhone/iui/listGroup.png) repeat-x;
-    font-size: 17px;
-    font-weight: bold;
-    text-shadow: rgba(0, 0, 0, 0.4) 0 1px 0;
-    color: #FFFFFF;
-}
-
-body > span > ul > li.group:first-child {
-    top: 0;
-    border-top: none;
-}
-
-body > span > ul > li > a {
-    display: block;
-    margin: -8px 0 -8px -10px;
-    padding: 8px 32px 8px 10px;
-    text-decoration: none;
-    color: inherit;
-    background: url(/domus.Link/theme/iPhone/iui/listArrow.png) no-repeat right center;
+    background: url(listArrow.png) no-repeat right center;
 }
 
 a[target="_replace"] {
@@ -241,16 +211,6 @@ body > .dialog {
     padding: 0;
     text-align: right;
 }
-    
-body > span > .dialog {
-    top: 0;
-    width: 100%;
-    min-height: 417px;
-    z-index: 2;
-    background: rgba(0, 0, 0, 0.8);
-    padding: 0;
-    text-align: right;
-}
 
 .dialog > fieldset {
     box-sizing: border-box;
@@ -260,7 +220,7 @@ body > span > .dialog {
     border: none;
     border-top: 1px solid #6d84a2;
     padding: 10px 6px;
-    background: url(/domus.Link/theme/iPhone/iui/toolbar.png) #7388a5 repeat-x;
+    background: url(toolbar.png) #7388a5 repeat-x;
 }
 
 .dialog > fieldset > h1 {
@@ -280,7 +240,7 @@ body > span > .dialog {
     color: #999999;
 }
 
-input {
+input:not(input[type|=radio]):not(input[type|=checkbox]) {
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
     width: 100%;
@@ -294,16 +254,10 @@ input {
 
 body > .panel {
     box-sizing: border-box;
+    -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     padding: 10px;
-    background: #c8c8c8 url(/domus.Link/theme/iPhone/iui/pinstripes.png);
-}
-
-body > span > .panel {
-    box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    padding: 10px;
-    background: #c8c8c8 url(/domus.Link/theme/iPhone/iui/pinstripes.png);
+    background: #c8c8c8 url(pinstripes.png);
 }
 
 .panel > fieldset {
@@ -312,6 +266,7 @@ body > span > .panel {
     padding: 0;
     background: #FFFFFF;
     -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
     border: 1px solid #999999;
     text-align: right;
     font-size: 16px;
@@ -329,8 +284,9 @@ fieldset > .row:last-child {
     border-bottom: none !important;
 }
 
-.row > input {
+.row > input:not(input[type|=radio]):not(input[type|=checkbox]) {
     box-sizing: border-box;
+    -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     margin: 0;
     border: none;
@@ -338,12 +294,23 @@ fieldset > .row:last-child {
     height: 42px;
     background: none;
 }
+.row > input[type|=radio], .row > input[type|=checkbox] {
+  margin: 7px 7px 0 0;
+  height: 25px;
+  width: 25px;
+}
 
 .row > label {
     position: absolute;
     margin: 0 0 0 14px;
     line-height: 42px;
     font-weight: bold;
+}
+
+.row > span {
+    position: absolute;
+    padding: 12px 10px 0 110px;
+    margin: 0;
 }
 
 .row > .toggle {
@@ -357,7 +324,7 @@ fieldset > .row:last-child {
 .toggle {
     border: 1px solid #888888;
     -webkit-border-radius: 6px;
-    background: #FFFFFF url(/domus.Link/theme/iPhone/iui/toggle.png) repeat-x;
+    background: #FFFFFF url(toggle.png) repeat-x;
     font-size: 19px;
     font-weight: bold;
     line-height: 30px;
@@ -365,7 +332,7 @@ fieldset > .row:last-child {
 
 .toggle[toggled="true"] {
     border: 1px solid #143fae;
-    background: #194fdb url(/domus.Link/theme/iPhone/iui/toggleOn.png) repeat-x;
+    background: #194fdb url(toggleOn.png) repeat-x;
 }
 
 .toggleOn {
@@ -404,7 +371,7 @@ fieldset > .row:last-child {
     height: 28px;    
     border: 1px solid #888888;
     -webkit-border-radius: 6px;
-    background: #ffffff url(/domus.Link/theme/iPhone/iui/thumb.png) repeat-x;
+    background: #ffffff url(thumb.png) repeat-x;
 }
 
 .toggle[toggled="true"] > .thumb {
@@ -424,6 +391,6 @@ fieldset > .row:last-child {
 
 #preloader {
     display: none;
-    background-image: url(/domus.Link/theme/iPhone/iui/loading.gif), url(/domus.Link/theme/iPhone/iui/selection.png),
-        url(/domus.Link/theme/iPhone/iui/blueButton.png), url(/domus.Link/theme/iPhone/iui/listArrowSel.png), url(/domus.Link/theme/iPhone/iui/listGroup.png);
+    background-image: url(loading.gif), url(selection.png),
+        url(blueButton.png), url(listArrowSel.png), url(listGroup.png);
 }

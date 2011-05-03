@@ -13,7 +13,7 @@ function validateForm(form)
 //-->
 </script>
 <form action="<?php echo($_SERVER['PHP_SELF']); ?>?action=save" method="post">
-<input type="hidden" name="line" value="<?php echo $linenum; ?>" / >
+<input type="hidden" name="line" value="<?php echo $theMacro->getlineNum(); ?>" / >
 
 
 <table cellspacing="0" cellpadding="0" border="0" class="content">
@@ -28,8 +28,8 @@ function validateForm(form)
 <td align="left"><h6><?php echo ($lang['status']);?>:</h6></td>
 <td align="left">
 <select name="status">
- 	<option value="" <?php if ($enabled) echo "selected"; ?>><?php echo ($lang['enabled']);?></option>
- 	<option value="#" <?php if (!$enabled) echo "selected"; ?>><?php echo ($lang['disabled']);?></option>
+ 	<option value="" <?php if ($theMacro->isEnabled()) echo "selected"; ?>><?php echo ($lang['enabled']);?></option>
+ 	<option value="#" <?php if (!$theMacro->isEnabled()) echo "selected"; ?>><?php echo ($lang['disabled']);?></option>
 </select>
 </td>
 </tr>
@@ -37,14 +37,14 @@ function validateForm(form)
 <tr>
 <td align="left"><h6><?php echo ($lang['label']);?>:</h6></td>
 <td align="left">
-<input size="50" type="text" name="macro_name" value="<?php echo $macro_name?>" />
+<input size="50" type="text" name="macro_name" value="<?php echo $theMacro->getLabel()?>" />
 </td>
 </tr>
 <!-- command -->
 <tr>
 <td align="left"><h6><?php echo ($lang['execute']);?>:</h6></td>
 <td align="left">
-<input size="100" type="text" name="macro_command" value="<?php echo $macro_command?>" />
+<input size="100" type="text" name="macro_command" value="<?php echo $theMacro->getCommand()?>" />
 </td>
 </tr>
 </table>

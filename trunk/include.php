@@ -39,6 +39,8 @@ require_once(FUNC_FILE_LOCATION.'lang.func.php');
 require_once(CLASS_FILE_LOCATION.'tpl.class.php');
 require_once(CLASS_FILE_LOCATION.'global.class.php');
 require_once(CLASS_FILE_LOCATION.'login.class.php');
+require_once(CLASS_FILE_LOCATION.'module.class.php');
+require_once(CLASS_FILE_LOCATION.'moduletypes.class.php');
 
 ## Start session for error messages and login
 if (!isset($_SESSION)) {
@@ -64,14 +66,24 @@ if (substr($config['url_path'], -1) == '/')
 ## Load language file
 $lang =& $_SESSION['frontObj']->getLanguageFile();
 
+## Load mod group types
+if($config['themeview'] == 'typed')
+	$modgrouptypes =& $_SESSION['frontObj']->getTypedGroups()->getVisibleGroups();
+else
+	$modgrouptypes =& $_SESSION['frontObj']->getGroups()->getVisibleGroups();
+
 ## instantiate cached lists
 ## $frontObj->getDirectives();
 ## $frontObj->getModList();
 
-## iPhone theme autodetection
-if (strpos(strtolower($_SERVER['HTTP_USER_AGENT']),'iphone')) {
-	# Theme - GUI's Theme
-	$config['theme'] = 'iPhone';
+## mobile theme autodetection
+$mobilesearch = explode(",", $config['mobileselect']);
+foreach($mobilesearch as $target) {
+	if (strpos(strtolower($_SERVER['HTTP_USER_AGENT']),strtolower($target))) {
+		# set mobile theme
+		$config['theme'] = $config['thememobile'];
+		break;
+	}
 }
 
 ## Theme definition for template loading
@@ -81,23 +93,14 @@ define("TPL_FILE_LOCATION", dirname(__FILE__) . DIRECTORY_SEPARATOR . 'theme' . 
 $tpl = new Template(TPL_FILE_LOCATION.'layout.tpl');
 $tpl->set('config', $config);
 $tpl->set('lang', $lang);
+$tpl->set('groups', $modgrouptypes);
 $tpl->set('ver', $FRONTEND_VERSION);
 
-## Security validation's
-$authenticated = false;
-if ($config['seclevel'] != "0") {
-	$authentication = new login();
-	if ($authentication->login()) $authenticated = true;
-}
+## Setup the userdb if it does not exist.
+require_once($dirname.DIRECTORY_SEPARATOR.'utility/setupuserdb.php');
+setUpUserDB();
 
 ## Set authentication state
-$tpl->set('authenticated', $authenticated);
-
-## Constants
-$modtypes['lights'] = 'Light';
-$modtypes['appliances'] = 'Appliance';
-$modtypes['irrigation'] = 'Irrigation';
-$modtypes['shutters'] = 'Shutter';
-$modtypes['other'] = 'Other';
-
+$tpl->set('sec_level', 99999999);
+$tpl->set('sec_level_type', SEC_LEVEL_GREATER_D);
 ?>
