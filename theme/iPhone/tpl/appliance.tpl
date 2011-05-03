@@ -8,8 +8,8 @@
 				<tr>
 					<td style='width:66%'><?php echo $label; ?></td>
 					<td><a href="<?php echo $applianceState ?>"><img src="<?php echo $config['url_path']; ?>/theme/<?php echo $config['theme']; ?>/images/module_appliance_<?php echo $state; ?>.png" /></a></td>
-					<td><a href="<?php echo $applianceOn ?>">On</a></td>					
-					<td><a href="<?php echo $applianceOff ?>">Off</a></td>
+					<td><a href="<?php echo $applianceOn ?>"><?php echo $lang['ON']; ?></a></td>					
+					<td><a href="<?php echo $applianceOff ?>"><?php echo $lang['OFF']; ?></a></td>
 				</tr>
 			</table>
 		</li>

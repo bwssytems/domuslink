@@ -24,10 +24,16 @@ require_once('..'.DIRECTORY_SEPARATOR.'include.php');
 require_once('..'.DIRECTORY_SEPARATOR.'include_globals.php');
 
 ## Security validation's
-if ($config['seclevel'] != "0" && !$authenticated) {
+$authCheck = new Login(USERDB_FILE_LOCATION);
+if (!$authCheck->login()) {
 	header("Location: ../login.php?from=events/macros");
 	exit();
 }
+if($authCheck->getUser()->getSecurityLevel()  > 1) {
+	header("Location: ../index.php");
+	exit();
+}
+$tpl->set('sec_level', $authCheck->getUser()->getSecurityLevel());
 
 if(!isset($heyusched)) {
 	gen_error(null, $lang['noscheddefined']);
@@ -64,27 +70,28 @@ else {
 			break;
 			
 		case "edit":
-			list($lbl, $named_macro, $delay, $execute_command) = explode(" ", $schedObjs[$_GET['line']]->getElementLine(), 4);
+			$macroObj = $schedObjs[$_GET['line']];
+
 			$tpl_edit = new Template(TPL_FILE_LOCATION.'macro_edit.tpl');
 			$tpl_edit->set('lang', $lang);
-			$tpl_edit->set('enabled', $schedObjs[$_GET['line']]->isEnabled());
-			$tpl_edit->set('macro_command', $execute_command);
-			$tpl_edit->set('macro_name', $named_macro);
-			$tpl_edit->set('linenum', $_GET['line']); // sets number of line being edited
+			$tpl_edit->set('theMacro', $macroObj);
 			$tpl_body->set('form', $tpl_edit);
 			break;
 			
 		case "add":
 			// if macro exist then don't add the macro else create macro lines,
 			// add them to file
-			$sm = get_specific_macro($macros, strtolower($_POST["macro_name"]));
+			$sm = get_specific_macro($macros, label_parse($_POST["macro_name"], true));
 			if (!$sm) {
-				$aMacro = new ScheduleElement(MACRO_D." ".$_POST["macro_name"]." 0 ".$_POST["macro_command"]);
+				$aMacro = new Macro();
+				$aMacro->setLabel(label_parse($_POST["macro_name"], true));
+				$aMacro->setCommand($_POST["macro_command"]);
 				if ($_POST["status"] == COMMENT_SIGN_D)
 					$aMacro->setEnabled(false);
 				else
 					$aMacro->setEnabled(true);
 
+				$aMacro->rebuildElementLine();
 				$heyusched->addElement($aMacro);
 
 				$mustSave = true;
@@ -93,12 +100,13 @@ else {
 			
 		case "save":
 			//build macro line with POST results	
-			$schedObjs[$_POST["line"]]->setElementLine(MACRO_D." ".$_POST["macro_name"]." 0 ".$_POST["macro_command"]);
+			$schedObjs[$_POST["line"]]->setLabel(label_parse($_POST["macro_name"], true));
+			$schedObjs[$_POST["line"]]->setCommand($_POST["macro_command"]);
 			if ($_POST["status"] == COMMENT_SIGN_D)
 				$schedObjs[$_POST["line"]]->setEnabled(false);
 			else
 				$schedObjs[$_POST["line"]]->setEnabled(true);
-
+			$schedObjs[$_POST["line"]]->rebuildElementLine();
 			$mustSave = true;
 			break;
 			

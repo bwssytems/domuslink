@@ -32,11 +32,13 @@ function config_load()
 	$config["heyu_subdir"] = "default";
 	$config["heyuconf"] = "x10.conf";
 	$config["heyuexec"] = "/usr/local/bin/heyu";
-	$config["seclevel"] = "1";
-	$config["password"] = "1234";
+	$config["hvac_house_code"] = "";
 	$config["lang"] = "";
 	$config["url_path"] = "/";
 	$config["theme"] = "default";
+	$config["themeview"] = "typed";
+	$config["thememobile"] = "iPhone";
+	$config["mobileselect"] = "iPhone,iPad,Android";
 	$config["imgs"] = "ON";
 	$config["codes"] = "ON";
 	$config["refresh"] = "0";
@@ -101,19 +103,16 @@ function config_text($config)
 \$config['heyuexec'] = '{$config['heyuexec']}';
 
 # -----------------
-# Frontend Settings
+# HVAC Settings for RCS usage
 # -----------------
 
-# Security Level, Possible values are:
-# 0 - No security/Password protection
-# 1 - Password protection for administration area
-# 2 - Password protection for frontend and administration area
-\$config['seclevel'] = '{$config['seclevel']}';
+# RCS thermostats use a complete house code.
+# This value specifies which house code to use
+\$config['hvac_house_code'] = '{$config['hvac_house_code']}';
 
-# Frontend password - Define a password here to
-# access the setup area of the frontend.
-# Leave blank to disable password.
-\$config['password'] = '{$config['password']}';
+# -----------------
+# Frontend Settings
+# -----------------
 
 # Language - Define the language for the frontend here.
 # If left blank browsers preferred language will be used.
@@ -128,8 +127,19 @@ function config_text($config)
 # domus.Link at the root ie http://your-host/
 \$config['url_path'] = '{$config['url_path']}';
 
-# Theme - GUI's Theme
+# Theme - Web GUI's Theme
 \$config['theme'] = '{$config['theme']}';
+
+# Theme  View - default view as grouped or types
+\$config['themeview'] = '{$config['themeview']}';
+
+# Mobile Theme - select mobile autodetect theme
+\$config['thememobile'] = '{$config['thememobile']}';
+
+# Mobile Select - A list of strings to search aginst the http_user_agent to
+# set the mobile theme automatically. This is a comma separated list. The search
+# will be case insensitive.
+\$config['mobileselect'] = '{$config['mobileselect']}';
 
 # Images - Select ON or OFF if you want images to be displayed
 # in the menu bar instead of text.

@@ -9,7 +9,7 @@
  To run and use domus.Link V1.2+ you need the following:
  
  These have been tested -
- - Heyu 2.8.0
+ - Heyu 2.8.0+ (Max version tested is 2.9.3)
  - Apache 2.2+ (2.0+ may work if PHP5 is installed. Not Tested)
  - PHP5+ support
  
@@ -33,17 +33,17 @@
 
  1) Download latest version from http://domus.link.co.pt/download
 
- 2) If upgrading from a previous version of domus.Link, backup existing domus.Link files for safety. (VERY IMPORTANT)
+ 2) If upgrading from a previous version of domus.Link, backup existing domus.Link files. (VERY IMPORTANT)
 
     $ cp [your web path]/domus.Link/config.php [backup location]/config.php.backup
+    $ cp -r [your web path]/domus.Link/db [backup location]
     
  3) Un-tar to a location within the webserver root or a specific directory.
  
  	These instructions show that /var/www is the web path for your server.
  
-    $ mv domuslink-XXX.tar.gz /var/www
     $ cd /var/www
-    $ tar xfvz domuslink-XXX.tar.gz
+    $ tar xfvz [path to tar file]/domuslink-XXX.tar.gz
 
  4) Change file permission's so that webserver can read/write to the following files/dirs:
     - /etc/heyu
@@ -55,9 +55,10 @@
  5) If upgrading from previous version, copy back backed up config.php.
  
  	$ cp [your backup location]/config.php.backup [your web path]/domus.Link/config.php
+ 	$ cp -r [your backup location]/db [your web path]/
  
  6) Setup apache accordingly, refer to http://httpd.apache.org if you don't
-    know how to do this.
+    know how to do this. Also see http://domus.link.co.pt HowTo's as well.
     
  7) Finally, point your web browser to your webserver (ie: http://localhost/domus.Link)
     and start heyu using the 'START' link located on the footer.
@@ -83,7 +84,7 @@
     The typically used port is /dev/ttyS0 which is usually a sym. link to
     /dev/tts/0 so in this case use the following command:
     
-    $ chmod o+rw /dev/tts/0
+    $ chmod o+rw /dev/ttyS0
     
     To check where /dev/ttyS0 links to, issue the following command:
     

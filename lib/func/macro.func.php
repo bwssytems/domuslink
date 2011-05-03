@@ -53,7 +53,7 @@ function get_specific_macros($macros, $onmacro, $offmacro) {
 	$fmacros = array(); 
 	
 	foreach ($macros as $macro) {
-		if (stripos($macro, $onmacro) || stripos($macro, $offmacro)) 
+		if ($macro->getLabel() == $onmacro || $macro->getLabel() == $offmacro) 
 			array_push($fmacros, $macro);
 	}
 	
@@ -72,16 +72,45 @@ function get_specific_macros($macros, $onmacro, $offmacro) {
 function multiple_macro_use($scheds, $onmacro, $offmacro, $line) {
 	foreach ($scheds as $sched) {
 		if ($sched->getLineNum() == $line) continue; //ignore originating item
-		elseif($sched->getType() == TRIGGER_D || $sched->getType() == TIMER_D) {
-			$checkLine = $sched->getElementLine();
-			if (stripos($checkLine, $onmacro ) && $onmacro != "null") {
+		elseif($sched->getType() == TRIGGER_D) {
+			if ($sched->getLabel() == $onmacro && $onmacro != "null") {
 				//item found that use on/off macro
 				if ($sched->isEnabled()) 
 					return 2; //active item exists
 				else 
 					return 1; //disabled item exists
 			}
-			elseif (stripos($checkLine, $offmacro ) && $offmacro != "null") {
+			elseif ($sched->getLabel() == $offmacro && $offmacro != "null") {
+				//item found that use on/off macro
+				if ($sched->isEnabled()) 
+					return 2; //active item exists
+				else 
+					return 1; //disabled item exists
+			}
+		}
+		elseif($sched->getType() == TIMER_D) {
+			if ($sched->getStartMacro() == $onmacro && $onmacro != "null") {
+				//item found that use on/off macro
+				if ($sched->isEnabled()) 
+					return 2; //active item exists
+				else 
+					return 1; //disabled item exists
+			}
+			elseif ($sched->getStopMacro() == $onmacro && $onmacro != "null") {
+				//item found that use on/off macro
+				if ($sched->isEnabled()) 
+					return 2; //active item exists
+				else 
+					return 1; //disabled item exists
+			}
+			elseif ($sched->getStartMacro() == $offmacro && $offmacro != "null") {
+				//item found that use on/off macro
+				if ($sched->isEnabled()) 
+					return 2; //active item exists
+				else 
+					return 1; //disabled item exists
+			}
+			elseif ($sched->getStopMacro() == $offmacro && $offmacro != "null") {
 				//item found that use on/off macro
 				if ($sched->isEnabled()) 
 					return 2; //active item exists
@@ -129,7 +158,7 @@ function get_specific_macro($macros, $amacro) {
 	$fmacros = array(); 
 	
 	foreach ($macros as $macro) {
-		if (stripos($macro, $amacro)) 
+		if ($macro->getLabel() == $amacro) 
 			array_push($fmacros, $macro);
 	}
 	

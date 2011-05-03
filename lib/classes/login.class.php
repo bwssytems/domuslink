@@ -18,20 +18,42 @@
  * this program; if not, write to the Free Software Foundation, 
  * Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
- 
-class login {
-	
-	var $ok;
-	var $salt = "kjsdr23a21dcf";
-	var $id = 'domuslogin';
 
+require_once("userdb.class.php");
+require_once("user.class.php");
+
+class Login {
+	
+	private $ok;
+	private $id;
+	private $theUserDBFileLocation;
+	private $userDB;
+	private $theUser;
+
+	function __construct() {
+    	$args = func_get_args();
+        if(!empty($args)) {
+			$this->theUserDBFileLocation = $args[0];
+			$this->userDB = new UserDB($this->theUserDBFileLocation);
+			if(isset($_SESSION['username'])) {
+				$this->theUser = $this->userDB->getUser($_SESSION['username']);
+				$this->id = $this->theUser->getUserName();
+			}
+        }
+        else {
+			throw new Exception("Login::construct - initialization requires userdb file location");
+        }
+        $this->ok = false;
+	}
+	
 	/**
 	 * 
 	 */
 	function login() {
 		$this->ok = false;
 		
-		if(!$this->checkSession()) $this->checkCookie();
+		if(!$this->checkSession())
+			$this->checkCookie();
 		
 		return $this->ok;
 	}
@@ -59,15 +81,35 @@ class login {
 	/**
 	 * 
 	 */
-	function checkLogin($password,$remember) {
-		global $config;
-		if ($config['password'] == $password) {
-			$this->ok = true;
-			$_SESSION[$this->id] = md5($password . $this->salt);
-			if ($remember) setcookie($this->id, $_SESSION[$this->id], time()+60*60*24*30, "/");
-			return true;
+	function checkLogin($user, $password, $remember) {
+		if(isset($user) && $user != '') {
+			$this->theUser = $this->userDB->getUser($user);
+			if(isset($this->theUser)) {
+				$this->id = $this->theUser->getUserName();
+				if ($this->theUser->validatePassword($password)) {
+					$this->ok = true;
+					$_SESSION[$this->id] = $this->theUser->getPassword();
+					$_SESSION['username'] = $this->id;
+					if ($remember)
+						setcookie($this->id, $_SESSION[$this->id], time()+60*60*24*30, "/");
+					return true;
+				}
+			}
 		}
-		
+		else {
+			$this->theUser = $this->userDB->findPIN($password);
+			if(isset($this->theUser)) {
+				$this->id = $this->theUser->getUserName();
+				$this->ok = true;
+				$_SESSION[$this->id] = $this->theUser->getPassword();
+				$_SESSION['username'] = $this->id;
+				if ($remember)
+					setcookie($this->id, $_SESSION[$this->id], time()+60*60*24*30, "/");
+				return true;
+				
+			}
+		}
+		unset($this->id);
 		return false;
 	}		
 
@@ -75,8 +117,7 @@ class login {
 	 * 
 	 */
 	function check($password) {
-		global $config;
-		if(md5($config['password'] . $this->salt) == $password) {
+		if($this->theUser->validateMD5Password($password)) {
 			$this->ok = true;
 			return true;
 		}
@@ -84,13 +125,22 @@ class login {
 		return false;
 	}
 	
+	function getUser() {
+		return $this->theUser;
+	}
+
+	function getUserDB() {
+		return $this->userDB;
+	}
+
 	/**
 	 * 
 	 */
 	function logout() {
 		$this->ok = false;
 		
-		$_SESSION[$this->id] = "";
+		unset($_SESSION[$this->id]);
+		unset($_SESSION['username']);
 		setcookie($this->id, "", time() - 3600, "/");
 	}
 }

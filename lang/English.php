@@ -34,6 +34,9 @@ $lang["aliases"] = "Aliases";
 $lang["floorplan"] = "Floorplan";
 $lang["frontend"] = "Frontend";
 $lang["heyusetup"] = "Heyu";
+$lang["light"] = "Light";
+$lang["appliance"] = "Appliance";
+$lang["shutter"]="Shutter";
 
 $lang["add"] = "Add";
 $lang["edit"] = "Edit";
@@ -81,8 +84,8 @@ $lang["imgs_txt"] = "Select whether or not you would like to use images instead 
 $lang["heyubaseloc_txt"] = "Heyu base directory - This directory is where Heyu searches for it's configuration files, and stores state information. Only used if Heyu Base Dir Usage is set to YES.";
 $lang["language_txt"] = "Define the language for the frontend here. You can also select auto, which will use the browsers preferred language.";
 $lang["heyuconfile_txt"] = "This file is typically named x10.conf and usually located in /etc/heyu/ for system wide use. Only used if Heyu Base Dir Usage is set to YES.";
-$lang["urlpath_txt"] = "If you are running domus.Link in a folder say http://your-host/domuslink, then define the url path as /domuslink. Leave blank if your are running domus.Link at the root ie http://your-host/";
-$lang["seclevel_txt"] = "Possible values are: 0 - None; 1 - Only setup area; 2 - Entire frontend.";
+$lang["urlpath_txt"] = "Leave blank if your are running domus.Link at the root ie http://your-host/. If you are running domus.Link in a special url path, say http://your-host/domuslink, then define the url path as /domuslink (This will require a special apache configuration).";
+$lang["hvac_seclevel_txt"] = "Possible values are: 0 - requires admin level; 1 - requires maint level; 2...n - specific access level."; // changed
 $lang["pcinterface_txt"] = "The Computer Interface can either be the CM11A or the CM17A. The CM11A is the most common and therefore selected by default.";
 $lang["refresh_txt"] = "By setting this field the main page in which the modules are shown shall be refreshed every X seconds. To disable, leave field blank.";
 
@@ -234,7 +237,49 @@ $lang["addschedfile"] = "Add Schedule File";
 $lang["noscheddefined"] = "No schedule file defined. Check heyu configuration.";
 $lang["diagnostic"] = "Diagnostic";
 $lang["diagnostictext"] = "domus.Link Diagnostics";
-$lang["diagnosticstatus"] = "Diagnostic status - click to check";
-$lang["statusinfo"] = "Click for status info";
+$lang["diagnosticstatus"] = "Diagnostic status - click to check"; // changed
+$lang["statusinfo"] = "Status of heyu - click for info"; // changed
 $lang["systemuptime"] = "System Uptime";
+
+/* HVAC Text */
+$lang["hvac"] = "HVAC";
+$lang["temperature"] = "Temperature";
+$lang["hvacmode"] = "Mode";
+$lang["setpoint"] = "Setpoint";
+$lang["OFF"] = "OFF";
+$lang["ON"] = "ON";
+$lang["HEAT"] = "HEAT";
+$lang["COOL"] = "COOL";
+$lang["AUTO"] = "AUTO";
+$lang["hvachousecode"] = "HVAC House Code";
+$lang["hvachousecode_txt"] = "Possible values are: None; A-P. If this is set, it will show the temperature, mode and setpoint in the status bar of the selected thermostat";
+
+$lang["YES"] = "YES";
+$lang["NO"] = "NO";
+
+$lang["diagnosticstatususer"] = "Diagnostic status"; //new
+$lang["statusinfouser"] = "Status of heyu"; // new
+$lang["users"] = "Users";
+$lang["secleveltype"] = "Security Level Type";
+$lang["adduser"] = "Add User";
+$lang["edituser"] = "Edit User";
+$lang["username"] = "Username";
+$lang["secleveltypeexact"] = "Exact";
+$lang["secleveltypegreater"] = "Greater";
+$lang["usertypepin"] = "PIN";
+$lang["usertypeuser"] = "User";
+$lang["group"] = "Group";
+$lang["groups"] = "Groups";
+$lang["imagename"] = "Image Name";
+$lang["addgroups"] = "Add Group";
+$lang["editgroups"] = "Edit Group";
+$lang["themeview_txt"] = "Select a theme view for the theme. Either select typed for the default view by module type or grouped for the custom user grouping.";
+$lang["themeview"] = "Theme View";
+$lang["themeviewinfo"] = "This sets the view of domus.Link to either builtin typed or custom user setup grouped";
+$lang["thememobile"] = "Mobile Theme";
+$lang["thememobile_txt"] = "Select a theme for the autodetect mobile theme.";
+$lang["mobileselect"] = "Mobile Select";
+$lang["mobileselect_txt"] = " A list of strings to search aginst the http_user_agent to set the mobile theme automatically. This is a comma separated list. The search will be case insensitive.";
+$lang["refreshinfo"] = "Refresh is on for ";
+$lang["menu"] = "Menu";
 ?>

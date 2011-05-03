@@ -36,6 +36,9 @@
 			<br>
 			iPhone:<br>
 			- Frank van der Stad<BR>
+			<br>
+			mobileWebKit:<br>
+			- Brad Samuels<BR>
 		</p>
 	</div>	
 	<div class="row">

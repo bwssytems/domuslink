@@ -24,17 +24,23 @@ require_once('..'.DIRECTORY_SEPARATOR.'include.php');
 require_once('..'.DIRECTORY_SEPARATOR.'include_globals.php');
 
 ## Security validation's
-if ($config['seclevel'] != "0" && !$authenticated) {
+$authCheck = new Login(USERDB_FILE_LOCATION);
+if (!$authCheck->login()) {
 	header("Location: ../login.php?from=events/triggers");
 	exit();
 }
+if($authCheck->getUser()->getSecurityLevel()  > 1) {
+	header("Location: ../index.php");
+	exit();
+}
+$tpl->set('sec_level', $authCheck->getUser()->getSecurityLevel());
 
 if(!isset($heyusched)) {
 	gen_error(null, $lang['noscheddefined']);
 	exit();
 }
 
-$aliases = $heyuconf->getAliases();
+$aliases = $heyuconf->getAliases($authCheck->getUser());
 
 $schedObjs = $heyusched->getObjects();
 $macros = $heyusched->getMacroObjects();
@@ -69,38 +75,47 @@ else {
 			break;
 			
 		case "edit":
-			list($lbl, $tunit, $command, $macro) = explode(" ", $schedObjs[$_GET['line']]->getElementLine(), 4);
+			$triggerObj = $schedObjs[$_GET['line']];
 			$tpl_edit = new Template(TPL_FILE_LOCATION.'trigger_edit.tpl');
 			$tpl_edit->set('lang', $lang);
-			$tpl_edit->set('enabled', $schedObjs[$_GET['line']]->isEnabled());
-			$tpl_edit->set('tcommand', strtolower($command));
+			$tpl_edit->set('theTrigger', $triggerObj);
+			$tpl_edit->set('enabled', $triggerObj->isEnabled());
+			$tpl_edit->set('tcommand', $triggerObj->getCommand());
 			$tpl_edit->set('aliases', $aliases);
-			$tpl_edit->set('unit', $tunit);
+			$tpl_edit->set('unit', $triggerObj->getLabel());
 			$tpl_edit->set('cmacs', $macros);
-			$tpl_edit->set('selmacro', $macro);
+			$tpl_edit->set('selmacro', $triggerObj->getMacroLabel());
 			$tpl_edit->set('linenum', $_GET['line']); // sets number of line being edited
 			$tpl_body->set('form', $tpl_edit);
 			break;
 			
 		case "add":
-			$aTrigger = new ScheduleElement(TRIGGER_D." ".$_POST["unit"]." ".$_POST["command"]." ".$_POST["macro"]);
+			$aTrigger = new Trigger();
+			$aTrigger->setLabel(label_parse($_POST["unit"], true));
+			$aTrigger->setCommand($_POST["command"]);
+			$aTrigger->setMacroLabel(label_parse($_POST["macro"], true)); 
 			if ($_POST["status"] == COMMENT_SIGN_D)
 				$aTrigger->setEnabled(false);
 			else
 				$aTrigger->setEnabled(true);
 
+			$aTrigger->rebuildElementLine();
 			$heyusched->addElement($aTrigger);
 
 			$mustSave = true;
 			break;
 			
 		case "save":
-			$schedObjs[$_POST["line"]]->setElementLine(TRIGGER_D." ".$_POST["unit"]." ".$_POST["command"]." ".$_POST["macro"]);
+			$aTrigger = $schedObjs[$_POST["line"]];
+			$aTrigger->setLabel(label_parse($_POST["unit"], true));
+			$aTrigger->setCommand($_POST["command"]);
+			$aTrigger->setMacroLabel(label_parse($_POST["macro"], true)); 
 			if ($_POST["status"] == COMMENT_SIGN_D)
-				$schedObjs[$_POST["line"]]->setEnabled(false);
+				$aTrigger->setEnabled(false);
 			else
-				$schedObjs[$_POST["line"]]->setEnabled(true);
+				$aTrigger->setEnabled(true);
 
+			$aTrigger->rebuildElementLine();
 			$mustSave = true;
 			break;
 			

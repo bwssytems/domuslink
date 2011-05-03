@@ -8,8 +8,8 @@
 				<tr>
 					<td style='width:66%'><?php echo $label; ?></td>
 					<td><a href="<?php echo $otherState ?>"><img src="<?php echo $config['url_path']; ?>/theme/<?php echo $config['theme']; ?>/images/module_other_<?php echo $state; ?>.png" /></a></td>
-					<td><a href="<?php echo $otherOn ?>">On</a></td>					
-					<td><a href="<?php echo $otherOff ?>">Off</a></td>
+					<td><a href="<?php echo $otherOn ?>"><?php echo $lang['ON']; ?></a></td>					
+					<td><a href="<?php echo $otherOff ?>"><?php echo $lang['OFF']; ?></a></td>
 				</tr>
 			</table>
 		</li>

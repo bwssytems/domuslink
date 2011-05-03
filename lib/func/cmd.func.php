@@ -36,9 +36,11 @@ function execute_cmd($cmd, $noerror = false) {
 		else
 			throw new Exception("Command is invalid.");
 	}
-	
+//    error_log("execute command [".$cmd."]");
 	exec ($cmd." 2>&1", $rs, $retval);
 	if ($retval > 0 && !$noerror) {
+		error_log("domus.Link: Command execution error. [".$cmd."]");
+	
 		throw new Exception($rs[0]);
 	}
 	else
@@ -57,6 +59,8 @@ function heyu_running() {
 
 	if (count(preg_grep('/[h]eyu_engine/', $rs)) == 1)
 		 $proc_count++;
+	elseif(count(preg_grep('/[h]eyu/', $rs)) == 2)
+		$proc_count = 2;
 
 	if($proc_count == 2)
 		 return true;
@@ -70,6 +74,10 @@ function heyu_running() {
  */
 function heyu_info() {
 	global $config;
+	return get_heyu_info($config);
+}
+
+function get_heyu_info($config) {
 	$rs = execute_cmd($config['heyuexecreal']." info");
 	return $rs;
 }
@@ -79,8 +87,7 @@ function heyu_info() {
  *
  * @param $action to undertake (start, stop, reload)
  */
-function heyu_ctrl($action) {
-	global $config;
+function heyu_ctrl($config, $action) {
 	switch ($action) 
 	{
 		case "start":
@@ -110,25 +117,46 @@ function heyu_ctrl($action) {
  * Heyu Action
  *
  */
-function heyu_action() {
-	global $config;
-	switch ($_GET["action"]) {
+function heyu_action($config, $theActionRequest, $theCode, $theState = null, $curr = null, $req = null) {
+//	error_log("heyu_action ".$theActionRequest." - ".$req);
+	$return_error = false;
+	$hvac_validate = false;
+	switch ($theActionRequest) {
 		case "on":
-		case "off":
 		case "fon":
+			$cmd = $config['heyuexecreal']." ".$config['cmd_on']." ".$theCode;
+			break;
 		case "foff":
-			$cmd = $config['heyuexecreal']." ".$_GET["action"]." ".$_GET["code"];
+		case "off":
+			$cmd = $config['heyuexecreal']." ".$config['cmd_off']." ".$theCode;
 			break;
 		case "db":
-			$cmd = dim_bright($_GET["state"], $_GET["curr"], $_GET["req"], $_GET["code"]);
+			$cmd = dim_bright($config, $theState, $curr, $req, $theCode);
+			break;
+		case "dbapi":
+			$cmd = dim_bright_real($config, $theState, $curr, $req, $theCode);
+			break;
+		case "hvac_control":
+			$return_error = true;
+			$hvac_validate = true;
+			$cmd = rcs_control($config, $theCode, $req);
+			break;
+		default:
+			return;
 			break;
 	}
-	
-	execute_cmd($cmd);
+
+	$rs = execute_cmd($cmd, $return_error);
+	if($hvac_validate)
+		$return_array = parse_hvac_return($rs, $req);
+	else
+		$return_array = $rs;
+
+	return $return_array;
 }
 
 /**
- * Dim Bright Lights
+ * Dim Bright Lights using levels 1-5
  * 
  * @param $state 
  * @param $currlevel current intensity level at which the module is
@@ -136,47 +164,77 @@ function heyu_action() {
  * @param $code modules unitcode
  * 
  */
-function dim_bright($state, $currlevel, $reqlevel, $code) {	
-	global $config;
-	if ($currlevel == $reqlevel) return false;
+function dim_bright($config, $state, $currlevel, $reqlevel, $code) {
+	$modCurrLevel = $currlevel * 20;
+	if($reqlevel < 0)
+	    $modReqLevel = 0;
+	else
+		$modReqLevel = $reqlevel * 20;
+	
+	return dim_bright_real($config, $state, $modCurrLevel, $modReqLevel, $code);
+}
+
+/**
+ * Dim Bright Lights using real 0-100 levels
+ * 
+ * @param $state 
+ * @param $currlevel current intensity level at which the module is
+ * @param $reqlevel intensity level requested
+ * @param $code modules unitcode
+ * 
+ */
+function dim_bright_real($config, $state, $currlevel, $reqlevel, $code) {	
+	if ($currlevel == $reqlevel)
+		return false;
+		
+	$incdec = 0;
 	
 	if ($currlevel < $reqlevel) {
 		if ($state == "off")
-			$cmd = $config['cmd_dimb']." ".$code;
+		{
+			$incdec = calc_real_level(100, $reqlevel);
+			if($incdec == 0)
+				return $config['heyuexecreal']." ".$config['cmd_on']." ".$code;
+			else
+				$cmd = $config['cmd_dimb']." ".$code;
+		}
 		else
+		{
 			$cmd = $config['cmd_bright']." ".$code;
 			
-		$incdec = $reqlevel - $currlevel;
+			$incdec = calc_real_level($reqlevel, $currlevel);
+		}
 	}
-	elseif ($currlevel > $reqlevel) {
+	elseif ($currlevel > $reqlevel && $reqlevel != 0) {
 		$cmd = $config['cmd_dim']." ".$code;
-		$incdec = $currlevel - $reqlevel;
+		$incdec = calc_real_level($currlevel, $reqlevel);
 	}
+	else
+		return $config['heyuexecreal']." ".$config['cmd_off']." ".$code;
 	
-	// select how much to increase or decrease level by.
-	switch ($incdec) {
-		case 1:
-			if ($state == "on") $cmd .= " 4";
-			else $cmd .= " 22";
-			break;
-		case 2:
-			if ($state == "on") $cmd .= " 8";
-			else $cmd .= " 16";
-			break;	
-		case 3:
-			$cmd .= " 12";
-			break;
-		case 4:
-			if ($state == "on") $cmd .= " 16";
-			else $cmd .= " 8";
-			break;
-		case 5:
-			if ($state == "on") $cmd .= " 22";
-			else $cmd .= " 4";
-			break;
-	}
+	return $config['heyuexecreal']." ".$cmd." ".$incdec;
+}
+
+/* Need to convert real 0 - 100 values into 1-22 values for heyu
+ * @param value1 this is the value to subtract from
+ * @param value2 this is the value to subtract
+ */
+function calc_real_level($value1, $value2)
+{
+	$dim_interval = (float)100.00 / 22.00;
 	
-	return $config['heyuexecreal']." ".$cmd;
+	$diff = (float)($value1 - $value2);
+	$real_diff = (int)0;
+	
+	if($diff != 0.0 && $diff < $dim_interval)
+		$real_diff = 1;
+	else if($diff > 95.0)
+		$real_diff = 22;
+	else
+		$real_diff = (int)($diff * 0.22);
+
+	return $real_diff;
+	
 }
 
 /**
@@ -185,8 +243,7 @@ function dim_bright($state, $currlevel, $reqlevel, $code) {
  * @param $code code of module to check
  */
 
-function on_state($code) {
-	global $config;
+function on_state($config, $code) {
 	$rs = execute_cmd($config['heyuexecreal']." onstate ".$code, true);
 
 	if ($rs[0] == "1" || $rs[0] == "0") {
@@ -209,8 +266,7 @@ function on_state($code) {
  *
  * @param $unit code of module to check
  */
-function dim_level($unit) {
-	global $config;
+function dim_level($config, $unit) {
 	$rs = execute_cmd($config['heyuexecreal']." dimlevel ".$unit);
 	return $rs[0];
 }
@@ -238,4 +294,110 @@ function heyu_erase() {
 	return (execute_cmd($config['heyuexecreal']." erase"));
 }
 
+function rcs_control($config, $theCode, $theRequest) {
+	switch ($theRequest) {
+		case "temp":
+			$req = $config['heyuexecreal']." rcs_req preset ".$theCode."5 1";
+            break;
+		case "setpoint":
+			$req = $config['heyuexecreal']." rcs_req preset ".$theCode."5 2";
+            break;
+		case "mode":
+			$req = $config['heyuexecreal']." rcs_req preset ".$theCode."5 3";
+            break;
+		case "fan_mode":
+			$req = $config['heyuexecreal']." rcs_req preset ".$theCode."5 4";
+            break;
+		case "setback_mode":
+			$req = $config['heyuexecreal']." rcs_req preset ".$theCode."5 5";
+            break;
+        case "off":
+			$req = $config['heyuexecreal']." preset ".$theCode."4 1";
+            break;
+		case "heat":
+			$req = $config['heyuexecreal']." preset ".$theCode."4 2";
+            break;
+		case "cool":
+			$req = $config['heyuexecreal']." preset ".$theCode."4 3";
+            break;
+		case "auto":
+			$req = $config['heyuexecreal']." preset ".$theCode."4 4";
+            break;
+		case "fan_on":
+			$req = $config['heyuexecreal']." preset ".$theCode."4 5";
+            break;
+		case "fan_auto":
+			$req = $config['heyuexecreal']." preset ".$theCode."4 6";
+            break;
+		case "setback_on":
+			$req = $config['heyuexecreal']." preset ".$theCode."4 7";
+            break;
+		case "setback_off":
+			$req = $config['heyuexecreal']." preset ".$theCode."4 8";
+            break;
+        case "inc":
+            $req = $config['heyuexecreal']." preset ".$theCode."4 9";
+            break;
+		case "dec":
+            $req = $config['heyuexecreal']." preset ".$theCode."4 10";
+            break;
+        default;
+            $req = array();
+        	break;
+	}
+	
+	return $req;
+}
+
+function parse_hvac_return($result, $request) {
+	static $search_temp = "Temperature = ";
+	static $search_result_delim = ": hu";
+	static $search_mode = "System_mode = ";
+	static $search_fan_mode = "Fan = ";
+	static $search_setback = "Setback = ";
+	
+	if(count($result) == 0 || count($result) > 1) {
+		array_unshift($result, "Error in HVAC result");
+		return $result;
+	}
+
+	if(strpos($result[0], "not valid") !== false) {
+		array_unshift($result, "Error in HVAC result");
+		return $result;
+	}
+
+	switch ($request) {
+		case "temp":
+			$aTemp = substr($result[0], strpos($result[0], $search_temp)+strlen($search_temp), strpos($result[0], $search_result_delim)-(strpos($result[0], $search_temp)+strlen($search_temp)));
+			$parsed_result = array(trim($aTemp));
+            break;
+		case "setpoint":
+			$aTemp = substr($result[0], strpos($result[0], $search_temp)+strlen($search_temp), strpos($result[0], $search_result_delim)-(strpos($result[0], $search_temp)+strlen($search_temp)));
+			$parsed_result = array(trim($aTemp));
+            break;
+		case "mode":
+			$aMode = substr($result[0], strpos($result[0], $search_mode)+strlen($search_mode), strpos($result[0], $search_result_delim)-(strpos($result[0],$search_mode)+strlen($search_mode)));
+			$parsed_result = array(trim($aMode));
+			break;
+		case "fan_mode":
+			$aMode = substr($result[0], strpos($result[0], $search_fan_mode)+strlen($search_fan_mode), strpos($result[0], $search_result_delim)-(strpos($result[0],$search_fan_mode)+strlen($search_fan_mode)));
+			$parsed_result = array(trim($aMode));
+			break;
+		case "setback_mode":
+			$aMode = substr($result[0], strpos($result[0], $search_setback)+strlen($search_setback), strpos($result[0], $search_result_delim)-(strpos($result[0],$search_setback)+strlen($search_setback)));
+			$parsed_result = array(trim($aMode));
+			break;
+		case "off":
+		case "heat":
+		case "cool":
+		case "auto":
+		case "inc":
+		case "dec":
+        default;
+            $parsed_result = $result;
+        	break;
+	}
+	
+	return $parsed_result;
+}
 ?>

@@ -7,8 +7,8 @@
 			<table>
 				<tr>
 					<td style='width:66%'><?php echo $label; ?></td>
-					<td><a href="<?php echo $moduleOn ?>">On</a></td>					
-					<td><a href="<?php echo $moduleOff ?>">Off</a></td>
+					<td><a href="<?php echo $moduleOn ?>"><?php echo $lang['ON']; ?></a></td>					
+					<td><a href="<?php echo $moduleOff ?>"><?php echo $lang['OFF']; ?></a></td>
 				</tr>
 			</table>
 		</li>
