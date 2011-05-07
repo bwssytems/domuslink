@@ -1,0 +1,29 @@
+/*----------------------------------------------------------------------------+
+ |                                                                            |
+ |                             THEMES README                                  |
+ |                                                                            |
+ |  Update for domus.Link 2.0 - require a file in the top level under the     |
+ |     the theme_name to be mobile or web to identify the type to show in     |
+ |     the frontend selection list for themes. This file can be empty.        |
+ +----------------------------------------------------------------------------*/
+
+ Directory structure
+
+ -> theme
+	|
+	------> theme_name
+			|
+			----------> theme_type (web | mobile)
+			|
+			----------> theme_name.css
+			|
+			----------> images\
+			|
+			----------> tpl\
+
+	Notes: 
+	
+	* theme_name (Directory) and theme_name.css must be identical.
+	* images directory contains all the images
+	* tpl directory contains template files
+	* theme_type is a file to identify which theme list the theme should be presented in.
