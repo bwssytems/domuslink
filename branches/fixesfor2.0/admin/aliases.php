@@ -113,7 +113,10 @@ else {
 				$anAlias->setModuleOptions($_POST["moduleopts"]);
 				$anAlias->getAliasMap()->setType($_POST["type"]);
 				$anAlias->getAliasMap()->setAliasLabel(label_parse($_POST["label"],true));
-				$anAlias->getAliasMap()->setFloorPlanLabel(label_parse($_POST["loc"],true));
+				if(strlen(trim($_POST["newloc"])) > 0)
+					$anAlias->getAliasMap()->setFloorPlanLabel(label_parse($_POST["newloc"],true));
+				else
+					$anAlias->getAliasMap()->setFloorPlanLabel(label_parse($_POST["loc"],true));
 				$anAlias->getAliasMap()->setHiddenFromHome("visible");
 				$anAlias->getAliasMap()->setGroup($_POST["group"]);
 				$anAlias->getAliasMap()->setAccessLevel(intval($_POST["secaccesslevel"]));
@@ -135,7 +138,10 @@ else {
 				$settings[$_POST["line"]]->setModuleOptions($_POST["moduleopts"]);
 				$settings[$_POST["line"]]->getAliasMap()->setType($_POST["type"]);
 				$settings[$_POST["line"]]->getAliasMap()->setAliasLabel(label_parse($_POST["label"],true));
-				$settings[$_POST["line"]]->getAliasMap()->setFloorPlanLabel(label_parse($_POST["loc"],true));
+				if(strlen(trim($_POST["newloc"])) > 0)
+					$settings[$_POST["line"]]->getAliasMap()->setFloorPlanLabel(label_parse($_POST["newloc"],true));
+				else
+					$settings[$_POST["line"]]->getAliasMap()->setFloorPlanLabel(label_parse($_POST["loc"],true));
 				$settings[$_POST["line"]]->getAliasMap()->setGroup($_POST["group"]);
 				$settings[$_POST["line"]]->getAliasMap()->setAccessLevel(intval($_POST["secaccesslevel"]));
 				$settings[$_POST["line"]]->getAliasMap()->rebuildElementLine();

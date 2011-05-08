@@ -70,7 +70,7 @@
   <tr>
     <td valign="top"><h6><?php echo ($lang['location']);?>:</h6></td>
     <td valign="top">
-    <select name="loc" onClick="beginEditing(this);" onBlur="finishEditing();">
+    <select name="loc">
 	<?php foreach ($floorplan as $locnf): ?>
 	<?php $locf = rtrim($locnf); ?>
 	    <?php if ($theAlias->getAliasMap()->getFloorPlanLabel() == $locf): ?>
@@ -79,9 +79,17 @@
     		<option value="<?php echo $locf; ?>"><?php echo $locf; ?></option>
     	<?php endif; ?>
 	<?php endforeach; ?>
-  		<option value=""></option>
 	</select>
     </td>
+  </tr>
+
+  <tr>
+    <td colspan="2" align="center"><h6><?php echo ($lang['OR']); ?></h6></td>
+  </tr>
+
+  <tr>
+    <td valign="top"><h6><?php echo ($lang['newloc']); ?>:</h6></td>
+    <td valign="top"><input type="text" name="newloc" value="" size="20" /></td>
   </tr>
 
 <!-- Group -->

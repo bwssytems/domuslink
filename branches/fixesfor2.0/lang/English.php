@@ -282,4 +282,6 @@ $lang["mobileselect"] = "Mobile Select";
 $lang["mobileselect_txt"] = " A list of strings to search aginst the http_user_agent to set the mobile theme automatically. This is a comma separated list. The search will be case insensitive.";
 $lang["refreshinfo"] = "Refresh is on for ";
 $lang["menu"] = "Menu";
+$lang["newloc"] = "Enter New Location";
+$lang["OR"] = "OR";
 ?>
