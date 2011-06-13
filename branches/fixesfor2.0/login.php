@@ -40,12 +40,10 @@ if (isset($_GET["action"])) {
 }
 
 if (isset($_POST['password'])) {
-//	error_log("login.php password found");
-	if(isset($_POST['remember']))
-		$remember = true;
-	else
-		$remember = false;
-	if ($login->checkLogin("", $_POST['password'],$remember)) {
+
+	$remember = (isset($_POST['remember'])) ? true:false; 	
+		
+	if ($login->checkLoginByPin( $_POST['password'],$remember)) {
 //			error_log("login.php successful for post from [". $_POST['from']."]");
 			if(isset($_POST['from']) && $_POST['from'] != "")
 				header("Location: ".$_POST['from'].".php");

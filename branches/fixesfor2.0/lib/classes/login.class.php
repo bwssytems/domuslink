@@ -13,118 +13,171 @@
  * This program is distributed in the hope's that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details. You should have 
+ * GNU General Public License for more details. You should have
  * received a copy of the GNU General Public License along with
- * this program; if not, write to the Free Software Foundation, 
+ * this program; if not, write to the Free Software Foundation,
  * Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
 require_once("userdb.class.php");
 require_once("user.class.php");
+require_once(CLASS_FILE_LOCATION.'user.const.php');
 
 class Login {
-	
+
 	private $ok;
 	private $id;
-	private $theUserDBFileLocation;
 	private $userDB;
 	private $theUser;
 
+
 	function __construct() {
-    	$args = func_get_args();
-        if(!empty($args)) {
-			$this->theUserDBFileLocation = $args[0];
-			$this->userDB = new UserDB($this->theUserDBFileLocation);
-			if(isset($_SESSION['username'])) {
-				$this->theUser = $this->userDB->getUser($_SESSION['username']);
-				$this->id = $this->theUser->getUserName();
-			}
-        }
-        else {
+		$args = func_get_args();
+			
+		$this->ok = false;
+			
+		if (empty($args)) {
 			throw new Exception("Login::construct - initialization requires userdb file location");
-        }
-        $this->ok = false;
+		}
+			
+		$this->userDB = new UserDB($args[0]);
+
+		// restore user from session if already set
+		if(isset($_SESSION['username'])) {
+			$this->theUser = $this->userDB->getUser($_SESSION['username']);
+			$this->id = $this->theUser->getUserName();
+		}
+
 	}
-	
+
 	/**
-	 * 
+	 * check Login with session or cookie
 	 */
 	function login() {
-		$this->ok = false;
-		
-		if(!$this->checkSession())
-			$this->checkCookie();
-		
+		$result = false;
+
+		if($this->checkSession())
+			$result = true;
+		elseif ($this->checkCookie())
+			$result = true;
+
+		$this->ok = $result;
+
 		return $this->ok;
 	}
-	
+
 	/**
-	 * 
+	 * check memory session
 	 */
 	function checkSession() {
-		if(!empty($_SESSION[$this->id]))
-			return $this->check($_SESSION[$this->id]);
-		else
-			return false;
+		$sessionUsername = $_SESSION["username"];
+		if(!empty($sessionUsername)) {
+			error_log("session found in memory... ");
+			return true;
+		}
+		error_log("no session found");
+		return false;
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	function checkCookie() {
-		if(!empty($_COOKIE[$this->id]))
-			return $this->check($_COOKIE[$this->id]);
-		else
-			return false;
+		error_log("check cookie");
+
+		$cookieUsername= $_COOKIE[ "username" ];
+		$cookiePassword = $this->decrypt( $_COOKIE[ "password" ] );
+		$cookieType = $_COOKIE[ "type" ];
+
+
+		if(!empty($cookieType )) {
+			error_log("** COOKIE FOUND ** decrypt");
+			if ($cookieType == PIN_TYPE_D )
+				return $this->checkLoginByPin($cookiePassword,0);
+			else
+				return $this->checkLogin($cookieUsername,$cookiePassword,0);
+		}
+		error_log("no cookieFound");
+		return false;
+
 	}
 	
-	/**
-	 * 
-	 */
-	function checkLogin($user, $password, $remember) {
-		if(isset($user) && $user != '') {
-			$this->theUser = $this->userDB->getUser($user);
-			if(isset($this->theUser)) {
-				$this->id = $this->theUser->getUserName();
-				if ($this->theUser->validatePassword($password)) {
-					$this->ok = true;
-					$_SESSION[$this->id] = $this->theUser->getPassword();
-					$_SESSION['username'] = $this->id;
-					if ($remember)
-						setcookie($this->id, $_SESSION[$this->id], time()+60*60*24*30, "/");
-					return true;
-				}
-			}
-		}
-		else {
-			$this->theUser = $this->userDB->findPIN($password);
-			if(isset($this->theUser)) {
-				$this->id = $this->theUser->getUserName();
-				$this->ok = true;
-				$_SESSION[$this->id] = $this->theUser->getPassword();
-				$_SESSION['username'] = $this->id;
-				if ($remember)
-					setcookie($this->id, $_SESSION[$this->id], time()+60*60*24*30, "/");
-				return true;
-				
-			}
-		}
-		unset($this->id);
-		return false;
-	}		
+	
+	function encrypt($data) {
+		$iv_size = mcrypt_get_iv_size(MCRYPT_RIJNDAEL_256, MCRYPT_MODE_ECB);
+		$iv = mcrypt_create_iv($iv_size, MCRYPT_RAND);
+		$key = "thisIsASecureKeyForCookie";
+	
+		return mcrypt_encrypt(MCRYPT_RIJNDAEL_256, $key, $data, MCRYPT_MODE_ECB, $iv);
+	}
+	
+	function decrypt($data) {
+		$iv_size = mcrypt_get_iv_size(MCRYPT_RIJNDAEL_256, MCRYPT_MODE_ECB);
+		$iv = mcrypt_create_iv($iv_size, MCRYPT_RAND);
+		$key = "thisIsASecureKeyForCookie";
+	
+		return mcrypt_decrypt(MCRYPT_RIJNDAEL_256, $key, $data, MCRYPT_MODE_ECB, $iv);
+	}
+	
+	
+	
+	# store in cookie
+	function memoriseIdent($theUser,$login, $password) {
+		// todo encrypt this data and store on a single cookie
+		setcookie("login",$theUser->getUserName(), time()+3600*24*30, "/");
+		setcookie("password",$this->encrypt($password), time()+3600*24*30, "/");
+		setcookie("type",$theUser->getType(), time()+3600*24*30, "/");
+	}
 
 	/**
-	 * 
+	 *
 	 */
-	function check($password) {
+	function checkLoginByPin( $password, $remember) {
+		$theUser = $this->userDB->findPIN($password); 
+		return $this->validateAndUpdateSession(  $theUser,"",$password, $remember);
+	}
+
+	function checkLogin($login, $password, $remember) {
+		$theUser = $this->userDB->getUser($login);
+		# USER_TYPE_D
+		return $this->validateAndUpdateSession(  $theUser ,$login, $password, $remember);
+	}
+
+
+	function validateAndUpdateSession( $theUser, $login,$password, $remember) {
+		if(isset($theUser)) {
+			error_log("validateAndUpdateSession: userFound");
+			$this->theUser = $theUser;
+			$this->id = $this->theUser->getUserName();
+			if ($this->theUser->validatePassword($password)) {
+				$this->ok = true;
+				# store session
+				$_SESSION['password'] = $this->theUser->getPassword();
+				$_SESSION['username'] = $this->id;
+				if ($remember)
+					$this->memoriseIdent($theUser, $login,$password);
+				error_log("validateAndUpdateSession: good user");
+				return true;
+			}
+		}
+		error_log("validateAndUpdateSession: bad user or bad password");
+
+		unset($this->id);
+		return false;
+	}
+
+	/**
+	 *
+	 */
+	function checkPassword($password) {
 		if($this->theUser->validateMD5Password($password)) {
 			$this->ok = true;
 			return true;
 		}
-		
+
 		return false;
 	}
-	
+
 	function getUser() {
 		return $this->theUser;
 	}
@@ -134,14 +187,15 @@ class Login {
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	function logout() {
 		$this->ok = false;
-		
-		unset($_SESSION[$this->id]);
+
+		unset($_SESSION['password']);
 		unset($_SESSION['username']);
-		setcookie($this->id, "", time() - 3600, "/");
+
+		setcookie("type", "", time() - 3600, "/");
 	}
 }
 ?>
