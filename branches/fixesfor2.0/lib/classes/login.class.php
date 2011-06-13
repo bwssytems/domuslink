@@ -25,16 +25,13 @@ require_once(CLASS_FILE_LOCATION.'user.const.php');
 
 class Login {
 
-	private $ok;
 	private $id;
 	private $userDB;
 	private $theUser;
 
-
+	
 	function __construct() {
 		$args = func_get_args();
-			
-		$this->ok = false;
 			
 		if (empty($args)) {
 			throw new Exception("Login::construct - initialization requires userdb file location");
@@ -61,9 +58,7 @@ class Login {
 		elseif ($this->checkCookie())
 			$result = true;
 
-		$this->ok = $result;
-
-		return $this->ok;
+		return $result;
 	}
 
 	/**
@@ -72,10 +67,10 @@ class Login {
 	function checkSession() {
 		$sessionUsername = $_SESSION["username"];
 		if(!empty($sessionUsername)) {
-			error_log("session found in memory... ");
+			// error_log("session found in memory... ");
 			return true;
 		}
-		error_log("no session found");
+		// error_log("no session found");
 		return false;
 	}
 
@@ -85,17 +80,15 @@ class Login {
 	function checkCookie() {
 		error_log("check cookie");
 
-		$cookieUsername= $_COOKIE[ "username" ];
-		$cookiePassword = $this->decrypt( $_COOKIE[ "password" ] );
 		$cookieType = $_COOKIE[ "type" ];
-
+		$cookiePassword = $this->decrypt( $_COOKIE[ "password" ] );
 
 		if(!empty($cookieType )) {
 			error_log("** COOKIE FOUND ** decrypt");
 			if ($cookieType == PIN_TYPE_D )
 				return $this->checkLoginByPin($cookiePassword,0);
 			else
-				return $this->checkLogin($cookieUsername,$cookiePassword,0);
+				return $this->checkLogin($_COOKIE[ "username" ] ,$cookiePassword,0);
 		}
 		error_log("no cookieFound");
 		return false;
@@ -103,27 +96,31 @@ class Login {
 	}
 	
 	
+	function getKey() {
+		return "thisIsASecureKeyForCookie";
+	}
+	
 	function encrypt($data) {
 		$iv_size = mcrypt_get_iv_size(MCRYPT_RIJNDAEL_256, MCRYPT_MODE_ECB);
 		$iv = mcrypt_create_iv($iv_size, MCRYPT_RAND);
-		$key = "thisIsASecureKeyForCookie";
-	
-		return mcrypt_encrypt(MCRYPT_RIJNDAEL_256, $key, $data, MCRYPT_MODE_ECB, $iv);
+		return mcrypt_encrypt(MCRYPT_RIJNDAEL_256, $this->getKey() , $data, MCRYPT_MODE_ECB, $iv);
 	}
+	
+	
 	
 	function decrypt($data) {
 		$iv_size = mcrypt_get_iv_size(MCRYPT_RIJNDAEL_256, MCRYPT_MODE_ECB);
 		$iv = mcrypt_create_iv($iv_size, MCRYPT_RAND);
-		$key = "thisIsASecureKeyForCookie";
-	
-		return mcrypt_decrypt(MCRYPT_RIJNDAEL_256, $key, $data, MCRYPT_MODE_ECB, $iv);
+		return mcrypt_decrypt(MCRYPT_RIJNDAEL_256, $this->getKey(), $data, MCRYPT_MODE_ECB, $iv); 
 	}
 	
-	
-	
-	# store in cookie
-	function memoriseIdent($theUser,$login, $password) {
-		// todo encrypt this data and store on a single cookie
+	/**
+	 * store ident in a cookie
+	 * @param $theUser
+	 * @param $password: plain text password 
+	 */
+	function memoriseIdent($theUser,$password) {
+		// todo store on a single cookie
 		setcookie("login",$theUser->getUserName(), time()+3600*24*30, "/");
 		setcookie("password",$this->encrypt($password), time()+3600*24*30, "/");
 		setcookie("type",$theUser->getType(), time()+3600*24*30, "/");
@@ -139,10 +136,8 @@ class Login {
 
 	function checkLogin($login, $password, $remember) {
 		$theUser = $this->userDB->getUser($login);
-		# USER_TYPE_D
 		return $this->validateAndUpdateSession(  $theUser ,$login, $password, $remember);
 	}
-
 
 	function validateAndUpdateSession( $theUser, $login,$password, $remember) {
 		if(isset($theUser)) {
@@ -152,10 +147,10 @@ class Login {
 			if ($this->theUser->validatePassword($password)) {
 				$this->ok = true;
 				# store session
-				$_SESSION['password'] = $this->theUser->getPassword();
 				$_SESSION['username'] = $this->id;
+				$_SESSION['password'] = $this->theUser->getPassword();
 				if ($remember)
-					$this->memoriseIdent($theUser, $login,$password);
+					$this->memoriseIdent($theUser, $password);
 				error_log("validateAndUpdateSession: good user");
 				return true;
 			}
