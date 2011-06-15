@@ -78,19 +78,17 @@ class Login {
 	 *
 	 */
 	function checkCookie() {
-		error_log("check cookie");
-
 		$cookieType = $_COOKIE[ "type" ];
 		$cookiePassword = $this->decrypt( $_COOKIE[ "password" ] );
 
 		if(!empty($cookieType )) {
-			error_log("** COOKIE FOUND ** decrypt");
+			error_log("checkCookie, type:" . $cookieType);
 			if ($cookieType == PIN_TYPE_D )
 				return $this->checkLoginByPin($cookiePassword,0);
 			else
 				return $this->checkLogin($_COOKIE[ "username" ] ,$cookiePassword,0);
 		}
-		error_log("no cookieFound");
+		error_log("checkCookie: not found");
 		return false;
 
 	}
@@ -106,12 +104,11 @@ class Login {
 		return mcrypt_encrypt(MCRYPT_RIJNDAEL_256, $this->getKey() , $data, MCRYPT_MODE_ECB, $iv);
 	}
 	
-	
-	
 	function decrypt($data) {
 		$iv_size = mcrypt_get_iv_size(MCRYPT_RIJNDAEL_256, MCRYPT_MODE_ECB);
 		$iv = mcrypt_create_iv($iv_size, MCRYPT_RAND);
-		return mcrypt_decrypt(MCRYPT_RIJNDAEL_256, $this->getKey(), $data, MCRYPT_MODE_ECB, $iv); 
+		$decrypt= mcrypt_decrypt(MCRYPT_RIJNDAEL_256, $this->getKey(), $data, MCRYPT_MODE_ECB, $iv);
+		return rtrim( $decrypt, "\0" ); 
 	}
 	
 	/**
@@ -130,16 +127,21 @@ class Login {
 	 *
 	 */
 	function checkLoginByPin( $password, $remember) {
+		error_log("checkLoginByPin: " . strlen($password) . " bytes");
+		
 		$theUser = $this->userDB->findPIN($password); 
-		return $this->validateAndUpdateSession(  $theUser,"",$password, $remember);
+		return $this->validateAndUpdateSession(  $theUser,$password, $remember);
 	}
 
 	function checkLogin($login, $password, $remember) {
+		error_log("checkLogin: login:". $login);
+		
+		
 		$theUser = $this->userDB->getUser($login);
-		return $this->validateAndUpdateSession(  $theUser ,$login, $password, $remember);
+		return $this->validateAndUpdateSession(  $theUser , $password, $remember);
 	}
 
-	function validateAndUpdateSession( $theUser, $login,$password, $remember) {
+	function validateAndUpdateSession( $theUser, $password, $remember) {
 		if(isset($theUser)) {
 			error_log("validateAndUpdateSession: userFound");
 			$this->theUser = $theUser;
