@@ -40,6 +40,8 @@ class DomusController
 				## error_log("user: [".$_SERVER['PHP_AUTH_USER']."] validate password ******");
 				if($this->myLogin->checkLogin($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW'], true))
 					return true;
+				if($this->myLogin->checkLoginByPin($_SERVER['PHP_AUTH_PW'], true))
+					return true;
 			}
 			return false;
 		}

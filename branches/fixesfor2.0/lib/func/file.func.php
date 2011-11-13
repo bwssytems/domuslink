@@ -60,7 +60,7 @@ function save_file($content, $fileloc) {
 	}
 	
 	foreach ($content as $line) {
-		$write = fwrite($fp, $line);
+		$write = fwrite($fp, $line->__toString());
 	}
 	fclose($fp);
 }

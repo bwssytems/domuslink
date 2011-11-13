@@ -127,9 +127,9 @@ else {
 			// new timer objects already set macros to default of null
 			// only need to set macros if they are specific
 			if(!isset($_POST["null_macro_on"]))
-				$aTimer->setStartMacro(strtolower($_POST["module"])."_on");
+				$aTimer->setStartMacro($_POST["module"]."_on");
 			if(!isset($_POST["null_macro_off"]))
-				$aTimer->setStopMacro(strtolower($_POST["module"])."_off");
+				$aTimer->setStopMacro($_POST["module"]."_off");
 
 			if($_POST["status"] == COMMENT_SIGN_D)
 				$aTimer->setEnabled(false);
@@ -147,7 +147,7 @@ else {
 				if( $aTimer->getStartMacro() != "null") {
 					$onMacroObj = new Macro();
 					$onMacroObj->setLabel($aTimer->getStartMacro());
-					$onMacroObj->setCommand("on ".strtolower($_POST["module"]));
+					$onMacroObj->setCommand("on ".$_POST["module"]);
 					$onMacroObj->rebuildElementLine();
 					$heyusched->addElement($onMacroObj);
 					$i++;
@@ -155,7 +155,7 @@ else {
 				if( $aTimer->getStopMacro() != "null") {
 					$offMacroObj = new Macro();
 					$offMacroObj->setLabel($aTimer->getStopMacro());
-					$offMacroObj->setCommand("off ".strtolower($_POST["module"])); 
+					$offMacroObj->setCommand("off ".$_POST["module"]); 
 					$offMacroObj->rebuildElementLine();
 					$heyusched->addElement($offMacroObj);
 					$i++;

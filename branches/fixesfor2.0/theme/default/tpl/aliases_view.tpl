@@ -37,7 +37,19 @@ foreach($aliases as $alias):
   <td>&nbsp;</td>
   <td><?php echo $alias->getModuleType();?></td>
   <td>&nbsp;</td>
-  <td align="center"><a onmouseover="popup('<?php echo $alias->getModuleOptions(); ?>')" onmouseout="kill()" title="" onfocus="this.blur()" href=""><?php if($alias->getModuleOptions() == "") echo ""; else echo "<img src=".($config['url_path'])."/theme/".($config['theme'])."/images/magnifier.png border=0 />"; ?></a></td>
+  <td align="center">
+  	<a href="">
+  	<?php if($alias->getModuleOptions() == ""): ?>
+		<?php echo ""; ?>
+	<?php else: ?>
+		<?php
+			$imgTag = "<img src=".$config['url_path']."/theme/".$config['theme']."/images/magnifier.png border=0 title=";
+			$imgTag = $imgTag."\"".$alias->getModuleOptions()."\""." />";
+			echo $imgTag;
+		?>
+	<?php endif; ?>
+  	</a>
+  </td>
   <td>&nbsp;</td>
   <td><?php echo $alias->getAliasMap()->getType();?></td>
   <td>&nbsp;</td>

@@ -51,12 +51,14 @@ function list_dir_content($dir) {
  */
 function label_parse($str, $add = false) {
 	if ($add) {
-		$strf1 = str_replace(" ", "_", $str);
-		$strf2 = strtolower($strf1);
+		$strf2 = str_replace(" ", "_", $str);
+//		$strf2 = strtolower($strf1);
 	}
 	else {
 		$strf1 = str_replace("_", " ", $str);
-		$strf2 = ucwords($strf1);
+		$strf1a = str_replace(".", " ", $strf1);
+		$strf2 = str_replace("-", " ", $strf1a);
+//		$strf2 = ucwords($strf1);
 	}
 	
 	return $strf2;
