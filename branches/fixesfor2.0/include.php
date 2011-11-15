@@ -66,6 +66,9 @@ if (substr($config['url_path'], -1) == '/')
 ## Load language file
 $lang =& $_SESSION['frontObj']->getLanguageFile();
 
+## Load Module Types ##
+$modtypes =& $_SESSION['frontObj']->getModuleTypes();
+
 ## Load mod group types
 if($config['themeview'] == 'typed')
 	$modgrouptypes =& $_SESSION['frontObj']->getTypedGroups()->getVisibleGroups();
@@ -94,6 +97,7 @@ $tpl = new Template(TPL_FILE_LOCATION.'layout.tpl');
 $tpl->set('config', $config);
 $tpl->set('lang', $lang);
 $tpl->set('groups', $modgrouptypes);
+$tpl->set('modtypes', $modtypes);
 $tpl->set('ver', $FRONTEND_VERSION);
 
 ## Setup the userdb if it does not exist.
