@@ -12,7 +12,9 @@ Bug fix release
   * Location editing issue in Chrome and IE - Issue 59
   * Upgrade 1.2 to 2.0 location.class.php error  - Issue 62
   * Internet Explorer 7 javascript issues for popup.js  - Issue 60
-  * 	Internet Explorer 7 css issues for hvac module display on default theme - Issue 61
+  * Editing in UI overwrites x10.conf with Object error - Issue 47 and Issue 58
+  * Remember login checkbox does not work - Issue 64
+  * Using case sensitive names causes issues - Issue 71
 
 == Android Domus.Link v2.0.1 ==
 Bug fix release
