@@ -16,11 +16,9 @@ This page is to list all the team members, and the operating system and browser 
 Server(s)
   # Ubuntu 10.04
     * Firefox 3.6.13
+    * Google Chrome 15.0.874.120
     * Heyu 2.9.0
     * Apache 2.2.14 (Ubuntu)<br/>
-  # CentOs 5.5
-    * Heyu 2.9.0
-    * Apache 2.2.3
 
 Client(s)
   # Ubuntu 6.06LTS
@@ -28,9 +26,11 @@ Client(s)
   # Nokia N800
     * Mozilla MicroB<br/>
   # Nook Color
-    * Android 2.1 (eclair)
+    * Android 2.3 (gingerbread)
   # Maylong M-150
     * Android 1.6 (donut)
+  # LG Optimus
+    * Android 2.2 (froyo)
 
 ----
 === Brandt ===  
