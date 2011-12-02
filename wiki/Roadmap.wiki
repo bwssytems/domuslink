@@ -15,6 +15,7 @@ Bug fix release
   * Editing in UI overwrites x10.conf with Object error - Issue 47 and Issue 58
   * Remember login checkbox does not work - Issue 64
   * Using case sensitive names causes issues - Issue 71
+  * Add flag to disable security feature - Issue 66
 
 == Android Domus.Link v2.0.1 ==
 Bug fix release
