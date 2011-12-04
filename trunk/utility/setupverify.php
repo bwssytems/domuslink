@@ -47,7 +47,7 @@ catch(Exception $e) {
 }
 
 ## Security validation must be checked to convert.
-$authCheck = new Login(USERDB_FILE_LOCATION);
+$authCheck = new Login(USERDB_FILE_LOCATION, $config['use_domus_security']);
 if (!$authCheck->login()) {
 	header("Location: ../login.php?from=utility/setupverify");
 	exit();

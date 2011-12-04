@@ -67,9 +67,9 @@ abstract class Element {
 		$elements = preg_split('/\s{1,}/', ltrim(rtrim($testforcomments[$i])));
 		$type = rtrim(ltrim($elements[0]));
 		// validate type and if not valid throw exceptions
-		if($this->validateType(strtolower($type))) {
+		if($this->validateType($type)) {
 			$this->setElementLine($elements);
-			$this->setType(strtolower($type));
+			$this->setType($type);
 		}
 		elseif($this->isEnabled())
 			throw new Exception("Invalid element type: ".print_r($elements, true));

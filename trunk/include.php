@@ -66,6 +66,9 @@ if (substr($config['url_path'], -1) == '/')
 ## Load language file
 $lang =& $_SESSION['frontObj']->getLanguageFile();
 
+## Load Module Types ##
+$modtypes =& $_SESSION['frontObj']->getModuleTypes();
+
 ## Load mod group types
 if($config['themeview'] == 'typed')
 	$modgrouptypes =& $_SESSION['frontObj']->getTypedGroups()->getVisibleGroups();

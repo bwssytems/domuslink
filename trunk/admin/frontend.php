@@ -23,7 +23,7 @@
 require_once('..'.DIRECTORY_SEPARATOR.'include.php');
 
 ## Security validation's
-$authCheck = new Login(USERDB_FILE_LOCATION);
+$authCheck = new Login(USERDB_FILE_LOCATION, $config['use_domus_security']);
 if (!$authCheck->login()) {
 	header("Location: ../login.php?from=admin/frontend");
 	exit();
@@ -73,6 +73,7 @@ elseif ($_GET["action"] == "save") {
 	$config['heyu_subdir'] = $_POST["heyu_subdir"];
 	$config['heyuconf'] = $_POST["heyuconf"];
 	$config['heyuexec'] = $_POST["heyuexec"];
+	$config['use_domus_security'] = $_POST["use_domus_security"];
 	$config['hvac_house_code'] = $_POST["hvac_house_code"];
 	$config['lang'] = $_POST["lang"];
 	$config['url_path'] = $_POST["url_path"];

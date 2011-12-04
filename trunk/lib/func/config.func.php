@@ -32,6 +32,7 @@ function config_load()
 	$config["heyu_subdir"] = "default";
 	$config["heyuconf"] = "x10.conf";
 	$config["heyuexec"] = "/usr/local/bin/heyu";
+	$config["use_domus_security"] = 'ON';
 	$config["hvac_house_code"] = "";
 	$config["lang"] = "";
 	$config["url_path"] = "/";
@@ -101,6 +102,17 @@ function config_text($config)
 # location of the Heyu exectuable file. Typically
 # this will be in /usr/local/bin/
 \$config['heyuexec'] = '{$config['heyuexec']}';
+
+# -----------------
+# Security Setting
+# -----------------
+
+# This setting controls whether security is used
+# at all for domus.Link
+# WARNING!!!! Setting this to off will make your domus.Link
+# and heyu setup vulnerable to hackers. Do not change unless
+# you are sure your system cannot be accessed externally!!!!
+\$config['use_domus_security'] = '{$config['use_domus_security']}';
 
 # -----------------
 # HVAC Settings for RCS usage

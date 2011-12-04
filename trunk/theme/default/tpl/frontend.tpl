@@ -2,9 +2,14 @@
 <!--
 function validateForm(form)
 {
-	alert( "After changing Heyu Configuration Select, YOU MUST STOP AND START HEYU.");
+	if (form.use_domus_security.value == "OFF") {
+		alert( "Having the domus.Link Security set to OFF will make your system vulnerable to access and other security issues." );
+	}
+	else {
+		alert( "After changing Heyu Configuration items Computer Interface/Heyu Base Usage/Heyu Subdir/Heyu Base/Heyu Conf/Heyu Exec, YOU MUST STOP AND START HEYU." );
+	}
 
-  return true ;
+	return true ;
 }
 //-->
 </script>
@@ -108,6 +113,29 @@ function validateForm(form)
   <tr>
     <td valign="top"><input type="text" name="heyuexec" value="<?php echo ($config['heyuexec']); ?>" /></td>
     <td><?php echo ($lang['heyuexec_txt']); ?></td>
+  </tr>
+
+<!-- domus.Link security setting -->
+<tr><td></td></tr>
+  <tr>
+    <td colspan="2" style="border-bottom:1px dotted #ccc;"><h6><?php echo ($lang['domussecurity']); ?></h6></td>
+  </tr>
+  <tr>
+    <td valign="top">
+    <!-- Domus security dropdown -->
+    <select name="use_domus_security">
+    <?php $options = array('ON', 'OFF'); ?>
+    <?php foreach ($options as $key=>$opt): ?>
+     <?php if ($opt == $config['use_domus_security']): ?>
+       <option selected value="<?php echo $opt; ?>"><?php echo $lang[$opt]; ?></option>
+     <?php else: ?>
+       <option value="<?php echo $opt; ?>"><?php echo $lang[$opt]; ?></option>
+     <?php endif; ?>
+    <?php endforeach; ?>
+    </select>
+    <!-- End Codes dropdown -->
+    </td>
+    <td><?php echo ($lang['use_domus_security_txt']); ?></td>
   </tr>
 
 <!-- Heyu hvac house code -->

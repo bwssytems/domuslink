@@ -40,8 +40,8 @@ foreach($aliasMaps as $aliasMapLine):
 <tr>
   <td align="center">
     <form action="<?php echo($_SERVER['PHP_SELF']); ?>?action=edit" method="post">
-    	<input type="submit" onMouseOver="popup('<?php echo ($lang['converttext']); ?>')" onmouseout="kill()" onfocus="this.blur()" value="<?php echo ($lang['convert']);?>" />
-    	<input type="button" onMouseOver="popup('<?php echo ($lang['continuetext']); ?>')" onmouseout="kill()" onfocus="this.blur()" onClick="window.location='<?php echo($_SERVER['PHP_SELF']); ?>?action=cancel'" value="<?php echo ($lang['continue']); ?>" />
+    	<input type="submit" title="<?php echo ($lang['converttext']); ?>" value="<?php echo ($lang['convert']);?>" />
+    	<input type="button" title="<?php echo ($lang['continuetext']); ?>" onClick="window.location='<?php echo($_SERVER['PHP_SELF']); ?>?action=cancel'" value="<?php echo ($lang['continue']); ?>" />
     </form>
   </td>
 </tr>

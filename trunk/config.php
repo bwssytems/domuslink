@@ -42,6 +42,17 @@ $config['heyuconf'] = 'x10.conf';
 $config['heyuexec'] = '/usr/local/bin/heyu';
 
 # -----------------
+# Security Setting
+# -----------------
+
+# This setting controls whether security is used
+# at all for domus.Link
+# WARNING!!!! Setting this to off will make your domus.Link
+# and heyu setup vulnerable to hackers. Do not change unless
+# you are sure your system cannot be accessed externally!!!!
+$config['use_domus_security'] = 'ON';
+
+# -----------------
 # HVAC Settings for RCS usage
 # -----------------
 
