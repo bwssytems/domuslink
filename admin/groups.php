@@ -25,7 +25,7 @@ require_once('..'.DIRECTORY_SEPARATOR.'include_globals.php');
 require_once(CLASS_FILE_LOCATION.'/imagetypes.class.php');
 
 ## Security validation's
-$authCheck = new Login(USERDB_FILE_LOCATION);
+$authCheck = new Login(USERDB_FILE_LOCATION, $config['use_domus_security']);
 if (!$authCheck->login()) {
 	header("Location: ../login.php?from=admin/users");
 	exit();

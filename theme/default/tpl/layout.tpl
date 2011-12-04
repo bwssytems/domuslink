@@ -29,9 +29,6 @@
   <?php if (strpos($_SERVER['PHP_SELF'], "index.php") != false && $config['refresh'] != ""): ?>
   <META HTTP-EQUIV=Refresh CONTENT="<?php echo ($config['refresh']); ?>">
   <?php endif; ?>
-  <script type="application/x-javascript" src="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/javascript/browser_detect.js"></script>
-  <script type="application/x-javascript" src="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/javascript/popup.js"></script>
-  <script type="application/x-javascript" src="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/javascript/editableselect.js"></script>
   <script type="application/x-javascript" src="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/javascript/progressbar.js"></script>
   <script type="application/x-javascript" src="<?php echo ($config['url_path']); ?>/theme/<?php echo ($config['theme']); ?>/javascript/public_smo_scripts.js"></script>
 
@@ -155,7 +152,9 @@
 
 <!-- start setup div -->
 <div id="setupmenu" style="display:none">
-  <div id="setupmenuitem"><a href="<?php echo ($config['url_path']);?>/login.php?action=logout"><?php echo ($lang['logout']); ?></a></div>
+  <?php if (strtolower($config['use_domus_security']) != 'off'): ?>
+  	<div id="setupmenuitem"><a href="<?php echo ($config['url_path']);?>/login.php?action=logout"><?php echo ($lang['logout']); ?></a></div>
+  <?php endif; ?>
   <?php if ($sec_level == 0): ?>
   	<div id="setupmenuitem"><a href="<?php echo ($config['url_path']);?>/admin/groups.php"><?php echo ($lang['groups']); ?></a></div>
   	<div id="setupmenuitem"><a href="<?php echo ($config['url_path']);?>/admin/users.php"><?php echo ($lang['users']); ?></a></div>
@@ -189,27 +188,26 @@
 <!--  Heyu Status on left of bar -->
 <td align="left">
 <?php if(intval($config['refresh']) > 0): ?>
-	<a onMouseOver="popup('<?php echo ($lang['refreshinfo'].$config['refresh']); ?>')" onmouseout="kill()" onfocus="this.blur()" href="">
-	<img src="<?php echo ($config['url_path']."/theme/".$config['theme']."/images/arrow_refresh.png");?>" border=0 />
+	<a class=info href="#">
+	<img src="<?php echo ($config['url_path']."/theme/".$config['theme']."/images/arrow_refresh.png");?>" border=0 alt="<?php echo ($lang['refreshinfo'].$config['refresh']); ?>" title="<?php echo ($lang['refreshinfo'].$config['refresh']); ?>" />
 	</a>
 <?php endif; ?>
-<a onMouseOver="popup('<?php echo ($_SERVER['HTTP_USER_AGENT']); ?>')" onmouseout="kill()" onfocus="this.blur()" href="<?php echo ($config['url_path']);?>/index.php?page=domus_browserinfo_page">
-<img src="<?php echo ($config['url_path']."/theme/".$config['theme']."/images/exclamation.png");?>" border=0 />
+<a href="<?php echo ($config['url_path']);?>/index.php?page=domus_browserinfo_page">
+<img src="<?php echo ($config['url_path']."/theme/".$config['theme']."/images/exclamation.png");?>" border=0 alt="<?php echo ($_SERVER['HTTP_USER_AGENT']); ?>" title="<?php echo ($_SERVER['HTTP_USER_AGENT']); ?>" />
 </a>
-<?php echo ($lang['heyustatus']);?>:
-<a onMouseOver="popup('<?php echo ($lang['statusinfo']); ?>')" onmouseout="kill()" onfocus="this.blur()" href="<?php echo ($config['url_path']);?>/index.php?page=domus_status_page">
 <?php if (heyu_running()): ?>
-	<?php echo ("<font color='green'>".$lang['running']."</font>"); ?>
+	<?php echo ("<font color='green'>".$lang['heyustatus']."</font>");?>:
+	<a href="<?php echo ($config['url_path']);?>/index.php?page=domus_status_page" title="<?php echo ($lang['statusinfo']); ?>"><?php echo ($lang['running']); ?>
 <?php else:  ?>
-	<?php echo ("<font color='red'>".$lang['down']."</font>"); ?>
+	<?php echo ("<font color='red'>".$lang['heyustatus']."</font>");?>:
+	<a href="<?php echo ($config['url_path']);?>/index.php?page=domus_status_page" title="<?php echo ($lang['statusinfo']); ?>"><?php echo ($lang['down']); ?>
 <?php endif; ?>
 </a>
 </td>
 <!--  Heyu Theme view in center of bar -->
 <td align="center">
 <?php echo ($lang['themeview']);?>:
-<a onMouseOver="popup('<?php echo ($lang['themeviewinfo']); ?>')" onmouseout="kill()" onfocus="this.blur()" href="<?php echo ($config['url_path']);?>/index.php?page=domus_themeview_page">
-<?php echo $config['themeview']; ?>
+<a href="<?php echo ($config['url_path']);?>/index.php?page=domus_themeview_page" title="<?php echo ($lang['themeviewinfo']); ?>"><?php echo $config['themeview']; ?>
 </a>
 </td>
 <!--  HVAC in center of bar -->
@@ -226,11 +224,12 @@
 <td align="right" width="33%">
 <?php echo $lang['heyucurrentconfig'].": ".$_SESSION['frontObj']->getHeyuConfigName()." ".$lang['heyuindir']." ".$config['heyu_base_real'].($config['heyu_subdir'] == "default"?" ":$config['heyu_subdir']." ")?>
 <?php if($sec_level == 0): ?>
-	<a onMouseOver="popup('<?php echo ($lang['diagnosticstatus']); ?>')" onmouseout="kill()" onfocus="this.blur()" href="<?php echo $config['url_path'];?>/utility/diagnostic.php" >
+	<a href="<?php echo $config['url_path'];?>/utility/diagnostic.php" >
+	<img src="<?php echo ($config['url_path']."/theme/".$config['theme']."/images/".(isset($_SESSION['filesErrored'])?($_SESSION['filesErrored']?"red_info.png":"green_info.png"):"black_info.png"));?>" border=0 alt="<?php echo ($lang['diagnosticstatus']); ?>" title="<?php echo ($lang['diagnosticstatus']); ?>" />
 <?php else: ?>
-	<a onMouseOver="popup('<?php echo ($lang['diagnosticstatususer']); ?>')" onmouseout="kill()" onfocus="this.blur()" href="" >
+	<a href="#" >
+	<img src="<?php echo ($config['url_path']."/theme/".$config['theme']."/images/".(isset($_SESSION['filesErrored'])?($_SESSION['filesErrored']?"red_info.png":"green_info.png"):"black_info.png"));?>" border=0 alt="<?php echo ($lang['diagnosticstatususer']); ?>" title="<?php echo ($lang['diagnosticstatususer']); ?>"/>
 <?php endif; ?>
-<img src="<?php echo ($config['url_path']."/theme/".$config['theme']."/images/".(isset($_SESSION['filesErrored'])?($_SESSION['filesErrored']?"red_info.png":"green_info.png"):"black_info.png"));?>" border=0 />
 </a>
 </table>
 </div>

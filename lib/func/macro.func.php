@@ -30,9 +30,9 @@
  function strip_code($macro) {
  	$thePos = strrpos($macro, "_");
  	if ($thePos)
- 		return strtolower(substr($macro, 0, $thePos));
+ 		return substr($macro, 0, $thePos);
  	else
- 		return strtolower($macro);
+ 		return $macro;
  	
  	//1. lower case $macro
  	//2. find position of last occurrence of "_"

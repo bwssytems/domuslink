@@ -3,6 +3,25 @@
  |                               CHANGES                                      |
  |                                                                            |
  +----------------------------------------------------------------------------*/
+  v2.0.1 - 4/Dec/2011
+ ------
+    * Issue 47 and Issue 58 fixed - Issue in php versions that write to files
+      where an explicit __to_string is required on an object to convert text.
+    * Issue 59 fixed - Changed location editing for Chrome and IE as they did not
+      support the inline javascript method.
+    * Issue 60 fixed - Popups from a javascript routine did not work in IE7.
+      Replaced javascript with standard html text popups.
+    * Issue 62 fixed - Upgrading from 1.2 to 2.0 caused an exception due to module
+      types not being loaded before conversion.
+    * Issue 64 fixed - Remember login was not working due to new security addition
+      in v2.0. This is now fixed using correct checks.
+    * Issue 66 fixed - Added feature to disable the domus.Link Security completely.
+      This is available in the frontend config page. 
+      ** WARNING ** IT IS NOT RECOMMENDED TO TURN THE SECURITY FEATURE OFF AS IT
+      CREATES A SECURITY VULNERABILITY TO YOUR SYSTEM. USE AT YOUR OWN RISK.
+    * Issue 71 fixed - domus.Link always converted labels to lowercase and saved
+      the labels that way. This was unnecessary and no domus.Link preserves case
+      on labels.
   v2.0 - 1/May/2011
  ------
     * Changed default web location for frontend. The default is now the root

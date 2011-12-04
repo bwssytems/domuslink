@@ -282,4 +282,9 @@ $lang["mobileselect"] = "Mobile Select"; // PLEASE TRANSLATE
 $lang["mobileselect_txt"] = " A list of strings to search aginst the http_user_agent to set the mobile theme automatically. This is a comma separated list. The search will be case insensitive."; // PLEASE TRANSLATE
 $lang["refreshinfo"] = "Refresh is on for "; // PLEASE TRANSLATE
 $lang["menu"] = "Menu"; // PLEASE TRANSLATE
+$lang["newloc"] = "Enter New Location"; // PLEASE TRANSLATE
+$lang["OR"] = "OR"; // PLEASE TRANSLATE
+$lang["domussecurity"] = "domus.Link Security"; // PLEASE TRANSLATE
+$lang["use_domus_security_txt"] = "This sets the control for security usage in domus.Link. The default is ON. !!!! WARNING !!!! If this is set to OFF, there is no guarantee of access to the system that domus.Link is running on as there will be no access restriction. If you expose this interface outside of the machine (i.e. To the internet) and the security is OFF, you will be open to security vulnerabilities to your system."; // PLEASE TRANSLATE
+?>
 ?>

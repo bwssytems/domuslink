@@ -24,7 +24,7 @@ $dirname = dirname(__FILE__);
 require_once($dirname.DIRECTORY_SEPARATOR.'include.php');
 
 ## Security validation's
-$authCheck = new Login(USERDB_FILE_LOCATION);
+$authCheck = new Login(USERDB_FILE_LOCATION, $config['use_domus_security']);
 if (!$authCheck->login()) {
 	header("Location: login.php?from=index");
 	exit();

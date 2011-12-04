@@ -23,7 +23,7 @@
 require_once('..'.DIRECTORY_SEPARATOR.'include.php');
 
 ## Security validation must be checked
-$authCheck = new Login(USERDB_FILE_LOCATION);
+$authCheck = new Login(USERDB_FILE_LOCATION, $config['use_domus_security']);
 if (!$authCheck->login()) {
 	header("Location: ../login.php?from=utility/status");
 	exit();

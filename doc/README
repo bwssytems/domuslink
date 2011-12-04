@@ -10,6 +10,12 @@
   Refer to /doc/INSTALL
   Also refer to help available at http://domus.link.co.pt
 
+  ----------------
+  Security Warning
+  ----------------
+  With version 2.0.1, there is the ability to turn off the security.
+  It is not recommended to set this option to OFF as there is no access
+  validation of any kind. USE AT YOUR OWN RISK.
 
   ----------------
   Troubleshooting
