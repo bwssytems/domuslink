@@ -24,7 +24,7 @@ require_once('..'.DIRECTORY_SEPARATOR.'include.php');
 require_once('..'.DIRECTORY_SEPARATOR.'include_globals.php');
 
 ## Security validation's
-$authCheck = new Login(USERDB_FILE_LOCATION);
+$authCheck = new Login(USERDB_FILE_LOCATION, $config['use_domus_security']);
 if (!$authCheck->login()) {
 	header("Location: ../login.php?from=admin/users");
 	exit();

@@ -27,15 +27,23 @@ class Login {
 
 	private $userDB;
 	private $theUser;
+	private $noSecurity;
 
 	
 	function __construct() {
 		$args = func_get_args();
+		$this->noSecurity = false;
 			
 		if (empty($args)) {
 			throw new Exception("Login::construct - initialization requires userdb file location");
 		}
-			
+
+		if (isset($args[1]) && strtolower($args[1]) == 'off') {
+			$this->noSecurity = true;
+			$this->userDB = new UserDB($args[0]);
+			return;
+		}			
+
 		$this->userDB = new UserDB($args[0]);
 
 		// restore user from session if already set
@@ -49,6 +57,9 @@ class Login {
 	 * check Login with session or cookie
 	 */
 	function login() {
+		if ($this->noSecurity)
+			return true;
+
 		$result = false;
 
 		if($this->checkSession())
@@ -63,6 +74,9 @@ class Login {
 	 * check memory session
 	 */
 	function checkSession() {
+		if ($this->noSecurity)
+			return true;
+
 		if(isset($_SESSION["username"])) {
 			if(!empty($_SESSION["username"])) {
 				// error_log("session found in memory... ");
@@ -77,6 +91,9 @@ class Login {
 	 *
 	 */
 	function checkCookie() {
+		if ($this->noSecurity)
+			return true;
+		
 		error_log("check cookie");
 
 		if(isset($_COOKIE[ "type" ]) && isset($_COOKIE[ "password" ])) {
@@ -132,16 +149,25 @@ class Login {
 	 *
 	 */
 	function checkLoginByPin( $password, $remember) {
+		if ($this->noSecurity)
+			return true;
+		
 		$theUser = $this->userDB->findPIN($password); 
-		return $this->validateAndUpdateSession(  $theUser,"",$password, $remember);
+		return $this->validateAndUpdateSession($theUser,"",$password, $remember);
 	}
 
 	function checkLogin($login, $password, $remember) {
+		if ($this->noSecurity)
+			return true;
+
 		$theUser = $this->userDB->getUser($login);
-		return $this->validateAndUpdateSession(  $theUser ,$login, $password, $remember);
+		return $this->validateAndUpdateSession($theUser ,$login, $password, $remember);
 	}
 
 	function validateAndUpdateSession( $theUser, $login,$password, $remember) {
+		if ($this->noSecurity)
+			return true;
+
 		if(isset($theUser)) {
 			error_log("validateAndUpdateSession: userFound");
 			$this->theUser = $theUser;
@@ -165,6 +191,9 @@ class Login {
 	 *
 	 */
 	function checkPassword($password) {
+		if ($this->noSecurity)
+			return true;
+
 		if($this->theUser->validateMD5Password($password)) {
 			$this->ok = true;
 			return true;
@@ -174,6 +203,12 @@ class Login {
 	}
 
 	function getUser() {
+		if ($this->noSecurity) {
+			$aUser = new User();
+			$aUser->setSecurityLevel(0);
+			return $aUser;
+		}
+		
 		return $this->theUser;
 	}
 

@@ -284,4 +284,6 @@ $lang["refreshinfo"] = "Refresh is on for ";
 $lang["menu"] = "Menu";
 $lang["newloc"] = "Enter New Location";
 $lang["OR"] = "OR";
+$lang["domussecurity"] = "domus.Link Security";
+$lang["use_domus_security_txt"] = "This sets the control for security usage in domus.Link. The default is ON. !!!! WARNING !!!! If this is set to OFF, there is no guarantee of access to the system that domus.Link is running on as there will be no access restriction. If you expose this interface outside of the machine (i.e. To the internet) and the security is OFF, you will be open to security vulnerabilities to your system.";
 ?>

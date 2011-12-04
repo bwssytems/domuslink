@@ -32,7 +32,7 @@ class DomusController
 		//$config =& parse_config($frontObj->getConfig());
 		$config = $_SESSION['frontObj']->getConfig();
 		if(!isset($this->myLogin))
-			$this->myLogin = new Login(USERDB_FILE_LOCATION);
+			$this->myLogin = new Login(USERDB_FILE_LOCATION, $config['use_domus_security']);
 		## error_log("Enter authorize and this login status is ".$this->myLogin->login());
 		## Security validation's
 		if ($this->myLogin->login() != true) {

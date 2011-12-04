@@ -152,7 +152,9 @@
 
 <!-- start setup div -->
 <div id="setupmenu" style="display:none">
-  <div id="setupmenuitem"><a href="<?php echo ($config['url_path']);?>/login.php?action=logout"><?php echo ($lang['logout']); ?></a></div>
+  <?php if (strtolower($config['use_domus_security']) != 'off'): ?>
+  	<div id="setupmenuitem"><a href="<?php echo ($config['url_path']);?>/login.php?action=logout"><?php echo ($lang['logout']); ?></a></div>
+  <?php endif; ?>
   <?php if ($sec_level == 0): ?>
   	<div id="setupmenuitem"><a href="<?php echo ($config['url_path']);?>/admin/groups.php"><?php echo ($lang['groups']); ?></a></div>
   	<div id="setupmenuitem"><a href="<?php echo ($config['url_path']);?>/admin/users.php"><?php echo ($lang['users']); ?></a></div>
