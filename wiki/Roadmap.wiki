@@ -8,7 +8,7 @@ This page will contain the domus.Link roadmap, agreed upon and developed by all 
 
 = Next Versions =
 == domus.Link v2.0.1 ==
-Bug fix release
+Bug fix release - available 12/04/2011
   * Location editing issue in Chrome and IE - Issue 59
   * Upgrade 1.2 to 2.0 location.class.php error  - Issue 62
   * Internet Explorer 7 javascript issues for popup.js  - Issue 60
