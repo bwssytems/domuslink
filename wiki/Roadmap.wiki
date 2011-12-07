@@ -7,15 +7,10 @@ This page will contain the domus.Link roadmap, agreed upon and developed by all 
 
 
 = Next Versions =
-== domus.Link v2.0.1 ==
-Bug fix release - available 12/04/2011
-  * Location editing issue in Chrome and IE - Issue 59
-  * Upgrade 1.2 to 2.0 location.class.php error  - Issue 62
-  * Internet Explorer 7 javascript issues for popup.js  - Issue 60
-  * Editing in UI overwrites x10.conf with Object error - Issue 47 and Issue 58
-  * Remember login checkbox does not work - Issue 64
-  * Using case sensitive names causes issues - Issue 71
-  * Add flag to disable security feature - Issue 66
+== domus.Link v2.X ==
+  * Additional validation access to directories such as /var/lock - Issue 67
+  * Additional validation on heyu execution when error occurs - Issue 73
+  * AJAX implementation (drag&drop sorting, etc) - Issue 37
 
 == Android Domus.Link v2.0.1 ==
 Bug fix release
@@ -29,5 +24,3 @@ Bug fix release
   * CM11 interface administration
   * Interactive installation
   * Weather reporting and monitoring for irrigation control
-  * Screensaver
-  * AJAX implementation (drag&drop sorting, etc) - Issue 37
