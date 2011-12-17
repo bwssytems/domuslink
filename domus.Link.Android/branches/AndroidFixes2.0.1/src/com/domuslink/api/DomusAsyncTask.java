@@ -127,13 +127,14 @@ public class DomusAsyncTask extends AsyncTask<DomusAsyncParams, Void, DomusAsync
 
 	@Override
 	protected void onCancelled() {
-		super.onCancelled();
 		theDomusAsyncDialog.dismiss();
+		super.onCancelled();
 	}
 
 	@Override
 	protected void onPostExecute(DomusAsyncResults result) {
 		super.onPostExecute(result);
+		theDomusAsyncDialog.dismiss();
 
 		if(result.getTheException() != null)
 		{
@@ -171,8 +172,6 @@ public class DomusAsyncTask extends AsyncTask<DomusAsyncParams, Void, DomusAsync
 			break;
 
 		}
-		
-		theDomusAsyncDialog.dismiss();
 	}
 
 }
