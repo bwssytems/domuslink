@@ -15,6 +15,7 @@ This page will contain the domus.Link roadmap, agreed upon and developed by all 
 == Android Domus.Link v2.0.1 ==
 Bug fix release
   * Issue with connection failing and not being able to exit - Issue 63
+  * Issue with exception occurring during communication - Issue 65
 
 = Features Under Consideration =
   * Scene & Usersyn
