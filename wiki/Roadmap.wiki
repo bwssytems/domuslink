@@ -7,15 +7,15 @@ This page will contain the domus.Link roadmap, agreed upon and developed by all 
 
 
 = Next Versions =
-== domus.Link v2.X ==
+== domus.Link v2.0.2 ==
   * Additional validation access to directories such as /var/lock - Issue 67
   * Additional validation on heyu execution when error occurs - Issue 73
+  * Fix README file for incorrect statement about urlMap.cache - Issue 76
+== domus.Link v2.X ==
   * AJAX implementation (drag&drop sorting, etc) - Issue 37
 
-== Android Domus.Link v2.0.1 ==
-Bug fix release
-  * Issue with connection failing and not being able to exit - Issue 63
-  * Issue with exception occurring during communication - Issue 65
+== Android Domus.Link v2.X ==
+Thinking......
 
 = Features Under Consideration =
   * Scene & Usersyn
