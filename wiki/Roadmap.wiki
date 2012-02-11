@@ -11,6 +11,8 @@ This page will contain the domus.Link roadmap, agreed upon and developed by all 
   * Additional validation access to directories such as /var/lock - Issue 67
   * Additional validation on heyu execution when error occurs - Issue 73
   * Fix README file for incorrect statement about urlMap.cache - Issue 76
+  * Add scene control to domus.Link - Issue 79
+
 == domus.Link v2.X ==
   * AJAX implementation (drag&drop sorting, etc) - Issue 37
 
