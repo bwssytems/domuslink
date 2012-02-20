@@ -3,7 +3,30 @@
  |                               CHANGES                                      |
  |                                                                            |
  +----------------------------------------------------------------------------*/
-  v2.0.1 - 4/Dec/2011
+ v2.0.2 - 20/Feb/2012
+ ------
+    * Issue 67 fixed - Issue where images do not display properly on default theme.
+      This issue is related to /var/lock not being writable by the webserver.
+      Added check in diagnostic.php for /var/lock and handle exception properly
+      when it occurs. Exception handling may catch other errors now as well.
+    * Issue 76 fixed - Updated README file to have the correct file name and location
+      of urlMap.cache as it was identified improperly.
+    * Issue 79 Added New Feature - Scene control was added to domus.Link to have a
+      psuedo module control a scene defined in the x10config file. Scene editing
+      was added to the setup area and is now managed. The scene can be assigned to
+      groups and locations as well as a security level for execution. USERSYN's are
+      not included and this allows for heyu custom USERSYN's to be hidden from
+      domus.Link. (Yes, I know that SCENE and USERSYN are identical, but thought it
+      maybe useful to separate them if you want scripts to control USERSYN and not
+      have them as items in domus.Link.)
+    * Issue 80 fixed - Issue when using the heyu edit in domus.Link that it did not display
+      dropdown selection items with their proper value selected. There was an issue in
+      the comparisons due to extraneous whitespace on the variables.
+    * Fixed an issue with diagnostics not running properly while fixing issue 67. Factored
+      the code to be handled properly.
+    * Fixed an issue with config type compares as if case was not matching it would not find
+      the correct objects.
+ v2.0.1 - 4/Dec/2011
  ------
     * Issue 47 and Issue 58 fixed - Issue in php versions that write to files
       where an explicit __to_string is required on an object to convert text.

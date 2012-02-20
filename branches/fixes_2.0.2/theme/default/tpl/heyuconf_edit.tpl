@@ -28,7 +28,7 @@ InstantiateProgressBar('Heyu Restart Progress');
   $setting->getType() != SCENE_D && $setting->getType() != USERSYN_D && $setting->getType() != SCRIPT_D && $setting->getType() != LAUNCHER_D):
   $elements = explode(" ", $setting, 2);
   $directivenf = $setting->getType(); ?>
-  <?php if(count($elements) > 1) $value = $elements[1]; else $value = ""; ?>
+  <?php if(count($elements) > 1) $value = trim($elements[1]); else $value = ""; ?>
   <?php $directive = str_replace("_", " ", $directivenf); ?>
   </td>
 </tr>

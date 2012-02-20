@@ -33,8 +33,8 @@ final class ImageTypes {
 	/*
 	 * imageNames - this defines if the names and availability for modules = 0, menus = 1 or both = 2
 	 */
-	public static $imageNames = array('light' => 2, 'appliance' => 2, 'other' => 2, 'irrigation' => 2, 'hvac' => 2, 'shutter' => 2, 'status' => 2);
-	public static $moduleSpecs = array('light' => DIMMABLE_D, 'appliance' => TOGGLE_D, 'other' => ON_OFF_D, 'irrigation' => ON_OFF_D, 'hvac' => HVAC_D, 'shutter' => ON_OFF_D, 'status' => STATUS_D);
+	public static $imageNames = array('light' => 2, 'appliance' => 2, 'other' => 2, 'irrigation' => 2, 'hvac' => 2, 'shutter' => 2, 'status' => 2, 'scene' => 2);
+	public static $moduleSpecs = array('light' => DIMMABLE_D, 'appliance' => TOGGLE_D, 'other' => ON_OFF_D, 'irrigation' => ON_OFF_D, 'hvac' => HVAC_D, 'shutter' => ON_OFF_D, 'status' => STATUS_D, 'scene' => RUN_D);
 	public static $defaultName = 'other';
 
 	public static function getModuleNames() {

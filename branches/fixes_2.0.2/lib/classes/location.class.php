@@ -122,22 +122,30 @@ class location {
 	 * 
 	 * @param $alias
 	 */
-	function buildModuleTable($alias) {
+	function buildModuleTable($anAliasable) {
 		$lang = $_SESSION['frontObj']->getLanguageFile();
 		$config = $_SESSION['frontObj']->getConfig();
 		$modTypes = $_SESSION['frontObj']->getModuleTypes();
 		
+		$alias = $anAliasable;
+		$scene = $anAliasable;
 		$multi_alias = $alias->isMultiAlias(); // check if A1,2 or just A1
+		$hvac_alias = $alias->isHVACAlias(); // check if HVAC module
 		
 		// check if is a multi alias, if true, use modules.tpl, if not use template acording to $type
-		$tpl = ($multi_alias) ? "modules.tpl" : $modTypes->getModuleType($alias->getAliasMap()->getType())->getModuleImage().".tpl";
+		if($multi_alias)
+			$tpl = "modules.tpl";
+		else
+			$tpl = $modTypes->getModuleType($anAliasable->getAliasMap()->getType())->getModuleImage().".tpl";
 		
 		// create new template
 		$mod = new Template(TPL_FILE_LOCATION.$tpl);
 		$mod->set('config', $config);
-		$mod->set('label', label_parse($alias->getLabel(), false));
-		$mod->set('code', $alias->getHouseDevice());
+		$mod->set('label', label_parse($anAliasable->getLabel(), false));
 		$mod->set('lang', $lang);
+		if($anAliasable->isAlias()) {
+			$mod->set('code', $alias->getHouseDevice());
+		}
 		
 		if (!isset($_GET['page'])) {
 			$_GET['page']='domus_home_page';
@@ -146,15 +154,21 @@ class location {
 			$mod->set('page', $_GET['page']);
 		}
 		
-		// if alias is a multi alias or HVAC, module state & dimlevel are not checked
-		if (!$multi_alias && !$alias->isHVACAlias()) {
-			if (on_state($config, $alias->getHouseDevice())) {
-				$state = 'on';
-				$action = $config['cmd_off']; 
+		// if alias is a multi alias, scene or HVAC, module state & dimlevel are not checked
+		if ($anAliasable->statusAbility()) {
+			try {
+				if (on_state($config, $alias->getHouseDevice())) {
+					$state = 'on';
+					$action = $config['cmd_off']; 
+				}
+				else { 
+					$state = 'off';
+					$action = $config['cmd_on']; 
+				}
 			}
-			else { 
-				$state = 'off';
-				$action = $config['cmd_on']; 
+			catch(Exception $e) {
+				gen_error("buildLocationTable - on_state ", $e->getMessage());
+				exit();
 			}
 			
 			$mod->set('action', $action);
@@ -164,7 +178,7 @@ class location {
 				$mod->set('level', $this->level_calc(dim_level($config, $alias->getHouseDevice())));
 			}
 		}
-		elseif($alias->isHVACAlias()) {
+		elseif($hvac_alias) {
 			$result_arr = heyu_action($config, "hvac_control", $alias->getHouseDevice(), null, null, "mode");
 //			error_log("error of heyu_action in hvac ".$result_arr[0]. " count of result array [".count($result_arr)."]");
 			if($result_arr[0] != "Error in HVAC result")
@@ -247,6 +261,19 @@ class location {
 	function getAliasesByLocation($loc, $user, $json = false, $onlyVisible = false) {
 		$i = 0;
 		foreach ($this->heyuconfObj->getAliases($user, true) as $line) {
+			if($line->getAliasMap()->getFloorPlanLabel() == trim($loc) && $line->getAliasMap()->hasAccess($user->getSecurityLevel(), $user->getSecurityLevelType())) {
+				if(!$onlyVisible || !$line->getAliasMap()->isHiddenFromHome())
+				{
+				if($json)
+					$request[$i] = $line->encodeJSON();
+				else
+					$request[$i] = $line;
+				$i++;
+				}
+			}
+		}
+		
+		foreach ($this->heyuconfObj->getScenes($user, true) as $line) {
 			if($line->getAliasMap()->getFloorPlanLabel() == trim($loc) && $line->getAliasMap()->hasAccess($user->getSecurityLevel(), $user->getSecurityLevelType())) {
 				if(!$onlyVisible || !$line->getAliasMap()->isHiddenFromHome())
 				{

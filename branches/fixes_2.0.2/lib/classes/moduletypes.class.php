@@ -28,7 +28,10 @@ class ModuleTypes extends ElementFile {
 
 	function getModuleType($aType) {
 		$typeList = $this->getElementObjects($aType);
-		return $typeList[0];
+		if(count($typeList) > 0)
+			return $typeList[0];
+		else 
+			return "";
 	}
 
 	static function getMultiModule() {

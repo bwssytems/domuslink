@@ -40,5 +40,23 @@ function setUpGroups($lang) {
 		}
 		$aGroupDB->save();
 	}
+	else {
+		// validate we have all the default groups
+		$addedElement = false;
+		$aGroupDB = new Groups(GROUP_FILE_LOCATION);
+		$names = ImageTypes::getMenuNames();
+		foreach($names as $name) {
+			if($aGroupDB->getAGroup($name) == "") {
+				$aGroup = new Group();
+				$aGroup->setType($lang[$name]);
+				$aGroup->setGroupImage($name);
+				$aGroup->rebuildElementLine();
+				$aGroupDB->addElement($aGroup);
+				$addedElement = true;
+			}
+		}
+		if($addedElement)
+			$aGroupDB->save();
+	}
 }
 ?>

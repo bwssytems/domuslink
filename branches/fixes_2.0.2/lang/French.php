@@ -34,9 +34,9 @@
  $lang["floorplan"]="Plan"; 
  $lang["frontend"]="Interface publique"; 
  $lang["heyusetup"]="Configuration de Heyu"; 
-$lang["light"] = "Lumière";
-$lang["appliance"] = "Modules";
-$lang["shutter"]="Volets"; 
+ $lang["light"]="Lumière"; 
+ $lang["appliance"]="Modules"; 
+ $lang["shutter"]="Volets"; 
 
  $lang["add"]="Ajouter"; 
  $lang["edit"]="Modifier"; 
@@ -84,8 +84,8 @@ $lang["shutter"]="Volets";
  $lang["heyubaseloc_txt"]="Répertoire de base de Heyu - Ce répertoire indique où Heyu va chercher ses fichiers de configuration, et où il stocke ses informations d'état. Utilisé uniquement si vous avez décidé de 'Changer le répertoire de base de Heyu'"; 
  $lang["language_txt"]="Définissez le langage de l'interface utilisateur ici. Vous pouvez aussi sélectionner auto, pour utiliser le langage préféré du navigateur. Dans le cas où le langage n'est pas trouvé, English sera sélectionné par défaut"; 
  $lang["heyuconfile_txt"]="Le fichier de configuration contient plusieurs informations critiques dont le programme heyu a besoin pour fonctionner correctement, ainsi que des options utilisateur. Ce fichier s'appelle typiquement x10.conf et il est généralement situé dans /etc/heyu pour les utilisations classiques du système. Utilisé uniquement si vous avez décidé de 'Changer le répertoire de base de Heyu'"; 
- $lang["urlpath_txt"]= "Laissez vide si vous executez domus.Link à la racine, par exemple http://your-host/. Si executez domus.Link dans une url spéciale, par exemple http://your-host/domuslink, définissez alors le chemin '/domuslink' (Cela necessitera une configuration speciale d'apache)."; 
-$lang["hvac_seclevel_txt"] = "Valeurs possibles :  0 - niveau admin requis; 1 - niveau maintenant requis; 2...n - niveau d'accès spécifique.";
+ $lang["urlpath_txt"]="Laissez vide si vous executez domus.Link à la racine, par exemple http://your-host/. Si executez domus.Link dans une url spéciale, par exemple http://your-host/domuslink, définissez alors le chemin '/domuslink' (Cela necessitera une configuration speciale d'apache)."; 
+ $lang["hvac_seclevel_txt"]="Valeurs possibles :  0 - niveau admin requis; 1 - niveau maintenant requis; 2...n - niveau d'accès spécifique."; 
  $lang["pcinterface_txt"]="L'interface informatique peut être soit la CM11A ou la CM17A. La CM11A est la plus courant et ainsi sélectionnée par défaut."; 
  $lang["refresh_txt"]="En remplissant ce champ, la page principale dans laquelle apparaissent les modules sera rafraichie toutes les X secondes. Pour désactiver cette fonction, laisser ce champs vide."; 
 
@@ -219,7 +219,7 @@ $lang["hvac_seclevel_txt"] = "Valeurs possibles :  0 - niveau admin requis; 1 - 
  $lang["heyucurrentconfig"]="Configuration courante de heyu "; 
  $lang["heyubaseuse"]="Changer le répertoire de base de Heyu"; 
  $lang["heyubaseuse_txt"]="Si activée (Yes), cette option permet de forcer domus.Link à passer le répertoire contenant les fichiers de configuration en utilisant la directive -c de Heyu, avec le chemin indiqué dans 'Localisation des fichiers Heyu'. Si à NO, domus.Link utilisera les valeurs par défaut, à savoir /etc/heyu et x10.conf."; 
-$lang['heyuindir'] = "dans le répertoire";
+$lang['heyuindir'] = "in directory";
 
  $lang["directive"]="Directive"; 
  $lang["comment"]="Commentaire"; 
@@ -253,9 +253,9 @@ $lang['heyuindir'] = "dans le répertoire";
  $lang["AUTO"]="AUTO"; 
  $lang["hvachousecode"]="Code Maison Clim"; 
  $lang["hvachousecode_txt"]="Les valeurs possibles sont: Rien; A-P. Si défini, heya affichera la tempéture, le mode, et la consigne dans la barre de statut du thermostat selectionné"; 
- 
-$lang["YES"] = "OUI"; 
-$lang["NO"] = "NON"; 
+
+ $lang["YES"]="OUI"; 
+ $lang["NO"]="NON"; 
 
  $lang["diagnosticstatususer"]="Résultat du diagnostique"; 
  $lang["statusinfouser"]="Etat de heyu"; 
@@ -280,10 +280,16 @@ $lang["NO"] = "NON";
  $lang["thememobile_txt"]="Choisissez un theme pour la detection mobile."; 
  $lang["mobileselect"]="Choix mobile."; 
  $lang["mobileselect_txt"]=" Liste de http_user_agent permettant de basculer automatique sur le theme mobile. Séparée par des virugules. La recherche est insensible a la casse."; 
- $lang["refreshinfo"] = "Refresh is on for "; 
- $lang["menu"] = "Menu"; 
- $lang["newloc"] = "Entrer nouvelle position";
- $lang["OR"] = "OU"; 
-$lang["domussecurity"] = "domus.Link Security"; // PLEASE TRANSLATE
-$lang["use_domus_security_txt"] = "This sets the control for security usage in domus.Link. The default is ON. !!!! WARNING !!!! If this is set to OFF, there is no guarantee of access to the system that domus.Link is running on as there will be no access restriction. If you expose this interface outside of the machine (i.e. To the internet) and the security is OFF, you will be open to security vulnerabilities to your system."; // PLEASE TRANSLATE 
+ $lang["refreshinfo"]="Refresh is on for "; 
+ $lang["menu"]="Menu"; 
+ $lang["newloc"]="Entrer nouvelle position"; 
+ $lang["OR"]="OU"; 
+ $lang["domussecurity"]="domus.Link Security"; 
+ $lang["use_domus_security_txt"]="This sets the control for security usage in domus.Link. The default is ON. !!!! WARNING !!!! If this is set to OFF, there is no guarantee of access to the system that domus.Link is running on as there will be no access restriction. If you expose this interface outside of the machine (i.e. To the internet) and the security is OFF, you will be open to security vulnerabilities to your system."; 
+$lang["scene"] = "Scene"; // PLEASE TRANSLATE
+$lang["scenes"] = "Scenes"; // PLEASE TRANSLATE
+$lang["commands"] = "Commands"; // PLEASE TRANSLATE
+$lang["addscene"] = "Add Scene"; // PLEASE TRANSLATE
+$lang["editscene"] = "Edit Scene"; // PLEASE TRANSLATE
+$lang["run"] = "Run"; // PLEASE TRANSLATE
 ?>

@@ -24,4 +24,5 @@ define("DIMMABLE_D", "dimmable");
 define("HVAC_D", "hvac");
 define("STATUS_D", "status");
 define("MULTI_D", "multi");
+define("RUN_D", "run");
 ?>

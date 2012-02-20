@@ -1,29 +1,29 @@
 <?php
 require_once("../../include.php");
 
-$testLine = "ALIAS ThisLight E3 PALMPAD  RFFORWARD test test\n";
-$testMapLine = "kitchen,light,kitchen,visible,other";
+$testLine = "SCENE MyMood on E3; off E4\n";
+$testMapLine = "kitchen,scene,kitchen,visible,other,999999";
 //$testLine = "macro halltbllamp_on 0 on upstairs_hall_table";
 //$testLine = "trigger button_o1 on familytbl_on";
 //$testLine = "comment test this";
 //$testLine = "section timers";
-echo "-------------------- Test bed for alias classes --------------------<br/>";
-echo "The alias line [".$testLine."]<br/>";
+echo "-------------------- Test bed for scene classes --------------------<br/>";
+echo "The scene line [".$testLine."]<br/>";
 echo "<br/>";
-echo "* Test Alias <br/>";
+echo "* Test Scene <br/>";
 try {
-$anAlias = new Alias($testLine);
-echo "&nbsp;&nbsp;&nbsp;&nbsp;The return of alias toString [".$anAlias."]<br/>";
-pr($anAlias);
+$aScene = new Scene($testLine);
+echo "&nbsp;&nbsp;&nbsp;&nbsp;The return of scene toString [".$aScene."]<br/>";
+pr($aScene);
 }
 catch(Exception $e ) {
 	echo "&nbsp;&nbsp;&nbsp;&nbsp;E!: ".$e->getMessage()."<br/>";
 }
-echo "* Test Alias with no args <br/>";
+echo "* Test Scene with no args <br/>";
 try {
-$anAlias = new Alias();
-echo "&nbsp;&nbsp;&nbsp;&nbsp;The return of alias toString [".$anAlias."]<br/>";
-pr($anAlias);
+$aScene = new Scene();
+echo "&nbsp;&nbsp;&nbsp;&nbsp;The return of scene toString [".$aScene."]<br/>";
+pr($aScene);
 }
 catch(Exception $e ) {
 	echo "&nbsp;&nbsp;&nbsp;&nbsp;E!: ".$e->getMessage()."<br/>";

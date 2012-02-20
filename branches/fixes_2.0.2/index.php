@@ -23,7 +23,18 @@
 $dirname = dirname(__FILE__);
 require_once($dirname.DIRECTORY_SEPARATOR.'include.php');
 
+if(!isset($_SESSION['filesChecked']) || !$_SESSION['filesChecked'])
+{
+	header("Location: utility/diagnostic.php?from=index");
+	exit();
+}
+
+
 ## Security validation's
+## Setup the userdb if it does not exist.
+require_once($dirname.DIRECTORY_SEPARATOR.'utility/setupuserdb.php');
+setUpUserDB();
+
 $authCheck = new Login(USERDB_FILE_LOCATION, $config['use_domus_security']);
 if (!$authCheck->login()) {
 	header("Location: login.php?from=index");
@@ -31,12 +42,6 @@ if (!$authCheck->login()) {
 }
 $tpl->set('sec_level', $authCheck->getUser()->getSecurityLevel());
 $tpl->set('sec_level_type', $authCheck->getUser()->getSecurityLevelType());
-
-if(!isset($_SESSION['filesChecked']) || !$_SESSION['filesChecked'])
-{
-	header("Location: utility/diagnostic.php?from=index");
-	exit();
-}
 
 // start/stop controls for heyu
 if (isset($_GET["daemon"]) && $authCheck->getUser()->getSecurityLevel() <= 2) {

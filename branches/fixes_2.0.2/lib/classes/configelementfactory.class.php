@@ -38,6 +38,19 @@ class ConfigElementFactory {
 						throw $e;
 					}
 					break;
+				case SCENE_D:
+					try {
+						$aScene = new Scene($lineData);
+						return $aScene;
+					}
+					catch(Exception $e) {
+						if(!$anElement->isEnabled()) {
+							$anElement->setType(COMMENT_D);
+							return $anElement;
+						}
+						throw $e;
+					}
+					break;
 				default:
 					return $anElement;
 					break;
