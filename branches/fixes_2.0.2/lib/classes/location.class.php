@@ -258,30 +258,35 @@ class location {
 	 * @param $json option parameter to specify we are going to encode in json format
 	 * @param $onlyVisible parameter to return only home visible items.
 	 */
-	function getAliasesByLocation($loc, $user, $json = false, $onlyVisible = false) {
+	function getAliasesByLocation($loc, $user, $json = false, $onlyVisible = false, $aliasesOnly = false, $scenesOnly = false) {
 		$i = 0;
-		foreach ($this->heyuconfObj->getAliases($user, true) as $line) {
-			if($line->getAliasMap()->getFloorPlanLabel() == trim($loc) && $line->getAliasMap()->hasAccess($user->getSecurityLevel(), $user->getSecurityLevelType())) {
-				if(!$onlyVisible || !$line->getAliasMap()->isHiddenFromHome())
-				{
-				if($json)
-					$request[$i] = $line->encodeJSON();
-				else
-					$request[$i] = $line;
-				$i++;
+		
+		if(!$scenesOnly) {
+			foreach ($this->heyuconfObj->getAliases($user, true) as $line) {
+				if($line->getAliasMap()->getFloorPlanLabel() == trim($loc) && $line->getAliasMap()->hasAccess($user->getSecurityLevel(), $user->getSecurityLevelType())) {
+					if(!$onlyVisible || !$line->getAliasMap()->isHiddenFromHome())
+					{
+					if($json)
+						$request[$i] = $line->encodeJSON();
+					else
+						$request[$i] = $line;
+					$i++;
+					}
 				}
 			}
 		}
-		
-		foreach ($this->heyuconfObj->getScenes($user, true) as $line) {
-			if($line->getAliasMap()->getFloorPlanLabel() == trim($loc) && $line->getAliasMap()->hasAccess($user->getSecurityLevel(), $user->getSecurityLevelType())) {
-				if(!$onlyVisible || !$line->getAliasMap()->isHiddenFromHome())
-				{
-				if($json)
-					$request[$i] = $line->encodeJSON();
-				else
-					$request[$i] = $line;
-				$i++;
+
+		if(!$aliasesOnly) {
+			foreach ($this->heyuconfObj->getScenes($user, true) as $line) {
+				if($line->getAliasMap()->getFloorPlanLabel() == trim($loc) && $line->getAliasMap()->hasAccess($user->getSecurityLevel(), $user->getSecurityLevelType())) {
+					if(!$onlyVisible || !$line->getAliasMap()->isHiddenFromHome())
+					{
+					if($json)
+						$request[$i] = $line->encodeJSON();
+					else
+						$request[$i] = $line;
+					$i++;
+					}
 				}
 			}
 		}

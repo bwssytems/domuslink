@@ -26,12 +26,6 @@ try {
 	$heyuconf =& $_SESSION['frontObj']->getHeyuConf();
 	$modtypes =& $_SESSION['frontObj']->getModuleTypes();
 	$groups =& $_SESSION['frontObj']->getGroups();
-	## Load mod group types
-	if($config['themeview'] == 'typed')
-		$modgrouptypes =& $_SESSION['frontObj']->getTypedGroups()->getVisibleGroups();
-	else
-		$modgrouptypes =& $_SESSION['frontObj']->getGroups()->getVisibleGroups();
-	$tpl->set('groups', $modgrouptypes);
 }
 catch(Exception $e) {
 	gen_error("Load Cache", $e->getMessage());

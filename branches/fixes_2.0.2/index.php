@@ -65,6 +65,12 @@ $tpl->set('page', $page);
 if (heyu_running()) {
 	$dirname = dirname(__FILE__);
 	require_once($dirname.DIRECTORY_SEPARATOR.'include_globals.php');
+	## Load mod group types
+	if($config['themeview'] == 'typed')
+		$modgrouptypes =& $_SESSION['frontObj']->getTypedGroups()->getVisibleGroups();
+	else
+		$modgrouptypes =& $_SESSION['frontObj']->getGroups()->getVisibleGroups();
+	$tpl->set('groups', $modgrouptypes);
 	
 	if(!isset($_SESSION['configChecked']) || !$_SESSION['configChecked'])
 	{
