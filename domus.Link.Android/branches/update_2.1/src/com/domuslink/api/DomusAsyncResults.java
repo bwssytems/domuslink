@@ -28,6 +28,7 @@ public class DomusAsyncResults {
 	public Module[] moduleTypes;
 	public String[] versionInfo;
 	public Exception theException;
+	public boolean heyuRunning;
 	public DomusAsyncParams calledParams;
 	
 	public DomusAsyncResults() {
@@ -37,6 +38,7 @@ public class DomusAsyncResults {
 		this.moduleTypes = null;
 		this.theException = null;
 		this.calledParams = null;
+		this.heyuRunning = true;
 	}
 
 	public String[] getLocations() {
@@ -81,6 +83,14 @@ public class DomusAsyncResults {
 
 	public void setVersionInfo(String[] versionInfo) {
 		this.versionInfo = versionInfo;
+	}
+
+	public boolean isHeyuRunning() {
+		return heyuRunning;
+	}
+
+	public void setHeyuRunning(boolean heyuRunning) {
+		this.heyuRunning = heyuRunning;
 	}
 
 }

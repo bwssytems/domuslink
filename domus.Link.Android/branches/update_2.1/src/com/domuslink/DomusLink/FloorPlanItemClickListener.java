@@ -47,6 +47,7 @@ public class FloorPlanItemClickListener implements OnItemClickListener {
 		mParent.getmDeviceSwitch().setVisibility(View.GONE);
 		mParent.getmDeviceOn().setVisibility(View.GONE);
 		mParent.getmDeviceOff().setVisibility(View.GONE);
+		mParent.getmDeviceRun().setVisibility(View.GONE);
 
 	}
 

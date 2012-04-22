@@ -32,6 +32,8 @@ public class Alias extends Element {
 	protected AliasMap aliasMapElement;
 	protected int state;
 	protected int dimLevel;
+	protected Boolean isScene;
+	protected Boolean isMultiAlias;
 
     private static final String TAG = "elements.Alias";
 
@@ -46,16 +48,29 @@ public class Alias extends Element {
 		setDimLevel(0);
     	try {
     		setLabel(jsonElement.getString("label"));
-    		setHouseCode(jsonElement.getString("houseCode"));
-    		setDevices(jsonElement.getString("devices"));
-    		setModuleType(jsonElement.getString("moduleType"));
-    		setModuleOptions(jsonElement.getString("moduleOptions"));
     		setAliasMapElement(new AliasMap(jsonElement.getJSONObject("aliasMapElement")));
-    		setElementType(jsonElement.getString("elementType"));
-    		setElementLine(jsonElement.getString("elementLine"));
-    		setLineNum(jsonElement.getInt("lineNum"));
-    		setArrayNum(jsonElement.getInt("arrayNum"));
-    		setEnabled(jsonElement.getBoolean("enabled"));
+    		if(!this.aliasMapElement.getElementType().contentEquals("Scene"))
+    		{
+	    		setHouseCode(jsonElement.getString("houseCode"));
+	    		setDevices(jsonElement.getString("devices"));
+	    		setModuleType(jsonElement.getString("moduleType"));
+	    		setModuleOptions(jsonElement.getString("moduleOptions"));
+	    		setElementType(jsonElement.getString("elementType"));
+	    		setElementLine(jsonElement.getString("elementLine"));
+	    		setLineNum(jsonElement.getInt("lineNum"));
+	    		setArrayNum(jsonElement.getInt("arrayNum"));
+	    		setEnabled(jsonElement.getBoolean("enabled"));
+	    		this.isScene = false;
+	    		if(devices.indexOf(",") > 0 || devices.indexOf("-") > 0)
+	    			this.isMultiAlias = true;
+	    		else
+	    			this.isMultiAlias = false;
+    		}
+    		else
+    		{
+	    		this.isScene = true;
+    			this.isMultiAlias = false;
+    		}
     	}
     	catch(Exception e)
     	{
@@ -73,10 +88,7 @@ public class Alias extends Element {
 	}
 	
 	public boolean isMultiAlias() {
-		if(devices.indexOf(",") > 0 || devices.indexOf("-") > 0)
-			return true;
-		else
-			return false;
+		return this.isMultiAlias;
 	}
 
 	public String getLabel() {
@@ -157,4 +169,7 @@ public class Alias extends Element {
 			return false;
 	}
 	
+	public boolean isScene() {
+			return isScene;
+	}
 }

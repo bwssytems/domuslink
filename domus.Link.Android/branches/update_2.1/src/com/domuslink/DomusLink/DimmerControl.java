@@ -92,4 +92,9 @@ public class DimmerControl implements SeekBar.OnSeekBarChangeListener, DomusAsyn
 			// not used
 			
 		}
+
+		@Override
+		public void heyuNotRunning() {
+			mParent.processInfoDialog("Heyu is not running on domus.Link, connot complete action.");
+		}
 }

@@ -23,6 +23,7 @@ import com.domuslink.api.DomusAsyncParams;
 import com.domuslink.api.DomusAsyncTask;
 import com.domuslink.api.DomusAsyncUpdater;
 import com.domuslink.api.DomusHandler;
+import com.domuslink.api.HeyuException;
 import com.domuslink.elements.Alias;
 import com.domuslink.elements.Module;
 import com.domuslink.elements.ModuleHome;
@@ -63,6 +64,7 @@ public class DomusLink extends Activity implements DomusAsyncUpdater {
     private ToggleButton mDeviceSwitch;
     private Button mDeviceOn;
     private Button mDeviceOff;
+    private Button mDeviceRun;
     private SeekBar mDeviceDimmer;
     private TextView mDimmerLevel;
     private String[] mFloorPlan;
@@ -91,6 +93,7 @@ public class DomusLink extends Activity implements DomusAsyncUpdater {
 	    mDeviceSwitch = (ToggleButton) findViewById(R.id.device_toggle);
 	    mDeviceOn = (Button) findViewById(R.id.device_on);
 	    mDeviceOff = (Button) findViewById(R.id.device_off);
+	    mDeviceRun = (Button) findViewById(R.id.device_run);
 	    mDeviceDimmer = (SeekBar) findViewById(R.id.dimmer);
 	    mDimmerLevel = (TextView) findViewById(R.id.dimmer_level);
     }
@@ -105,6 +108,7 @@ public class DomusLink extends Activity implements DomusAsyncUpdater {
 		mDeviceSwitch.setVisibility(View.GONE);
 		mDeviceOn.setVisibility(View.GONE);
 		mDeviceOff.setVisibility(View.GONE);
+		mDeviceRun.setVisibility(View.GONE);
 		validateVersion();
     }
     
@@ -118,7 +122,7 @@ public class DomusLink extends Activity implements DomusAsyncUpdater {
             return;
         }
         
-        domusHandler = new DomusHandler(this, prefs.getString("hostPref", ""), prefs.getString("passPref", ""), prefs.getBoolean("visiblePref", true));
+        domusHandler = new DomusHandler(this, mVersion, prefs.getString("hostPref", ""), prefs.getString("passPref", ""), prefs.getBoolean("visiblePref", true));
        	DomusAsyncTask theTask = new DomusAsyncTask();
        	theTask.setUpdater(this);
        	DomusAsyncParams theParams = new DomusAsyncParams(domusHandler, DomusHandler.GET_INITIAL, null, null, 0);
@@ -135,7 +139,7 @@ public class DomusLink extends Activity implements DomusAsyncUpdater {
           return;
       }
       
-      domusHandler = new DomusHandler(this, prefs.getString("hostPref", ""), prefs.getString("passPref", ""), prefs.getBoolean("visiblePref", true));
+      domusHandler = new DomusHandler(this, mVersion, prefs.getString("hostPref", ""), prefs.getString("passPref", ""), prefs.getBoolean("visiblePref", true));
      	DomusAsyncTask theTask = new DomusAsyncTask();
      	theTask.setUpdater(this);
      	DomusAsyncParams theParams = new DomusAsyncParams(domusHandler, DomusHandler.GET_VERSION, null, null, 0);
@@ -410,5 +414,18 @@ public class DomusLink extends Activity implements DomusAsyncUpdater {
 	public void setModuleTypesResult(Module[] theModules) {
 		mModuleTypes = new ModuleHome(theModules);
 		
+	}
+
+	public Button getmDeviceRun() {
+		return mDeviceRun;
+	}
+
+	public void setmDeviceRun(Button mDeviceRun) {
+		this.mDeviceRun = mDeviceRun;
+	}
+
+	@Override
+	public void heyuNotRunning() {
+		processInfoDialog("Heyu is not running on domus.Link, connot complete action.");
 	}
 }

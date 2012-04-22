@@ -53,18 +53,47 @@ public class DevicesItemClickListener implements OnItemClickListener, DomusAsync
 		theSelectedDevice = mParent.getmDeviceAdapter().getItem(selectPosition);
 		ModuleHome moduleTypes = mParent.getmModuleTypes();
 		Module aModule = moduleTypes.find(theSelectedDevice.getAliasMapElement().getElementType());
+		DeviceStateClickListener aDeviceStateClickListener = new DeviceStateClickListener(mParent, theSelectedDevice);
+		mParent.getmDeviceTitleView().setText("Device: "+theSelectedDevice.getLabel());
 		if(aModule.getModuleType().compareTo(Module.STATUS_D) == 0) {
 			mParent.getmDeviceDimmer().setVisibility(View.GONE);
 			mParent.getmDimmerLevel().setVisibility(View.GONE);
 			mParent.getmDeviceSwitch().setVisibility(View.GONE);
 			mParent.getmDeviceOn().setVisibility(View.GONE);
 			mParent.getmDeviceOff().setVisibility(View.GONE);
+			mParent.getmDeviceRun().setVisibility(View.GONE);
 			mParent.getmDeviceOff().setOnClickListener(null);
 			mParent.getmDeviceOn().setOnClickListener(null);
-			mParent.getmDeviceTitleView().setVisibility(View.INVISIBLE);
+			mParent.getmDeviceRun().setOnClickListener(null);
+			mParent.getmDeviceTitleView().setVisibility(View.GONE);
 			String statusText = "Device is "+(theSelectedDevice.getState() == 0 ? "Off" : "On");
 			Toast deviceStatus = Toast.makeText(mParent, statusText, Toast.LENGTH_SHORT);
 			deviceStatus.show();
+		}
+		else if(aModule.getModuleType().compareTo(Module.MULTI_D) == 0 || theSelectedDevice.isMultiAlias()) {
+			mParent.getmDeviceDimmer().setVisibility(View.GONE);
+			mParent.getmDimmerLevel().setVisibility(View.GONE);
+			mParent.getmDeviceSwitch().setVisibility(View.INVISIBLE);
+			mParent.getmDeviceRun().setVisibility(View.GONE);
+			mParent.getmDeviceRun().setOnClickListener(null);
+			mParent.getmDeviceOn().setVisibility(View.VISIBLE);
+			mParent.getmDeviceOff().setVisibility(View.VISIBLE);
+			mParent.getmDeviceOff().setOnClickListener(aDeviceStateClickListener);
+			mParent.getmDeviceOn().setOnClickListener(aDeviceStateClickListener);
+			mParent.getmDeviceTitleView().setVisibility(View.VISIBLE);
+		}
+		else if(aModule.getModuleType().compareTo(Module.RUN_D) == 0|| theSelectedDevice.isScene()) {
+			mParent.getmDeviceDimmer().setVisibility(View.GONE);
+			mParent.getmDimmerLevel().setVisibility(View.GONE);
+			mParent.getmDeviceSwitch().setVisibility(View.GONE);
+			mParent.getmDeviceOn().setVisibility(View.GONE);
+			mParent.getmDeviceOn().setOnClickListener(null);
+			mParent.getmDeviceOff().setVisibility(View.GONE);
+			mParent.getmDeviceRun().setVisibility(View.VISIBLE);
+			mParent.getmDeviceOff().setOnClickListener(null);
+			mParent.getmDeviceRun().setOnClickListener(aDeviceStateClickListener);
+			mParent.getmDeviceSwitch().setOnClickListener(null);
+			mParent.getmDeviceTitleView().setVisibility(View.VISIBLE);			
 		}
 		else {
 			DomusAsyncTask theTask = new DomusAsyncTask();
@@ -90,6 +119,7 @@ public class DevicesItemClickListener implements OnItemClickListener, DomusAsync
 			mParent.getmDeviceSwitch().setVisibility(View.VISIBLE);
 			mParent.getmDeviceOn().setVisibility(View.INVISIBLE);
 			mParent.getmDeviceOff().setVisibility(View.INVISIBLE);
+			mParent.getmDeviceRun().setVisibility(View.GONE);
 			mParent.getmDeviceSwitch().setOnClickListener(aDeviceStateClickListener);
 			mParent.getmDeviceDimmer().setOnSeekBarChangeListener(new DimmerControl(mParent, theSelectedDevice));
 			mParent.getmDeviceDimmer().setProgress(theSelectedDevice.getDimLevel());
@@ -103,6 +133,7 @@ public class DevicesItemClickListener implements OnItemClickListener, DomusAsync
 			mParent.getmDeviceSwitch().setVisibility(View.VISIBLE);
 			mParent.getmDeviceOn().setVisibility(View.INVISIBLE);
 			mParent.getmDeviceOff().setVisibility(View.INVISIBLE);
+			mParent.getmDeviceRun().setVisibility(View.GONE);
 			mParent.getmDeviceSwitch().setOnClickListener(aDeviceStateClickListener);
 			mParent.getmDeviceTitleView().setVisibility(View.VISIBLE);
 		}
@@ -113,8 +144,10 @@ public class DevicesItemClickListener implements OnItemClickListener, DomusAsync
 			mParent.getmDeviceSwitch().setVisibility(View.GONE);
 			mParent.getmDeviceOn().setVisibility(View.GONE);
 			mParent.getmDeviceOff().setVisibility(View.GONE);
+			mParent.getmDeviceRun().setVisibility(View.GONE);
 			mParent.getmDeviceOff().setOnClickListener(null);
 			mParent.getmDeviceOn().setOnClickListener(null);
+			mParent.getmDeviceRun().setOnClickListener(null);
 			mParent.getmDeviceTitleView().setVisibility(View.INVISIBLE);
 		}
 		else
@@ -122,6 +155,8 @@ public class DevicesItemClickListener implements OnItemClickListener, DomusAsync
 			mParent.getmDeviceDimmer().setVisibility(View.GONE);
 			mParent.getmDimmerLevel().setVisibility(View.GONE);
 			mParent.getmDeviceSwitch().setVisibility(View.INVISIBLE);
+			mParent.getmDeviceRun().setVisibility(View.GONE);
+			mParent.getmDeviceRun().setOnClickListener(null);
 			mParent.getmDeviceOn().setVisibility(View.VISIBLE);
 			mParent.getmDeviceOff().setVisibility(View.VISIBLE);
 			mParent.getmDeviceOff().setOnClickListener(aDeviceStateClickListener);
@@ -158,5 +193,9 @@ public class DevicesItemClickListener implements OnItemClickListener, DomusAsync
 		// not used
 		
 	}
-	
+
+	@Override
+	public void heyuNotRunning() {
+		mParent.processInfoDialog("Heyu is not running on domus.Link, connot complete action.");
+	}
 }

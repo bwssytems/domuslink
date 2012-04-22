@@ -34,6 +34,7 @@ public class Module extends Element {
 	public static final String HVAC_D = "hvac";
 	public static final String STATUS_D = "status";
 	public static final String MULTI_D = "multi";
+	public static final String RUN_D = "run";
 
 	public Module() {
 		super();
