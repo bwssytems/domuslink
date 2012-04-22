@@ -18,6 +18,6 @@
  * this program; if not, write to the Free Software Foundation, 
  * Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-$FRONTEND_VERSION = "2.0.2.3beta";
+$FRONTEND_VERSION = "2.0.2.4beta";
 
 ?>

@@ -92,11 +92,12 @@ class DomusController
 
     /**
      * Gets the aliases by location in the floorplan
+     * @url GET /location/$label/$visible/$scenes
      * @url GET /location/$label/$visible
      * @url GET /location/$label
      * @url GET /location
      */
-    public function getAliasesByLocation($label = null, $visible = "false")
+    public function getAliasesByLocation($label = null, $visible = "false", $scenes = "false")
     {
 		## error_log("Enter getAliasesByLocation");
     	require_once('.'.DIRECTORY_SEPARATOR.'apiinclude.php');
@@ -108,7 +109,16 @@ class DomusController
 		$passVisible = false;
 		if($visible == "true")
 			$passVisible = true;
-		return(array($label => $theLocation->getAliasesByLocation($label, $this->myLogin->getUser(), true, $passVisible, true, false)));
+		$passScenes = false;
+		$passAliases = true;
+		if($scenes == "true")
+		{
+			$passScenes = false;
+			$passAliases = false;
+			error_log("Scenes is true");
+		}
+		
+		return(array($label => $theLocation->getAliasesByLocation($label, $this->myLogin->getUser(), true, $passVisible, $passAliases, $passScenes)));
     }
 
     /**
@@ -143,6 +153,10 @@ class DomusController
 		require_once('.'.DIRECTORY_SEPARATOR.'include_globals.php');
 		$config = $_SESSION['frontObj']->getConfig();
 		$moduleTypes = $_SESSION['frontObj']->getModuleTypes();
+		
+		if(!heyu_running())
+			return(array("state" => -1, "level" => -1));
+			
 
         if ($label) {
         	$anAlias = $heyuconf->getAliasforLabel($this->myLogin->getUser(), $label, false);
@@ -210,6 +224,9 @@ class DomusController
 		require_once('.'.DIRECTORY_SEPARATOR.'include_globals.php');
 		$config = $_SESSION['frontObj']->getConfig();
 		
+		if(!heyu_running())
+			return(array("status"=>"heyu not running"));
+				
 		if($label) {
 			$anAlias = $heyuconf->getAliasForLabel($this->myLogin->getUser(), $label, false);
 			if($anAlias)
@@ -242,6 +259,9 @@ class DomusController
 		require_once('.'.DIRECTORY_SEPARATOR.'include_globals.php');
 		$config = $_SESSION['frontObj']->getConfig();
 		
+		if(!heyu_running())
+			return(array("status"=>"heyu not running"));
+
 		if($label) {
 			$anAlias = $heyuconf->getAliasForLabel($this->myLogin->getUser(), $label, false);
 			if($anAlias)
@@ -275,6 +295,9 @@ class DomusController
 		$config = $_SESSION['frontObj']->getConfig();
 		$moduleTypes = $_SESSION['frontObj']->getModuleTypes();
 		
+		if(!heyu_running())
+			return(array("status"=>"heyu not running"));
+		
 		if($label) {
 			$anAlias = $heyuconf->getAliasForLabel($this->myLogin->getUser(), $label, false);
 			if($anAlias && $moduleTypes->getModuleType($anAlias->getAliasMap()->getType())->getModuleType() == DIMMABLE_D)
@@ -306,6 +329,9 @@ class DomusController
     	require_once('.'.DIRECTORY_SEPARATOR.'apiinclude.php');
 		require_once('.'.DIRECTORY_SEPARATOR.'include_globals.php');
 		$config = $_SESSION['frontObj']->getConfig();
+
+		if(!heyu_running())
+			return(array("status"=>"heyu not running"));
 		
 		if($label) {
 			$aScene = $heyuconf->getSceneForLabel($this->myLogin->getUser(), $label, false);
