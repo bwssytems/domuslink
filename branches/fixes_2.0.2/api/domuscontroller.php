@@ -346,7 +346,7 @@ class DomusController
 				return(array("status"=>"done"));
 			}
 			else
-				error_log("runScebe no scene found ".$label);
+				error_log("runScene no scene found ".$label);
 		}
 		return(array("status"=>"not done"));
     }
