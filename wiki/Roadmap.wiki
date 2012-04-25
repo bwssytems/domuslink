@@ -7,7 +7,7 @@ This page will contain the domus.Link roadmap, agreed upon and developed by all 
 
 
 = Next Versions =
-== domus.Link v2.0.2 (Will become V2.1 on release) ==
+== domus.Link v2.1 ==
   * Additional validation access to directories such as /var/lock - Issue 67
   * Additional validation on heyu execution when error occurs - Issue 73
   * Fix README file for incorrect statement about urlMap.cache - Issue 76
