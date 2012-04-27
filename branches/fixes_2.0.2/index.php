@@ -110,8 +110,10 @@ if (heyu_running()) {
 	switch($page) {
 		case "domus_home_page":
 			//if theme is iPhone, we want to show a menu instead of the location_tb
-			if ($config['theme'] == 'iPhone' || $config['theme'] == 'mobileWebKit')
+			if ($config['theme'] == 'iPhone' || $config['theme'] == 'mobileWebKit') {
+				$junk = $locations->buildLocations('','localized', $authCheck->getUser());
 				$html = $tpl->fetch(TPL_FILE_LOCATION.'home.tpl');
+			}
 			else
 				$html = $locations->buildLocations('','localized', $authCheck->getUser());
 			break;

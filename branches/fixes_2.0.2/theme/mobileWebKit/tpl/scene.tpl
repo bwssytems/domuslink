@@ -1,5 +1,5 @@
 <?php
-	$sceneRun  = $_SERVER['PHP_SELF'] . "?action=run&code=".$code."&page=".$page;
+	$sceneRun  = $_SERVER['PHP_SELF'] . "?action=run&code=".$label."&page=".$page;
 ?>
 <li>
 	<table>
