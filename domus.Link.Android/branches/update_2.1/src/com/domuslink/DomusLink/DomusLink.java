@@ -56,6 +56,7 @@ public class DomusLink extends Activity implements DomusAsyncUpdater {
     private Gallery mDevicesView;
     private TextView mDeviceTitleView;
     private TextView mDevicesTitleView;
+    private TextView mHeyuNotRunningView;
     private DomusHandler domusHandler;
     private ArrayAdapter<String> mFloorPlanArrayAdapter;
     private DevicesAdapter mDeviceAdapter;
@@ -65,6 +66,7 @@ public class DomusLink extends Activity implements DomusAsyncUpdater {
     private Button mDeviceOn;
     private Button mDeviceOff;
     private Button mDeviceRun;
+    private Button mRefreshButton;
     private SeekBar mDeviceDimmer;
     private TextView mDimmerLevel;
     private String[] mFloorPlan;
@@ -96,6 +98,8 @@ public class DomusLink extends Activity implements DomusAsyncUpdater {
 	    mDeviceRun = (Button) findViewById(R.id.device_run);
 	    mDeviceDimmer = (SeekBar) findViewById(R.id.dimmer);
 	    mDimmerLevel = (TextView) findViewById(R.id.dimmer_level);
+	    mHeyuNotRunningView = (TextView) findViewById(R.id.heyuNotRunning);
+	    mRefreshButton = (Button) findViewById(R.id.refreshButton);
     }
     
     @Override
@@ -109,6 +113,11 @@ public class DomusLink extends Activity implements DomusAsyncUpdater {
 		mDeviceOn.setVisibility(View.GONE);
 		mDeviceOff.setVisibility(View.GONE);
 		mDeviceRun.setVisibility(View.GONE);
+		mFloorPlanView.setVisibility(View.GONE);
+		mDevicesTitleView.setVisibility(View.GONE);
+		mDevicesView.setVisibility(View.GONE);
+		mRefreshButton.setVisibility(View.GONE);
+		mHeyuNotRunningView.setVisibility(View.GONE);
 		validateVersion();
     }
     
@@ -259,6 +268,14 @@ public class DomusLink extends Activity implements DomusAsyncUpdater {
 		this.mModuleTypes = mModuleTypes;
 	}
 
+	public Button getmDeviceRun() {
+		return mDeviceRun;
+	}
+
+	public void setmDeviceRun(Button mDeviceRun) {
+		this.mDeviceRun = mDeviceRun;
+	}
+
 	public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.systems_menu, menu);
@@ -386,7 +403,10 @@ public class DomusLink extends Activity implements DomusAsyncUpdater {
         mFloorPlanView.setOnItemClickListener(mFloorPlanClickListener);
         mFloorPlanView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 
-	    mDevicesTitleView.setText("Selected Location: "+mFloorPlan[0]);		
+	    mDevicesTitleView.setText("Selected Location: "+mFloorPlan[0]);	
+	    mFloorPlanView.setVisibility(View.VISIBLE);
+		mDevicesTitleView.setVisibility(View.VISIBLE);
+		mDevicesView.setVisibility(View.VISIBLE);
 	}
 
 	@Override
@@ -413,19 +433,24 @@ public class DomusLink extends Activity implements DomusAsyncUpdater {
 	@Override
 	public void setModuleTypesResult(Module[] theModules) {
 		mModuleTypes = new ModuleHome(theModules);
-		
-	}
-
-	public Button getmDeviceRun() {
-		return mDeviceRun;
-	}
-
-	public void setmDeviceRun(Button mDeviceRun) {
-		this.mDeviceRun = mDeviceRun;
 	}
 
 	@Override
 	public void heyuNotRunning() {
-		processInfoDialog("Heyu is not running on domus.Link, connot complete action.");
+        mDeviceTitleView.setText("");
+        mDeviceTitleView.setVisibility(View.GONE);
+		mDeviceDimmer.setVisibility(View.GONE);
+		mDimmerLevel.setVisibility(View.GONE);
+		mDeviceSwitch.setVisibility(View.GONE);
+		mDeviceOn.setVisibility(View.GONE);
+		mDeviceOff.setVisibility(View.GONE);
+		mDeviceRun.setVisibility(View.GONE);
+		mFloorPlanView.setVisibility(View.GONE);
+		mDevicesTitleView.setVisibility(View.GONE);
+		mDevicesView.setVisibility(View.GONE);
+		
+		mRefreshButton.setOnClickListener(new RefreshButtonClickListener(this));
+		mHeyuNotRunningView.setVisibility(View.VISIBLE);
+		mRefreshButton.setVisibility(View.VISIBLE);
 	}
 }

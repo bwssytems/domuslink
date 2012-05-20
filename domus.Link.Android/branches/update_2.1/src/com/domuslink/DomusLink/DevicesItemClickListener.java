@@ -196,6 +196,6 @@ public class DevicesItemClickListener implements OnItemClickListener, DomusAsync
 
 	@Override
 	public void heyuNotRunning() {
-		mParent.processInfoDialog("Heyu is not running on domus.Link, connot complete action.");
+		mParent.heyuNotRunning();
 	}
 }

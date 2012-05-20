@@ -167,6 +167,6 @@ public class DevicesAdapter extends BaseAdapter implements DomusAsyncUpdater {
 
 	@Override
 	public void heyuNotRunning() {
-		mContext.processInfoDialog("Heyu is not running on domus.Link, connot complete action.");
+		mContext.heyuNotRunning();
 	}
 }
