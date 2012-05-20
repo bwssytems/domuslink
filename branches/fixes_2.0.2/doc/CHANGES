@@ -3,13 +3,14 @@
  |                               CHANGES                                      |
  |                                                                            |
  +----------------------------------------------------------------------------*/
- v2.1 - X/Apr/2012
+ v2.1 - 20/May/2012
  ------
   * Updated restapi to include scene control.
   * Updated restapi calls that interact with hey to return a heyu not runinng status if down.
   * Updated restapi doc to version 5.
   * Updated index.php to load  mod group types only if heyu is running
   * Updated Location class for getting aliases and scenes with the given flags properly.
+  * Updated mobile web views to be stable.
  v2.0.2 - 20/Feb/2012
  ------
     * Issue 67 fixed - Issue where images do not display properly on default theme.
