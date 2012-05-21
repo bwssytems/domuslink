@@ -13,7 +13,6 @@ This page will contain the domus.Link roadmap, agreed upon and developed by all 
 Thinking......
 
 = Features Under Consideration =
-  * Scene & Usersyn
   * Cron administration
   * Script support
   * Log administration
