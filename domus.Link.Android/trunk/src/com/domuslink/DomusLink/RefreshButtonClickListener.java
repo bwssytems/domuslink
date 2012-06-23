@@ -21,34 +21,20 @@ package com.domuslink.DomusLink;
 
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.TextView;
+import android.view.View.OnClickListener;
 
-
-public class FloorPlanItemClickListener implements OnItemClickListener {
+public class RefreshButtonClickListener implements OnClickListener {
 	private DomusLink mParent;
 	
-	public FloorPlanItemClickListener(DomusLink theParent) {
+	public RefreshButtonClickListener(DomusLink theParent) {
 		super();
 		mParent = theParent;
 	}
 
 	@Override
-	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-		((TextView) arg1).requestFocus();
-//		Log.d("FloorplanItemClickListener", "Setting new floorplan to "+mParent.getmFloorPlan()[arg2]);
-		mParent.getmDevicesTitleView().setText("Selected Location: "+mParent.getmFloorPlan()[arg2]);
-		mParent.getmDeviceAdapter().setNewLocation(mParent.getmFloorPlan()[arg2]);
-        mParent.getmDeviceTitleView().setText("");
-		mParent.getmDeviceTitleView().setVisibility(View.GONE);
-		mParent.getmDeviceDimmer().setVisibility(View.GONE);
-		mParent.getmDimmerLevel().setVisibility(View.GONE);
-		mParent.getmDeviceSwitch().setVisibility(View.GONE);
-		mParent.getmDeviceOn().setVisibility(View.GONE);
-		mParent.getmDeviceOff().setVisibility(View.GONE);
-		mParent.getmDeviceRun().setVisibility(View.GONE);
-
+	public void onClick(View arg1) {
+//		Log.d("RefreshButtonClickListener", "Refresh Button pressed.");
+		mParent.onStart();
 	}
 
 }

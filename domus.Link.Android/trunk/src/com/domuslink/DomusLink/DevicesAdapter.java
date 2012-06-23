@@ -81,7 +81,10 @@ public class DevicesAdapter extends BaseAdapter implements DomusAsyncUpdater {
         for(int i = 0; i < mAliases.length; i++) {
         	mLabelIds[i] = LabelHandler.labelParse(mAliases[i].getLabel(), false);
         	String imagePartial = mModuleTypes.find(mAliases[i].getAliasMapElement().getElementType()).getModuleImage();
-	       	if(mAliases[i].isMultiAlias()) {
+	       	if(mAliases[i].isScene()) {
+        		mImageIds[i] = R.drawable.menu_scene_off;
+    		}
+	       	else if(mAliases[i].isMultiAlias()) {
         		mImageIds[i] = R.drawable.module_multi;
     		}
 	       	else
@@ -133,7 +136,7 @@ public class DevicesAdapter extends BaseAdapter implements DomusAsyncUpdater {
 
 	@Override
 	public void handleAsyncException(Exception e) {
-		mContext.processUpdateDialog("Failed getting aliased for floorplan");
+		mContext.processUpdateDialog("Failed getting aliases for floorplan");
 		
 	}
 
@@ -162,4 +165,8 @@ public class DevicesAdapter extends BaseAdapter implements DomusAsyncUpdater {
 		
 	}
 
+	@Override
+	public void heyuNotRunning() {
+		mContext.heyuNotRunning();
+	}
 }

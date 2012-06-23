@@ -56,6 +56,10 @@ public class DeviceStateClickListener implements OnClickListener, DomusAsyncUpda
 		{
 			actionMethod = DomusHandler.TURN_ON_ALIAS;
 		}
+		else if(arg1 == mParent.getmDeviceRun())
+		{
+			actionMethod = DomusHandler.RUN_SCENE;
+		}
 		else
 		{
 			actionMethod = DomusHandler.TURN_OFF_ALIAS;
@@ -106,4 +110,8 @@ public class DeviceStateClickListener implements OnClickListener, DomusAsyncUpda
 		
 	}
 
+	@Override
+	public void heyuNotRunning() {
+		mParent.heyuNotRunning();
+	}
 }

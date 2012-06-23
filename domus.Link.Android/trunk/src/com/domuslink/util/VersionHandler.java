@@ -37,16 +37,17 @@ public class VersionHandler {
 	}
 	
 	public boolean validateVersion() {
-		if(expectedApiVersion == domusApiVersion)
+		// If at all possible, we should be compatible with previous versions
+		if(domusApiVersion >= minApiVersion && domusApiVersion <= expectedApiVersion)
 			return true;
 	
 		return false;
 	}
 	
 	public String compatibilityLevel() {
-		if(expectedApiVersion == domusApiVersion)
+		if(domusApiVersion >= minApiVersion && domusApiVersion <= expectedApiVersion)
 			return "true:Fully Compatible";
-		else if(domusApiVersion >= minApiVersion)
+		else if(domusApiVersion >= expectedApiVersion)
 			return "true:Some Features may not be available";		
 		
 		return "false:Not Compatible";

@@ -49,6 +49,10 @@ public class DomusAsyncTask extends AsyncTask<DomusAsyncParams, Void, DomusAsync
 			try {
 				theResults.setLocations(theParams.getTheHandler().getFloorPlan());
 			}
+			catch(HeyuException e) {
+				theResults.setTheException(e);
+				theResults.setHeyuRunning(false);
+			}
 			catch(Exception e) {
 				theResults.setTheException(e);
 			}
@@ -60,6 +64,10 @@ public class DomusAsyncTask extends AsyncTask<DomusAsyncParams, Void, DomusAsync
 					theParams.getTheHandler().getAliasState(anAlias);
 				}
 			}
+			catch(HeyuException e) {
+				theResults.setTheException(e);
+				theResults.setHeyuRunning(false);
+			}
 			catch(Exception e) {
 				theResults.setTheException(e);
 			}
@@ -67,6 +75,10 @@ public class DomusAsyncTask extends AsyncTask<DomusAsyncParams, Void, DomusAsync
 		case DomusHandler.GET_ALIASES_BY_LOCATION:
 			try {
 				theResults.setAliases(theParams.getTheHandler().getAliasesByLocation(theParams.getTheLocation()));
+			}
+			catch(HeyuException e) {
+				theResults.setTheException(e);
+				theResults.setHeyuRunning(false);
 			}
 			catch(Exception e) {
 				theResults.setTheException(e);
@@ -78,6 +90,10 @@ public class DomusAsyncTask extends AsyncTask<DomusAsyncParams, Void, DomusAsync
 					theParams.getTheHandler().dimAlias(anAlias, theParams.getTheRequestLevel());
 				}
 			}
+			catch(HeyuException e) {
+				theResults.setTheException(e);
+				theResults.setHeyuRunning(false);
+			}
 			catch(Exception e) {
 				theResults.setTheException(e);
 			}
@@ -87,6 +103,10 @@ public class DomusAsyncTask extends AsyncTask<DomusAsyncParams, Void, DomusAsync
 				for(Alias anAlias : theParams.getTheAliases()) { 
 					theParams.getTheHandler().turnOnAlias(anAlias);
 				}
+			}
+			catch(HeyuException e) {
+				theResults.setTheException(e);
+				theResults.setHeyuRunning(false);
 			}
 			catch(Exception e) {
 				theResults.setTheException(e);
@@ -98,6 +118,24 @@ public class DomusAsyncTask extends AsyncTask<DomusAsyncParams, Void, DomusAsync
 					theParams.getTheHandler().turnOffAlias(anAlias);
 				}
 			}
+			catch(HeyuException e) {
+				theResults.setTheException(e);
+				theResults.setHeyuRunning(false);
+			}
+			catch(Exception e) {
+				theResults.setTheException(e);
+			}
+			break;			
+		case DomusHandler.RUN_SCENE:
+			try {
+				for(Alias anAlias : theParams.getTheAliases()) { 
+					theParams.getTheHandler().runScene(anAlias);
+				}
+			}
+			catch(HeyuException e) {
+				theResults.setTheException(e);
+				theResults.setHeyuRunning(false);
+			}
 			catch(Exception e) {
 				theResults.setTheException(e);
 			}
@@ -105,6 +143,10 @@ public class DomusAsyncTask extends AsyncTask<DomusAsyncParams, Void, DomusAsync
 		case DomusHandler.GET_VERSION:
 			try {
 				theResults.setVersionInfo(theParams.getTheHandler().getDomusApiVersion());
+			}
+			catch(HeyuException e) {
+				theResults.setTheException(e);
+				theResults.setHeyuRunning(false);
 			}
 			catch(Exception e) {
 				theResults.setTheException(e);
@@ -115,6 +157,10 @@ public class DomusAsyncTask extends AsyncTask<DomusAsyncParams, Void, DomusAsync
 				theResults.setLocations(theParams.getTheHandler().getFloorPlan());
 				theResults.setAliases(theParams.getTheHandler().getAliasesByLocation(theResults.getLocations()[0]));
 				theResults.setModuleTypes(theParams.getTheHandler().getModuleTypes());
+			}
+			catch(HeyuException e) {
+				theResults.setTheException(e);
+				theResults.setHeyuRunning(false);
 			}
 			catch(Exception e) {
 				theResults.setTheException(e);
@@ -139,7 +185,12 @@ public class DomusAsyncTask extends AsyncTask<DomusAsyncParams, Void, DomusAsync
 
 		if(result.getTheException() != null)
 		{
-			pUpdater.handleAsyncException(result.getTheException());
+			if(!result.isHeyuRunning())
+			{
+				pUpdater.heyuNotRunning();
+			}
+			else
+				pUpdater.handleAsyncException(result.getTheException());
 			return;        		
 		}
 

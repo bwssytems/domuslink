@@ -28,6 +28,7 @@ import com.domuslink.communication.ApiCookieHandler;
 import com.domuslink.communication.ApiHandler;
 import com.domuslink.elements.Alias;
 import com.domuslink.elements.Module;
+import com.domuslink.util.VersionHandler;
 
 public class DomusHandler implements ApiCookieHandler {
 	private String hostPath = null;
@@ -35,6 +36,7 @@ public class DomusHandler implements ApiCookieHandler {
 	private CookieStore cookies;
 	private boolean visible = true;
 	private Context c;
+	private VersionHandler theVersion;
     private static final String TAG = "DomusLink.DomusHandler";
     private static final String[] EMPTY_LIST = {"none"};
     
@@ -45,17 +47,19 @@ public class DomusHandler implements ApiCookieHandler {
     public static final int DIM_ALIAS = 3;
     public static final int TURN_ON_ALIAS = 4;
     public static final int TURN_OFF_ALIAS = 5;
+    public static final int RUN_SCENE = 6;
     public static final int GET_VERSION = 98;
     public static final int GET_INITIAL = 99;
     
 
 
-	public DomusHandler(Context theContext, String host, String auth, boolean visible)
+	public DomusHandler(Context theContext, VersionHandler aVersion, String host, String auth, boolean visible)
 	{
 		this.hostPath = host;
 		this.authPass = auth;
 		this.visible = visible;
 		this.c = theContext;
+		this.theVersion = aVersion;
 		this.cookies = null;
 	}
 
@@ -108,20 +112,23 @@ public class DomusHandler implements ApiCookieHandler {
 	public void getAliasState(Alias theAlias) throws Exception
 	{
     	JSONObject theResponse = null;
-    	Integer[] theStates = new Integer[2];
 
-
-        if(this.hostPath != null || this.hostPath.length() != 0) {
+        if((this.hostPath != null || this.hostPath.length() != 0) && !theAlias.isScene() && !theAlias.isMultiAlias()) {
 	        ApiHandler.prepareUserAgent(this.c, authPass, hostPath);
 	        try {
 	        	theResponse = ApiHandler.getPageContent(this, "aliasstate", theAlias.getLabel());
 	        }
 	        catch(Exception e) {
-	            Log.e(TAG, "Error getting aliasstate page content at "+this.hostPath, e);
+	            Log.e(TAG, "Error getting alias state page content at "+this.hostPath, e);
 	            throw e;
 	        }
 	        
         	try {
+        		if(theResponse.getInt("state") == -1 && theResponse.getInt("level") == -1)
+        		{
+        			Log.e(TAG, "domus.Link reports heyu is not running");
+        			throw new HeyuException();
+        		}
         		theAlias.setState(theResponse.getInt("state"));
         		theAlias.setDimLevel(theResponse.getInt("level"));
         	}
@@ -130,11 +137,11 @@ public class DomusHandler implements ApiCookieHandler {
                 Log.e(TAG, "Error getting alias state value from JSONObject", e);
                 throw e;
         	}
-       }
+        }
         else
         {
-        	theStates[0] = new Integer(0);
-        	theStates[1] = new Integer(0);
+        	theAlias.setState(0);
+        	theAlias.setDimLevel(0);
         }
 	}
 	
@@ -142,19 +149,29 @@ public class DomusHandler implements ApiCookieHandler {
 	{
     	JSONArray theList = null;
     	JSONObject theResponse = null;
-    	Alias[] theAliases;
+    	Alias[] theAliases;   	
 
 //    	Log.i(TAG, "Entering DomusHandler.getAliasesByLocation: "+theLocation);
         if(this.hostPath != null || this.hostPath.length() != 0) {
 	        ApiHandler.prepareUserAgent(this.c, authPass, hostPath);
 	        try {
 	        	if(this.visible)
-	        		theResponse = ApiHandler.getPageContent(this, "location", theLocation+"/true");
+	        	{
+	            	if(this.theVersion.getDomusApiVersion() < 5)
+	            		theResponse = ApiHandler.getPageContent(this, "location", theLocation+"/true");
+	            	else
+	            		theResponse = ApiHandler.getPageContent(this, "location", theLocation+"/true/true");
+	        	}
 	        	else
-	        		theResponse = ApiHandler.getPageContent(this, "location", theLocation+"/false");
+	        	{
+	            	if(this.theVersion.getDomusApiVersion() < 5)
+	            		theResponse = ApiHandler.getPageContent(this, "location", theLocation+"/false");
+	            	else
+	            		theResponse = ApiHandler.getPageContent(this, "location", theLocation+"/false/true");
+	        	}
 	        }
 	        catch(Exception e) {
-	            Log.e(TAG, "Error getting location page content at "+this.hostPath, e);
+	            Log.e(TAG, "Error getting aliases by location page content at "+this.hostPath, e);
 	            throw e;
 	        }
 	        
@@ -163,7 +180,7 @@ public class DomusHandler implements ApiCookieHandler {
         	}
         	catch(Exception e)
         	{
-                Log.e(TAG, "Error getting aliases on location from JSONObject", e);
+                Log.e(TAG, "Error getting aliases by location from JSONObject", e);
                 throw e;
         	}
 
@@ -175,7 +192,7 @@ public class DomusHandler implements ApiCookieHandler {
 	        	}
 	        	catch(Exception e)
 	        	{
-	                Log.e(TAG, "Error getting aliases from JSONArray", e);
+	                Log.e(TAG, "Error getting aliases by location from JSONArray", e);
 	                throw e;
 	        	}
 	        }
@@ -204,7 +221,7 @@ public class DomusHandler implements ApiCookieHandler {
 	        		theResponse = ApiHandler.getPageContent(this, "moduletypes", null);
 	        }
 	        catch(Exception e) {
-	            Log.e(TAG, "Error getting location page content at "+this.hostPath, e);
+	            Log.e(TAG, "Error getting module types page content at "+this.hostPath, e);
 	            throw e;
 	        }
 	        
@@ -242,7 +259,6 @@ public class DomusHandler implements ApiCookieHandler {
     	JSONObject theApi = null;
     	JSONObject theResponse = null;
     	String[] theVersionInfo;
-
 
         if(this.hostPath != null || this.hostPath.length() != 0) {
 	        ApiHandler.prepareUserAgent(this.c, authPass, hostPath);
@@ -288,9 +304,23 @@ public class DomusHandler implements ApiCookieHandler {
 	        	theResponse = ApiHandler.postPageContent(this, "dimbright", theAlias.getLabel()+"/"+theAlias.getStringState()+"/"+theAlias.getDimLevel()+"/"+theRequestLevel);
 	        }
 	        catch(Exception e) {
-	            Log.e(TAG, "Error setting on page content at "+this.hostPath+" for alias "+theAlias.getLabel(), e);
+	            Log.e(TAG, "Error setting dim alias page content at "+this.hostPath+" for alias "+theAlias.getLabel(), e);
 	            throw e;
 	        }
+	        
+        	try {
+        		if(theResponse.getString("status").contentEquals("heyu not running"))
+        		{
+        			Log.e(TAG, "domus.Link reports heyu is not running");
+        			throw new HeyuException();
+        		}
+        	}
+        	catch(Exception e)
+        	{
+                Log.e(TAG, "Error getting dim status value from JSONObject", e);
+                throw e;
+        	}
+
 	       theAlias.setDimLevel(theRequestLevel);
 	       if(theRequestLevel == 0)
 	    	   theAlias.setState(0);
@@ -308,9 +338,23 @@ public class DomusHandler implements ApiCookieHandler {
 	        	theResponse = ApiHandler.postPageContent(this, "on", theAlias.getLabel());
 	        }
 	        catch(Exception e) {
-	            Log.e(TAG, "Error setting on page content at "+this.hostPath+" for alias "+theAlias.getLabel(), e);
+	            Log.e(TAG, "Error setting turn on alias page content at "+this.hostPath+" for alias "+theAlias.getLabel(), e);
 	            throw e;
 	        }
+
+	        try {
+        		if(theResponse.getString("status").contentEquals("heyu not running"))
+        		{
+        			Log.e(TAG, "domus.Link reports heyu is not running");
+        			throw new HeyuException();
+        		}
+        	}
+        	catch(Exception e)
+        	{
+                Log.e(TAG, "Error getting turn on status value from JSONObject", e);
+                throw e;
+        	}
+
 	        theAlias.setState(1);
 	        theAlias.setDimLevel(100);
        }
@@ -325,15 +369,60 @@ public class DomusHandler implements ApiCookieHandler {
 	        	theResponse = ApiHandler.postPageContent(this, "off", theAlias.getLabel());
 	        }
 	        catch(Exception e) {
-	            Log.e(TAG, "Error setting on page content at "+this.hostPath+" for alias "+theAlias.getLabel(), e);
+	            Log.e(TAG, "Error setting turn off alias page content at "+this.hostPath+" for alias "+theAlias.getLabel(), e);
 	            throw e;
 	        }
+
+	        try {
+        		if(theResponse.getString("status").contentEquals("heyu not running"))
+        		{
+        			Log.e(TAG, "domus.Link reports heyu is not running");
+        			throw new HeyuException();
+        		}
+        	}
+        	catch(Exception e)
+        	{
+                Log.e(TAG, "Error getting turn off status value from JSONObject", e);
+                throw e;
+        	}
+
 	        theAlias.setState(0);
 	        theAlias.setDimLevel(0);
        }
         
 	}
 
+	public void runScene(Alias theAlias) throws Exception {
+    	JSONObject theResponse = null;
+//    	Log.d(TAG, "At DomusHandler.turnOffAlias from current state "+theAlias.getState()+" to off");
+        if(this.hostPath != null || this.hostPath.length() != 0) {
+	        ApiHandler.prepareUserAgent(this.c, authPass, hostPath);
+	        try {
+	        	theResponse = ApiHandler.postPageContent(this, "runscene", theAlias.getLabel());
+	        }
+	        catch(Exception e) {
+	            Log.e(TAG, "Error setting run scene page content at "+this.hostPath+" for alias "+theAlias.getLabel(), e);
+	            throw e;
+	        }
+
+	        try {
+        		if(theResponse.getString("status").contentEquals("heyu not running"))
+        		{
+        			Log.e(TAG, "domus.Link reports heyu is not running");
+        			throw new HeyuException();
+        		}
+        	}
+        	catch(Exception e)
+        	{
+                Log.e(TAG, "Error getting run scene status value from JSONObject", e);
+                throw e;
+        	}
+
+	        theAlias.setState(0);
+	        theAlias.setDimLevel(0);
+       }
+        
+	}
 	@Override
 	public CookieStore getCookieStore() {
 		return cookies;

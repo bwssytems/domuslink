@@ -92,4 +92,9 @@ public class DimmerControl implements SeekBar.OnSeekBarChangeListener, DomusAsyn
 			// not used
 			
 		}
+
+		@Override
+		public void heyuNotRunning() {
+			mParent.heyuNotRunning();
+		}
 }

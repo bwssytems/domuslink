@@ -34,6 +34,8 @@ public interface DomusAsyncUpdater {
 	public void setModuleTypesResult(Module[] theModules);
 
 	public void handleAsyncException(Exception e);
+
+	public void heyuNotRunning();
 	
 	public void actionComplete(String[] result);
 }
