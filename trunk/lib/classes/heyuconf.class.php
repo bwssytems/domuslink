@@ -19,6 +19,7 @@
  * Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 require_once(CLASS_FILE_LOCATION."alias.class.php");
+require_once(CLASS_FILE_LOCATION."scene.class.php");
 require_once(CLASS_FILE_LOCATION."aliasmap.class.php");
 require_once(CLASS_FILE_LOCATION."heyuconf.const.php");
 require_once(CLASS_FILE_LOCATION."elementfile.class.php");
@@ -158,7 +159,7 @@ class heyuConf extends ElementFile {
 	}
 
 	private function getAliasMapForLabel($aLabel, $jsonEncode = false) {
-		foreach($this->aliasMap->getElementObjects("ALL_OBJECTS") as $anAliasMapElement) {
+		foreach($this->aliasMap->getElementObjects(ALL_OBJECTS_D) as $anAliasMapElement) {
 			if($aLabel == $anAliasMapElement->getAliasLabel()) {
 				if($jsonEncode)
 					return $anAliasMapElement->encodeJSON();
@@ -179,13 +180,13 @@ class heyuConf extends ElementFile {
 	 * the current definitions for the aliases that are saved in the elementObjects.
 	 */
 	public function rebuildAliasMap() {
-		$listOfElements = $this->getElementObjects(ALIAS_D);
+		$listOfElements = $this->getElementObjects(ALL_OBJECTS_D);
 		$i = 0;
 		$newAliasMap = array();
-		foreach($listOfElements as $anAlias) {
-			if($anAlias->getType() == ALIAS_D) {
-				$anAlias->getAliasMap()->rebuildElementLine();
-				$newAliasMap[$i] = $anAlias->getAliasMap();
+		foreach($listOfElements as $anAliasiable) {
+			if(strtolower(trim($anAliasiable->getType())) == ALIAS_D || strtolower(trim($anAliasiable->getType())) == SCENE_D) {
+				$anAliasiable->getAliasMap()->rebuildElementLine();
+				$newAliasMap[$i] = $anAliasiable->getAliasMap();
 				$i++;
 			}
 		}
@@ -208,6 +209,58 @@ class heyuConf extends ElementFile {
 		}
 		else
 			return $this->aliasMap;
+	}
+
+	/**
+	* Get Scenes
+	*
+	* @param $onlyEnabled boolean, if true, return only enabled scenes
+	* @param $jsonEncode boolean, if true, return array in json format
+	*/
+	function getScenes($user, $onlyEnabled = false, $jsonEncode = false) {
+		$scenes = $this->getElementObjects(SCENE_D);
+		$request = array();
+		$x = 0;
+		for($i = 0; $i < count($scenes); $i++) {
+			$scenes[$i]->setAliasMap($this->getAliasMapForLabel($scenes[$i]->getLabel()));
+			if(($scenes[$i]->isEnabled() || !$onlyEnabled ) && $scenes[$i]->getAliasMap()->hasAccess($user->getSecurityLevel(), $user->getSecurityLevelType())) {
+				if($jsonEncode)
+					$request[$x] = $scenes[$i]->encodeJSON();
+				else
+					$request[$x] = $scenes[$i];
+				$x++;
+			}
+		}
+	
+		return $request;
+	}
+	
+	/**
+	 * Set Scene Maps
+	 *
+	 */
+	private function setSceneMaps() {
+		$scenes = $this->getElementObjects(SCENE_D);
+		for($i = 0; $i < count($scenes); $i++) {
+			$scenes[$i]->setAliasMap($this->getAliasMapForLabel($scenes[$i]->getLabel()));
+		}
+	}
+	
+	/**
+	 * Get Scene by name
+	 *
+	 * @param $aLabel string, the label name of the scne to retrieve
+	 * @param $jsonEncode boolean, if true, return array in json format
+	 */
+	public function getSceneForLabel($user, $aLabel, $jsonEncode = false) {
+		foreach($this->getElementObjects(SCENE_D) as $aScene) {
+			if($aLabel == $aScene->getLabel() && $aScene->getAliasMap()->hasAccess($user->getSecurityLevel(), $user->getSecurityLevelType())) {
+				if($jsonEncode)
+					return $aScene->encodeJSON();
+				else
+					return $aScene;
+			}
+		}
 	}
 
 	/*
@@ -249,23 +302,26 @@ class heyuConf extends ElementFile {
 	}
 
 	public function groupHasDisplayableModules($aGroupName, $viewType, $secLevel, $secLevelType) {
-		foreach($this->getElementObjects(ALIAS_D) as $anAlias) {
-			if($viewType == 'grouped') {
-				if($anAlias->isEnabled() && $anAlias->getAliasMap()->getGroup() == $aGroupName && $anAlias->getAliasMap()->hasAccess($secLevel, $secLevelType))
-				{
-					return true;
+		foreach($this->getElementObjects(ALL_OBJECTS_D) as $anAlias) {
+			if(strtolower(trim($anAlias->getType())) == ALIAS_D || strtolower(trim($anAlias->getType())) == SCENE_D)
+			{
+				if($viewType == 'grouped') {
+					if($anAlias->isEnabled() && $anAlias->getAliasMap()->getGroup() == $aGroupName && $anAlias->getAliasMap()->hasAccess($secLevel, $secLevelType))
+					{
+						return true;
+					}
 				}
-			}
-			elseif($viewType == 'typed') {
-				if($anAlias->isEnabled() && $anAlias->getAliasMap()->getType() == $aGroupName && $anAlias->getAliasMap()->hasAccess($secLevel, $secLevelType))
-				{
-					return true;
+				elseif($viewType == 'typed') {
+					if($anAlias->isEnabled() && $anAlias->getAliasMap()->getType() == $aGroupName && $anAlias->getAliasMap()->hasAccess($secLevel, $secLevelType))
+					{
+						return true;
+					}
 				}
-			}
-			elseif($viewType == 'localized') {
-				if($anAlias->isEnabled() && $anAlias->getAliasMap()->hasAccess($secLevel, $secLevelType))
-				{
-					return true;
+				elseif($viewType == 'localized') {
+					if($anAlias->isEnabled() && $anAlias->getAliasMap()->hasAccess($secLevel, $secLevelType))
+					{
+						return true;
+					}
 				}
 			}
 		}

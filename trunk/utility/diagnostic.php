@@ -39,8 +39,11 @@ $fileCheck[3]["writable"] = is_writable($config["heyuconfloc"]);
 $fileCheck[4]["targetname"] = $config['heyuexec'];
 $fileCheck[4]["exists"] = file_exists($config['heyuexec']);
 $fileCheck[4]["executable"] = is_executable($config['heyuexec']);
+$fileCheck[5]["targetname"] = "/var/lock";
+$fileCheck[5]["exists"] = file_exists("/var/lock");
+$fileCheck[5]["writable"] = is_writable("/var/lock");
 
-$i = 4;
+$i = 5;
 if(file_exists(ALIASMAP_FILE_LOCATION)) {
 	$i++;
 	$fileCheck[$i]["targetname"] = ALIASMAP_FILE_LOCATION;

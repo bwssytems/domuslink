@@ -148,7 +148,7 @@ abstract class ElementFile {
 		$i = 0;
 		$objectArray = array();
 		foreach($this->elementObjects as $anElementObject) {
-			if ($anElementObject->getType() == $objectType || $objectType == ALL_OBJECTS_D) {
+			if (strtoupper(trim($anElementObject->getType())) == strtoupper(trim($objectType)) || strtoupper(trim($objectType)) == ALL_OBJECTS_D) {
 				if($jsonEncode) {
 					$objectArray[$i] = $anElementObject->encodeJSON();
 				}

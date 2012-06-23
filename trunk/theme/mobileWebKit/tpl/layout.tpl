@@ -24,6 +24,9 @@ if (!isset($page))
 {
 	$page='domus_home_page';
 }
+
+if ($page != "domus_home_page" || $login == "login")
+{
 ?>
 <div id="content">
     <?php 
@@ -44,6 +47,28 @@ if (!isset($page))
         }
     ?>
 </div>
+<?php
+}
+else
+{
+        if (!empty($content))
+        {
+            echo($content);
+        }
+        else
+        {
+         ?>
+        <span class="graytitle"><?php echo ($lang['error']); ?></span>
+		<ul class="pageitem">
+        	<li class="textbox"><span class="header"><?php echo ($lang['error']); ?></span><p>
+                 <?php echo $lang['error_no_modules']; ?></p>
+            </li>
+        </ul>
+        <?php
+        }
+}
+?>
+<!-- end content -->
 </body>
 </html>
 <!-- domus.Link - Copyright (c) 2007-2008 - Istvan Cebrian - http://domus.link.co.pt -->

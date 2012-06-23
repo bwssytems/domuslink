@@ -66,11 +66,11 @@ class AliasMapElement extends Element {
 			$this->hiddenFromHome = trim($elements[3]);
 			if(count($elements) == 4) {
 				$this->group = trim($elements[1]);
-				$this->accessLevel = 99;
+				$this->accessLevel = 99999999;
 			}
 			elseif(count($elements) == 5) {
 				$this->group = trim($elements[4]);
-				$this->accessLevel = 99;
+				$this->accessLevel = 99999999;
 			}
 			else {
 				$this->group = trim($elements[4]);

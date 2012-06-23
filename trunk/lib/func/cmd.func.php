@@ -59,7 +59,7 @@ function heyu_running() {
 
 	if (count(preg_grep('/[h]eyu_engine/', $rs)) == 1)
 		 $proc_count++;
-	elseif(count(preg_grep('/[h]eyu/', $rs)) == 2)
+	elseif(count(preg_grep('/[h]eyu /', $rs)) == 2)
 		$proc_count = 2;
 
 	if($proc_count == 2)
@@ -129,6 +129,9 @@ function heyu_action($config, $theActionRequest, $theCode, $theState = null, $cu
 		case "foff":
 		case "off":
 			$cmd = $config['heyuexecreal']." ".$config['cmd_off']." ".$theCode;
+			break;
+		case "run":
+			$cmd = $config['heyuexecreal']." ".$theCode;
 			break;
 		case "db":
 			$cmd = dim_bright($config, $theState, $curr, $req, $theCode);

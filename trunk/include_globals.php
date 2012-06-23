@@ -21,11 +21,11 @@
 # error_log("Entered globals");
 ## instantiate cached lists
 try {
-$directives =& $_SESSION['frontObj']->getDirectives();
-$modlist =& $_SESSION['frontObj']->getModList();
-$heyuconf =& $_SESSION['frontObj']->getHeyuConf();
-$modtypes =& $_SESSION['frontObj']->getModuleTypes();
-$groups =& $_SESSION['frontObj']->getGroups();
+	$directives =& $_SESSION['frontObj']->getDirectives();
+	$modlist =& $_SESSION['frontObj']->getModList();
+	$heyuconf =& $_SESSION['frontObj']->getHeyuConf();
+	$modtypes =& $_SESSION['frontObj']->getModuleTypes();
+	$groups =& $_SESSION['frontObj']->getGroups();
 }
 catch(Exception $e) {
 	gen_error("Load Cache", $e->getMessage());
@@ -33,7 +33,7 @@ catch(Exception $e) {
 }
 
 try {
-$heyusched =& $_SESSION['frontObj']->getHeyuSched();
+	$heyusched =& $_SESSION['frontObj']->getHeyuSched();
 }
 catch(Exception $e) {
 	$theTrace = $e->getTrace();
