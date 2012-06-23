@@ -1,0 +1,365 @@
+/*----------------------------------------------------------------------------+
+ |                             domus.Link                                     |
+ |                               CHANGES                                      |
+ |                                                                            |
+ +----------------------------------------------------------------------------*/
+ v2.1 - 20/May/2012
+ ------
+  * Updated restapi to include scene control.
+  * Updated restapi calls that interact with hey to return a heyu not runinng status if down.
+  * Updated restapi doc to version 5.
+  * Updated index.php to load  mod group types only if heyu is running
+  * Updated Location class for getting aliases and scenes with the given flags properly.
+  * Updated mobile web views to be stable.
+ v2.0.2 - 20/Feb/2012
+ ------
+    * Issue 67 fixed - Issue where images do not display properly on default theme.
+      This issue is related to /var/lock not being writable by the webserver.
+      Added check in diagnostic.php for /var/lock and handle exception properly
+      when it occurs. Exception handling may catch other errors now as well.
+    * Issue 76 fixed - Updated README file to have the correct file name and location
+      of urlMap.cache as it was identified improperly.
+    * Issue 79 Added New Feature - Scene control was added to domus.Link to have a
+      psuedo module control a scene defined in the x10config file. Scene editing
+      was added to the setup area and is now managed. The scene can be assigned to
+      groups and locations as well as a security level for execution. USERSYN's are
+      not included and this allows for heyu custom USERSYN's to be hidden from
+      domus.Link. (Yes, I know that SCENE and USERSYN are identical, but thought it
+      maybe useful to separate them if you want scripts to control USERSYN and not
+      have them as items in domus.Link.)
+    * Issue 80 fixed - Issue when using the heyu edit in domus.Link that it did not display
+      dropdown selection items with their proper value selected. There was an issue in
+      the comparisons due to extraneous whitespace on the variables.
+    * Fixed an issue with diagnostics not running properly while fixing issue 67. Factored
+      the code to be handled properly.
+    * Fixed an issue with config type compares as if case was not matching it would not find
+      the correct objects.
+ v2.0.1 - 4/Dec/2011
+ ------
+    * Issue 47 and Issue 58 fixed - Issue in php versions that write to files
+      where an explicit __to_string is required on an object to convert text.
+    * Issue 59 fixed - Changed location editing for Chrome and IE as they did not
+      support the inline javascript method.
+    * Issue 60 fixed - Popups from a javascript routine did not work in IE7.
+      Replaced javascript with standard html text popups.
+    * Issue 62 fixed - Upgrading from 1.2 to 2.0 caused an exception due to module
+      types not being loaded before conversion.
+    * Issue 64 fixed - Remember login was not working due to new security addition
+      in v2.0. This is now fixed using correct checks.
+    * Issue 66 fixed - Added feature to disable the domus.Link Security completely.
+      This is available in the frontend config page. 
+      ** WARNING ** IT IS NOT RECOMMENDED TO TURN THE SECURITY FEATURE OFF AS IT
+      CREATES A SECURITY VULNERABILITY TO YOUR SYSTEM. USE AT YOUR OWN RISK.
+    * Issue 71 fixed - domus.Link always converted labels to lowercase and saved
+      the labels that way. This was unnecessary and no domus.Link preserves case
+      on labels.
+  v2.0 - 1/May/2011
+ ------
+    * Changed default web location for frontend. The default is now the root
+      of the configured webserver and not /domus.Link. This will make for easier
+      new installs.
+ 	* Issue 52 enhancement - Added a REST API for domus.Link to have applications
+ 	  be able to create other applications that can talk directly to the domus.Link
+ 	  core. This will allow creation of other types of UI's (native mobile, AJAX)
+ 	  or allow external applications to use the domus.Link core to control heyu.
+ 	  This currently only encompasses return of the floorplan and aliases and then
+ 	  providing control to the aliases of on/off/dim/bright. Please refer to the
+ 	  document DomusRestAPI.doc in the /doc directory.
+	* Issue 46 fixed - When creating an alias with spaces in the name, domus.Link
+	  did not create a sanitized name with lowercase and underscores.
+	* Issue 51 fixed - CN17A commands for on/off were not being properly handled.
+	* Changed the way dimming is handled to correctly set based on request. There
+	  is a new method to handle dimming in 0-100 percent terms with the corrected
+	  calculation of if the device is on or off. This is now called by the legacy
+	  method dim_bright.
+	* Issue 35 enhancement - Support for RCS TXB16. This is basic control of the RCS
+	  thermostat for mode running, and setpoint. This also assumes default decode
+	  table of P.
+	* Issue 21 fixed - Objectified Triggers
+	* Issue 22 fixed - Objectified Macros
+	* Issue 8 fixed - domus.Link now removes the password and security level from the
+	  frontend configuration and now allows the use of users or PINs to have multiple
+	  logins with different access.
+	  	username/password || PIN is always required, currently there is a "no security"
+	  	setting and we will have to do away with that.
+		These are tied to a security level -
+		0 = admin level - all access
+		1 = macro/timer/trigger, start/stop and upload access
+		2 = allow starting of heyu but not stop and control of any aliases
+		3 - n = assignable to aliases and then limits control based on login.
+		
+		The setting levels can be exact matches or greater than matches to further limit
+		control.
+		
+		On first start of this version, the system will create a default admin user and
+		pin with pass '1234'. Please change the passwords to something better.
+	 * Issue 1 fixed - stabilized iPhone theme. Removed references to any setup functions.
+	   Also, updated iPhone theme to be compatible with new security and groupings
+	   behavior. Changed iui library to be the base 0.31 native without modifications.
+	   This will allow the path for domus.Link to be anything and will be found.
+	   
+	   This fix also implements the auto detection properly for iPhone, iPad, iTouch, Android
+	   for the theme. Since this noew works properly, I have taken the selection for the 
+	   whole fronend gui for iPhone and put into it's own config as Mobile Theme. This
+	   will prevent using the iPhone theme as your normal browser theme but the iPhone
+	   theme does not have any domus.Link configuration ability now due to the new
+	   complex configuration items that have been added.
+	 * Issue 17 fixed - Added a module of type status that does not have control and only
+	   reflects the state of the module as on or off.
+	 * Issue 36 and Issue 32 fixed - Added the ability to configure custom groups for the main
+	   menu title bar. Also allow the switching from the domus.Link default menu by types to the
+	   new groups and back. The menu is now dynamic and only displays menu groups that are visible
+	   and have accessible modules in them. If there are no modules in a group, the menu item is not
+	   displayed. If the menu group does not contain any accessible modules for the login access
+	   level, that menu group will not be displayed. Groups can also set their visibility explicitly.
+	   This should allow a multitude of display configurations by group/user/pin. 
+	 * Issue 50 added - A native Android application is created to use the new RESTAPI.
+	 * Issue 55 fixed - Create mobile select http_user_agent config to set the mobile theme by user
+	   selected criteria. Added browser user agent info icon in status bar to help selection of mobile select
+	   criteria. Puch the icon to write the user agent string to the webserver error_log.
+	 * Issue 31 fixed - Added mobileWebKit theme based on iWebKit5.04. This works on NokiaN series
+	   and android. Should work on the iPhone/iPad/iTouch as well.
+	 * Added refresh icon in status bar if refresh timer has been set.
+	 * Added additional check for running heyu processes under other OS' such as FreeBSD.
+ 
+  v1.2 - 01/July/2010
+ ------
+	* Updated heyu config file handling to be agnostic and object oriented. domus.Link
+	  will now support a users custom heyu config file without any additional changes.
+	  One caveat is that domus.Link will not save comments that are placed at the end
+	  of a directive line. But, domus will preserve comments that are on a line by
+	  themselves. Internal implementation does validate directive types to valid heyu
+	  directives by executing the "heyu conflist" command to get the valid directive list.
+	* Updated alias to location(floorplan)/type handling. domus.Link will now dynamically
+	  build the alias to location/type map through the alias edit screens. domus.Link
+	  will create a db file called aliasmap based on these assignments. This precludes
+	  the need for the floorplan file and the floorplan maintenance has been deprecated.
+	  To aid in dynamically creating the floorplan, the location field in the alias add
+	  and edit windows are now editable as well as dynamically loaded with previously
+	  entered locations. When a new heyu conf with aliases is found and there is no alias
+	  map, all items are assigned to a default location(unknown) and type(other).
+
+	  The location field IS the edit field for the floorplan items. You can delete
+	  it, but if you haven't removed all references to that location in all
+	  of your aliases, it is dynamically rebuilt from the current aliases.
+
+	  The blank space at the bottom of the list is a convenience to have a
+	  blank area to edit a new location. It really doesn't matter as you can
+	  just overwrite the displayed one with a new location and then it will
+	  be added to the alias. Then the list is dynamically regened and it
+	  will be added for selection.
+
+	  Try changing the location of one of your modules by typing in a new
+	  location that doesn't exist and save it. You'll see it show up on the
+	  alias and now it is available in the list to select as well. 
+
+	* Added a setup verification for aliases to location/type maps for help in conversion
+	  from previous versions of domus.Link. When domus.Link V1.2 is entered after installation,
+	  the heyu config file is checked for the previous format for domus.Link. If it finds the
+	  previous style configuration for assignment of location and type, it will generate a
+	  derived alias to location/type map for acceptance. The user has the option to convert
+	  at this point to create the new aliasmap. If the user does not want to do this at the time,
+	  a "continue" option is available and will load the aliases with the default location(unknown)
+	  and type(other). This is valid for the session. If no updates are made to the aliases nothing
+	  is changed and it will be rechecked on the next browser session start. 
+	* Added the capability to hide modules from the main home module page. Useful for
+	  not displaying monitoring/trigger based modules. These modules will still be displayed
+	  in their appropriate type sections. Use "hide/show" in the alias view actions column.
+	* Deprecated the db file "modules". This is now done dynamically when editing aliases. The 
+	  command "heyu modlist" is executed to get the valid module type values when needed.
+	* The db distribution directory is now empty. It is provided only to get the directory structure
+	  as no files need to be provided for installation.
+	* Fixed error with popup when displaying extended option info in the timer view. Popup would
+	  inadvertantly display a previous items values plus it's own value.
+	* Updated all file handling to be objectified. This provides a framework for all the config/sched
+	  types to be handled by their respective classes. File handling was moved to the object
+	  base class elementfile.class.php.
+	* Deprecated miscelaneous functions due to objectification of aliases.
+	* Updated heyu config file editing to only show directives applicable to heyu execution. Other
+	  directive types are not shown as to cleanup the heyu conf edit screen. There is no impact to
+	  the other directives.
+	* Updated progress bar handling to be generic. Progress bar javascript is now in the javascript
+	  directory and not embedded.
+	* Installation is now simplified due to the fact there is no installed db files.
+	* Added file modification verification and detection. Domus will check to see if the config files
+	  have changed between actions. It will reload the config file with the new values automatically.
+	  If domus detects the file has changed just before the save process, it will generate and error
+	  to the user. This is internal to the save of the file for consistency, otherwise the user would 
+	  see the changed file first.
+	* Added diagnostic check for file setup in domus.Link. This diagnostic checks for the major configuration
+	  files that are required to be present and if they are writable or executable. The diagnostic page is
+	  only displayed if there is an issue. There is an option to just continue from this page and it will not
+	  check until requested. There is a status icon in the footer bar that displays the state as a color of the
+	  checked files. Green for good, red for errors and black/gray for unchecked state. The icon is also the
+	  method of running the diagnostic check at anytime. 
+	* Updated status and info screen to be the same page. Moved system uptime to status/info page.
+	* Updated layout footer line in default theme to have configuration status on the right after removing
+	  uptime info.
+	* Updated heyu running/down status with controls to only be on the status page. The running/down status
+	  is now a link to the status page.
+	* Updated access to the status page to be only available to admin authenticated users (security level 1 or 2).
+	* Updated security access for level 1 to be able to see all modules and operate on them, but no access to
+	  info, status or start and stop.
+	* Updated redirection handling when setting php header commands.
+	* Updated error handling of files for writing.
+	* domus.Link handling of heyu config without a schedule file defined.
+	* Issue 45 fixed - Changed all deprecated PHP4 calls to be PHP5 compatibale
+	* Updated Language files.
+
+  v1.1 - 4/Apr/2010
+ ------
+ 	* Added ability to select a null on one side of a timer i.e.: on or off
+ 	  but not both.
+	* Added Shutter category and module type.
+	* Added Other category and module type. (irrigation category was left alone)
+	* Added dawn/dusk capability to timers.
+	* Added Advanced timers page. This page allows editing timers by selecting
+	  the specific macros and all options for timers identified in heyu 2.8.0.
+	  This page does not create macros as the simple timer page does.
+	* Added a macro edit page. Allows the creation of macros in domus.Link.
+	* Added ability to manage heyu configurations based on the constructs of heyu's
+	  default -0 thru -9 handling or explicit -c config paths. If -c config path is
+	  used, the -0 thru -9 command pass thru is disabled. domus.Link does not currently
+	  support starting multiple heyu instances at this time.
+	* Updated Trigger page to view and select macros as they are defined.
+	* Updated schedule file handling to be object based. The schedule file no longer
+	  requires a custom layout as was needed previously. Any valid heyu schedule file
+	  will be acceptable.
+	* Updated view pages (marco, timer, trigger) enable/disable to now be in the action
+	  column.
+	* Updated db file for floorplan to be named floorplan-dist so as not to overwrite users
+	  current floorplan file.
+	* Fixed issue 2 - error output of utility exection should stay in the utility output
+	  window.
+	* Fixed issue 4 - drop down list widths would cut off text in list. udpated all drop
+	  downs to be wider.
+	* Fixed issue 5 - updated domus.Link module list from heyu modlist in 2.8.0.
+	* Fixed issue 10 - updated utility to execute heyu logtail.
+	* Fixed issue 23 - updated about page to dynamically echo current version number.
+
+  v1.0.2 (GPL Release) - 21/Feb/2010
+ ------
+    * Added new domus.Link GPL header to domus.Link created files
+    * Added new Utility interface to execute heyu commands directly from
+      domus.Link in the admin menu. The arguments line can take any heyu command
+      as well if none is highlighted in the command select list. It also restricts
+      commands that require terminal control such as "monitor".
+    * Updated document files for INSTALL and LICENSE.
+    * Updated French language files
+    * Order language files
+     
+    Note: When upgrading remember to backup the following files
+          - config.php
+          - /db/floorplan
+          
+ v1.0.1 (bug fix release) - 03/Mar/2009
+ ------
+    * Fixed bug with NSLU2 return status
+    * Fixed bug with Heyu generated report.txt file
+    * Fixed bug with aliases name parsing
+    * Optimized url_path config variable usage
+    * Removed unnecessary images in iphone theme
+    * Updated language files
+    
+    Note: When upgrading remember to backup the following files
+          - config.php
+          - /db/floorplan
+ 
+ v1.0 (major release) - 18/Feb/2009
+ ------
+    * Intelligent timer administration
+    * Trigger administration
+    * Timer/macro uploading/erasing
+    * iPhone theme by Frank van der Stad
+    * Login redesign with remember option
+    * Heyu restart and timer uploading progress bar
+    * Display module code in module display admin option
+      Thanks to Frank van der Stad
+    * Error handling redesign
+    * Various CSS corrections and improvements
+    * Code clean-up and improvements
+      Thanks to Frank van der Stad for help and suggestions
+    * Added about and status pages
+ 
+ v0.9.1 (minor release) - 04/Oct/2008
+ ------
+    * A few UI enhancements
+    * Updated language files
+    * New languages (German, Portuguese and Spanish)
+      Thanks to Raimund Scheiber (German translation)
+      and Israel Santana Alemán (Spanish translation)
+    * A few bug fixes
+ 
+ v0.9 (major release) - 01/Mar/2008
+ ------
+    * Implemented a two way module sorting (house area and type)
+    * Added floorplan administration
+    * Implemented sortable modules and floorplan feature
+    * Added validations when deleting or renaming house areas
+    * Completely separated code logic from presentation logic
+    * Added individual templates for each type of module
+    * Hopefully fixed way in which Heyu is checked if it is running
+    * Added Javascript field validation's to aliases and floorplan
+    * Redesigned footer layout
+    * Added computer uptime information to footer
+ 	* Added CM11x information viewing
+ 	* Redesigned default theme to be lighter and more dynamic
+ 	* Removed 'number of columns' option from frontend configuration
+ 	* Updated/corrected english translation 
+ 	* New email. Please use istvan.cebrian -at- domus.link.co.pt for any matter
+ 	  related to domus.Link.
+
+[version number jump... why... well I want v1.0 be be first V with events]
+
+ v0.2 (major release) - 03/Feb/2008
+ ------
+	* Added support for multi-aliases such as A2,5,6.
+ 	* Completely rewrote way of handling control table's, reduced 
+ 	  from ~350 lines of code to about 50.
+	* Added configuration option to choose how many modules appear 
+	  per line on control page.
+	* Added dim/bright click controls to intensity table
+ 	* Added native support for CM17A devices
+ 	* Added security level's for password protection 
+ 	  (none, admin & everything)
+ 	* Added an auto-refresh setting to the frontend
+ 	* Heyu now automatically reload's when changes are made to it's settings
+ 	* Bug correction with START and STOP for Heyu when on error.php
+ 	* Fixed some error handling bugs
+ 	* Fixed various other minor bugs
+ 	* Changed theme icons. Now currently uses icons from the
+ 	  Crystal icon pack (http://www.everaldo.com/crystal/)
+ 	  by Everaldo Coelho which are licensed under the LGPL.
+	* Added Italian translation
+	  Thanks to Stefano Bodini
+ 	* Added Swedish translation
+ 	  Thanks to Tobias Axelsson
+ 	* Updated Dutch translation
+ 	  Thanks to Frank
+
+ v0.1.1 (bug fixes, no new features) - 23/Sep/2007
+ ------
+ 	* Disabled 'short_open_tag' for security reason's
+ 	  Thanks to Julien Touche for pointing this out
+ 	* Added Dutch translation
+ 	  Thanks to Frank van der Stad
+ 	* Added French translation
+ 	  Thanks to 'Child from Korn' and Thierry Moutet
+ 	* Fixed various PHP warning messages.
+ 	* Added more error handling code
+ 	* Changed languages dropdown so that full names are given instead of ie: en_GB
+ 	* Fixed IE CSS bugs
+ 	* Implemented a different solution for checking if Heyu is running.
+ 	  Thanks again to Julien Touche.
+ 	* Various other fixes/corrections/security enhancements
+
+ v0.1 (first release) - 02/Jun/2007
+ -----
+  Features:
+ 	* Web based Heyu configuration
+ 	* Add/Remove/Edit Aliases
+    * Alias modules divided by type (Lights, Appliance, etc)
+    * ON/OFF Controls for every type
+    * DIM/BRIGHT Controls for Lights
+    * Multilingual
+    * Themeable
