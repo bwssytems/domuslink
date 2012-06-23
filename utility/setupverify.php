@@ -26,7 +26,7 @@ require_once('heyuconfold.class.php');
 require_once('converttoaliasmap.func.php');
 
 
-if ($config['theme'] == 'iPhone') {
+if ($config['theme'] != 'default') {
 	$_SESSION['configChecked'] = true;
 	header("Location: ../index.php");
 	exit();

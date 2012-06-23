@@ -18,34 +18,37 @@
  * this program; if not, write to the Free Software Foundation, 
  * Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-require_once(CLASS_FILE_LOCATION.'elementfile.class.php');
+require_once(CLASS_FILE_LOCATION."configelement.class.php");
+require_once(CLASS_FILE_LOCATION."aliasmapelement.class.php");
 
-class Groups extends ElementFile {
+abstract class Aliasable extends ConfigElement {
+	protected $label;
+	protected $aliasMapElement;
 
-	function getAGroup($aType) {
-		$typeList = $this->getElementObjects($aType);
-		if(count($typeList) > 0)
-			return $typeList[0];
-		else 
-			return "";
+	function getLabel() {
+		return $this->label;
 	}
 
-	function getVisibleGroups() {
-		$theGroups = $this->getObjects();
-		$x = 0;
-		$theResult = array();
-		foreach($theGroups as $aGroup) {
-			if($aGroup->getVisible() && $aGroup->isEnabled()) {
-				$theResult[$x] = $aGroup;
-				$x++;
-			}
-		}
-		
-		return $theResult;
+	function setLabel($aLabel) {
+		$this->label = $aLabel;
 	}
-	protected function createElement($aLine) {
-		return new Group($aLine);
+	
+	abstract function statusAbility();
+	
+	abstract function isMultiAlias();
+	
+	abstract function isHVACAlias();
+	
+	abstract function isAlias();
+	
+	abstract function isScene();
+	
+	function getAliasMap() {
+		return $this->aliasMapElement;
 	}
-
+	
+	function setAliasMap($anAliasMap) {
+		$this->aliasMapElement = $anAliasMap;
+	}
 }
 ?>

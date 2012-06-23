@@ -48,15 +48,12 @@ if (!isset($_SESSION)) {
 	$_SESSION['sessid'] = session_id();
 }
 
-
 ## Instantiate frontend object
 if(!isset($_SESSION['frontObj'])) {
 	$_SESSION['frontObj'] = new frontObject();
 }
 
-
 ## Load config file functions and grab settings
-//$config =& parse_config($frontObj->getConfig());
 $config =& $_SESSION['frontObj']->getConfig();
 
 ## Clean url_path config variable
@@ -65,19 +62,6 @@ if (substr($config['url_path'], -1) == '/')
 
 ## Load language file
 $lang =& $_SESSION['frontObj']->getLanguageFile();
-
-## Load Module Types ##
-$modtypes =& $_SESSION['frontObj']->getModuleTypes();
-
-## Load mod group types
-if($config['themeview'] == 'typed')
-	$modgrouptypes =& $_SESSION['frontObj']->getTypedGroups()->getVisibleGroups();
-else
-	$modgrouptypes =& $_SESSION['frontObj']->getGroups()->getVisibleGroups();
-
-## instantiate cached lists
-## $frontObj->getDirectives();
-## $frontObj->getModList();
 
 ## mobile theme autodetection
 $mobilesearch = explode(",", $config['mobileselect']);
@@ -93,15 +77,12 @@ foreach($mobilesearch as $target) {
 define("TPL_FILE_LOCATION", dirname(__FILE__) . DIRECTORY_SEPARATOR . 'theme' . DIRECTORY_SEPARATOR . $config['theme'] . DIRECTORY_SEPARATOR . 'tpl' . DIRECTORY_SEPARATOR);
 
 ## Make new template object
+$dummy_groups = array();
 $tpl = new Template(TPL_FILE_LOCATION.'layout.tpl');
 $tpl->set('config', $config);
+$tpl->set('groups', $dummy_groups);
 $tpl->set('lang', $lang);
-$tpl->set('groups', $modgrouptypes);
 $tpl->set('ver', $FRONTEND_VERSION);
-
-## Setup the userdb if it does not exist.
-require_once($dirname.DIRECTORY_SEPARATOR.'utility/setupuserdb.php');
-setUpUserDB();
 
 ## Set authentication state
 $tpl->set('sec_level', 99999999);

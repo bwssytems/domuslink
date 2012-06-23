@@ -18,16 +18,13 @@
  * this program; if not, write to the Free Software Foundation, 
  * Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-require_once(CLASS_FILE_LOCATION."configelement.class.php");
-require_once(CLASS_FILE_LOCATION."aliasmapelement.class.php");
+require_once(CLASS_FILE_LOCATION."aliasable.class.php");
 
-class Alias extends ConfigElement {
-	protected $label;
+class Alias extends Aliasable {
 	protected $houseCode;
 	protected $devices;
 	protected $moduleType;
 	protected $moduleOptions;
-	protected $aliasMapElement;
 
 	/**
 	 * Constructor
@@ -38,7 +35,7 @@ class Alias extends ConfigElement {
     	$args = func_get_args();
         if(!empty($args)) {
 			parent::__construct($args[0]);
-			if($this->getType() == ALIAS_D) {
+			if(strtolower(trim($this->getType())) == ALIAS_D) {
 				$this->parseAliasLine($this->getElementLine());
 				$this->rebuildElementLine();
 			}
@@ -99,18 +96,6 @@ class Alias extends ConfigElement {
 			throw new Exception("Invalid alias house-unit codes: ".print_r($elements, true));
 	}
 	
-	function getLabel() {
-		return $this->label;
-	}
-
-	function setAliasMap($anAliasMap) {
-		$this->aliasMapElement = $anAliasMap;
-	}
-	
-	function getAliasMap() {
-		return $this->aliasMapElement;
-	}
-	
 	function getHouseDevice() {
 		if($this->aliasMapElement->getType() == "HVAC")
 			return($this->houseCode);
@@ -132,6 +117,23 @@ class Alias extends ConfigElement {
 			return false;
 	}
 
+	function statusAbility() {
+		if($this->isMultiAlias())
+			return false;
+		elseif($this->isHVACAlias())
+			return false;
+		
+		return true;
+	}
+	
+	function isAlias() {
+		return true;
+	}
+	
+	function isScene() {
+		return false;
+	}
+	
 	function getModuleType() {
 		return $this->moduleType;
 	}
@@ -139,11 +141,7 @@ class Alias extends ConfigElement {
 	function getModuleOptions() {
 		return $this->moduleOptions;
 	}
-	
-	function setLabel($aLabel) {
-		$this->label = $aLabel;
-	}
-	
+
 	function setModuleType($aModuleType) {
 		$this->moduleType = $aModuleType;
 	}

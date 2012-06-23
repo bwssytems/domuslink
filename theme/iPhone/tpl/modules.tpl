@@ -1,5 +1,4 @@
 			<?php
-			$moduleState  = $_SERVER['PHP_SELF'] . "?action=".$state."&page=".$page."&code=".$code;
 			$moduleOn  = $_SERVER['PHP_SELF'] . "?action=on&page=".$page."&code=".$code;
 			$moduleOff = $_SERVER['PHP_SELF'] . "?action=off&page=".$page."&code=".$code;
 			?>

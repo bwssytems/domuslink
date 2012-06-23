@@ -23,7 +23,18 @@
 $dirname = dirname(__FILE__);
 require_once($dirname.DIRECTORY_SEPARATOR.'include.php');
 
+if(!isset($_SESSION['filesChecked']) || !$_SESSION['filesChecked'])
+{
+	header("Location: utility/diagnostic.php?from=index");
+	exit();
+}
+
+
 ## Security validation's
+## Setup the userdb if it does not exist.
+require_once($dirname.DIRECTORY_SEPARATOR.'utility/setupuserdb.php');
+setUpUserDB();
+
 $authCheck = new Login(USERDB_FILE_LOCATION, $config['use_domus_security']);
 if (!$authCheck->login()) {
 	header("Location: login.php?from=index");
@@ -31,12 +42,6 @@ if (!$authCheck->login()) {
 }
 $tpl->set('sec_level', $authCheck->getUser()->getSecurityLevel());
 $tpl->set('sec_level_type', $authCheck->getUser()->getSecurityLevelType());
-
-if(!isset($_SESSION['filesChecked']) || !$_SESSION['filesChecked'])
-{
-	header("Location: utility/diagnostic.php?from=index");
-	exit();
-}
 
 // start/stop controls for heyu
 if (isset($_GET["daemon"]) && $authCheck->getUser()->getSecurityLevel() <= 2) {
@@ -60,6 +65,12 @@ $tpl->set('page', $page);
 if (heyu_running()) {
 	$dirname = dirname(__FILE__);
 	require_once($dirname.DIRECTORY_SEPARATOR.'include_globals.php');
+	## Load mod group types
+	if($config['themeview'] == 'typed')
+		$modgrouptypes =& $_SESSION['frontObj']->getTypedGroups()->getVisibleGroups();
+	else
+		$modgrouptypes =& $_SESSION['frontObj']->getGroups()->getVisibleGroups();
+	$tpl->set('groups', $modgrouptypes);
 	
 	if(!isset($_SESSION['configChecked']) || !$_SESSION['configChecked'])
 	{
@@ -99,8 +110,10 @@ if (heyu_running()) {
 	switch($page) {
 		case "domus_home_page":
 			//if theme is iPhone, we want to show a menu instead of the location_tb
-			if ($config['theme'] == 'iPhone' || $config['theme'] == 'mobileWebKit')
+			if ($config['theme'] == 'iPhone' || $config['theme'] == 'mobileWebKit') {
+				$junk = $locations->buildLocations('','localized', $authCheck->getUser());
 				$html = $tpl->fetch(TPL_FILE_LOCATION.'home.tpl');
+			}
 			else
 				$html = $locations->buildLocations('','localized', $authCheck->getUser());
 			break;

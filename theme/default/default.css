@@ -6,11 +6,11 @@
 
 body {
 	width: 100%;
-	background-color: #fff;
+	background-color: #ffffff;
 	font-family: Verdana,Geneva,Arial,Helvetica,sans-serif;
 	font-size: 10px;
 	line-height: 1.4em;
-	color: #666;
+	color: #666666;
 }
 
 form input, select, option, textarea {
@@ -35,7 +35,7 @@ a:hover {
 
 div#header {
 	height: 49px;
-	border-bottom: 1px solid #eee;
+	border-bottom: 1px solid #eeeeee;
 	line-height: 1.2em;
 }
 
@@ -64,9 +64,9 @@ div#menuitem p {
 }
 
 div#menuitem a {
-	border-left: 1px solid #eee;
+	border-left: 1px solid #eeeeee;
 	text-decoration: none;
-	color: #666;
+	color: #666666;
 	display: block;
 }
 
@@ -77,23 +77,23 @@ div#black_sep1 {
 
 /************** SETUP MENU **************/
 div#setupmenu {
-	background: #fff url(images/header_left.gif) no-repeat;
+	background: #ffffff url(images/header_left.gif) no-repeat;
 	height: 18px;
-	border-bottom: 1px dotted #ccc;
-	border-right: 1px solid #ccc;
+	border-bottom: 1px dotted #cccccc;
+	border-right: 1px solid #cccccc;
 	line-height: 1.2em;
 }
 
 div#setupmenuitem {
 	float: right;
 	text-align: center;
-	border-left: 1px solid #ccc;
-	border-bottom: 1px solid #ccc;
+	border-left: 1px solid #cccccc;
+	border-bottom: 1px solid #cccccc;
 }
 
 div#setupmenuitem a {
 	text-decoration: none;
-	color: #000;
+	color: #000000;
 	display: block;
 	padding-left: 30px;
 	padding-right: 30px;
@@ -103,29 +103,29 @@ div#setupmenuitem a {
 
 div#setupmenuitem a:hover {
 	text-decoration: none;
-	background-color: #ccc;
-	color: #666;
+	background-color: #cccccc;
+	color: #666666;
 }
 
 /************** EVENTS MENU **************/
 div#eventsmenu {
-	background: #fff url(images/header_left.gif) no-repeat;
+	background: #ffffff url(images/header_left.gif) no-repeat;
 	height: 18px;
-	border-bottom: 1px dotted #ccc;
-	border-right: 1px solid #ccc;
+	border-bottom: 1px dotted #cccccc;
+	border-right: 1px solid #cccccc;
 	line-height: 1.2em;
 }
 
 div#eventsmenuitem {
 	float: right;
 	text-align: center;
-	border-left: 1px solid #ccc;
-	border-bottom: 1px solid #ccc;
+	border-left: 1px solid #cccccc;
+	border-bottom: 1px solid #cccccc;
 }
 
 div#eventsmenuitem a {
 	text-decoration: none;
-	color: #000;
+	color: #000000;
 	display: block;
 	padding-left: 30px;
 	padding-right: 30px;
@@ -135,8 +135,8 @@ div#eventsmenuitem a {
 
 div#eventsmenuitem a:hover {
 	text-decoration: none;
-	background-color: #ccc;
-	color: #666;
+	background-color: #cccccc;
+	color: #666666;
 }
 
 /************** CONTENT **************/
@@ -152,13 +152,13 @@ div#content {
 
 /************** FOOTER **************/
 div#footer {
-	border-top: 1px solid #ccc;
+	border-top: 1px solid #cccccc;
 	border-bottom: 4px solid #c5d0d3;
 	height: 18px;
 	padding-top: 2px;
 	padding-left: 15px;
 	padding-right: 15px;
-	background-color: #eee;
+	background-color: #eeeeee;
 }
 
 div#copyright {
@@ -174,7 +174,7 @@ table {
 }
 
 table.content th {
-	color: #000;
+	color: #000000;
 	font-size: 14px;
 	font-weight: bold;
 	border-bottom: 3px solid #c5d0d3;
@@ -184,9 +184,9 @@ table.content th {
 
 table.content td {
 	padding: 2px;
-	border-left: 1px dotted #ccc;
-	border-right: 1px dotted #ccc;
-	border-bottom: 1px dotted #ccc;
+	border-left: 1px dotted #cccccc;
+	border-right: 1px dotted #cccccc;
+	border-bottom: 1px dotted #cccccc;
 	/*background-color: #fbfbfb;*/
 }
 
@@ -200,7 +200,7 @@ td#menuitem {
 }
 
 tr.row:hover {
-	background-color: #eee;
+	background-color: #eeeeee;
 }
 
 table.clear td {
@@ -213,7 +213,7 @@ div#module {
 	float: left;
 	width: 160px;
 	height: 36px;
-	background: #fff url(images/button.gif) no-repeat;
+	background: #ffffff url(images/button.gif) no-repeat;
 	padding-top: 3px;
 	padding-left: 5px;
 	padding-right: 5px;
@@ -239,9 +239,9 @@ input.module {
 	font-size: 11px;
 	width: 110px;
 	text-align: center;
-	color: #666;
+	color: #666666;
 	font-weight: bold;
-	background-color: #fff;
+	background-color: #ffffff;
 }
 
 input.module_on {
@@ -250,9 +250,9 @@ input.module_on {
 	font-size: 11px;
 	width: 110px;
 	text-align: center;
-	color: #666;
+	color: #666666;
 	font-weight: bold;
-	background-color: #fff;
+	background-color: #ffffff;
 }
 
 input.module_off {
@@ -263,13 +263,13 @@ input.module_off {
 	text-align: center;
 	color: #a4a4a4;
 	font-weight: bold;
-	background-color: #fff;
+	background-color: #ffffff;
 }
 
 table.dimlevel td {
-	border-top: 1px solid #ccc;
-	border-left: 1px solid #ccc;
-	border-right: 1px solid #ccc;
+	border-top: 1px solid #cccccc;
+	border-left: 1px solid #cccccc;
+	border-right: 1px solid #cccccc;
 }
 
 .dimlevelon {
@@ -289,7 +289,7 @@ table.dimlevel td {
 }
 
 table.onofftb td {
-	border: 1px dotted #ccc;
+	border: 1px dotted #cccccc;
 }
 
 .onoff a {

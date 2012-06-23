@@ -39,6 +39,25 @@ function setUpModules($lang) {
 		}
 		$aModuleDB->save();
 	}
+	else {
+		// validate we have all the default types
+		$addedElement = false;
+		$aModuleDB = new ModuleTypes(MODULE_FILE_LOCATION);
+		$names = ImageTypes::getModuleNames();
+		foreach($names as $name) {
+			if($aModuleDB->getModuleType($name) == "") {
+				$aModule = new Module();
+				$aModule->setType($lang[$name]);
+				$aModule->setModuleType(ImageTypes::getModuleSpec($name));
+				$aModule->setModuleImage($name);
+				$aModule->rebuildElementLine();
+				$aModuleDB->addElement($aModule);
+				$addedElement = true;
+			}
+		}
+		if($addedElement)
+			$aModuleDB->save();
+	}
 }
 
 ?>

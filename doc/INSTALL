@@ -56,11 +56,14 @@
  
  	$ cp [your backup location]/config.php.backup [your web path]/domus.Link/config.php
  	$ cp -r [your backup location]/db [your web path]/
+ 	
+ 6) If upgrading:
+ 	$ rm [your web path]/db/urlMap.cache
  
- 6) Setup apache accordingly, refer to http://httpd.apache.org if you don't
+ 7) Setup apache accordingly, refer to http://httpd.apache.org if you don't
     know how to do this. Also see http://domus.link.co.pt HowTo's as well.
     
- 7) Finally, point your web browser to your webserver (ie: http://localhost/domus.Link)
+ 8) Finally, point your web browser to your webserver (ie: http://localhost/domus.Link)
     and start heyu using the 'START' link located on the footer.
 
     If you are upgrading from a previous version of domus.Link prior to V1.2, you will be

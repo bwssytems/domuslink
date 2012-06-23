@@ -1,5 +1,4 @@
 			<?php
-			$otherState  = $_SERVER['PHP_SELF'] . "?action=".$state."&page=".$page."&code=".$code;
 			$otherOn  = $_SERVER['PHP_SELF'] . "?action=on&page=".$page."&code=".$code;
 			$otherOff = $_SERVER['PHP_SELF'] . "?action=off&page=".$page."&code=".$code;
 			?>
