@@ -34,7 +34,7 @@ class Trigger extends ScheduleElement {
     	$args = func_get_args();
         if(!empty($args)) {
 			parent::__construct($args[0]);
-			if($this->getType() == TRIGGER_D) {
+			if(strtolower(trim($this->getType())) == TRIGGER_D) {
 				$this->parseTriggerLine($this->getElementLine());
 				$this->rebuildElementLine();
 			}

@@ -43,7 +43,7 @@ class Timer extends ScheduleElement {
         if(!empty($args)) {
 			parent::__construct($args[0]);
 			$this->timerOptions = array();
-			if($this->getType() == TIMER_D) {
+			if(strtolower(trim($this->getType())) == TIMER_D) {
 				$this->parseTimerLine($this->getElementLine());
 				$this->rebuildElementLine();
 			}

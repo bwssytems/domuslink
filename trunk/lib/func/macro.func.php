@@ -72,7 +72,7 @@ function get_specific_macros($macros, $onmacro, $offmacro) {
 function multiple_macro_use($scheds, $onmacro, $offmacro, $line) {
 	foreach ($scheds as $sched) {
 		if ($sched->getLineNum() == $line) continue; //ignore originating item
-		elseif($sched->getType() == TRIGGER_D) {
+		elseif(strtolower(trim($sched->getType())) == TRIGGER_D) {
 			if ($sched->getLabel() == $onmacro && $onmacro != "null") {
 				//item found that use on/off macro
 				if ($sched->isEnabled()) 
@@ -88,7 +88,7 @@ function multiple_macro_use($scheds, $onmacro, $offmacro, $line) {
 					return 1; //disabled item exists
 			}
 		}
-		elseif($sched->getType() == TIMER_D) {
+		elseif(strtolower(trim($sched->getType())) == TIMER_D) {
 			if ($sched->getStartMacro() == $onmacro && $onmacro != "null") {
 				//item found that use on/off macro
 				if ($sched->isEnabled()) 

@@ -26,7 +26,7 @@ class ScheduleElementFactory {
 	public static function createElement ($lineData) {
 		try {
 			$anElement = new ScheduleElement($lineData);
-			switch($anElement->getType()) {
+			switch(strtolower(trim($anElement->getType()))) {
 				case TIMER_D:
 					try {
 						$aTimer = new Timer($lineData);

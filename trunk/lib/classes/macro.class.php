@@ -34,7 +34,7 @@ class Macro extends ScheduleElement {
     	$args = func_get_args();
         if(!empty($args)) {
 			parent::__construct($args[0]);
-			if($this->getType() == MACRO_D) {
+			if(strtolower(trim($this->getType())) == MACRO_D) {
 				$this->parseMacroLine($this->getElementLine());
 				$this->rebuildElementLine();
 			}

@@ -11,7 +11,7 @@
 <td rowspan="2">
 <table cellspacing="1" cellpadding="0" border="1" class="onofftb" width="32px">
 <tr>
-<td class="onoff" align="center"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?action=run&code=<?php echo $label; ?>&page=<?php echo $page; ?>"><?php echo $lang['run']; ?></a></td>
+<td class="onoff" align="center"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?action=run&code=<?php echo label_parse($label, true); ?>&page=<?php echo $page; ?>"><?php echo $lang['run']; ?></a></td>
 </tr>
 </table></td>
 </tr>
@@ -19,6 +19,5 @@
 <td align="left"></td>
 <td></td>
 </tr>
-
 </table>
 </div>

@@ -24,7 +24,7 @@ class ConfigElementFactory {
 	public static function createElement ($lineData) {
 		try {
 			$anElement = new ConfigElement($lineData);
-			switch($anElement->getType()) {
+			switch(strtolower(trim($anElement->getType()))) {
 				case ALIAS_D:
 					try {
 						$anAlias = new Alias($lineData);

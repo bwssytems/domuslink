@@ -57,14 +57,14 @@ class User extends Element {
 		}
 		else {
 			// user line is - Type:Username:MD5Password:SecurityLevel:SecurityLevelType[exact,greater]
-			if(ltrim(rtrim($elements[0])) == USER_TYPE_D || ltrim(rtrim($elements[0])) == PIN_TYPE_D)
-				$this->setType(ltrim(rtrim($elements[0])));
+			if(trim($elements[0]) == USER_TYPE_D || trim($elements[0]) == PIN_TYPE_D)
+				$this->setType(trim($elements[0]));
 			else
 				throw new Exception("Invalid user type trying to be set ".$elements[0]);
-			$this->setUserName(ltrim(rtrim($elements[1])));
-			$this->setPassword(ltrim(rtrim($elements[2])));
-			$this->setSecurityLevel(ltrim(rtrim($elements[3])));
-			$this->setSecurityLevelType(ltrim(rtrim($elements[4])));
+			$this->setUserName(trim($elements[1]));
+			$this->setPassword(trim($elements[2]));
+			$this->setSecurityLevel(trim($elements[3]));
+			$this->setSecurityLevelType(trim($elements[4]));
 		}
 	}
 
