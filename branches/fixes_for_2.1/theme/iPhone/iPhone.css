@@ -1,0 +1,106 @@
+ol, ul { list-style: none; margin: 0; padding: 0; border: 0; } 
+li { margin: 0; padding: 0; border: 0; } 
+table { border-collapse: collapse; border-spacing: 0; } 
+a, a:hover { text-decoration: none; }
+
+#toolbar {border-bottom: 1px solid #2d3642; border-top: 1px solid #6d84a2; background: url(iui/toolbar.png) #6d84a2 repeat-x; text-align:left; color:white; font-size: 18px;}
+#toolbar li {display:inline;}
+#toolbar li a {border-right:1px solid black; text-align:center; padding:11px 8px; display:inline-block;}
+.white {background-color: #fff; -moz-border-radius: 10px; -webkit-border-radius: 10px; border: 2px solid #EFEFEF; width:95%; margin:10px auto 0 auto; font-weight:bold;}
+.shortbutul li a {display:block;text-align:center;background: url(iui/toolbar.png) #6d84a2 repeat-x top;-moz-border-radius: 10px;-webkit-border-radius: 10px;border: 1px solid #333;padding:8px 10px; color:black}
+.shortbutul li table {width:100%}
+.shortbutul li table td {padding:3px; height:20px;}
+.shortbutul li {padding:3px 5px;border-bottom: 2px solid #EFEFEF;}
+
+
+/*ABOUT SECTION*/
+.progInfoTitle {
+	margin-left:60px;
+	margin-bottom:10px;
+	padding:0;
+	margin-top:0;
+	font-weight:bold;
+}
+
+.progInfoTijd {
+	margin-left:60px;
+	margin-bottom:5px;
+	padding:0;
+	margin-top:0;
+}
+
+.progInfoDesc {
+	padding:0;
+	margin-top:0;
+	text-align:left;
+}
+
+.progDesc {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	padding:20px;
+	text-align:left;
+	border:1px solid #999999;
+	background:#FFFFFF;
+	-webkit-border-radius: 10px;
+}
+
+.progLink{
+	font-weight:normal;
+}
+
+
+.row > p {
+	display:block;
+	margin:0;
+	border:none;
+	padding:12px 0 10px 110px;
+	text-align:left;
+	text-decoration:inherit;
+	color:inherit;
+	box-sizing:border-box;
+}
+
+.row > label {
+	text-align:left;
+	width:80px;
+	position:absolute;
+	margin:0 0 0 14px;
+	line-height:42px;
+	font-weight:bold;
+	color:#7388a5;
+}
+
+.white > label {
+	text-align:left;
+	width:200px;
+	padding:0;
+	position:absolute;
+	margin:0 0 0 75px;
+	line-height:42px;
+	font-weight:bold;
+	color:#7388a5;
+}
+
+.row > select {
+    padding: 12px 10px 0 110px;
+    margin: 8px 0 0 0;
+    font-size: 16px;
+    font-weight: normal;
+	float:left;
+	margin-left:110px;
+	width:130px;
+}
+
+.whiteButton {
+    display: block;
+    border-width: 0 12px;
+    padding: 10px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: normal;
+    text-decoration: inherit;
+    color: inherit;
+    -webkit-border-image: url(iui/whiteButton.png) 0 10 0 10;
+    text-shadow: rgba(255, 255, 255, 0.7) 0 1px 0;
+}
