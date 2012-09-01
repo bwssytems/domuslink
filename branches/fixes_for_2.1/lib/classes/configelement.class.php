@@ -27,7 +27,7 @@ class ConfigElement extends Element {
 
 	protected function validateType($theType) {
 		foreach($_SESSION['frontObj']->getDirectives() as $validDirective) {
-			if(trim(strtoupper($theType)) == $validDirective)
+			if(trim(strtoupper($theType)) == strtoupper(trim($validDirective)))
 				return true;
 		}
 		return false;

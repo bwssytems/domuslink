@@ -172,7 +172,7 @@ class DomusController
         	else
         		$theState = on_state($config, $anAlias->getHouseDevice());
         		
-        	if($moduleTypes->getModuleType($anAlias->getAliasMap()->getType())->getModuleType() == DIMMABLE_D)
+        	if(strtolower(trim($moduleTypes->getModuleType($anAlias->getAliasMap()->getType())->getModuleType())) == DIMMABLE_D)
         		$theLevel = dim_level($config, $anAlias->getHouseDevice());
         	else
         		$theLevel = 0;
@@ -300,7 +300,7 @@ class DomusController
 		
 		if($label) {
 			$anAlias = $heyuconf->getAliasForLabel($this->myLogin->getUser(), $label, false);
-			if($anAlias && $moduleTypes->getModuleType($anAlias->getAliasMap()->getType())->getModuleType() == DIMMABLE_D)
+			if($anAlias && strtolower(trim($moduleTypes->getModuleType($anAlias->getAliasMap()->getType())->getModuleType())) == DIMMABLE_D)
 			{
 				try {
 					heyu_action($config, "dbapi", $anAlias->getHouseDevice(), $state, $curr, $req);

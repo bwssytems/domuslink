@@ -174,7 +174,7 @@ class location {
 			$mod->set('action', $action);
 			$mod->set('state', $state);
 				
-			if ($modTypes->getModuleType($alias->getAliasMap()->getType())->getModuleType() == DIMMABLE_D) {
+			if (strtolower(trim($modTypes->getModuleType($alias->getAliasMap()->getType())->getModuleType())) == DIMMABLE_D) {
 				$mod->set('level', $this->level_calc(dim_level($config, $alias->getHouseDevice())));
 			}
 		}
