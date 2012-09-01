@@ -24,12 +24,13 @@ InstantiateProgressBar('Heyu Restart Progress');
 <td>
 <?php $junk = 0; // alias, scene and usersyn counts for posts ?>
 <?php foreach($settings as $setting):
-  if ($setting->getType() != COMMENT_D && $setting->getType() != ALIAS_D &&
-  $setting->getType() != SCENE_D && $setting->getType() != USERSYN_D && $setting->getType() != SCRIPT_D && $setting->getType() != LAUNCHER_D):
+  $compType = strtolower(trim($setting->getType()));
+  if ($compType != COMMENT_D && $compType != ALIAS_D &&
+  $compType != SCENE_D && $compType != USERSYN_D && $compType != SCRIPT_D && $compType != LAUNCHER_D):
   $elements = explode(" ", $setting, 2);
-  $directivenf = $setting->getType(); ?>
+  $directivenf = $compType; ?>
   <?php if(count($elements) > 1) $value = trim($elements[1]); else $value = ""; ?>
-  <?php $directive = str_replace("_", " ", $directivenf); ?>
+  <?php $directive = str_replace("_", " ",  $setting->getType()); ?>
   </td>
 </tr>
     <tr>

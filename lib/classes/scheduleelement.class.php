@@ -22,7 +22,7 @@ require_once(CLASS_FILE_LOCATION."element.class.php");
 require_once(CLASS_FILE_LOCATION."heyusched.const.php");
 class ScheduleElement extends Element {
 	protected function validateType($theType) {
-		switch($theType) {
+		switch(strtolower(trim($theType))) {
 			case TIMER_D:
 				return true;
 				break;
