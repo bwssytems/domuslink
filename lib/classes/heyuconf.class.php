@@ -47,6 +47,7 @@ class heyuConf extends ElementFile {
 			$this->aliasMap = new AliasMap(ALIASMAP_FILE_LOCATION);
 			
 		$this->setAliasMaps();
+		$this->setSceneMaps();
 	}
 
 	protected function createElement($aLine) {
@@ -158,7 +159,7 @@ class heyuConf extends ElementFile {
 		}
 	}
 
-	private function getAliasMapForLabel($aLabel, $jsonEncode = false) {
+	private function getAliasMapForLabel($aLabel, $jsonEncode = false, $aType=ALIAS_D) {
 		foreach($this->aliasMap->getElementObjects(ALL_OBJECTS_D) as $anAliasMapElement) {
 			if($aLabel == $anAliasMapElement->getAliasLabel()) {
 				if($jsonEncode)
@@ -170,6 +171,11 @@ class heyuConf extends ElementFile {
 		
 		$anAliasMapElement = new AliasMapElement();
 		$anAliasMapElement->setAliasLabel($aLabel);
+		if($aType == SCENE_D) {
+			$anAliasMapElement->setType("Scene");
+			$anAliasMapElement->setGroup("scene");
+		}
+			
 		$anAliasMapElement->rebuildElementLine();
 		return $anAliasMapElement;
 	}
@@ -193,6 +199,7 @@ class heyuConf extends ElementFile {
 		
 		$this->aliasMap->setObjects($newAliasMap);
 		$this->setAliasMaps();
+		$this->setSceneMaps();
 	}
 	
 	private function getAliasMap($jsonEncode = false) {
@@ -222,7 +229,7 @@ class heyuConf extends ElementFile {
 		$request = array();
 		$x = 0;
 		for($i = 0; $i < count($scenes); $i++) {
-			$scenes[$i]->setAliasMap($this->getAliasMapForLabel($scenes[$i]->getLabel()));
+			$scenes[$i]->setAliasMap($this->getAliasMapForLabel($scenes[$i]->getLabel(), false, SCENE_D));
 			if(($scenes[$i]->isEnabled() || !$onlyEnabled ) && $scenes[$i]->getAliasMap()->hasAccess($user->getSecurityLevel(), $user->getSecurityLevelType())) {
 				if($jsonEncode)
 					$request[$x] = $scenes[$i]->encodeJSON();
@@ -242,7 +249,7 @@ class heyuConf extends ElementFile {
 	private function setSceneMaps() {
 		$scenes = $this->getElementObjects(SCENE_D);
 		for($i = 0; $i < count($scenes); $i++) {
-			$scenes[$i]->setAliasMap($this->getAliasMapForLabel($scenes[$i]->getLabel()));
+			$scenes[$i]->setAliasMap($this->getAliasMapForLabel($scenes[$i]->getLabel(), false, SCENE_D));
 		}
 	}
 	
