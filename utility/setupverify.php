@@ -32,6 +32,12 @@ if ($config['theme'] != 'default') {
 	exit();
 }
 
+if(file_exists(ALIASMAP_FILE_LOCATION)) {
+	$_SESSION['configChecked'] = true;
+	header("Location: ../index.php");
+	exit();
+}
+
 ## Set template parameters
 $tpl->set('title', $lang['setupverify']);
 $tpl->set('lang', $lang);
